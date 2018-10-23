@@ -11,6 +11,7 @@ using System.Windows.Forms;
 //using Windows.Devices.Scanners;
 
 // used by SqlDependencyEx
+// This file needs Case revision
 
 namespace CMMManager
 {
