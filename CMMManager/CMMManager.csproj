@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5EDCEED5-3F09-4C38-8636-5DF9A82BE7AB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CMMManager</RootNamespace>
+    <AssemblyName>CMMManager</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>rn_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\Framework64\v4.0.30319\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmAskToSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAskToSave.Designer.cs">
+      <DependentUpon>frmAskToSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCMMLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCMMLogin.Designer.cs">
+      <DependentUpon>frmCMMLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCMMManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCMMManager.Designer.cs">
+      <DependentUpon>frmCMMManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeleteSuccess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDeleteSuccess.Designer.cs">
+      <DependentUpon>frmDeleteSuccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIllness.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIllness.Designer.cs">
+      <DependentUpon>frmIllness.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIllnessCreationPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIllnessCreationPage.Designer.cs">
+      <DependentUpon>frmIllnessCreationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIllnessDeleteConfirm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIllnessDeleteConfirm.Designer.cs">
+      <DependentUpon>frmIllnessDeleteConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIllnessEditPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIllnessEditPage.Designer.cs">
+      <DependentUpon>frmIllnessEditPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIncident.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIncident.Designer.cs">
+      <DependentUpon>frmIncident.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIncidentCreationPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIncidentCreationPage.Designer.cs">
+      <DependentUpon>frmIncidentCreationPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmIncidentEditPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmIncidentEditPage.Designer.cs">
+      <DependentUpon>frmIncidentEditPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMedBillsForCase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMedBillsForCase.Designer.cs">
+      <DependentUpon>frmMedBillsForCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMedicalProviderInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMedicalProviderInfo.Designer.cs">
+      <DependentUpon>frmMedicalProviderInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSaveChangeOnCase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSaveChangeOnCase.Designer.cs">
+      <DependentUpon>frmSaveChangeOnCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSaveChangeOnMedBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSaveChangeOnMedBill.Designer.cs">
+      <DependentUpon>frmSaveChangeOnMedBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSaveNewCase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSaveNewCase.Designer.cs">
+      <DependentUpon>frmSaveNewCase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSaveNewMedBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSaveNewMedBill.Designer.cs">
+      <DependentUpon>frmSaveNewMedBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSearchResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSearchResult.Designer.cs">
+      <DependentUpon>frmSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Individual.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAskToSave.resx">
+      <DependentUpon>frmAskToSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCMMLogin.resx">
+      <DependentUpon>frmCMMLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCMMManager.resx">
+      <DependentUpon>frmCMMManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDeleteSuccess.resx">
+      <DependentUpon>frmDeleteSuccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIllness.resx">
+      <DependentUpon>frmIllness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIllnessCreationPage.resx">
+      <DependentUpon>frmIllnessCreationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIllnessDeleteConfirm.resx">
+      <DependentUpon>frmIllnessDeleteConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIllnessEditPage.resx">
+      <DependentUpon>frmIllnessEditPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIncident.resx">
+      <DependentUpon>frmIncident.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIncidentCreationPage.resx">
+      <DependentUpon>frmIncidentCreationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmIncidentEditPage.resx">
+      <DependentUpon>frmIncidentEditPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMedBillsForCase.resx">
+      <DependentUpon>frmMedBillsForCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMedicalProviderInfo.resx">
+      <DependentUpon>frmMedicalProviderInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSaveChangeOnCase.resx">
+      <DependentUpon>frmSaveChangeOnCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSaveChangeOnMedBill.resx">
+      <DependentUpon>frmSaveChangeOnMedBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSaveNewCase.resx">
+      <DependentUpon>frmSaveNewCase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSaveNewMedBill.resx">
+      <DependentUpon>frmSaveNewMedBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSearchResult.resx">
+      <DependentUpon>frmSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="rn_icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
