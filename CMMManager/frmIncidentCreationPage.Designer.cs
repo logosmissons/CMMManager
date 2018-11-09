@@ -41,18 +41,20 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtCaseNo = new System.Windows.Forms.TextBox();
-            this.txtIllnessId = new System.Windows.Forms.TextBox();
+            this.txtIllnessNo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.comboProgram = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpModifiedDate = new System.Windows.Forms.DateTimePicker();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtIncidentNo = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnCloseIncident
             // 
-            this.btnCloseIncident.Location = new System.Drawing.Point(449, 560);
+            this.btnCloseIncident.Location = new System.Drawing.Point(427, 564);
             this.btnCloseIncident.Name = "btnCloseIncident";
-            this.btnCloseIncident.Size = new System.Drawing.Size(75, 23);
+            this.btnCloseIncident.Size = new System.Drawing.Size(97, 31);
             this.btnCloseIncident.TabIndex = 29;
             this.btnCloseIncident.Text = "Close";
             this.btnCloseIncident.UseVisualStyleBackColor = true;
@@ -60,9 +62,9 @@
             // 
             // btnSaveIncident
             // 
-            this.btnSaveIncident.Location = new System.Drawing.Point(354, 560);
+            this.btnSaveIncident.Location = new System.Drawing.Point(306, 564);
             this.btnSaveIncident.Name = "btnSaveIncident";
-            this.btnSaveIncident.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveIncident.Size = new System.Drawing.Size(97, 31);
             this.btnSaveIncident.TabIndex = 28;
             this.btnSaveIncident.Text = "Save";
             this.btnSaveIncident.UseVisualStyleBackColor = true;
@@ -148,7 +150,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(37, 134);
+            this.label6.Location = new System.Drawing.Point(37, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 16);
             this.label6.TabIndex = 34;
@@ -158,29 +160,29 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(325, 132);
+            this.label7.Location = new System.Drawing.Point(37, 135);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 16);
+            this.label7.Size = new System.Drawing.Size(70, 16);
             this.label7.TabIndex = 36;
-            this.label7.Text = "Illness Id:";
+            this.label7.Text = "Illness No:";
             // 
             // txtCaseNo
             // 
             this.txtCaseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaseNo.Location = new System.Drawing.Point(121, 132);
+            this.txtCaseNo.Location = new System.Drawing.Point(121, 99);
             this.txtCaseNo.Name = "txtCaseNo";
             this.txtCaseNo.ReadOnly = true;
             this.txtCaseNo.Size = new System.Drawing.Size(130, 22);
             this.txtCaseNo.TabIndex = 39;
             // 
-            // txtIllnessId
+            // txtIllnessNo
             // 
-            this.txtIllnessId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIllnessId.Location = new System.Drawing.Point(394, 131);
-            this.txtIllnessId.Name = "txtIllnessId";
-            this.txtIllnessId.ReadOnly = true;
-            this.txtIllnessId.Size = new System.Drawing.Size(130, 22);
-            this.txtIllnessId.TabIndex = 40;
+            this.txtIllnessNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIllnessNo.Location = new System.Drawing.Point(121, 133);
+            this.txtIllnessNo.Name = "txtIllnessNo";
+            this.txtIllnessNo.ReadOnly = true;
+            this.txtIllnessNo.Size = new System.Drawing.Size(130, 22);
+            this.txtIllnessNo.TabIndex = 40;
             // 
             // label8
             // 
@@ -220,16 +222,37 @@
             this.dtpModifiedDate.Size = new System.Drawing.Size(114, 22);
             this.dtpModifiedDate.TabIndex = 45;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(303, 135);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(78, 16);
+            this.label9.TabIndex = 46;
+            this.label9.Text = "Incident No:";
+            // 
+            // txtIncidentNo
+            // 
+            this.txtIncidentNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIncidentNo.Location = new System.Drawing.Point(387, 133);
+            this.txtIncidentNo.Name = "txtIncidentNo";
+            this.txtIncidentNo.ReadOnly = true;
+            this.txtIncidentNo.Size = new System.Drawing.Size(136, 22);
+            this.txtIncidentNo.TabIndex = 47;
+            // 
             // frmIncidentCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 607);
+            this.Controls.Add(this.txtIncidentNo);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.dtpModifiedDate);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboProgram);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.txtIllnessId);
+            this.Controls.Add(this.txtIllnessNo);
             this.Controls.Add(this.txtCaseNo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -265,10 +288,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCaseNo;
-        private System.Windows.Forms.TextBox txtIllnessId;
+        private System.Windows.Forms.TextBox txtIllnessNo;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboProgram;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpModifiedDate;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtIncidentNo;
     }
 }

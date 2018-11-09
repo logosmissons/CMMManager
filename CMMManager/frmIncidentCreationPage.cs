@@ -35,8 +35,10 @@ namespace CMMManager
 
         public String strCaseId = String.Empty;
         public String strIncidentId = String.Empty;
+        public String strIncidentNo = String.Empty;
         public String strIndividualId = String.Empty;
         public String strIllnessId = String.Empty;
+        public String strIllnessNo = String.Empty;
 
         //public IllnessMode mode;
         public IncidentMode mode;
@@ -66,7 +68,8 @@ namespace CMMManager
         private void frmIncidentCreationPage_Load(object sender, EventArgs e)
         {
             txtCaseNo.Text = strCaseId.Trim();
-            txtIllnessId.Text = strIllnessId.Trim();
+            txtIllnessNo.Text = strIllnessNo.Trim();
+         
 
             if (mode == IncidentMode.AddNew)
             {
@@ -87,26 +90,63 @@ namespace CMMManager
 
                 int? nMaxIncidentId = null;
                 int nResultMaxIncidentId = 0;
-                if (objMaxIncidentId != null)
+
+                String NewIncidentNo = "INCD-";
+
+                if (objMaxIncidentId.ToString() != String.Empty)
                 {
                     if (Int32.TryParse(objMaxIncidentId.ToString(), NumberStyles.Integer, new CultureInfo("en-US"), out nResultMaxIncidentId)) nMaxIncidentId = nResultMaxIncidentId;
+
+                    String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[Incident_id] = @IncidentId";
+
+                    SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRNDB);
+                    cmdQueryForIncidentNo.CommandType = CommandType.Text;
+
+                    cmdQueryForIncidentNo.Parameters.AddWithValue("@IncidentId", nMaxIncidentId.Value);
+
+                    if (connRNDB.State == ConnectionState.Open)
+                    {
+                        connRNDB.Close();
+                        connRNDB.Open();
+                    }
+                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                    Object objIncidentNo = cmdQueryForIncidentNo.ExecuteScalar();
+                    if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                    if (objIncidentNo != null)
+                    {
+                        int nNewIncidentNo = Int32.Parse(objIncidentNo.ToString().Substring(5));
+                        nNewIncidentNo++;
+                        NewIncidentNo += nNewIncidentNo.ToString();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("No incident id", "Error", MessageBoxButtons.OK);
-                    return;
-                }
+                else NewIncidentNo += '1';
+
+
+                txtIncidentNo.Text = NewIncidentNo;
+
+
+
+
+
+
+
+                //else
+                //{
+                //    MessageBox.Show("No incident id", "Error", MessageBoxButtons.OK);
+                //    return;
+                //}
 
                 //int nNewIncidentId = 1;
                 //if (nMaxIncidentId != null) nNewIncidentId += nMaxIncidentId.Value;
                 //txtIncidentId.Text = nNewIncidentId.ToString();
 
-                String strSqlQueryForIllnessIntro = "select [dbo].[tbl_illness].[Introduction] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+                String strSqlQueryForIllnessIntro = "select [dbo].[tbl_illness].[Introduction] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
                 SqlCommand cmdQueryForIllnessIntro = new SqlCommand(strSqlQueryForIllnessIntro, connRNDB);
                 cmdQueryForIllnessIntro.CommandType = CommandType.Text;
                 cmdQueryForIllnessIntro.CommandText = strSqlQueryForIllnessIntro;
-                cmdQueryForIllnessIntro.Parameters.AddWithValue("@IllnessId", strIllnessId.Trim());
+                cmdQueryForIllnessIntro.Parameters.AddWithValue("@IllnessNo", strIllnessNo.Trim());
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
@@ -121,11 +161,11 @@ namespace CMMManager
                 String strIllnessIntro = String.Empty;
                 if (objIllnessIntro != null) strIllnessIntro = objIllnessIntro.ToString();             
 
-                String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+                String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
                 SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
                 cmdQueryForICD10Code.CommandType = CommandType.Text;
-                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessId.Trim());
+                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessNo", strIllnessNo.Trim());
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
@@ -142,11 +182,11 @@ namespace CMMManager
                 {
                     strICD10Code = objICD10Code.ToString();
                 }
-                else
-                {
-                    MessageBox.Show("No ICD 10 Code", "Error", MessageBoxButtons.OK);
-                    return;
-                }
+                //else
+                //{
+                //    MessageBox.Show("No ICD 10 Code", "Error", MessageBoxButtons.OK);
+                //    return;
+                //}
 
                 if (strICD10Code != String.Empty) txtICD10Code.Text = strICD10Code;
 
@@ -173,11 +213,11 @@ namespace CMMManager
                 {
                     strDiseaseName = objDiseaseName.ToString();
                 }
-                else
-                {
-                    MessageBox.Show("No Disease Name", "Error", MessageBoxButtons.OK);
-                    return;
-                }
+                //else
+                //{
+                //    MessageBox.Show("No Disease Name", "Error", MessageBoxButtons.OK);
+                //    return;
+                //}
 
                 if (strDiseaseName != String.Empty) txtICD10Name.Text = strDiseaseName.Trim();
 
@@ -233,10 +273,17 @@ namespace CMMManager
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
 
                 // Populate main form
-                String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_Id], [dbo].[tbl_incident].[Program_id], " +
-                                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
-                                                "from [dbo].[tbl_incident] " +
-                                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                //String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_Id], [dbo].[tbl_incident].[Program_id], " +
+                //                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
+                //                                "from [dbo].[tbl_incident] " +
+                //                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+
+                String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], " +
+                                "[dbo].[tbl_incident].[Program_id], " +
+                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
+                                "from [dbo].[tbl_incident] " +
+                                "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
                 cmdQueryForIncident.CommandType = CommandType.Text;
@@ -269,21 +316,23 @@ namespace CMMManager
                 {
                     rdrIncident.Read();
                     if (!rdrIncident.IsDBNull(0)) txtCaseNo.Text = rdrIncident.GetString(0);
-                    if (!rdrIncident.IsDBNull(1)) txtIllnessId.Text = rdrIncident.GetInt32(1).ToString();
-                    if (!rdrIncident.IsDBNull(2)) comboProgram.SelectedIndex = rdrIncident.GetInt16(2);
-                    if (!rdrIncident.IsDBNull(3)) dtpCreateDate.Text = rdrIncident.GetDateTime(3).ToString("MM/dd/yyyy");
-                    if (!rdrIncident.IsDBNull(4)) dtpModifiedDate.Text = rdrIncident.GetDateTime(4).ToString("MM/dd/yyyy");
-                    if (!rdrIncident.IsDBNull(5)) txtIncidentNote.Text = rdrIncident.GetString(5);
+                    if (!rdrIncident.IsDBNull(1)) txtIllnessNo.Text = rdrIncident.GetString(1);
+                    if (!rdrIncident.IsDBNull(2)) txtIncidentNo.Text = rdrIncident.GetString(2);
+                    if (!rdrIncident.IsDBNull(3)) comboProgram.SelectedIndex = rdrIncident.GetInt16(3);
+                    if (!rdrIncident.IsDBNull(4)) dtpCreateDate.Text = rdrIncident.GetDateTime(4).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(5)) dtpModifiedDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(6)) txtIncidentNote.Text = rdrIncident.GetString(6);
                 }
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                strIllnessId = txtIllnessId.Text.Trim();
+                strIllnessNo = txtIllnessNo.Text.Trim();
                 String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
                                                  "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
                 SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
                 cmdQueryForICD10Code.CommandType = CommandType.Text;
-                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessId.Trim());
+                //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessNo.Trim());
+                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
                 cmdQueryForICD10Code.Parameters.AddWithValue("@IndividualId", strIndividualId.Trim());
 
                 if (connRNDB.State == ConnectionState.Open)
@@ -332,11 +381,11 @@ namespace CMMManager
                 {
                     strDiseaseName = objDiseaseName.ToString();
                 }
-                else
-                {
-                    MessageBox.Show("No Disease name", "Error", MessageBoxButtons.OK);
-                    return;
-                }
+                //else
+                //{
+                //    MessageBox.Show("No Disease name", "Error", MessageBoxButtons.OK);
+                //    return;
+                //}
 
                 if (strDiseaseName != String.Empty) txtICD10Name.Text = strDiseaseName.Trim();
             }
@@ -518,18 +567,72 @@ namespace CMMManager
         {
             String IndividualId = strIndividualId.Trim();
             String CaseId = strCaseId.Trim();
+            //int IllnessId = Int32.Parse(strIllnessNo.Trim());
             int IllnessId = Int32.Parse(strIllnessId.Trim());
+            String NewIncidentNo = "INCD-";
+
 
             if (mode == IncidentMode.AddNew)
             {
+                String strSqlQueryForMaxIncidentId = "select max([dbo].[tbl_incident].[incident_id]) from [dbo].[tbl_incident]";
+
+                SqlCommand cmdQueryForMaxIncidentId = new SqlCommand(strSqlQueryForMaxIncidentId, connRNDB);
+                cmdQueryForMaxIncidentId.CommandType = CommandType.Text;
+
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                Object objMaxIncidentId = cmdQueryForMaxIncidentId.ExecuteScalar();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                String MaxIncidentId = objMaxIncidentId.ToString();
+
+                if (MaxIncidentId == String.Empty)
+                {
+                    NewIncidentNo += '1';
+                }
+                else
+                {
+                    int nMaxIncidentId = Int32.Parse(objMaxIncidentId.ToString());
+
+                    String strSqlQueryForMaxIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[Incident_id] = @IncidentId";
+
+                    SqlCommand cmdQueryForMaxIncidentNo = new SqlCommand(strSqlQueryForMaxIncidentNo, connRNDB);
+                    cmdQueryForMaxIncidentNo.Parameters.AddWithValue("@IncidentId", nMaxIncidentId);
+
+                    if (connRNDB.State == ConnectionState.Open)
+                    {
+                        connRNDB.Close();
+                        connRNDB.Open();
+                    }
+                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                    Object objMaxIncidentNo = cmdQueryForMaxIncidentNo.ExecuteScalar();
+                    if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                    if (objMaxIncidentNo != null)
+                    {
+                        int nMaxIncidentNo = Int32.Parse(objMaxIncidentNo.ToString().Substring(5));
+                        nMaxIncidentNo++;
+                        NewIncidentNo += nMaxIncidentNo.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No incident no", "Error");
+                        return;
+                    }
+                }
 
                 String strInsertNewIncident = "insert into [dbo].[tbl_incident] " +
-                                              "([dbo].[tbl_incident].[IsDeleted], [dbo].[tbl_incident].[Individual_id], [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[illness_id], " +
-                                              "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[CreateStaff], " +
-                                              "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[Incident_Status], " +
-                                              "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IncidentNote]) " +
-                                              "values (@IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @IncidentStatus, @ProgramId, @IncidentNote)";
-                                              //"SELECT SCOPE_IDENTITY()";
+                        "([dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[IsDeleted], " +
+                        "[dbo].[tbl_incident].[Individual_id], [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[illness_id], " +
+                        "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[CreateStaff], " +
+                        "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[Incident_Status], " +
+                        "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IncidentNote]) " +
+                        "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @IncidentStatus, @ProgramId, @IncidentNote)";
+                //"SELECT SCOPE_IDENTITY()";
 
                 //int nUserId = 1;
                 int nIncidentStatus = 0;
@@ -538,6 +641,7 @@ namespace CMMManager
                 SqlCommand cmdInsertIntoIncident = new SqlCommand(strInsertNewIncident, connRNDB);
                 cmdInsertIntoIncident.CommandType = CommandType.Text;
 
+                cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentNo", NewIncidentNo);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IsDeleted", 0);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IndividualId", IndividualId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@CaseId", CaseId);
@@ -564,9 +668,7 @@ namespace CMMManager
                     DialogResult = DialogResult.OK;
 
                     Close();
-                    //return;
                 }
-
 
                 //int nNewIncidentId = 0;
                 //try
@@ -636,6 +738,7 @@ namespace CMMManager
             }
             else if (mode == IncidentMode.Edit)
             {
+                String IncidentId = strIncidentId;
                 //String strSqlUpdateIncident = "update [dbo].[tbl_incident] set ([dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff], [dbo].[tbl_incident].[Program_id], " +
                 //                              "[dbo].[tbl_incident].[IncidentNote]) " +
                 //                              "values (@ModifiDate, @ModifiStaff, @ProgramId, @IncidentNote)";

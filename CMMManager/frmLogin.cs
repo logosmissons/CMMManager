@@ -11,9 +11,11 @@ using System.Data.SqlClient;
 
 namespace CMMManager
 {
+
+    public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, SuperAdmin = 20 };
+
     public partial class frmLogin : Form
     {
-
         private SqlConnection connRN;
         private String connStringRN;
 
@@ -21,6 +23,7 @@ namespace CMMManager
         private String connStringSalesforce;
 
         public int nLoggedUserId;
+        public UserRole nLoggedUserRole;
 
         public frmLogin()
         {
@@ -34,29 +37,48 @@ namespace CMMManager
         {
             String UserEmail = txtEmail.Text.Trim();
 
-            String strSqlQueryForUserId = "select [dbo].[tbl_user].[User_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Email] = @UserEmail";
+            String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Email] = @UserEmail";
 
-            SqlCommand cmdQueryForUserId = new SqlCommand(strSqlQueryForUserId, connRN);
-            cmdQueryForUserId.CommandType = CommandType.Text;
+            SqlCommand cmdQueryForUserInfo = new SqlCommand(strSqlQueryForUserInfo, connRN);
+            cmdQueryForUserInfo.CommandType = CommandType.Text;
 
-            cmdQueryForUserId.Parameters.AddWithValue("@UserEmail", UserEmail);
+            cmdQueryForUserInfo.Parameters.AddWithValue("@UserEmail", UserEmail);
 
-            connRN.Open();
-            Object oUserId = cmdQueryForUserId.ExecuteScalar();
-            connRN.Close();
-
-            if (oUserId != null)
+            if (connRN.State == ConnectionState.Open)
             {
-                nLoggedUserId = Convert.ToInt16(oUserId);
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            //Object oUserId = cmdQueryForUserId.ExecuteScalar();
+            SqlDataReader rdrUserInfo = cmdQueryForUserInfo.ExecuteReader();
+            if (rdrUserInfo.HasRows)
+            {
+                rdrUserInfo.Read();
+                if (!rdrUserInfo.IsDBNull(0)) nLoggedUserId = rdrUserInfo.GetInt16(0);
+                if (!rdrUserInfo.IsDBNull(1)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(1);
                 DialogResult = DialogResult.OK;
-                return;
             }
             else
             {
                 MessageBox.Show("You are not CMM staff. Check your email and try again.", "Alert");
                 DialogResult = DialogResult.Retry;
-                return;
             }
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+
+            //if (oUserId != null)
+            //{
+            //    nLoggedUserId = Convert.ToInt16(oUserId);
+            //    DialogResult = DialogResult.OK;
+            //    return;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("You are not CMM staff. Check your email and try again.", "Alert");
+            //    DialogResult = DialogResult.Retry;
+            //    return;
+            //}
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

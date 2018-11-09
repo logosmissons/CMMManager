@@ -54,7 +54,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtLimitedSharingYearlyLimit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtIllnessId = new System.Windows.Forms.TextBox();
+            this.txtIllnessNo = new System.Windows.Forms.TextBox();
             this.grpIllnessNote.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,9 +135,9 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(670, 641);
+            this.btnClose.Location = new System.Drawing.Point(646, 641);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 23);
+            this.btnClose.Size = new System.Drawing.Size(99, 29);
             this.btnClose.TabIndex = 23;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -145,9 +145,9 @@
             // 
             // btnSaveIllness
             // 
-            this.btnSaveIllness.Location = new System.Drawing.Point(565, 641);
+            this.btnSaveIllness.Location = new System.Drawing.Point(526, 641);
             this.btnSaveIllness.Name = "btnSaveIllness";
-            this.btnSaveIllness.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveIllness.Size = new System.Drawing.Size(99, 29);
             this.btnSaveIllness.TabIndex = 22;
             this.btnSaveIllness.Text = "Save";
             this.btnSaveIllness.UseVisualStyleBackColor = true;
@@ -239,6 +239,8 @@
             this.dtpDateOfDiagnosis.Name = "dtpDateOfDiagnosis";
             this.dtpDateOfDiagnosis.Size = new System.Drawing.Size(117, 22);
             this.dtpDateOfDiagnosis.TabIndex = 29;
+            this.dtpDateOfDiagnosis.ValueChanged += new System.EventHandler(this.dtpDateOfDiagnosis_ValueChanged);
+            this.dtpDateOfDiagnosis.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpDateOfDiagnosis_KeyDown);
             // 
             // label9
             // 
@@ -303,25 +305,25 @@
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(29, 91);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(63, 16);
+            this.label12.Size = new System.Drawing.Size(70, 16);
             this.label12.TabIndex = 37;
-            this.label12.Text = "Illness Id:";
+            this.label12.Text = "Illness No:";
             // 
-            // txtIllnessId
+            // txtIllnessNo
             // 
-            this.txtIllnessId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIllnessId.Location = new System.Drawing.Point(147, 88);
-            this.txtIllnessId.Name = "txtIllnessId";
-            this.txtIllnessId.ReadOnly = true;
-            this.txtIllnessId.Size = new System.Drawing.Size(117, 22);
-            this.txtIllnessId.TabIndex = 38;
+            this.txtIllnessNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIllnessNo.Location = new System.Drawing.Point(147, 88);
+            this.txtIllnessNo.Name = "txtIllnessNo";
+            this.txtIllnessNo.ReadOnly = true;
+            this.txtIllnessNo.Size = new System.Drawing.Size(117, 22);
+            this.txtIllnessNo.TabIndex = 38;
             // 
             // frmIllnessCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 693);
-            this.Controls.Add(this.txtIllnessId);
+            this.Controls.Add(this.txtIllnessNo);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtLimitedSharingYearlyLimit);
             this.Controls.Add(this.label11);
@@ -384,6 +386,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtLimitedSharingYearlyLimit;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtIllnessId;
+        private System.Windows.Forms.TextBox txtIllnessNo;
     }
 }

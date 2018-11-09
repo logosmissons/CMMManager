@@ -30,7 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.gvIncidents = new System.Windows.Forms.DataGridView();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -42,8 +41,9 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Incident_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Program_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,8 +67,8 @@
             this.gvIncidents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvIncidents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Selected,
-            this.Incident_Id,
-            this.Illness_Id,
+            this.Incident_No,
+            this.Illness_No,
             this.CreateDate,
             this.Program_Id,
             this.Note});
@@ -78,12 +78,6 @@
             this.gvIncidents.Size = new System.Drawing.Size(770, 374);
             this.gvIncidents.TabIndex = 1;
             this.gvIncidents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidents_CellContentClick);
-            // 
-            // Selected
-            // 
-            this.Selected.HeaderText = "Selected";
-            this.Selected.Name = "Selected";
-            this.Selected.Width = 80;
             // 
             // btnClose
             // 
@@ -174,17 +168,22 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 200;
             // 
-            // Incident_Id
+            // Selected
             // 
-            this.Incident_Id.HeaderText = "Incident Id";
-            this.Incident_Id.Name = "Incident_Id";
-            this.Incident_Id.Width = 80;
+            this.Selected.HeaderText = "Selected";
+            this.Selected.Name = "Selected";
+            this.Selected.Width = 80;
             // 
-            // Illness_Id
+            // Incident_No
             // 
-            this.Illness_Id.HeaderText = "Illness Id";
-            this.Illness_Id.Name = "Illness_Id";
-            this.Illness_Id.Width = 80;
+            this.Incident_No.HeaderText = "Incident No";
+            this.Incident_No.Name = "Incident_No";
+            // 
+            // Illness_No
+            // 
+            this.Illness_No.HeaderText = "Illness No";
+            this.Illness_No.Name = "Illness_No";
+            this.Illness_No.Width = 80;
             // 
             // CreateDate
             // 
@@ -234,17 +233,17 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAddNew;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Program_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Program_Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
     }
 }
