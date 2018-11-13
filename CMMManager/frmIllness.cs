@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 
 namespace CMMManager
 {
+    public enum SqlConnectionIllnessOpen { RNDBConn, RNDBConn2, RNDBConn3 };
 
     public partial class frmIllness : Form
     {
@@ -24,7 +25,14 @@ namespace CMMManager
         public String strIndividualId = String.Empty;
 
         public SqlConnection connRNDB;
+        public SqlConnection connRNDB2;
+        public SqlConnection connRNDB3;
         public String strRNDBConnString = String.Empty;
+        public String strRNDBConnString2 = String.Empty;
+        public String strRNDBConnString3 = String.Empty;
+
+        public SqlConnectionIllnessOpen RNDB_ConnIllnessOpen;
+
         public String strSqlGetIllnessForCaseId = String.Empty;
 
         //public Boolean bIllnessSelected;
@@ -53,7 +61,13 @@ namespace CMMManager
         {
             InitializeComponent();
             strRNDBConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True;";
+            strRNDBConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True;";
+            strRNDBConnString3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True;";
+
+
             connRNDB = new SqlConnection(strRNDBConnString);
+            connRNDB2 = new SqlConnection(strRNDBConnString2);
+            connRNDB3 = new SqlConnection(strRNDBConnString3);
 
             IllnessSelected = new SelectedIllness();
 
@@ -62,35 +76,53 @@ namespace CMMManager
         private void frmIllness_Load(object sender, EventArgs e)
         {
 
-       
-
             strSqlGetIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], " +
                                         "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
                                         "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
                                         //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                         "[dbo].[tbl_illness].[IsDeleted] = 0";
 
-            SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
+            //SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
+            SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId);
+
             cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
             //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
 
             cmdQueryForIllness.CommandType = CommandType.Text;
             cmdQueryForIllness.CommandText = strSqlGetIllnessForCaseId;
 
-            SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllness);
-            dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessListChange);
-
             if (connRNDB.State == ConnectionState.Open)
             {
                 connRNDB.Close();
-                connRNDB.Open();
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    cmdQueryForIllness.Connection = connRNDB2;
+                    connRNDB2.Open();
+                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIllness.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                }
             }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            else if (connRNDB.State == ConnectionState.Closed)
+            {
+                cmdQueryForIllness.Connection = connRNDB;
+                connRNDB.Open();
+                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+            }
+
+            SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllness);
+            dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessListChange);
+
             SqlDataReader rdrIllnessForCaseId = cmdQueryForIllness.ExecuteReader();
+
+            gvIllness.Rows.Clear();
 
             if (rdrIllnessForCaseId.HasRows)
             {
-                gvIllness.Rows.Clear();
                 while(rdrIllnessForCaseId.Read())
                 {
 
@@ -128,7 +160,15 @@ namespace CMMManager
                 }
             }
 
-            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+            }
 
             if (IllnessNo != String.Empty)
             {
@@ -205,15 +245,46 @@ namespace CMMManager
             cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
             //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
 
+            if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    cmdQueryForIllness.Connection = connRNDB;
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIllness.Connection = connRNDB;
+                    connRNDB.Open();
+                }
+            }
+            else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed)
+                {
+                    connRNDB2.Close();
+                    cmdQueryForIllness.Connection = connRNDB2;
+                    connRNDB2.Open();
+                }
+                else if (connRNDB2.State != ConnectionState.Closed)
+                {
+                    cmdQueryForIllness.Connection = connRNDB2;
+                    connRNDB2.Open();
+                }
+            }
+
+
+            //if (connRNDB.State == ConnectionState.Open)
+            //{
+            //    connRNDB.Close();
+            //    connRNDB.Open();
+            //}
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
             SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllness);
             dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessListChange);
 
-            if (connRNDB.State == ConnectionState.Open)
-            {
-                connRNDB.Close();
-                connRNDB.Open();
-            }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
             SqlDataReader reader = cmdQueryForIllness.ExecuteReader();
 
             //gvIllness.Rows.Clear();
@@ -240,7 +311,16 @@ namespace CMMManager
                     else gvIllness.Rows.Add(row);
                 }
             }
-            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+            if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+            }
         }
 
         private void btnSelect_Click(object sender, EventArgs e)
@@ -265,19 +345,53 @@ namespace CMMManager
 
                             String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                            SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRNDB);
+                            //SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRNDB);
+                            SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId);
+
                             cmdQueryForIllnessId.CommandType = CommandType.Text;
 
                             cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
+                            //if (connRNDB.State == ConnectionState.Open)
+                            //{
+                            //    connRNDB.Close();
+                            //    connRNDB.Open();
+                            //}
+                            //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
                             if (connRNDB.State == ConnectionState.Open)
                             {
                                 connRNDB.Close();
-                                connRNDB.Open();
+                                if (connRNDB.State == ConnectionState.Open)
+                                {
+                                    cmdQueryForIllnessId.Connection = connRNDB2;
+                                    connRNDB2.Open();
+                                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                                }
+                                else if (connRNDB.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessId.Connection = connRNDB;
+                                    connRNDB.Open();
+                                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                                }
                             }
-                            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRNDB;
+                                connRNDB.Open();
+                                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                            }
+
                             Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-                            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                            if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+                            {
+                                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                            }
+                            else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+                            {
+                                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                            }
 
                             if (objIllnessId != null) IllnessSelected.IllnessId = objIllnessId.ToString();
                             else
@@ -332,14 +446,47 @@ namespace CMMManager
             SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRNDB);
             cmdQueryForIllnessId.CommandType = CommandType.Text;
 
+            //if (connRNDB.State == ConnectionState.Open)
+            //{
+            //    connRNDB.Close();
+            //    connRNDB.Open();
+            //}
+            //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
             if (connRNDB.State == ConnectionState.Open)
             {
                 connRNDB.Close();
-                connRNDB.Open();
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    cmdQueryForIllnessId.Connection = connRNDB2;
+                    connRNDB2.Open();
+                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIllnessId.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                }
             }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            else if (connRNDB.State == ConnectionState.Closed)
+            {
+                cmdQueryForIllnessId.Connection = connRNDB;
+                connRNDB.Open();
+                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+            }
+
             Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+            if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+            }
 
             String strLastIllnessId = objIllnessId.ToString();
 
@@ -355,14 +502,47 @@ namespace CMMManager
 
                 cmdQueryForLastIllnessNo.Parameters.AddWithValue("@IllnessId", Int32.Parse(objIllnessId.ToString()));
 
+                //if (connRNDB.State == ConnectionState.Open)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
                 if (connRNDB.State == ConnectionState.Open)
                 {
                     connRNDB.Close();
-                    connRNDB.Open();
+                    if (connRNDB.State == ConnectionState.Open)
+                    {
+                        cmdQueryForLastIllnessNo.Connection = connRNDB2;
+                        connRNDB2.Open();
+                        RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                    }
+                    else if (connRNDB.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForLastIllnessNo.Connection = connRNDB;
+                        connRNDB.Open();
+                        RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                    }
                 }
-                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForLastIllnessNo.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                }
+
                 Object objLastIllnessNo = cmdQueryForLastIllnessNo.ExecuteScalar();
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+                {
+                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                }
+                else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+                {
+                    if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                }
 
                 if (objLastIllnessNo != null)
                 {
@@ -463,13 +643,6 @@ namespace CMMManager
                     {
                         Boolean bIncidentExists = false;
 
-                        if (connRNDB.State == ConnectionState.Open)
-                        {
-                            connRNDB.Close();
-                            connRNDB.Open();
-                        }
-                        else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-
                         String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
                                                             "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
                                                             "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
@@ -479,13 +652,43 @@ namespace CMMManager
                         cmdQueryForIncidentNo.CommandType = CommandType.Text;
                         cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
+                        if (connRNDB.State == ConnectionState.Open)
+                        {
+                            connRNDB.Close();
+                            if (connRNDB.State == ConnectionState.Open)
+                            {
+                                cmdQueryForIncidentNo.Connection = connRNDB2;
+                                connRNDB2.Open();
+                                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                            }
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentNo.Connection = connRNDB;
+                                connRNDB.Open();
+                                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                            }
+                        }
+                        else if (connRNDB.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentNo.Connection = connRNDB;
+                            connRNDB.Open();
+                            RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                        }
+
                         SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
                         if (rdrIncidentNo.HasRows)
                         {
                             bIncidentExists = true;
                         }
 
-                        if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+                        {
+                            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                        }
+                        else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+                        {
+                            if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                        }
 
                         if (bIncidentExists == true)
                         {
@@ -500,9 +703,42 @@ namespace CMMManager
                         cmdDeleteIllness.CommandType = CommandType.Text;
                         cmdDeleteIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
+                        if (connRNDB.State == ConnectionState.Open)
+                        {
+                            connRNDB.Close();
+                            if (connRNDB.State == ConnectionState.Open)
+                            {
+                                cmdDeleteIllness.Connection = connRNDB2;
+                                connRNDB2.Open();
+                                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn2;
+                            }
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdDeleteIllness.Connection = connRNDB;
+                                connRNDB.Open();
+                                RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                            }
+                        }
+                        else if (connRNDB.State == ConnectionState.Closed)
+                        {
+                            cmdDeleteIllness.Connection = connRNDB;
+                            connRNDB.Open();
+                            RNDB_ConnIllnessOpen = SqlConnectionIllnessOpen.RNDBConn;
+                        }
+
                         int nRowDeleted = cmdDeleteIllness.ExecuteNonQuery();
 
-                        if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                        if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn)
+                        {
+                            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                        }
+                        else if (RNDB_ConnIllnessOpen == SqlConnectionIllnessOpen.RNDBConn2)
+                        {
+                            if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                        }
+
                     }
                     else if (dlgResultConfirm == DialogResult.No)
                     {

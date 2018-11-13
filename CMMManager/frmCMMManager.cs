@@ -15,8 +15,6 @@ using System.Windows.Forms;
 
 namespace CMMManager
 {
-
-
     public enum SqlConnectionOpen { RNConn, RNConn2, RNConn3 };
 
     public enum IllnessOption { Select, Close, Cancel };
@@ -290,12 +288,35 @@ namespace CMMManager
             SqlCommand cmdQueryForMedBillStatus = new SqlCommand(strSqlQueryForMedBillStatus, connRN);
             cmdQueryForMedBillStatus.CommandType = CommandType.Text;
 
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            // }
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillStatus.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillStatus.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
+            }
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForMedBillStatus.Connection = connRN;
                 connRN.Open();
-             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
 
             SqlDataReader rdrMedBillStatus = cmdQueryForMedBillStatus.ExecuteReader();
             if (rdrMedBillStatus.HasRows)
@@ -305,7 +326,16 @@ namespace CMMManager
                     dicMedBillStatus.Add(rdrMedBillStatus.GetInt16(0), rdrMedBillStatus.GetString(1));
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /// Populate Pending Reason
@@ -316,12 +346,35 @@ namespace CMMManager
             SqlCommand cmdQueryForPendingReason = new SqlCommand(strSqlQueryForPendingReason, connRN);
             cmdQueryForPendingReason.CommandType = CommandType.Text;
 
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForPendingReason.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForPendingReason.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForPendingReason.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
 
             SqlDataReader rdrPendingReason = cmdQueryForPendingReason.ExecuteReader();
             dicPendingReason.Clear();
@@ -333,26 +386,59 @@ namespace CMMManager
                     else dicPendingReason.Add(rdrPendingReason.GetInt32(0), String.Empty);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /// Populate Ineligible Reason
             /// 
             String strSqlQueryForIneligibleReason = "select [dbo].[tbl_ineligible_reason].[id], [dbo].[tbl_ineligible_reason].[name] from [dbo].[tbl_ineligible_reason] " +
-                                                    "order by [dbo].[tbl_ineligible_reason].[id]";
+                                                "order by [dbo].[tbl_ineligible_reason].[id]";
 
             SqlCommand cmdQueryForIneligibleReason = new SqlCommand(strSqlQueryForIneligibleReason, connRN);
             cmdQueryForIneligibleReason.CommandType = CommandType.Text;
 
             //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForIneligibleReason.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIneligibleReason.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForIneligibleReason.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
 
             SqlDataReader rdrIneligibleReason = cmdQueryForIneligibleReason.ExecuteReader();
+
             dicIneligibleReason.Clear();
             if (rdrIneligibleReason.HasRows)
             {
@@ -362,8 +448,16 @@ namespace CMMManager
                     else dicIneligibleReason.Add(rdrIneligibleReason.GetInt32(0), String.Empty);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             PersonalResponsibilityAmountInMedBill = 0;
 
@@ -375,12 +469,35 @@ namespace CMMManager
             SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN);
             cmdQueryForPaymentMethod.CommandType = CommandType.Text;
 
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForPaymentMethod.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForPaymentMethod.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForPaymentMethod.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
 
             SqlDataReader rdrPaymentMethod = cmdQueryForPaymentMethod.ExecuteReader();
             if (rdrPaymentMethod.HasRows)
@@ -391,7 +508,16 @@ namespace CMMManager
                     else lstPaymentMethod.Add(new PaymentMethod { PaymentMethodId = rdrPaymentMethod.GetInt16(0), PaymentMethodValue = String.Empty });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             // Retrieve credit card info
             lstCreditCardInfo.Clear();
@@ -400,12 +526,36 @@ namespace CMMManager
             SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
             cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
 
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForCreditCardInfo.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCreditCardInfo.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForCreditCardInfo.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
 
             SqlDataReader rdrCreditCardInfo = cmdQueryForCreditCardInfo.ExecuteReader();
             if (rdrCreditCardInfo.HasRows)
@@ -416,7 +566,16 @@ namespace CMMManager
                     else lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
 
             // retrieve settlement types from data base
@@ -425,12 +584,36 @@ namespace CMMManager
             SqlCommand cmdQueryForSettlementType = new SqlCommand(strSqlQuerySettlementTypes, connRN);
             cmdQueryForSettlementType.CommandType = CommandType.Text;
 
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForSettlementType.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForSettlementType.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForSettlementType.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
             SqlDataReader rdrSettlementType = cmdQueryForSettlementType.ExecuteReader();
             lstSettlementType.Clear();
             if (rdrSettlementType.HasRows)
@@ -442,7 +625,16 @@ namespace CMMManager
                         lstSettlementType.Add(new SettlementTypeInfo { SettlementTypeCode = rdrSettlementType.GetInt16(0), SettlementTypeValue = rdrSettlementType.GetString(1) });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             // retrieve personal responsibility types
             // lstPersonalResponsibilityType
@@ -454,12 +646,36 @@ namespace CMMManager
             cmdQueryForPersonalResponsibilityTypes.CommandType = CommandType.Text;
 
             //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForPersonalResponsibilityTypes.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForPersonalResponsibilityTypes.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForPersonalResponsibilityTypes.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
             SqlDataReader rdrPersonalResponsibilityTypes = cmdQueryForPersonalResponsibilityTypes.ExecuteReader();
             lstPersonalResponsibilityType.Clear();
             if (rdrPersonalResponsibilityTypes.HasRows)
@@ -469,13 +685,22 @@ namespace CMMManager
                     if (!rdrPersonalResponsibilityTypes.IsDBNull(0) &&
                         !rdrPersonalResponsibilityTypes.IsDBNull(1))
                         lstPersonalResponsibilityType.Add(new PersonalResponsiblityTypeInfo
-                        {
-                            PersonalResponsibilityTypeCode = rdrPersonalResponsibilityTypes.GetInt16(0),
-                            PersonalResponsibilityTypeValue = rdrPersonalResponsibilityTypes.GetString(1)
-                        });
+                    {
+                        PersonalResponsibilityTypeCode = rdrPersonalResponsibilityTypes.GetInt16(0),
+                        PersonalResponsibilityTypeValue = rdrPersonalResponsibilityTypes.GetString(1)
+                    });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
         }
 
         ~frmCMMManager()
@@ -1195,20 +1420,54 @@ namespace CMMManager
                                          "order by [dbo].[tbl_case].[ID]";
 
 
-            SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases, connRN);
+            //SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases, connRN);
+            SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases);
+
             cmdQueryForCases.CommandType = CommandType.Text;
 
             cmdQueryForCases.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
+
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    cmdQueryForCases.Connection = connRN;
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCases.Connection = connRN;
+                    connRN.Open();
+                }
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    cmdQueryForCases.Connection = connRN2;
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCases.Connection = connRN2;
+                    connRN2.Open();
+                }
+            }
+
             SqlDependency dependencyCase = new SqlDependency(cmdQueryForCases);
             dependencyCase.OnChange += new OnChangeEventHandler(OnCaseChange);
 
-            if (connRN.State == ConnectionState.Open)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
             ClearCaseInCaseViewSafely();
 
@@ -1250,7 +1509,15 @@ namespace CMMManager
                     AddRowToCaseInCaseViewSafely(row);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
         }
 
         private void UpdateGridViewCaseForIndividual()
@@ -1265,7 +1532,8 @@ namespace CMMManager
                                             "[dbo].[tbl_medbill].[BillStatus] = @BillStatusCode3 or " +
                                             "[dbo].[tbl_medbill].[BillStatus] = @BillStatusCode4)";
 
-            SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfo, connRN);
+            //SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfo, connRN);
+            SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfo);
             cmdQueryForCaseInfo.CommandType = CommandType.Text;
 
             cmdQueryForCaseInfo.Parameters.AddWithValue("@BillStatusCode0", MedBillStatus.Pending);     // Pending
@@ -1274,13 +1542,37 @@ namespace CMMManager
             cmdQueryForCaseInfo.Parameters.AddWithValue("@BillStatusCode3", MedBillStatus.Ineligible);     // Eligibility
             cmdQueryForCaseInfo.Parameters.AddWithValue("@BillStatusCode4", MedBillStatus.PartiallyIneligible);     // Under bill processing
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForCaseInfo.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCaseInfo.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForCaseInfo.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
+
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
             SqlDataReader rdrCaseInfo = cmdQueryForCaseInfo.ExecuteReader();
             lstCaseInfo.Clear();
             if (rdrCaseInfo.HasRows)
@@ -1290,7 +1582,15 @@ namespace CMMManager
                     lstCaseInfo.Add(new CaseInfo { CaseName = rdrCaseInfo.GetString(0), IndividualId = rdrCaseInfo.GetString(1) });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             String strSqlQueryForCasesForIndividualID = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case_status_code].[CaseStatusValue], [dbo].[tbl_case].[CreateDate], " +
                                             "[dbo].[tbl_CreateStaff].[Staff_Name], " +
@@ -1310,11 +1610,6 @@ namespace CMMManager
             SqlCommand cmdQueryForCasesIndividualPage = new SqlCommand(strSqlQueryForCasesForIndividualID);
             cmdQueryForCasesIndividualPage.CommandType = CommandType.Text;
             cmdQueryForCasesIndividualPage.Parameters.AddWithValue("@IndividualID", IndividualIdIndividualPage);
-
-            cmdQueryForCasesIndividualPage.Notification = null;
-
-            SqlDependency dependencyCaseForIndividual = new SqlDependency(cmdQueryForCasesIndividualPage);
-            dependencyCaseForIndividual.OnChange += new OnChangeEventHandler(OnCaseForIndividualChange);
 
             if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
             {
@@ -1344,6 +1639,11 @@ namespace CMMManager
                     connRN2.Open();
                 }
             }
+
+            cmdQueryForCasesIndividualPage.Notification = null;
+
+            SqlDependency dependencyCaseForIndividual = new SqlDependency(cmdQueryForCasesIndividualPage);
+            dependencyCaseForIndividual.OnChange += new OnChangeEventHandler(OnCaseForIndividualChange);
 
             //if (connRN.State == ConnectionState.Open)
             //{
@@ -3072,19 +3372,44 @@ namespace CMMManager
                                                 "[dbo].[tbl_case].[Case_Name] = @CaseName and " +
                                                 "[dbo].[tbl_case].[Contact_ID] = @IndividualId";
 
-                    SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN);
+                    //SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN);
+                    SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase);
+
                     cmdQueryForCase.CommandType = CommandType.Text;
 
                     cmdQueryForCase.Parameters.AddWithValue("@CaseName", strCaseNameSelected);
                     cmdQueryForCase.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCase.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCase.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrCase = cmdQueryForCase.ExecuteReader();
                     if (rdrCase.HasRows)
                     {
@@ -3195,22 +3520,48 @@ namespace CMMManager
                                                          "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
                                                          "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+                    //SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+                    SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase);
+
                     cmdQueryForMedBillInCase.CommandType = CommandType.Text;
 
                     cmdQueryForMedBillInCase.Parameters.AddWithValue("@CaseName", strCaseNameSelected);
                     cmdQueryForMedBillInCase.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State == ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillInCase.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillInCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+                    }
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillInCase.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
+
                     SqlDependency dependencyMedBillsInCase = new SqlDependency(cmdQueryForMedBillInCase);
                     dependencyMedBillsInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseViewChange);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
-                    {
-                        connRN.Close();
-                        connRN.Open();
-                    }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
                     SqlDataReader rdrMedBillInCase = cmdQueryForMedBillInCase.ExecuteReader();
                     gvCasePageMedBills.Rows.Clear();
 
@@ -3284,24 +3635,54 @@ namespace CMMManager
             //                         "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
 
-            SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+            //SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+            SqlCommand cmdQueryForMedBillInCase = new SqlCommand(strSqlQueryForMedBillInCase);
+
             cmdQueryForMedBillInCase.CommandType = CommandType.Text;
 
             cmdQueryForMedBillInCase.Parameters.AddWithValue("@CaseName", strCaseNameSelected);
             cmdQueryForMedBillInCase.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    cmdQueryForMedBillInCase.Connection = connRN;
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillInCase.Connection = connRN;
+                    connRN.Open();
+                }
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    cmdQueryForMedBillInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+            }
+
+            SqlDataReader rdrMedBillInCase = cmdQueryForMedBillInCase.ExecuteReader();
+
             SqlDependency dependencyMedBillsInCase = new SqlDependency(cmdQueryForMedBillInCase);
             dependencyMedBillsInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseViewChange);
-
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            //if (connRN.State == ConnectionState.Open)
-            if (connRN.State == ConnectionState.Open)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            SqlDataReader rdrMedBillInCase = cmdQueryForMedBillInCase.ExecuteReader();
 
             if (IsHandleCreated) ClearMedBillInCaseSafely();
             else gvCasePageMedBills.Rows.Clear();
@@ -3330,7 +3711,16 @@ namespace CMMManager
                 }
             }
 
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
+
         }
 
 
@@ -5502,17 +5892,53 @@ namespace CMMManager
 
                 String strSqlQueryForMedBill = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
 
-                SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill, connRN);
+                //SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill, connRN);
+                SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill);
+
                 cmdQueryForMedBill.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
 
-                if (connRN.State == ConnectionState.Open)
+                //if (connRN.State == ConnectionState.Open)
+                //{
+                //    connRN.Close();
+                //    connRN.Open();
+                //}
+                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                if (connRN.State != ConnectionState.Closed)
                 {
                     connRN.Close();
-                    connRN.Open();
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBill.Connection = connRN2;
+                        connRN2.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                    }
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBill.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
                 }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBill.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
+
+
                 Object ResultMedBillNo = cmdQueryForMedBill.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                {
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                }
+                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                {
+                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                }
 
                 if (ResultMedBillNo == null)
                 {
@@ -5537,19 +5963,52 @@ namespace CMMManager
 
                         String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                        SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                        //SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                        SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId);
+
                         cmdQueryForIllnessId.CommandType = CommandType.Text;
 
                         cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIllnessId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (objIllnessId != null) strIllnessId = objIllnessId.ToString();
                         else
@@ -5565,19 +6024,51 @@ namespace CMMManager
 
                         String strSqlQueryForIncidentId = "select [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                        SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                        //SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                        SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId);
                         cmdQueryForIncidentId.CommandType = CommandType.Text;
 
                         cmdQueryForIncidentId.Parameters.AddWithValue("@IncidentNo", IncidentNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objIncidentId = cmdQueryForIncidentId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (objIncidentId != null) strIncidentId = objIncidentId.ToString();
                         else
@@ -5669,7 +6160,8 @@ namespace CMMManager
                                                     "@PrescriptionDrugName, @PrescriptionNo, @PrescriptionDescription, " +
                                                     "@PatientTypeId, @Note)";
 
-                    SqlCommand cmdInsertNewMedBill = new SqlCommand(strSqlInsertNewMedBill, connRN);
+                    //SqlCommand cmdInsertNewMedBill = new SqlCommand(strSqlInsertNewMedBill, connRN);
+                    SqlCommand cmdInsertNewMedBill = new SqlCommand(strSqlInsertNewMedBill);
                     cmdInsertNewMedBill.CommandType = CommandType.Text;
 
                     cmdInsertNewMedBill.Parameters.AddWithValue("@IsDeleted", 0);
@@ -5813,15 +6305,47 @@ namespace CMMManager
                         cmdInsertNewMedBill.Parameters.AddWithValue("@Note", strNote);
                     }
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdInsertNewMedBill.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdInsertNewMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdInsertNewMedBill.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     int nRowInserted = cmdInsertNewMedBill.ExecuteNonQuery();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     if (nRowInserted == 1)
                     {
@@ -5949,29 +6473,53 @@ namespace CMMManager
                                 // Check whether or not the settlement is already in data base
                                 String strSqlQueryForSettlementName = "select [dbo].[tbl_settlement].[Name] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @Settlement";
 
-                                SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName, connRN);
+                                //SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName, connRN);
+                                SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName);
                                 cmdQueryForSettlementName.CommandType = CommandType.Text;
 
                                 cmdQueryForSettlementName.Parameters.AddWithValue("@Settlement", SettlementName);
 
-                                // debug this section
-                                //if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State != ConnectionState.Closed)
                                 //{
                                 //    connRN.Close();
                                 //    connRN.Open();
                                 //}
-                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                //else if (connRN.State != ConnectionState.Open) connRN.Open();
+
                                 if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdQueryForSettlementName.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdQueryForSettlementName.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State != ConnectionState.Open) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForSettlementName.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
+
                                 /////////////////////////////////////////////////////////////////////
-
-
                                 Object objResultSettlementName = cmdQueryForSettlementName.ExecuteScalar();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 if (objResultSettlementName == null)   // new settlement: save the settlement by using insert sql statement
                                 {
@@ -5987,7 +6535,9 @@ namespace CMMManager
                                                                         "@CheckNo, @CheckDate, @IsCheckReconciled, @ACH_Number, @ACH_Date, @IsACH_Reconciled, @CMMCreditCard, @CMMCreditCardPaidDate, @IsCC_Reconciled, " +
                                                                         "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason)";
 
-                                    SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN);
+                                    //SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN);
+                                    SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement);
+
                                     cmdInsertNewSettlement.CommandType = CommandType.Text;
 
                                     String NewSettlementName = gvSettlementsInMedBill["SettlementName", i].Value.ToString();
@@ -6123,15 +6673,46 @@ namespace CMMManager
                                     }
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
-                                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                    if (connRN.State == ConnectionState.Open)
+                                    //if (connRN.State == ConnectionState.Open)
+                                    //{
+                                    //    connRN.Close();
+                                    //    connRN.Open();
+                                    //}
+                                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                    if (connRN.State != ConnectionState.Closed)
                                     {
                                         connRN.Close();
-                                        connRN.Open();
+                                        if (connRN.State != ConnectionState.Closed)
+                                        {
+                                            cmdInsertNewSettlement.Connection = connRN2;
+                                            connRN2.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                        }
+                                        else if (connRN.State == ConnectionState.Closed)
+                                        {
+                                            cmdInsertNewSettlement.Connection = connRN;
+                                            connRN.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                        }
                                     }
-                                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdInsertNewSettlement.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
+
                                     int nSettlementInserted = cmdInsertNewSettlement.ExecuteNonQuery();
-                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                    {
+                                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    }
+                                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                    {
+                                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                    }
 
                                     //if (nRowInserted == 1)
                                     //{
@@ -6305,7 +6886,9 @@ namespace CMMManager
 
 
 
-                                    SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN);
+                                    //SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN);
+                                    SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement);
+
                                     cmdUpdateSettlement.CommandType = CommandType.Text;
 
                                     cmdUpdateSettlement.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
@@ -6357,16 +6940,48 @@ namespace CMMManager
                                     }
                                     cmdUpdateSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
-                                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                    if (connRN.State == ConnectionState.Open)
+                                    //if (connRN.State == ConnectionState.Open)
+                                    //{
+                                    //    connRN.Close();
+                                    //    connRN.Open();
+                                    //}
+                                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                    if (connRN.State != ConnectionState.Closed)
                                     {
                                         connRN.Close();
-                                        connRN.Open();
+                                        if (connRN.State != ConnectionState.Closed)
+                                        {
+                                            cmdUpdateSettlement.Connection = connRN2;
+                                            connRN2.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                        }
+                                        else if (connRN.State == ConnectionState.Closed)
+                                        {
+                                            cmdUpdateSettlement.Connection = connRN;
+                                            connRN.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                        }
                                     }
-                                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdUpdateSettlement.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
 
                                     int nRowUpdated = cmdUpdateSettlement.ExecuteNonQuery();
-                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                    {
+                                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    }
+                                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                    {
+                                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                    }
+
 
                                     //if (nRowUpdated == 1)
                                     //{
@@ -6424,21 +7039,46 @@ namespace CMMManager
                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                   "order by [dbo].[tbl_settlement].[Name]";
 
-                        SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                        //SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                        SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement);
                         cmdQueryForSettlement.CommandType = CommandType.Text;
 
                         cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", strNewMedBillNo);
 
+                        //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForSettlement.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForSettlement.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
                         dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
 
-                        //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                        if (connRN.State == ConnectionState.Open)
-                        {
-                            connRN.Close();
-                            connRN.Open();
-                        }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
                         SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
                         gvSettlementsInMedBill.Rows.Clear();
                         if (rdrSettlement.HasRows)
@@ -6709,8 +7349,16 @@ namespace CMMManager
                                 //AddNewRowToGVSettlementSafely(row);
                             }
                         }
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         ////////////////////////////////////////////////////////////////////////
                         String strIllnessIdForIncidentSharedTotal = String.Empty;
@@ -6721,19 +7369,53 @@ namespace CMMManager
 
                             String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                            SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                            //SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                            SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId);
+
                             cmdQueryForIllnessId.CommandType = CommandType.Text;
 
                             cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", txtMedBill_Illness.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessId.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessId.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             if (objIllnessId != null) strIllnessIdForIncidentSharedTotal = objIllnessId.ToString();
                             else
@@ -6751,19 +7433,54 @@ namespace CMMManager
 
                             String strSqlQueryForIncidentId = "select [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                            SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                            //SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                            SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId);
+
                             cmdQueryForIncidentId.CommandType = CommandType.Text;
 
                             cmdQueryForIncidentId.Parameters.AddWithValue("@IncidentNo", txtMedBill_Incident.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForIncidentId.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIncidentId.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             Object objIncidentId = cmdQueryForIncidentId.ExecuteScalar();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             if (objIncidentId != null) strIncidentIdForIncidentSharedTotal = objIncidentId.ToString();
                             else
@@ -6783,21 +7500,55 @@ namespace CMMManager
                                                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
                                                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
 
-                        SqlCommand cmdQueryForTotalSharedAmountInSettlemetsInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountSettlementInMedBill, connRN);
+                        //SqlCommand cmdQueryForTotalSharedAmountInSettlemetsInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountSettlementInMedBill, connRN);
+                        SqlCommand cmdQueryForTotalSharedAmountInSettlemetsInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountSettlementInMedBill);
+
                         cmdQueryForTotalSharedAmountInSettlemetsInMedBill.CommandType = CommandType.Text;
 
                         cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    //connRN.Close();
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
-                            //connRN.Close();
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
 
                         Object objTotalSharedAmountSettlementInMedBill = cmdQueryForTotalSharedAmountInSettlemetsInMedBill.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal TotalSharedAmountSettlement = 0;
                         if (objTotalSharedAmountSettlementInMedBill.ToString() != String.Empty)
@@ -6814,20 +7565,54 @@ namespace CMMManager
                                                                      "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
                                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
 
-                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN);
+                        //SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN);
+                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund);
+
                         cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
 
                         cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    //connRN.Close();
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
-                            //connRN.Close();
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForMedicalProviderRefund.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedicalProviderRefund.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProviderRefund.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
 
                         Object objMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal MedicalProviderRefund = 0;
                         if (objMedicalProviderRefund.ToString() != String.Empty) MedicalProviderRefund = Decimal.Parse(objMedicalProviderRefund.ToString());
@@ -6849,7 +7634,9 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
                                                  "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
 
-                        SqlCommand cmdUpdateMedBillForTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForTotalSharedAmount, connRN);
+                        //SqlCommand cmdUpdateMedBillForTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForTotalSharedAmount, connRN);
+                        SqlCommand cmdUpdateMedBillForTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForTotalSharedAmount);
+
                         cmdUpdateMedBillForTotalSharedAmount.CommandType = CommandType.Text;
 
                         cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountSettlement);
@@ -6859,14 +7646,46 @@ namespace CMMManager
                         cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
                         cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdUpdateMedBillForTotalSharedAmount.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateMedBillForTotalSharedAmount.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdUpdateMedBillForTotalSharedAmount.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         int nMedBillUpdated = cmdUpdateMedBillForTotalSharedAmount.ExecuteNonQuery();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (nMedBillUpdated == 0)
                         {
@@ -6890,7 +7709,9 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
                                                  "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
 
-                            SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN);
+                            //SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN);
+                            SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount);
+
                             cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
 
                             //cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
@@ -6898,14 +7719,47 @@ namespace CMMManager
                             cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
                             cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForIncidentTotalSharedAmount.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIncidentTotalSharedAmount.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentTotalSharedAmount.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             Decimal IncidentTotalSharedAmount = 0;
                             //if (objIncidentTotalSharedAmount != null)
@@ -6932,7 +7786,9 @@ namespace CMMManager
                                       "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
                                       "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                            SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strUpdateIncidentSharedTotal, connRN);
+                            //SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strUpdateIncidentSharedTotal, connRN);
+                            SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strUpdateIncidentSharedTotal);
+
                             cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
 
                             cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
@@ -6941,14 +7797,47 @@ namespace CMMManager
                             cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
                             cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdUpdateIncidentSharedTotal.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdUpdateIncidentSharedTotal.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateIncidentSharedTotal.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             if (nIncidentUpdated == 1)
                             {
@@ -6965,7 +7854,9 @@ namespace CMMManager
                                                "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
 
-                                SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN);
+                                //SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN);
+                                SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount);
+
                                 cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
 
                                 //cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
@@ -6973,14 +7864,47 @@ namespace CMMManager
                                 cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
                                 cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                                if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State == ConnectionState.Open)
+                                //{
+                                //    connRN.Close();
+                                //    connRN.Open();
+                                //}
+                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdQueryForIllnessTotalSharedAmount.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdQueryForIllnessTotalSharedAmount.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessTotalSharedAmount.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
+
                                 Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 Decimal IllnessTotalSharedAmount = 0;
                                 //if (objIllnessTotalSharedAmount != null) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
@@ -6997,7 +7921,9 @@ namespace CMMManager
                                         "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
                                         "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                                SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN);
+                                //SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN);
+                                SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal);
+
                                 cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
 
                                 cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
@@ -7005,14 +7931,47 @@ namespace CMMManager
                                 cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
                                 //cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
 
-                                if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State == ConnectionState.Open)
+                                //{
+                                //    connRN.Close();
+                                //    connRN.Open();
+                                //}
+                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdUpdateIllnessSharedTotal.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdUpdateIllnessSharedTotal.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdUpdateIllnessSharedTotal.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
+
                                 int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 if (nIllnessUpdated == 1)
                                 {
@@ -7026,21 +7985,56 @@ namespace CMMManager
                                                    "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
                                                    "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                                    SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN);
+                                    //SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN);
+                                    SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount);
+
                                     cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
 
                                     //cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
                                     cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
                                     //cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
 
-                                    if (connRN.State == ConnectionState.Open)
+                                    //if (connRN.State == ConnectionState.Open)
+                                    //{
+                                    //    connRN.Close();
+                                    //    connRN.Open();
+                                    //}
+
+                                    if (connRN.State != ConnectionState.Closed)
                                     {
                                         connRN.Close();
-                                        connRN.Open();
+                                        if (connRN.State != ConnectionState.Closed)
+                                        {
+                                            cmdQueryForIndividualTotalSharedAmount.Connection = connRN2;
+                                            connRN2.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                        }
+                                        else if (connRN.State == ConnectionState.Closed)
+                                        {
+                                            cmdQueryForIndividualTotalSharedAmount.Connection = connRN;
+                                            connRN.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                        }
                                     }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdQueryForIndividualTotalSharedAmount.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
+
                                     else if (connRN.State == ConnectionState.Closed) connRN.Open();
                                     Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
-                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                    {
+                                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    }
+                                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                    {
+                                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                    }
 
                                     Decimal IndividualTotalSharedAmount = 0;
                                     //if (objIndividualTotalSharedAmount != null) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
@@ -7092,19 +8086,54 @@ namespace CMMManager
                                                                                  "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
                                                                                  "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                        SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId, connRN);
+                        //SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId, connRN);
+                        SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId);
+
                         cmdQueryForTotalMedBillAmountForIndividualId.CommandType = CommandType.Text;
 
                         cmdQueryForTotalMedBillAmountForIndividualId.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objTotalMedBillAmountForIndividualId = cmdQueryForTotalMedBillAmountForIndividualId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal TotalMedBillAmountForIndividualId = 0;
                         if (objTotalMedBillAmountForIndividualId != null) TotalMedBillAmountForIndividualId = Decimal.Parse(objTotalMedBillAmountForIndividualId.ToString());
@@ -7175,19 +8204,54 @@ namespace CMMManager
 
                         String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
+                        //SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
                         SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+
                         cmdQueryForIllnessId.CommandType = CommandType.Text;
 
                         cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIllnessId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (objIllnessId != null) strIllnessId = objIllnessId.ToString();
                         else
@@ -7203,19 +8267,54 @@ namespace CMMManager
 
                         String strSqlQueryForIncidentId = "select [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                        SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                        //SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId, connRN);
+                        SqlCommand cmdQueryForIncidentId = new SqlCommand(strSqlQueryForIncidentId);
+
                         cmdQueryForIncidentId.CommandType = CommandType.Text;
 
                         cmdQueryForIncidentId.Parameters.AddWithValue("@IncidentNo", IncidentNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objIncidentId = cmdQueryForIncidentId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (objIncidentId != null) strIncidentId = objIncidentId.ToString();
                         else
@@ -7272,21 +8371,56 @@ namespace CMMManager
                     // Get medical provider id
                     String strSqlQueryForMedicalProviderId = "select [dbo].[tbl_MedicalProvider].[ID] from [dbo].[tbl_MedicalProvider] where [dbo].[tbl_MedicalProvider].[Name] = @MedicalProviderName";
 
-                    SqlCommand cmdQueryForMedicalProviderId = new SqlCommand(strSqlQueryForMedicalProviderId, connRN);
+                    //SqlCommand cmdQueryForMedicalProviderId = new SqlCommand(strSqlQueryForMedicalProviderId, connRN);
+                    SqlCommand cmdQueryForMedicalProviderId = new SqlCommand(strSqlQueryForMedicalProviderId);
+
                     cmdQueryForMedicalProviderId.CommandType = CommandType.Text;
 
                     cmdQueryForMedicalProviderId.Parameters.AddWithValue("@MedicalProviderName", txtMedicalProvider.Text.Trim());
 
                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProviderId.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProviderId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedicalProviderId.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     //String MedicalProviderId = cmdQueryForMedicalProviderId.ExecuteScalar().ToString();
                     Object objMedicalProviderId = cmdQueryForMedicalProviderId.ExecuteScalar();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String MedicalProviderId = String.Empty;
                     if (objMedicalProviderId != null) MedicalProviderId = objMedicalProviderId.ToString();
@@ -7344,7 +8478,9 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[OriginalPrescription] = @NewOriginalPrescription " +
                                                  "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_medbill].[Contact_Id] = @IndividualId";
 
-                    SqlCommand cmdUpdateMedBill = new SqlCommand(strSqlUpdateMedBill, connRN);
+                    //SqlCommand cmdUpdateMedBill = new SqlCommand(strSqlUpdateMedBill, connRN);
+                    SqlCommand cmdUpdateMedBill = new SqlCommand(strSqlUpdateMedBill);
+
                     cmdUpdateMedBill.CommandType = CommandType.Text;
 
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewLastModifiedDate", DateTime.Today.ToString("MM/dd/yyyy"));
@@ -7446,15 +8582,48 @@ namespace CMMManager
                     cmdUpdateMedBill.Parameters.AddWithValue("@IndividualId", IndividualId);
 
                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    //SqlConnection.ClearPool(connRN);
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
-                        //SqlConnection.ClearPool(connRN);
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdUpdateMedBill.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdUpdateMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdUpdateMedBill.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     int nAffectedRow = cmdUpdateMedBill.ExecuteNonQuery();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     if (nAffectedRow == 1)
                     {
@@ -7544,18 +8713,44 @@ namespace CMMManager
                             String strSqlQueryForSettlementType = "select [dbo].[tbl_settlement_type_code].[SettlementTypeCode], [dbo].[tbl_settlement_type_code].[SettlementTypeValue] " +
                                         "from [dbo].[tbl_settlement_type_code]";
 
-                            SqlCommand cmdQueryForSettlementType = new SqlCommand(strSqlQueryForSettlementType, connRN);
+                            //SqlCommand cmdQueryForSettlementType = new SqlCommand(strSqlQueryForSettlementType, connRN);
+                            SqlCommand cmdQueryForSettlementType = new SqlCommand(strSqlQueryForSettlementType);
+
                             cmdQueryForSettlementType.CommandType = CommandType.Text;
 
                             //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    //SqlConnection.ClearPool(connRN);
+                            //    connRN.Close();
+                            //    //connRN.Dispose();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
-                                //SqlConnection.ClearPool(connRN);
                                 connRN.Close();
-                                //connRN.Dispose();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForSettlementType.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForSettlementType.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForSettlementType.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             SqlDataReader rdrSettlementType = cmdQueryForSettlementType.ExecuteReader();
                             lstSettlementType.Clear();
                             if (rdrSettlementType.HasRows)
@@ -7566,7 +8761,16 @@ namespace CMMManager
                                         lstSettlementType.Add(new SettlementTypeInfo { SettlementTypeCode = rdrSettlementType.GetInt16(0), SettlementTypeValue = rdrSettlementType.GetString(1) });
                                 }
                             }
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                             {
@@ -7606,21 +8810,55 @@ namespace CMMManager
                                 // Check whether or not the settlement is already in data base
                                 String strSqlQueryForSettlementName = "select [dbo].[tbl_settlement].[Name] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @Settlement";
 
-                                SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName, connRN);
+                                //SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName, connRN);
+                                SqlCommand cmdQueryForSettlementName = new SqlCommand(strSqlQueryForSettlementName);
+
                                 cmdQueryForSettlementName.CommandType = CommandType.Text;
 
                                 cmdQueryForSettlementName.Parameters.AddWithValue("@Settlement", SettlementName);
 
                                 //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State == ConnectionState.Open)
+                                //{
+                                //    connRN.Close();
+                                //    connRN.Open();
+                                //}
+                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdQueryForSettlementName.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdQueryForSettlementName.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForSettlementName.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
 
                                 Object objResultSettlementName = cmdQueryForSettlementName.ExecuteScalar();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 if (objResultSettlementName == null)   // new settlement: save the settlement by using insert sql statement
                                 {
@@ -7636,7 +8874,9 @@ namespace CMMManager
                                                                         "@CheckNo, @CheckDate, @IsCheckReconciled, @ACH_Number, @ACH_Date, @IsACH_Reconciled, @CMMCreditCard, @CMMCreditCardPaidDate, @IsCC_Reconciled, " +
                                                                         "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason)";
 
-                                    SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN);
+                                    //SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN);
+                                    SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement);
+
                                     cmdInsertNewSettlement.CommandType = CommandType.Text;
 
                                     String NewSettlementName = gvSettlementsInMedBill["SettlementName", i].Value.ToString();
@@ -7773,15 +9013,47 @@ namespace CMMManager
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
                                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                    if (connRN.State == ConnectionState.Open)
+                                    //if (connRN.State == ConnectionState.Open)
+                                    //{
+                                    //    //SqlConnection.ClearPool(connRN);
+                                    //    connRN.Close();
+                                    //    connRN.Open();
+                                    //}
+                                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                    if (connRN.State != ConnectionState.Closed)
                                     {
-                                        //SqlConnection.ClearPool(connRN);
                                         connRN.Close();
-                                        connRN.Open();
+                                        if (connRN.State != ConnectionState.Closed)
+                                        {
+                                            cmdInsertNewSettlement.Connection = connRN2;
+                                            connRN2.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                        }
+                                        else if (connRN.State == ConnectionState.Closed)
+                                        {
+                                            cmdInsertNewSettlement.Connection = connRN;
+                                            connRN.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                        }
                                     }
-                                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdInsertNewSettlement.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
+
                                     int nSettlementInserted = cmdInsertNewSettlement.ExecuteNonQuery();
-                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                    {
+                                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    }
+                                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                    {
+                                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                    }
 
                                     if (nSettlementInserted == 1)
                                     {
@@ -7940,7 +9212,9 @@ namespace CMMManager
 
 
 
-                                    SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN);
+                                    //SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN);
+                                    SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement);
+
                                     cmdUpdateSettlement.CommandType = CommandType.Text;
 
                                     cmdUpdateSettlement.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
@@ -7993,16 +9267,47 @@ namespace CMMManager
                                     cmdUpdateSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
                                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                    if (connRN.State == ConnectionState.Open)
+                                    //if (connRN.State == ConnectionState.Open)
+                                    //{
+                                    //    //SqlConnection.ClearPool(connRN);
+                                    //    connRN.Close();
+                                    //    connRN.Open();
+                                    //}
+                                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                    if (connRN.State != ConnectionState.Closed)
                                     {
-                                        //SqlConnection.ClearPool(connRN);
                                         connRN.Close();
-                                        connRN.Open();
+                                        if (connRN.State != ConnectionState.Closed)
+                                        {
+                                            cmdUpdateSettlement.Connection = connRN2;
+                                            connRN2.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                        }
+                                        else if (connRN.State == ConnectionState.Closed)
+                                        {
+                                            cmdUpdateSettlement.Connection = connRN;
+                                            connRN.Open();
+                                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                        }
                                     }
-                                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdUpdateSettlement.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
 
                                     int nRowUpdated = cmdUpdateSettlement.ExecuteNonQuery();
-                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                    {
+                                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                    }
+                                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                    {
+                                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                    }
 
                                     //if (nRowUpdated == 1)
                                     //{
@@ -8052,18 +9357,43 @@ namespace CMMManager
                                                                   "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
                                                                   "[dbo].[tbl_medbill].[Case_Id] = @CaseId";
 
-                            SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase, connRN);
+                            //SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase, connRN);
+                            SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase);
+
                             cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
 
                             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualId);
                             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseId", CaseNo);
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForMedBillsInCase.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForMedBillsInCase.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillsInCase.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
 
                             SqlDataReader rdrMedBillsInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
@@ -8079,7 +9409,15 @@ namespace CMMManager
                                     else bBillClosed = false;
                                 }
                             }
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             if (bBillClosed == true)
                             {
@@ -8087,20 +9425,55 @@ namespace CMMManager
                                                             "where [dbo].[tbl_case].[Case_Name] = @CaseNo and " +
                                                             "[dbo].[tbl_case].[individual_id] = @IndividualId";
 
-                                SqlCommand cmdSetCaseToClosed = new SqlCommand(strSetCaseToClosed, connRN);
+                                //SqlCommand cmdSetCaseToClosed = new SqlCommand(strSetCaseToClosed, connRN);
+                                SqlCommand cmdSetCaseToClosed = new SqlCommand(strSetCaseToClosed);
+
                                 cmdSetCaseToClosed.CommandType = CommandType.Text;
 
                                 cmdSetCaseToClosed.Parameters.AddWithValue("@CaseNo", CaseNo);
                                 cmdSetCaseToClosed.Parameters.AddWithValue("@IndividualId", IndividualId);
 
-                                if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State == ConnectionState.Open)
+                                //{
+                                //    connRN.Close();
+                                //    connRN.Open();
+                                //}
+                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdSetCaseToClosed.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdSetCaseToClosed.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdSetCaseToClosed.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
+
                                 int nCaseClosed = cmdSetCaseToClosed.ExecuteNonQuery();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 if (nCaseClosed == 1)
                                 {
@@ -8121,19 +9494,54 @@ namespace CMMManager
                                                   "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
                                                   "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
 
-                        SqlCommand cmdQueryForTotalSharedAmountInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountInMedBill, connRN);
+                        //SqlCommand cmdQueryForTotalSharedAmountInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountInMedBill, connRN);
+                        SqlCommand cmdQueryForTotalSharedAmountInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountInMedBill);
+
                         cmdQueryForTotalSharedAmountInMedBill.CommandType = CommandType.Text;
 
                         cmdQueryForTotalSharedAmountInMedBill.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalSharedAmountInMedBill.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalSharedAmountInMedBill.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForTotalSharedAmountInMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objTotalSharedAmountInMedBill = cmdQueryForTotalSharedAmountInMedBill.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal TotalSharedAmountInMedBill = 0;
                         if (objTotalSharedAmountInMedBill.ToString() != String.Empty) TotalSharedAmountInMedBill = Decimal.Parse(objTotalSharedAmountInMedBill.ToString());
@@ -8145,19 +9553,54 @@ namespace CMMManager
                                                                      "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
                                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
 
-                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN);
+                        //SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN);
+                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund);
+
                         cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
 
                         cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForMedicalProviderRefund.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedicalProviderRefund.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProviderRefund.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objTotalMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal TotalMedicalProviderRefund = 0;
                         if (objTotalMedicalProviderRefund.ToString() != String.Empty) TotalMedicalProviderRefund = Decimal.Parse(objTotalMedicalProviderRefund.ToString());
@@ -8180,7 +9623,9 @@ namespace CMMManager
                                                   "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
 
 
-                        SqlCommand cmdUpdateMedBillWithTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillWithTotalSharedAmount, connRN);
+                        //SqlCommand cmdUpdateMedBillWithTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillWithTotalSharedAmount, connRN);
+                        SqlCommand cmdUpdateMedBillWithTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillWithTotalSharedAmount);
+
                         cmdUpdateMedBillWithTotalSharedAmount.CommandType = CommandType.Text;
 
                         cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountInMedBill);
@@ -8190,14 +9635,46 @@ namespace CMMManager
                         cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
                         cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdUpdateMedBillWithTotalSharedAmount.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateMedBillWithTotalSharedAmount.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdUpdateMedBillWithTotalSharedAmount.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         int nMedBillUpdated = cmdUpdateMedBillWithTotalSharedAmount.ExecuteNonQuery();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (nMedBillUpdated == 0)
                         {
@@ -8218,7 +9695,9 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
                                                  "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
 
-                        SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN);
+                        //SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN);
+                        SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount);
+
                         cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
 
                         //cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
@@ -8226,14 +9705,47 @@ namespace CMMManager
                         cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
                         cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentTotalSharedAmount.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentTotalSharedAmount.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentTotalSharedAmount.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal IncidentTotalSharedAmount = 0;
                         if (objIncidentTotalSharedAmount.ToString() != String.Empty) IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
@@ -8256,7 +9768,9 @@ namespace CMMManager
                                                "[dbo].[tbl_incident].[Incident_id] = @IncidentId and " +
                                                "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                        SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount, connRN);
+                        //SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount, connRN);
+                        SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount);
+
                         cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
 
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
@@ -8265,14 +9779,48 @@ namespace CMMManager
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdUpdateIncidentSharedTotal.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateIncidentSharedTotal.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdUpdateIncidentSharedTotal.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
+
                         int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (nIncidentUpdated == 1)
                         {
@@ -8287,21 +9835,56 @@ namespace CMMManager
                                                 "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
                                                 "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                            SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN);
+                            //SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN);
+                            SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount);
+
                             cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
 
                             //cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
                             cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
                             cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessTotalSharedAmount.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIllnessTotalSharedAmount.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIllnessTotalSharedAmount.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             Decimal IllnessTotalSharedAmount = 0;
                             if (objIllnessTotalSharedAmount.ToString() != String.Empty) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
@@ -8317,7 +9900,9 @@ namespace CMMManager
                                         "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
                                         "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                            SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN);
+                            //SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN);
+                            SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal);
+
                             cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
 
                             cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
@@ -8325,14 +9910,47 @@ namespace CMMManager
                             //cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
                             cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                            if (connRN.State == ConnectionState.Open)
+                            //if (connRN.State == ConnectionState.Open)
+                            //{
+                            //    connRN.Close();
+                            //    connRN.Open();
+                            //}
+                            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
                                 connRN.Close();
-                                connRN.Open();
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    cmdUpdateIllnessSharedTotal.Connection = connRN2;
+                                    connRN2.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                }
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdUpdateIllnessSharedTotal.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
                             }
-                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateIllnessSharedTotal.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+
                             int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
-                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                            {
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+                            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                            {
+                                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            }
 
                             if (nIllnessUpdated == 1)
                             {
@@ -8346,21 +9964,56 @@ namespace CMMManager
                                                     "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
                                                     "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                                SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN);
+                                //SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN);
+                                SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount);
+
                                 cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
 
                                 //cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
                                 //cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@CaseId", txtMedBill_CaseNo.Text.Trim());
                                 cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                                if (connRN.State == ConnectionState.Open)
+                                //if (connRN.State == ConnectionState.Open)
+                                //{
+                                //    connRN.Close();
+                                //    connRN.Open();
+                                //}
+                                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                                if (connRN.State != ConnectionState.Closed)
                                 {
                                     connRN.Close();
-                                    connRN.Open();
+                                    if (connRN.State != ConnectionState.Closed)
+                                    {
+                                        cmdQueryForIndividualTotalSharedAmount.Connection = connRN2;
+                                        connRN2.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                                    }
+                                    else if (connRN.State == ConnectionState.Closed)
+                                    {
+                                        cmdQueryForIndividualTotalSharedAmount.Connection = connRN;
+                                        connRN.Open();
+                                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                    }
                                 }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                else if (connRN.State == ConnectionState.Closed)
+                                {
+                                    cmdQueryForIndividualTotalSharedAmount.Connection = connRN;
+                                    connRN.Open();
+                                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                                }
+
                                 Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                                if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                                {
+                                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                }
+                                else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                                {
+                                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                                }
 
                                 Decimal IndividualTotalSharedAmount = 0;
                                 if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
@@ -8408,19 +10061,54 @@ namespace CMMManager
                                                          "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
                                                          "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                        SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId, connRN);
+                        //SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId, connRN);
+                        SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId);
+
                         cmdQueryForTotalMedBillAmountForIndividualId.CommandType = CommandType.Text;
 
                         cmdQueryForTotalMedBillAmountForIndividualId.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForTotalMedBillAmountForIndividualId.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objTotalMedBillAmountForIndividualId = cmdQueryForTotalMedBillAmountForIndividualId.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         Decimal TotalMedBillAmountForIndividualId = 0;
                         if (objTotalMedBillAmountForIndividualId != null) TotalMedBillAmountForIndividualId = Decimal.Parse(objTotalMedBillAmountForIndividualId.ToString());
@@ -12638,15 +14326,38 @@ namespace CMMManager
                     txtCreateCaseIndividualName.Text = IndividualName;
 
                     String strSqlQueryForCaseStatus = "select [dbo].[tbl_case_status_code].[CaseStatusValue] from [dbo].[tbl_case_status_code]";
-                    SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus, connRN);
+                    //SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus, connRN);
+                    SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus);
                     cmdQueryForCaseStatus.CommandType = CommandType.Text;
 
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForCaseStatus.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCaseStatus.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCaseStatus.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrCaseStatus = cmdQueryForCaseStatus.ExecuteReader();
                     cbCaseStatus.Items.Clear();
@@ -12657,7 +14368,15 @@ namespace CMMManager
                             cbCaseStatus.Items.Add(rdrCaseStatus.GetString(0));
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
 
                     String strSqlQueryForCase = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case].[Contact_ID], [dbo].[tbl_case].[CreateDate], [dbo].[tbl_case].[ModifiDate], " +
@@ -12670,19 +14389,43 @@ namespace CMMManager
                                                 "[dbo].[tbl_case].[Case_status], [dbo].[tbl_case].[Note] " +
                                                 "from [dbo].[tbl_case] where [dbo].[tbl_case].[Case_Name] = @CaseName and [dbo].[tbl_case].[Contact_ID] = @IndividualID";
 
-                    SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN);
+                    //SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN);
+                    SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase);
+
                     cmdQueryForCase.CommandType = CommandType.Text;
 
                     cmdQueryForCase.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
                     cmdQueryForCase.Parameters.AddWithValue("@IndividualID", IndividualId);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForCase.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCase.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
                     SqlDataReader rdrCaseForIndividual = cmdQueryForCase.ExecuteReader();
                     if (rdrCaseForIndividual.HasRows)
@@ -12791,7 +14534,15 @@ namespace CMMManager
                         tbCMMManager.TabPages.Insert(4, tbpgCreateCase);
                         tbCMMManager.SelectedIndex = 4;
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     //String strSqlQueryForMedBillInCase = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill_type].[MedBillTypeName], " +
                     //                                     "[dbo].[tbl_medbill].[CreatedDate], [dbo].[tbl_medbill].[CreatedById], " +
@@ -12813,26 +14564,47 @@ namespace CMMManager
                                      "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
                                      "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
+                    //SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+                    SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase);
 
-
-                    SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
                     cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
 
                     cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
                     cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualId);
 
-                    SqlDependency dependencyMedBillInCase = new SqlDependency(cmdQueryForMedBillsInCase);
-                    dependencyMedBillInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseChange);
-
-
-
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillsInCase.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillsInCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillsInCase.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
+
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    SqlDependency dependencyMedBillInCase = new SqlDependency(cmdQueryForMedBillsInCase);
+                    dependencyMedBillInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseChange);
 
                     SqlDataReader rdrMedBillInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
@@ -12859,7 +14631,15 @@ namespace CMMManager
                         }
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
                 }
             }
         }
@@ -12892,22 +14672,53 @@ namespace CMMManager
                  "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
                  "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-            SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+            //SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+            SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase);
+
             cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
 
             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualId);
 
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    cmdQueryForMedBillsInCase.Connection = connRN;
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillsInCase.Connection = connRN;
+                    connRN.Open();
+                }
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    cmdQueryForMedBillsInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillsInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+            }
+
             SqlDependency dependencyMedBillInCase = new SqlDependency(cmdQueryForMedBillsInCase);
             dependencyMedBillInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseChange);
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
             SqlDataReader rdrMedBillInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
             //gvCasePageMedBills.Rows.Clear();
@@ -12935,7 +14746,15 @@ namespace CMMManager
                 }
             }
 
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
         }
 
         private void gvCasePageMedBills_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -12979,16 +14798,40 @@ namespace CMMManager
                     // populate Medical Bill types
                     String strSqlQueryForMedBillTypes = "select [dbo].[tbl_medbill_type].[MedBillTypeId], [dbo].[tbl_medbill_type].[MedBillTypeName] from [dbo].[tbl_medbill_type]";
 
+                    //SqlCommand cmdQueryForMedBillTypes = new SqlCommand(strSqlQueryForMedBillTypes, connRN);
                     SqlCommand cmdQueryForMedBillTypes = new SqlCommand(strSqlQueryForMedBillTypes, connRN);
+
                     cmdQueryForMedBillTypes.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillTypes.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillTypes.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillTypes.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrMedBillTypes = cmdQueryForMedBillTypes.ExecuteReader();
                     dicMedBillTypes.Clear();
@@ -13003,7 +14846,19 @@ namespace CMMManager
                             }
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                        }
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
 
 
@@ -13103,20 +14958,44 @@ namespace CMMManager
                                    "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
                                    "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit, connRN);
+                    //SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit, connRN);
+                    SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit);
+
                     cmdQueryForMedBillEdit.CommandType = CommandType.Text;
 
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@MedBillNo", MedBillNo);
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@CaseName", CaseNameInMedBill);
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillEdit.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillEdit.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillEdit.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrMedBillEdit = cmdQueryForMedBillEdit.ExecuteReader();
                     if (rdrMedBillEdit.HasRows)
@@ -13302,7 +15181,16 @@ namespace CMMManager
 
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///
@@ -13454,19 +15342,43 @@ namespace CMMManager
                                                          "[dbo].[tbl_case].[Contact_ID] = @IndividualId and " +
                                                          "[dbo].[tbl_case].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo, connRN);
+                    //SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo, connRN);
+                    SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo);
+
                     cmdQueryForDocInfo.CommandType = CommandType.Text;
 
                     cmdQueryForDocInfo.Parameters.AddWithValue("@CaseId", CaseNameInMedBill);
                     cmdQueryForDocInfo.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForDocInfo.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForDocInfo.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForDocInfo.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrDocInfo = cmdQueryForDocInfo.ExecuteReader();
                     if (rdrDocInfo.HasRows)
                     {
@@ -13578,29 +15490,69 @@ namespace CMMManager
                         strContactIdSelected = IndividualIdInMedBill;
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String strSqlQueryForIncidentProgram = "select [dbo].[tbl_program].[ProgramName] from [dbo].[tbl_program] " +
                                                            "inner join [dbo].[tbl_incident] on [dbo].[tbl_program].[Program_id] = [dbo].[tbl_incident].[Program_id] " +
                                                            "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                    SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram, connRN);
+                    //SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram, connRN);
+                    SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram);
+
                     cmdQueryForIncidentProgram.CommandType = CommandType.Text;
 
                     cmdQueryForIncidentProgram.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
                     cmdQueryForIncidentProgram.Parameters.AddWithValue("@IncidentNo", txtMedBill_Incident.Text.Trim());
                     //cmdQueryForIncidentProgram.Parameters.AddWithValue("@IncidentId", txtMedBill_Incident.Text.Trim());
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentProgram.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentProgram.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    //String IncidentProgramName = cmdQueryForIncidentProgram.ExecuteScalar()?.ToString();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForIncidentProgram.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     Object objIncidentProgramName = cmdQueryForIncidentProgram.ExecuteScalar();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String IncidentProgramName = String.Empty;
                     if (objIncidentProgramName != null) IncidentProgramName = objIncidentProgramName.ToString();
@@ -13623,20 +15575,44 @@ namespace CMMManager
                         txtMemberProgram.BackColor = Color.FromKnownColor(KnownColor.Control);
                     }
 
-                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
 
-                    SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connRN);
+                    //SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connRN);
+                    SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider);
+
                     cmdQueryForMedicalProvider.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
-                    if (connRN.State == ConnectionState.Open)
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProvider.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProvider.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedicalProvider.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
 
                     SqlDataReader rdrMedicalProvider = cmdQueryForMedicalProvider.ExecuteReader();
 
@@ -13655,7 +15631,15 @@ namespace CMMManager
                         }
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     var srcMedicalProvider = new AutoCompleteStringCollection();
 
@@ -13680,16 +15664,41 @@ namespace CMMManager
                     String strSqlQueryForPaymentMethod = "select [dbo].[tbl_payment_method].[PaymentMethod_Id], [dbo].[tbl_payment_method].[PaymentMethod_Value] from [dbo].[tbl_payment_method] " +
                                                          "order by [dbo].[tbl_payment_method].[PaymentMethod_Value]";
 
-                    SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN);
+                    //SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN);
+                    SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod);
                     cmdQueryForPaymentMethod.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForPaymentMethod.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForPaymentMethod.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForPaymentMethod.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
+
                     SqlDataReader rdrPaymentMethod = cmdQueryForPaymentMethod.ExecuteReader();
                     if (rdrPaymentMethod.HasRows)
                     {
@@ -13699,22 +15708,54 @@ namespace CMMManager
                             else lstPaymentMethod.Add(new PaymentMethod { PaymentMethodId = rdrPaymentMethod.GetInt16(0), PaymentMethodValue = null });
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     // Retrieve credit card info
                     lstCreditCardInfo.Clear();
                     String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
-                    SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
+                    //SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
+                    SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo);
+
                     cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForCreditCardInfo.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCreditCardInfo.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCreditCardInfo.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrCreditCardInfo = cmdQueryForCreditCardInfo.ExecuteReader();
                     if (rdrCreditCardInfo.HasRows)
@@ -13727,7 +15768,15 @@ namespace CMMManager
                                 lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String strSqlQueryForSettlement = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], [dbo].[tbl_settlement].[Amount], " +
                                                       "[dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_payment_method].[PaymentMethod_Value], " +
@@ -13745,7 +15794,9 @@ namespace CMMManager
                                                       "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                                       "order by [dbo].[tbl_settlement].[Name]";
 
-                    SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                    //SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                    SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement);
+
                     cmdQueryForSettlement.CommandType = CommandType.Text;
 
                     cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", MedBillNo);
@@ -13753,13 +15804,36 @@ namespace CMMManager
                     SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
                     dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForSettlement.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
                     gvSettlementsInMedBill.Rows.Clear();
                     if (rdrSettlement.HasRows)
@@ -13868,7 +15942,15 @@ namespace CMMManager
                                 DataGridViewCheckBoxCell approvedCell = new DataGridViewCheckBoxCell();
                                 approvedCell.Value = rdrSettlement.GetBoolean(5);
                                 approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
                                 row.Cells.Add(approvedCell);
+
+                                if (LoggedInUserRole == UserRole.RNStaff ||
+                                    LoggedInUserRole == UserRole.NPStaff)
+                                {
+                                    approvedCell.ReadOnly = true;
+                                }
+
                             }
                             else
                             {
@@ -14030,7 +16112,15 @@ namespace CMMManager
                             //AddNewRowToGVSettlementSafely(row);
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///
@@ -14324,19 +16414,44 @@ namespace CMMManager
                                                             "[dbo].[tbl_case].[Case_Name] = @CaseId and " +
                                                             "[dbo].[tbl_case].[Contact_ID] = @IndividualID";
 
-                    SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfoSelected, connRN);
+                    //SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfoSelected, connRN);
+                    SqlCommand cmdQueryForCaseInfo = new SqlCommand(strSqlQueryForCaseInfoSelected);
+
                     cmdQueryForCaseInfo.CommandType = CommandType.Text;
 
                     cmdQueryForCaseInfo.Parameters.AddWithValue("@CaseId", CaseIdSelected);
                     cmdQueryForCaseInfo.Parameters.AddWithValue("@IndividualID", IndividualIdSelected);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForCaseInfo.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCaseInfo.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCaseInfo.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrCaseInfo = cmdQueryForCaseInfo.ExecuteReader();
 
                     if (rdrCaseInfo.HasRows)
@@ -14439,22 +16554,47 @@ namespace CMMManager
                                                           "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
                                                           "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase, connRN);
+                    //SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase, connRN);
+                    SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillsInCase);
+
                     cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
 
                     cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", CaseIdSelected);
                     cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualIdSelected);
 
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillsInCase.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillsInCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+                    }
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillsInCase.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDependency dependencyMedBillsInCaseEdit = new SqlDependency(cmdQueryForMedBillsInCase);
                     dependencyMedBillsInCaseEdit.OnChange += new OnChangeEventHandler(OnMedBillsInCaseEditChange);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
-                    {
-                        connRN.Close();
-                        connRN.Open();
-                    }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
                     SqlDataReader rdrMedBillsInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
                     gvCasePageMedBills.Rows.Clear();
@@ -14479,7 +16619,15 @@ namespace CMMManager
                             gvCasePageMedBills.Rows.Add(row);
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     btnNewMedBill_Case.Enabled = true;
                     btnEditMedBill.Enabled = true;
@@ -14548,17 +16696,46 @@ namespace CMMManager
             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", CaseIdSelected);
             cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualIdSelected);
 
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    cmdQueryForMedBillsInCase.Connection = connRN;
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillsInCase.Connection = connRN;
+                    connRN.Open();
+                }
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    cmdQueryForMedBillsInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForMedBillsInCase.Connection = connRN2;
+                    connRN2.Open();
+                }
+            }
+
+            SqlDataReader rdrMedBillsInCase = cmdQueryForMedBillsInCase.ExecuteReader();
+
             SqlDependency dependencyMedBillsInCaseEdit = new SqlDependency(cmdQueryForMedBillsInCase);
             dependencyMedBillsInCaseEdit.OnChange += new OnChangeEventHandler(OnMedBillsInCaseEditChange);
-
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            SqlDataReader rdrMedBillsInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
             //gvCasePageMedBills.Rows.Clear();
             if (IsHandleCreated) ClearMedBillsInCaseEditSafely();
@@ -14588,7 +16765,15 @@ namespace CMMManager
                     else gvCasePageMedBills.Rows.Add(row);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
         }
 
         private void btnEditMedBill_Click(object sender, EventArgs e)
@@ -14656,16 +16841,41 @@ namespace CMMManager
                     // MedBillNo, CaseNameInMedBill, IndividualIdInMedBill
                     String strSqlQueryForMedBillTypes = "select [dbo].[tbl_medbill_type].[MedBillTypeId], [dbo].[tbl_medbill_type].[MedBillTypeName] from [dbo].[tbl_medbill_type]";
 
-                    SqlCommand cmdQueryForMedBillTypes = new SqlCommand(strSqlQueryForMedBillTypes, connRN);
+                    //SqlCommand cmdQueryForMedBillTypes = new SqlCommand(strSqlQueryForMedBillTypes, connRN);
+                    SqlCommand cmdQueryForMedBillTypes = new SqlCommand(strSqlQueryForMedBillTypes);
+
                     cmdQueryForMedBillTypes.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillTypes.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillTypes.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillTypes.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrMedBillTypes = cmdQueryForMedBillTypes.ExecuteReader();
                     dicMedBillTypes.Clear();
 
@@ -14679,7 +16889,16 @@ namespace CMMManager
                             }
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
+
                     /////////////////////////////////////////////////////////////////////////////////////////
                     ///
 
@@ -14771,19 +16990,44 @@ namespace CMMManager
                                                        "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
                                                        "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit, connRN);
+                    //SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit, connRN);
+                    SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit);
+
                     cmdQueryForMedBillEdit.CommandType = CommandType.Text;
 
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@MedBillNo", MedBillNo);
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@CaseName", CaseNameInMedBill);
                     cmdQueryForMedBillEdit.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
 
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillEdit.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillEdit.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedBillEdit.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrMedBillEdit = cmdQueryForMedBillEdit.ExecuteReader();
                     if (rdrMedBillEdit.HasRows)
@@ -14969,11 +17213,15 @@ namespace CMMManager
 
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
-
-
-
-
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
                     //if (connRN.State == ConnectionState.Open)
@@ -15268,7 +17516,7 @@ namespace CMMManager
 
                         cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", ICD10Code);
 
-                        if (connSalesforce.State == ConnectionState.Open)
+                        if (connSalesforce.State != ConnectionState.Closed)
                         {
                             connSalesforce.Close();
                             connSalesforce.Open();
@@ -15306,19 +17554,45 @@ namespace CMMManager
                                                          "[dbo].[tbl_case].[Contact_ID] = @IndividualId and" +
                                                          "[dbo].[tbl_case].[IsDeleted] = 0";
 
-                    SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo, connRN);
+                    //SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo, connRN);
+                    SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo);
+
                     cmdQueryForDocInfo.CommandType = CommandType.Text;
 
                     cmdQueryForDocInfo.Parameters.AddWithValue("@CaseId", CaseNameInMedBill);
                     cmdQueryForDocInfo.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
 
                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForDocInfo.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForDocInfo.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForDocInfo.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDataReader rdrDocInfo = cmdQueryForDocInfo.ExecuteReader();
                     if (rdrDocInfo.HasRows)
                     {
@@ -15430,7 +17704,15 @@ namespace CMMManager
                         strContactIdSelected = IndividualIdInMedBill;
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     //String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[ICD_10_Id] = @ICD10Code";
 
@@ -15448,22 +17730,54 @@ namespace CMMManager
                                                            "on [dbo].[tbl_program].[Program_id] = [dbo].[tbl_incident].[Program_id] " +
                                                            "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                    SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram, connRN);
+                    //SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram, connRN);
+                    SqlCommand cmdQueryForIncidentProgram = new SqlCommand(strSqlQueryForIncidentProgram);
+
                     cmdQueryForIncidentProgram.CommandType = CommandType.Text;
 
                     cmdQueryForIncidentProgram.Parameters.AddWithValue("@IndividualId", IndividualIdInMedBill);
                     cmdQueryForIncidentProgram.Parameters.AddWithValue("@IncidentNo", txtMedBill_Incident.Text.Trim());
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentProgram.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentProgram.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    //String IncidentProgramName = cmdQueryForIncidentProgram.ExecuteScalar().ToString();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForIncidentProgram.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     Object objIncidentProgramName = cmdQueryForIncidentProgram.ExecuteScalar();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String IncidentProgramName = String.Empty;
                     if (objIncidentProgramName != null) IncidentProgramName = objIncidentProgramName.ToString();
@@ -15490,16 +17804,40 @@ namespace CMMManager
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
 
-                    SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connRN);
+                    //SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connRN);
+                    SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider);
+
                     cmdQueryForMedicalProvider.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProvider.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedicalProvider.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForMedicalProvider.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrMedicalProvider = cmdQueryForMedicalProvider.ExecuteReader();
 
@@ -15518,7 +17856,15 @@ namespace CMMManager
                         }
                     }
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     var srcMedicalProvider = new AutoCompleteStringCollection();
 
@@ -15535,16 +17881,42 @@ namespace CMMManager
                     String strSqlQueryForPaymentMethod = "select [dbo].[tbl_payment_method].[PaymentMethod_Id], [dbo].[tbl_payment_method].[PaymentMethod_Value] from [dbo].[tbl_payment_method] " +
                                                          "order by [dbo].[tbl_payment_method].[PaymentMethod_Value]";
 
-                    SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN);
+                    //SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN);
+                    SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod);
+
                     cmdQueryForPaymentMethod.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForPaymentMethod.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForPaymentMethod.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForPaymentMethod.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
+
                     SqlDataReader rdrPaymentMethod = cmdQueryForPaymentMethod.ExecuteReader();
                     if (rdrPaymentMethod.HasRows)
                     {
@@ -15554,22 +17926,54 @@ namespace CMMManager
                             else lstPaymentMethod.Add(new PaymentMethod { PaymentMethodId = rdrPaymentMethod.GetInt16(0), PaymentMethodValue = null });
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     // Retrieve credit card info
                     lstCreditCardInfo.Clear();
                     String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
+                    //SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
                     SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
+
                     cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForCreditCardInfo.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCreditCardInfo.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForCreditCardInfo.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
 
                     SqlDataReader rdrCreditCardInfo = cmdQueryForCreditCardInfo.ExecuteReader();
                     if (rdrCreditCardInfo.HasRows)
@@ -15582,7 +17986,16 @@ namespace CMMManager
                                 lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     String strSqlQueryForSettlement = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], [dbo].[tbl_settlement].[Amount], " +
                                   "[dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_payment_method].[PaymentMethod_Value], " +
@@ -15600,21 +18013,46 @@ namespace CMMManager
                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                   "order by [dbo].[tbl_settlement].[Name]";
 
-                    SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                    //SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN);
+                    SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement);
+
                     cmdQueryForSettlement.CommandType = CommandType.Text;
 
                     cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", MedBillNo);
 
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+                    }
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForSettlement.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
                     dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
-                    {
-                        connRN.Close();
-                        connRN.Open();
-                    }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
                     SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
                     gvSettlementsInMedBill.Rows.Clear();
 
@@ -15880,7 +18318,16 @@ namespace CMMManager
                             gvSettlementsInMedBill.Rows.Add(row);
                         }
                     }
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
 
                     //if (txtIncdProgram.Text.Trim() != String.Empty)
                     //{
@@ -16190,16 +18637,45 @@ namespace CMMManager
 
             cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", MedBillNo);
 
+            //if (connRN.State != ConnectionState.Closed)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State != ConnectionState.Open) connRN.Open();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    cmdQueryForSettlement.Connection = connRN;
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForSettlement.Connection = connRN;
+                    connRN.Open();
+                }
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    cmdQueryForSettlement.Connection = connRN2;
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForSettlement.Connection = connRN2;
+                    connRN2.Open();
+                }
+            }
+
+            SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
+
             SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
             dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
-
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State != ConnectionState.Open) connRN.Open();
-            SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
 
             if (IsHandleCreated) ClearGVSettlementSafely();
             else gvSettlementsInMedBill.Rows.Clear();
@@ -16465,7 +18941,16 @@ namespace CMMManager
                     else gvSettlementsInMedBill.Rows.Add(row);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             //for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
             //{
@@ -16907,14 +19392,46 @@ namespace CMMManager
 
                         cmdQueryForMedBillForCase.Parameters.AddWithValue("@CaseName", lstCaseInfoToDelete[i].CaseName);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillForCase.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillForCase.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillForCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         Object objMedBillNo = cmdQueryForMedBillForCase.ExecuteScalar();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (objMedBillNo != null)
                         {
@@ -16991,6 +19508,26 @@ namespace CMMManager
                 return;
             }
 
+            Boolean bCannotDeleted = false;
+
+            for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+            {
+                if ((Boolean)gvSettlementsInMedBill["Selected", i]?.Value == true)
+                {
+                    if ((Boolean)gvSettlementsInMedBill["Approved", i]?.Value == true &&
+                        LoggedInUserRole != UserRole.SuperAdmin)
+                    {
+                        bCannotDeleted = true;
+                    }
+                }
+            }
+
+            if (bCannotDeleted == true)
+            {
+                MessageBox.Show("You cannot delete the settlements selected.", "Alert");
+                return;
+            }
+
             DialogResult dr = MessageBox.Show("Are you sure to delete selected settlements?", "Alert", MessageBoxButtons.YesNo);
 
             if (dr == DialogResult.Yes)     // delete settlement
@@ -17010,19 +19547,53 @@ namespace CMMManager
                     cmdQueryForSettlement.Parameters.AddWithValue("@SettlementNo", settlement);
 
                     //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN.State == ConnectionState.Open)
+                    //if (connRN.State == ConnectionState.Open)
+                    //{
+                    //    connRN.Close();
+                    //    connRN.Open();
+                    //}
+                    //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
-                        connRN.Open();
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN2;
+                            connRN2.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlement.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForSettlement.Connection = connRN;
+                        connRN.Open();
+                        RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                    }
+
                     //String Settlement = cmdQueryForSettlement.ExecuteScalar()?.ToString();
                     Object objSettlement = cmdQueryForSettlement.ExecuteScalar();
 
                     String Settlement = String.Empty;
                     if (objSettlement != null) Settlement = objSettlement.ToString();
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                    {
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    }
+                    else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                    {
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
+
                     if (Settlement == String.Empty)
                     {
                         for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
@@ -17047,14 +19618,46 @@ namespace CMMManager
                         cmdUpdateSettlement.Parameters.AddWithValue("@MedicalBillNo", MedBillNo);
 
                         //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdUpdateSettlement.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdUpdateSettlement.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdUpdateSettlement.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         int nRowAffected = cmdUpdateSettlement.ExecuteNonQuery();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (nRowAffected == 1) nDeletedSettlements++;
                     }
@@ -17117,15 +19720,39 @@ namespace CMMManager
                     {
                         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         String strSqlQueryForCaseStatus = "select [dbo].[tbl_case_status_code].[CaseStatusValue] from [dbo].[tbl_case_status_code]";
-                        SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus, connRN);
+                        //SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus, connRN);
+                        SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus);
                         cmdQueryForCaseStatus.CommandType = CommandType.Text;
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForCaseStatus.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForCaseStatus.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCaseStatus.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;                            
+                        }
 
                         SqlDataReader rdrCaseStatus = cmdQueryForCaseStatus.ExecuteReader();
                         cbCaseStatus.Items.Clear();
@@ -17136,7 +19763,15 @@ namespace CMMManager
                                 cbCaseStatus.Items.Add(rdrCaseStatus.GetString(0));
                             }
                         }
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         String CaseIdForIndividual = gvProcessingCaseNo["CaseIdForIndividual", nRowSelected]?.Value?.ToString();
                         String IndividualIdForCase = txtIndividualID.Text.Trim();
@@ -17157,12 +19792,35 @@ namespace CMMManager
                         cmdQueryForCase.Parameters.AddWithValue("@CaseName", CaseIdForIndividual);
                         cmdQueryForCase.Parameters.AddWithValue("@IndividualID", IndividualIdForCase);
 
-                        if (connRN.State == ConnectionState.Open)
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForCase.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForCase.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
 
                         SqlDataReader rdrCaseForIndividual = cmdQueryForCase.ExecuteReader();
                         if (rdrCaseForIndividual.HasRows)
@@ -17230,7 +19888,15 @@ namespace CMMManager
                             tbCMMManager.TabPages.Insert(4, tbpgCreateCase);
                             tbCMMManager.SelectedIndex = 4;
                         }
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         String strSqlQueryForMedBillInCase = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill_type].[MedBillTypeName], " +
                                          "[dbo].[tbl_medbill].[CreatedDate], [dbo].[tbl_CreateStaff].[Staff_Name], " +
@@ -17244,21 +19910,48 @@ namespace CMMManager
 
 
 
-                        SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+                        //SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN);
+                        SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase);
+
                         cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
 
                         cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", CaseIdForIndividual);
                         cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualIdForCase);
 
+
+                        //if (connRN.State == ConnectionState.Open)
+                        //{
+                        //    connRN.Close();
+                        //    connRN.Open();
+                        //}
+                        //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillsInCase.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillsInCase.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForMedBillsInCase.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         SqlDependency dependencyMedBillInCase = new SqlDependency(cmdQueryForMedBillsInCase);
                         dependencyMedBillInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseChange);
 
-                        if (connRN.State == ConnectionState.Open)
-                        {
-                            connRN.Close();
-                            connRN.Open();
-                        }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
                         SqlDataReader rdrMedBillInCase = cmdQueryForMedBillsInCase.ExecuteReader();
 
@@ -17285,7 +19978,15 @@ namespace CMMManager
                             }
                         }
 
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        //if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                     }
                 }
@@ -18081,11 +20782,6 @@ namespace CMMManager
             cmdQueryForCasesIndividualPage.CommandType = CommandType.Text;
             cmdQueryForCasesIndividualPage.Parameters.AddWithValue("@IndividualID", IndividualIdIndividualPage);
 
-            cmdQueryForCasesIndividualPage.Notification = null;
-
-            SqlDependency dependencyCaseForIndividual = new SqlDependency(cmdQueryForCasesIndividualPage);
-            dependencyCaseForIndividual.OnChange += new OnChangeEventHandler(OnCaseForIndividualChange);
-
             if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
@@ -18108,6 +20804,11 @@ namespace CMMManager
                 connRN.Open();
                 RN_ConnectionOpen = SqlConnectionOpen.RNConn;
             }
+
+            SqlDependency dependencyCaseForIndividual = new SqlDependency(cmdQueryForCasesIndividualPage);
+            dependencyCaseForIndividual.OnChange += new OnChangeEventHandler(OnCaseForIndividualChange);
+            cmdQueryForCasesIndividualPage.Notification = null;
+
             SqlDataReader rdrCasesForIndividual = cmdQueryForCasesIndividualPage.ExecuteReader();
 
             gvProcessingCaseNo.Rows.Clear();
@@ -18188,16 +20889,33 @@ namespace CMMManager
 
             String strSqlQueryForCreateStaff = "select dbo.tbl_CreateStaff.CreateStaff_Id, dbo.tbl_CreateStaff.Staff_Name from dbo.tbl_CreateStaff";
 
-            SqlCommand cmdQueryForCreateStaff = new SqlCommand(strSqlQueryForCreateStaff, connRN);
+            //SqlCommand cmdQueryForCreateStaff = new SqlCommand(strSqlQueryForCreateStaff, connRN);
+            SqlCommand cmdQueryForCreateStaff = new SqlCommand(strSqlQueryForCreateStaff);
             cmdQueryForCreateStaff.CommandType = CommandType.Text;
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForCreateStaff.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCreateStaff.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForCreateStaff.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
             SqlDataReader rdrCreateStaff = cmdQueryForCreateStaff.ExecuteReader();
 
             lstCreateStaff.Clear();
@@ -18208,20 +20926,46 @@ namespace CMMManager
                     lstCreateStaff.Add(new StaffInfo { StaffId = rdrCreateStaff.GetInt16(0), StaffName = rdrCreateStaff.GetString(1) });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             String strSqlQueryForModifiStaff = "select dbo.tbl_ModifiStaff.ModifiStaff_Id, dbo.tbl_ModifiStaff.Staff_Name from dbo.tbl_ModifiStaff";
 
-            SqlCommand cmdQueryForModifiStaff = new SqlCommand(strSqlQueryForModifiStaff, connRN);
+            //SqlCommand cmdQueryForModifiStaff = new SqlCommand(strSqlQueryForModifiStaff, connRN);
+            SqlCommand cmdQueryForModifiStaff = new SqlCommand(strSqlQueryForModifiStaff);
+
             cmdQueryForModifiStaff.CommandType = CommandType.Text;
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
+            if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
-                connRN.Open();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForModifiStaff.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForModifiStaff.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForModifiStaff.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
             SqlDataReader rdrModifiStaff = cmdQueryForModifiStaff.ExecuteReader();
 
             lstModifiStaff.Clear();
@@ -18232,7 +20976,16 @@ namespace CMMManager
                     lstModifiStaff.Add(new StaffInfo { StaffId = rdrModifiStaff.GetInt16(0), StaffName = rdrModifiStaff.GetString(1) });
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             String strSqlQueryForCases = "select dbo.tbl_case.Case_Name, dbo.tbl_case.CreateDate, dbo.tbl_case.CreateStaff, " +
@@ -18242,22 +20995,47 @@ namespace CMMManager
                                          "order by [dbo].[tbl_case].[ID]";
 
 
-            SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases, connRN);
+            //SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases, connRN);
+            SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases);
             cmdQueryForCases.CommandType = CommandType.Text;
 
             cmdQueryForCases.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    cmdQueryForCases.Connection = connRN2;
+                    connRN2.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                }
+                else if (connRN.State == ConnectionState.Closed)
+                {
+                    cmdQueryForCases.Connection = connRN;
+                    connRN.Open();
+                    RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                }
+            }
+            else if (connRN.State == ConnectionState.Closed)
+            {
+                cmdQueryForCases.Connection = connRN;
+                connRN.Open();
+                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+            }
+
             SqlDependency dependencyCase = new SqlDependency(cmdQueryForCases);
             dependencyCase.OnChange += new OnChangeEventHandler(OnCaseChange);
 
+            //if (connRN.State == ConnectionState.Open)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN.State == ConnectionState.Open)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+
             SqlDataReader reader = cmdQueryForCases.ExecuteReader();
             gvCaseViewCaseHistory.Rows.Clear();
             if (reader.HasRows)
@@ -18297,7 +21075,15 @@ namespace CMMManager
                     gvCaseViewCaseHistory.Rows.Add(row);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+            {
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+            {
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+            }
 
             //tbCMMManager.TabPages.Add(tbpgIndividual);
             //tbCMMManager.TabPages.Add(tbpgCaseView);
@@ -18330,6 +21116,53 @@ namespace CMMManager
                         nRowSelected++;
                         String MedBillToDelete = gvCasePageMedBills["MedBillNo", i].Value as String;
 
+                        String strSqlQueryForSettlementForMedBill = "select [dbo].[tbl_settlement].[Name] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo";
+
+                        SqlCommand cmdQueryForSettlementForMedBill = new SqlCommand(strSqlQueryForSettlementForMedBill);
+                        cmdQueryForSettlementForMedBill.CommandType = CommandType.Text;
+
+                        cmdQueryForSettlementForMedBill.Parameters.AddWithValue("@MedBillNo", MedBillToDelete);
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdQueryForSettlementForMedBill.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForSettlementForMedBill.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
+                        }
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForSettlementForMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
+                        Object objSettlementName = cmdQueryForSettlementForMedBill.ExecuteScalar();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
+
+                        if (objSettlementName != null)
+                        {
+                            MessageBox.Show("You cannot delete the Medical Bill. There is at least one settlement in the Medical Bill.", "Error");
+                            return;
+                        }
+
                         //String strSqlDeleteMedBill = "delete from [dbo].[tbl_medbill] where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
                         String strSqlDeleteMedBill = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[IsDeleted] = 1 where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
 
@@ -18338,15 +21171,39 @@ namespace CMMManager
 
                         cmdDeleteMedBill.Parameters.AddWithValue("@MedBillNo", MedBillToDelete);
 
-                        //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                        if (connRN.State == ConnectionState.Open)
+                        if (connRN.State != ConnectionState.Closed)
                         {
                             connRN.Close();
-                            connRN.Open();
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                cmdDeleteMedBill.Connection = connRN2;
+                                connRN2.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn2;
+                            }
+                            else if (connRN.State == ConnectionState.Closed)
+                            {
+                                cmdDeleteMedBill.Connection = connRN;
+                                connRN.Open();
+                                RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                            }
                         }
-                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        else if (connRN.State == ConnectionState.Closed)
+                        {
+                            cmdDeleteMedBill.Connection = connRN;
+                            connRN.Open();
+                            RN_ConnectionOpen = SqlConnectionOpen.RNConn;
+                        }
+
                         int nRowDeleted = cmdDeleteMedBill.ExecuteNonQuery();
-                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (RN_ConnectionOpen == SqlConnectionOpen.RNConn)
+                        {
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+                        }
+                        else if (RN_ConnectionOpen == SqlConnectionOpen.RNConn2)
+                        {
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        }
 
                         if (nRowDeleted == 0)
                         {

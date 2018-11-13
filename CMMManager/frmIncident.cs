@@ -12,6 +12,8 @@ using System.Globalization;
 
 namespace CMMManager
 {
+    public enum SqlConnectionIncidentOpen { RNDBConn, RNDBConn2, RNDBConn3 };
+
     public partial class frmIncident : Form
     {
         public IncidentOption SelectedOption;
@@ -28,7 +30,14 @@ namespace CMMManager
         //public Dictionary<int, String> dicProgram;
 
         public SqlConnection connRNDB;
+        public SqlConnection connRNDB2;
+        public SqlConnection connRNDB3;
+
         public String strRNDBConnString = String.Empty;
+        public String strRNDBConnString2 = String.Empty;
+        public String strRNDBConnString3 = String.Empty;
+
+        public SqlConnectionIncidentOpen RNDB_ConnectionIncidentOpen;
 
         public SelectedIllness IllnessSelected;
         public SelectedIncident IncidentSelected;
@@ -50,7 +59,13 @@ namespace CMMManager
             InitializeComponent();
 
             strRNDBConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+            strRNDBConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+            strRNDBConnString3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+
+
             connRNDB = new SqlConnection(strRNDBConnString);
+            connRNDB2 = new SqlConnection(strRNDBConnString2);
+            connRNDB3 = new SqlConnection(strRNDBConnString3);
 
             IncidentSelected = new SelectedIncident();
             IllnessSelected = new SelectedIllness();
@@ -74,7 +89,9 @@ namespace CMMManager
                                             "[dbo].[tbl_incident].[IsDeleted] = 0 " +
                                             "order by [dbo].[tbl_incident].[incident_id]";
 
-            SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
+            //SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
+            SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident);
+
             cmdQueryForIncident.CommandType = CommandType.Text;
             cmdQueryForIncident.CommandText = strSqlQueryForIncident;
 
@@ -82,22 +99,46 @@ namespace CMMManager
             cmdQueryForIncident.Parameters.AddWithValue("@CaseId", CaseId);
             cmdQueryForIncident.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
-            SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
-            dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
+
+            //if (connRNDB.State == ConnectionState.Open)
+            //{
+            //    connRNDB.Close();
+            //    connRNDB.Open();
+            //}
+            //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
             if (connRNDB.State == ConnectionState.Open)
             {
                 connRNDB.Close();
-                connRNDB.Open();
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    cmdQueryForIncident.Connection = connRNDB2;
+                    connRNDB2.Open();
+                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIncident.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                }
             }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            else if (connRNDB.State == ConnectionState.Closed)
+            {
+                cmdQueryForIncident.Connection = connRNDB;
+                connRNDB.Open();
+                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+            }
+
+            SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
+            dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
 
             SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
 
+            gvIncidents.Rows.Clear();
+
             if (rdrIncidents.HasRows)
             {
-                gvIncidents.Rows.Clear();
-
                 while (rdrIncidents.Read())
                 {
                     DataGridViewRow row = new DataGridViewRow();
@@ -124,7 +165,15 @@ namespace CMMManager
                 }
             }
 
-            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+            }
 
             //if (IncidentSelected.IncidentId != String.Empty)
             if (IncidentSelected.IncidentNo != null)
@@ -142,12 +191,36 @@ namespace CMMManager
             SqlCommand cmdQueryForProgramId = new SqlCommand(strSqlQueryForProgramId, connRNDB);
             cmdQueryForProgramId.CommandType = CommandType.Text;
 
+            //if (connRNDB.State == ConnectionState.Open)
+            //{
+            //    connRNDB.Close();
+            //    connRNDB.Open();
+            //}
+            //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
             if (connRNDB.State == ConnectionState.Open)
             {
                 connRNDB.Close();
-                connRNDB.Open();
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    cmdQueryForIncident.Connection = connRNDB2;
+                    connRNDB2.Open();
+                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIncident.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                }
             }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            else if (connRNDB.State == ConnectionState.Closed)
+            {
+                cmdQueryForIncident.Connection = connRNDB;
+                connRNDB.Open();
+                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+            }
+
             SqlDataReader rdrProgramId = cmdQueryForProgramId.ExecuteReader();
             if (rdrProgramId.HasRows)
             {
@@ -156,7 +229,16 @@ namespace CMMManager
                     if (!rdrProgramId.IsDBNull(0) && !rdrProgramId.IsDBNull(1)) dicProgramId.Add(rdrProgramId.GetString(0).Trim(), rdrProgramId.GetInt16(1));
                 }
             }
-            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+            if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+            }
 
             if (IncidentSelected.IncidentNo != String.Empty)
             {
@@ -246,15 +328,44 @@ namespace CMMManager
             cmdQueryForIncident.Parameters.AddWithValue("@CaseId", CaseId);
             cmdQueryForIncident.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
+            //if (connRNDB.State == ConnectionState.Open)
+            //{
+            //    connRNDB.Close();
+            //    connRNDB.Open();
+            //}
+            //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
+            if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    cmdQueryForIncident.Connection = connRNDB;
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIncident.Connection = connRNDB;
+                    connRNDB.Open();
+                }
+            }
+            else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed)
+                {
+                    connRNDB2.Close();
+                    cmdQueryForIncident.Connection = connRNDB2;
+                    connRNDB2.Open();
+                }
+                else if (connRNDB2.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIncident.Connection = connRNDB2;
+                    connRNDB2.Open();
+                }
+            }
+
             SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
             dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
-
-            if (connRNDB.State == ConnectionState.Open)
-            {
-                connRNDB.Close();
-                connRNDB.Open();
-            }
-            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
             SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
 
@@ -288,6 +399,15 @@ namespace CMMManager
                     if (IsHandleCreated) AddRowToIncidentsSafely(row);
                     else gvIncidents.Rows.Add(row);
                 }
+            }
+
+            if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+            {
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+            }
+            else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+            {
+                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
             }
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,15 +486,40 @@ namespace CMMManager
                 cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", IndividualId);
                 cmdQueryForIncident.Parameters.AddWithValue("@CaseId", CaseId);
 
-                SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
-                dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
+
+                //if (connRNDB.State == ConnectionState.Open)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
                     connRNDB.Close();
-                    connRNDB.Open();
+                    if (connRNDB.State == ConnectionState.Open)
+                    {
+                        cmdQueryForIncident.Connection = connRNDB2;
+                        connRNDB2.Open();
+                        RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                    }
+                    else if (connRNDB.State == ConnectionState.Closed)
+                    {
+                        cmdQueryForIncident.Connection = connRNDB;
+                        connRNDB.Open();
+                        RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                    }
                 }
-                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                else if (connRNDB.State == ConnectionState.Closed)
+                {
+                    cmdQueryForIncident.Connection = connRNDB;
+                    connRNDB.Open();
+                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                }
+
+                SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
+                dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
+
 
                 SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
 
@@ -408,7 +553,15 @@ namespace CMMManager
                     }
                 }
 
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+                {
+                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                }
+                else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+                {
+                    if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                }
             }
         }
 
@@ -438,15 +591,47 @@ namespace CMMManager
 
                         cmdQueryForIncidentId.Parameters.AddWithValue("@IncidentNo", IncidentSelected.IncidentNo);
 
+                        //if (connRNDB.State == ConnectionState.Open)
+                        //{
+                        //    connRNDB.Close();
+                        //    connRNDB.Open();
+                        //}
+                        //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
                         if (connRNDB.State == ConnectionState.Open)
                         {
                             connRNDB.Close();
-                            connRNDB.Open();
+                            if (connRNDB.State == ConnectionState.Open)
+                            {
+                                cmdQueryForIncidentId.Connection = connRNDB2;
+                                connRNDB2.Open();
+                                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                            }
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForIncidentId.Connection = connRNDB;
+                                connRNDB.Open();
+                                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                            }
                         }
-                        else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                        else if (connRNDB.State == ConnectionState.Closed)
+                        {
+                            cmdQueryForIncidentId.Connection = connRNDB;
+                            connRNDB.Open();
+                            RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                        }
+
 
                         Object objIncidentId = cmdQueryForIncidentId.ExecuteScalar();
-                        if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+                        {
+                            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                        }
+                        else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+                        {
+                            if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                        }
 
                         //int? nIncidentId = null;
                         if (objIncidentId != null)
@@ -534,79 +719,189 @@ namespace CMMManager
         {
             if (gvIncidents.Rows.Count > 0)
             {
-                //int nTotalIncidentSelected = 0;
-                List<String> lstIncidentsToDelete = new List<String>();
 
-                for(int i = 0; i < gvIncidents.Rows.Count; i++)
+                String IncidentNo = String.Empty;
+
+                for (int i = 0; i < gvIncidents.Rows.Count; i++)
                 {
                     if ((Boolean)gvIncidents["Selected", i].Value == true)
                     {
-                        //nTotalIncidentSelected++;
-                        lstIncidentsToDelete.Add(gvIncidents["Incident_No", i]?.Value?.ToString());
+                        IncidentNo = gvIncidents["Incident_No", i]?.Value?.ToString();
                     }
                 }
-                //if (nTotalIncidentSelected > 0)
 
-                if (lstIncidentsToDelete.Count > 0)
+                if (IncidentNo != String.Empty)
                 {
-                    try
+                    DialogResult dlgResultConfirm = MessageBox.Show("Are you sure to delete these incidents?", "Waring", MessageBoxButtons.YesNo);
+
+                    if (dlgResultConfirm == DialogResult.Yes)
                     {
-                        DialogResult dlgResultConfirm = MessageBox.Show("Are you sure to delete these incidents?", "Waring", MessageBoxButtons.YesNo);
+                        String strSqlQueryForMedBillForIncident = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                                  "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                  "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
-                        if (dlgResultConfirm == DialogResult.Yes)
+                        SqlCommand cmdQueryForMedBillForIncident = new SqlCommand(strSqlQueryForMedBillForIncident);
+                        cmdQueryForMedBillForIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                        if (connRNDB.State != ConnectionState.Closed)
                         {
-                            Boolean bErrorFlag = false;
-
-                            if (connRNDB.State == ConnectionState.Open)
+                            connRNDB.Close();
+                            if (connRNDB.State != ConnectionState.Closed)
                             {
-                                connRNDB.Close();
+                                cmdQueryForMedBillForIncident.Connection = connRNDB2;
+                                connRNDB2.Open();
+                                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                            }
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdQueryForMedBillForIncident.Connection = connRNDB;
                                 connRNDB.Open();
+                                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
                             }
-                            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-
-                            // Begin transaction here
-                            SqlTransaction transDelete = connRNDB.BeginTransaction();
-
-                            for (int i = 0; i < lstIncidentsToDelete.Count; i++)
-                            {
-                                String strSqlDeleteIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[IsDeleted] = 1 where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
-
-                                SqlCommand cmdDeleteIncident = new SqlCommand(strSqlDeleteIncident, connRNDB, transDelete);;
-                                cmdDeleteIncident.CommandType = CommandType.Text;
-
-                                cmdDeleteIncident.Parameters.AddWithValue("@IncidentNo", lstIncidentsToDelete[i]);
-
-                                int nRowDeleted = cmdDeleteIncident.ExecuteNonQuery();
-                                //if (nRowDeleted == 0) bErrorFlag = true;
-                            }
-
-                            transDelete.Commit();
-
-                            //if (bErrorFlag)
-                            //{
-                            //    MessageBox.Show("Some of incident have not been deleted.", "Error");
-                            //    return;
-                            //}
                         }
-                        if (dlgResultConfirm == DialogResult.No)
+                        else if (connRNDB.State == ConnectionState.Closed)
                         {
+                            cmdQueryForMedBillForIncident.Connection = connRNDB;
+                            connRNDB.Open();
+                            RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                        }
+
+                        Object objMedBillNo = cmdQueryForMedBillForIncident.ExecuteScalar();
+
+                        if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+                        {
+                            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                        }
+                        else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+                        {
+                            if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                        }
+
+                        if (objMedBillNo != null)
+                        {
+                            MessageBox.Show("Cannot delete the incident. There are Medical Bills on the incident.", "Error");
                             return;
                         }
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error");
-                    }
-                    finally
-                    {
-                        if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        else
+                        {
+                            String strSqlDeleteIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[IsDeleted] = 1 where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                            SqlCommand cmdDeleteIncident = new SqlCommand(strSqlDeleteIncident);
+                            cmdDeleteIncident.CommandType = CommandType.Text;
+
+                            cmdDeleteIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                            if (connRNDB.State != ConnectionState.Closed)
+                            {
+                                connRNDB.Close();
+                                if (connRNDB.State != ConnectionState.Closed)
+                                {
+                                    cmdDeleteIncident.Connection = connRNDB2;
+                                    connRNDB2.Open();
+                                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn2;
+                                }
+                                else if (connRNDB.State == ConnectionState.Closed)
+                                {
+                                    cmdDeleteIncident.Connection = connRNDB;
+                                    connRNDB.Open();
+                                    RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                                }
+                            }
+                            else if (connRNDB.State == ConnectionState.Closed)
+                            {
+                                cmdDeleteIncident.Connection = connRNDB;
+                                connRNDB.Open();
+                                RNDB_ConnectionIncidentOpen = SqlConnectionIncidentOpen.RNDBConn;
+                            }
+
+                            int nRowDeleted = cmdDeleteIncident.ExecuteNonQuery();
+
+                            if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn)
+                            {
+                                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                            }
+                            else if (RNDB_ConnectionIncidentOpen == SqlConnectionIncidentOpen.RNDBConn2)
+                            {
+                                if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
+                            }
+
+                            if (nRowDeleted == 0)
+                            {
+                                MessageBox.Show("The Incident has not been deleted.", "Error");
+                                return;
+                            }
+                        }
                     }
                 }
-                else if (lstIncidentsToDelete.Count == 0)
+                else
                 {
-                    MessageBox.Show("Please select incidents to delete");
+                    MessageBox.Show("Please select incident to delete.", "Alert");
                 }
             }
+
+            //    List<String> lstIncidentsToDelete = new List<String>();
+
+            //    for(int i = 0; i < gvIncidents.Rows.Count; i++)
+            //    {
+            //        if ((Boolean)gvIncidents["Selected", i].Value == true)
+            //        {
+            //            //nTotalIncidentSelected++;
+            //            lstIncidentsToDelete.Add(gvIncidents["Incident_No", i]?.Value?.ToString());
+            //        }
+            //    }
+
+            //    if (lstIncidentsToDelete.Count > 0)
+            //    {
+            //        try
+            //        {
+            //            DialogResult dlgResultConfirm = MessageBox.Show("Are you sure to delete these incidents?", "Waring", MessageBoxButtons.YesNo);
+
+            //            if (dlgResultConfirm == DialogResult.Yes)
+            //            {
+            //                Boolean bErrorFlag = false;
+
+            //                if (connRNDB.State != ConnectionState.Closed)
+            //                {
+            //                    connRNDB.Close();
+            //                    connRNDB.Open();
+            //                }
+            //                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
+            //                // Begin transaction here
+            //                SqlTransaction transDelete = connRNDB.BeginTransaction();
+
+            //                for (int i = 0; i < lstIncidentsToDelete.Count; i++)
+            //                {
+            //                    String strSqlDeleteIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[IsDeleted] = 1 where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+            //                    SqlCommand cmdDeleteIncident = new SqlCommand(strSqlDeleteIncident, connRNDB, transDelete);;
+            //                    cmdDeleteIncident.CommandType = CommandType.Text;
+
+            //                    cmdDeleteIncident.Parameters.AddWithValue("@IncidentNo", lstIncidentsToDelete[i]);
+
+            //                    int nRowDeleted = cmdDeleteIncident.ExecuteNonQuery();
+            //                }
+            //                transDelete.Commit();
+            //            }
+            //            if (dlgResultConfirm == DialogResult.No)
+            //            {
+            //                return;
+            //            }
+            //        }
+            //        catch (SqlException ex)
+            //        {
+            //            MessageBox.Show(ex.Message, "Error");
+            //        }
+            //        finally
+            //        {
+            //            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            //        }
+            //    }
+            //    else if (lstIncidentsToDelete.Count == 0)
+            //    {
+            //        MessageBox.Show("Please select incidents to delete");
+            //    }
+            //}
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
