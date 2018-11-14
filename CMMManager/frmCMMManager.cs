@@ -3697,11 +3697,11 @@ namespace CMMManager
 
         private void btnCaseCreationCancelUpper_Click(object sender, EventArgs e)
         {
-            if (tbCMMManager.Contains(tbpgMedicalBill))
-            {
-                MessageBox.Show("Medical Bill page is open. Close Medical Bill page first.", "Alert");
-                return;
-            }
+            //if (tbCMMManager.Contains(tbpgMedicalBill))
+            //{
+            //    MessageBox.Show("Medical Bill page is open. Close Medical Bill page first.", "Alert");
+            //    return;
+            //}
 
             DialogResult dlgClose = MessageBox.Show("Do you want to close Case page?", "Alert", MessageBoxButtons.YesNo);
 
@@ -4189,14 +4189,22 @@ namespace CMMManager
                         else if (nRowAffected == 0) MessageBox.Show("The change has not been saved.", "Error");
                     }
 
-                    tbCMMManager.TabPages.Remove(tbpgCreateCase);
-                    tbCMMManager.SelectedTab = tbCMMManager.TabPages["tbpgCaseView"];
+                    //tbCMMManager.TabPages.Remove(tbpgCreateCase);
+                    //tbCMMManager.SelectedTab = tbCMMManager.TabPages["tbpgCaseView"];
+
+                    if (tbCMMManager.Contains(tbpgMedicalBill)) tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+                    if (tbCMMManager.Contains(tbpgCreateCase)) tbCMMManager.TabPages.Remove(tbpgCreateCase);
+                    //if (tbCMMManager.Contains(tbpgCaseView)) tbCMMManager.TabPages.Remove(tbpgCaseView);
+                    //if (tbCMMManager.Contains(tbpgIndividual)) tbCMMManager.TabPages.Remove(tbpgIndividual);
+                    tbCMMManager.SelectedIndex = 3;
+
                     return;
                 }
                 else if (dlgResult == DialogResult.No)
                 {
-                    tbCMMManager.TabPages.Remove(tbpgCreateCase);
-                    tbCMMManager.SelectedTab = tbCMMManager.TabPages["tbpgCaseView"];
+                    if (tbCMMManager.Contains(tbpgMedicalBill)) tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+                    if (tbCMMManager.Contains(tbpgCreateCase)) tbCMMManager.TabPages.Remove(tbpgCreateCase);
+                    tbCMMManager.SelectedIndex = 3;
                     return;
                 }
                 //else if (dlgResult == DialogResult.Cancel)
@@ -9347,7 +9355,7 @@ namespace CMMManager
                 else if (dlgResult == DialogResult.No)
                 {
                     tbCMMManager.TabPages.Remove(tbpgMedicalBill);
-                    tbCMMManager.SelectedTab = tbCMMManager.TabPages["tbpgCreateCase"];
+                    tbCMMManager.SelectedIndex = 4;
                     return;
                 }
                 //else if (dlgResult == DialogResult.Cancel)
@@ -13846,6 +13854,12 @@ namespace CMMManager
                                 approvedCell.Value = rdrSettlement.GetBoolean(5);
                                 approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                 row.Cells.Add(approvedCell);
+                                if (LoggedInUserRole == UserRole.RNStaff ||
+                                    LoggedInUserRole == UserRole.NPStaff ||
+                                    LoggedInUserRole == UserRole.FDStaff)
+                                    approvedCell.ReadOnly = true;
+                                else if (LoggedInUserRole == UserRole.RNManager)
+                                    approvedCell.ReadOnly = false;
                             }
                             else
                             {
@@ -13853,6 +13867,12 @@ namespace CMMManager
                                 approvedCell.Value = false;
                                 approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                 row.Cells.Add(approvedCell);
+                                if (LoggedInUserRole == UserRole.RNStaff ||
+                                    LoggedInUserRole == UserRole.NPStaff ||
+                                    LoggedInUserRole == UserRole.FDStaff)
+                                    approvedCell.ReadOnly = true;
+                                else if (LoggedInUserRole == UserRole.RNManager)
+                                    approvedCell.ReadOnly = false;
                             }
 
                             if (!rdrSettlement.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
@@ -13876,8 +13896,22 @@ namespace CMMManager
                                             else comboCellCreditCardNoneForCheck.Items.Add(String.Empty);
                                         }
                                         row.Cells.Add(comboCellCreditCardNoneForCheck);
-                                        if (!rdrSettlement.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(8).ToString("MM/dd/yyyy")) });
-                                        if (!rdrSettlement.IsDBNull(9)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(9) });
+                                        if (!rdrSettlement.IsDBNull(8))
+                                        {
+                                            row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(8).ToString("MM/dd/yyyy")) });
+                                        }
+                                        else
+                                        {
+                                            row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                        }
+                                        if (!rdrSettlement.IsDBNull(9))
+                                        {
+                                            row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(9) });
+                                        }
+                                        else
+                                        {
+                                            row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                        }
                                         break;
                                     case "ACH/Banking":
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
@@ -13891,8 +13925,22 @@ namespace CMMManager
                                             else comboCellCreditCardNoneForACH.Items.Add(String.Empty);
                                         }
                                         row.Cells.Add(comboCellCreditCardNoneForACH);
-                                        if (!rdrSettlement.IsDBNull(11)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(11).ToString("MM/dd/yyyy")) });
-                                        if (!rdrSettlement.IsDBNull(12)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(12) });
+                                        if (!rdrSettlement.IsDBNull(11))
+                                        {
+                                            row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(11).ToString("MM/dd/yyyy")) });
+                                        }
+                                        else
+                                        {
+                                            row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                        }
+                                        if (!rdrSettlement.IsDBNull(12))
+                                        {
+                                            row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(12) });
+                                        }
+                                        else
+                                        {
+                                            row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                        }
                                         break;
                                     case "Credit Card":
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
@@ -14113,6 +14161,8 @@ namespace CMMManager
                     }
 
                     Decimal TotalSharedAmount = 0;
+                    if (gvSettlementsInMedBill.Rows.Count == 0) txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+
                     for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                     {
                         Decimal SharedAmount = 0;
@@ -15702,6 +15752,13 @@ namespace CMMManager
                                 approvedCell.Value = rdrSettlement.GetBoolean(5);
                                 approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                 row.Cells.Add(approvedCell);
+
+                                if (LoggedInUserRole == UserRole.RNStaff ||
+                                    LoggedInUserRole == UserRole.NPStaff ||
+                                    LoggedInUserRole == UserRole.FDStaff)
+                                    approvedCell.ReadOnly = true;
+                                else if (LoggedInUserRole == UserRole.RNManager)
+                                    approvedCell.ReadOnly = false;
                             }
                             else
                             {
@@ -15709,6 +15766,12 @@ namespace CMMManager
                                 approvedCell.Value = false;
                                 approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                                 row.Cells.Add(approvedCell);
+                                if (LoggedInUserRole == UserRole.RNStaff ||
+                                    LoggedInUserRole == UserRole.NPStaff ||
+                                    LoggedInUserRole == UserRole.FDStaff)
+                                    approvedCell.ReadOnly = true;
+                                else if (LoggedInUserRole == UserRole.RNManager)
+                                    approvedCell.ReadOnly = false;
                             }
 
                             if (!rdrSettlement.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
@@ -16280,6 +16343,13 @@ namespace CMMManager
                         approvedCell.Value = rdrSettlement.GetBoolean(5);
                         approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         row.Cells.Add(approvedCell);
+
+                        if (LoggedInUserRole == UserRole.RNStaff ||
+                            LoggedInUserRole == UserRole.NPStaff ||
+                            LoggedInUserRole == UserRole.FDStaff)
+                            approvedCell.ReadOnly = true;
+                        else if (LoggedInUserRole == UserRole.RNManager)
+                            approvedCell.ReadOnly = false;
                     }
                     else
                     {
@@ -16287,6 +16357,13 @@ namespace CMMManager
                         approvedCell.Value = false;
                         approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         row.Cells.Add(approvedCell);
+
+                        if (LoggedInUserRole == UserRole.RNStaff ||
+                            LoggedInUserRole == UserRole.NPStaff ||
+                            LoggedInUserRole == UserRole.FDStaff)
+                            approvedCell.ReadOnly = true;
+                        else if (LoggedInUserRole == UserRole.RNManager)
+                            approvedCell.ReadOnly = false;
                     }
 
                     if (!rdrSettlement.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
@@ -16314,7 +16391,9 @@ namespace CMMManager
                                 row.Cells.Add(comboCellCreditCardNoneForCheck);
 
                                 if (!rdrSettlement.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(8).ToString("MM/dd/yyyy")) });
+                                else row.Cells.Add(new CalendarCell { Value = String.Empty });
                                 if (!rdrSettlement.IsDBNull(9)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(9) });
+                                else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
                                 break;
                             case "ACH/Banking":
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
@@ -16332,7 +16411,9 @@ namespace CMMManager
 
                                 //row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
                                 if (!rdrSettlement.IsDBNull(11)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(11).ToString("MM/dd/yyyy")) });
+                                else row.Cells.Add(new CalendarCell { Value = String.Empty });
                                 if (!rdrSettlement.IsDBNull(12)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(12) });
+                                else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
                                 break;
                             case "Credit Card":
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
@@ -16363,7 +16444,9 @@ namespace CMMManager
                                     row.Cells.Add(comboCellCreditCard);
                                 }
                                 if (!rdrSettlement.IsDBNull(14)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(14).ToString("MM/dd/yyyy")) });
+                                else row.Cells.Add(new CalendarCell { Value = String.Empty });
                                 if (!rdrSettlement.IsDBNull(15)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(15) });
+                                else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
                                 break;
                             default:
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
@@ -16375,7 +16458,7 @@ namespace CMMManager
                                     else comboCellCreditCardNone.Items.Add(String.Empty);
                                 }
                                 row.Cells.Add(comboCellCreditCardNone);
-                                row.Cells.Add(new CalendarCell { Value = null });
+                                row.Cells.Add(new CalendarCell { Value = String.Empty });
                                 row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
                                 break;
                         }
@@ -16992,14 +17075,14 @@ namespace CMMManager
                         connRN5.Close();
                         connRN5.Open();
                     }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
                     //String Settlement = cmdQueryForSettlement.ExecuteScalar()?.ToString();
                     Object objSettlement = cmdQueryForSettlement.ExecuteScalar();
 
                     String Settlement = String.Empty;
                     if (objSettlement != null) Settlement = objSettlement.ToString();
 
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
                     if (Settlement == String.Empty)
                     {
                         for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
@@ -17013,27 +17096,69 @@ namespace CMMManager
                     }
                     else
                     {
-                        String strSqlUpdateSettlement = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[IsDeleted] = 1 " +
-                                                        "where [dbo].[tbl_settlement].[Name] = @SettlementNo and " +
-                                                        "[dbo].[tbl_settlement].[MedicalBillID] = @MedicalBillNo";
+                        String strSqlQuerySettlementForApproved = "select [dbo].[tbl_settlement].[Approved] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @SettlementName";
 
-                        SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN5);
-                        cmdUpdateSettlement.CommandType = CommandType.Text;
+                        SqlCommand cmdQuerySettlementForApproved = new SqlCommand(strSqlQuerySettlementForApproved, connRN5);
+                        cmdQuerySettlementForApproved.CommandType = CommandType.Text;
 
-                        cmdUpdateSettlement.Parameters.AddWithValue("@SettlementNo", settlement);
-                        cmdUpdateSettlement.Parameters.AddWithValue("@MedicalBillNo", MedBillNo);
+                        cmdQuerySettlementForApproved.Parameters.AddWithValue("@SettlementName", Settlement);
 
-                        //if (connRN.State == ConnectionState.Closed) connRN.Open();
                         if (connRN5.State != ConnectionState.Closed)
                         {
                             connRN5.Close();
                             connRN5.Open();
                         }
                         else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        int nRowAffected = cmdUpdateSettlement.ExecuteNonQuery();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                        if (nRowAffected == 1) nDeletedSettlements++;
+                        Boolean bApproved = false;
+                        SqlDataReader rdrSettlementApproved = cmdQuerySettlementForApproved.ExecuteReader();
+                        if (rdrSettlementApproved.HasRows)
+                        {
+                            rdrSettlementApproved.Read();
+
+                            if (!rdrSettlementApproved.IsDBNull(0)) bApproved = rdrSettlementApproved.GetBoolean(0);
+                        }
+                        if (connRN5.State != ConnectionState.Closed) connRN.Close();
+
+                        if (bApproved == true && 
+                            (LoggedInUserRole == UserRole.FDStaff || LoggedInUserRole == UserRole.NPStaff || LoggedInUserRole == UserRole.RNStaff))
+                        {
+                            MessageBox.Show("The Settlement is approved and cannot be deleted.", "Alert");
+                            return;
+                        }
+
+                        if (bApproved == true &&
+                            (LoggedInUserRole == UserRole.FDManager || LoggedInUserRole == UserRole.NPManager || LoggedInUserRole == UserRole.RNManager))
+                        {
+                            MessageBox.Show("The Settlement is approved and cannot be deleted.", "Alert");
+                            return;
+                        }
+
+                        if (bApproved == false ||
+                            (bApproved == true && LoggedInUserRole == UserRole.SuperAdmin))
+                        {
+                            String strSqlUpdateSettlement = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[IsDeleted] = 1 " +
+                                                            "where [dbo].[tbl_settlement].[Name] = @SettlementNo and " +
+                                                            "[dbo].[tbl_settlement].[MedicalBillID] = @MedicalBillNo";
+
+                            SqlCommand cmdUpdateSettlement = new SqlCommand(strSqlUpdateSettlement, connRN5);
+                            cmdUpdateSettlement.CommandType = CommandType.Text;
+
+                            cmdUpdateSettlement.Parameters.AddWithValue("@SettlementNo", settlement);
+                            cmdUpdateSettlement.Parameters.AddWithValue("@MedicalBillNo", MedBillNo);
+
+                            //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nRowAffected = cmdUpdateSettlement.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            if (nRowAffected == 1) nDeletedSettlements++;
+                        }
                     }
                 }
 
@@ -21003,19 +21128,20 @@ namespace CMMManager
 
         private void btnCloseCaseView_Click(object sender, EventArgs e)
         {
-            if (tbCMMManager.Contains(tbpgCreateCase))
-            {
-                MessageBox.Show("Case Page is open. Close Case Page first.", "Alert");
-                return;
-            }
+            //if (tbCMMManager.Contains(tbpgCreateCase))
+            //{
+            //    MessageBox.Show("Case Page is open. Close Case Page first.", "Alert");
+            //    return;
+            //}
 
             DialogResult dlgResult = MessageBox.Show("Do you want to close Case View?", "Alert", MessageBoxButtons.YesNo);
 
             if (dlgResult == DialogResult.Yes)
             {
-                tbCMMManager.TabPages.Remove(tbpgCaseView);
+                if (tbCMMManager.Contains(tbpgMedicalBill)) tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+                if (tbCMMManager.Contains(tbpgCreateCase)) tbCMMManager.TabPages.Remove(tbpgCreateCase);
+                if (tbCMMManager.Contains(tbpgCaseView)) tbCMMManager.TabPages.Remove(tbpgCaseView);
                 tbCMMManager.SelectedIndex = 2;
-
                 return;
             }
             else return;
