@@ -2484,13 +2484,22 @@ namespace CMMManager
         {
             if (strNPFormFilePathDestination != String.Empty)
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = strNPFormFilePathDestination;
-                Process.Start(processInfo);
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strNPFormFilePathDestination;
+                    Process.Start(processInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
             }
             else
             {
                 MessageBox.Show("No NPF is uploaded");
+                return;
             }
         }
 
@@ -2525,8 +2534,8 @@ namespace CMMManager
         {
             OpenFileDialog OpenSourceFileDlg = new OpenFileDialog();
 
-            OpenSourceFileDlg.Filter = "JPG Files | *.jpg; *.jpeg | PDF Files | *.pdf";
-            OpenSourceFileDlg.DefaultExt = "jpg";
+            OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
+            OpenSourceFileDlg.DefaultExt = "pdf";
             OpenSourceFileDlg.RestoreDirectory = true;
 
             if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
@@ -2572,13 +2581,22 @@ namespace CMMManager
         {
             if (strIBFilePathDestination != String.Empty)
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = strIBFilePathDestination;
-                Process.Start(processInfo);
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strIBFilePathDestination;
+                    Process.Start(processInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
             }
             else
             {
                 MessageBox.Show("No IB is uploaded");
+                return;
             }
         }
 
@@ -2614,8 +2632,8 @@ namespace CMMManager
         {
             OpenFileDialog OpenSourceFileDlg = new OpenFileDialog();
 
-            OpenSourceFileDlg.Filter = "JPG Files | *.jpg; *.jpeg | PDF Files | *.pdf";
-            OpenSourceFileDlg.DefaultExt = "jpg";
+            OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
+            OpenSourceFileDlg.DefaultExt = "pdf";
             OpenSourceFileDlg.RestoreDirectory = true;
 
             if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
@@ -2662,13 +2680,22 @@ namespace CMMManager
         {
             if (strPopFilePathDestination != String.Empty)
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = strPopFilePathDestination;
-                Process.Start(processInfo);
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strPopFilePathDestination;
+                    Process.Start(processInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
             }
             else
             {
                 MessageBox.Show("No Pop is uploaded");
+                return;
             }
         }
 
@@ -2705,8 +2732,8 @@ namespace CMMManager
         {
             OpenFileDialog OpenSourceFileDlg = new OpenFileDialog();
 
-            OpenSourceFileDlg.Filter = "JPG Files | *.jpg; *.jpeg | PDF Files | *.pdf";
-            OpenSourceFileDlg.DefaultExt = "jpg";
+            OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
+            OpenSourceFileDlg.DefaultExt = "pdf";
             OpenSourceFileDlg.RestoreDirectory = true;
 
             if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
@@ -2753,13 +2780,22 @@ namespace CMMManager
         {
             if (strMedRecordFilePathDestination != String.Empty)
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = strMedRecordFilePathDestination;
-                Process.Start(processInfo);
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strMedRecordFilePathDestination;
+                    Process.Start(processInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
             }
             else
             {
                 MessageBox.Show("No Medical Record is uploaded");
+                return;
             }
         }
 
@@ -2796,8 +2832,8 @@ namespace CMMManager
         {
             OpenFileDialog OpenSourceFileDlg = new OpenFileDialog();
 
-            OpenSourceFileDlg.Filter = "JPG Files | *.jpg; *.jpeg | PDF Files | *.pdf";
-            OpenSourceFileDlg.DefaultExt = "jpg";
+            OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
+            OpenSourceFileDlg.DefaultExt = "pdf";
             OpenSourceFileDlg.RestoreDirectory = true;
 
             if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
@@ -2843,13 +2879,22 @@ namespace CMMManager
         {
             if (strUnknownDocFilePathDestination != String.Empty)
             {
-                ProcessStartInfo processInfo = new ProcessStartInfo();
-                processInfo.FileName = strUnknownDocFilePathDestination;
-                Process.Start(processInfo);
+                try
+                {
+                    ProcessStartInfo processInfo = new ProcessStartInfo();
+                    processInfo.FileName = strUnknownDocFilePathDestination;
+                    Process.Start(processInfo);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
             }
             else
             {
                 MessageBox.Show("No Unknown doc is uploaded");
+                return;
             }
         }
 
@@ -5380,7 +5425,7 @@ namespace CMMManager
 
                     for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                     {
-                        if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                        if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
                         else
                         {
                             gvSettlementsInMedBill["IneligibleReason", i].Value = null;
@@ -8454,8 +8499,8 @@ namespace CMMManager
         {
             OpenFileDialog OpenSourceFileDlg = new OpenFileDialog();
 
-            OpenSourceFileDlg.Filter = "JPG Files | *.jpg; *.jpeg | PDF Files | *.pdf";
-            OpenSourceFileDlg.DefaultExt = "jpg";
+            OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
+            OpenSourceFileDlg.DefaultExt = "pdf";
             OpenSourceFileDlg.RestoreDirectory = true;
 
             if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
@@ -10306,7 +10351,7 @@ namespace CMMManager
 
                         for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                         {
-                            if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                            if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
                             else
                             {
                                 gvSettlementsInMedBill["IneligibleReason", i].Value = null;
@@ -11085,7 +11130,7 @@ namespace CMMManager
 
                         for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                         {
-                            if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                            if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
                             else
                             {
                                 gvSettlementsInMedBill["IneligibleReason", i].Value = null;
@@ -12406,7 +12451,7 @@ namespace CMMManager
                             gvSettlementsInMedBill["IneligibleReason", e.RowIndex].ReadOnly = false;
                             gvSettlementsInMedBill["IneligibleReason", e.RowIndex] = comboCellIneligibleReason;
                         }
-                        gvSettlementsInMedBill.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                        gvSettlementsInMedBill.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Salmon;
                         return;
                     }
                     else
@@ -14124,7 +14169,7 @@ namespace CMMManager
 
                     for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                     {
-                        if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Red;
+                        if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
                         else
                         {
                             gvSettlementsInMedBill["IneligibleReason", i].Value = null;
@@ -18090,6 +18135,7 @@ namespace CMMManager
             if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
             Decimal IndividualTotalSharedAmount = 0;
+            txtTotalSharedAmount.Text = String.Empty;
             if (objIndividualTotalSharedAmount != null)
             {
                 if (objIndividualTotalSharedAmount.ToString() != String.Empty)
@@ -18116,6 +18162,7 @@ namespace CMMManager
             if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
             Decimal IndividualMedBillTotalAmount = 0;
+            txtTotalMedBillAmount.Text = String.Empty;
             if (objIndividualMedBillTotalAmount != null)
             {
                 if (objIndividualMedBillTotalAmount.ToString() != String.Empty)
@@ -20745,14 +20792,20 @@ namespace CMMManager
 
             if (txtIndChurchName.Text.Trim() != String.Empty)
             {
+                Boolean bInChurchList = false;
                 foreach (ChurchInfo info in lstChurchInfo)
                 {
                     if (info.Name.Trim() == txtIndChurchName.Text.Trim())
                     {
                         cmdUpdateIndividualInfo.Parameters.AddWithValue("@ChurchId", info.ID);
+                        bInChurchList = true;
                         break;
                     }
                 }
+                if (!bInChurchList)
+                {
+                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ChurchId", DBNull.Value);
+                    }
             }
             else
             {
