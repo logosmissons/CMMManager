@@ -5881,11 +5881,14 @@ namespace CMMManager
                                     (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount") ||
                                     (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment"))
                                 {
-                                    if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result)) PersonalResponsibilityAmount = result;
-                                    else
-                                    {
-                                        MessageBox.Show("You have to enter decimal value in Personal Responsibility field in Settlement " + gvSettlementsInMedBill[1, i]?.Value?.ToString(), "Alert");
-                                        return;
+                                    if (gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString() != String.Empty)
+                                    { 
+                                        if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result)) PersonalResponsibilityAmount = result;
+                                        else
+                                        {
+                                            MessageBox.Show("Invalid Personal Responsibility.", "Error");
+                                            return;
+                                        }
                                     }
                                 }
 

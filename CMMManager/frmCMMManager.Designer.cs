@@ -1489,7 +1489,7 @@
             this.rbEnglish.Location = new System.Drawing.Point(259, 150);
             this.rbEnglish.Name = "rbEnglish";
             this.rbEnglish.Size = new System.Drawing.Size(59, 17);
-            this.rbEnglish.TabIndex = 222;
+            this.rbEnglish.TabIndex = 2;
             this.rbEnglish.TabStop = true;
             this.rbEnglish.Text = "English";
             this.rbEnglish.UseVisualStyleBackColor = true;
@@ -1500,7 +1500,7 @@
             this.rbKorean.Location = new System.Drawing.Point(186, 150);
             this.rbKorean.Name = "rbKorean";
             this.rbKorean.Size = new System.Drawing.Size(59, 17);
-            this.rbKorean.TabIndex = 221;
+            this.rbKorean.TabIndex = 1;
             this.rbKorean.TabStop = true;
             this.rbKorean.Text = "Korean";
             this.rbKorean.UseVisualStyleBackColor = true;
@@ -2289,7 +2289,7 @@
             this.cbPreferredCommunication.Location = new System.Drawing.Point(551, 150);
             this.cbPreferredCommunication.Name = "cbPreferredCommunication";
             this.cbPreferredCommunication.Size = new System.Drawing.Size(92, 21);
-            this.cbPreferredCommunication.TabIndex = 157;
+            this.cbPreferredCommunication.TabIndex = 3;
             // 
             // label20
             // 
@@ -2527,7 +2527,7 @@
             this.txtFirstName.Location = new System.Drawing.Point(130, 207);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(115, 20);
-            this.txtFirstName.TabIndex = 128;
+            this.txtFirstName.TabIndex = 4;
             // 
             // label6
             // 
