@@ -375,12 +375,10 @@
             this.comboIneligibleReason = new System.Windows.Forms.ComboBox();
             this.comboPendingReason = new System.Windows.Forms.ComboBox();
             this.comboMedBillStatus = new System.Windows.Forms.ComboBox();
-            this.txtPhysicalTherapyRxNote = new System.Windows.Forms.TextBox();
             this.lblIneligibleReason = new System.Windows.Forms.Label();
             this.lblNumberOfPhysicalTheraph = new System.Windows.Forms.Label();
             this.lblPendingReason = new System.Windows.Forms.Label();
             this.lblPhysicalTherapyRxNote = new System.Windows.Forms.Label();
-            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
             this.lblPrescriptionName = new System.Windows.Forms.Label();
             this.lblPrescriptionNote = new System.Windows.Forms.Label();
             this.txtNumPhysicalTherapy = new System.Windows.Forms.TextBox();
@@ -390,7 +388,6 @@
             this.lblNumberOfMedication = new System.Windows.Forms.Label();
             this.lblPrescriptionDescription = new System.Windows.Forms.Label();
             this.lblMedBillNote = new System.Windows.Forms.Label();
-            this.txtMedBillNote = new System.Windows.Forms.TextBox();
             this.comboMedBillType = new System.Windows.Forms.ComboBox();
             this.label173 = new System.Windows.Forms.Label();
             this.txtBalance = new System.Windows.Forms.TextBox();
@@ -409,6 +406,9 @@
             this.rbOutpatient = new System.Windows.Forms.RadioButton();
             this.txtMedicalProvider = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
+            this.txtPhysicalTherapyRxNote = new System.Windows.Forms.TextBox();
+            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
+            this.txtMedBillNote = new System.Windows.Forms.TextBox();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
             this.btnViewOtherDoc = new System.Windows.Forms.Button();
             this.btnViewMedRecord = new System.Windows.Forms.Button();
@@ -1490,13 +1490,13 @@
             this.rbEnglish.Name = "rbEnglish";
             this.rbEnglish.Size = new System.Drawing.Size(59, 17);
             this.rbEnglish.TabIndex = 2;
-            this.rbEnglish.TabStop = true;
             this.rbEnglish.Text = "English";
             this.rbEnglish.UseVisualStyleBackColor = true;
             // 
             // rbKorean
             // 
             this.rbKorean.AutoSize = true;
+            this.rbKorean.Checked = true;
             this.rbKorean.Location = new System.Drawing.Point(186, 150);
             this.rbKorean.Name = "rbKorean";
             this.rbKorean.Size = new System.Drawing.Size(59, 17);
@@ -1510,7 +1510,7 @@
             this.txtRelationship.Location = new System.Drawing.Point(447, 427);
             this.txtRelationship.Name = "txtRelationship";
             this.txtRelationship.Size = new System.Drawing.Size(196, 20);
-            this.txtRelationship.TabIndex = 220;
+            this.txtRelationship.TabIndex = 22;
             // 
             // dtpBirthDate
             // 
@@ -1518,7 +1518,7 @@
             this.dtpBirthDate.Location = new System.Drawing.Point(130, 240);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(115, 20);
-            this.dtpBirthDate.TabIndex = 219;
+            this.dtpBirthDate.TabIndex = 7;
             // 
             // btnCaseViewIndividual
             // 
@@ -1747,7 +1747,7 @@
             this.chkCommunicationEtc.Location = new System.Drawing.Point(1118, 422);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
-            this.chkCommunicationEtc.TabIndex = 205;
+            this.chkCommunicationEtc.TabIndex = 31;
             this.chkCommunicationEtc.Text = "Etc.";
             this.chkCommunicationEtc.UseVisualStyleBackColor = true;
             // 
@@ -1758,7 +1758,7 @@
             this.chkCommunicationReq.Location = new System.Drawing.Point(1041, 422);
             this.chkCommunicationReq.Name = "chkCommunicationReq";
             this.chkCommunicationReq.Size = new System.Drawing.Size(53, 20);
-            this.chkCommunicationReq.TabIndex = 204;
+            this.chkCommunicationReq.TabIndex = 30;
             this.chkCommunicationReq.Text = "Req";
             this.chkCommunicationReq.UseVisualStyleBackColor = true;
             // 
@@ -1769,7 +1769,7 @@
             this.chkCommunicationFax.Location = new System.Drawing.Point(972, 422);
             this.chkCommunicationFax.Name = "chkCommunicationFax";
             this.chkCommunicationFax.Size = new System.Drawing.Size(49, 20);
-            this.chkCommunicationFax.TabIndex = 203;
+            this.chkCommunicationFax.TabIndex = 29;
             this.chkCommunicationFax.Text = "Fax";
             this.chkCommunicationFax.UseVisualStyleBackColor = true;
             // 
@@ -1780,7 +1780,7 @@
             this.chkCommunicationLetter.Location = new System.Drawing.Point(896, 422);
             this.chkCommunicationLetter.Name = "chkCommunicationLetter";
             this.chkCommunicationLetter.Size = new System.Drawing.Size(60, 20);
-            this.chkCommunicationLetter.TabIndex = 202;
+            this.chkCommunicationLetter.TabIndex = 28;
             this.chkCommunicationLetter.Text = "Letter";
             this.chkCommunicationLetter.UseVisualStyleBackColor = true;
             // 
@@ -1791,7 +1791,7 @@
             this.chkCommunicationEmail.Location = new System.Drawing.Point(824, 422);
             this.chkCommunicationEmail.Name = "chkCommunicationEmail";
             this.chkCommunicationEmail.Size = new System.Drawing.Size(61, 20);
-            this.chkCommunicationEmail.TabIndex = 201;
+            this.chkCommunicationEmail.TabIndex = 27;
             this.chkCommunicationEmail.Text = "Email";
             this.chkCommunicationEmail.UseVisualStyleBackColor = true;
             // 
@@ -1802,7 +1802,7 @@
             this.chkCommunicationCall.Location = new System.Drawing.Point(752, 422);
             this.chkCommunicationCall.Name = "chkCommunicationCall";
             this.chkCommunicationCall.Size = new System.Drawing.Size(50, 20);
-            this.chkCommunicationCall.TabIndex = 200;
+            this.chkCommunicationCall.TabIndex = 26;
             this.chkCommunicationCall.Text = "Call";
             this.chkCommunicationCall.UseVisualStyleBackColor = true;
             // 
@@ -1813,7 +1813,7 @@
             this.chkCommunicationAll.Location = new System.Drawing.Point(678, 422);
             this.chkCommunicationAll.Name = "chkCommunicationAll";
             this.chkCommunicationAll.Size = new System.Drawing.Size(42, 20);
-            this.chkCommunicationAll.TabIndex = 199;
+            this.chkCommunicationAll.TabIndex = 25;
             this.chkCommunicationAll.Text = "All";
             this.chkCommunicationAll.UseVisualStyleBackColor = true;
             // 
@@ -2196,7 +2196,7 @@
             this.txtPowerOfAttorney.Location = new System.Drawing.Point(162, 427);
             this.txtPowerOfAttorney.Name = "txtPowerOfAttorney";
             this.txtPowerOfAttorney.Size = new System.Drawing.Size(147, 20);
-            this.txtPowerOfAttorney.TabIndex = 170;
+            this.txtPowerOfAttorney.TabIndex = 21;
             // 
             // label32
             // 
@@ -2218,7 +2218,7 @@
             this.cbGender.Location = new System.Drawing.Point(357, 240);
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(93, 21);
-            this.cbGender.TabIndex = 167;
+            this.cbGender.TabIndex = 8;
             // 
             // cbPaymentMethod
             // 
@@ -2227,7 +2227,7 @@
             this.cbPaymentMethod.Location = new System.Drawing.Point(274, 461);
             this.cbPaymentMethod.Name = "cbPaymentMethod";
             this.cbPaymentMethod.Size = new System.Drawing.Size(121, 21);
-            this.cbPaymentMethod.TabIndex = 166;
+            this.cbPaymentMethod.TabIndex = 23;
             // 
             // label35
             // 
@@ -2254,7 +2254,7 @@
             this.txtIndChurchName.Location = new System.Drawing.Point(162, 497);
             this.txtIndChurchName.Name = "txtIndChurchName";
             this.txtIndChurchName.Size = new System.Drawing.Size(233, 20);
-            this.txtIndChurchName.TabIndex = 161;
+            this.txtIndChurchName.TabIndex = 24;
             // 
             // label30
             // 
@@ -2271,7 +2271,7 @@
             this.txtBusinessPhone.Location = new System.Drawing.Point(447, 393);
             this.txtBusinessPhone.Name = "txtBusinessPhone";
             this.txtBusinessPhone.Size = new System.Drawing.Size(196, 20);
-            this.txtBusinessPhone.TabIndex = 159;
+            this.txtBusinessPhone.TabIndex = 20;
             // 
             // label23
             // 
@@ -2306,7 +2306,7 @@
             this.txtCellPhone1.Location = new System.Drawing.Point(162, 393);
             this.txtCellPhone1.Name = "txtCellPhone1";
             this.txtCellPhone1.Size = new System.Drawing.Size(148, 20);
-            this.txtCellPhone1.TabIndex = 155;
+            this.txtCellPhone1.TabIndex = 19;
             // 
             // label19
             // 
@@ -2323,7 +2323,7 @@
             this.txtEmail.Location = new System.Drawing.Point(96, 359);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(213, 20);
-            this.txtEmail.TabIndex = 153;
+            this.txtEmail.TabIndex = 18;
             // 
             // label18
             // 
@@ -2340,56 +2340,56 @@
             this.txtState2.Location = new System.Drawing.Point(619, 324);
             this.txtState2.Name = "txtState2";
             this.txtState2.Size = new System.Drawing.Size(24, 20);
-            this.txtState2.TabIndex = 151;
+            this.txtState2.TabIndex = 17;
             // 
             // txtState1
             // 
             this.txtState1.Location = new System.Drawing.Point(619, 289);
             this.txtState1.Name = "txtState1";
             this.txtState1.Size = new System.Drawing.Size(24, 20);
-            this.txtState1.TabIndex = 150;
+            this.txtState1.TabIndex = 13;
             // 
             // txtCity2
             // 
             this.txtCity2.Location = new System.Drawing.Point(469, 324);
             this.txtCity2.Name = "txtCity2";
             this.txtCity2.Size = new System.Drawing.Size(107, 20);
-            this.txtCity2.TabIndex = 149;
+            this.txtCity2.TabIndex = 16;
             // 
             // txtCity1
             // 
             this.txtCity1.Location = new System.Drawing.Point(469, 289);
             this.txtCity1.Name = "txtCity1";
             this.txtCity1.Size = new System.Drawing.Size(107, 20);
-            this.txtCity1.TabIndex = 148;
+            this.txtCity1.TabIndex = 12;
             // 
             // txtZip2
             // 
             this.txtZip2.Location = new System.Drawing.Point(350, 324);
             this.txtZip2.Name = "txtZip2";
             this.txtZip2.Size = new System.Drawing.Size(74, 20);
-            this.txtZip2.TabIndex = 147;
+            this.txtZip2.TabIndex = 15;
             // 
             // txtZip1
             // 
             this.txtZip1.Location = new System.Drawing.Point(350, 289);
             this.txtZip1.Name = "txtZip1";
             this.txtZip1.Size = new System.Drawing.Size(74, 20);
-            this.txtZip1.TabIndex = 146;
+            this.txtZip1.TabIndex = 11;
             // 
             // txtStreetAddress2
             // 
             this.txtStreetAddress2.Location = new System.Drawing.Point(162, 324);
             this.txtStreetAddress2.Name = "txtStreetAddress2";
             this.txtStreetAddress2.Size = new System.Drawing.Size(147, 20);
-            this.txtStreetAddress2.TabIndex = 145;
+            this.txtStreetAddress2.TabIndex = 14;
             // 
             // txtStreetAddress1
             // 
             this.txtStreetAddress1.Location = new System.Drawing.Point(162, 289);
             this.txtStreetAddress1.Name = "txtStreetAddress1";
             this.txtStreetAddress1.Size = new System.Drawing.Size(148, 20);
-            this.txtStreetAddress1.TabIndex = 144;
+            this.txtStreetAddress1.TabIndex = 10;
             // 
             // label17
             // 
@@ -2476,7 +2476,7 @@
             this.txtIndividualSSN.Location = new System.Drawing.Point(535, 240);
             this.txtIndividualSSN.Name = "txtIndividualSSN";
             this.txtIndividualSSN.Size = new System.Drawing.Size(109, 20);
-            this.txtIndividualSSN.TabIndex = 135;
+            this.txtIndividualSSN.TabIndex = 9;
             // 
             // label9
             // 
@@ -2513,14 +2513,14 @@
             this.txtLastName.Location = new System.Drawing.Point(535, 206);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(109, 20);
-            this.txtLastName.TabIndex = 130;
+            this.txtLastName.TabIndex = 6;
             // 
             // txtMiddleName
             // 
             this.txtMiddleName.Location = new System.Drawing.Point(357, 206);
             this.txtMiddleName.Name = "txtMiddleName";
             this.txtMiddleName.Size = new System.Drawing.Size(93, 20);
-            this.txtMiddleName.TabIndex = 129;
+            this.txtMiddleName.TabIndex = 5;
             // 
             // txtFirstName
             // 
@@ -2865,7 +2865,7 @@
             this.cbCaseStatus.Location = new System.Drawing.Point(128, 354);
             this.cbCaseStatus.Name = "cbCaseStatus";
             this.cbCaseStatus.Size = new System.Drawing.Size(152, 21);
-            this.cbCaseStatus.TabIndex = 146;
+            this.cbCaseStatus.TabIndex = 37;
             // 
             // btnDeleteMedBill
             // 
@@ -2905,7 +2905,7 @@
             this.txtNoteOnCase.Name = "txtNoteOnCase";
             this.txtNoteOnCase.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtNoteOnCase.Size = new System.Drawing.Size(836, 84);
-            this.txtNoteOnCase.TabIndex = 142;
+            this.txtNoteOnCase.TabIndex = 38;
             // 
             // label177
             // 
@@ -2991,6 +2991,7 @@
             this.txtPoPUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPoPUploadDate.Location = new System.Drawing.Point(623, 236);
             this.txtPoPUploadDate.Name = "txtPoPUploadDate";
+            this.txtPoPUploadDate.ReadOnly = true;
             this.txtPoPUploadDate.Size = new System.Drawing.Size(79, 22);
             this.txtPoPUploadDate.TabIndex = 126;
             // 
@@ -2999,6 +3000,7 @@
             this.txtMRUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMRUploadDate.Location = new System.Drawing.Point(623, 269);
             this.txtMRUploadDate.Name = "txtMRUploadDate";
+            this.txtMRUploadDate.ReadOnly = true;
             this.txtMRUploadDate.Size = new System.Drawing.Size(79, 22);
             this.txtMRUploadDate.TabIndex = 125;
             // 
@@ -3007,6 +3009,7 @@
             this.txtOtherDocUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOtherDocUploadDate.Location = new System.Drawing.Point(623, 302);
             this.txtOtherDocUploadDate.Name = "txtOtherDocUploadDate";
+            this.txtOtherDocUploadDate.ReadOnly = true;
             this.txtOtherDocUploadDate.Size = new System.Drawing.Size(79, 22);
             this.txtOtherDocUploadDate.TabIndex = 124;
             // 
@@ -3015,6 +3018,7 @@
             this.txtIBUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIBUploadDate.Location = new System.Drawing.Point(623, 202);
             this.txtIBUploadDate.Name = "txtIBUploadDate";
+            this.txtIBUploadDate.ReadOnly = true;
             this.txtIBUploadDate.Size = new System.Drawing.Size(79, 22);
             this.txtIBUploadDate.TabIndex = 123;
             // 
@@ -3023,6 +3027,7 @@
             this.txtNPFUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNPFUploadDate.Location = new System.Drawing.Point(623, 169);
             this.txtNPFUploadDate.Name = "txtNPFUploadDate";
+            this.txtNPFUploadDate.ReadOnly = true;
             this.txtNPFUploadDate.Size = new System.Drawing.Size(79, 22);
             this.txtNPFUploadDate.TabIndex = 122;
             // 
@@ -3466,6 +3471,7 @@
             this.txtOtherDocumentFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(200, 302);
             this.txtOtherDocumentFilePath.Name = "txtOtherDocumentFilePath";
+            this.txtOtherDocumentFilePath.ReadOnly = true;
             this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(152, 22);
             this.txtOtherDocumentFilePath.TabIndex = 84;
             // 
@@ -3474,6 +3480,7 @@
             this.txtMedicalRecordFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(200, 269);
             this.txtMedicalRecordFilePath.Name = "txtMedicalRecordFilePath";
+            this.txtMedicalRecordFilePath.ReadOnly = true;
             this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(152, 22);
             this.txtMedicalRecordFilePath.TabIndex = 83;
             // 
@@ -3482,6 +3489,7 @@
             this.txtPopFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPopFilePath.Location = new System.Drawing.Point(200, 236);
             this.txtPopFilePath.Name = "txtPopFilePath";
+            this.txtPopFilePath.ReadOnly = true;
             this.txtPopFilePath.Size = new System.Drawing.Size(152, 22);
             this.txtPopFilePath.TabIndex = 82;
             // 
@@ -3490,6 +3498,7 @@
             this.txtIBFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIBFilePath.Location = new System.Drawing.Point(200, 202);
             this.txtIBFilePath.Name = "txtIBFilePath";
+            this.txtIBFilePath.ReadOnly = true;
             this.txtIBFilePath.Size = new System.Drawing.Size(152, 22);
             this.txtIBFilePath.TabIndex = 81;
             // 
@@ -3498,6 +3507,7 @@
             this.txtNPFFormFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNPFFormFilePath.Location = new System.Drawing.Point(200, 168);
             this.txtNPFFormFilePath.Name = "txtNPFFormFilePath";
+            this.txtNPFFormFilePath.ReadOnly = true;
             this.txtNPFFormFilePath.Size = new System.Drawing.Size(152, 22);
             this.txtNPFFormFilePath.TabIndex = 80;
             // 
@@ -3508,7 +3518,7 @@
             this.chkOtherDocCaseCreationPage.Location = new System.Drawing.Point(45, 302);
             this.chkOtherDocCaseCreationPage.Name = "chkOtherDocCaseCreationPage";
             this.chkOtherDocCaseCreationPage.Size = new System.Drawing.Size(133, 20);
-            this.chkOtherDocCaseCreationPage.TabIndex = 79;
+            this.chkOtherDocCaseCreationPage.TabIndex = 36;
             this.chkOtherDocCaseCreationPage.Text = "Other Documents:";
             this.chkOtherDocCaseCreationPage.UseVisualStyleBackColor = true;
             this.chkOtherDocCaseCreationPage.CheckedChanged += new System.EventHandler(this.chkOtherDocCaseCreationPage_CheckedChanged);
@@ -3520,7 +3530,7 @@
             this.chkMedicalRecordCaseCreationPage.Location = new System.Drawing.Point(45, 269);
             this.chkMedicalRecordCaseCreationPage.Name = "chkMedicalRecordCaseCreationPage";
             this.chkMedicalRecordCaseCreationPage.Size = new System.Drawing.Size(126, 20);
-            this.chkMedicalRecordCaseCreationPage.TabIndex = 78;
+            this.chkMedicalRecordCaseCreationPage.TabIndex = 35;
             this.chkMedicalRecordCaseCreationPage.Text = "Medical Record:";
             this.chkMedicalRecordCaseCreationPage.UseVisualStyleBackColor = true;
             this.chkMedicalRecordCaseCreationPage.CheckedChanged += new System.EventHandler(this.chkMedicalRecordCaseCreationPage_CheckedChanged);
@@ -3532,7 +3542,7 @@
             this.chkPoP_CaseCreationPage.Location = new System.Drawing.Point(45, 236);
             this.chkPoP_CaseCreationPage.Name = "chkPoP_CaseCreationPage";
             this.chkPoP_CaseCreationPage.Size = new System.Drawing.Size(56, 20);
-            this.chkPoP_CaseCreationPage.TabIndex = 77;
+            this.chkPoP_CaseCreationPage.TabIndex = 34;
             this.chkPoP_CaseCreationPage.Text = "PoP:";
             this.chkPoP_CaseCreationPage.UseVisualStyleBackColor = true;
             this.chkPoP_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkPoP_CaseCreationPage_CheckedChanged);
@@ -3544,7 +3554,7 @@
             this.chkIB_CaseCreationPage.Location = new System.Drawing.Point(45, 203);
             this.chkIB_CaseCreationPage.Name = "chkIB_CaseCreationPage";
             this.chkIB_CaseCreationPage.Size = new System.Drawing.Size(42, 20);
-            this.chkIB_CaseCreationPage.TabIndex = 76;
+            this.chkIB_CaseCreationPage.TabIndex = 33;
             this.chkIB_CaseCreationPage.Text = "IB:";
             this.chkIB_CaseCreationPage.UseVisualStyleBackColor = true;
             this.chkIB_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkIB_CaseCreationPage_CheckedChanged);
@@ -3556,7 +3566,7 @@
             this.chkNPF_CaseCreationPage.Location = new System.Drawing.Point(45, 170);
             this.chkNPF_CaseCreationPage.Name = "chkNPF_CaseCreationPage";
             this.chkNPF_CaseCreationPage.Size = new System.Drawing.Size(91, 20);
-            this.chkNPF_CaseCreationPage.TabIndex = 75;
+            this.chkNPF_CaseCreationPage.TabIndex = 32;
             this.chkNPF_CaseCreationPage.Text = "NPF Form:";
             this.chkNPF_CaseCreationPage.UseVisualStyleBackColor = true;
             this.chkNPF_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkNPF_CaseCreationPage_CheckedChanged);
@@ -3703,7 +3713,7 @@
             this.dtpMedicalRecordDate.Location = new System.Drawing.Point(513, 83);
             this.dtpMedicalRecordDate.Name = "dtpMedicalRecordDate";
             this.dtpMedicalRecordDate.Size = new System.Drawing.Size(117, 20);
-            this.dtpMedicalRecordDate.TabIndex = 136;
+            this.dtpMedicalRecordDate.TabIndex = 62;
             // 
             // dtpHippaSentDate
             // 
@@ -3711,7 +3721,7 @@
             this.dtpHippaSentDate.Location = new System.Drawing.Point(513, 54);
             this.dtpHippaSentDate.Name = "dtpHippaSentDate";
             this.dtpHippaSentDate.Size = new System.Drawing.Size(117, 20);
-            this.dtpHippaSentDate.TabIndex = 135;
+            this.dtpHippaSentDate.TabIndex = 61;
             // 
             // dtpProposalLetterSentDate
             // 
@@ -3719,28 +3729,28 @@
             this.dtpProposalLetterSentDate.Location = new System.Drawing.Point(513, 24);
             this.dtpProposalLetterSentDate.Name = "dtpProposalLetterSentDate";
             this.dtpProposalLetterSentDate.Size = new System.Drawing.Size(117, 20);
-            this.dtpProposalLetterSentDate.TabIndex = 134;
+            this.dtpProposalLetterSentDate.TabIndex = 60;
             // 
             // txtProviderContactPerson
             // 
             this.txtProviderContactPerson.Location = new System.Drawing.Point(185, 83);
             this.txtProviderContactPerson.Name = "txtProviderContactPerson";
             this.txtProviderContactPerson.Size = new System.Drawing.Size(104, 20);
-            this.txtProviderContactPerson.TabIndex = 133;
+            this.txtProviderContactPerson.TabIndex = 59;
             // 
             // txtMedProviderPhoneNo
             // 
             this.txtMedProviderPhoneNo.Location = new System.Drawing.Point(166, 54);
             this.txtMedProviderPhoneNo.Name = "txtMedProviderPhoneNo";
             this.txtMedProviderPhoneNo.Size = new System.Drawing.Size(123, 20);
-            this.txtMedProviderPhoneNo.TabIndex = 132;
+            this.txtMedProviderPhoneNo.TabIndex = 58;
             // 
             // txtMedBillAccountNoAtProvider
             // 
             this.txtMedBillAccountNoAtProvider.Location = new System.Drawing.Point(166, 24);
             this.txtMedBillAccountNoAtProvider.Name = "txtMedBillAccountNoAtProvider";
             this.txtMedBillAccountNoAtProvider.Size = new System.Drawing.Size(123, 20);
-            this.txtMedBillAccountNoAtProvider.TabIndex = 131;
+            this.txtMedBillAccountNoAtProvider.TabIndex = 57;
             // 
             // label75
             // 
@@ -4035,7 +4045,7 @@
             this.rbModified.Location = new System.Drawing.Point(257, 54);
             this.rbModified.Name = "rbModified";
             this.rbModified.Size = new System.Drawing.Size(65, 17);
-            this.rbModified.TabIndex = 2;
+            this.rbModified.TabIndex = 65;
             this.rbModified.TabStop = true;
             this.rbModified.Text = "Modified";
             this.rbModified.UseVisualStyleBackColor = true;
@@ -4046,7 +4056,7 @@
             this.rbDeclined.Location = new System.Drawing.Point(145, 54);
             this.rbDeclined.Name = "rbDeclined";
             this.rbDeclined.Size = new System.Drawing.Size(67, 17);
-            this.rbDeclined.TabIndex = 1;
+            this.rbDeclined.TabIndex = 64;
             this.rbDeclined.TabStop = true;
             this.rbDeclined.Text = "Declined";
             this.rbDeclined.UseVisualStyleBackColor = true;
@@ -4057,7 +4067,7 @@
             this.rbAccepted.Location = new System.Drawing.Point(27, 54);
             this.rbAccepted.Name = "rbAccepted";
             this.rbAccepted.Size = new System.Drawing.Size(71, 17);
-            this.rbAccepted.TabIndex = 0;
+            this.rbAccepted.TabIndex = 63;
             this.rbAccepted.TabStop = true;
             this.rbAccepted.Text = "Accepted";
             this.rbAccepted.UseVisualStyleBackColor = true;
@@ -4199,12 +4209,10 @@
             this.grpMedicalBillInformation.Controls.Add(this.comboIneligibleReason);
             this.grpMedicalBillInformation.Controls.Add(this.comboPendingReason);
             this.grpMedicalBillInformation.Controls.Add(this.comboMedBillStatus);
-            this.grpMedicalBillInformation.Controls.Add(this.txtPhysicalTherapyRxNote);
             this.grpMedicalBillInformation.Controls.Add(this.lblIneligibleReason);
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfPhysicalTheraph);
             this.grpMedicalBillInformation.Controls.Add(this.lblPendingReason);
             this.grpMedicalBillInformation.Controls.Add(this.lblPhysicalTherapyRxNote);
-            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionName);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionNote);
             this.grpMedicalBillInformation.Controls.Add(this.txtNumPhysicalTherapy);
@@ -4214,7 +4222,6 @@
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfMedication);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
             this.grpMedicalBillInformation.Controls.Add(this.lblMedBillNote);
-            this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNote);
             this.grpMedicalBillInformation.Controls.Add(this.comboMedBillType);
             this.grpMedicalBillInformation.Controls.Add(this.label173);
             this.grpMedicalBillInformation.Controls.Add(this.txtBalance);
@@ -4233,6 +4240,9 @@
             this.grpMedicalBillInformation.Controls.Add(this.rbOutpatient);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedicalProvider);
             this.grpMedicalBillInformation.Controls.Add(this.label57);
+            this.grpMedicalBillInformation.Controls.Add(this.txtPhysicalTherapyRxNote);
+            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
+            this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNote);
             this.grpMedicalBillInformation.Location = new System.Drawing.Point(922, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
             this.grpMedicalBillInformation.Size = new System.Drawing.Size(541, 356);
@@ -4249,7 +4259,7 @@
             this.cbMedBillClosed.Location = new System.Drawing.Point(141, 97);
             this.cbMedBillClosed.Name = "cbMedBillClosed";
             this.cbMedBillClosed.Size = new System.Drawing.Size(116, 21);
-            this.cbMedBillClosed.TabIndex = 172;
+            this.cbMedBillClosed.TabIndex = 41;
             // 
             // label61
             // 
@@ -4267,7 +4277,7 @@
             this.comboIneligibleReason.Location = new System.Drawing.Point(16, 318);
             this.comboIneligibleReason.Name = "comboIneligibleReason";
             this.comboIneligibleReason.Size = new System.Drawing.Size(241, 21);
-            this.comboIneligibleReason.TabIndex = 151;
+            this.comboIneligibleReason.TabIndex = 49;
             // 
             // comboPendingReason
             // 
@@ -4275,7 +4285,7 @@
             this.comboPendingReason.Location = new System.Drawing.Point(16, 263);
             this.comboPendingReason.Name = "comboPendingReason";
             this.comboPendingReason.Size = new System.Drawing.Size(241, 21);
-            this.comboPendingReason.TabIndex = 166;
+            this.comboPendingReason.TabIndex = 48;
             // 
             // comboMedBillStatus
             // 
@@ -4283,17 +4293,8 @@
             this.comboMedBillStatus.Location = new System.Drawing.Point(141, 72);
             this.comboMedBillStatus.Name = "comboMedBillStatus";
             this.comboMedBillStatus.Size = new System.Drawing.Size(116, 21);
-            this.comboMedBillStatus.TabIndex = 170;
+            this.comboMedBillStatus.TabIndex = 40;
             this.comboMedBillStatus.SelectedIndexChanged += new System.EventHandler(this.comboMedBillStatus_SelectedIndexChanged);
-            // 
-            // txtPhysicalTherapyRxNote
-            // 
-            this.txtPhysicalTherapyRxNote.Location = new System.Drawing.Point(16, 237);
-            this.txtPhysicalTherapyRxNote.Multiline = true;
-            this.txtPhysicalTherapyRxNote.Name = "txtPhysicalTherapyRxNote";
-            this.txtPhysicalTherapyRxNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(511, 102);
-            this.txtPhysicalTherapyRxNote.TabIndex = 154;
             // 
             // lblIneligibleReason
             // 
@@ -4335,15 +4336,6 @@
             this.lblPhysicalTherapyRxNote.TabIndex = 153;
             this.lblPhysicalTherapyRxNote.Text = "Physical Therapy Rx Note";
             // 
-            // txtPrescriptionNote
-            // 
-            this.txtPrescriptionNote.Location = new System.Drawing.Point(275, 207);
-            this.txtPrescriptionNote.Multiline = true;
-            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
-            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionNote.Size = new System.Drawing.Size(252, 132);
-            this.txtPrescriptionNote.TabIndex = 169;
-            // 
             // lblPrescriptionName
             // 
             this.lblPrescriptionName.AutoSize = true;
@@ -4370,21 +4362,21 @@
             this.txtNumPhysicalTherapy.Location = new System.Drawing.Point(159, 178);
             this.txtNumPhysicalTherapy.Name = "txtNumPhysicalTherapy";
             this.txtNumPhysicalTherapy.Size = new System.Drawing.Size(98, 20);
-            this.txtNumPhysicalTherapy.TabIndex = 152;
+            this.txtNumPhysicalTherapy.TabIndex = 55;
             // 
             // txtNumberOfMedication
             // 
             this.txtNumberOfMedication.Location = new System.Drawing.Point(141, 218);
             this.txtNumberOfMedication.Name = "txtNumberOfMedication";
             this.txtNumberOfMedication.Size = new System.Drawing.Size(116, 20);
-            this.txtNumberOfMedication.TabIndex = 167;
+            this.txtNumberOfMedication.TabIndex = 52;
             // 
             // txtPrescriptionName
             // 
             this.txtPrescriptionName.Location = new System.Drawing.Point(141, 178);
             this.txtPrescriptionName.Name = "txtPrescriptionName";
             this.txtPrescriptionName.Size = new System.Drawing.Size(116, 20);
-            this.txtPrescriptionName.TabIndex = 163;
+            this.txtPrescriptionName.TabIndex = 51;
             // 
             // txtPrescriptionDescription
             // 
@@ -4393,7 +4385,7 @@
             this.txtPrescriptionDescription.Name = "txtPrescriptionDescription";
             this.txtPrescriptionDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtPrescriptionDescription.Size = new System.Drawing.Size(241, 72);
-            this.txtPrescriptionDescription.TabIndex = 166;
+            this.txtPrescriptionDescription.TabIndex = 53;
             // 
             // lblNumberOfMedication
             // 
@@ -4425,22 +4417,13 @@
             this.lblMedBillNote.TabIndex = 161;
             this.lblMedBillNote.Text = "Med Bill Note";
             // 
-            // txtMedBillNote
-            // 
-            this.txtMedBillNote.Location = new System.Drawing.Point(275, 207);
-            this.txtMedBillNote.Multiline = true;
-            this.txtMedBillNote.Name = "txtMedBillNote";
-            this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMedBillNote.Size = new System.Drawing.Size(252, 132);
-            this.txtMedBillNote.TabIndex = 160;
-            // 
             // comboMedBillType
             // 
             this.comboMedBillType.FormattingEnabled = true;
             this.comboMedBillType.Location = new System.Drawing.Point(141, 47);
             this.comboMedBillType.Name = "comboMedBillType";
             this.comboMedBillType.Size = new System.Drawing.Size(116, 21);
-            this.comboMedBillType.TabIndex = 156;
+            this.comboMedBillType.TabIndex = 39;
             this.comboMedBillType.SelectedIndexChanged += new System.EventHandler(this.comboMedBillType_SelectedIndexChanged);
             // 
             // label173
@@ -4488,7 +4471,7 @@
             this.dtpDueDate.Location = new System.Drawing.Point(400, 122);
             this.dtpDueDate.Name = "dtpDueDate";
             this.dtpDueDate.Size = new System.Drawing.Size(127, 20);
-            this.dtpDueDate.TabIndex = 151;
+            this.dtpDueDate.TabIndex = 45;
             // 
             // label65
             // 
@@ -4517,7 +4500,7 @@
             this.dtpBillDate.Location = new System.Drawing.Point(400, 97);
             this.dtpBillDate.Name = "dtpBillDate";
             this.dtpBillDate.Size = new System.Drawing.Size(127, 20);
-            this.dtpBillDate.TabIndex = 148;
+            this.dtpBillDate.TabIndex = 44;
             // 
             // label67
             // 
@@ -4535,7 +4518,7 @@
             this.txtMedBillAmount.Location = new System.Drawing.Point(141, 122);
             this.txtMedBillAmount.Name = "txtMedBillAmount";
             this.txtMedBillAmount.Size = new System.Drawing.Size(116, 20);
-            this.txtMedBillAmount.TabIndex = 67;
+            this.txtMedBillAmount.TabIndex = 42;
             this.txtMedBillAmount.TextChanged += new System.EventHandler(this.txtMedBillAmount_TextChanged);
             // 
             // label64
@@ -4573,7 +4556,7 @@
             this.rbInpatient.Location = new System.Drawing.Point(159, 201);
             this.rbInpatient.Name = "rbInpatient";
             this.rbInpatient.Size = new System.Drawing.Size(76, 20);
-            this.rbInpatient.TabIndex = 42;
+            this.rbInpatient.TabIndex = 47;
             this.rbInpatient.TabStop = true;
             this.rbInpatient.Text = "Inpatient";
             this.rbInpatient.UseVisualStyleBackColor = true;
@@ -4585,7 +4568,7 @@
             this.rbOutpatient.Location = new System.Drawing.Point(36, 201);
             this.rbOutpatient.Name = "rbOutpatient";
             this.rbOutpatient.Size = new System.Drawing.Size(86, 20);
-            this.rbOutpatient.TabIndex = 41;
+            this.rbOutpatient.TabIndex = 46;
             this.rbOutpatient.TabStop = true;
             this.rbOutpatient.Text = "Outpatient";
             this.rbOutpatient.UseVisualStyleBackColor = true;
@@ -4595,7 +4578,7 @@
             this.txtMedicalProvider.Location = new System.Drawing.Point(400, 23);
             this.txtMedicalProvider.Name = "txtMedicalProvider";
             this.txtMedicalProvider.Size = new System.Drawing.Size(127, 20);
-            this.txtMedicalProvider.TabIndex = 40;
+            this.txtMedicalProvider.TabIndex = 43;
             // 
             // label57
             // 
@@ -4606,6 +4589,33 @@
             this.label57.Size = new System.Drawing.Size(113, 16);
             this.label57.TabIndex = 39;
             this.label57.Text = "Medical Provider:";
+            // 
+            // txtPhysicalTherapyRxNote
+            // 
+            this.txtPhysicalTherapyRxNote.Location = new System.Drawing.Point(16, 237);
+            this.txtPhysicalTherapyRxNote.Multiline = true;
+            this.txtPhysicalTherapyRxNote.Name = "txtPhysicalTherapyRxNote";
+            this.txtPhysicalTherapyRxNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(511, 102);
+            this.txtPhysicalTherapyRxNote.TabIndex = 56;
+            // 
+            // txtPrescriptionNote
+            // 
+            this.txtPrescriptionNote.Location = new System.Drawing.Point(275, 207);
+            this.txtPrescriptionNote.Multiline = true;
+            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
+            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPrescriptionNote.Size = new System.Drawing.Size(252, 132);
+            this.txtPrescriptionNote.TabIndex = 54;
+            // 
+            // txtMedBillNote
+            // 
+            this.txtMedBillNote.Location = new System.Drawing.Point(275, 207);
+            this.txtMedBillNote.Multiline = true;
+            this.txtMedBillNote.Name = "txtMedBillNote";
+            this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtMedBillNote.Size = new System.Drawing.Size(252, 132);
+            this.txtMedBillNote.TabIndex = 50;
             // 
             // grpDocumentProcessing
             // 
