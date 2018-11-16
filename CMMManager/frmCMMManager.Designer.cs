@@ -4456,7 +4456,7 @@
             // 
             // btnMedicalProviderInfo
             // 
-            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(400, 48);
+            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(274, 71);
             this.btnMedicalProviderInfo.Name = "btnMedicalProviderInfo";
             this.btnMedicalProviderInfo.Size = new System.Drawing.Size(127, 23);
             this.btnMedicalProviderInfo.TabIndex = 152;
@@ -4468,7 +4468,7 @@
             // 
             this.dtpDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDueDate.Location = new System.Drawing.Point(400, 122);
+            this.dtpDueDate.Location = new System.Drawing.Point(400, 147);
             this.dtpDueDate.Name = "dtpDueDate";
             this.dtpDueDate.Size = new System.Drawing.Size(127, 20);
             this.dtpDueDate.TabIndex = 45;
@@ -4477,7 +4477,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(272, 124);
+            this.label65.Location = new System.Drawing.Point(272, 149);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(68, 16);
             this.label65.TabIndex = 150;
@@ -4497,7 +4497,7 @@
             // 
             this.dtpBillDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpBillDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBillDate.Location = new System.Drawing.Point(400, 97);
+            this.dtpBillDate.Location = new System.Drawing.Point(400, 122);
             this.dtpBillDate.Name = "dtpBillDate";
             this.dtpBillDate.Size = new System.Drawing.Size(127, 20);
             this.dtpBillDate.TabIndex = 44;
@@ -4506,7 +4506,7 @@
             // 
             this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(272, 99);
+            this.label67.Location = new System.Drawing.Point(272, 124);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(103, 16);
             this.label67.TabIndex = 149;
@@ -4575,9 +4575,9 @@
             // 
             // txtMedicalProvider
             // 
-            this.txtMedicalProvider.Location = new System.Drawing.Point(400, 23);
+            this.txtMedicalProvider.Location = new System.Drawing.Point(275, 47);
             this.txtMedicalProvider.Name = "txtMedicalProvider";
-            this.txtMedicalProvider.Size = new System.Drawing.Size(127, 20);
+            this.txtMedicalProvider.Size = new System.Drawing.Size(252, 20);
             this.txtMedicalProvider.TabIndex = 43;
             // 
             // label57

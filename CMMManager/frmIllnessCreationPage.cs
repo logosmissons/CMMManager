@@ -352,6 +352,82 @@ namespace CMMManager
             if (txtIllnessNote.Text.Trim() != String.Empty) strIllnessNote = txtIllnessNote.Text.Trim();
             if (txtConclusion.Text.Trim() != String.Empty) strConclusion = txtConclusion.Text.Trim();
 
+            if (strICD10Code.ToUpper() == "Z00.00" || strICD10Code.ToUpper() == "Z00.012")
+            {
+                String strSqlQueryForGoldPlusPlan = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name], [dbo].[contact].[c4g_Membership_Start_Date__c] " +
+                                                    "from [dbo].[contact] " +
+                                                    "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                    "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForGoldPlusPlan = new SqlCommand(strSqlQueryForGoldPlusPlan, connSalesforce);
+                cmdQueryForGoldPlusPlan.CommandType = CommandType.Text;
+
+                cmdQueryForGoldPlusPlan.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                String IndividualPlan = String.Empty;
+                String IndividualId = String.Empty;
+                DateTime? MembershipStartDate = new DateTime();
+                Boolean bIndividualId = true;
+                Boolean bIndividualPlan = true;
+                Boolean bMembershipStartDate = true;
+
+                SqlDataReader rdrGoldPlusPlan = cmdQueryForGoldPlusPlan.ExecuteReader();
+                if (rdrGoldPlusPlan.HasRows)
+                {
+                    rdrGoldPlusPlan.Read();
+                    if (!rdrGoldPlusPlan.IsDBNull(0)) IndividualId = rdrGoldPlusPlan.GetString(0);
+                    else bIndividualId = false;
+                    if (!rdrGoldPlusPlan.IsDBNull(1)) IndividualPlan = rdrGoldPlusPlan.GetString(1);
+                    else bIndividualPlan = false;
+                    if (!rdrGoldPlusPlan.IsDBNull(2)) MembershipStartDate = rdrGoldPlusPlan.GetDateTime(2);
+                    else bMembershipStartDate = false;
+                    
+                }
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                if (bIndividualId == false)
+                {
+                    MessageBox.Show("No such Individual ID", "Error");
+                    return;
+                }
+
+                if (bIndividualPlan == false)
+                {
+                    MessageBox.Show("The individual has no membership plan.", "Error");
+                    return;
+                }
+
+                if (bMembershipStartDate == false)
+                {
+                    MessageBox.Show("The individual has no start date.", "Error");
+                    return;
+                }
+
+                if (IndividualPlan != "Gold Plus" &&
+                    IndividualPlan != "Gold Medi-I" &&
+                    IndividualPlan != "Gold Medi-II")
+                {
+                    MessageBox.Show("Individual Plan does not qualify for Well Being Care.", "Alert");
+                    return;
+                }
+
+                DateTime WellBeingCareBeginDate = MembershipStartDate.Value.AddMonths(6);
+
+                if (WellBeingCareBeginDate > DateTime.Today)
+                {
+                    MessageBox.Show("Six months have not passed yet since the membership start date. The Individual does not qualify for Well Being Care", "Alert");
+                    return;
+                }
+
+            }
+
             //String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
             //                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
             //                                 "[dbo].[tbl_illness].[Case_Id] = @CaseNo and " +
