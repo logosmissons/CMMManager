@@ -352,9 +352,10 @@ namespace CMMManager
             if (txtIllnessNote.Text.Trim() != String.Empty) strIllnessNote = txtIllnessNote.Text.Trim();
             if (txtConclusion.Text.Trim() != String.Empty) strConclusion = txtConclusion.Text.Trim();
 
+            // This section of code (if block) needs further discussion in RN project meeting
             if (strICD10Code.ToUpper() == "Z00.00" || strICD10Code.ToUpper() == "Z00.012")
             {
-                String strSqlQueryForGoldPlusPlan = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name], [dbo].[contact].[c4g_Membership_Start_Date__c] " +
+                String strSqlQueryForGoldPlusPlan = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name], [dbo].[contact].[Membership_IND_Start_date__c] " +
                                                     "from [dbo].[contact] " +
                                                     "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
                                                     "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
@@ -419,12 +420,6 @@ namespace CMMManager
                 }
 
                 DateTime WellBeingCareBeginDate = MembershipStartDate.Value.AddMonths(6);
-
-                if (WellBeingCareBeginDate > DateTime.Today)
-                {
-                    MessageBox.Show("Six months have not passed yet since the membership start date. The Individual does not qualify for Well Being Care", "Alert");
-                    return;
-                }
 
             }
 

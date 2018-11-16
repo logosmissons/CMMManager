@@ -574,6 +574,36 @@ namespace CMMManager
 
             if (mode == IncidentMode.AddNew)
             {
+
+                String strSQlQueryForMembershipStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForMembershipstartDate = new SqlCommand(strSQlQueryForMembershipStartDate, connSalesforce);
+                cmdQueryForMembershipstartDate.CommandType = CommandType.Text;
+
+                cmdQueryForMembershipstartDate.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                Object objMembershipStartDate = cmdQueryForMembershipstartDate.ExecuteScalar();
+
+                DateTime? MembershipStartDate = null;
+                if (objMembershipStartDate != null)
+                {
+                    MembershipStartDate = DateTime.Parse(objMembershipStartDate.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("No membership start date for " + IndividualId, "Error");
+                    return;
+                }
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                 String strSqlQueryForMaxIncidentId = "select max([dbo].[tbl_incident].[incident_id]) from [dbo].[tbl_incident]";
 
                 SqlCommand cmdQueryForMaxIncidentId = new SqlCommand(strSqlQueryForMaxIncidentId, connRNDB);
