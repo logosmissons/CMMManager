@@ -1571,9 +1571,19 @@ namespace CMMManager
             }
         }
 
-        private void AddRowToIllnessList(DataGridViewRow row)
+        private void AddRowToIllnessListSafely(DataGridViewRow row)
         {
-            gvIllnessList.BeginInvoke(new AddRowToIllnessList(AddRowToIllnessList), row);
+            gvIllnessList.BeginInvoke(new AddRowToIllnessList(AddRowIllnessToList), row);
+        }
+
+        private void RemoveRowFromIllnessListSafely(int i)
+        {
+            gvIllnessList.BeginInvoke(new RemoveRowInIllnessList(RemoveRowIllnessList), i);
+        }
+
+        private void RemoveAllRowIllnessListSafely()
+        {
+            gvIllnessList.BeginInvoke(new RemoveAllRowsInIllnessList(RemoveAllIllnessInList));
         }
 
         private void AddRowIllnessToList(DataGridViewRow row)
@@ -1586,7 +1596,7 @@ namespace CMMManager
             gvIllnessList.Rows.Clear();
         }
 
-        private void RemoveRowInIllnessList(int i)
+        private void RemoveRowIllnessList(int i)
         {
             gvIllnessList.Rows.RemoveAt(i);
         }
