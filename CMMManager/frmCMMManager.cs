@@ -65,6 +65,10 @@ namespace CMMManager
         // Delegates for Cross thread method call
         delegate void SetTabPages(int nIndex);
 
+        private delegate void RemoveRowInIllnessList(int nRow);
+        private delegate void RemoveAllRowsInIllnessList();
+        private delegate void AddRowToIllnessList(DataGridViewRow row);
+
         delegate void RemoveRowInGVSettlement(int nRow);
         delegate void RemoveAllRowsInSettlement();
         delegate void AddRowToGVSettlement(DataGridViewRow row);
@@ -1565,6 +1569,26 @@ namespace CMMManager
 
                 UpdateGridViewIncidentList(strIndividualId);
             }
+        }
+
+        private void AddRowToIllnessList(DataGridViewRow row)
+        {
+            gvIllnessList.BeginInvoke(new AddRowToIllnessList(AddRowToIllnessList), row);
+        }
+
+        private void AddRowIllnessToList(DataGridViewRow row)
+        {
+            gvIllnessList.Rows.Add(row);
+        }
+
+        private void RemoveAllIllnessInList()
+        {
+            gvIllnessList.Rows.Clear();
+        }
+
+        private void RemoveRowInIllnessList(int i)
+        {
+            gvIllnessList.Rows.RemoveAt(i);
         }
 
         private void UpdateGridViewIllnessList(String individual_id)
