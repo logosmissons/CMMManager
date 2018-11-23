@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -76,10 +78,6 @@
             this.tbpgDashboardFDManager = new System.Windows.Forms.TabPage();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
             this.tbpgSearchResult = new System.Windows.Forms.TabPage();
-            this.gvMedBillsSearched = new System.Windows.Forms.DataGridView();
-            this.label60 = new System.Windows.Forms.Label();
-            this.gvCasesSearched = new System.Windows.Forms.DataGridView();
-            this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
@@ -308,6 +306,23 @@
             this.label47 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
+            this.tbpgIllnessView = new System.Windows.Forms.TabPage();
+            this.txtIllnessViewIndId = new System.Windows.Forms.TextBox();
+            this.txtIllnessViewMEMB = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.gvIllnessList = new System.Windows.Forms.DataGridView();
+            this.label89 = new System.Windows.Forms.Label();
+            this.tbpgIncidentView = new System.Windows.Forms.TabPage();
+            this.label92 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label178 = new System.Windows.Forms.Label();
+            this.gvIncidentList = new System.Windows.Forms.DataGridView();
+            this.tbpgMedBillView = new System.Windows.Forms.TabPage();
+            this.label179 = new System.Windows.Forms.Label();
+            this.gvMedBillList = new System.Windows.Forms.DataGridView();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
             this.txtTotalSharedAmtMedBill = new System.Windows.Forms.TextBox();
             this.label63 = new System.Windows.Forms.Label();
@@ -446,30 +461,6 @@
             this.txtIndividualIDMedBill = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
-            this.tbpgIllness = new System.Windows.Forms.TabPage();
-            this.btnAddNewMedBill = new System.Windows.Forms.Button();
-            this.label92 = new System.Windows.Forms.Label();
-            this.btnDeleteIncident = new System.Windows.Forms.Button();
-            this.btnEditIncident = new System.Windows.Forms.Button();
-            this.btnAddNewIncident = new System.Windows.Forms.Button();
-            this.label91 = new System.Windows.Forms.Label();
-            this.gvIncidentList = new System.Windows.Forms.DataGridView();
-            this.IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnDeleteIllness = new System.Windows.Forms.Button();
-            this.btnEditIllness = new System.Windows.Forms.Button();
-            this.btnAddNewIllness = new System.Windows.Forms.Button();
-            this.label90 = new System.Windows.Forms.Label();
-            this.gvIllnessList = new System.Windows.Forms.DataGridView();
-            this.IndividualNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ICD10Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IllnessNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label89 = new System.Windows.Forms.Label();
             this.tbpgPayment = new System.Windows.Forms.TabPage();
             this.tabPaymentMethod = new System.Windows.Forms.TabControl();
             this.tbpgCheck = new System.Windows.Forms.TabPage();
@@ -735,6 +726,19 @@
             this.dataGridViewTextBoxColumn86 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn87 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_ICD10Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_CreateDate = new CMMManager.CalendarColumn();
+            this.Illness_CreatedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_ModifyDate = new CMMManager.CalendarColumn();
+            this.Illness_ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_DiagnosisDate = new CMMManager.CalendarColumn();
+            this.Illness_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_LimitedSharing = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Introduction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Body = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Conclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerPending)).BeginInit();
@@ -755,8 +759,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffMostRecentItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffActiveTask)).BeginInit();
             this.tbpgSearchResult.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMedBillsSearched)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCasesSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).BeginInit();
             this.tbpgIndividual.SuspendLayout();
             this.pnlHealthHistoryAfterRegistration.SuspendLayout();
@@ -771,6 +773,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewTaskRNtoNP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewTaskNPtoRNFD)).BeginInit();
+            this.tbpgIllnessView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessList)).BeginInit();
+            this.tbpgIncidentView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIncidentList)).BeginInit();
+            this.tbpgMedBillView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvMedBillList)).BeginInit();
             this.tbpgMedicalBill.SuspendLayout();
             this.grpEtc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsInMedBill)).BeginInit();
@@ -783,9 +791,6 @@
             this.grpDocumentProcessing.SuspendLayout();
             this.grpICD10Code.SuspendLayout();
             this.grpPatientInfo.SuspendLayout();
-            this.tbpgIllness.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvIncidentList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessList)).BeginInit();
             this.tbpgPayment.SuspendLayout();
             this.tabPaymentMethod.SuspendLayout();
             this.tbpgCheck.SuspendLayout();
@@ -848,8 +853,10 @@
             this.tbCMMManager.Controls.Add(this.tbpgIndividual);
             this.tbCMMManager.Controls.Add(this.tbpgCaseView);
             this.tbCMMManager.Controls.Add(this.tbpgCreateCase);
+            this.tbCMMManager.Controls.Add(this.tbpgIllnessView);
+            this.tbCMMManager.Controls.Add(this.tbpgIncidentView);
+            this.tbCMMManager.Controls.Add(this.tbpgMedBillView);
             this.tbCMMManager.Controls.Add(this.tbpgMedicalBill);
-            this.tbCMMManager.Controls.Add(this.tbpgIllness);
             this.tbCMMManager.Controls.Add(this.tbpgPayment);
             this.tbCMMManager.Controls.Add(this.tbpgTask);
             this.tbCMMManager.Controls.Add(this.tbpgCallLog);
@@ -1272,10 +1279,6 @@
             // 
             // tbpgSearchResult
             // 
-            this.tbpgSearchResult.Controls.Add(this.gvMedBillsSearched);
-            this.tbpgSearchResult.Controls.Add(this.label60);
-            this.tbpgSearchResult.Controls.Add(this.gvCasesSearched);
-            this.tbpgSearchResult.Controls.Add(this.label58);
             this.tbpgSearchResult.Controls.Add(this.label59);
             this.tbpgSearchResult.Controls.Add(this.gvIndividualSearched);
             this.tbpgSearchResult.Location = new System.Drawing.Point(4, 22);
@@ -1284,48 +1287,6 @@
             this.tbpgSearchResult.TabIndex = 15;
             this.tbpgSearchResult.Text = "Search Result";
             this.tbpgSearchResult.UseVisualStyleBackColor = true;
-            // 
-            // gvMedBillsSearched
-            // 
-            this.gvMedBillsSearched.AllowUserToAddRows = false;
-            this.gvMedBillsSearched.AllowUserToDeleteRows = false;
-            this.gvMedBillsSearched.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvMedBillsSearched.Location = new System.Drawing.Point(29, 639);
-            this.gvMedBillsSearched.Name = "gvMedBillsSearched";
-            this.gvMedBillsSearched.ReadOnly = true;
-            this.gvMedBillsSearched.Size = new System.Drawing.Size(1772, 187);
-            this.gvMedBillsSearched.TabIndex = 7;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.Location = new System.Drawing.Point(26, 620);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(84, 16);
-            this.label60.TabIndex = 6;
-            this.label60.Text = "Medical Bills";
-            // 
-            // gvCasesSearched
-            // 
-            this.gvCasesSearched.AllowUserToAddRows = false;
-            this.gvCasesSearched.AllowUserToDeleteRows = false;
-            this.gvCasesSearched.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvCasesSearched.Location = new System.Drawing.Point(29, 374);
-            this.gvCasesSearched.Name = "gvCasesSearched";
-            this.gvCasesSearched.ReadOnly = true;
-            this.gvCasesSearched.Size = new System.Drawing.Size(1772, 231);
-            this.gvCasesSearched.TabIndex = 5;
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.Location = new System.Drawing.Point(26, 355);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(47, 16);
-            this.label58.TabIndex = 4;
-            this.label58.Text = "Cases";
             // 
             // label59
             // 
@@ -1348,7 +1309,7 @@
             this.gvIndividualSearched.Location = new System.Drawing.Point(29, 49);
             this.gvIndividualSearched.Name = "gvIndividualSearched";
             this.gvIndividualSearched.ReadOnly = true;
-            this.gvIndividualSearched.Size = new System.Drawing.Size(1772, 290);
+            this.gvIndividualSearched.Size = new System.Drawing.Size(1772, 792);
             this.gvIndividualSearched.TabIndex = 0;
             this.gvIndividualSearched.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIndividualSearched_CellDoubleClick);
             // 
@@ -3617,6 +3578,202 @@
             this.label45.TabIndex = 68;
             this.label45.Text = "Case";
             // 
+            // tbpgIllnessView
+            // 
+            this.tbpgIllnessView.Controls.Add(this.txtIllnessViewIndId);
+            this.tbpgIllnessView.Controls.Add(this.txtIllnessViewMEMB);
+            this.tbpgIllnessView.Controls.Add(this.label60);
+            this.tbpgIllnessView.Controls.Add(this.label58);
+            this.tbpgIllnessView.Controls.Add(this.gvIllnessList);
+            this.tbpgIllnessView.Controls.Add(this.label89);
+            this.tbpgIllnessView.Location = new System.Drawing.Point(4, 22);
+            this.tbpgIllnessView.Name = "tbpgIllnessView";
+            this.tbpgIllnessView.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgIllnessView.TabIndex = 9;
+            this.tbpgIllnessView.Text = "Illness View";
+            this.tbpgIllnessView.UseVisualStyleBackColor = true;
+            // 
+            // txtIllnessViewIndId
+            // 
+            this.txtIllnessViewIndId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIllnessViewIndId.Location = new System.Drawing.Point(325, 97);
+            this.txtIllnessViewIndId.Name = "txtIllnessViewIndId";
+            this.txtIllnessViewIndId.ReadOnly = true;
+            this.txtIllnessViewIndId.Size = new System.Drawing.Size(109, 22);
+            this.txtIllnessViewIndId.TabIndex = 124;
+            // 
+            // txtIllnessViewMEMB
+            // 
+            this.txtIllnessViewMEMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIllnessViewMEMB.Location = new System.Drawing.Point(103, 97);
+            this.txtIllnessViewMEMB.Name = "txtIllnessViewMEMB";
+            this.txtIllnessViewMEMB.ReadOnly = true;
+            this.txtIllnessViewMEMB.Size = new System.Drawing.Size(109, 22);
+            this.txtIllnessViewMEMB.TabIndex = 123;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.Location = new System.Drawing.Point(235, 100);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(84, 16);
+            this.label60.TabIndex = 122;
+            this.label60.Text = "Individual ID:";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.Location = new System.Drawing.Point(42, 100);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(55, 16);
+            this.label58.TabIndex = 14;
+            this.label58.Text = "MEMB -";
+            // 
+            // gvIllnessList
+            // 
+            this.gvIllnessList.AllowUserToAddRows = false;
+            this.gvIllnessList.AllowUserToDeleteRows = false;
+            this.gvIllnessList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvIllnessList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Illness_IllnessNo,
+            this.Illness_CaseId,
+            this.Illness_ICD10Code,
+            this.Illness_CreateDate,
+            this.Illness_CreatedBy,
+            this.Illness_ModifyDate,
+            this.Illness_ModifiedBy,
+            this.Illness_DiagnosisDate,
+            this.Illness_TotalSharedAmount,
+            this.Illness_LimitedSharing,
+            this.Illness_Introduction,
+            this.Illness_Body,
+            this.Illness_Conclusion});
+            this.gvIllnessList.Location = new System.Drawing.Point(42, 142);
+            this.gvIllnessList.MultiSelect = false;
+            this.gvIllnessList.Name = "gvIllnessList";
+            this.gvIllnessList.ReadOnly = true;
+            this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvIllnessList.Size = new System.Drawing.Size(1738, 682);
+            this.gvIllnessList.TabIndex = 13;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.Location = new System.Drawing.Point(37, 31);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(141, 29);
+            this.label89.TabIndex = 12;
+            this.label89.Text = "Illness View";
+            // 
+            // tbpgIncidentView
+            // 
+            this.tbpgIncidentView.Controls.Add(this.label92);
+            this.tbpgIncidentView.Controls.Add(this.button1);
+            this.tbpgIncidentView.Controls.Add(this.button2);
+            this.tbpgIncidentView.Controls.Add(this.button3);
+            this.tbpgIncidentView.Controls.Add(this.label178);
+            this.tbpgIncidentView.Controls.Add(this.gvIncidentList);
+            this.tbpgIncidentView.Location = new System.Drawing.Point(4, 22);
+            this.tbpgIncidentView.Name = "tbpgIncidentView";
+            this.tbpgIncidentView.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgIncidentView.TabIndex = 16;
+            this.tbpgIncidentView.Text = "Incident View";
+            this.tbpgIncidentView.UseVisualStyleBackColor = true;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label92.Location = new System.Drawing.Point(45, 39);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(156, 29);
+            this.label92.TabIndex = 28;
+            this.label92.Text = "Incident View";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(404, 86);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 23);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Delete";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(290, 86);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(92, 23);
+            this.button2.TabIndex = 26;
+            this.button2.Text = "Edit";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(176, 86);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(92, 23);
+            this.button3.TabIndex = 25;
+            this.button3.Text = "Add New";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label178
+            // 
+            this.label178.AutoSize = true;
+            this.label178.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label178.Location = new System.Drawing.Point(47, 89);
+            this.label178.Name = "label178";
+            this.label178.Size = new System.Drawing.Size(98, 16);
+            this.label178.TabIndex = 24;
+            this.label178.Text = "List of Incidents";
+            // 
+            // gvIncidentList
+            // 
+            this.gvIncidentList.AllowUserToAddRows = false;
+            this.gvIncidentList.AllowUserToDeleteRows = false;
+            this.gvIncidentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvIncidentList.Location = new System.Drawing.Point(50, 129);
+            this.gvIncidentList.Name = "gvIncidentList";
+            this.gvIncidentList.ReadOnly = true;
+            this.gvIncidentList.Size = new System.Drawing.Size(1732, 714);
+            this.gvIncidentList.TabIndex = 23;
+            // 
+            // tbpgMedBillView
+            // 
+            this.tbpgMedBillView.Controls.Add(this.label179);
+            this.tbpgMedBillView.Controls.Add(this.gvMedBillList);
+            this.tbpgMedBillView.Location = new System.Drawing.Point(4, 22);
+            this.tbpgMedBillView.Name = "tbpgMedBillView";
+            this.tbpgMedBillView.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgMedBillView.TabIndex = 17;
+            this.tbpgMedBillView.Text = "Medical Bill View";
+            this.tbpgMedBillView.UseVisualStyleBackColor = true;
+            this.tbpgMedBillView.Click += new System.EventHandler(this.tbpgMedBillView_Click);
+            // 
+            // label179
+            // 
+            this.label179.AutoSize = true;
+            this.label179.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label179.Location = new System.Drawing.Point(38, 48);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(197, 29);
+            this.label179.TabIndex = 13;
+            this.label179.Text = "Medical Bill View";
+            // 
+            // gvMedBillList
+            // 
+            this.gvMedBillList.AllowUserToAddRows = false;
+            this.gvMedBillList.AllowUserToDeleteRows = false;
+            this.gvMedBillList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvMedBillList.Location = new System.Drawing.Point(43, 119);
+            this.gvMedBillList.Name = "gvMedBillList";
+            this.gvMedBillList.ReadOnly = true;
+            this.gvMedBillList.Size = new System.Drawing.Size(1748, 720);
+            this.gvMedBillList.TabIndex = 0;
+            // 
             // tbpgMedicalBill
             // 
             this.tbpgMedicalBill.Controls.Add(this.txtTotalSharedAmtMedBill);
@@ -3860,15 +4017,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle3;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle4;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -3919,8 +4076,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle5;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -5003,237 +5160,6 @@
             this.label52.Size = new System.Drawing.Size(138, 29);
             this.label52.TabIndex = 47;
             this.label52.Text = "Medical Bill";
-            // 
-            // tbpgIllness
-            // 
-            this.tbpgIllness.Controls.Add(this.btnAddNewMedBill);
-            this.tbpgIllness.Controls.Add(this.label92);
-            this.tbpgIllness.Controls.Add(this.btnDeleteIncident);
-            this.tbpgIllness.Controls.Add(this.btnEditIncident);
-            this.tbpgIllness.Controls.Add(this.btnAddNewIncident);
-            this.tbpgIllness.Controls.Add(this.label91);
-            this.tbpgIllness.Controls.Add(this.gvIncidentList);
-            this.tbpgIllness.Controls.Add(this.btnDeleteIllness);
-            this.tbpgIllness.Controls.Add(this.btnEditIllness);
-            this.tbpgIllness.Controls.Add(this.btnAddNewIllness);
-            this.tbpgIllness.Controls.Add(this.label90);
-            this.tbpgIllness.Controls.Add(this.gvIllnessList);
-            this.tbpgIllness.Controls.Add(this.label89);
-            this.tbpgIllness.Location = new System.Drawing.Point(4, 22);
-            this.tbpgIllness.Name = "tbpgIllness";
-            this.tbpgIllness.Size = new System.Drawing.Size(1832, 874);
-            this.tbpgIllness.TabIndex = 9;
-            this.tbpgIllness.Text = "Illness";
-            this.tbpgIllness.UseVisualStyleBackColor = true;
-            // 
-            // btnAddNewMedBill
-            // 
-            this.btnAddNewMedBill.Location = new System.Drawing.Point(189, 404);
-            this.btnAddNewMedBill.Name = "btnAddNewMedBill";
-            this.btnAddNewMedBill.Size = new System.Drawing.Size(92, 23);
-            this.btnAddNewMedBill.TabIndex = 25;
-            this.btnAddNewMedBill.Text = "Add New";
-            this.btnAddNewMedBill.UseVisualStyleBackColor = true;
-            this.btnAddNewMedBill.Click += new System.EventHandler(this.btnAddNewMedBill_Click);
-            // 
-            // label92
-            // 
-            this.label92.AutoSize = true;
-            this.label92.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label92.Location = new System.Drawing.Point(39, 407);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(121, 16);
-            this.label92.TabIndex = 23;
-            this.label92.Text = "List of Medical Bills";
-            // 
-            // btnDeleteIncident
-            // 
-            this.btnDeleteIncident.Location = new System.Drawing.Point(1289, 99);
-            this.btnDeleteIncident.Name = "btnDeleteIncident";
-            this.btnDeleteIncident.Size = new System.Drawing.Size(92, 23);
-            this.btnDeleteIncident.TabIndex = 22;
-            this.btnDeleteIncident.Text = "Delete";
-            this.btnDeleteIncident.UseVisualStyleBackColor = true;
-            // 
-            // btnEditIncident
-            // 
-            this.btnEditIncident.Location = new System.Drawing.Point(1175, 99);
-            this.btnEditIncident.Name = "btnEditIncident";
-            this.btnEditIncident.Size = new System.Drawing.Size(92, 23);
-            this.btnEditIncident.TabIndex = 21;
-            this.btnEditIncident.Text = "Edit";
-            this.btnEditIncident.UseVisualStyleBackColor = true;
-            // 
-            // btnAddNewIncident
-            // 
-            this.btnAddNewIncident.Location = new System.Drawing.Point(1061, 99);
-            this.btnAddNewIncident.Name = "btnAddNewIncident";
-            this.btnAddNewIncident.Size = new System.Drawing.Size(92, 23);
-            this.btnAddNewIncident.TabIndex = 20;
-            this.btnAddNewIncident.Text = "Add New";
-            this.btnAddNewIncident.UseVisualStyleBackColor = true;
-            this.btnAddNewIncident.Click += new System.EventHandler(this.btnAddNewIncident_Click);
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label91.Location = new System.Drawing.Point(932, 102);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(98, 16);
-            this.label91.TabIndex = 19;
-            this.label91.Text = "List of Incidents";
-            // 
-            // gvIncidentList
-            // 
-            this.gvIncidentList.AllowUserToAddRows = false;
-            this.gvIncidentList.AllowUserToDeleteRows = false;
-            this.gvIncidentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvIncidentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IllnessNo,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn18,
-            this.IncidentNote});
-            this.gvIncidentList.Location = new System.Drawing.Point(935, 142);
-            this.gvIncidentList.Name = "gvIncidentList";
-            this.gvIncidentList.ReadOnly = true;
-            this.gvIncidentList.Size = new System.Drawing.Size(863, 225);
-            this.gvIncidentList.TabIndex = 18;
-            // 
-            // IllnessNo
-            // 
-            this.IllnessNo.HeaderText = "Illness No";
-            this.IllnessNo.Name = "IllnessNo";
-            this.IllnessNo.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Case No";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ICD10 Code";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn18
-            // 
-            this.dataGridViewTextBoxColumn18.HeaderText = "Date";
-            this.dataGridViewTextBoxColumn18.Name = "dataGridViewTextBoxColumn18";
-            this.dataGridViewTextBoxColumn18.ReadOnly = true;
-            // 
-            // IncidentNote
-            // 
-            this.IncidentNote.HeaderText = "Incident Note";
-            this.IncidentNote.Name = "IncidentNote";
-            this.IncidentNote.ReadOnly = true;
-            this.IncidentNote.Width = 400;
-            // 
-            // btnDeleteIllness
-            // 
-            this.btnDeleteIllness.Location = new System.Drawing.Point(382, 99);
-            this.btnDeleteIllness.Name = "btnDeleteIllness";
-            this.btnDeleteIllness.Size = new System.Drawing.Size(92, 23);
-            this.btnDeleteIllness.TabIndex = 17;
-            this.btnDeleteIllness.Text = "Delete";
-            this.btnDeleteIllness.UseVisualStyleBackColor = true;
-            this.btnDeleteIllness.Click += new System.EventHandler(this.btnDeleteIllness_Click);
-            // 
-            // btnEditIllness
-            // 
-            this.btnEditIllness.Location = new System.Drawing.Point(265, 99);
-            this.btnEditIllness.Name = "btnEditIllness";
-            this.btnEditIllness.Size = new System.Drawing.Size(92, 23);
-            this.btnEditIllness.TabIndex = 16;
-            this.btnEditIllness.Text = "Edit";
-            this.btnEditIllness.UseVisualStyleBackColor = true;
-            this.btnEditIllness.Click += new System.EventHandler(this.btnEditIllness_Click);
-            // 
-            // btnAddNewIllness
-            // 
-            this.btnAddNewIllness.Location = new System.Drawing.Point(148, 99);
-            this.btnAddNewIllness.Name = "btnAddNewIllness";
-            this.btnAddNewIllness.Size = new System.Drawing.Size(92, 23);
-            this.btnAddNewIllness.TabIndex = 15;
-            this.btnAddNewIllness.Text = "Add New";
-            this.btnAddNewIllness.UseVisualStyleBackColor = true;
-            this.btnAddNewIllness.Click += new System.EventHandler(this.btnAddNewIllness_Click);
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label90.Location = new System.Drawing.Point(39, 102);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(83, 16);
-            this.label90.TabIndex = 14;
-            this.label90.Text = "List of Illness";
-            // 
-            // gvIllnessList
-            // 
-            this.gvIllnessList.AllowUserToAddRows = false;
-            this.gvIllnessList.AllowUserToDeleteRows = false;
-            this.gvIllnessList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvIllnessList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IndividualNo,
-            this.CaseId,
-            this.ICD10Code,
-            this.Date,
-            this.IllnessNote});
-            this.gvIllnessList.Location = new System.Drawing.Point(42, 142);
-            this.gvIllnessList.MultiSelect = false;
-            this.gvIllnessList.Name = "gvIllnessList";
-            this.gvIllnessList.ReadOnly = true;
-            this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvIllnessList.Size = new System.Drawing.Size(863, 225);
-            this.gvIllnessList.TabIndex = 13;
-            // 
-            // IndividualNo
-            // 
-            this.IndividualNo.HeaderText = "Individual No";
-            this.IndividualNo.Name = "IndividualNo";
-            this.IndividualNo.ReadOnly = true;
-            // 
-            // CaseId
-            // 
-            this.CaseId.HeaderText = "Case No";
-            this.CaseId.Name = "CaseId";
-            this.CaseId.ReadOnly = true;
-            // 
-            // ICD10Code
-            // 
-            this.ICD10Code.HeaderText = "ICD10 Code";
-            this.ICD10Code.Name = "ICD10Code";
-            this.ICD10Code.ReadOnly = true;
-            // 
-            // Date
-            // 
-            this.Date.HeaderText = "Create Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 120;
-            // 
-            // IllnessNote
-            // 
-            this.IllnessNote.HeaderText = "Illness Note";
-            this.IllnessNote.Name = "IllnessNote";
-            this.IllnessNote.ReadOnly = true;
-            this.IllnessNote.Width = 400;
-            // 
-            // label89
-            // 
-            this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label89.Location = new System.Drawing.Point(37, 31);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(204, 29);
-            this.label89.TabIndex = 12;
-            this.label89.Text = "Illness View Page";
             // 
             // tbpgPayment
             // 
@@ -7069,15 +6995,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -7105,8 +7031,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -7458,6 +7384,98 @@
             this.dataGridViewTextBoxColumn88.Name = "dataGridViewTextBoxColumn88";
             this.dataGridViewTextBoxColumn88.Width = 180;
             // 
+            // Illness_IllnessNo
+            // 
+            this.Illness_IllnessNo.HeaderText = "Illness No";
+            this.Illness_IllnessNo.Name = "Illness_IllnessNo";
+            this.Illness_IllnessNo.ReadOnly = true;
+            // 
+            // Illness_CaseId
+            // 
+            this.Illness_CaseId.HeaderText = "Case Name";
+            this.Illness_CaseId.Name = "Illness_CaseId";
+            this.Illness_CaseId.ReadOnly = true;
+            // 
+            // Illness_ICD10Code
+            // 
+            this.Illness_ICD10Code.HeaderText = "ICD 10 Code";
+            this.Illness_ICD10Code.Name = "Illness_ICD10Code";
+            this.Illness_ICD10Code.ReadOnly = true;
+            // 
+            // Illness_CreateDate
+            // 
+            this.Illness_CreateDate.HeaderText = "Create Date";
+            this.Illness_CreateDate.Name = "Illness_CreateDate";
+            this.Illness_CreateDate.ReadOnly = true;
+            this.Illness_CreateDate.Width = 80;
+            // 
+            // Illness_CreatedBy
+            // 
+            this.Illness_CreatedBy.HeaderText = "Created By";
+            this.Illness_CreatedBy.Name = "Illness_CreatedBy";
+            this.Illness_CreatedBy.ReadOnly = true;
+            // 
+            // Illness_ModifyDate
+            // 
+            this.Illness_ModifyDate.HeaderText = "Modify Date";
+            this.Illness_ModifyDate.Name = "Illness_ModifyDate";
+            this.Illness_ModifyDate.ReadOnly = true;
+            this.Illness_ModifyDate.Width = 80;
+            // 
+            // Illness_ModifiedBy
+            // 
+            this.Illness_ModifiedBy.HeaderText = "Last Modified By";
+            this.Illness_ModifiedBy.Name = "Illness_ModifiedBy";
+            this.Illness_ModifiedBy.ReadOnly = true;
+            this.Illness_ModifiedBy.Width = 120;
+            // 
+            // Illness_DiagnosisDate
+            // 
+            this.Illness_DiagnosisDate.HeaderText = "Diagnosis Date";
+            this.Illness_DiagnosisDate.Name = "Illness_DiagnosisDate";
+            this.Illness_DiagnosisDate.ReadOnly = true;
+            // 
+            // Illness_TotalSharedAmount
+            // 
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
+            this.Illness_TotalSharedAmount.ReadOnly = true;
+            this.Illness_TotalSharedAmount.Width = 140;
+            // 
+            // Illness_LimitedSharing
+            // 
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
+            this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
+            this.Illness_LimitedSharing.ReadOnly = true;
+            this.Illness_LimitedSharing.Width = 110;
+            // 
+            // Illness_Introduction
+            // 
+            this.Illness_Introduction.HeaderText = "Introduction";
+            this.Illness_Introduction.Name = "Illness_Introduction";
+            this.Illness_Introduction.ReadOnly = true;
+            this.Illness_Introduction.Width = 180;
+            // 
+            // Illness_Body
+            // 
+            this.Illness_Body.HeaderText = "Body";
+            this.Illness_Body.Name = "Illness_Body";
+            this.Illness_Body.ReadOnly = true;
+            this.Illness_Body.Width = 300;
+            // 
+            // Illness_Conclusion
+            // 
+            this.Illness_Conclusion.HeaderText = "Conclusion";
+            this.Illness_Conclusion.Name = "Illness_Conclusion";
+            this.Illness_Conclusion.ReadOnly = true;
+            this.Illness_Conclusion.Width = 180;
+            // 
             // frmCMMManager
             // 
             this.AcceptButton = this.btnSearch;
@@ -7499,8 +7517,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffActiveTask)).EndInit();
             this.tbpgSearchResult.ResumeLayout(false);
             this.tbpgSearchResult.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMedBillsSearched)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCasesSearched)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).EndInit();
             this.tbpgIndividual.ResumeLayout(false);
             this.tbpgIndividual.PerformLayout();
@@ -7518,6 +7534,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewTaskRNtoNP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewTaskNPtoRNFD)).EndInit();
+            this.tbpgIllnessView.ResumeLayout(false);
+            this.tbpgIllnessView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessList)).EndInit();
+            this.tbpgIncidentView.ResumeLayout(false);
+            this.tbpgIncidentView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIncidentList)).EndInit();
+            this.tbpgMedBillView.ResumeLayout(false);
+            this.tbpgMedBillView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvMedBillList)).EndInit();
             this.tbpgMedicalBill.ResumeLayout(false);
             this.tbpgMedicalBill.PerformLayout();
             this.grpEtc.ResumeLayout(false);
@@ -7539,10 +7564,6 @@
             this.grpICD10Code.PerformLayout();
             this.grpPatientInfo.ResumeLayout(false);
             this.grpPatientInfo.PerformLayout();
-            this.tbpgIllness.ResumeLayout(false);
-            this.tbpgIllness.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvIncidentList)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessList)).EndInit();
             this.tbpgPayment.ResumeLayout(false);
             this.tbpgPayment.PerformLayout();
             this.tabPaymentMethod.ResumeLayout(false);
@@ -7659,7 +7680,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tbpgCaseView;
         private System.Windows.Forms.TabPage tbpgCreateCase;
-        private System.Windows.Forms.TabPage tbpgIllness;
+        private System.Windows.Forms.TabPage tbpgIllnessView;
         private System.Windows.Forms.TabPage tbpgMedicalBill;
         private System.Windows.Forms.TabPage tbpgPayment;
         private System.Windows.Forms.TabPage tbpgTask;
@@ -7760,17 +7781,6 @@
         private System.Windows.Forms.Button btnCaseCreationLowerCancel;
         private System.Windows.Forms.Button btnCaseCreationSaveUpper;
         private System.Windows.Forms.Button btnCaseCreationCancelUpper;
-        private System.Windows.Forms.Button btnAddNewMedBill;
-        private System.Windows.Forms.Label label92;
-        private System.Windows.Forms.Button btnDeleteIncident;
-        private System.Windows.Forms.Button btnEditIncident;
-        private System.Windows.Forms.Button btnAddNewIncident;
-        private System.Windows.Forms.Label label91;
-        private System.Windows.Forms.DataGridView gvIncidentList;
-        private System.Windows.Forms.Button btnDeleteIllness;
-        private System.Windows.Forms.Button btnEditIllness;
-        private System.Windows.Forms.Button btnAddNewIllness;
-        private System.Windows.Forms.Label label90;
         //private System.Windows.Forms.DataGridView gvIllnessList;
         public System.Windows.Forms.DataGridView gvIllnessList;
         private System.Windows.Forms.Label label89;
@@ -8039,16 +8049,6 @@
         private System.Windows.Forms.TextBox txtCaseName;
         private System.Windows.Forms.Label label172;
         private System.Windows.Forms.Button btnEditCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn18;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNote;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ICD10Code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNote;
         private System.Windows.Forms.TextBox txtMedBillDiseaseName;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.GroupBox grpMedBillInfo;
@@ -8250,10 +8250,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.TabPage tbpgSearchResult;
         private System.Windows.Forms.DataGridView gvIndividualSearched;
-        private System.Windows.Forms.DataGridView gvMedBillsSearched;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.DataGridView gvCasesSearched;
-        private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Button btnCloseCaseView;
         private System.Windows.Forms.Button btnCaseViewIndividual;
@@ -8283,6 +8279,33 @@
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TextBox txtTotalMedBillAmount;
         private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.TabPage tbpgIncidentView;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label178;
+        private System.Windows.Forms.DataGridView gvIncidentList;
+        private System.Windows.Forms.TabPage tbpgMedBillView;
+        private System.Windows.Forms.DataGridView gvMedBillList;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.Label label179;
+        private System.Windows.Forms.TextBox txtIllnessViewIndId;
+        private System.Windows.Forms.TextBox txtIllnessViewMEMB;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_IllnessNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CaseId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ICD10Code;
+        private CalendarColumn Illness_CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CreatedBy;
+        private CalendarColumn Illness_ModifyDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ModifiedBy;
+        private CalendarColumn Illness_DiagnosisDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_TotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_LimitedSharing;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Introduction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Body;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Conclusion;
     }
 }
 

@@ -353,75 +353,75 @@ namespace CMMManager
             if (txtConclusion.Text.Trim() != String.Empty) strConclusion = txtConclusion.Text.Trim();
 
             // This section of code (if block) needs further discussion in RN project meeting
-            if (strICD10Code.ToUpper() == "Z00.00" || strICD10Code.ToUpper() == "Z00.012")
-            {
-                String strSqlQueryForGoldPlusPlan = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name], [dbo].[contact].[Membership_IND_Start_date__c] " +
-                                                    "from [dbo].[contact] " +
-                                                    "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
-                                                    "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+            //if (strICD10Code.ToUpper() == "Z00.00" || strICD10Code.ToUpper() == "Z00.012")
+            //{
+            //    String strSqlQueryForGoldPlusPlan = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name], [dbo].[contact].[Membership_IND_Start_date__c] " +
+            //                                        "from [dbo].[contact] " +
+            //                                        "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+            //                                        "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
-                SqlCommand cmdQueryForGoldPlusPlan = new SqlCommand(strSqlQueryForGoldPlusPlan, connSalesforce);
-                cmdQueryForGoldPlusPlan.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForGoldPlusPlan = new SqlCommand(strSqlQueryForGoldPlusPlan, connSalesforce);
+            //    cmdQueryForGoldPlusPlan.CommandType = CommandType.Text;
 
-                cmdQueryForGoldPlusPlan.Parameters.AddWithValue("@IndividualId", strIndividualId);
+            //    cmdQueryForGoldPlusPlan.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
-                if (connSalesforce.State != ConnectionState.Closed)
-                {
-                    connSalesforce.Close();
-                    connSalesforce.Open();
-                }
-                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            //    if (connSalesforce.State != ConnectionState.Closed)
+            //    {
+            //        connSalesforce.Close();
+            //        connSalesforce.Open();
+            //    }
+            //    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
 
-                String IndividualPlan = String.Empty;
-                String IndividualId = String.Empty;
-                DateTime? MembershipStartDate = new DateTime();
-                Boolean bIndividualId = true;
-                Boolean bIndividualPlan = true;
-                Boolean bMembershipStartDate = true;
+            //    String IndividualPlan = String.Empty;
+            //    String IndividualId = String.Empty;
+            //    DateTime? MembershipStartDate = new DateTime();
+            //    Boolean bIndividualId = true;
+            //    Boolean bIndividualPlan = true;
+            //    Boolean bMembershipStartDate = true;
 
-                SqlDataReader rdrGoldPlusPlan = cmdQueryForGoldPlusPlan.ExecuteReader();
-                if (rdrGoldPlusPlan.HasRows)
-                {
-                    rdrGoldPlusPlan.Read();
-                    if (!rdrGoldPlusPlan.IsDBNull(0)) IndividualId = rdrGoldPlusPlan.GetString(0);
-                    else bIndividualId = false;
-                    if (!rdrGoldPlusPlan.IsDBNull(1)) IndividualPlan = rdrGoldPlusPlan.GetString(1);
-                    else bIndividualPlan = false;
-                    if (!rdrGoldPlusPlan.IsDBNull(2)) MembershipStartDate = rdrGoldPlusPlan.GetDateTime(2);
-                    else bMembershipStartDate = false;
+            //    SqlDataReader rdrGoldPlusPlan = cmdQueryForGoldPlusPlan.ExecuteReader();
+            //    if (rdrGoldPlusPlan.HasRows)
+            //    {
+            //        rdrGoldPlusPlan.Read();
+            //        if (!rdrGoldPlusPlan.IsDBNull(0)) IndividualId = rdrGoldPlusPlan.GetString(0);
+            //        else bIndividualId = false;
+            //        if (!rdrGoldPlusPlan.IsDBNull(1)) IndividualPlan = rdrGoldPlusPlan.GetString(1);
+            //        else bIndividualPlan = false;
+            //        if (!rdrGoldPlusPlan.IsDBNull(2)) MembershipStartDate = rdrGoldPlusPlan.GetDateTime(2);
+            //        else bMembershipStartDate = false;
                     
-                }
-                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+            //    }
+            //    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
-                if (bIndividualId == false)
-                {
-                    MessageBox.Show("No such Individual ID", "Error");
-                    return;
-                }
+            //    if (bIndividualId == false)
+            //    {
+            //        MessageBox.Show("No such Individual ID", "Error");
+            //        return;
+            //    }
 
-                if (bIndividualPlan == false)
-                {
-                    MessageBox.Show("The individual has no membership plan.", "Error");
-                    return;
-                }
+            //    if (bIndividualPlan == false)
+            //    {
+            //        MessageBox.Show("The individual has no membership plan.", "Error");
+            //        return;
+            //    }
 
-                if (bMembershipStartDate == false)
-                {
-                    MessageBox.Show("The individual has no start date.", "Error");
-                    return;
-                }
+            //    if (bMembershipStartDate == false)
+            //    {
+            //        MessageBox.Show("The individual has no start date.", "Error");
+            //        return;
+            //    }
 
-                if (IndividualPlan != "Gold Plus" &&
-                    IndividualPlan != "Gold Medi-I" &&
-                    IndividualPlan != "Gold Medi-II")
-                {
-                    MessageBox.Show("Individual Plan does not qualify for Well Being Care.", "Alert");
-                    return;
-                }
+            //    if (IndividualPlan != "Gold Plus" &&
+            //        IndividualPlan != "Gold Medi-I" &&
+            //        IndividualPlan != "Gold Medi-II")
+            //    {
+            //        MessageBox.Show("Individual Plan does not qualify for Well Being Care.", "Alert");
+            //        return;
+            //    }
 
-                DateTime WellBeingCareBeginDate = MembershipStartDate.Value.AddMonths(6);
+            //    DateTime WellBeingCareBeginDate = MembershipStartDate.Value.AddMonths(6);
 
-            }
+            //}
 
             //String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
             //                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
@@ -647,36 +647,30 @@ namespace CMMManager
 
         private void comboLimitedSharing_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // 09/04/18 begin here
-            // calculate the number of years of CMM membership
 
-            // Use strIndividualNo
-
-            String strSqlQueryForMembershipStartDate = "select [dbo].[membership].[c4g_start_date__c] from [dbo].[membership] " +
-                                                       "inner join [dbo].[contact] on [dbo].[membership].[name] = [dbo].[contact].[membership_number__c] " +
+            String strSqlQueryForIndividualStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
                                                        "where [dbo].[contact].[individual_id__c] = @IndividualId";
 
-            SqlCommand cmdQueryForMembershipStartDate = new SqlCommand(strSqlQueryForMembershipStartDate, connSalesforce);
-            cmdQueryForMembershipStartDate.CommandType = CommandType.Text;
+            SqlCommand cmdQueryForIndividualStartDate = new SqlCommand(strSqlQueryForIndividualStartDate, connSalesforce);
+            cmdQueryForIndividualStartDate.CommandType = CommandType.Text;
 
-            cmdQueryForMembershipStartDate.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+            cmdQueryForIndividualStartDate.Parameters.AddWithValue("@IndividualId", strIndividualNo);
 
-            if (connSalesforce.State == ConnectionState.Open)
+            if (connSalesforce.State != ConnectionState.Closed)
             {
                 connSalesforce.Close();
                 connSalesforce.Open();
             }
             else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
-            //DateTime dtMembershipStartDate = DateTime.Parse(cmdQueryForMembershipStartDate.ExecuteScalar().ToString());
-            Object objMembershipStartDate = cmdQueryForMembershipStartDate.ExecuteScalar();
+            Object objIndividualStartDate = cmdQueryForIndividualStartDate.ExecuteScalar();
             if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
-            DateTime dtResultMembershipStartDate;
-            DateTime? dtMembershipStartDate = null;
+            DateTime dtResultIndividualStartDate;
+            DateTime? dtIndividualStartDate = null;
 
-            if (objMembershipStartDate != null)
+            if (objIndividualStartDate != null)
             {
-                if (DateTime.TryParse(objMembershipStartDate.ToString(), out dtResultMembershipStartDate)) dtMembershipStartDate = dtResultMembershipStartDate;
+                if (DateTime.TryParse(objIndividualStartDate.ToString(), out dtResultIndividualStartDate)) dtIndividualStartDate = dtResultIndividualStartDate;
             }
             else
             {
@@ -684,9 +678,8 @@ namespace CMMManager
                 return;
             }
 
-
-            int NumberOfYears = DateTime.Today.Year - dtMembershipStartDate.Value.Year;
-            if (dtMembershipStartDate.Value.AddYears(NumberOfYears) > DateTime.Today) NumberOfYears--;
+            int NumberOfYears = DateTime.Today.Year - dtIndividualStartDate.Value.Year;
+            if (dtIndividualStartDate.Value.AddYears(NumberOfYears) > DateTime.Today) NumberOfYears--;
 
             int LimitedSharingYear = NumberOfYears;
             if (LimitedSharingYear > 4) LimitedSharingYear = 4;

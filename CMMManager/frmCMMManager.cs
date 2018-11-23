@@ -10,8 +10,6 @@ using System.Windows.Forms;
 //using Windows.Devices.Enumeration;
 //using Windows.Devices.Scanners;
 
-// used by SqlDependencyEx
-// This file needs Case revision
 
 namespace CMMManager
 {
@@ -39,12 +37,14 @@ namespace CMMManager
         private SqlConnection connRN3;
         private SqlConnection connRN4;
         private SqlConnection connRN5;
+        private SqlConnection connRNLimitedSharing;
 
         private String rn_cnn_str;
         private String rn_cnn_str2;
         private String rn_cnn_str3;
         private String rn_cnn_str4;
         private String rn_cnn_str5;
+        private String rn_cnn_strLimitedSharing;
 
         private SqlCommand rn_cmd;
 
@@ -146,11 +146,16 @@ namespace CMMManager
 
         public Decimal PersonalResponsibilityAmountInMedBill;
 
+        public int LimitedSharingYear;
+        public Dictionary<int, Decimal> dicLimitedSharing1;
+        public Dictionary<int, Decimal> dicLimitedSharing2;
+
         public Dictionary<int, String> dicMedBillTypes;
         public Dictionary<int, String> dicMedBillStatus;
         public Dictionary<int, String> dicPendingReason;
         public Dictionary<int, String> dicIneligibleReason;
 
+        public List<int> lstLimitedSharingId;
         public List<CaseInfo> lstCaseInfo;
         public List<StaffInfo> lstCreateStaff;
         public List<StaffInfo> lstModifiStaff;
@@ -226,7 +231,7 @@ namespace CMMManager
             rn_cnn_str3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
             rn_cnn_str4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
             rn_cnn_str5 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-
+            rn_cnn_strLimitedSharing = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
 
 
             connRN = new SqlConnection(rn_cnn_str);
@@ -234,6 +239,7 @@ namespace CMMManager
             connRN3 = new SqlConnection(rn_cnn_str3);
             connRN4 = new SqlConnection(rn_cnn_str4);
             connRN5 = new SqlConnection(rn_cnn_str5);
+            connRNLimitedSharing = new SqlConnection(rn_cnn_strLimitedSharing);
 
 
             connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
@@ -251,6 +257,7 @@ namespace CMMManager
             dicPendingReason = new Dictionary<int, String>();
             dicIneligibleReason = new Dictionary<int, String>();
 
+            lstLimitedSharingId = new List<int>();
             lstCreateStaff = new List<StaffInfo>();
             lstModifiStaff = new List<StaffInfo>();
             lstCaseInfo = new List<CaseInfo>();
@@ -491,6 +498,54 @@ namespace CMMManager
                 }
             }
             if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            dicLimitedSharing1 = new Dictionary<int, decimal>();
+            dicLimitedSharing2 = new Dictionary<int, decimal>();
+
+            String strSqlQueryForLimitedSharing1 = "select [dbo].[tbl_limited_sharing_1].[YearNo], [dbo].[tbl_limited_sharing_1].[YearlyLimit] from [dbo].[tbl_limited_sharing_1]";
+
+            SqlCommand cmdQueryForLimitedSharing1 = new SqlCommand(strSqlQueryForLimitedSharing1, connRNLimitedSharing);
+            cmdQueryForLimitedSharing1.CommandType = CommandType.Text;
+
+            if (connRNLimitedSharing.State == ConnectionState.Open)
+            {
+                connRNLimitedSharing.Close();
+                connRNLimitedSharing.Open();
+            }
+            else if (connRNLimitedSharing.State == ConnectionState.Closed) connRNLimitedSharing.Open();
+            SqlDataReader rdrLimitedSharing1 = cmdQueryForLimitedSharing1.ExecuteReader();
+
+            if (rdrLimitedSharing1.HasRows)
+            {
+                while (rdrLimitedSharing1.Read())
+                {
+                    dicLimitedSharing1.Add(rdrLimitedSharing1.GetInt16(0), rdrLimitedSharing1.GetDecimal(1));
+                }
+            }
+            if (connRNLimitedSharing.State == ConnectionState.Open) connRNLimitedSharing.Close();
+
+            String strSqlQueryForLimitedSharing2 = "select [dbo].[tbl_limited_sharing_2].[YearNo], [dbo].[tbl_limited_sharing_2].[YearlyLimit] from [dbo].[tbl_limited_sharing_2]";
+
+            SqlCommand cmdQueryForLimitedSharing2 = new SqlCommand(strSqlQueryForLimitedSharing2, connRNLimitedSharing);
+            cmdQueryForLimitedSharing2.CommandType = CommandType.Text;
+
+            if (connRNLimitedSharing.State == ConnectionState.Open)
+            {
+                connRNLimitedSharing.Close();
+                connRNLimitedSharing.Open();
+            }
+            else if (connRNLimitedSharing.State == ConnectionState.Closed) connRNLimitedSharing.Open();
+            SqlDataReader rdrLimitedSharing2 = cmdQueryForLimitedSharing2.ExecuteReader();
+
+            if (rdrLimitedSharing2.HasRows)
+            {
+                while (rdrLimitedSharing2.Read())
+                {
+                    dicLimitedSharing2.Add(rdrLimitedSharing2.GetInt16(0), rdrLimitedSharing2.GetDecimal(1));
+                }
+            }
+            else if (connRNLimitedSharing.State == ConnectionState.Open) connRNLimitedSharing.Close();
+
         }
 
         ~frmCMMManager()
@@ -529,7 +584,7 @@ namespace CMMManager
             tbCMMManager.TabPages.Remove(tbpgCaseView);
             tbCMMManager.TabPages.Remove(tbpgCreateCase);
             tbCMMManager.TabPages.Remove(tbpgMedicalBill);
-            tbCMMManager.TabPages.Remove(tbpgIllness);
+            //tbCMMManager.TabPages.Remove(tbpgIllnessView);
 
             frmLogin frmLogin = new frmLogin();
             frmLogin.StartPosition = FormStartPosition.CenterParent;
@@ -5766,13 +5821,21 @@ namespace CMMManager
                     cmdInsertNewMedBill.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmount);
                     cmdInsertNewMedBill.Parameters.AddWithValue("@Individual_Id", strIndividualId);
                     cmdInsertNewMedBill.Parameters.AddWithValue("@Contact_Id", strIndividualId);
+
+                    Boolean bMedicalProvider = false;
                     foreach (MedicalProviderInfo info in lstMedicalProvider)
                     {
                         if (info.Name.Trim() == txtMedicalProvider.Text.Trim())
                         {
                             cmdInsertNewMedBill.Parameters.AddWithValue("@MedicalProvider_Id", info.ID);
+                            bMedicalProvider = true;
                             break;
                         }
+                    }
+                    if (!bMedicalProvider)
+                    {
+                        MessageBox.Show("Medical Provider name is invalid.", "Error");
+                        return;
                     }
 
                     cmdInsertNewMedBill.Parameters.AddWithValue("@Account_At_Provider", txtMedBillAccountNoAtProvider.Text.Trim());
@@ -5853,8 +5916,308 @@ namespace CMMManager
                     int nRowInserted = cmdInsertNewMedBill.ExecuteNonQuery();
                     if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                    if (nRowInserted == 1)
+                    if (nRowInserted == 1)      // 11/21/18 test and debug the Well Being Care decision
                     {
+
+                        // handle Well Being Care case
+                        Boolean bWellBeingCare = true;
+                        Boolean bWellBeingCareEligible = true;
+
+                        String strSqlQueryForICD10CodeForWellBeingCare = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_medbill] " +
+                                                                         "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                         "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                         "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
+
+                        SqlCommand cmdQueryForICD10CodeForWellBeingCare = new SqlCommand(strSqlQueryForICD10CodeForWellBeingCare, connRN5);
+                        cmdQueryForICD10CodeForWellBeingCare.CommandType = CommandType.Text;
+
+                        cmdQueryForICD10CodeForWellBeingCare.Parameters.AddWithValue("@MedBillNo", strNewMedBillNo);
+                        cmdQueryForICD10CodeForWellBeingCare.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                        String ICD10Code = String.Empty;
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                        SqlDataReader rdrICD10CodeForWellBeingCare = cmdQueryForICD10CodeForWellBeingCare.ExecuteReader();
+                        if (rdrICD10CodeForWellBeingCare.HasRows)
+                        {
+                            rdrICD10CodeForWellBeingCare.Read();
+                            if (!rdrICD10CodeForWellBeingCare.IsDBNull(1)) ICD10Code = rdrICD10CodeForWellBeingCare.GetString(1);
+                        }
+
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        if (ICD10Code != "Z00.00" && ICD10Code != "Z00.012") bWellBeingCare = false;
+
+                        if (ICD10Code == "Z00.00" || ICD10Code == "Z00.012")
+                        {
+
+                            String strSqlQueryForProgramForIndividual = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name] from [dbo].[contact] " +
+                                                                        "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                                        "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                            SqlCommand cmdQueryForProgramForIndividual = new SqlCommand(strSqlQueryForProgramForIndividual, connSalesforce);
+                            cmdQueryForProgramForIndividual.CommandType = CommandType.Text;
+
+                            cmdQueryForProgramForIndividual.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                            if (connSalesforce.State != ConnectionState.Closed)
+                            {
+                                connSalesforce.Close();
+                                connSalesforce.Open();
+                            }
+                            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                            String ProgramName = String.Empty;
+
+                            SqlDataReader rdrProgramForIndividual = cmdQueryForProgramForIndividual.ExecuteReader();
+                            if (rdrProgramForIndividual.HasRows)
+                            {
+                                rdrProgramForIndividual.Read();
+                                if (!rdrProgramForIndividual.IsDBNull(1)) ProgramName = rdrProgramForIndividual.GetString(1);
+                            }
+
+                            if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();                            
+
+                            if (ProgramName == "Gold Plus" || ProgramName == "Gold Medi-I" || ProgramName == "Gold Medi-II")
+                            {
+                                String strSqlQueryForIndividualStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                                                           "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                SqlCommand cmdQueryForIndividualStartDate = new SqlCommand(strSqlQueryForIndividualStartDate, connSalesforce);
+                                cmdQueryForIndividualStartDate.CommandType = CommandType.Text;
+
+                                cmdQueryForIndividualStartDate.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                                if (connSalesforce.State != ConnectionState.Closed)
+                                {
+                                    connSalesforce.Close();
+                                    connSalesforce.Open();
+                                }
+                                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                                Object objMembershipIndStartDate = cmdQueryForIndividualStartDate.ExecuteScalar();
+
+                                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                DateTime MembershipIndStartDate = new DateTime();
+                                if (objMembershipIndStartDate != null)
+                                {
+                                    MembershipIndStartDate = DateTime.Parse(objMembershipIndStartDate.ToString());
+                                }
+
+                                if (dtpBillDate.Value > MembershipIndStartDate.AddMonths(6))
+                                {
+                                    String strSqlQueryForAnivDateForIndividualId = "select [dbo].[contact].[Aniv_Date], [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                                                                   "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                    SqlCommand cmdQueryForAnivDateForIndividualId = new SqlCommand(strSqlQueryForAnivDateForIndividualId, connSalesforce);
+                                    cmdQueryForAnivDateForIndividualId.CommandType = CommandType.Text;
+
+                                    cmdQueryForAnivDateForIndividualId.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                                    if (connSalesforce.State != ConnectionState.Closed)
+                                    {
+                                        connSalesforce.Close();
+                                        connSalesforce.Open();
+                                    }
+                                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                                    DateTime? AnivDate = null;
+                                    DateTime? StartDate = null;
+
+                                    SqlDataReader rdrAnivDate = cmdQueryForAnivDateForIndividualId.ExecuteReader();
+                                    if (rdrAnivDate.HasRows)
+                                    {
+                                        rdrAnivDate.Read();
+                                        if (!rdrAnivDate.IsDBNull(0)) AnivDate = rdrAnivDate.GetDateTime(0);
+                                        if (!rdrAnivDate.IsDBNull(1)) StartDate = rdrAnivDate.GetDateTime(1);
+                                    }
+                                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                    DateTime IndividualAnivDate = new DateTime();
+                                    if (AnivDate != null) IndividualAnivDate = AnivDate.Value;
+                                    else IndividualAnivDate = StartDate.Value;
+
+                                    int nAnivYear = dtpBillDate.Value.Year;
+
+                                    DateTime IndividualThisAnivDate = new DateTime(nAnivYear, IndividualAnivDate.Month, 1);
+                                    DateTime IndividualLastAnivDate = new DateTime(nAnivYear - 1, IndividualAnivDate.Month, 1);
+
+                                    String strSqlQueryForWellBeingIncidentsPerAnivYear = "select count([dbo].[tbl_incident].[IncidentNo]) from [dbo].[tbl_incident] " +
+                                                                                         "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_incident].[Incident_id] = [dbo].[tbl_medbill].[Incident_Id] " +
+                                                                                         "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                                         "([dbo].[tbl_illness].[ICD_10_Id] = 'Z00.00' or [dbo].[tbl_illness].[ICD_10_Id] = 'Z00.012') and " +
+                                                                                         "[dbo].[tbl_medbill].[BillDate] >= @LastAnivDate and " +
+                                                                                         "[dbo].[tbl_medbill].[BillDate] < @ThisAnivDate";
+
+                                    SqlCommand cmdQueryForWellBeingIncidentsPerAnivYear = new SqlCommand(strSqlQueryForWellBeingIncidentsPerAnivYear, connRN5);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.CommandType = CommandType.Text;
+
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@IndividualId", strIndividualId);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@LastAnivDate", IndividualLastAnivDate);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@ThisAnivDate", IndividualThisAnivDate);
+
+                                    if (connRN5.State != ConnectionState.Closed)
+                                    {
+                                        connRN5.Close();
+                                        connRN5.Open();
+                                    }
+                                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                    Object objIncidentCount = cmdQueryForWellBeingIncidentsPerAnivYear.ExecuteScalar();
+                                    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                    int nIncidentCount = Int32.Parse(objIncidentCount.ToString());
+
+                                    if (nIncidentCount == 1)
+                                    {
+                                        String strSqlQueryForWellBeingIncidentId = "select [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] " +
+                                                                                   "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                                   "inner join [dbo].[tbl_medbill] on [dbo].[tbl_incident].[Incident_id] = [dbo].[tbl_medbill].[Incident_Id] " +
+                                                                                   "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                                   "([dbo].[tbl_illness].[ICD_10_Id] = 'Z00.00' or [dbo].[tbl_illness].[ICD_10_Id] = 'Z00.012') and " +
+                                                                                   "[dbo].[tbl_medbill].[BillDate] >= @LastAnivDate and " +
+                                                                                   "[dbo].[tbl_medbill].[BillDate] < @ThisAnivDate";
+
+                                        SqlCommand cmdQueryForWellBeingIncidentId = new SqlCommand(strSqlQueryForWellBeingIncidentId, connRN5);
+                                        cmdQueryForWellBeingIncidentId.CommandType = CommandType.Text;
+
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@IndividualId", strIndividualId);
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@LastAnivDate", IndividualLastAnivDate);
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@ThisAnivDate", IndividualThisAnivDate);
+
+                                        if (connRN5.State != ConnectionState.Closed)
+                                        {
+                                            connRN5.Close();
+                                            connRN5.Open();
+                                        }
+                                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                        Object objWellBeingIncidentId = cmdQueryForWellBeingIncidentId.ExecuteScalar();
+                                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                        if (objWellBeingIncidentId != null)
+                                        {
+                                            int nWellBeingIncidentId = Int32.Parse(objWellBeingIncidentId.ToString());
+
+                                            String strSqlQueryForWellBeingTotalForIncident = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
+                                                                                             "where [dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
+
+                                            SqlCommand cmdQueryForWellBeingTotalForIncident = new SqlCommand(strSqlQueryForWellBeingTotalForIncident, connRN5);
+                                            cmdQueryForWellBeingTotalForIncident.CommandType = CommandType.Text;
+
+                                            cmdQueryForWellBeingTotalForIncident.Parameters.AddWithValue("@IncidentId", nWellBeingIncidentId);
+
+                                            if (connRN5.State != ConnectionState.Closed)
+                                            {
+                                                connRN5.Close();
+                                                connRN5.Open();
+                                            }
+                                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                            Object objWellBeingTotalForIncident = cmdQueryForWellBeingTotalForIncident.ExecuteScalar();
+                                            if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                            Decimal WellBeingTotalForIncident = Decimal.Parse(objWellBeingTotalForIncident.ToString());
+
+                                            if (WellBeingTotalForIncident > 500)
+                                            {
+                                                // Set the well being care med bill ineligible strNewMedBillNo
+                                                String strSqlUpdateMedBillWellBeingCareIneligible = "update [dbo].[tbl_medbill] set [dbo].[medbill].[BillStatus] = 3, " +
+                                                                                                    "[dbo].[tbl_medbill].[WellBeingCare] = 0 " +
+                                                                                                    "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                                SqlCommand cmdUpdateMedBillWellBeingCareIneligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareIneligible, connRN5);
+                                                cmdUpdateMedBillWellBeingCareIneligible.CommandType = CommandType.Text;
+
+                                                cmdUpdateMedBillWellBeingCareIneligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                                if (connRN5.State != ConnectionState.Closed)
+                                                {
+                                                    connRN5.Close();
+                                                    connRN5.Open();
+                                                }
+                                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                                int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareIneligible.ExecuteNonQuery();
+
+                                                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                                if (nWellBeingMedBillUpdated == 0)
+                                                {
+                                                    MessageBox.Show("The well being med bill is not updated.", "Error");
+                                                    return;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // set the well being care med bill eligible
+                                                String strSqlUpdateMedBillWellBeingCareEligible = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[BillStatus] = 2, " +
+                                                                                                  "[dbo].[tbl_medbill].[WellBeingCare] = 1 " +
+                                                                                                  "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                                SqlCommand cmdUpdateMedBillWellBeingCareEligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareEligible, connRN5);
+                                                cmdUpdateMedBillWellBeingCareEligible.CommandType = CommandType.Text;
+
+                                                cmdUpdateMedBillWellBeingCareEligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                                if (connRN5.State != ConnectionState.Closed)
+                                                {
+                                                    connRN5.Close();
+                                                    connRN5.Open();
+                                                }
+                                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                                int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareEligible.ExecuteNonQuery();
+
+                                                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                                if (nWellBeingMedBillUpdated == 0)
+                                                {
+                                                    MessageBox.Show("The well being med bill is not updated.", "Error");
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (nIncidentCount > 1)
+                                    {
+                                        // Ineligible for Well Being Care
+                                        String strSqlUpdateMedBillWellBeingCareIneligible = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[BillStatus] = 3, " +
+                                                                                            "[dbo].[tbl_medbill].[WellBeingCare] = 0 " +
+                                                                                            "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                        SqlCommand cmdUpdateMedBillWellBeingCareIneligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareIneligible, connRN5);
+                                        cmdUpdateMedBillWellBeingCareIneligible.CommandType = CommandType.Text;
+
+                                        cmdUpdateMedBillWellBeingCareIneligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                        if (connRN5.State != ConnectionState.Closed)
+                                        {
+                                            connRN5.Close();
+                                            connRN5.Open();
+                                        }
+                                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                        int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareIneligible.ExecuteNonQuery();
+                                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                        if (nWellBeingMedBillUpdated == 0)
+                                        {
+                                            MessageBox.Show("The well being med bill is not updated.", "Error");
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         if (gvSettlementsInMedBill.Rows.Count > 0)
                         {
                             for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
@@ -7202,6 +7565,7 @@ namespace CMMManager
 
                     String MedBillNo = txtMedBillNo.Text.Trim();
                     String IndividualId = txtIndividualIDMedBill.Text.Trim();
+                    strIndividualId = IndividualId;
 
                     if (txtMedBill_Illness.Text.Trim() != String.Empty)
                     {
@@ -7492,7 +7856,329 @@ namespace CMMManager
 
                     if (nAffectedRow == 1)
                     {
+                        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        ///
+                        // handle Well Being Care case
+                        String strNewMedBillNo = String.Empty;
 
+                        if (txtMedBillNo.Text.Trim() != String.Empty) strNewMedBillNo = txtMedBillNo.Text.Trim();
+
+                        Boolean bWellBeingCare = true;
+                        Boolean bWellBeingCareEligible = true;
+
+                        String strSqlQueryForICD10CodeForWellBeingCare = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_medbill] " +
+                                                                         "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                         "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                         "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
+
+                        SqlCommand cmdQueryForICD10CodeForWellBeingCare = new SqlCommand(strSqlQueryForICD10CodeForWellBeingCare, connRN5);
+                        cmdQueryForICD10CodeForWellBeingCare.CommandType = CommandType.Text;
+
+                        cmdQueryForICD10CodeForWellBeingCare.Parameters.AddWithValue("@MedBillNo", strNewMedBillNo);
+                        cmdQueryForICD10CodeForWellBeingCare.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                        String ICD10Code = String.Empty;
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                        SqlDataReader rdrICD10CodeForWellBeingCare = cmdQueryForICD10CodeForWellBeingCare.ExecuteReader();
+                        if (rdrICD10CodeForWellBeingCare.HasRows)
+                        {
+                            rdrICD10CodeForWellBeingCare.Read();
+                            if (!rdrICD10CodeForWellBeingCare.IsDBNull(1)) ICD10Code = rdrICD10CodeForWellBeingCare.GetString(1);
+                        }
+
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        if (ICD10Code != "Z00.00" && ICD10Code != "Z00.012") bWellBeingCare = false;
+
+                        if (ICD10Code == "Z00.00" || ICD10Code == "Z00.012")
+                        {
+
+                            String strSqlQueryForProgramForIndividual = "select [dbo].[contact].[Individual_ID__c], [dbo].[program].[Name] from [dbo].[contact] " +
+                                                                        "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                                        "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                            SqlCommand cmdQueryForProgramForIndividual = new SqlCommand(strSqlQueryForProgramForIndividual, connSalesforce);
+                            cmdQueryForProgramForIndividual.CommandType = CommandType.Text;
+
+                            cmdQueryForProgramForIndividual.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                            if (connSalesforce.State != ConnectionState.Closed)
+                            {
+                                connSalesforce.Close();
+                                connSalesforce.Open();
+                            }
+                            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                            String ProgramName = String.Empty;
+
+                            SqlDataReader rdrProgramForIndividual = cmdQueryForProgramForIndividual.ExecuteReader();
+                            if (rdrProgramForIndividual.HasRows)
+                            {
+                                rdrProgramForIndividual.Read();
+                                if (!rdrProgramForIndividual.IsDBNull(1)) ProgramName = rdrProgramForIndividual.GetString(1);
+                            }
+
+                            if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                            if (ProgramName == "Gold Plus" || ProgramName == "Gold Medi-I" || ProgramName == "Gold Medi-II")
+                            {
+                                String strSqlQueryForIndividualStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                                                           "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                SqlCommand cmdQueryForIndividualStartDate = new SqlCommand(strSqlQueryForIndividualStartDate, connSalesforce);
+                                cmdQueryForIndividualStartDate.CommandType = CommandType.Text;
+
+                                cmdQueryForIndividualStartDate.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                                if (connSalesforce.State != ConnectionState.Closed)
+                                {
+                                    connSalesforce.Close();
+                                    connSalesforce.Open();
+                                }
+                                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                                Object objMembershipIndStartDate = cmdQueryForIndividualStartDate.ExecuteScalar();
+
+                                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                DateTime MembershipIndStartDate = new DateTime();
+                                if (objMembershipIndStartDate != null)
+                                {
+                                    MembershipIndStartDate = DateTime.Parse(objMembershipIndStartDate.ToString());
+                                }
+
+                                if (dtpBillDate.Value > MembershipIndStartDate.AddMonths(6))
+                                {
+                                    String strSqlQueryForAnivDateForIndividualId = "select [dbo].[contact].[Aniv_Date], [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                                                                   "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                    SqlCommand cmdQueryForAnivDateForIndividualId = new SqlCommand(strSqlQueryForAnivDateForIndividualId, connSalesforce);
+                                    cmdQueryForAnivDateForIndividualId.CommandType = CommandType.Text;
+
+                                    cmdQueryForAnivDateForIndividualId.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                                    if (connSalesforce.State != ConnectionState.Closed)
+                                    {
+                                        connSalesforce.Close();
+                                        connSalesforce.Open();
+                                    }
+                                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                                    DateTime? AnivDate = null;
+                                    DateTime? StartDate = null;
+
+                                    SqlDataReader rdrAnivDate = cmdQueryForAnivDateForIndividualId.ExecuteReader();
+                                    if (rdrAnivDate.HasRows)
+                                    {
+                                        rdrAnivDate.Read();
+                                        if (!rdrAnivDate.IsDBNull(0)) AnivDate = rdrAnivDate.GetDateTime(0);
+                                        if (!rdrAnivDate.IsDBNull(1)) StartDate = rdrAnivDate.GetDateTime(1);
+                                    }
+                                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                    DateTime IndividualAnivDate = new DateTime();
+                                    if (AnivDate != null) IndividualAnivDate = AnivDate.Value;
+                                    else IndividualAnivDate = StartDate.Value;
+
+                                    int nAnivYear = dtpBillDate.Value.Year;
+
+                                    DateTime IndividualThisAnivDate = new DateTime(nAnivYear, IndividualAnivDate.Month, 1);
+                                    DateTime IndividualLastAnivDate = new DateTime(nAnivYear - 1, IndividualAnivDate.Month, 1);
+
+                                    String strSqlQueryForWellBeingIncidentsPerAnivYear = "select count([dbo].[tbl_incident].[IncidentNo]) from [dbo].[tbl_incident] " +
+                                                                                         "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_incident].[Incident_id] = [dbo].[tbl_medbill].[Incident_Id] " +
+                                                                                         "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                                         "([dbo].[tbl_illness].[ICD_10_Id] = 'Z00.00' or [dbo].[tbl_illness].[ICD_10_Id] = 'Z00.012') and " +
+                                                                                         "[dbo].[tbl_medbill].[BillDate] >= @LastAnivDate and " +
+                                                                                         "[dbo].[tbl_medbill].[BillDate] < @ThisAnivDate";
+
+                                    SqlCommand cmdQueryForWellBeingIncidentsPerAnivYear = new SqlCommand(strSqlQueryForWellBeingIncidentsPerAnivYear, connRN5);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.CommandType = CommandType.Text;
+
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@IndividualId", strIndividualId);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@LastAnivDate", IndividualLastAnivDate);
+                                    cmdQueryForWellBeingIncidentsPerAnivYear.Parameters.AddWithValue("@ThisAnivDate", IndividualThisAnivDate);
+
+                                    if (connRN5.State != ConnectionState.Closed)
+                                    {
+                                        connRN5.Close();
+                                        connRN5.Open();
+                                    }
+                                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                    Object objIncidentCount = cmdQueryForWellBeingIncidentsPerAnivYear.ExecuteScalar();
+                                    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                    int nIncidentCount = Int32.Parse(objIncidentCount.ToString());
+
+                                    if (nIncidentCount == 1)
+                                    {
+                                        String strSqlQueryForWellBeingIncidentId = "select [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] " +
+                                                                                   "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                                                   "inner join [dbo].[tbl_medbill] on [dbo].[tbl_incident].[Incident_id] = [dbo].[tbl_medbill].[Incident_Id] " +
+                                                                                   "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                                   "([dbo].[tbl_illness].[ICD_10_Id] = 'Z00.00' or [dbo].[tbl_illness].[ICD_10_Id] = 'Z00.012') and " +
+                                                                                   "[dbo].[tbl_medbill].[BillDate] >= @LastAnivDate and " +
+                                                                                   "[dbo].[tbl_medbill].[BillDate] < @ThisAnivDate";
+
+                                        SqlCommand cmdQueryForWellBeingIncidentId = new SqlCommand(strSqlQueryForWellBeingIncidentId, connRN5);
+                                        cmdQueryForWellBeingIncidentId.CommandType = CommandType.Text;
+
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@IndividualId", strIndividualId);
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@LastAnivDate", IndividualLastAnivDate);
+                                        cmdQueryForWellBeingIncidentId.Parameters.AddWithValue("@ThisAnivDate", IndividualThisAnivDate);
+
+                                        if (connRN5.State != ConnectionState.Closed)
+                                        {
+                                            connRN5.Close();
+                                            connRN5.Open();
+                                        }
+                                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                        Object objWellBeingIncidentId = cmdQueryForWellBeingIncidentId.ExecuteScalar();
+                                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                        if (objWellBeingIncidentId != null)
+                                        {
+                                            int nWellBeingIncidentId = Int32.Parse(objWellBeingIncidentId.ToString());
+
+                                            String strSqlQueryForWellBeingTotalForIncident = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
+                                                                                             "where [dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
+
+                                            SqlCommand cmdQueryForWellBeingTotalForIncident = new SqlCommand(strSqlQueryForWellBeingTotalForIncident, connRN5);
+                                            cmdQueryForWellBeingTotalForIncident.CommandType = CommandType.Text;
+
+                                            cmdQueryForWellBeingTotalForIncident.Parameters.AddWithValue("@IncidentId", nWellBeingIncidentId);
+
+                                            if (connRN5.State != ConnectionState.Closed)
+                                            {
+                                                connRN5.Close();
+                                                connRN5.Open();
+                                            }
+                                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                            Object objWellBeingTotalForIncident = cmdQueryForWellBeingTotalForIncident.ExecuteScalar();
+                                            if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                            Decimal WellBeingTotalForIncident = Decimal.Parse(objWellBeingTotalForIncident.ToString());
+
+                                            if (WellBeingTotalForIncident > 500)
+                                            {
+                                                // Set the well being care med bill ineligible strNewMedBillNo
+                                                String strSqlUpdateMedBillWellBeingCareIneligible = "update [dbo].[tbl_medbill] set [dbo].[medbill].[BillStatus] = 3, " +
+                                                                                                    "[dbo].[tbl_medbill].[WellBeingCare] = 0 " +
+                                                                                                    "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                                SqlCommand cmdUpdateMedBillWellBeingCareIneligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareIneligible, connRN5);
+                                                cmdUpdateMedBillWellBeingCareIneligible.CommandType = CommandType.Text;
+
+                                                cmdUpdateMedBillWellBeingCareIneligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                                if (connRN5.State != ConnectionState.Closed)
+                                                {
+                                                    connRN5.Close();
+                                                    connRN5.Open();
+                                                }
+                                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                                int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareIneligible.ExecuteNonQuery();
+
+                                                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                                if (nWellBeingMedBillUpdated == 0)
+                                                {
+                                                    MessageBox.Show("The well being med bill is not updated.", "Error");
+                                                    return;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // set the well being care med bill eligible
+                                                String strSqlUpdateMedBillWellBeingCareEligible = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[BillStatus] = 2, " +
+                                                                                                  "[dbo].[tbl_medbill].[WellBeingCare] = 1 " +
+                                                                                                  "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                                SqlCommand cmdUpdateMedBillWellBeingCareEligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareEligible, connRN5);
+                                                cmdUpdateMedBillWellBeingCareEligible.CommandType = CommandType.Text;
+
+                                                cmdUpdateMedBillWellBeingCareEligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                                if (connRN5.State != ConnectionState.Closed)
+                                                {
+                                                    connRN5.Close();
+                                                    connRN5.Open();
+                                                }
+                                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                                int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareEligible.ExecuteNonQuery();
+
+                                                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                                if (nWellBeingMedBillUpdated == 0)
+                                                {
+                                                    MessageBox.Show("The well being med bill is not updated.", "Error");
+                                                    return;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (nIncidentCount > 1)
+                                    {
+                                        // Ineligible for Well Being Care
+                                        String strSqlUpdateMedBillWellBeingCareIneligible = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[BillStatus] = 3, " +
+                                                                                            "[dbo].[tbl_medbill].[WellBeingCare] = 0 " +
+                                                                                            "where [dbo].[tbl_medbill].[BillNo] = @WellBeingCareMedBill";
+
+                                        SqlCommand cmdUpdateMedBillWellBeingCareIneligible = new SqlCommand(strSqlUpdateMedBillWellBeingCareIneligible, connRN5);
+                                        cmdUpdateMedBillWellBeingCareIneligible.CommandType = CommandType.Text;
+
+                                        cmdUpdateMedBillWellBeingCareIneligible.Parameters.AddWithValue("@WellBeingCareMedBill", strNewMedBillNo);
+
+                                        if (connRN5.State != ConnectionState.Closed)
+                                        {
+                                            connRN5.Close();
+                                            connRN5.Open();
+                                        }
+                                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                                        int nWellBeingMedBillUpdated = cmdUpdateMedBillWellBeingCareIneligible.ExecuteNonQuery();
+                                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                                        if (nWellBeingMedBillUpdated == 0)
+                                        {
+                                            MessageBox.Show("The well being med bill is not updated.", "Error");
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         if (gvSettlementsInMedBill.Rows.Count > 0)
                         {
                             for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
@@ -14220,7 +14906,8 @@ namespace CMMManager
                     }
 
                     Decimal TotalSharedAmount = 0;
-                    if (gvSettlementsInMedBill.Rows.Count == 0) txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+                    //if (gvSettlementsInMedBill.Rows.Count == 0) txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+                    txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
 
                     for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                     {
@@ -17696,7 +18383,6 @@ namespace CMMManager
 
         private void gvIndividualSearched_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //tbCMMManager.TabPages.Contains(tbpgCreateCase)
             if (tbCMMManager.TabPages.Contains(tbpgIndividual))
             {
                 MessageBox.Show("Individual Page is open. Close Individual page first.", "Alert");
@@ -18366,7 +19052,6 @@ namespace CMMManager
                                          "[dbo].[tbl_case].[IsDeleted] = 0 " +
                                          "order by [dbo].[tbl_case].[ID]";
 
-
             SqlCommand cmdQueryForCases = new SqlCommand(strSqlQueryForCases, connRN);
             cmdQueryForCases.CommandType = CommandType.Text;
 
@@ -18424,10 +19109,178 @@ namespace CMMManager
             }
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            //tbCMMManager.TabPages.Add(tbpgIndividual);
-            //tbCMMManager.TabPages.Add(tbpgCaseView);
+            txtIllnessViewMEMB.Text = IndividualSearched.strMembershipID;
+            txtIllnessViewIndId.Text = IndividualSearched.strIndividualID;
+            DateTime IndividualStartDate = IndividualSearched.dtMembershipIndStartDate.Value;
+            String IndividualId = IndividualSearched.strIndividualID;
+
+            //lstLimitedSharingId.Clear();
+
+            //String strSqlQueryForLimitedSharingSelection = "select [dbo].[tbl_illness].[LimitedSharingId] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+            //SqlCommand cmdQueryForLimitedSharingSelection = new SqlCommand(strSqlQueryForLimitedSharingSelection, connRN);
+            //cmdQueryForLimitedSharingSelection.CommandType = CommandType.Text;
+
+            //cmdQueryForLimitedSharingSelection.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+            //if (connRN.State != ConnectionState.Closed)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //SqlDataReader rdrLimitedSharingSelection = cmdQueryForLimitedSharingSelection.ExecuteReader();
+
+            //if (rdrLimitedSharingSelection.HasRows)
+            //{
+            //    while(rdrLimitedSharingSelection.Read())
+            //    {
+            //        if (!rdrLimitedSharingSelection.IsDBNull(0)) lstLimitedSharingId.Add(rdrLimitedSharingSelection.GetInt16(0));
+            //    }
+            //}
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+
+            //int nLimitedSharingSelection = 0;
+            //if (objLimitedSharingSelection != null) nLimitedSharingSelection = Int16.Parse(objLimitedSharingSelection.ToString());
+
+            //if (lstLimitedSharingId[0] == 0)
+
+            String strSqlQueryForIndividualStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                           "where [dbo].[contact].[individual_id__c] = @IndividualId";
+
+            SqlCommand cmdQueryForIndividualStartDate = new SqlCommand(strSqlQueryForIndividualStartDate, connSalesforce);
+            cmdQueryForIndividualStartDate.CommandType = CommandType.Text;
+
+            cmdQueryForIndividualStartDate.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+            if (connSalesforce.State != ConnectionState.Closed)
+            {
+                connSalesforce.Close();
+                connSalesforce.Open();
+            }
+            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            Object objIndividualStartDate = cmdQueryForIndividualStartDate.ExecuteScalar();
+            if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+            DateTime dtResultIndividualStartDate;
+            DateTime? dtIndividualStartDate = null;
+
+            if (objIndividualStartDate != null)
+            {
+                if (DateTime.TryParse(objIndividualStartDate.ToString(), out dtResultIndividualStartDate)) dtIndividualStartDate = dtResultIndividualStartDate;
+            }
+            else
+            {
+                MessageBox.Show("Invalid datetime value", "Error", MessageBoxButtons.OK);
+                return;
+            }
+
+            int NumberOfYears = DateTime.Today.Year - dtIndividualStartDate.Value.Year;
+            if (dtIndividualStartDate.Value.AddYears(NumberOfYears) > DateTime.Today) NumberOfYears--;
+
+            LimitedSharingYear = NumberOfYears;
+            if (LimitedSharingYear > 4) LimitedSharingYear = 4;
+
+            gvIllnessList.Rows.Clear();
+
+            String strSqlQueryForIllnessForIndividualId = "select [dbo].[tbl_illness].[IllnessNo] as [Illness No], [dbo].[tbl_illness].[Case_Id] as [Case No], " +
+                                                          "[dbo].[tbl_illness].[ICD_10_Id] as [ICD 10 Code], " +
+                                                          "[dbo].[tbl_illness].[CreateDate] as [Create Date], [dbo].[tbl_CreateStaff].[Staff_Name] as [Created By]," +
+                                                          "[dbo].[tbl_illness].[ModifiDate] as [Last Modification Date], [dbo].[tbl_ModifiStaff].[Staff_Name] as [Last Modified By], " +
+                                                          "[dbo].[tbl_illness].[Date_of_Diagnosis] as [Diagnosis Date], " +
+                                                          "[dbo].[tbl_illness].[TotalSharedAmount] as [Total Shared Amount], " +
+                                                          "[dbo].[tbl_illness].[LimitedSharingId] as [Limited Sharing Amount], " +
+                                                          "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
+                                                          "from [dbo].[tbl_illness] " +
+                                                          "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_illness].[CreateStaff] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                          "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_illness].[ModifiStaff] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                          "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId " +
+                                                          "order by [dbo].[tbl_illness].[IllnessNo]";
+
+            SqlCommand cmdQueryForIllnesForIndividualId = new SqlCommand(strSqlQueryForIllnessForIndividualId, connRN);
+            cmdQueryForIllnesForIndividualId.CommandType = CommandType.Text;
+
+            cmdQueryForIllnesForIndividualId.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+            SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllnesForIndividualId);
+            dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            gvIllnessList.Rows.Clear();
+
+            SqlDataReader rdrIllnessForIndivdual = cmdQueryForIllnesForIndividualId.ExecuteReader();
+            if (rdrIllnessForIndivdual.HasRows)
+            {
+                while (rdrIllnessForIndivdual.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+
+                    if (!rdrIllnessForIndivdual.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(0) });
+                    if (!rdrIllnessForIndivdual.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(1) });
+                    if (!rdrIllnessForIndivdual.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(3)) row.Cells.Add(new CalendarCell { Value = rdrIllnessForIndivdual.GetDateTime(3).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(4) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(5)) row.Cells.Add(new CalendarCell { Value = rdrIllnessForIndivdual.GetDateTime(5).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(6) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrIllnessForIndivdual.GetDateTime(7).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(8))
+                    {
+                        DataGridViewTextBoxCell cellTotalSharedAmount = new DataGridViewTextBoxCell();
+                        cellTotalSharedAmount.Value = rdrIllnessForIndivdual.GetDecimal(8).ToString("C");
+                        cellTotalSharedAmount.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        row.Cells.Add(cellTotalSharedAmount);
+                    }
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(9))
+                    {
+                        switch (rdrIllnessForIndivdual.GetInt16(9))
+                        {
+                            case 0:
+                                DataGridViewTextBoxCell cellLimitedSharing = new DataGridViewTextBoxCell();
+                                cellLimitedSharing.Value = "N/A";
+                                cellLimitedSharing.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                row.Cells.Add(cellLimitedSharing);
+                                break;
+                            case 1:
+                                DataGridViewTextBoxCell cellLimitedSharing1 = new DataGridViewTextBoxCell();
+                                cellLimitedSharing1.Value = dicLimitedSharing1[LimitedSharingYear].ToString("C");
+                                cellLimitedSharing1.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                row.Cells.Add(cellLimitedSharing1);
+                                break;
+                            case 2:
+                                DataGridViewTextBoxCell cellLimitedSharing2 = new DataGridViewTextBoxCell();
+                                cellLimitedSharing2.Value = dicLimitedSharing1[LimitedSharingYear].ToString("C");
+                                cellLimitedSharing2.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                                row.Cells.Add(cellLimitedSharing2);
+                                break;
+                        }
+                    }
+                    if (!rdrIllnessForIndivdual.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(10) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(11) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllnessForIndivdual.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndivdual.GetString(12) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    gvIllnessList.Rows.Add(row);
+                }
+            }
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
             tbCMMManager.TabPages.Insert(2, tbpgIndividual);
-            //tbCMMManager.TabPages.Insert(3, tbpgCaseView);
             tbCMMManager.SelectedIndex = 2;
 
             PrevTabPage = TabPage.None;
@@ -20818,8 +21671,10 @@ namespace CMMManager
                 }
                 if (!bInChurchList)
                 {
-                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ChurchId", DBNull.Value);
-                    }
+                    MessageBox.Show("The church name is not in the list.", "Error");
+                    //cmdUpdateIndividualInfo.Parameters.AddWithValue("@ChurchId", DBNull.Value);
+                    return;
+                }
             }
             else
             {
@@ -21384,6 +22239,11 @@ namespace CMMManager
         }
 
         private void tbpgIndividual_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbpgMedBillView_Click(object sender, EventArgs e)
         {
 
         }
