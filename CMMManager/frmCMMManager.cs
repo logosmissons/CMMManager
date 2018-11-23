@@ -65,6 +65,10 @@ namespace CMMManager
         // Delegates for Cross thread method call
         delegate void SetTabPages(int nIndex);
 
+        private delegate void RemoveRowInIllnessList(int nRow);
+        private delegate void RemoveAllRowsInIllnessList();
+        private delegate void AddRowToIllnessList(DataGridView row);
+
         delegate void RemoveRowInGVSettlement(int nRow);
         delegate void RemoveAllRowsInSettlement();
         delegate void AddRowToGVSettlement(DataGridViewRow row);
@@ -1470,10 +1474,6 @@ namespace CMMManager
 
         private void ClearCaseInProcessSafely()
         {
-            //for (int i = 0; i < gvProcessingCaseNo.Rows.Count; i++)
-            //{
-            //    gvProcessingCaseNo.BeginInvoke(new RemoveCaseInProcess(RemoveRowCaseInProcess), 0);
-            //}
             gvProcessingCaseNo.BeginInvoke(new RemoveAllCaseInProcess(RemoveAllCasesInProcess));
         }
 
@@ -1552,7 +1552,7 @@ namespace CMMManager
                 SqlDependency dependency = sender as SqlDependency;
                 dependency.OnChange -= OnIllnessChange;
 
-                UpdateGridViewIllnessList(strIndividualId);
+                UpdateGridViewIllnessList();
             }
         }
 
@@ -1567,43 +1567,72 @@ namespace CMMManager
             }
         }
 
-        private void UpdateGridViewIllnessList(String individual_id)
+        private void UpdateGridViewIllnessList()
         {
-            String strSqlQueryForIllness = "select Individual_Id, Case_Id, ICD_10_Id, CreateDate, Body from dbo.tbl_illness " +
-                                           "where Individual_Id = '" + individual_id + "'";
+            String IndividualId = IndividualSearched.strIndividualID;
 
-            SqlCommand cmdQueryForIllness = connRN.CreateCommand();
-            cmdQueryForIllness.CommandType = CommandType.Text;
-            cmdQueryForIllness.CommandText = strSqlQueryForIllness;
+            //String strSqlQueryForIllness = "select Individual_Id, Case_Id, ICD_10_Id, CreateDate, Body from dbo.tbl_illness " +
+            //                               "where Individual_Id = '" + individual_id + "'";
 
-            SqlDependency dependency = new SqlDependency(cmdQueryForIllness);
-            dependency.OnChange += new OnChangeEventHandler(OnIllnessChange);
+            //SqlCommand cmdQueryForIllness = connRN.CreateCommand();
+            //cmdQueryForIllness.CommandType = CommandType.Text;
+            //cmdQueryForIllness.CommandText = strSqlQueryForIllness;
+
+            //SqlDependency dependency = new SqlDependency(cmdQueryForIllness);
+            //dependency.OnChange += new OnChangeEventHandler(OnIllnessChange);
 
             //if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            String strSqlQueryForIllnessForIndividualId = "select [dbo].[tbl_illness].[IllnessNo] as [Illness No], [dbo].[tbl_illness].[Case_Id] as [Case No], " +
+                                              "[dbo].[tbl_illness].[ICD_10_Id] as [ICD 10 Code], " +
+                                              "[dbo].[tbl_illness].[CreateDate] as [Create Date], [dbo].[tbl_CreateStaff].[Staff_Name] as [Created By]," +
+                                              "[dbo].[tbl_illness].[ModifiDate] as [Last Modification Date], [dbo].[tbl_ModifiStaff].[Staff_Name] as [Last Modified By], " +
+                                              "[dbo].[tbl_illness].[Date_of_Diagnosis] as [Diagnosis Date], " +
+                                              "[dbo].[tbl_illness].[TotalSharedAmount] as [Total Shared Amount], " +
+                                              "[dbo].[tbl_illness].[LimitedSharingId] as [Limited Sharing Amount], " +
+                                              "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
+                                              "from [dbo].[tbl_illness] " +
+                                              "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_illness].[CreateStaff] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                              "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_illness].[ModifiStaff] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                              "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId " +
+                                              "order by [dbo].[tbl_illness].[IllnessNo]";
+
+            SqlCommand cmdQueryForIllnesForIndividualId = new SqlCommand(strSqlQueryForIllnessForIndividualId, connRN);
+            cmdQueryForIllnesForIndividualId.CommandType = CommandType.Text;
+
+            cmdQueryForIllnesForIndividualId.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+            SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllnesForIndividualId);
+            dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessChange);
+
             if (connRN.State != ConnectionState.Closed)
             {
                 connRN.Close();
                 connRN.Open();
             }
             else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            SqlDataReader reader = cmdQueryForIllness.ExecuteReader();
+            SqlDataReader rdrIllnessForIndividual = cmdQueryForIllnesForIndividualId.ExecuteReader();
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             gvIllnessList.Rows.Clear();
-            if (reader.HasRows)
+            if (rdrIllnessForIndividual.HasRows)
             {
-                while (reader.Read())
+                while (rdrIllnessForIndividual.Read())
                 {
                     DataGridViewRow row = new DataGridViewRow();
 
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(0) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(1) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(2) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetDateTime(3) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(4) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndividual.GetString(0) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndividual.GetString(1) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndividual.GetString(2) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndividual.GetDateTime(3) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForIndividual.GetString(4) });
 
                     gvIllnessList.Rows.Add(row);
 
                 }
             }
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             if (connRN.State != ConnectionState.Closed) connRN.Close();
         }
 
