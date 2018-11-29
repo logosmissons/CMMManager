@@ -424,7 +424,7 @@ namespace CMMManager
             }
             else
             {
-                MessageBox.Show("There is no Illnes.", "Alert");
+                MessageBox.Show("There is no Illness.", "Alert");
                 return;
             }
 

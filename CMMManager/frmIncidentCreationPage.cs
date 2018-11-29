@@ -659,7 +659,8 @@ namespace CMMManager
                         "([dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[IsDeleted], " +
                         "[dbo].[tbl_incident].[Individual_id], [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[illness_id], " +
                         "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[CreateStaff], " +
-                        "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[Incident_Status], " +
+                        "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff]," +
+                        "[dbo].[tbl_incident].[Incident_Status], " +
                         "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IncidentNote]) " +
                         "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @IncidentStatus, @ProgramId, @IncidentNote)";
                 //"SELECT SCOPE_IDENTITY()";
@@ -679,6 +680,7 @@ namespace CMMManager
                 cmdInsertIntoIncident.Parameters.AddWithValue("@CreateDate", DateTime.Today.ToString("MM/dd/yyyy"));
                 cmdInsertIntoIncident.Parameters.AddWithValue("@CreateStaff", nLoggedInId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiDate", DateTime.Today.ToString("MM/dd/yyyy"));
+                cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentStatus", nIncidentStatus);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());

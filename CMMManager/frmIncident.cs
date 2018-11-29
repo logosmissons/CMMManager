@@ -376,12 +376,11 @@ namespace CMMManager
                 }
                 else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
-                SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
+                gvIncidents.Rows.Clear();
 
+                SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
                 if (rdrIncidents.HasRows)
                 {
-                    gvIncidents.Rows.Clear();
-
                     while (rdrIncidents.Read())
                     {
                         DataGridViewRow row = new DataGridViewRow();
