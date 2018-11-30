@@ -7942,7 +7942,7 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[PatientTypeId] = @NewPatientTypeId, " +
                                                  "[dbo].[tbl_medbill].[Note] = @Note, " +
                                                  "[dbo].[tbl_medbill].[WellBeingCareTotal] = @NewWellBeingCareTotal, [dbo].[tbl_medbill].[WellBeingCare] = @NewWellBeingCare, " +
-                                                 "[dbo].[tbl_medbill].[IneligibleReason] = @NewIneligibleReason, [dbo].[tbl_medbill].[PendingReason] = @NewPendingReason, " +
+                                                 "[dbo].[tbl_medbill].[IneligibleReason] = @NewIneligibleReason, [dbo].[tbl_medbill].[PendingReason] = @NewPendingReason " +
                                                  "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_medbill].[Contact_Id] = @IndividualId";
 
                     SqlCommand cmdUpdateMedBill = new SqlCommand(strSqlUpdateMedBill, connRN5);
@@ -14250,8 +14250,8 @@ namespace CMMManager
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///
 
-                    //String IncidentNo = txtMedBill_Incident.Text.Trim();
-                    //String IndividualIdMedBill = txtCaseIndividualID.Text.Trim();
+                    String IncidentNo = txtMedBill_Incident.Text.Trim();
+                    String IndividualIdMedBill = txtCaseIndividualID.Text.Trim();
 
                     //String strSqlQueryForIncidentChange = "select [cdc].[dbo_tbl_incident_CT].[Program_id], [dbo].[tbl_program].[ProgramName] from [cdc].[dbo_tbl_incident_CT] " +
                     //                                      "inner join [dbo].[tbl_program] on [cdc].[dbo_tbl_incident_CT].[Program_id] = [dbo].[tbl_program].[Program_Id] " +

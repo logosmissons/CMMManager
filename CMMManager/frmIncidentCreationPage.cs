@@ -283,7 +283,9 @@ namespace CMMManager
                                 "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
                                 "from [dbo].[tbl_incident] " +
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
-                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                                "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+
+                //"where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
                 cmdQueryForIncident.CommandType = CommandType.Text;
@@ -291,12 +293,13 @@ namespace CMMManager
                 int result = 0;
                 int nIncident = 0;
                 //int nIndividualId = 0;
-                if (int.TryParse(strIncidentId, NumberStyles.Number, new CultureInfo("en-US"), out result))
-                {
-                    nIncident = result;
-                    cmdQueryForIncident.Parameters.AddWithValue("@IncidentId", nIncident);
-                }
+                //if (int.TryParse(strIncidentId, NumberStyles.Number, new CultureInfo("en-US"), out result))
+                //{
+                //    nIncident = result;
+                //    cmdQueryForIncident.Parameters.AddWithValue("@IncidentId", nIncident);
+                //}
                 //txtIncidentId.Text = nIncident.ToString();
+                cmdQueryForIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
                 cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
                 //if (int.TryParse(strIndividualId, NumberStyles.Number, new CultureInfo("en-US"), out result))
@@ -662,7 +665,7 @@ namespace CMMManager
                         "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff]," +
                         "[dbo].[tbl_incident].[Incident_Status], " +
                         "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IncidentNote]) " +
-                        "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @IncidentStatus, @ProgramId, @IncidentNote)";
+                        "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @ModifiStaff, @IncidentStatus, @ProgramId, @IncidentNote)";
                 //"SELECT SCOPE_IDENTITY()";
 
                 //int nUserId = 1;
@@ -694,7 +697,7 @@ namespace CMMManager
                 int nRowAffected = cmdInsertIntoIncident.ExecuteNonQuery();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                if (nRowAffected == 1)
+                if (nRowAffected == 2)
                 {
                     MessageBox.Show("One incident is added successfully.");
                     DialogResult = DialogResult.OK;
@@ -777,7 +780,8 @@ namespace CMMManager
 
                 String strSqlUpdateIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[ModifiDate] = @ModifiDate, [dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff, " +
                                               "[dbo].[tbl_incident].[Program_id] = @ProgramId, [dbo].[tbl_incident].[IncidentNote] = @IncidentNote " +
-                                              "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                                              "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                                              //"where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 SqlCommand cmdUpdateIncident = new SqlCommand(strSqlUpdateIncident, connRNDB);
                 cmdUpdateIncident.CommandType = CommandType.Text;
@@ -789,7 +793,8 @@ namespace CMMManager
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);   // Won Jik Chun
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());
-                cmdUpdateIncident.Parameters.AddWithValue("@IncidentId", strIncidentId);
+                //cmdUpdateIncident.Parameters.AddWithValue("@IncidentId", strIncidentId);
+                cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
                 cmdUpdateIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
                 if (connRNDB.State == ConnectionState.Open)
