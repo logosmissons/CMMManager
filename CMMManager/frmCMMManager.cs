@@ -7,6 +7,9 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using System.Linq;
+using OfficeOpenXml;
+
 //using Windows.Devices.Enumeration;
 //using Windows.Devices.Scanners;
 
@@ -19,6 +22,10 @@ namespace CMMManager
     public enum IncidentOption { Select, Close, Cancel };
     public enum CaseStatus { OnGoing, Processing, Closed };
     public enum SettlementType { SelfPayDiscount = 1, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, MemberReimbursement, Ineligible, MedicalProviderRefund };
+
+    public enum PaymentMethodExport { Check = 1, CreditCard, ACH_Banking };
+    public enum ProgramNameExport { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };
+    public enum PaymentTypeExport { MemberReimbursement, PR_Reimbursement, ProviderPayment };
 
     //public enum SettlementType { NULL = 0, SelfPayDiscount, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, MemberReimbursement, Ineligible, MedicalProviderRefund };
 
@@ -9187,7 +9194,8 @@ namespace CMMManager
                                                "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
                                                "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
                                                "[dbo].[tbl_incident].[Incident_id] = @IncidentId and " +
-                                               "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                                               "[dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
+                                               "[dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff";
 
                         SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount, connRN5);
                         cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
@@ -9197,6 +9205,7 @@ namespace CMMManager
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
                         cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@ModifiStaff", nLoggedUserId);
 
                         if (connRN5.State != ConnectionState.Closed)
                         {
@@ -13428,19 +13437,32 @@ namespace CMMManager
 
                 if (e.ColumnIndex == 4)
                 {
+
                     Decimal PersonalResponsibility = PersonalResponsibilityAmountInMedBill;
+                    Decimal SumPersonalResponsibility = 0;
+
                     Decimal result = 0;
                     if ((gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Self Pay Discount")||
                         (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "3rd Party Discount")||
                         (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Member Payment"))
                     {
                         result = 0;
-                        Decimal SumPersonalResponsibility = 0;
                         for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
                         {
                             if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
                             {
-                                SumPersonalResponsibility += result;
+                                SumPersonalResponsibility = result;
+                                PersonalResponsibility -= SumPersonalResponsibility;
+                                txtPersonalResponsibility.Text = PersonalResponsibility.ToString("C");
+                            }
+                            else if (gvSettlementsInMedBill["PersonalResponsibility", i]?.Value == null)
+                            {
+                                txtPersonalResponsibility.Text = PersonalResponsibility.ToString("C");
+                            }
+                            else if (gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString() != String.Empty)
+                            {
+                                MessageBox.Show("Invalid Personal Responsibility Amount", "Error");
+                                return;
                             }
                         }
 
@@ -14252,6 +14274,185 @@ namespace CMMManager
 
                     String IncidentNo = txtMedBill_Incident.Text.Trim();
                     String IndividualIdMedBill = txtCaseIndividualID.Text.Trim();
+
+                    String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Program_id], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IsDeleted] " +
+                                                    "from [dbo].[tbl_incident] " +
+                                                    "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                    "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
+                                                    "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo " +
+                                                    "order by [dbo].[tbl_incident].[Program_id]";
+
+                    SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRN4);
+                    cmdQueryForIncident.CommandType = CommandType.Text;
+
+                    cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", IndividualIdMedBill);
+                    cmdQueryForIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                    if (connRN4.State != ConnectionState.Closed)
+                    {
+                        connRN4.Close();
+                        connRN4.Open();
+                    }
+                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+
+                    SqlDataReader rdrIncident = cmdQueryForIncident.ExecuteReader();
+                    lstIncidentProgramInfo.Clear();
+                    if (rdrIncident.HasRows)
+                    {
+                        while(rdrIncident.Read())
+                        {
+                            if (!rdrIncident.IsDBNull(0)&&!rdrIncident.IsDBNull(1))
+                            {
+                                IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncident.GetBoolean(2), rdrIncident.GetInt16(0), rdrIncident.GetString(1).Trim());
+                                lstIncidentProgramInfo.Add(incidentProgram);
+                            }
+                        }
+                    }
+                    if (connRN4.State == ConnectionState.Open) connRN4.Close();
+
+                    String strSqlQueryForIncidentChange = "select [dbo].[tbl_incident_history].[Program_id], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident_history].[IsDeleted] " +
+                                                          "from [dbo].[tbl_incident_history] " +
+                                                          "inner join [dbo].[tbl_program] on [dbo].[tbl_incident_history].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                          "where ([dbo].[tbl_incident_history].[Operation] = 2 or " +
+                                                          "[dbo].[tbl_incident_history].[Operation] = 3 or " +
+                                                          "[dbo].[tbl_incident_history].[Operation] = 4) and " +
+                                                          "[dbo].[tbl_incident_history].[Individual_id] = @IndividualId and" +
+                                                          "[dbo].[tbl_incident_history].[IncidentNo] = @IncidentNo " +
+                                                          "order by [dbo].[tbl_incident_history].[Program_id]";
+
+                    SqlCommand cmdQueryForIncidentChange = new SqlCommand(strSqlQueryForIncidentChange, connRN4);
+                    cmdQueryForIncidentChange.CommandType = CommandType.Text;
+
+                    cmdQueryForIncidentChange.Parameters.AddWithValue("@IndividualId", IndividualIdMedBill);
+                    cmdQueryForIncidentChange.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                    if (connRN4.State != ConnectionState.Closed)
+                    {
+                        connRN4.Close();
+                        connRN4.Open();
+                    }
+                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    SqlDataReader rdrIncidentChange = cmdQueryForIncidentChange.ExecuteReader();
+                    //lstIncidentProgramInfo.Clear();
+                    if (rdrIncidentChange.HasRows)
+                    {
+                        while(rdrIncidentChange.Read())
+                        {
+                            if (!rdrIncidentChange.IsDBNull(0)&&!rdrIncidentChange.IsDBNull(1))
+                            {
+                                IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncidentChange.GetBoolean(2), rdrIncidentChange.GetInt16(0), rdrIncidentChange.GetString(1).Trim());
+                                lstIncidentProgramInfo.Add(incidentProgram);
+                            }
+                        }
+                    }
+                    if (connRN4.State == ConnectionState.Open) connRN4.Close();
+
+                    foreach(IncidentProgramInfo incdInfo in lstIncidentProgramInfo)
+                    {
+                        if (incdInfo.bIsDeleted == true)
+                        {
+                            MessageBox.Show("The Incident has been deleted. Personal Responsibility cannot be calculated.", "Error");
+                            lstIncidentProgramInfo.Clear();
+                        }
+                    }
+
+                    Boolean bBronze = false;
+                    Boolean bSilver = false;
+                    Boolean bGold = false;
+                    Boolean bGoldPlus = false;
+                    Boolean bGoldMed1 = false;
+                    Boolean bGoldMed2 = false;
+
+                    if (lstIncidentProgramInfo.Count > 0)
+                    {
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 3) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                bBronze = true;
+                                break;
+                            }
+                        }
+
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 2) &&
+                                (bBronze == false) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                bSilver = true;
+                                break;
+                            }
+                        }
+
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 1) &&
+                                (bBronze == false) &&
+                                (bSilver == false) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                break;
+                            }
+                        }
+
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 0) &&
+                                (bBronze == false) &&
+                                (bSilver == false) &&
+                                (bGold == false) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                break;
+                            }
+                        }
+
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 4) &&
+                                (bBronze == false) &&
+                                (bSilver == false) &&
+                                (bGold == false) &&
+                                (bGoldPlus == false) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                break;
+                            }
+                        }
+
+                        foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                        {
+                            if ((incidentInfo.IncidentProgramId == 5) &&
+                                (bBronze == false) &&
+                                (bSilver == false) &&
+                                (bGold == false) &&
+                                (bGoldPlus == false) &&
+                                (bGoldMed1 == false) &&
+                                (incidentInfo.bIsDeleted == false))
+                            {
+                                incidentInfo.bPersonalResponsibilityProgram = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                    {
+                        if (incidentInfo.bPersonalResponsibilityProgram == true)
+                            PersonalResponsibilityAmountInMedBill = incidentInfo.PersonalResponsibilityAmount;
+                    }
+
+                    
+
+
+                    //IncidentProgramInfo lstDistinctIncdProgramInfo = new IncidentProgramInfo();
 
                     //String strSqlQueryForIncidentChange = "select [cdc].[dbo_tbl_incident_CT].[Program_id], [dbo].[tbl_program].[ProgramName] from [cdc].[dbo_tbl_incident_CT] " +
                     //                                      "inner join [dbo].[tbl_program] on [cdc].[dbo_tbl_incident_CT].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
@@ -15131,7 +15332,7 @@ namespace CMMManager
                             gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Reimbursement" ||
                             gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "PR Reimbursement")
                         {
-                            if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i].Value.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
+                            if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
                             {
                                 SharedAmount = result;
                                 TotalSharedAmount += SharedAmount;
@@ -15148,6 +15349,35 @@ namespace CMMManager
                             }
                         }
                     }
+
+                    //PersonalResponsibilityAmountInMedBill
+                    // 12/03/18 begin here to code to calculate PR Balance
+
+                    Decimal PersonResponsibilityAmt = PersonalResponsibilityAmountInMedBill;
+                    Decimal PersonalResponsibilityBalance = PersonalResponsibilityAmountInMedBill;
+                    Decimal TotalPersonalResponsibilityShared = 0;
+
+                    for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                    {
+                        //Decimal PersonResponsibilityAmt = PersonalResponsibilityAmountInMedBill;
+                        //Decimal PersonalResponsibilityBalance = PersonalResponsibilityAmountInMedBill;
+                        Decimal PersonalResponsibilityShared = 0;
+                        Decimal result = 0;
+
+                        if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Self Pay Discount" ||
+                            gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount" ||
+                            gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment")
+                        {
+                            if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
+                            {
+                                PersonalResponsibilityShared = result;
+                                TotalPersonalResponsibilityShared += PersonalResponsibilityShared;
+                                PersonalResponsibilityBalance -= TotalPersonalResponsibilityShared;
+                            }
+                        }
+                    }
+
+                    txtPersonalResponsibility.Text = PersonalResponsibilityBalance.ToString("C");
 
                     //btnAddNewSettlement.Enabled = true;
                     ////btnEditSettlement.Enabled = true;
@@ -23857,11 +24087,409 @@ namespace CMMManager
             //}
 
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            ExcelPackage excelApprovedSettlement = new ExcelPackage();
+
+            String strSqlQueryForAuthorName = "select [dbo].[tbl_user].[User_Name] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @UserId";
+
+            SqlCommand cmdQueryForAuthorName = new SqlCommand(strSqlQueryForAuthorName, connRN3);
+            cmdQueryForAuthorName.CommandType = CommandType.Text;
+
+            cmdQueryForAuthorName.Parameters.AddWithValue("@UserId", nLoggedUserId);
+
+            if (connRN3.State != ConnectionState.Closed)
+            {
+                connRN3.Close();
+                connRN3.Open();
+            }
+            else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
+            String strUserName = cmdQueryForAuthorName.ExecuteScalar()?.ToString();
+            if (connRN3.State == ConnectionState.Open) connRN3.Close();
+
+            excelApprovedSettlement.Workbook.Properties.Author = strUserName;
+            excelApprovedSettlement.Workbook.Properties.Title = "Approved Settlement Export";
+            excelApprovedSettlement.Workbook.Properties.Subject = "Approved Settlement List";
+            excelApprovedSettlement.Workbook.Properties.Created = DateTime.Now;
+
+            ExcelWorksheet wsApprovedSettlements = excelApprovedSettlement.Workbook.Worksheets.Add("Sheet 1");
+
+            wsApprovedSettlements.Cells["A1"].Value = "Full Name";
+            wsApprovedSettlements.Cells["A1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(1).Width = 20;
+            wsApprovedSettlements.Cells["B1"].Value = "First Name";
+            wsApprovedSettlements.Cells["B1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(2).Width = 20;
+            wsApprovedSettlements.Cells["C1"].Value = "Middle Name";
+            wsApprovedSettlements.Cells["C1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(3).Width = 20;
+            wsApprovedSettlements.Cells["D1"].Value = "Last Name";
+            wsApprovedSettlements.Cells["D1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(4).Width = 20;
+            wsApprovedSettlements.Cells["E1"].Value = "Household Role";
+            wsApprovedSettlements.Cells["E1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(5).Width = 20;
+            wsApprovedSettlements.Cells["F1"].Value = "Individual ID";
+            wsApprovedSettlements.Cells["F1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(6).Width = 20;
+            wsApprovedSettlements.Cells["G1"].Value = "Primary Name";
+            wsApprovedSettlements.Cells["G1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(7).Width = 20;
+            wsApprovedSettlements.Cells["H1"].Value = "CMM Payment Method";
+            wsApprovedSettlements.Cells["H1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(8).Width = 20;
+            wsApprovedSettlements.Cells["I1"].Value = "Program Name";
+            wsApprovedSettlements.Cells["I1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(9).Width = 20;
+            wsApprovedSettlements.Cells["J1"].Value = "Incident Program";
+            wsApprovedSettlements.Cells["J1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(10).Width = 20;
+            wsApprovedSettlements.Cells["K1"].Value = "Membership Start Date";
+            wsApprovedSettlements.Cells["K1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(11).Width = 20;
+            wsApprovedSettlements.Cells["L1"].Value = "Membership Number";
+            wsApprovedSettlements.Cells["L1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(12).Width = 20;
+            wsApprovedSettlements.Cells["M1"].Value = "Itemized Bill Received Date";
+            wsApprovedSettlements.Cells["M1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(13).Width = 20;
+            wsApprovedSettlements.Cells["N1"].Value = "Date of Service";
+            wsApprovedSettlements.Cells["N1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(14).Width = 20;
+            wsApprovedSettlements.Cells["O1"].Value = "Medical Provider: Account Name";
+            wsApprovedSettlements.Cells["O1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(15).Width = 20;
+            wsApprovedSettlements.Cells["P1"].Value = "Member's Account Number at Provider";
+            wsApprovedSettlements.Cells["P1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(16).Width = 20;
+            wsApprovedSettlements.Cells["Q1"].Value = "Account Name: Shipping Street";
+            wsApprovedSettlements.Cells["Q1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(17).Width = 20;
+            wsApprovedSettlements.Cells["R1"].Value = "Account Name: Shipping City";
+            wsApprovedSettlements.Cells["R1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(18).Width = 20;
+            wsApprovedSettlements.Cells["S1"].Value = "Account Name: Shipping State/Province";
+            wsApprovedSettlements.Cells["S1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(19).Width = 20;
+            wsApprovedSettlements.Cells["T1"].Value = "Account Name: Shipping Zip/Postal Code";
+            wsApprovedSettlements.Cells["T1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(20).Width = 20;
+            wsApprovedSettlements.Cells["U1"].Value = "Amount";
+            wsApprovedSettlements.Cells["U1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(21).Width = 20;
+            wsApprovedSettlements.Cells["V1"].Value = "Type";
+            wsApprovedSettlements.Cells["V1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(22).Width = 20;
+            wsApprovedSettlements.Cells["W1"].Value = "Medical Bill Name";
+            wsApprovedSettlements.Cells["W1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(23).Width = 20;
+            wsApprovedSettlements.Cells["X1"].Value = "Settlement Name";
+            wsApprovedSettlements.Cells["X1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(24).Width = 20;
+            wsApprovedSettlements.Cells["Y1"].Value = "Well-Being Care Shared";
+            wsApprovedSettlements.Cells["Y1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(25).Width = 20;
+            wsApprovedSettlements.Cells["Z1"].Value = "ICD10 Code: ICD10 Description";
+            wsApprovedSettlements.Cells["Z1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(26).Width = 20;
+            wsApprovedSettlements.Cells["AA1"].Value = "Created by - Full Name";
+            wsApprovedSettlements.Cells["AA1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(27).Width = 20;
+            wsApprovedSettlements.Cells["AB1"].Value = "Last Modified By - Full Name";
+            wsApprovedSettlements.Cells["AB1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(28).Width = 20;
+            wsApprovedSettlements.Cells["AC1"].Value = "Membership Status";
+            wsApprovedSettlements.Cells["AC1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(29).Width = 20;
+            wsApprovedSettlements.Cells["AD1"].Value = "Approved";
+            wsApprovedSettlements.Cells["AD1"].Style.WrapText = true;
+            wsApprovedSettlements.Column(30).Width = 20;
+
+            ApprovedSettlementInfo info = new ApprovedSettlementInfo();
+
+            String strSqlQueryForSettlementApproved = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_settlement].[Name], " +
+                                                      "[dbo].[tbl_settlement].[MedicalBillID], [dbo].[tbl_medbill].[Individual_Id], " +
+                                                      "[dbo].[tbl_payment_method].[PaymentMethod_Value], [dbo].[tbl_program].[ProgramName], " +
+                                                      "[dbo].[tbl_case].[IB_Receiv_Date], " +
+                                                      "[dbo].[tbl_medbill].[BillDate], [dbo].[tbl_medbill].[Account_At_Provider], " +
+                                                      "[dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement_type_code].[SettlementTypeValue]," +
+                                                      "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                      "[dbo].[tbl_medbill].[MedicalProvider_Id], [dbo].[tbl_illness].[ICD_10_Id], " +
+                                                      "[dbo].[tbl_medbill].[Account_At_Provider] " +
+                                                      "from [dbo].[tbl_settlement] " +
+                                                      "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
+                                                      "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                      "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                      "inner join [dbo].[tbl_case] on [dbo].[tbl_medbill].[Individual_Id] = [dbo].[tbl_case].[individual_id] " +
+                                                      "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                      "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                      "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                      "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                      "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                      "where [dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                      "([dbo].[tbl_payment_method].[PaymentMethod_Value] = 'Check' or [dbo].[tbl_payment_method].[PaymentMethod_Value] = 'ACH/Banking') and" +
+                                                      "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
+                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
+                                                      "[dbo].[tbl_medbill].[WellBeingCare] = 0 and " +
+                                                      "[dbo].[tbl_settlement].[CheckDate] is NULL and " +
+                                                      "[dbo].[tbl_settlement].[CheckNo] is NULL and " +
+                                                      "[dbo].[tbl_settlement].[ACH_Number] is NULL and" +
+                                                      "([dbo].[tbl_settlement].[IsExported] = 0 or [dbo].[tbl_settlement].[IsExported] is NULL)";
+
+            SqlCommand cmdQueryForSettlementApproved = new SqlCommand(strSqlQueryForSettlementApproved, connRN);
+            cmdQueryForSettlementApproved.CommandType = CommandType.Text;
+
+            List<String> lstMedBillID = new List<String>();
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrSettlementApproved = cmdQueryForSettlementApproved.ExecuteReader();
+
+            List<ApprovedSettlementInfo> lstApprovedSettlement = new List<ApprovedSettlementInfo>();
+
+
+            // 12/05/18 begin here 
+            if (rdrSettlementApproved.HasRows)
+            {
+                while (rdrSettlementApproved.Read())
+                {
+                    ApprovedSettlementInfo settlement = new ApprovedSettlementInfo();
+
+                    if (!rdrSettlementApproved.IsDBNull(0)) settlement.IncidentNo = rdrSettlementApproved.GetString(0);
+                    if (!rdrSettlementApproved.IsDBNull(1)) settlement.SettlementName = rdrSettlementApproved.GetString(1);
+                    if (!rdrSettlementApproved.IsDBNull(2)) settlement.MedBillName = rdrSettlementApproved.GetString(2);
+                    if (!rdrSettlementApproved.IsDBNull(3)) settlement.IndividualId = rdrSettlementApproved.GetString(3);
+                    if (!rdrSettlementApproved.IsDBNull(4)) settlement.PaymentType = rdrSettlementApproved.GetString(4);
+                    if (!rdrSettlementApproved.IsDBNull(5)) settlement.ProgramName = rdrSettlementApproved.GetString(5);
+                    if (!rdrSettlementApproved.IsDBNull(6)) settlement.IBReceivedDate = rdrSettlementApproved.GetDateTime(6);
+                    if (!rdrSettlementApproved.IsDBNull(7)) settlement.ServiceDate = rdrSettlementApproved.GetDateTime(7);
+                    if (!rdrSettlementApproved.IsDBNull(8)) settlement.AccountNoAtMedProvider = rdrSettlementApproved.GetString(8);
+                    if (!rdrSettlementApproved.IsDBNull(9)) settlement.Amount = rdrSettlementApproved.GetDecimal(9);
+                    if (!rdrSettlementApproved.IsDBNull(10)) settlement.SettlementType = rdrSettlementApproved.GetString(10);
+                    if (!rdrSettlementApproved.IsDBNull(11)) settlement.CreatedBy = rdrSettlementApproved.GetString(11);
+                    if (!rdrSettlementApproved.IsDBNull(12)) settlement.LastModifiedBy = rdrSettlementApproved.GetString(12);
+                    if (!rdrSettlementApproved.IsDBNull(13)) settlement.MedicalProvider = rdrSettlementApproved.GetString(13);
+                    if (!rdrSettlementApproved.IsDBNull(14)) settlement.ICD10Code = rdrSettlementApproved.GetString(14);
+                    if (settlement.ICD10Code != "Z00.00" && settlement.ICD10Code != "Z00.012") settlement.WellBeingCareShared = 0;
+                    if (settlement.ICD10Code == "Z00.00" || settlement.ICD10Code == "Z00.012") settlement.WellBeingCareShared = settlement.Amount;
+                    
+                    if (!rdrSettlementApproved.IsDBNull(15)) settlement.AccountNoAtMedProvider = rdrSettlementApproved.GetString(15);
+
+                    lstApprovedSettlement.Add(settlement);
+
+                }
+            }
+
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+
+            foreach (ApprovedSettlementInfo settlement in lstApprovedSettlement)
+            {
+                if (settlement.ICD10Code != null)
+                {
+                    String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_CODE__C] = @ICD10Code";
+
+                    SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+                    cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                    cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", settlement.ICD10Code);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+                    if (objDiseaseName != null) settlement.ICD10CodeDescription = objDiseaseName.ToString();
+                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                }
+                else settlement.ICD10CodeDescription = String.Empty;
+            }
+
+
+            foreach (ApprovedSettlementInfo settlement in lstApprovedSettlement)
+            {
+                String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], [dbo].[contact].[FirstName], [dbo].[contact].[MiddleName], [dbo].[contact].[LastName], " +
+                                                      "[dbo].[contact].[Household_Role__c], [dbo].[contact].[Primary_Name__c], [dbo].[program].[Name], " +
+                                                      "[dbo].[contact].[Membership_IND_Start_date__c], [dbo].[contact].[Membership_Number__c], " +
+                                                      "[dbo].[account].[SHIPPINGSTREET], [dbo].[account].[SHIPPINGCITY], [dbo].[account].[SHIPPINGSTATE], [dbo].[account].[SHIPPINGPOSTALCODE], " +
+                                                      "[dbo].[contact].[c4g_Membership_Status__c] " +
+                                                      "from [dbo].[contact] " +
+                                                      "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                      "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
+                                                      "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", settlement.IndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                SqlDataReader rdrIndividualInfo = cmdQueryForIndividualInfo.ExecuteReader();
+
+                if (rdrIndividualInfo.HasRows)
+                {
+                    rdrIndividualInfo.Read();
+                    if (!rdrIndividualInfo.IsDBNull(0)) settlement.FullName = rdrIndividualInfo.GetString(0);
+                    if (!rdrIndividualInfo.IsDBNull(1)) settlement.FirstName = rdrIndividualInfo.GetString(1);
+                    if (!rdrIndividualInfo.IsDBNull(2)) settlement.MiddleName = rdrIndividualInfo.GetString(2);
+                    if (!rdrIndividualInfo.IsDBNull(3)) settlement.LastName = rdrIndividualInfo.GetString(3);
+                    if (!rdrIndividualInfo.IsDBNull(4)) settlement.HouseholdRole = rdrIndividualInfo.GetString(4);
+                    if (!rdrIndividualInfo.IsDBNull(5)) settlement.PrimaryName = rdrIndividualInfo.GetString(5);
+                    if (!rdrIndividualInfo.IsDBNull(6)) settlement.ProgramName = rdrIndividualInfo.GetString(6);
+                    if (!rdrIndividualInfo.IsDBNull(7)) settlement.MembershipStartDate = rdrIndividualInfo.GetDateTime(7);
+                    if (!rdrIndividualInfo.IsDBNull(8)) settlement.MembershipNo = rdrIndividualInfo.GetString(8);
+                    if (!rdrIndividualInfo.IsDBNull(9)) settlement.AccountShippingStreet = rdrIndividualInfo.GetString(9);
+                    if (!rdrIndividualInfo.IsDBNull(10)) settlement.AccountShippingCity = rdrIndividualInfo.GetString(10);
+                    if (!rdrIndividualInfo.IsDBNull(11)) settlement.AccountShippingState = rdrIndividualInfo.GetString(11);
+                    if (!rdrIndividualInfo.IsDBNull(12)) settlement.AccountShppingZip = rdrIndividualInfo.GetDouble(12).ToString();
+                    if (!rdrIndividualInfo.IsDBNull(13)) settlement.MembershipStatus = rdrIndividualInfo.GetString(13);
+                }
+
+
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+            }
+
+            
+
+            for (int i = 0; i < lstApprovedSettlement.Count; i++)
+            {
+                wsApprovedSettlements.Cells[i + 2, 1].Value = lstApprovedSettlement[i].FullName;
+                wsApprovedSettlements.Cells[i + 2, 2].Value = lstApprovedSettlement[i].FirstName;
+                wsApprovedSettlements.Cells[i + 2, 3].Value = lstApprovedSettlement[i].MiddleName;
+                wsApprovedSettlements.Cells[i + 2, 4].Value = lstApprovedSettlement[i].LastName;
+                wsApprovedSettlements.Cells[i + 2, 5].Value = lstApprovedSettlement[i].HouseholdRole;
+                wsApprovedSettlements.Cells[i + 2, 6].Value = lstApprovedSettlement[i].IndividualId;
+                wsApprovedSettlements.Cells[i + 2, 7].Value = lstApprovedSettlement[i].PrimaryName;
+                wsApprovedSettlements.Cells[i + 2, 8].Value = lstApprovedSettlement[i].CMMPaymentMethod;
+                wsApprovedSettlements.Cells[i + 2, 9].Value = lstApprovedSettlement[i].PrimaryName;
+                wsApprovedSettlements.Cells[i + 2, 10].Value = lstApprovedSettlement[i].IncidentProgram;
+                wsApprovedSettlements.Cells[i + 2, 11].Value = lstApprovedSettlement[i].MembershipStartDate.ToString("MM/dd/yyyy");
+                wsApprovedSettlements.Cells[i + 2, 12].Value = lstApprovedSettlement[i].MembershipNo;
+                wsApprovedSettlements.Cells[i + 2, 13].Value = lstApprovedSettlement[i].IBReceivedDate.ToString("MM/dd/yyyy");
+                wsApprovedSettlements.Cells[i + 2, 14].Value = lstApprovedSettlement[i].ServiceDate.ToString("MM/dd/yyyy");
+                wsApprovedSettlements.Cells[i + 2, 15].Value = lstApprovedSettlement[i].MedicalProvider;
+                wsApprovedSettlements.Cells[i + 2, 16].Value = lstApprovedSettlement[i].AccountNoAtMedProvider;
+                wsApprovedSettlements.Cells[i + 2, 17].Value = lstApprovedSettlement[i].AccountShippingStreet;
+                wsApprovedSettlements.Cells[i + 2, 18].Value = lstApprovedSettlement[i].AccountShippingCity;
+                wsApprovedSettlements.Cells[i + 2, 19].Value = lstApprovedSettlement[i].AccountShippingState;
+                wsApprovedSettlements.Cells[i + 2, 20].Value = lstApprovedSettlement[i].AccountShppingZip;
+                wsApprovedSettlements.Cells[i + 2, 21].Value = lstApprovedSettlement[i].Amount;
+                wsApprovedSettlements.Cells[i + 2, 22].Value = lstApprovedSettlement[i].SettlementType;
+                wsApprovedSettlements.Cells[i + 2, 23].Value = lstApprovedSettlement[i].MedBillName;
+                wsApprovedSettlements.Cells[i + 2, 24].Value = lstApprovedSettlement[i].SettlementName;
+                wsApprovedSettlements.Cells[i + 2, 25].Value = lstApprovedSettlement[i].WellBeingCareShared;
+                wsApprovedSettlements.Cells[i + 2, 26].Value = lstApprovedSettlement[i].ICD10CodeDescription;
+                wsApprovedSettlements.Cells[i + 2, 27].Value = lstApprovedSettlement[i].CreatedBy;
+                wsApprovedSettlements.Cells[i + 2, 28].Value = lstApprovedSettlement[i].LastModifiedBy;
+                wsApprovedSettlements.Cells[i + 2, 29].Value = lstApprovedSettlement[i].MembershipStatus;
+                wsApprovedSettlements.Cells[i + 2, 30].Value = lstApprovedSettlement[i].Approved;
+                wsApprovedSettlements.Cells[i + 2, 31].Value = lstApprovedSettlement[i].IncidentNo;
+
+            }
+
+            FileInfo fi = new FileInfo(@"C:\ExcelExport\ApprovedSettlement.xlsx");
+            excelApprovedSettlement.SaveAs(fi);
+
+        }
+    }
+
+    //public class ApprovedSettlementInfo
+    //{
+    //    public String FullName;
+    //    public String FirstName;
+    //    public String MiddleName;
+    //    public String LastName;
+    //    public HouseholdRole householdRole;
+    //    public String IndividualId;
+    //    public String PrimaryName;
+    //    public PaymentMethodExport CMMPaymentMethod;
+    //    public ProgramNameExport ProgramName;
+    //    public ProgramNameExport IncidentProgram;
+    //    public DateTime MembershipStartDate;
+    //    public String MembershipNo;
+    //    public DateTime IBReceivedDate;
+    //    public DateTime ServiceDate;
+    //    public String MedicalProvider;
+    //    public String AccountNoAtMedProvider;
+    //    public String AccountShippingStreet;
+    //    public String AccountShippingCity;
+    //    public String AccountShippingState;
+    //    public String AccountShppingZip;
+    //    public Decimal Amount;
+    //    public PaymentTypeExport PaymentType;
+    //    public String MedBillName;
+    //    public String SettlementName;
+    //    public Decimal WellBeingCareShared;
+    //    public String ICD10CodeDescription;
+    //    public String CreatedBy;
+    //    public String LastModifiedBy;
+    //    public String MembershipStatus;
+    //    public Boolean Approved;
+            
+    //    public ApprovedSettlementInfo()
+    //    {
+
+    //    }
+    //}
+
+
+    public class ApprovedSettlementInfo
+    {
+        public String IncidentNo;
+        public String FullName;
+        public String FirstName;
+        public String MiddleName;
+        public String LastName;
+        public String HouseholdRole;
+        public String IndividualId;
+        public String PrimaryName;
+        public String CMMPaymentMethod;
+        public String ProgramName;
+        public String IncidentProgram;
+        public DateTime MembershipStartDate;
+        public String MembershipNo;
+        public String ICD10Code;
+        public DateTime IBReceivedDate;
+        public DateTime ServiceDate;
+        public String MedicalProvider;
+        public String AccountNoAtMedProvider;
+        public String AccountShippingStreet;
+        public String AccountShippingCity;
+        public String AccountShippingState;
+        public String AccountShppingZip;
+        public Decimal Amount;
+        public String SettlementType;
+        public String PaymentType;
+        public String MedBillName;
+        public String SettlementName;
+        public Decimal WellBeingCareShared;
+        public String ICD10CodeDescription;
+        public String CreatedBy;
+        public String LastModifiedBy;
+        public String MembershipStatus;
+        public Boolean Approved;
+
+        public ApprovedSettlementInfo()
+        {
+
+        }
     }
 
     public class IncidentProgramInfo
     {
-
+        public Boolean bIsDeleted;
         public Boolean bPersonalResponsibilityProgram;
         public int? IncidentProgramId;
         public String IncidentProgramName;
@@ -23874,8 +24502,9 @@ namespace CMMManager
             IncidentProgramName = String.Empty;
         }
 
-        public IncidentProgramInfo(int program_id, String program_name)
+        public IncidentProgramInfo(Boolean deleted, int program_id, String program_name)
         {
+            bIsDeleted = deleted;
             IncidentProgramId = program_id;
             IncidentProgramName = program_name;
 

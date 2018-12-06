@@ -800,6 +800,8 @@
             this.dataGridViewTextBoxColumn86 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn87 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerPending)).BeginInit();
@@ -882,7 +884,7 @@
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.Location = new System.Drawing.Point(157, 23);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(102, 23);
+            this.btnSearch.Size = new System.Drawing.Size(119, 23);
             this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "&Search";
             this.btnSearch.UseVisualStyleBackColor = true;
@@ -891,9 +893,9 @@
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(287, 23);
+            this.btnClose.Location = new System.Drawing.Point(595, 23);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(102, 23);
+            this.btnClose.Size = new System.Drawing.Size(119, 23);
             this.btnClose.TabIndex = 2;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -7956,12 +7958,33 @@
             this.dataGridViewTextBoxColumn88.Name = "dataGridViewTextBoxColumn88";
             this.dataGridViewTextBoxColumn88.Width = 180;
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(303, 23);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(119, 23);
+            this.btnExport.TabIndex = 4;
+            this.btnExport.Text = "Export";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnWellBeingExport
+            // 
+            this.btnWellBeingExport.Location = new System.Drawing.Point(449, 24);
+            this.btnWellBeingExport.Name = "btnWellBeingExport";
+            this.btnWellBeingExport.Size = new System.Drawing.Size(119, 23);
+            this.btnWellBeingExport.TabIndex = 5;
+            this.btnWellBeingExport.Text = "Well Being Export";
+            this.btnWellBeingExport.UseVisualStyleBackColor = true;
+            // 
             // frmCMMManager
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1884, 982);
+            this.Controls.Add(this.btnWellBeingExport);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.tbCMMManager);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnSearch);
@@ -8840,6 +8863,8 @@
         private CalendarColumn MedBill_ProposalLetterSentDate;
         private CalendarColumn MedBill_HippaSentDate;
         private CalendarColumn MedBill_MedicalRecordDate;
+        private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnWellBeingExport;
     }
 }
 
