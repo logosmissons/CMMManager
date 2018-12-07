@@ -100,6 +100,7 @@ namespace CMMManager
                     dicLimitedSharingOptions.Add(rdrLimitedSharingInfo.GetInt16(0), rdrLimitedSharingInfo.GetString(1));
                 }
             }
+            rdrLimitedSharingInfo.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
 
@@ -124,6 +125,7 @@ namespace CMMManager
                     dicLimitedSharing1.Add(rdrLimitedSharing1.GetInt16(0), rdrLimitedSharing1.GetDecimal(1));
                 }
             }
+            rdrLimitedSharing1.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
             String strSqlQueryForLimitedSharing2 = "select [dbo].[tbl_limited_sharing_2].[YearNo], [dbo].[tbl_limited_sharing_2].[YearlyLimit] from [dbo].[tbl_limited_sharing_2]";
@@ -146,7 +148,8 @@ namespace CMMManager
                     dicLimitedSharing2.Add(rdrLimitedSharing2.GetInt16(0), rdrLimitedSharing2.GetDecimal(1));
                 }
             }
-            else if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            rdrLimitedSharing2.Close();
+            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
         }
 
         ~frmIllnessCreationPage()
@@ -168,7 +171,12 @@ namespace CMMManager
             cmd_icd10.CommandText = strSqlForICD10Codes;
             lstICD10CodeInfo.Clear();
 
-            conn_icd10codes.Open();
+            if (conn_icd10codes.State != ConnectionState.Closed)
+            {
+                conn_icd10codes.Close();
+                conn_icd10codes.Open();
+            }
+            else if (conn_icd10codes.State == ConnectionState.Closed) conn_icd10codes.Open();
             SqlDataReader rdr_icd10codes = cmd_icd10.ExecuteReader();
 
             if (rdr_icd10codes.HasRows)
@@ -178,7 +186,8 @@ namespace CMMManager
                     lstICD10CodeInfo.Add(new ICD10CodeInfo { Id = rdr_icd10codes.GetString(0), Name = rdr_icd10codes.GetString(1), ICD10Code = rdr_icd10codes.GetString(2) });
                 }
             }
-            conn_icd10codes.Close();
+            rdr_icd10codes.Close();
+            if (conn_icd10codes.State == ConnectionState.Open) conn_icd10codes.Close();
 
             var srcICD10Codes = new AutoCompleteStringCollection();
 
@@ -266,7 +275,7 @@ namespace CMMManager
                     if (!rdrIllness.IsDBNull(9)) txtIllnessNote.Text = rdrIllness.GetString(9);
                     if (!rdrIllness.IsDBNull(10)) txtConclusion.Text = rdrIllness.GetString(10);
                 }
-
+                rdrIllness.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
             }
 

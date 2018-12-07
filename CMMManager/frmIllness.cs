@@ -127,7 +127,7 @@ namespace CMMManager
 
                 }
             }
-
+            rdrIllnessForCaseId.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
             if (IllnessNo != String.Empty)
@@ -240,6 +240,7 @@ namespace CMMManager
                     else gvIllness.Rows.Add(row);
                 }
             }
+            reader.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
         }
 
@@ -484,7 +485,7 @@ namespace CMMManager
                         {
                             bIncidentExists = true;
                         }
-
+                        rdrIncidentNo.Close();
                         if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                         if (bIncidentExists == true)

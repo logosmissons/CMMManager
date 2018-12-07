@@ -63,6 +63,8 @@ namespace CMMManager
                     gvMedBillsForCase.Rows.Add(row);
                 }
             }
+            rdrMedBillsForCase.Close();
+            connRN.Close();
         }
 
         private void btnClose_Click(object sender, EventArgs e)

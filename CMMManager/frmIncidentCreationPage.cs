@@ -241,6 +241,7 @@ namespace CMMManager
                         if (!rdrPrograms.IsDBNull(0) && !rdrPrograms.IsDBNull(1)) dicProgram.Add(rdrPrograms.GetInt16(0), rdrPrograms.GetString(1));
                     }
                 }
+                rdrPrograms.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
@@ -268,6 +269,7 @@ namespace CMMManager
                         if (!rdrPrograms.IsDBNull(0) && !rdrPrograms.IsDBNull(1)) dicProgram.Add(rdrPrograms.GetInt16(0), rdrPrograms.GetString(1));
                     }
                 }
+                rdrPrograms.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
@@ -326,6 +328,7 @@ namespace CMMManager
                     if (!rdrIncident.IsDBNull(5)) dtpModifiedDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
                     if (!rdrIncident.IsDBNull(6)) txtIncidentNote.Text = rdrIncident.GetString(6);
                 }
+                rdrIncident.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 strIllnessNo = txtIllnessNo.Text.Trim();
@@ -521,7 +524,7 @@ namespace CMMManager
     //    }
     //}
 
-    private void btnCloseIncident_Click(object sender, EventArgs e)
+        private void btnCloseIncident_Click(object sender, EventArgs e)
         {
             Close();
         }
@@ -774,26 +777,18 @@ namespace CMMManager
             else if (mode == IncidentMode.Edit)
             {
                 String IncidentId = strIncidentId;
-                //String strSqlUpdateIncident = "update [dbo].[tbl_incident] set ([dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff], [dbo].[tbl_incident].[Program_id], " +
-                //                              "[dbo].[tbl_incident].[IncidentNote]) " +
-                //                              "values (@ModifiDate, @ModifiStaff, @ProgramId, @IncidentNote)";
 
                 String strSqlUpdateIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[ModifiDate] = @ModifiDate, [dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff, " +
                                               "[dbo].[tbl_incident].[Program_id] = @ProgramId, [dbo].[tbl_incident].[IncidentNote] = @IncidentNote " +
                                               "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
-                                              //"where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 SqlCommand cmdUpdateIncident = new SqlCommand(strSqlUpdateIncident, connRNDB);
                 cmdUpdateIncident.CommandType = CommandType.Text;
 
-                //cmdUpdateIncident.Parameters.AddWithValue("@IncidentId", strIncidentId);
-                //cmdUpdateIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
-
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value);
-                cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);   // Won Jik Chun
+                cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());
-                //cmdUpdateIncident.Parameters.AddWithValue("@IncidentId", strIncidentId);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
                 cmdUpdateIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
@@ -803,7 +798,7 @@ namespace CMMManager
                     connRNDB.Open();
                 }
                 else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                int nRowUpdated = cmdUpdateIncident.ExecuteNonQuery();
+                int nRowUpdated = cmdUpdateIncident.ExecuteNonQuery(); // operation by is null on incident history table
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 if (nRowUpdated == 1)

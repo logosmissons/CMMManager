@@ -123,7 +123,7 @@ namespace CMMManager
                     gvIncidents.Rows.Add(row);
                 }
             }
-
+            rdrIncidents.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
             //if (IncidentSelected.IncidentId != String.Empty)
@@ -156,6 +156,7 @@ namespace CMMManager
                     if (!rdrProgramId.IsDBNull(0) && !rdrProgramId.IsDBNull(1)) dicProgramId.Add(rdrProgramId.GetString(0).Trim(), rdrProgramId.GetInt16(1));
                 }
             }
+            rdrProgramId.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
             if (IncidentSelected.IncidentNo != String.Empty)
@@ -249,7 +250,7 @@ namespace CMMManager
             SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
             dependencyIncident.OnChange += new OnChangeEventHandler(OnIncidentListChange);
 
-            if (connRNDB.State == ConnectionState.Open)
+            if (connRNDB.State != ConnectionState.Closed)
             {
                 connRNDB.Close();
                 connRNDB.Open();
@@ -289,6 +290,8 @@ namespace CMMManager
                     else gvIncidents.Rows.Add(row);
                 }
             }
+            rdrIncidents.Close();
+            if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -408,7 +411,7 @@ namespace CMMManager
                         gvIncidents.Rows.Add(row);
                     }
                 }
-
+                rdrIncidents.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
             }
         }

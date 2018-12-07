@@ -7976,6 +7976,7 @@
             this.btnWellBeingExport.TabIndex = 5;
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
+            this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
             // frmCMMManager
             // 

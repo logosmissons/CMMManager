@@ -65,6 +65,7 @@ namespace CMMManager
                 MessageBox.Show("You are not CMM staff. Check your email and try again.", "Alert");
                 DialogResult = DialogResult.Retry;
             }
+            rdrUserInfo.Close();
             if (connRN.State == ConnectionState.Open) connRN.Close();
 
             //if (oUserId != null)
