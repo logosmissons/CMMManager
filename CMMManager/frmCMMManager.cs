@@ -80,27 +80,27 @@ namespace CMMManager
         private delegate void RemoveAllRowsInIncidentList();
         private delegate void AddRowToIncidentList(DataGridViewRow row);
 
-        delegate void RemoveRowInGVSettlement(int nRow);
-        delegate void RemoveAllRowsInSettlement();
-        delegate void AddRowToGVSettlement(DataGridViewRow row);
+        private delegate void RemoveRowInGVSettlement(int nRow);
+        private delegate void RemoveAllRowsInSettlement();
+        private delegate void AddRowToGVSettlement(DataGridViewRow row);
 
-        delegate void RemoveMedBillInCase(int nRow);
-        delegate void RemoveAllMedBillInCase();
-        delegate void AddRowToMedBillInCase(DataGridViewRow row);
+        private delegate void RemoveMedBillInCase(int nRow);
+        private delegate void RemoveAllMedBillInCase();
+        private delegate void AddRowToMedBillInCase(DataGridViewRow row);
 
-        delegate void RemoveCaseInProcess(int nRow);
-        delegate void RemoveAllCaseInProcess();
-        delegate void AddRowToCaseInProcess(DataGridViewRow row);
+        private delegate void RemoveCaseInProcess(int nRow);
+        private delegate void RemoveAllCaseInProcess();
+        private delegate void AddRowToCaseInProcess(DataGridViewRow row);
 
-        delegate void RemoveCaseInCaseView(int nRow);
-        delegate void RemoveAllCaseInCaseView();
-        delegate void AddRowToCaseInCaseView(DataGridViewRow row);
+        private delegate void RemoveCaseInCaseView(int nRow);
+        private delegate void RemoveAllCaseInCaseView();
+        private delegate void AddRowToCaseInCaseView(DataGridViewRow row);
 
-        delegate void RemoveAllMedBillsInCaseEdit();
-        delegate void AddRowToMedBillsInCaseEdit(DataGridViewRow row);
+        private delegate void RemoveAllMedBillsInCaseEdit();
+        private delegate void AddRowToMedBillsInCaseEdit(DataGridViewRow row);
 
-        delegate void SetBalaceMedBill(Decimal Balance);
-        delegate void SetTotalSharedAmount(Decimal TotalSharedAmount);
+        private delegate void SetBalaceMedBill(Decimal Balance);
+        private delegate void SetTotalSharedAmount(Decimal TotalSharedAmount);
 
         private enum TabPage { None, DashBoard, Individual, CaseView, Case, MedBill };
         private enum MedBillStatus { Pending, CMMPendingPayment, Shared, Ineligible, PartiallyIneligible };
@@ -668,15 +668,15 @@ namespace CMMManager
 
         private void frmCMMManager_Load(object sender, EventArgs e)
         {
-            tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
-            tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
-            tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
-            tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
-            tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
-            tbCMMManager.TabPages.Remove(tbpgIndividual);
-            tbCMMManager.TabPages.Remove(tbpgCaseView);
-            tbCMMManager.TabPages.Remove(tbpgCreateCase);
-            tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+            //tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+            //tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+            //tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+            //tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+            //tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+            //tbCMMManager.TabPages.Remove(tbpgIndividual);
+            //tbCMMManager.TabPages.Remove(tbpgCaseView);
+            //tbCMMManager.TabPages.Remove(tbpgCreateCase);
+            //tbCMMManager.TabPages.Remove(tbpgMedicalBill);
             //tbCMMManager.TabPages.Remove(tbpgIllnessView);
 
             frmLogin frmLogin = new frmLogin();
@@ -711,6 +711,72 @@ namespace CMMManager
             // Browse buttons for Case Creation tab
             if (bLoginSuccess == true)
             {
+                //tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                //tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                //tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                //tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                //tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                //tbCMMManager.TabPages.Remove(tbpgIndividual);
+                //tbCMMManager.TabPages.Remove(tbpgCaseView);
+                //tbCMMManager.TabPages.Remove(tbpgCreateCase);
+                //tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+
+                if (LoggedInUserRole == UserRole.RNManager)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                }
+
+                if (LoggedInUserRole == UserRole.RNStaff)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                }
+
+                if (LoggedInUserRole == UserRole.FDManager)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                }
+
+                if (LoggedInUserRole == UserRole.FDStaff)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                }
+
+                if (LoggedInUserRole == UserRole.NPManager)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                }
+
+                if (LoggedInUserRole == UserRole.NPStaff)
+                {
+                    tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
+                    tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                }
+
+
+
                 ToolTip tipBrowseForNPF = new ToolTip();
                 tipBrowseForNPF.SetToolTip(btnBrowseNPF, "Browse for Needs Processing Form");
 
@@ -18878,11 +18944,11 @@ namespace CMMManager
 
         private void gvIndividualSearched_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (tbCMMManager.TabPages.Contains(tbpgIndividual))
-            {
-                MessageBox.Show("Individual Page is open. Close Individual page first.", "Alert");
-                return;
-            }
+            //if (tbCMMManager.TabPages.Contains(tbpgIndividual))
+            //{
+            //    MessageBox.Show("Individual Page is open. Close Individual page first.", "Alert");
+            //    return;
+            //}
 
             //int nRowSelected = gvIndividual.CurrentCell.RowIndex;
             int nRowSelected =  e.RowIndex;
