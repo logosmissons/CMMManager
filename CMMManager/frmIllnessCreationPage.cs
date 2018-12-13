@@ -517,13 +517,14 @@ namespace CMMManager
                 //int nNewInsertedId = (int)cmdCreateIllness.ExecuteScalar();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                if (nRowInserted == 1)
+                if (nRowInserted == 2)
                 {
                     MessageBox.Show("New Illness has been created.", "Information");
                     DialogResult = DialogResult.OK;
                     return;
                 }
-                else if (nRowInserted == 0)
+                //else if (nRowInserted == 0)
+                else
                 {
                     MessageBox.Show("New Illness has not been created.", "Error");
                     return;

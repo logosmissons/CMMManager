@@ -801,7 +801,7 @@ namespace CMMManager
                 int nRowUpdated = cmdUpdateIncident.ExecuteNonQuery(); // operation by is null on incident history table
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                if (nRowUpdated == 1)
+                if (nRowUpdated == 3)
                 {
                     MessageBox.Show("The incident has been updated.");
                     DialogResult = DialogResult.OK;

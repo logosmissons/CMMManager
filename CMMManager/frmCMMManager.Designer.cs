@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle89 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle90 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -94,7 +94,6 @@
             this.rbKorean = new System.Windows.Forms.RadioButton();
             this.txtRelationship = new System.Windows.Forms.TextBox();
             this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
-            this.btnCaseViewIndividual = new System.Windows.Forms.Button();
             this.btnEditCaseUnderProcess = new System.Windows.Forms.Button();
             this.btnIndViewCancelUpperRight = new System.Windows.Forms.Button();
             this.btnIndViewUpdateUpperRight = new System.Windows.Forms.Button();
@@ -1384,7 +1383,6 @@
             this.tbpgIndividual.Controls.Add(this.rbKorean);
             this.tbpgIndividual.Controls.Add(this.txtRelationship);
             this.tbpgIndividual.Controls.Add(this.dtpBirthDate);
-            this.tbpgIndividual.Controls.Add(this.btnCaseViewIndividual);
             this.tbpgIndividual.Controls.Add(this.btnEditCaseUnderProcess);
             this.tbpgIndividual.Controls.Add(this.btnIndViewCancelUpperRight);
             this.tbpgIndividual.Controls.Add(this.btnIndViewUpdateUpperRight);
@@ -1544,16 +1542,6 @@
             this.dtpBirthDate.Size = new System.Drawing.Size(115, 20);
             this.dtpBirthDate.TabIndex = 7;
             // 
-            // btnCaseViewIndividual
-            // 
-            this.btnCaseViewIndividual.Location = new System.Drawing.Point(1073, 87);
-            this.btnCaseViewIndividual.Name = "btnCaseViewIndividual";
-            this.btnCaseViewIndividual.Size = new System.Drawing.Size(122, 28);
-            this.btnCaseViewIndividual.TabIndex = 218;
-            this.btnCaseViewIndividual.Text = "Case View";
-            this.btnCaseViewIndividual.UseVisualStyleBackColor = true;
-            this.btnCaseViewIndividual.Click += new System.EventHandler(this.btnCaseViewIndividual_Click);
-            // 
             // btnEditCaseUnderProcess
             // 
             this.btnEditCaseUnderProcess.Location = new System.Drawing.Point(926, 87);
@@ -1566,19 +1554,21 @@
             // 
             // btnIndViewCancelUpperRight
             // 
+            this.btnIndViewCancelUpperRight.Enabled = false;
             this.btnIndViewCancelUpperRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewCancelUpperRight.Location = new System.Drawing.Point(1688, 35);
+            this.btnIndViewCancelUpperRight.Location = new System.Drawing.Point(1556, 33);
             this.btnIndViewCancelUpperRight.Name = "btnIndViewCancelUpperRight";
             this.btnIndViewCancelUpperRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewCancelUpperRight.TabIndex = 216;
             this.btnIndViewCancelUpperRight.Text = "Close";
             this.btnIndViewCancelUpperRight.UseVisualStyleBackColor = true;
+            this.btnIndViewCancelUpperRight.Visible = false;
             this.btnIndViewCancelUpperRight.Click += new System.EventHandler(this.btnIndViewCancelUpperRight_Click);
             // 
             // btnIndViewUpdateUpperRight
             // 
             this.btnIndViewUpdateUpperRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewUpdateUpperRight.Location = new System.Drawing.Point(1556, 35);
+            this.btnIndViewUpdateUpperRight.Location = new System.Drawing.Point(1688, 33);
             this.btnIndViewUpdateUpperRight.Name = "btnIndViewUpdateUpperRight";
             this.btnIndViewUpdateUpperRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewUpdateUpperRight.TabIndex = 215;
@@ -1662,19 +1652,21 @@
             // 
             // btnIndViewCancelLowerRight
             // 
+            this.btnIndViewCancelLowerRight.Enabled = false;
             this.btnIndViewCancelLowerRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewCancelLowerRight.Location = new System.Drawing.Point(1688, 822);
+            this.btnIndViewCancelLowerRight.Location = new System.Drawing.Point(1556, 822);
             this.btnIndViewCancelLowerRight.Name = "btnIndViewCancelLowerRight";
             this.btnIndViewCancelLowerRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewCancelLowerRight.TabIndex = 211;
             this.btnIndViewCancelLowerRight.Text = "Close";
             this.btnIndViewCancelLowerRight.UseVisualStyleBackColor = true;
+            this.btnIndViewCancelLowerRight.Visible = false;
             this.btnIndViewCancelLowerRight.Click += new System.EventHandler(this.btnIndViewCancelLowerRight_Click);
             // 
             // btnIndViewUpdateLowerRight
             // 
             this.btnIndViewUpdateLowerRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewUpdateLowerRight.Location = new System.Drawing.Point(1556, 822);
+            this.btnIndViewUpdateLowerRight.Location = new System.Drawing.Point(1688, 822);
             this.btnIndViewUpdateLowerRight.Name = "btnIndViewUpdateLowerRight";
             this.btnIndViewUpdateLowerRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewUpdateLowerRight.TabIndex = 210;
@@ -2668,12 +2660,14 @@
             // 
             // btnCloseCaseView
             // 
+            this.btnCloseCaseView.Enabled = false;
             this.btnCloseCaseView.Location = new System.Drawing.Point(1046, 74);
             this.btnCloseCaseView.Name = "btnCloseCaseView";
             this.btnCloseCaseView.Size = new System.Drawing.Size(124, 29);
             this.btnCloseCaseView.TabIndex = 14;
             this.btnCloseCaseView.Text = "Close";
             this.btnCloseCaseView.UseVisualStyleBackColor = true;
+            this.btnCloseCaseView.Visible = false;
             this.btnCloseCaseView.Click += new System.EventHandler(this.btnCloseCaseView_Click);
             // 
             // txtCaseHistoryIndividualName
@@ -2972,7 +2966,7 @@
             // 
             // btnCaseCreationLowerSave
             // 
-            this.btnCaseCreationLowerSave.Location = new System.Drawing.Point(1547, 817);
+            this.btnCaseCreationLowerSave.Location = new System.Drawing.Point(1678, 817);
             this.btnCaseCreationLowerSave.Name = "btnCaseCreationLowerSave";
             this.btnCaseCreationLowerSave.Size = new System.Drawing.Size(110, 31);
             this.btnCaseCreationLowerSave.TabIndex = 132;
@@ -2982,17 +2976,19 @@
             // 
             // btnCaseCreationLowerCancel
             // 
-            this.btnCaseCreationLowerCancel.Location = new System.Drawing.Point(1678, 817);
+            this.btnCaseCreationLowerCancel.Enabled = false;
+            this.btnCaseCreationLowerCancel.Location = new System.Drawing.Point(1547, 817);
             this.btnCaseCreationLowerCancel.Name = "btnCaseCreationLowerCancel";
             this.btnCaseCreationLowerCancel.Size = new System.Drawing.Size(110, 31);
             this.btnCaseCreationLowerCancel.TabIndex = 130;
             this.btnCaseCreationLowerCancel.Text = "Close";
             this.btnCaseCreationLowerCancel.UseVisualStyleBackColor = true;
+            this.btnCaseCreationLowerCancel.Visible = false;
             this.btnCaseCreationLowerCancel.Click += new System.EventHandler(this.btnCaseCreationLowerCancel_Click);
             // 
             // btnCaseCreationSaveUpper
             // 
-            this.btnCaseCreationSaveUpper.Location = new System.Drawing.Point(1547, 32);
+            this.btnCaseCreationSaveUpper.Location = new System.Drawing.Point(1678, 32);
             this.btnCaseCreationSaveUpper.Name = "btnCaseCreationSaveUpper";
             this.btnCaseCreationSaveUpper.Size = new System.Drawing.Size(110, 31);
             this.btnCaseCreationSaveUpper.TabIndex = 129;
@@ -3002,12 +2998,14 @@
             // 
             // btnCaseCreationCancelUpper
             // 
-            this.btnCaseCreationCancelUpper.Location = new System.Drawing.Point(1678, 32);
+            this.btnCaseCreationCancelUpper.Enabled = false;
+            this.btnCaseCreationCancelUpper.Location = new System.Drawing.Point(1547, 32);
             this.btnCaseCreationCancelUpper.Name = "btnCaseCreationCancelUpper";
             this.btnCaseCreationCancelUpper.Size = new System.Drawing.Size(110, 31);
             this.btnCaseCreationCancelUpper.TabIndex = 127;
             this.btnCaseCreationCancelUpper.Text = "Close";
             this.btnCaseCreationCancelUpper.UseVisualStyleBackColor = true;
+            this.btnCaseCreationCancelUpper.Visible = false;
             this.btnCaseCreationCancelUpper.Click += new System.EventHandler(this.btnCaseCreationCancelUpper_Click);
             // 
             // txtPoPUploadDate
@@ -3278,6 +3276,7 @@
             this.gvNewTaskNPtoRNFD.ReadOnly = true;
             this.gvNewTaskNPtoRNFD.Size = new System.Drawing.Size(870, 167);
             this.gvNewTaskNPtoRNFD.TabIndex = 106;
+            this.gvNewTaskNPtoRNFD.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNewTaskNPtoRNFD_CellContentClick);
             // 
             // btnNewTaskRNtoNP
             // 
@@ -3775,9 +3774,9 @@
             // 
             // Illness_TotalSharedAmount
             // 
-            dataGridViewCellStyle1.Format = "C2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle76.Format = "C2";
+            dataGridViewCellStyle76.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle76;
             this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
             this.Illness_TotalSharedAmount.ReadOnly = true;
@@ -3785,9 +3784,9 @@
             // 
             // Illness_LimitedSharing
             // 
-            dataGridViewCellStyle2.Format = "C2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle77.Format = "C2";
+            dataGridViewCellStyle77.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle77;
             this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
             this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
             this.Illness_LimitedSharing.ReadOnly = true;
@@ -4185,32 +4184,32 @@
             // 
             // MedBill_BillAmount
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle78;
             this.MedBill_BillAmount.HeaderText = "Amount";
             this.MedBill_BillAmount.Name = "MedBill_BillAmount";
             this.MedBill_BillAmount.ReadOnly = true;
             // 
             // MedBill_Balance
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle79;
             this.MedBill_Balance.HeaderText = "Balance";
             this.MedBill_Balance.Name = "MedBill_Balance";
             this.MedBill_Balance.ReadOnly = true;
             // 
             // MedBill_SettlementTotal
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle80;
             this.MedBill_SettlementTotal.HeaderText = "Settlement Total";
             this.MedBill_SettlementTotal.Name = "MedBill_SettlementTotal";
             this.MedBill_SettlementTotal.ReadOnly = true;
             // 
             // MedBill_TotalSharedAmount
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle81;
             this.MedBill_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBill_TotalSharedAmount.Name = "MedBill_TotalSharedAmount";
             this.MedBill_TotalSharedAmount.ReadOnly = true;
@@ -4289,24 +4288,24 @@
             // 
             // MedBill_PersonalResponsibilityCredit
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle82;
             this.MedBill_PersonalResponsibilityCredit.HeaderText = "Personal Responsibility Credit";
             this.MedBill_PersonalResponsibilityCredit.Name = "MedBill_PersonalResponsibilityCredit";
             this.MedBill_PersonalResponsibilityCredit.ReadOnly = true;
             // 
             // MedBill_WellBeingCare
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle83;
             this.MedBill_WellBeingCare.HeaderText = "Well Being Care";
             this.MedBill_WellBeingCare.Name = "MedBill_WellBeingCare";
             this.MedBill_WellBeingCare.ReadOnly = true;
             // 
             // MedBill_WellBeingCareTotal
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle84;
             this.MedBill_WellBeingCareTotal.HeaderText = "Well Being Care Total";
             this.MedBill_WellBeingCareTotal.Name = "MedBill_WellBeingCareTotal";
             this.MedBill_WellBeingCareTotal.ReadOnly = true;
@@ -4590,15 +4589,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle85;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle86;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -4649,8 +4648,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle87.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle87;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -4804,17 +4803,19 @@
             // 
             // btnMedBillCreationPgLowerCancel
             // 
-            this.btnMedBillCreationPgLowerCancel.Location = new System.Drawing.Point(1692, 819);
+            this.btnMedBillCreationPgLowerCancel.Enabled = false;
+            this.btnMedBillCreationPgLowerCancel.Location = new System.Drawing.Point(1550, 828);
             this.btnMedBillCreationPgLowerCancel.Name = "btnMedBillCreationPgLowerCancel";
             this.btnMedBillCreationPgLowerCancel.Size = new System.Drawing.Size(110, 31);
             this.btnMedBillCreationPgLowerCancel.TabIndex = 135;
             this.btnMedBillCreationPgLowerCancel.Text = "Close";
             this.btnMedBillCreationPgLowerCancel.UseVisualStyleBackColor = true;
+            this.btnMedBillCreationPgLowerCancel.Visible = false;
             this.btnMedBillCreationPgLowerCancel.Click += new System.EventHandler(this.btnMedBillCreationPgLowerCancel_Click);
             // 
             // btnMedBillCreationPgLowerSave
             // 
-            this.btnMedBillCreationPgLowerSave.Location = new System.Drawing.Point(1550, 819);
+            this.btnMedBillCreationPgLowerSave.Location = new System.Drawing.Point(1692, 828);
             this.btnMedBillCreationPgLowerSave.Name = "btnMedBillCreationPgLowerSave";
             this.btnMedBillCreationPgLowerSave.Size = new System.Drawing.Size(110, 31);
             this.btnMedBillCreationPgLowerSave.TabIndex = 134;
@@ -4875,17 +4876,19 @@
             // 
             // btnMedBillCreationPgUpperCancel
             // 
-            this.btnMedBillCreationPgUpperCancel.Location = new System.Drawing.Point(1691, 27);
+            this.btnMedBillCreationPgUpperCancel.Enabled = false;
+            this.btnMedBillCreationPgUpperCancel.Location = new System.Drawing.Point(1550, 27);
             this.btnMedBillCreationPgUpperCancel.Name = "btnMedBillCreationPgUpperCancel";
             this.btnMedBillCreationPgUpperCancel.Size = new System.Drawing.Size(110, 31);
             this.btnMedBillCreationPgUpperCancel.TabIndex = 102;
             this.btnMedBillCreationPgUpperCancel.Text = "Close";
             this.btnMedBillCreationPgUpperCancel.UseVisualStyleBackColor = true;
+            this.btnMedBillCreationPgUpperCancel.Visible = false;
             this.btnMedBillCreationPgUpperCancel.Click += new System.EventHandler(this.btnMedBillCreationPgUpperCancel_Click);
             // 
             // btnMedBillCreatePgUpperSave
             // 
-            this.btnMedBillCreatePgUpperSave.Location = new System.Drawing.Point(1550, 27);
+            this.btnMedBillCreatePgUpperSave.Location = new System.Drawing.Point(1692, 27);
             this.btnMedBillCreatePgUpperSave.Name = "btnMedBillCreatePgUpperSave";
             this.btnMedBillCreatePgUpperSave.Size = new System.Drawing.Size(110, 31);
             this.btnMedBillCreatePgUpperSave.TabIndex = 100;
@@ -7569,15 +7572,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle88.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle88;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle89;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -7605,8 +7608,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle90.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle90;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -8756,7 +8759,6 @@
         private System.Windows.Forms.DataGridView gvIndividualSearched;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Button btnCloseCaseView;
-        private System.Windows.Forms.Button btnCaseViewIndividual;
         private System.Windows.Forms.DateTimePicker dtpBirthDate;
         private System.Windows.Forms.TextBox txtRelationship;
         private System.Windows.Forms.RadioButton rbEnglish;
