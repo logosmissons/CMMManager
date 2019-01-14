@@ -13,6 +13,7 @@ namespace CMMManager
 {
 
     public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, SuperAdmin = 20 };
+    public enum Department { NeedsProcessing = 1, ReviewAndNegotiation, Finance, IT };
 
     public partial class frmLogin : Form
     {
@@ -23,7 +24,9 @@ namespace CMMManager
         private String connStringSalesforce;
 
         public int nLoggedUserId;
+        public String LoggedInUserName;
         public UserRole nLoggedUserRole;
+        public Department nLoggedInUserDepartmentId;
 
         public frmLogin()
         {
@@ -37,7 +40,9 @@ namespace CMMManager
         {
             String UserEmail = txtEmail.Text.Trim();
 
-            String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Email] = @UserEmail";
+            String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                            "from [dbo].[tbl_user] " +
+                                            "where [dbo].[tbl_user].[User_Email] = @UserEmail";
 
             SqlCommand cmdQueryForUserInfo = new SqlCommand(strSqlQueryForUserInfo, connRN);
             cmdQueryForUserInfo.CommandType = CommandType.Text;
@@ -57,7 +62,9 @@ namespace CMMManager
             {
                 rdrUserInfo.Read();
                 if (!rdrUserInfo.IsDBNull(0)) nLoggedUserId = rdrUserInfo.GetInt16(0);
-                if (!rdrUserInfo.IsDBNull(1)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(1);
+                if (!rdrUserInfo.IsDBNull(1)) LoggedInUserName = rdrUserInfo.GetString(1);
+                if (!rdrUserInfo.IsDBNull(2)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(2);
+                if (!rdrUserInfo.IsDBNull(3)) nLoggedInUserDepartmentId = (Department)rdrUserInfo.GetInt16(3);
                 DialogResult = DialogResult.OK;
             }
             else

@@ -35,7 +35,9 @@ namespace CMMManager
     {
 
         public int nLoggedUserId;
+        public String LoggedInUserName;
         public UserRole LoggedInUserRole;
+        public Department LoggedInUserDepartment;
 
         private SqlConnectionOpen RN_ConnectionOpen;
 
@@ -104,9 +106,25 @@ namespace CMMManager
         private delegate void RemoveAllTaskInMedBill();
         private delegate void AddRowToTaskInMedBill(DataGridViewRow row);
 
+        private delegate void RemoveActiveTaskRNManager(int nRow);
+        private delegate void RemoveAllActiveTaskRNManager();
+        private delegate void AddRowToActiveTaskRNManager(DataGridViewRow row);
+
+        private delegate void RemoveCompleteTaskRNManager(int nRow);
+        private delegate void RemoveAllCompleteTaskRNManager();
+        private delegate void AddRowToCompleteTaskRNManager(DataGridViewRow row);
+
         private delegate void RemoveActiveTaskRNStaff(int nRow);
         private delegate void RemoveAllActiveTaskRNStaff();
         private delegate void AddRowToActiveTaskRNStaff(DataGridViewRow row);
+
+        private delegate void RemoveCompleteTaskRNStaff(int nRow);
+        private delegate void RemoveAllCompleteTaskRNStaff();
+        private delegate void AddRowToCompleteTaskRNStaff(DataGridViewRow row);
+
+        private delegate void RemoveActiveTaskNPManager(int nRow);
+        private delegate void RemoveAllActiveTaskNPManager();
+        private delegate void AddRowToActiveTaskNPManager(DataGridViewRow row);
 
         private delegate void SetBalaceMedBill(Decimal Balance);
         private delegate void SetTotalSharedAmount(Decimal TotalSharedAmount);
@@ -799,6 +817,160 @@ namespace CMMManager
             }
         }
 
+        private void AddRowToActiveTaskNPManagerSafely(DataGridViewRow row)
+        {
+            gvNPManagerActiveTask.BeginInvoke(new AddRowToActiveTaskNPManager(AddRowActiveTaskNPManager), row);
+        }
+
+        private void RemoveRowActiveTaskNPManagerSafely(int nRow)
+        {
+            gvNPManagerActiveTask.BeginInvoke(new RemoveActiveTaskNPManager(RemoveRowActiveTaskNPManager), nRow);
+        }
+
+        private void ClearAllRowActiveTaskNPManager()
+        {
+            gvNPManagerActiveTask.BeginInvoke(new RemoveAllActiveTaskNPManager(RemoveAllRowActiveTaskNPManager));
+        }
+
+        private void AddRowActiveTaskNPManager(DataGridViewRow row)
+        {
+            gvNPManagerActiveTask.Rows.Add(row);
+        }
+
+        private void RemoveRowActiveTaskNPManager(int nRow)
+        {
+            gvNPManagerActiveTask.Rows.RemoveAt(nRow);
+        }
+
+        private void RemoveAllRowActiveTaskNPManager()
+        {
+            gvNPManagerActiveTask.Rows.Clear();
+        }
+
+        private void OnActiveTaskNPManagerChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnActiveTaskNPManagerChange;
+
+                UpdateGridViewActiveTaskNPManager();
+            }
+        }
+
+        private void UpdateGridViewActiveTaskNPManager()
+        {
+            String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+               "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+               "[dbo].[tbl_task].[whatid], " +
+               "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
+               "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+               "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
+               "from [dbo].[tbl_task] " +
+               "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+               "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+               "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+               "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+               "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+               "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+               "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+               "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+               "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 6 or " +
+               "[dbo].[tbl_created_by_role].[User_Role_Id] = 6 or " +
+               "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 3 or" +
+               "[dbo].[tbl_created_by_role].[User_Role_Id] = 3) and " +
+               "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
+
+            SqlCommand cmdQueryForActiveTask = new SqlCommand(strSqlQueryForActiveTasks, connRN);
+            cmdQueryForActiveTask.CommandType = CommandType.Text;
+
+            cmdQueryForActiveTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+            cmdQueryForActiveTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+            SqlDependency dependency = new SqlDependency(cmdQueryForActiveTask);
+            dependency.OnChange += new OnChangeEventHandler(OnActiveTaskNPManagerChange);
+
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            if (IsHandleCreated) ClearAllRowActiveTaskNPManager();
+            else gvNPManagerActiveTask.Rows.Clear();
+            SqlDataReader rdrActiveTask = cmdQueryForActiveTask.ExecuteReader();
+            if (rdrActiveTask.HasRows)
+            {
+                while (rdrActiveTask.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    if (!rdrActiveTask.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(3) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(4) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(5) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(6).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(7).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(8).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(9) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(10) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(11) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTask.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(12) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    if (IsHandleCreated) AddRowToActiveTaskNPManagerSafely(row);
+                    else gvNPManagerActiveTask.Rows.Add(row);
+
+                }
+            }
+            rdrActiveTask.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+        }
+
+        private void AddRowToActiveTaskRNManagerSafely(DataGridViewRow row)
+        {
+            gvRNManagerActiveTask.BeginInvoke(new AddRowToActiveTaskRNManager(AddRowActiveTaskRNManager), row);
+        }
+
+        private void RemoveRowActiveTaskRNManagerSafely(int nRow)
+        {
+            gvRNManagerActiveTask.BeginInvoke(new RemoveActiveTaskRNManager(RemoveRowActiveTaskRNManager), nRow);
+        }
+
+        private void RemoveAllActiveTaskRNManagerSafely()
+        {
+            gvRNManagerActiveTask.BeginInvoke(new RemoveAllActiveTaskRNManager(RemoveAllRowActiveTaskRNManager));
+        }
+
+        private void AddRowActiveTaskRNManager(DataGridViewRow row)
+        {
+            gvRNManagerActiveTask.Rows.Add(row);
+        }
+
+        private void RemoveRowActiveTaskRNManager(int i)
+        {
+            gvRNManagerActiveTask.Rows.RemoveAt(i);
+        }
+
+        private void RemoveAllRowActiveTaskRNManager()
+        {
+            gvRNManagerActiveTask.Rows.Clear();
+        }
+
         private void AddRowToActiveTaskRNStaffSafely(DataGridViewRow row)
         {
             gvRNStaffActiveTask.BeginInvoke(new AddRowToActiveTaskRNStaff(AddRowActiveTaskRNStaff), row);
@@ -816,17 +988,321 @@ namespace CMMManager
 
         private void AddRowActiveTaskRNStaff(DataGridViewRow row)
         {
-            gvRNManagerActiveTask.Rows.Add(row);
+            gvRNStaffActiveTask.Rows.Add(row);
         }
 
         private void RemoveRowActiveTaskRNStaff(int i)
         {
-            gvRNManagerActiveTask.Rows.RemoveAt(i);
+            gvRNStaffActiveTask.Rows.RemoveAt(i);
         }
 
         private void RemoveAllRowActiveTaskRNStaff()
         {
-            gvRNManagerActiveTask.Rows.Clear();
+            gvRNStaffActiveTask.Rows.Clear();
+        }
+
+        private void OnActiveTaskRNManagerChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnActiveTaskRNManagerChange;
+
+                UpdateGridViewActiveTaskRNManager();
+            }
+        }
+
+        private void UpdateGridViewActiveTaskRNManager()
+        {
+
+            String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                               "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+                                               "[dbo].[tbl_task].[whatid], " +
+                                               "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
+                                               "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                                               "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
+                                               "from [dbo].[tbl_task] " +
+                                               "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                               "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                               "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                               "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+                                               "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                               "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                               "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                               "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                               "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 5 or " +
+                                               "[dbo].[tbl_created_by_role].[User_Role_Id] = 5 or" +
+                                               "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 2 or" +
+                                               "[dbo].[tbl_created_by_role].[User_Role_Id] = 2) and " +
+                                               "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
+
+            SqlCommand cmdQueryForActiveTasks = new SqlCommand(strSqlQueryForActiveTasks, connRN);
+            cmdQueryForActiveTasks.CommandType = CommandType.Text;
+
+            cmdQueryForActiveTasks.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+            cmdQueryForActiveTasks.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+            SqlDependency dependency = new SqlDependency(cmdQueryForActiveTasks);
+            dependency.OnChange += new OnChangeEventHandler(OnActiveTaskRNManagerChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            if (IsHandleCreated) RemoveAllActiveTaskRNManagerSafely();
+            else gvRNManagerActiveTask.Rows.Clear();
+
+            SqlDataReader rdrActiveTasks = cmdQueryForActiveTasks.ExecuteReader();
+            if (rdrActiveTasks.HasRows)
+            {
+                while (rdrActiveTasks.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    if (!rdrActiveTasks.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(3) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(4) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(5) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(6).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(7).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(8).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(9) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(10) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(11) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(12) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    if (IsHandleCreated) AddRowToActiveTaskRNManagerSafely(row);
+                    else gvRNManagerActiveTask.Rows.Add(row);
+                }
+            }
+            rdrActiveTasks.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+        }
+
+        private void AddRowToCompleteTaskRNManagerSafely(DataGridViewRow row)
+        {
+            gvRNManagerCompleteTask.BeginInvoke(new AddRowToCompleteTaskRNManager(AddRowCompleteTaskRNManager), row);
+        }
+
+        private void RemoveRowCompleteTaskRNManagerSafely(int nRow)
+        {
+            gvRNManagerCompleteTask.BeginInvoke(new RemoveCompleteTaskRNManager(RemoveRowCompleteTaskRNManager), nRow);
+        }
+
+        private void ClearCompleteTaskRNManagerSafely()
+        {
+            gvRNManagerCompleteTask.BeginInvoke(new RemoveAllCompleteTaskRNManager(RemoveAllRowCompleteTaskRNManager));
+        }
+
+        private void AddRowCompleteTaskRNManager(DataGridViewRow row)
+        {
+            gvRNManagerCompleteTask.Rows.Add(row);
+        }
+
+        private void RemoveRowCompleteTaskRNManager(int nRow)
+        {
+            gvRNManagerCompleteTask.Rows.RemoveAt(nRow);
+        }
+
+        private void RemoveAllRowCompleteTaskRNManager()
+        {
+            gvRNManagerCompleteTask.Rows.Clear();
+        }
+
+
+
+
+        private void OnCompleteTaskRNManagerChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnCompleteTaskRNManagerChange;
+
+                UpdateGridViewCompleteTaskRNManager();
+            }
+        }
+
+        private void UpdateGridViewCompleteTaskRNManager()
+        {
+            String strSqlQueryForCompleteTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[Subject], " +
+                                                "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                                "from [dbo].[tbl_task] " +
+                                                "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                                "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                                "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                                "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                                "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                                "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                                "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 5 or " +
+                                                "[dbo].[tbl_created_by_role].[User_Role_Id] = 5 or" +
+                                                "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 2 or " +
+                                                "[dbo].[tbl_created_by_role].[User_Role_Id] = 2) and " +
+                                                "([dbo].[tbl_task].[Status] = 2 or [dbo].[tbl_task].[Status] = 5)";
+
+            SqlCommand cmdQueryForCompleteTask = new SqlCommand(strSqlQueryForCompleteTask, connRN);
+            cmdQueryForCompleteTask.CommandType = CommandType.Text;
+
+            cmdQueryForCompleteTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+            cmdQueryForCompleteTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+            SqlDependency dependencyComplete = new SqlDependency(cmdQueryForCompleteTask);
+            dependencyComplete.OnChange += new OnChangeEventHandler(OnCompleteTaskRNManagerChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            SqlDataReader rdrCompleteTask = cmdQueryForCompleteTask.ExecuteReader();
+
+            if (IsHandleCreated) ClearCompleteTaskRNManagerSafely();
+            else gvRNManagerCompleteTask.Rows.Clear();
+            if (rdrCompleteTask.HasRows)
+            {
+                while (rdrCompleteTask.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    if (!rdrCompleteTask.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(3)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTask.GetDateTime(3).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTask.GetDateTime(4).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(5) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTask.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(6) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    if (IsHandleCreated) AddRowToCompleteTaskRNManagerSafely(row);
+                    else gvRNManagerCompleteTask.Rows.Add(row);
+                }
+            }
+            rdrCompleteTask.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+        }
+
+        private void AddRowToCompleteTaskRNStaffSafely(DataGridViewRow row)
+        {
+            gvRNStaffCompleteTask.BeginInvoke(new AddRowToCompleteTaskRNStaff(AddRowCompleteTaskRNStaff), row);
+        }
+
+        private void RemoveRowCompleteTaskRNStaffSafely(int nRow)
+        {
+            gvRNStaffCompleteTask.BeginInvoke(new RemoveCompleteTaskRNStaff(RemoveRowCompleteTaskRNStaff), nRow);
+        }
+
+        private void ClearCompleteTaskRNStaffSafely()
+        {
+            gvRNStaffCompleteTask.BeginInvoke(new RemoveAllCompleteTaskRNStaff(RemoveAllRowCompleteTaskRNStaff));
+        }
+
+        private void AddRowCompleteTaskRNStaff(DataGridViewRow row)
+        {
+            gvRNStaffCompleteTask.Rows.Add(row);
+        }
+
+        private void RemoveRowCompleteTaskRNStaff(int nRow)
+        {
+            gvRNStaffCompleteTask.Rows.RemoveAt(nRow);
+        }
+
+        private void RemoveAllRowCompleteTaskRNStaff()
+        {
+            gvRNStaffCompleteTask.Rows.Clear();
+        }
+
+        private void OnCompleteTaskRNStaffChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnCompleteTaskRNStaffChange;
+
+                UpdateGridViewCompleteTaskRNStaff();
+            }
+        }
+
+        private void UpdateGridViewCompleteTaskRNStaff()
+        {
+            String strSqlQueryForCompleteTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[Subject], " +
+                            "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                            "from [dbo].[tbl_task] " +
+                            "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                            "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                            "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                            "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                            "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                            "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                            "([dbo].[tbl_task].[Status] = 2 or [dbo].[tbl_task].[Status] = 5)";
+
+            SqlCommand cmdQueryForCompleteTask = new SqlCommand(strSqlQueryForCompleteTask, connRN);
+            cmdQueryForCompleteTask.CommandType = CommandType.Text;
+
+            cmdQueryForCompleteTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+            cmdQueryForCompleteTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+            SqlDependency dependencyCompleteTasks = new SqlDependency(cmdQueryForCompleteTask);
+            dependencyCompleteTasks.OnChange += new OnChangeEventHandler(OnCompleteTaskRNStaffChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            if (IsHandleCreated) ClearCompleteTaskRNStaffSafely();
+            else gvRNStaffCompleteTask.Rows.Clear();
+            SqlDataReader rdrCompleteTasks = cmdQueryForCompleteTask.ExecuteReader();
+            if (rdrCompleteTasks.HasRows)
+            {
+                while (rdrCompleteTasks.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    if (!rdrCompleteTasks.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(3)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTasks.GetDateTime(3).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTasks.GetDateTime(4).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(5) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCompleteTasks.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(6) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    if (IsHandleCreated) AddRowToCompleteTaskRNStaffSafely(row);
+                    else gvRNStaffCompleteTask.Rows.Add(row);
+                }
+            }
+            rdrCompleteTasks.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
         }
 
         private void OnActiveTaskRNStaffChange(object sender, SqlNotificationEventArgs e)
@@ -842,22 +1318,25 @@ namespace CMMManager
 
         private void UpdateGridViewActiveTaskRNStaff()
         {
-            String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], " +
-                                               "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], [dbo].[tbl_user].[User_Name], " +
-                                               "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
-                                               "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue], " +
-                                               "[dbo].[tbl_task].[AccountId], [dbo].[tbl_task].[HasAttachment] " +
-                                               "from [dbo].[tbl_task] " +
-                                               "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_user].[User_Id] " +
-                                               "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
-                                               "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
-                                               "where [dbo].[tbl_task].[AssignedTo] = @RNStaffId and " +
-                                               "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
+            String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                   "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+                                   "[dbo].[tbl_task].[whatid], " +
+                                   "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
+                                   "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                                   "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
+                                   "from [dbo].[tbl_task] " +
+                                   "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                   "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                   "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                   "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+                                   "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or [dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                   "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
 
             SqlCommand cmdQueryForActiveTasks = new SqlCommand(strSqlQueryForActiveTasks, connRN);
             cmdQueryForActiveTasks.CommandType = CommandType.Text;
 
-            cmdQueryForActiveTasks.Parameters.AddWithValue("@RNStaffId", nLoggedUserId);
+            cmdQueryForActiveTasks.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+            cmdQueryForActiveTasks.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
 
             SqlDependency dependency = new SqlDependency(cmdQueryForActiveTasks);
             dependency.OnChange += new OnChangeEventHandler(OnActiveTaskRNStaffChange);
@@ -886,16 +1365,16 @@ namespace CMMManager
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!rdrActiveTasks.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(3) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(4).ToString("MM/dd/yyyy") });
-                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                    if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(5).ToString("MM/dd/yyyy") });
-                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                    if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(6) });
+                    if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(4) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(5) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(6).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
                     if (!rdrActiveTasks.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(7).ToString("MM/dd/yyyy") });
                     else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                    if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(8) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(8).ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
                     if (!rdrActiveTasks.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(9) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!rdrActiveTasks.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(10) });
@@ -904,8 +1383,6 @@ namespace CMMManager
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!rdrActiveTasks.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(12) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrActiveTasks.IsDBNull(13)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrActiveTasks.GetBoolean(13) });
-                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
 
                     if (IsHandleCreated) AddRowToActiveTaskRNStaffSafely(row);
                     else gvRNStaffActiveTask.Rows.Add(row);
@@ -941,7 +1418,10 @@ namespace CMMManager
                 {
                     bLoginSuccess = true;
                     nLoggedUserId = frmLogin.nLoggedUserId;
+                    LoggedInUserName = frmLogin.LoggedInUserName;
                     LoggedInUserRole = frmLogin.nLoggedUserRole;
+                    LoggedInUserDepartment = frmLogin.nLoggedInUserDepartmentId;
+                   
                     break;
                 }
                 else if (loginResult == DialogResult.Cancel)
@@ -986,6 +1466,84 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
+
+                    String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                   "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+                                   "[dbo].[tbl_task].[whatid], " +
+                                   "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
+                                   "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                                   "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
+                                   "from [dbo].[tbl_task] " +
+                                   "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                   "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                   "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                   "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+                                   "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                   "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                   "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                   "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                   "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 6 or " +
+                                   "[dbo].[tbl_created_by_role].[User_Role_Id] = 6 or " +
+                                   "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 3 or" +
+                                   "[dbo].[tbl_created_by_role].[User_Role_Id] = 3) and " +
+                                   "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
+
+                    SqlCommand cmdQueryForActiveTask = new SqlCommand(strSqlQueryForActiveTasks, connRN);
+                    cmdQueryForActiveTask.CommandType = CommandType.Text;
+
+                    cmdQueryForActiveTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+                    cmdQueryForActiveTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+                    SqlDependency dependency = new SqlDependency(cmdQueryForActiveTask);
+                    dependency.OnChange += new OnChangeEventHandler(OnActiveTaskNPManagerChange);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    gvNPManagerActiveTask.Rows.Clear();
+                    SqlDataReader rdrActiveTask = cmdQueryForActiveTask.ExecuteReader();
+                    if (rdrActiveTask.HasRows)
+                    {
+                        while(rdrActiveTask.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrActiveTask.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(3) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(4) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(6).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(7).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTask.GetDateTime(8).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(9) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(10) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(11) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTask.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(12) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                            gvNPManagerActiveTask.Rows.Add(row);
+
+                        }
+                    }
+                    rdrActiveTask.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
                 }
 
                 if (LoggedInUserRole == UserRole.RNManager)
@@ -995,6 +1553,140 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPManager);
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+
+                    String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                                       "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+                                                       "[dbo].[tbl_task].[whatid], " +
+                                                       "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
+                                                       "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                                                       "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
+                                                       "from [dbo].[tbl_task] " +
+                                                       "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                                       "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                                       "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                                       "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+                                                       "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                                       "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                                       "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                                       "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                                       "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 5 or " +
+                                                       "[dbo].[tbl_created_by_role].[User_Role_Id] = 5 or" +
+                                                       "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 2 or" +
+                                                       "[dbo].[tbl_created_by_role].[User_Role_Id] = 2) and " +
+                                                       "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
+
+                    SqlCommand cmdQueryForActiveTasks = new SqlCommand(strSqlQueryForActiveTasks, connRN);
+                    cmdQueryForActiveTasks.CommandType = CommandType.Text;
+
+                    cmdQueryForActiveTasks.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+                    cmdQueryForActiveTasks.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+                    SqlDependency dependency = new SqlDependency(cmdQueryForActiveTasks);
+                    dependency.OnChange += new OnChangeEventHandler(OnActiveTaskRNManagerChange);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    gvRNManagerActiveTask.Rows.Clear();
+                    SqlDataReader rdrActiveTasks = cmdQueryForActiveTasks.ExecuteReader();
+                    if (rdrActiveTasks.HasRows)
+                    {
+                        while (rdrActiveTasks.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrActiveTasks.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(3) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(4) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(6).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(7).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(8).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(9) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(10) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(11) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(12) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                            gvRNManagerActiveTask.Rows.Add(row);
+                        }
+                    }
+                    rdrActiveTasks.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    String strSqlQueryForCompleteTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[Subject], " +
+                                                        "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                                        "from [dbo].[tbl_task] " +
+                                                        "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                                        "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                                        "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                                        "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                                        "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                                        "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                                        "([dbo].[tbl_assigned_to_role].[User_Role_Id] = 5 or " +
+                                                        "[dbo].[tbl_created_by_role].[User_Role_Id] = 5 or" +
+                                                        "[dbo].[tbl_assigned_to_role].[User_Role_Id] = 2 or" +
+                                                        "[dbo].[tbl_created_by_role].[User_Role_Id] = 2) and " +
+                                                        "([dbo].[tbl_task].[Status] = 2 or [dbo].[tbl_task].[Status] = 5)";
+
+                    SqlCommand cmdQueryForCompleteTask = new SqlCommand(strSqlQueryForCompleteTask, connRN);
+                    cmdQueryForCompleteTask.CommandType = CommandType.Text;
+
+                    cmdQueryForCompleteTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+                    cmdQueryForCompleteTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+                    SqlDependency dependencyComplete = new SqlDependency(cmdQueryForCompleteTask);
+                    dependencyComplete.OnChange += new OnChangeEventHandler(OnCompleteTaskRNManagerChange);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                    SqlDataReader rdrCompleteTask = cmdQueryForCompleteTask.ExecuteReader();
+                    gvRNManagerCompleteTask.Rows.Clear();
+                    if (rdrCompleteTask.HasRows)
+                    {
+                        while (rdrCompleteTask.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrCompleteTask.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(3)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTask.GetDateTime(3).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTask.GetDateTime(4).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTask.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTask.GetString(6) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            gvRNManagerCompleteTask.Rows.Add(row);
+                        }
+                    }
+                    rdrCompleteTask.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
                 }
 
                 if (LoggedInUserRole == UserRole.RNStaff)
@@ -1005,22 +1697,25 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNManager);
 
-                    String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], " +
-                                                       "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], [dbo].[tbl_user].[User_Name], " +
+                    String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                                       "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
+                                                       "[dbo].[tbl_task].[whatid], " +
+                                                       "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[CreateDate], " +
                                                        "[dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
-                                                       "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue], " +
-                                                       "[dbo].[tbl_task].[AccountId], [dbo].[tbl_task].[HasAttachment] " +
+                                                       "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task_priority_code].[TaskPriorityValue] " +
                                                        "from [dbo].[tbl_task] " +
-                                                       "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_user].[User_Id] " +
+                                                       "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                                       "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
                                                        "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
                                                        "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
-                                                       "where [dbo].[tbl_task].[AssignedTo] = @RNStaffId and " +
+                                                       "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or [dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
                                                        "[dbo].[tbl_task].[Status] <> 2 and [dbo].[tbl_task].[Status] <> 5";
 
                     SqlCommand cmdQueryForActiveTasks = new SqlCommand(strSqlQueryForActiveTasks, connRN);
                     cmdQueryForActiveTasks.CommandType = CommandType.Text;
 
-                    cmdQueryForActiveTasks.Parameters.AddWithValue("@RNStaffId", nLoggedUserId);
+                    cmdQueryForActiveTasks.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+                    cmdQueryForActiveTasks.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
 
                     SqlDependency dependency = new SqlDependency(cmdQueryForActiveTasks);
                     dependency.OnChange += new OnChangeEventHandler(OnActiveTaskRNStaffChange);
@@ -1046,16 +1741,16 @@ namespace CMMManager
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                             if (!rdrActiveTasks.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(3) });
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                            if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(4).ToString("MM/dd/yyyy") });
-                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                            if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(5).ToString("MM/dd/yyyy") });
-                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                            if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(6) });
+                            if (!rdrActiveTasks.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(4) });
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(6)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(6).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
                             if (!rdrActiveTasks.IsDBNull(7)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(7).ToString("MM/dd/yyyy") });
                             else row.Cells.Add(new CalendarCell { Value = String.Empty });
-                            if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(8) });
-                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrActiveTasks.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = rdrActiveTasks.GetDateTime(8).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
                             if (!rdrActiveTasks.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(9) });
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                             if (!rdrActiveTasks.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(10) });
@@ -1064,13 +1759,65 @@ namespace CMMManager
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                             if (!rdrActiveTasks.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTasks.GetString(12) });
                             else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                            if (!rdrActiveTasks.IsDBNull(13)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrActiveTasks.GetBoolean(13) });
-                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
 
                             gvRNStaffActiveTask.Rows.Add(row);
                         }
                     }
                     rdrActiveTasks.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    String strSqlQueryForCompleteTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[Subject], " +
+                                    "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[ActivityDate], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                    "from [dbo].[tbl_task] " +
+                                    "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                    "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                    "inner join [dbo].[tbl_assigned_to_role] on [dbo].[tbl_task_assigned_to].[User_Role_Id] = [dbo].[tbl_assigned_to_role].[User_Role_Id] " +
+                                    "inner join [dbo].[tbl_created_by_role] on [dbo].[tbl_task_created_by].[User_Role_Id] = [dbo].[tbl_created_by_role].[User_Role_Id]" +
+                                    "where ([dbo].[tbl_task].[AssignedTo] = @AssignedToId or " +
+                                    "[dbo].[tbl_task].[CreatedById] = @CreatedById) and " +
+                                    "([dbo].[tbl_task].[Status] = 2 or [dbo].[tbl_task].[Status] = 5)";
+
+                    SqlCommand cmdQueryForCompleteTask = new SqlCommand(strSqlQueryForCompleteTask, connRN);
+                    cmdQueryForCompleteTask.CommandType = CommandType.Text;
+
+                    cmdQueryForCompleteTask.Parameters.AddWithValue("@AssignedToId", nLoggedUserId);
+                    cmdQueryForCompleteTask.Parameters.AddWithValue("@CreatedById", nLoggedUserId);
+
+                    SqlDependency dependencyCompleteTasks = new SqlDependency(cmdQueryForCompleteTask);
+                    dependencyCompleteTasks.OnChange += new OnChangeEventHandler(OnCompleteTaskRNStaffChange);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    gvRNStaffCompleteTask.Rows.Clear();
+                    SqlDataReader rdrCompleteTasks = cmdQueryForCompleteTask.ExecuteReader();
+                    if (rdrCompleteTasks.HasRows)
+                    {
+                        while (rdrCompleteTasks.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrCompleteTasks.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(3)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTasks.GetDateTime(3).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(4)) row.Cells.Add(new CalendarCell { Value = rdrCompleteTasks.GetDateTime(4).ToString("MM/dd/yyyy") });
+                            else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrCompleteTasks.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCompleteTasks.GetString(6) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                            gvRNStaffCompleteTask.Rows.Add(row);
+                        }
+                    }
+                    rdrCompleteTasks.Close();
                     if (connRN.State == ConnectionState.Open) connRN.Close();
                 }
 
@@ -1110,8 +1857,120 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
                 }
 
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // Payment tab
+                String strSqlQueryForCreditCardPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
+                                                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                                                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
+                                                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
+                                                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
+                                                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                                                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                                                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
+                                                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
+                                                         "from [RN_DB].[dbo].[tbl_settlement] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
+                                                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
+                                                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCard] = 0 and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL";
+
+                SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
+                cmdQueryForCreditCardPayment.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrCreditCardPayment = cmdQueryForCreditCardPayment.ExecuteReader();
+                gvPaymentCreditCard.Rows.Clear();
+                if (rdrCreditCardPayment.HasRows)
+                {
+                    while(rdrCreditCardPayment.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        if (!rdrCreditCardPayment.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(0) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(1) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(3) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(4) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(5) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(6) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDecimal(7).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(8) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(9) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(10).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(11) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(12).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(13).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(14) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(15) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(16) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(17) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(18) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(19) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDecimal(20).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(21) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(22) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(23) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(24) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetBoolean(25) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCreditCardPayment.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(26).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvPaymentCreditCard.Rows.Add(row);
+                    }
+                }
+                if (connRN.State == ConnectionState.Open) connRN.Close();
 
 
+
+
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ToolTip tipBrowseForNPF = new ToolTip();
                 tipBrowseForNPF.SetToolTip(btnBrowseNPF, "Browse for Needs Processing Form");
 
@@ -15411,11 +16270,13 @@ namespace CMMManager
                 txtPersonalResponsibility.Text = PersonalResponsibilityBalance.ToString("C");
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue] " +
+                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], " +
+                                                     "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task].[id] " +
                                                      "from [dbo].[tbl_task] " +
                                                      "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
                                                      "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
-                                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo";
+                                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo " +
+                                                     "order by [dbo].[tbl_task].[CreateDate] desc";
 
                 SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTaskInMedBill, connRN4);
                 cmdQueryForTask.CommandType = CommandType.Text;
@@ -15446,6 +16307,8 @@ namespace CMMManager
                         if (!rdrTaskForMedBill.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(2) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                         if (!rdrTaskForMedBill.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(3) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetInt32(4).ToString() });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                         gvMostRecentTasks.Rows.Add(row);
                     }
@@ -15478,11 +16341,13 @@ namespace CMMManager
 
         private void UpdateGridViewTaskInMedBill()
         {
-            String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue] " +
+            String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], " +
+                                                 "[dbo].[tbl_task_status_code].[TaskStatusValue], [dbo].[tbl_task].[id] " +
                                                  "from [dbo].[tbl_task] " +
                                                  "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
                                                  "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
-                                                 "where [dbo].[tbl_task].[whatid] = @MedBillNo";
+                                                 "where [dbo].[tbl_task].[whatid] = @MedBillNo " +
+                                                 "order by [dbo].[tbl_task].[CreateDate] desc";
 
             SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTaskInMedBill, connRN4);
             cmdQueryForTask.CommandType = CommandType.Text;
@@ -15517,6 +16382,9 @@ namespace CMMManager
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!rdrTaskForMedBill.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(3) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrTaskForMedBill.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetInt32(4).ToString() });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
                     if (IsHandleCreated) AddRowToTaskInMedBillSafely(row);
                     else gvMostRecentTasks.Rows.Add(row);
                 }
@@ -17656,11 +18524,13 @@ namespace CMMManager
                 // Populate Task GridView
                 MedBillNoForTask = MedBillNo;
 
-                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue] " +
-                                     "from [dbo].[tbl_task] " +
-                                     "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
-                                     "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
-                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo";
+                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue], " +
+                                                     "[dbo].[tbl_task].[id] " +
+                                                     "from [dbo].[tbl_task] " +
+                                                     "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
+                                                     "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo " +
+                                                     "order by [dbo].[tbl_task].[CreateDate] desc";
 
                 SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTaskInMedBill, connRN4);
                 cmdQueryForTask.CommandType = CommandType.Text;
@@ -17692,6 +18562,9 @@ namespace CMMManager
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                         if (!rdrTaskForMedBill.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(3) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetInt32(4).ToString() });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
                         gvMostRecentTasks.Rows.Add(row);
                     }
                 }
@@ -19158,34 +20031,6 @@ namespace CMMManager
 
             String strTextSearched = txtSearch.Text.Trim();
 
-            //String strSqlSearchContact = "select [dbo].[contact].[Individual_ID__C] as [Individual No.], " +
-            //                             "concat([dbo].[contact].[LastName], ', ', [dbo].[contact].[FirstName], ' ', [dbo].[contact].[MiddleName]) as Name, " +
-            //                             "[dbo].[contact].[Social_Security_Number__c] as SSN, " +
-            //                             "[dbo].[membership].[Name] as Membership, [dbo].[contact].[Legacy_Database_Individual_ID__C] as [CRM No.], " +
-            //                             "[dbo].[contact].[c4g_Membership_Status__C] as [Membership Status], " +
-            //                             "[dbo].[contact].[Membership_Ind_Start_Date__C] As [Membership Start Date], " +
-            //                             "[dbo].[contact].[Membership_Cancelled_Date__C] As [Membership Cancel Date], " +
-            //                             "[dbo].[contact].[BirthDate], [dbo].[contact].[cmm_Gender__C] as [Gender], " +
-            //                             "[dbo].[contact].[Household_Role__C] as [House Type], " +
-            //                             "[dbo].[program].[Name] as [Program Name], " +
-            //                             "[dbo].[account].[BillingStreet], [dbo].[account].[BillingCity], [dbo].[account].[BillingState], [dbo].[account].[BillingPostalCode], " +
-            //                             "[dbo].[account].[ShippingStreet], [dbo].[account].[ShippingCity], [dbo].[account].[ShippingState], [dbo].[account].[ShippingPostalCode], " +
-            //                             "[dbo].[Church].[Name] as [Church Name], " +
-            //                             "[dbo].[contact].[Email] " +
-            //                             "from contact " +
-            //                             "left join membership on contact.c4g_Membership__C = membership.ID " +
-            //                             "left join account on contact.AccountID = account.ID " +
-            //                             "left join program on contact.c4g_plan__c = program.ID " +
-            //                             "left join Church on contact.c4g_Church__C = Church.ID " +
-            //                             "where contact.LastName like '%' + @LastName + '%' or " +
-            //                             "contact.FirstName like '%' + @FirstName + '%' or " +
-            //                             "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
-            //                             "contact.c4g_Membership__C like '%' + @MembershipID + '%' or " +
-            //                             "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
-            //                             "contact.Social_Security_Number__C like '%' + @SSN + '%' or " +
-            //                             "contact.Individual_ID__C like '%' + @IndividualID + '%' or " +
-            //                             "contact.Legacy_Database_Individual_ID__C like '%' + @LagacyIndividualID + '%'";
-
             String strSqlSearchContact = "select [dbo].[contact].[Individual_ID__C] as [Individual No.], " +
                              "concat([dbo].[contact].[LastName], ', ', [dbo].[contact].[FirstName], ' ', [dbo].[contact].[MiddleName]) as Name, " +
                              "[dbo].[membership].[Name] as Membership, [dbo].[contact].[Social_Security_Number__c] as [SSN], " +
@@ -19207,6 +20052,8 @@ namespace CMMManager
                              "left join Church on contact.c4g_Church__C = Church.ID " +
                              "where contact.LastName like '%' + @LastName + '%' or " +
                              "contact.FirstName like '%' + @FirstName + '%' or " +
+                             "contact.MailingStreet like '%' + @MailingStreet + '%' or " +
+                             "contact.Birthdate like '%' + @Birthdate + '%' or " +
                              "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
                              "contact.c4g_Membership__C like '%' + @MembershipID + '%' or " +
                              "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
@@ -19219,6 +20066,8 @@ namespace CMMManager
 
             cmdQueryForIndividual.Parameters.AddWithValue("@LastName", strTextSearched);
             cmdQueryForIndividual.Parameters.AddWithValue("@FirstName", strTextSearched);
+            cmdQueryForIndividual.Parameters.AddWithValue("@MailingStreet", strTextSearched);
+            cmdQueryForIndividual.Parameters.AddWithValue("@Birthdate", strTextSearched);
             cmdQueryForIndividual.Parameters.AddWithValue("@HouseholdRole", strTextSearched);
             cmdQueryForIndividual.Parameters.AddWithValue("@MembershipID", strTextSearched);
             cmdQueryForIndividual.Parameters.AddWithValue("@MembershipStatus", strTextSearched);
@@ -28010,11 +28859,13 @@ namespace CMMManager
                 // Populate Task GridView
 
                 MedBillNoForTask = gvMedBillList["MedBill_BillNo", e.RowIndex].Value.ToString();
-                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue] " +
-                                     "from [dbo].[tbl_task] " +
-                                     "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
-                                     "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
-                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo";
+                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue], " +
+                                                     "[dbo].[tbl_task].[id] " +
+                                                     "from [dbo].[tbl_task] " +
+                                                     "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
+                                                     "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo " +
+                                                     "order by [dbo].[tbl_task].[CreateDate] desc";
 
                 SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTaskInMedBill, connRN4);
                 cmdQueryForTask.CommandType = CommandType.Text;
@@ -28046,6 +28897,9 @@ namespace CMMManager
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                         if (!rdrTaskForMedBill.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(3) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetInt32(4).ToString() });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
                         gvMostRecentTasks.Rows.Add(row);
                     }
                 }
@@ -29095,10 +29949,163 @@ namespace CMMManager
         {
             String IndividualId = txtIndividualIDMedBill.Text.Trim();
             String IndividualName = txtPatientNameMedBill.Text.Trim();
-            String TableName = txtMedBillNo.Text.Trim();
+            String MedBillId = txtMedBillNo.Text.Trim();
 
-            frmTaskCreationPage frmTask = new frmTaskCreationPage(IndividualId, RelatedToTable.MedicalBill, IndividualName, TableName, nLoggedUserId);
+            frmTaskCreationPage frmTask = new frmTaskCreationPage(IndividualId, 
+                                                                  RelatedToTable.MedicalBill, 
+                                                                  IndividualName,
+                                                                  MedBillId, 
+                                                                  nLoggedUserId,
+                                                                  LoggedInUserName,
+                                                                  LoggedInUserRole, 
+                                                                  LoggedInUserDepartment, 
+                                                                  TaskMode.AddNew);
             frmTask.ShowDialog();
+        }
+
+        private void gvMostRecentTasks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView gvTask = (DataGridView)sender;
+
+            String strTaskId = gvTask["TaskIdMedBill", e.RowIndex].Value as String;
+            //String strSubject = gvTask[0, e.RowIndex].Value as String;
+            //String strDueDate = gvTask[1, e.RowIndex].Value as String;
+            //String AssignedTo = gvTask[2, e.RowIndex].Value as String;
+            //String StatusTask = gvTask[3, e.RowIndex].Value as String;
+
+            if (strTaskId != String.Empty)
+            {
+                int nTaskId = Int32.Parse(strTaskId);
+
+                String strSqlQueryForCreateById = "select [dbo].[tbl_task].[CreatedById] from [dbo].[tbl_task] where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdQueryForCreateById = new SqlCommand(strSqlQueryForCreateById, connRN5);
+                cmdQueryForCreateById.CommandType = CommandType.Text;
+
+                cmdQueryForCreateById.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                if (connRN5.State != ConnectionState.Closed)
+                {
+                    connRN5.Close();
+                    connRN5.Open();
+                }
+                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                Object objCreateById = cmdQueryForCreateById.ExecuteScalar();
+                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                int? nCreateById = null;
+                if (objCreateById != null) nCreateById = Int16.Parse(objCreateById.ToString());
+
+                String TaskCreatorName = String.Empty;
+                int? nTaskCreatorId = null;
+                int? nTaskCreatorUserRoleId = null;
+
+                String strSqlQueryForCreateByUserRoleId = "select [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Role_Id] " +
+                                                          "from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @CreateById";
+
+                SqlCommand cmdQueryForCreateByUserRoleId = new SqlCommand(strSqlQueryForCreateByUserRoleId, connRN5);
+                cmdQueryForCreateByUserRoleId.CommandType = CommandType.Text;
+
+                cmdQueryForCreateByUserRoleId.Parameters.AddWithValue("@CreateById", nCreateById);
+                if (connRN5.State != ConnectionState.Closed)
+                {
+                    connRN5.Close();
+                    connRN5.Open();
+                }
+                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                SqlDataReader rdrTaskCreatorInfo = cmdQueryForCreateByUserRoleId.ExecuteReader();
+                if (rdrTaskCreatorInfo.HasRows)
+                {
+                    if (rdrTaskCreatorInfo.Read())
+                    {
+                        if (!rdrTaskCreatorInfo.IsDBNull(0)) TaskCreatorName = rdrTaskCreatorInfo.GetString(0);
+                        if (!rdrTaskCreatorInfo.IsDBNull(1)) nTaskCreatorId = rdrTaskCreatorInfo.GetInt16(1);
+                        if (!rdrTaskCreatorInfo.IsDBNull(2)) nTaskCreatorUserRoleId = rdrTaskCreatorInfo.GetInt16(2);
+                    }
+                }
+                //Object objCreateByUserRoleId = cmdQueryForCreateByUserRoleId.ExecuteScalar();
+                if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                //if (objCreateByUserRoleId != null) nCreateByUserRoleId = Int16.Parse(objCreateByUserRoleId.ToString());
+
+                String WhoId = txtIndividualIDMedBill.Text.Trim();
+                String IndividualName = txtPatientNameMedBill.Text.Trim();
+
+                //frmTaskCreationPage(int task_id, String individual_id, String creator_name, int creator_id, int login_user_id, String login_user_name, UserRole login_user_role_id, Department login_user_department, TaskMode mode)
+
+                frmTaskCreationPage frmTaskToModify = new frmTaskCreationPage(nTaskId, WhoId, TaskCreatorName, nTaskCreatorId.Value, nLoggedUserId, LoggedInUserName, LoggedInUserRole, LoggedInUserDepartment, TaskMode.EditInMedBill);
+
+                frmTaskToModify.ShowDialog();
+                
+
+                //if (LoggedInUserRole == UserRole.RNManager)
+                //{
+                //    if ((UserRole)nCreateByUserRoleId.Value != UserRole.RNStaff)
+                //    {
+                //        MessageBox.Show("The Task is not created by RN staff. It can't be modified by RN manager.");
+                //        return;
+                //    }
+                //}
+
+                //if (LoggedInUserRole == UserRole.NPManager)
+                //{
+                //    if ((UserRole)nCreateByUserRoleId.Value != UserRole.NPStaff)
+                //    {
+                //        MessageBox.Show("This Task is not created by NP staff. It can't be modified by NP manager.");
+                //        return;
+                //    }
+                //}
+
+                //if (LoggedInUserRole == UserRole.FDManager)
+                //{
+                //    if ((UserRole)nCreateByUserRoleId.Value != UserRole.FDStaff)
+                //    {
+                //        MessageBox.Show("This Task is not created by FD staff. It can't be modified by FD manager.");
+                //        return;
+                //    }
+                //}
+
+                //if (LoggedInUserRole != UserRole.Administrator &&
+                //    LoggedInUserRole != UserRole.FDManager &&
+                //    LoggedInUserRole != UserRole.NPManager &&
+                //    LoggedInUserRole != UserRole.RNManager)
+                //{
+                //    MessageBox.Show("You are not authorized to modify the task.");
+                //    return;
+                //}
+
+                //String strSqlQueryForTask = "select [dbo].[tbl_task].[AssignedTo], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], " +
+                //                            "[dbo].[tbl_task].[RelatedToTableId], [dbo].[tbl_task].[whatid], " +
+                //                            "[dbo].[tbl_task].[IndividualName], [dbo][tbl_task].[whoid], " +
+                //                            "[dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                //                            "[dbo].[tbl_task].[Status], [dbo].[tbl_task].[Priority], " +
+                //                            "[dbo].[tbl_task].[IsReminderSet], [dbo].[tbl_task].[ReminderDateTime], [dbo].[tbl_task].[HasAttachment], [dbo].[tbl_task].[Attachment] " +
+                //                            "from [dbo].[tbl_task] " +                                            
+                //                            "where [dbo].[tbl_task].[id] = @TaskId";
+
+                //SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTask, connRN5);
+                //cmdQueryForTask.CommandType = CommandType.Text;
+
+                //cmdQueryForTask.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                //if (connRN5.State != ConnectionState.Closed)
+                //{
+                //    connRN5.Close();
+                //    connRN5.Open();
+                //}
+                //else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                //SqlDataReader rdrTaskForEdit = cmdQueryForTask.ExecuteReader();
+                //if (rdrTaskForEdit.HasRows)
+                //{
+
+                //}
+
+                //if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                
+
+            }
+            
         }
     }
 
@@ -29140,7 +30147,6 @@ namespace CMMManager
 
     //    }
     //}
-
 
     public class ApprovedSettlementInfo
     {

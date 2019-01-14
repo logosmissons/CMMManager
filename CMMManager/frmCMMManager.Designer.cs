@@ -28,60 +28,126 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.tbCMMManager = new System.Windows.Forms.TabControl();
             this.tbpgDashboardRNManager = new System.Windows.Forms.TabPage();
-            this.gvRNManagerPending = new System.Windows.Forms.DataGridView();
-            this.label158 = new System.Windows.Forms.Label();
-            this.gvRNManagerComplete = new System.Windows.Forms.DataGridView();
+            this.gvRNManagerCompleteTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label157 = new System.Windows.Forms.Label();
             this.gvRNManagerActiveTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIDRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label156 = new System.Windows.Forms.Label();
             this.gvRNManagerDashboard = new System.Windows.Forms.DataGridView();
             this.label155 = new System.Windows.Forms.Label();
             this.tbpgDashboardRNStaff = new System.Windows.Forms.TabPage();
             this.gvDashboardRNStaffPending = new System.Windows.Forms.DataGridView();
-            this.gvDashboardRNStaffComplete = new System.Windows.Forms.DataGridView();
+            this.gvRNStaffCompleteTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label164 = new System.Windows.Forms.Label();
             this.label163 = new System.Windows.Forms.Label();
             this.gvRNStaffActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubjectRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DueDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDateRNStaff = new CMMManager.CalendarColumn();
-            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActivityDateRNStaff = new CMMManager.CalendarColumn();
             this.CommentRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HasAttachmentRNStaff = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label162 = new System.Windows.Forms.Label();
             this.gvDashboardRNStaffCaseQueue = new System.Windows.Forms.DataGridView();
             this.gvDashboardRNAnnouncement = new System.Windows.Forms.DataGridView();
             this.label161 = new System.Windows.Forms.Label();
             this.label160 = new System.Windows.Forms.Label();
             this.label159 = new System.Windows.Forms.Label();
+            this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
+            this.gvNPManagerCompleteTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvNPManagerActiveTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvDashboardNPManager = new System.Windows.Forms.DataGridView();
+            this.label183 = new System.Windows.Forms.Label();
+            this.label182 = new System.Windows.Forms.Label();
+            this.label181 = new System.Windows.Forms.Label();
+            this.tbpgDashboardNPStaff = new System.Windows.Forms.TabPage();
+            this.gvCompleteTaskNPStaff = new System.Windows.Forms.DataGridView();
+            this.label184 = new System.Windows.Forms.Label();
+            this.label171 = new System.Windows.Forms.Label();
+            this.gvActiveTaskNPStaff = new System.Windows.Forms.DataGridView();
+            this.gvDashboardNPStaff = new System.Windows.Forms.DataGridView();
+            this.label170 = new System.Windows.Forms.Label();
+            this.label169 = new System.Windows.Forms.Label();
+            this.tbpgDashboardFDManager = new System.Windows.Forms.TabPage();
             this.tbpgDashboardFDStaff = new System.Windows.Forms.TabPage();
             this.gvDashboardFDStaffCCPayment = new System.Windows.Forms.DataGridView();
             this.label168 = new System.Windows.Forms.Label();
@@ -90,14 +156,6 @@
             this.gvDashboardFDStaffCheckPayment = new System.Windows.Forms.DataGridView();
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
-            this.tbpgDashboardNPStaff = new System.Windows.Forms.TabPage();
-            this.gvDashboardNPStaffMostRecentItem = new System.Windows.Forms.DataGridView();
-            this.label171 = new System.Windows.Forms.Label();
-            this.gvDashboardNPStaffActiveTask = new System.Windows.Forms.DataGridView();
-            this.label170 = new System.Windows.Forms.Label();
-            this.label169 = new System.Windows.Forms.Label();
-            this.tbpgDashboardFDManager = new System.Windows.Forms.TabPage();
-            this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
             this.tbpgSearchResult = new System.Windows.Forms.TabPage();
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
@@ -291,8 +349,8 @@
             this.btnCaseCreationNewSupportLog = new System.Windows.Forms.Button();
             this.gvNewTaskRNtoNP = new System.Windows.Forms.DataGridView();
             this.gvNewTaskNPtoRNFD = new System.Windows.Forms.DataGridView();
-            this.btnNewTaskRNtoNP = new System.Windows.Forms.Button();
-            this.btnNewTaskNPtoRNandFD = new System.Windows.Forms.Button();
+            this.btnNewTaskRNtoNPnFD = new System.Windows.Forms.Button();
+            this.btnNewTaskNPtoRN = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.btnIncomplete = new System.Windows.Forms.Button();
             this.btnApprovedSendToRN = new System.Windows.Forms.Button();
@@ -473,6 +531,7 @@
             this.DueDateTaskInMedBill = new CMMManager.CalendarColumn();
             this.AssignedToTaskInMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusTaskInMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label66 = new System.Windows.Forms.Label();
             this.btnCreateTask = new System.Windows.Forms.Button();
             this.grpMedicalBillInformation = new System.Windows.Forms.GroupBox();
@@ -694,14 +753,6 @@
             this.label129 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
             this.gvPaymentCreditCard = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label147 = new System.Windows.Forms.Label();
             this.tbpgTask = new System.Windows.Forms.TabPage();
             this.btnEvent = new System.Windows.Forms.Button();
@@ -819,25 +870,56 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.IndividualNamePaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HouseholdRoleInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrimaryNameInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProgramNameInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentProgramInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStartDateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IBReceivedDateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOfServiceInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedProviderInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStreetInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingCityInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingZipInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypeInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WellbeingCareSharingInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNameInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApprovedInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApprovedDateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerPending)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerComplete)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerDashboard)).BeginInit();
             this.tbpgDashboardRNStaff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffPending)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffComplete)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffActiveTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).BeginInit();
+            this.tbpgDashboardNPManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPManager)).BeginInit();
+            this.tbpgDashboardNPStaff.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskNPStaff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskNPStaff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).BeginInit();
             this.tbpgDashboardFDStaff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).BeginInit();
-            this.tbpgDashboardNPStaff.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffMostRecentItem)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffActiveTask)).BeginInit();
             this.tbpgSearchResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).BeginInit();
             this.tbpgIndividual.SuspendLayout();
@@ -925,10 +1007,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCMMManager.Controls.Add(this.tbpgDashboardRNManager);
             this.tbCMMManager.Controls.Add(this.tbpgDashboardRNStaff);
-            this.tbCMMManager.Controls.Add(this.tbpgDashboardFDStaff);
+            this.tbCMMManager.Controls.Add(this.tbpgDashboardNPManager);
             this.tbCMMManager.Controls.Add(this.tbpgDashboardNPStaff);
             this.tbCMMManager.Controls.Add(this.tbpgDashboardFDManager);
-            this.tbCMMManager.Controls.Add(this.tbpgDashboardNPManager);
+            this.tbCMMManager.Controls.Add(this.tbpgDashboardFDStaff);
             this.tbCMMManager.Controls.Add(this.tbpgSearchResult);
             this.tbCMMManager.Controls.Add(this.tbpgIndividual);
             this.tbCMMManager.Controls.Add(this.tbpgCaseView);
@@ -950,9 +1032,7 @@
             // 
             // tbpgDashboardRNManager
             // 
-            this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerPending);
-            this.tbpgDashboardRNManager.Controls.Add(this.label158);
-            this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerComplete);
+            this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerCompleteTask);
             this.tbpgDashboardRNManager.Controls.Add(this.label157);
             this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerActiveTask);
             this.tbpgDashboardRNManager.Controls.Add(this.label156);
@@ -965,64 +1045,185 @@
             this.tbpgDashboardRNManager.Text = "Dashboard";
             this.tbpgDashboardRNManager.UseVisualStyleBackColor = true;
             // 
-            // gvRNManagerPending
+            // gvRNManagerCompleteTask
             // 
-            this.gvRNManagerPending.AllowUserToAddRows = false;
-            this.gvRNManagerPending.AllowUserToDeleteRows = false;
-            this.gvRNManagerPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRNManagerPending.Location = new System.Drawing.Point(1385, 484);
-            this.gvRNManagerPending.Name = "gvRNManagerPending";
-            this.gvRNManagerPending.ReadOnly = true;
-            this.gvRNManagerPending.Size = new System.Drawing.Size(398, 356);
-            this.gvRNManagerPending.TabIndex = 9;
+            this.gvRNManagerCompleteTask.AllowUserToAddRows = false;
+            this.gvRNManagerCompleteTask.AllowUserToDeleteRows = false;
+            this.gvRNManagerCompleteTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvRNManagerCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdCompleteTaskRNMgr,
+            this.IndividualNameCompleteTaskRNMgr,
+            this.SubjectCompleteTaskRNMgr,
+            this.CreateDateCompleteTaskRNMgr,
+            this.ActivityDateCompleteTaskRNMgr,
+            this.CommentCompleteTaskRNMgr,
+            this.SolutionCompleteTaskRNMgr});
+            this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(725, 484);
+            this.gvRNManagerCompleteTask.Name = "gvRNManagerCompleteTask";
+            this.gvRNManagerCompleteTask.ReadOnly = true;
+            this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(1062, 356);
+            this.gvRNManagerCompleteTask.TabIndex = 7;
             // 
-            // label158
+            // IndividualIdCompleteTaskRNMgr
             // 
-            this.label158.AutoSize = true;
-            this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label158.Location = new System.Drawing.Point(1380, 455);
-            this.label158.Name = "label158";
-            this.label158.Size = new System.Drawing.Size(306, 25);
-            this.label158.TabIndex = 8;
-            this.label158.Text = "Most Recent Pending per User";
+            this.IndividualIdCompleteTaskRNMgr.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskRNMgr.Name = "IndividualIdCompleteTaskRNMgr";
+            this.IndividualIdCompleteTaskRNMgr.ReadOnly = true;
             // 
-            // gvRNManagerComplete
+            // IndividualNameCompleteTaskRNMgr
             // 
-            this.gvRNManagerComplete.AllowUserToAddRows = false;
-            this.gvRNManagerComplete.AllowUserToDeleteRows = false;
-            this.gvRNManagerComplete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRNManagerComplete.Location = new System.Drawing.Point(948, 484);
-            this.gvRNManagerComplete.Name = "gvRNManagerComplete";
-            this.gvRNManagerComplete.ReadOnly = true;
-            this.gvRNManagerComplete.Size = new System.Drawing.Size(398, 356);
-            this.gvRNManagerComplete.TabIndex = 7;
+            this.IndividualNameCompleteTaskRNMgr.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskRNMgr.Name = "IndividualNameCompleteTaskRNMgr";
+            this.IndividualNameCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskRNMgr
+            // 
+            this.SubjectCompleteTaskRNMgr.HeaderText = "Subject";
+            this.SubjectCompleteTaskRNMgr.Name = "SubjectCompleteTaskRNMgr";
+            this.SubjectCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskRNMgr
+            // 
+            this.CreateDateCompleteTaskRNMgr.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskRNMgr.Name = "CreateDateCompleteTaskRNMgr";
+            this.CreateDateCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskRNMgr
+            // 
+            this.ActivityDateCompleteTaskRNMgr.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskRNMgr.Name = "ActivityDateCompleteTaskRNMgr";
+            this.ActivityDateCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // CommentCompleteTaskRNMgr
+            // 
+            this.CommentCompleteTaskRNMgr.HeaderText = "Comment";
+            this.CommentCompleteTaskRNMgr.Name = "CommentCompleteTaskRNMgr";
+            this.CommentCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskRNMgr
+            // 
+            this.SolutionCompleteTaskRNMgr.HeaderText = "Solution";
+            this.SolutionCompleteTaskRNMgr.Name = "SolutionCompleteTaskRNMgr";
+            this.SolutionCompleteTaskRNMgr.ReadOnly = true;
             // 
             // label157
             // 
             this.label157.AutoSize = true;
             this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label157.Location = new System.Drawing.Point(943, 455);
+            this.label157.Location = new System.Drawing.Point(722, 455);
             this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(330, 25);
+            this.label157.Size = new System.Drawing.Size(168, 25);
             this.label157.TabIndex = 6;
-            this.label157.Text = "Most Recent Completed per User";
+            this.label157.Text = "Completed Task";
             // 
             // gvRNManagerActiveTask
             // 
             this.gvRNManagerActiveTask.AllowUserToAddRows = false;
             this.gvRNManagerActiveTask.AllowUserToDeleteRows = false;
             this.gvRNManagerActiveTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(948, 75);
+            this.gvRNManagerActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdRNManager,
+            this.IndividualNameRNManager,
+            this.AssignedToRNManager,
+            this.CreatedByIDRNManager,
+            this.WhatIdRNManager,
+            this.SubjectRNManager,
+            this.DueDateRNManager,
+            this.CreateDateRNManager,
+            this.ActivityDateRNManager,
+            this.CommentRNManager,
+            this.SolutionRNManager,
+            this.StatusRNManager,
+            this.PriorityRNManager});
+            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(727, 75);
             this.gvRNManagerActiveTask.Name = "gvRNManagerActiveTask";
             this.gvRNManagerActiveTask.ReadOnly = true;
-            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(839, 341);
+            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(1060, 341);
             this.gvRNManagerActiveTask.TabIndex = 5;
+            // 
+            // IndividualIdRNManager
+            // 
+            this.IndividualIdRNManager.HeaderText = "Individual Id";
+            this.IndividualIdRNManager.Name = "IndividualIdRNManager";
+            this.IndividualIdRNManager.ReadOnly = true;
+            // 
+            // IndividualNameRNManager
+            // 
+            this.IndividualNameRNManager.HeaderText = "Individual Name";
+            this.IndividualNameRNManager.Name = "IndividualNameRNManager";
+            this.IndividualNameRNManager.ReadOnly = true;
+            // 
+            // AssignedToRNManager
+            // 
+            this.AssignedToRNManager.HeaderText = "Assigned To";
+            this.AssignedToRNManager.Name = "AssignedToRNManager";
+            this.AssignedToRNManager.ReadOnly = true;
+            // 
+            // CreatedByIDRNManager
+            // 
+            this.CreatedByIDRNManager.HeaderText = "Created By";
+            this.CreatedByIDRNManager.Name = "CreatedByIDRNManager";
+            this.CreatedByIDRNManager.ReadOnly = true;
+            // 
+            // WhatIdRNManager
+            // 
+            this.WhatIdRNManager.HeaderText = "What Id";
+            this.WhatIdRNManager.Name = "WhatIdRNManager";
+            this.WhatIdRNManager.ReadOnly = true;
+            // 
+            // SubjectRNManager
+            // 
+            this.SubjectRNManager.HeaderText = "Subject";
+            this.SubjectRNManager.Name = "SubjectRNManager";
+            this.SubjectRNManager.ReadOnly = true;
+            // 
+            // DueDateRNManager
+            // 
+            this.DueDateRNManager.HeaderText = "Due Date";
+            this.DueDateRNManager.Name = "DueDateRNManager";
+            this.DueDateRNManager.ReadOnly = true;
+            // 
+            // CreateDateRNManager
+            // 
+            this.CreateDateRNManager.HeaderText = "Create Date";
+            this.CreateDateRNManager.Name = "CreateDateRNManager";
+            this.CreateDateRNManager.ReadOnly = true;
+            // 
+            // ActivityDateRNManager
+            // 
+            this.ActivityDateRNManager.HeaderText = "Activity Date";
+            this.ActivityDateRNManager.Name = "ActivityDateRNManager";
+            this.ActivityDateRNManager.ReadOnly = true;
+            // 
+            // CommentRNManager
+            // 
+            this.CommentRNManager.HeaderText = "Comment";
+            this.CommentRNManager.Name = "CommentRNManager";
+            this.CommentRNManager.ReadOnly = true;
+            // 
+            // SolutionRNManager
+            // 
+            this.SolutionRNManager.HeaderText = "Solution";
+            this.SolutionRNManager.Name = "SolutionRNManager";
+            this.SolutionRNManager.ReadOnly = true;
+            // 
+            // StatusRNManager
+            // 
+            this.StatusRNManager.HeaderText = "Status";
+            this.StatusRNManager.Name = "StatusRNManager";
+            this.StatusRNManager.ReadOnly = true;
+            // 
+            // PriorityRNManager
+            // 
+            this.PriorityRNManager.HeaderText = "Priority";
+            this.PriorityRNManager.Name = "PriorityRNManager";
+            this.PriorityRNManager.ReadOnly = true;
             // 
             // label156
             // 
             this.label156.AutoSize = true;
             this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label156.Location = new System.Drawing.Point(943, 43);
+            this.label156.Location = new System.Drawing.Point(722, 47);
             this.label156.Name = "label156";
             this.label156.Size = new System.Drawing.Size(124, 25);
             this.label156.TabIndex = 4;
@@ -1036,7 +1237,7 @@
             this.gvRNManagerDashboard.Location = new System.Drawing.Point(47, 75);
             this.gvRNManagerDashboard.Name = "gvRNManagerDashboard";
             this.gvRNManagerDashboard.ReadOnly = true;
-            this.gvRNManagerDashboard.Size = new System.Drawing.Size(842, 765);
+            this.gvRNManagerDashboard.Size = new System.Drawing.Size(652, 765);
             this.gvRNManagerDashboard.TabIndex = 3;
             // 
             // label155
@@ -1052,7 +1253,7 @@
             // tbpgDashboardRNStaff
             // 
             this.tbpgDashboardRNStaff.Controls.Add(this.gvDashboardRNStaffPending);
-            this.tbpgDashboardRNStaff.Controls.Add(this.gvDashboardRNStaffComplete);
+            this.tbpgDashboardRNStaff.Controls.Add(this.gvRNStaffCompleteTask);
             this.tbpgDashboardRNStaff.Controls.Add(this.label164);
             this.tbpgDashboardRNStaff.Controls.Add(this.label163);
             this.tbpgDashboardRNStaff.Controls.Add(this.gvRNStaffActiveTask);
@@ -1080,16 +1281,66 @@
             this.gvDashboardRNStaffPending.Size = new System.Drawing.Size(521, 330);
             this.gvDashboardRNStaffPending.TabIndex = 13;
             // 
-            // gvDashboardRNStaffComplete
+            // gvRNStaffCompleteTask
             // 
-            this.gvDashboardRNStaffComplete.AllowUserToAddRows = false;
-            this.gvDashboardRNStaffComplete.AllowUserToDeleteRows = false;
-            this.gvDashboardRNStaffComplete.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardRNStaffComplete.Location = new System.Drawing.Point(699, 490);
-            this.gvDashboardRNStaffComplete.Name = "gvDashboardRNStaffComplete";
-            this.gvDashboardRNStaffComplete.ReadOnly = true;
-            this.gvDashboardRNStaffComplete.Size = new System.Drawing.Size(521, 330);
-            this.gvDashboardRNStaffComplete.TabIndex = 12;
+            this.gvRNStaffCompleteTask.AllowUserToAddRows = false;
+            this.gvRNStaffCompleteTask.AllowUserToDeleteRows = false;
+            this.gvRNStaffCompleteTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvRNStaffCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdCompleteTaskRNStaff,
+            this.IndividualNameCompleteTaskRNStaff,
+            this.SubjectCompleteTaskRNStaff,
+            this.CreateDateCompleteTaskRNStaff,
+            this.ActivityDateCompleteTaskRNStaff,
+            this.CommentCompleteTaskRNStaff,
+            this.SolutionCompleteTaskRNStaff});
+            this.gvRNStaffCompleteTask.Location = new System.Drawing.Point(699, 490);
+            this.gvRNStaffCompleteTask.Name = "gvRNStaffCompleteTask";
+            this.gvRNStaffCompleteTask.ReadOnly = true;
+            this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(521, 330);
+            this.gvRNStaffCompleteTask.TabIndex = 12;
+            // 
+            // IndividualIdCompleteTaskRNStaff
+            // 
+            this.IndividualIdCompleteTaskRNStaff.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskRNStaff.Name = "IndividualIdCompleteTaskRNStaff";
+            this.IndividualIdCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // IndividualNameCompleteTaskRNStaff
+            // 
+            this.IndividualNameCompleteTaskRNStaff.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskRNStaff.Name = "IndividualNameCompleteTaskRNStaff";
+            this.IndividualNameCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskRNStaff
+            // 
+            this.SubjectCompleteTaskRNStaff.HeaderText = "Subject";
+            this.SubjectCompleteTaskRNStaff.Name = "SubjectCompleteTaskRNStaff";
+            this.SubjectCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskRNStaff
+            // 
+            this.CreateDateCompleteTaskRNStaff.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskRNStaff.Name = "CreateDateCompleteTaskRNStaff";
+            this.CreateDateCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskRNStaff
+            // 
+            this.ActivityDateCompleteTaskRNStaff.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskRNStaff.Name = "ActivityDateCompleteTaskRNStaff";
+            this.ActivityDateCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // CommentCompleteTaskRNStaff
+            // 
+            this.CommentCompleteTaskRNStaff.HeaderText = "Comment";
+            this.CommentCompleteTaskRNStaff.Name = "CommentCompleteTaskRNStaff";
+            this.CommentCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskRNStaff
+            // 
+            this.SolutionCompleteTaskRNStaff.HeaderText = "Solution";
+            this.SolutionCompleteTaskRNStaff.Name = "SolutionCompleteTaskRNStaff";
+            this.SolutionCompleteTaskRNStaff.ReadOnly = true;
             // 
             // label164
             // 
@@ -1119,18 +1370,17 @@
             this.gvRNStaffActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdRNStaff,
             this.IndividualNameRNStaff,
+            this.AssignedToRNStaff,
+            this.CreatedByIdRNStaff,
             this.WhatIdRNStaff,
             this.SubjectRNStaff,
             this.DueDateRNStaff,
             this.CreateDateRNStaff,
-            this.CreatedByIdRNStaff,
             this.ActivityDateRNStaff,
             this.CommentRNStaff,
             this.SolutionRNStaff,
             this.StatusRNStaff,
-            this.PriorityRNStaff,
-            this.AccountNameRNStaff,
-            this.HasAttachmentRNStaff});
+            this.PriorityRNStaff});
             this.gvRNStaffActiveTask.Location = new System.Drawing.Point(699, 104);
             this.gvRNStaffActiveTask.Name = "gvRNStaffActiveTask";
             this.gvRNStaffActiveTask.ReadOnly = true;
@@ -1148,6 +1398,18 @@
             this.IndividualNameRNStaff.HeaderText = "Individual Name";
             this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
             this.IndividualNameRNStaff.ReadOnly = true;
+            // 
+            // AssignedToRNStaff
+            // 
+            this.AssignedToRNStaff.HeaderText = "Assigned To";
+            this.AssignedToRNStaff.Name = "AssignedToRNStaff";
+            this.AssignedToRNStaff.ReadOnly = true;
+            // 
+            // CreatedByIdRNStaff
+            // 
+            this.CreatedByIdRNStaff.HeaderText = "Created By";
+            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
+            this.CreatedByIdRNStaff.ReadOnly = true;
             // 
             // WhatIdRNStaff
             // 
@@ -1172,12 +1434,6 @@
             this.CreateDateRNStaff.HeaderText = "Create Date";
             this.CreateDateRNStaff.Name = "CreateDateRNStaff";
             this.CreateDateRNStaff.ReadOnly = true;
-            // 
-            // CreatedByIdRNStaff
-            // 
-            this.CreatedByIdRNStaff.HeaderText = "Created By";
-            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
-            this.CreatedByIdRNStaff.ReadOnly = true;
             // 
             // ActivityDateRNStaff
             // 
@@ -1208,18 +1464,6 @@
             this.PriorityRNStaff.HeaderText = "Priority";
             this.PriorityRNStaff.Name = "PriorityRNStaff";
             this.PriorityRNStaff.ReadOnly = true;
-            // 
-            // AccountNameRNStaff
-            // 
-            this.AccountNameRNStaff.HeaderText = "Account Name";
-            this.AccountNameRNStaff.Name = "AccountNameRNStaff";
-            this.AccountNameRNStaff.ReadOnly = true;
-            // 
-            // HasAttachmentRNStaff
-            // 
-            this.HasAttachmentRNStaff.HeaderText = "Has Attachment";
-            this.HasAttachmentRNStaff.Name = "HasAttachmentRNStaff";
-            this.HasAttachmentRNStaff.ReadOnly = true;
             // 
             // label162
             // 
@@ -1282,6 +1526,366 @@
             this.label159.Size = new System.Drawing.Size(239, 29);
             this.label159.TabIndex = 3;
             this.label159.Text = "Dashboard - RN Staff";
+            // 
+            // tbpgDashboardNPManager
+            // 
+            this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerCompleteTask);
+            this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerActiveTask);
+            this.tbpgDashboardNPManager.Controls.Add(this.gvDashboardNPManager);
+            this.tbpgDashboardNPManager.Controls.Add(this.label183);
+            this.tbpgDashboardNPManager.Controls.Add(this.label182);
+            this.tbpgDashboardNPManager.Controls.Add(this.label181);
+            this.tbpgDashboardNPManager.Location = new System.Drawing.Point(4, 22);
+            this.tbpgDashboardNPManager.Name = "tbpgDashboardNPManager";
+            this.tbpgDashboardNPManager.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgDashboardNPManager.TabIndex = 5;
+            this.tbpgDashboardNPManager.Text = "Dashboard";
+            this.tbpgDashboardNPManager.UseVisualStyleBackColor = true;
+            // 
+            // gvNPManagerCompleteTask
+            // 
+            this.gvNPManagerCompleteTask.AllowUserToAddRows = false;
+            this.gvNPManagerCompleteTask.AllowUserToDeleteRows = false;
+            this.gvNPManagerCompleteTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvNPManagerCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdCompleteTaskNPManager,
+            this.IndividualNameCompleteTaskNPManager,
+            this.AssignedToCompleteTaskNPManager,
+            this.CreatedByCompleteTaskNPManager,
+            this.WhatIdCompleteTaskNPManager,
+            this.SubjectCompleteTaskNPManager,
+            this.DueDateCompleteTaskNPManager,
+            this.CreateDateCompleteTaskNPManager,
+            this.ActivityDateCompleteTaskNPManager,
+            this.CommentCompleteTaskNPManager,
+            this.SolutionCompleteTaskNPManager,
+            this.StatusCompleteTaskNPManager,
+            this.PriorityCompleteTaskNPManager});
+            this.gvNPManagerCompleteTask.Location = new System.Drawing.Point(750, 484);
+            this.gvNPManagerCompleteTask.Name = "gvNPManagerCompleteTask";
+            this.gvNPManagerCompleteTask.ReadOnly = true;
+            this.gvNPManagerCompleteTask.Size = new System.Drawing.Size(1034, 355);
+            this.gvNPManagerCompleteTask.TabIndex = 10;
+            // 
+            // IndividualIdCompleteTaskNPManager
+            // 
+            this.IndividualIdCompleteTaskNPManager.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskNPManager.Name = "IndividualIdCompleteTaskNPManager";
+            this.IndividualIdCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // IndividualNameCompleteTaskNPManager
+            // 
+            this.IndividualNameCompleteTaskNPManager.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskNPManager.Name = "IndividualNameCompleteTaskNPManager";
+            this.IndividualNameCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // AssignedToCompleteTaskNPManager
+            // 
+            this.AssignedToCompleteTaskNPManager.HeaderText = "Assigned To";
+            this.AssignedToCompleteTaskNPManager.Name = "AssignedToCompleteTaskNPManager";
+            this.AssignedToCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CreatedByCompleteTaskNPManager
+            // 
+            this.CreatedByCompleteTaskNPManager.HeaderText = "Created By";
+            this.CreatedByCompleteTaskNPManager.Name = "CreatedByCompleteTaskNPManager";
+            this.CreatedByCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // WhatIdCompleteTaskNPManager
+            // 
+            this.WhatIdCompleteTaskNPManager.HeaderText = "What Id";
+            this.WhatIdCompleteTaskNPManager.Name = "WhatIdCompleteTaskNPManager";
+            this.WhatIdCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskNPManager
+            // 
+            this.SubjectCompleteTaskNPManager.HeaderText = "Subject";
+            this.SubjectCompleteTaskNPManager.Name = "SubjectCompleteTaskNPManager";
+            this.SubjectCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // DueDateCompleteTaskNPManager
+            // 
+            this.DueDateCompleteTaskNPManager.HeaderText = "Due Date";
+            this.DueDateCompleteTaskNPManager.Name = "DueDateCompleteTaskNPManager";
+            this.DueDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskNPManager
+            // 
+            this.CreateDateCompleteTaskNPManager.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskNPManager.Name = "CreateDateCompleteTaskNPManager";
+            this.CreateDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskNPManager
+            // 
+            this.ActivityDateCompleteTaskNPManager.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskNPManager.Name = "ActivityDateCompleteTaskNPManager";
+            this.ActivityDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CommentCompleteTaskNPManager
+            // 
+            this.CommentCompleteTaskNPManager.HeaderText = "Comment";
+            this.CommentCompleteTaskNPManager.Name = "CommentCompleteTaskNPManager";
+            this.CommentCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskNPManager
+            // 
+            this.SolutionCompleteTaskNPManager.HeaderText = "Solution";
+            this.SolutionCompleteTaskNPManager.Name = "SolutionCompleteTaskNPManager";
+            this.SolutionCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // StatusCompleteTaskNPManager
+            // 
+            this.StatusCompleteTaskNPManager.HeaderText = "Status";
+            this.StatusCompleteTaskNPManager.Name = "StatusCompleteTaskNPManager";
+            this.StatusCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // PriorityCompleteTaskNPManager
+            // 
+            this.PriorityCompleteTaskNPManager.HeaderText = "Priority";
+            this.PriorityCompleteTaskNPManager.Name = "PriorityCompleteTaskNPManager";
+            this.PriorityCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // gvNPManagerActiveTask
+            // 
+            this.gvNPManagerActiveTask.AllowUserToAddRows = false;
+            this.gvNPManagerActiveTask.AllowUserToDeleteRows = false;
+            this.gvNPManagerActiveTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvNPManagerActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdNPManager,
+            this.IndividualNameNPManager,
+            this.AssignedToNPManager,
+            this.CreatedByNPManager,
+            this.WhatIdNPManager,
+            this.SubjectNPManager,
+            this.DueDateNPManager,
+            this.CreateDateNPManager,
+            this.ActivityDateNPManager,
+            this.CommentNPManager,
+            this.SolutionNPManager,
+            this.StatusNPManager,
+            this.PriorityNPManager});
+            this.gvNPManagerActiveTask.Location = new System.Drawing.Point(750, 72);
+            this.gvNPManagerActiveTask.Name = "gvNPManagerActiveTask";
+            this.gvNPManagerActiveTask.ReadOnly = true;
+            this.gvNPManagerActiveTask.Size = new System.Drawing.Size(1034, 359);
+            this.gvNPManagerActiveTask.TabIndex = 9;
+            // 
+            // IndividualIdNPManager
+            // 
+            this.IndividualIdNPManager.HeaderText = "Individual Id";
+            this.IndividualIdNPManager.Name = "IndividualIdNPManager";
+            this.IndividualIdNPManager.ReadOnly = true;
+            // 
+            // IndividualNameNPManager
+            // 
+            this.IndividualNameNPManager.HeaderText = "Individual Name";
+            this.IndividualNameNPManager.Name = "IndividualNameNPManager";
+            this.IndividualNameNPManager.ReadOnly = true;
+            // 
+            // AssignedToNPManager
+            // 
+            this.AssignedToNPManager.HeaderText = "Assigned To";
+            this.AssignedToNPManager.Name = "AssignedToNPManager";
+            this.AssignedToNPManager.ReadOnly = true;
+            // 
+            // CreatedByNPManager
+            // 
+            this.CreatedByNPManager.HeaderText = "Created By";
+            this.CreatedByNPManager.Name = "CreatedByNPManager";
+            this.CreatedByNPManager.ReadOnly = true;
+            // 
+            // WhatIdNPManager
+            // 
+            this.WhatIdNPManager.HeaderText = "What Id";
+            this.WhatIdNPManager.Name = "WhatIdNPManager";
+            this.WhatIdNPManager.ReadOnly = true;
+            // 
+            // SubjectNPManager
+            // 
+            this.SubjectNPManager.HeaderText = "Subject";
+            this.SubjectNPManager.Name = "SubjectNPManager";
+            this.SubjectNPManager.ReadOnly = true;
+            // 
+            // DueDateNPManager
+            // 
+            this.DueDateNPManager.HeaderText = "Due Date";
+            this.DueDateNPManager.Name = "DueDateNPManager";
+            this.DueDateNPManager.ReadOnly = true;
+            // 
+            // CreateDateNPManager
+            // 
+            this.CreateDateNPManager.HeaderText = "Create Date";
+            this.CreateDateNPManager.Name = "CreateDateNPManager";
+            this.CreateDateNPManager.ReadOnly = true;
+            // 
+            // ActivityDateNPManager
+            // 
+            this.ActivityDateNPManager.HeaderText = "Activity Date";
+            this.ActivityDateNPManager.Name = "ActivityDateNPManager";
+            this.ActivityDateNPManager.ReadOnly = true;
+            // 
+            // CommentNPManager
+            // 
+            this.CommentNPManager.HeaderText = "Comment";
+            this.CommentNPManager.Name = "CommentNPManager";
+            this.CommentNPManager.ReadOnly = true;
+            // 
+            // SolutionNPManager
+            // 
+            this.SolutionNPManager.HeaderText = "Solution";
+            this.SolutionNPManager.Name = "SolutionNPManager";
+            this.SolutionNPManager.ReadOnly = true;
+            // 
+            // StatusNPManager
+            // 
+            this.StatusNPManager.HeaderText = "Status";
+            this.StatusNPManager.Name = "StatusNPManager";
+            this.StatusNPManager.ReadOnly = true;
+            // 
+            // PriorityNPManager
+            // 
+            this.PriorityNPManager.HeaderText = "Priority";
+            this.PriorityNPManager.Name = "PriorityNPManager";
+            this.PriorityNPManager.ReadOnly = true;
+            // 
+            // gvDashboardNPManager
+            // 
+            this.gvDashboardNPManager.AllowUserToAddRows = false;
+            this.gvDashboardNPManager.AllowUserToDeleteRows = false;
+            this.gvDashboardNPManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDashboardNPManager.Location = new System.Drawing.Point(44, 71);
+            this.gvDashboardNPManager.Name = "gvDashboardNPManager";
+            this.gvDashboardNPManager.ReadOnly = true;
+            this.gvDashboardNPManager.Size = new System.Drawing.Size(675, 768);
+            this.gvDashboardNPManager.TabIndex = 8;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label183.Location = new System.Drawing.Point(745, 455);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(168, 25);
+            this.label183.TabIndex = 7;
+            this.label183.Text = "Completed Task";
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label182.Location = new System.Drawing.Point(745, 43);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(124, 25);
+            this.label182.TabIndex = 5;
+            this.label182.Text = "Active Task";
+            // 
+            // label181
+            // 
+            this.label181.AutoSize = true;
+            this.label181.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label181.Location = new System.Drawing.Point(39, 39);
+            this.label181.Name = "label181";
+            this.label181.Size = new System.Drawing.Size(286, 29);
+            this.label181.TabIndex = 3;
+            this.label181.Text = "Dashboard - NP Manager";
+            // 
+            // tbpgDashboardNPStaff
+            // 
+            this.tbpgDashboardNPStaff.Controls.Add(this.gvCompleteTaskNPStaff);
+            this.tbpgDashboardNPStaff.Controls.Add(this.label184);
+            this.tbpgDashboardNPStaff.Controls.Add(this.label171);
+            this.tbpgDashboardNPStaff.Controls.Add(this.gvActiveTaskNPStaff);
+            this.tbpgDashboardNPStaff.Controls.Add(this.gvDashboardNPStaff);
+            this.tbpgDashboardNPStaff.Controls.Add(this.label170);
+            this.tbpgDashboardNPStaff.Controls.Add(this.label169);
+            this.tbpgDashboardNPStaff.Location = new System.Drawing.Point(4, 22);
+            this.tbpgDashboardNPStaff.Name = "tbpgDashboardNPStaff";
+            this.tbpgDashboardNPStaff.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgDashboardNPStaff.TabIndex = 3;
+            this.tbpgDashboardNPStaff.Text = "Dashboard";
+            this.tbpgDashboardNPStaff.UseVisualStyleBackColor = true;
+            // 
+            // gvCompleteTaskNPStaff
+            // 
+            this.gvCompleteTaskNPStaff.AllowUserToAddRows = false;
+            this.gvCompleteTaskNPStaff.AllowUserToDeleteRows = false;
+            this.gvCompleteTaskNPStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCompleteTaskNPStaff.Location = new System.Drawing.Point(701, 513);
+            this.gvCompleteTaskNPStaff.Name = "gvCompleteTaskNPStaff";
+            this.gvCompleteTaskNPStaff.ReadOnly = true;
+            this.gvCompleteTaskNPStaff.Size = new System.Drawing.Size(1089, 335);
+            this.gvCompleteTaskNPStaff.TabIndex = 12;
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label184.Location = new System.Drawing.Point(697, 485);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(136, 24);
+            this.label184.TabIndex = 11;
+            this.label184.Text = "Complete Task";
+            // 
+            // label171
+            // 
+            this.label171.AutoSize = true;
+            this.label171.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label171.Location = new System.Drawing.Point(38, 96);
+            this.label171.Name = "label171";
+            this.label171.Size = new System.Drawing.Size(322, 24);
+            this.label171.TabIndex = 10;
+            this.label171.Text = "Announcement from Manager to Staff";
+            // 
+            // gvActiveTaskNPStaff
+            // 
+            this.gvActiveTaskNPStaff.AllowUserToAddRows = false;
+            this.gvActiveTaskNPStaff.AllowUserToDeleteRows = false;
+            this.gvActiveTaskNPStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvActiveTaskNPStaff.Location = new System.Drawing.Point(701, 123);
+            this.gvActiveTaskNPStaff.Name = "gvActiveTaskNPStaff";
+            this.gvActiveTaskNPStaff.ReadOnly = true;
+            this.gvActiveTaskNPStaff.Size = new System.Drawing.Size(1089, 333);
+            this.gvActiveTaskNPStaff.TabIndex = 9;
+            // 
+            // gvDashboardNPStaff
+            // 
+            this.gvDashboardNPStaff.AllowUserToAddRows = false;
+            this.gvDashboardNPStaff.AllowUserToDeleteRows = false;
+            this.gvDashboardNPStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDashboardNPStaff.Location = new System.Drawing.Point(42, 123);
+            this.gvDashboardNPStaff.Name = "gvDashboardNPStaff";
+            this.gvDashboardNPStaff.ReadOnly = true;
+            this.gvDashboardNPStaff.Size = new System.Drawing.Size(603, 725);
+            this.gvDashboardNPStaff.TabIndex = 7;
+            // 
+            // label170
+            // 
+            this.label170.AutoSize = true;
+            this.label170.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label170.Location = new System.Drawing.Point(697, 96);
+            this.label170.Name = "label170";
+            this.label170.Size = new System.Drawing.Size(106, 24);
+            this.label170.TabIndex = 6;
+            this.label170.Text = "Active Task";
+            // 
+            // label169
+            // 
+            this.label169.AutoSize = true;
+            this.label169.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label169.Location = new System.Drawing.Point(37, 45);
+            this.label169.Name = "label169";
+            this.label169.Size = new System.Drawing.Size(238, 29);
+            this.label169.TabIndex = 5;
+            this.label169.Text = "Dashboard - NP Staff";
+            // 
+            // tbpgDashboardFDManager
+            // 
+            this.tbpgDashboardFDManager.Location = new System.Drawing.Point(4, 22);
+            this.tbpgDashboardFDManager.Name = "tbpgDashboardFDManager";
+            this.tbpgDashboardFDManager.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgDashboardFDManager.TabIndex = 4;
+            this.tbpgDashboardFDManager.Text = "Dashboard";
+            this.tbpgDashboardFDManager.UseVisualStyleBackColor = true;
             // 
             // tbpgDashboardFDStaff
             // 
@@ -1371,90 +1975,6 @@
             this.label165.Size = new System.Drawing.Size(236, 29);
             this.label165.TabIndex = 4;
             this.label165.Text = "Dashboard - FD Staff";
-            // 
-            // tbpgDashboardNPStaff
-            // 
-            this.tbpgDashboardNPStaff.Controls.Add(this.gvDashboardNPStaffMostRecentItem);
-            this.tbpgDashboardNPStaff.Controls.Add(this.label171);
-            this.tbpgDashboardNPStaff.Controls.Add(this.gvDashboardNPStaffActiveTask);
-            this.tbpgDashboardNPStaff.Controls.Add(this.label170);
-            this.tbpgDashboardNPStaff.Controls.Add(this.label169);
-            this.tbpgDashboardNPStaff.Location = new System.Drawing.Point(4, 22);
-            this.tbpgDashboardNPStaff.Name = "tbpgDashboardNPStaff";
-            this.tbpgDashboardNPStaff.Size = new System.Drawing.Size(1832, 874);
-            this.tbpgDashboardNPStaff.TabIndex = 3;
-            this.tbpgDashboardNPStaff.Text = "Dashboard";
-            this.tbpgDashboardNPStaff.UseVisualStyleBackColor = true;
-            // 
-            // gvDashboardNPStaffMostRecentItem
-            // 
-            this.gvDashboardNPStaffMostRecentItem.AllowUserToAddRows = false;
-            this.gvDashboardNPStaffMostRecentItem.AllowUserToDeleteRows = false;
-            this.gvDashboardNPStaffMostRecentItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardNPStaffMostRecentItem.Location = new System.Drawing.Point(934, 123);
-            this.gvDashboardNPStaffMostRecentItem.Name = "gvDashboardNPStaffMostRecentItem";
-            this.gvDashboardNPStaffMostRecentItem.ReadOnly = true;
-            this.gvDashboardNPStaffMostRecentItem.Size = new System.Drawing.Size(856, 725);
-            this.gvDashboardNPStaffMostRecentItem.TabIndex = 9;
-            // 
-            // label171
-            // 
-            this.label171.AutoSize = true;
-            this.label171.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label171.Location = new System.Drawing.Point(930, 96);
-            this.label171.Name = "label171";
-            this.label171.Size = new System.Drawing.Size(164, 24);
-            this.label171.TabIndex = 8;
-            this.label171.Text = "Most Recent Items";
-            // 
-            // gvDashboardNPStaffActiveTask
-            // 
-            this.gvDashboardNPStaffActiveTask.AllowUserToAddRows = false;
-            this.gvDashboardNPStaffActiveTask.AllowUserToDeleteRows = false;
-            this.gvDashboardNPStaffActiveTask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardNPStaffActiveTask.Location = new System.Drawing.Point(42, 123);
-            this.gvDashboardNPStaffActiveTask.Name = "gvDashboardNPStaffActiveTask";
-            this.gvDashboardNPStaffActiveTask.ReadOnly = true;
-            this.gvDashboardNPStaffActiveTask.Size = new System.Drawing.Size(856, 725);
-            this.gvDashboardNPStaffActiveTask.TabIndex = 7;
-            // 
-            // label170
-            // 
-            this.label170.AutoSize = true;
-            this.label170.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label170.Location = new System.Drawing.Point(38, 96);
-            this.label170.Name = "label170";
-            this.label170.Size = new System.Drawing.Size(106, 24);
-            this.label170.TabIndex = 6;
-            this.label170.Text = "Active Task";
-            // 
-            // label169
-            // 
-            this.label169.AutoSize = true;
-            this.label169.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label169.Location = new System.Drawing.Point(37, 39);
-            this.label169.Name = "label169";
-            this.label169.Size = new System.Drawing.Size(238, 29);
-            this.label169.TabIndex = 5;
-            this.label169.Text = "Dashboard - NP Staff";
-            // 
-            // tbpgDashboardFDManager
-            // 
-            this.tbpgDashboardFDManager.Location = new System.Drawing.Point(4, 22);
-            this.tbpgDashboardFDManager.Name = "tbpgDashboardFDManager";
-            this.tbpgDashboardFDManager.Size = new System.Drawing.Size(1832, 874);
-            this.tbpgDashboardFDManager.TabIndex = 4;
-            this.tbpgDashboardFDManager.Text = "Dashboard";
-            this.tbpgDashboardFDManager.UseVisualStyleBackColor = true;
-            // 
-            // tbpgDashboardNPManager
-            // 
-            this.tbpgDashboardNPManager.Location = new System.Drawing.Point(4, 22);
-            this.tbpgDashboardNPManager.Name = "tbpgDashboardNPManager";
-            this.tbpgDashboardNPManager.Size = new System.Drawing.Size(1832, 874);
-            this.tbpgDashboardNPManager.TabIndex = 5;
-            this.tbpgDashboardNPManager.Text = "Dashboard";
-            this.tbpgDashboardNPManager.UseVisualStyleBackColor = true;
             // 
             // tbpgSearchResult
             // 
@@ -2952,8 +3472,8 @@
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationNewSupportLog);
             this.tbpgCreateCase.Controls.Add(this.gvNewTaskRNtoNP);
             this.tbpgCreateCase.Controls.Add(this.gvNewTaskNPtoRNFD);
-            this.tbpgCreateCase.Controls.Add(this.btnNewTaskRNtoNP);
-            this.tbpgCreateCase.Controls.Add(this.btnNewTaskNPtoRNandFD);
+            this.tbpgCreateCase.Controls.Add(this.btnNewTaskRNtoNPnFD);
+            this.tbpgCreateCase.Controls.Add(this.btnNewTaskNPtoRN);
             this.tbpgCreateCase.Controls.Add(this.label49);
             this.tbpgCreateCase.Controls.Add(this.btnIncomplete);
             this.tbpgCreateCase.Controls.Add(this.btnApprovedSendToRN);
@@ -3395,23 +3915,23 @@
             this.gvNewTaskNPtoRNFD.TabIndex = 106;
             this.gvNewTaskNPtoRNFD.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNewTaskNPtoRNFD_CellContentClick);
             // 
-            // btnNewTaskRNtoNP
+            // btnNewTaskRNtoNPnFD
             // 
-            this.btnNewTaskRNtoNP.Location = new System.Drawing.Point(918, 332);
-            this.btnNewTaskRNtoNP.Name = "btnNewTaskRNtoNP";
-            this.btnNewTaskRNtoNP.Size = new System.Drawing.Size(256, 42);
-            this.btnNewTaskRNtoNP.TabIndex = 105;
-            this.btnNewTaskRNtoNP.Text = "New Task - RN to NP";
-            this.btnNewTaskRNtoNP.UseVisualStyleBackColor = true;
+            this.btnNewTaskRNtoNPnFD.Location = new System.Drawing.Point(918, 332);
+            this.btnNewTaskRNtoNPnFD.Name = "btnNewTaskRNtoNPnFD";
+            this.btnNewTaskRNtoNPnFD.Size = new System.Drawing.Size(256, 42);
+            this.btnNewTaskRNtoNPnFD.TabIndex = 105;
+            this.btnNewTaskRNtoNPnFD.Text = "New Task - RN to NP, FD";
+            this.btnNewTaskRNtoNPnFD.UseVisualStyleBackColor = true;
             // 
-            // btnNewTaskNPtoRNandFD
+            // btnNewTaskNPtoRN
             // 
-            this.btnNewTaskNPtoRNandFD.Location = new System.Drawing.Point(918, 91);
-            this.btnNewTaskNPtoRNandFD.Name = "btnNewTaskNPtoRNandFD";
-            this.btnNewTaskNPtoRNandFD.Size = new System.Drawing.Size(256, 42);
-            this.btnNewTaskNPtoRNandFD.TabIndex = 104;
-            this.btnNewTaskNPtoRNandFD.Text = "New Task - NP to RN, FD";
-            this.btnNewTaskNPtoRNandFD.UseVisualStyleBackColor = true;
+            this.btnNewTaskNPtoRN.Location = new System.Drawing.Point(918, 91);
+            this.btnNewTaskNPtoRN.Name = "btnNewTaskNPtoRN";
+            this.btnNewTaskNPtoRN.Size = new System.Drawing.Size(256, 42);
+            this.btnNewTaskNPtoRN.TabIndex = 104;
+            this.btnNewTaskNPtoRN.Text = "New Task - NP to RN";
+            this.btnNewTaskNPtoRN.UseVisualStyleBackColor = true;
             // 
             // label49
             // 
@@ -3891,9 +4411,9 @@
             // 
             // Illness_TotalSharedAmount
             // 
-            dataGridViewCellStyle16.Format = "C2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle31.Format = "C2";
+            dataGridViewCellStyle31.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle31;
             this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
             this.Illness_TotalSharedAmount.ReadOnly = true;
@@ -3901,9 +4421,9 @@
             // 
             // Illness_LimitedSharing
             // 
-            dataGridViewCellStyle17.Format = "C2";
-            dataGridViewCellStyle17.NullValue = null;
-            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle32.Format = "C2";
+            dataGridViewCellStyle32.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle32;
             this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
             this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
             this.Illness_LimitedSharing.ReadOnly = true;
@@ -4301,32 +4821,32 @@
             // 
             // MedBill_BillAmount
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle33;
             this.MedBill_BillAmount.HeaderText = "Amount";
             this.MedBill_BillAmount.Name = "MedBill_BillAmount";
             this.MedBill_BillAmount.ReadOnly = true;
             // 
             // MedBill_Balance
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle34;
             this.MedBill_Balance.HeaderText = "Balance";
             this.MedBill_Balance.Name = "MedBill_Balance";
             this.MedBill_Balance.ReadOnly = true;
             // 
             // MedBill_SettlementTotal
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle35;
             this.MedBill_SettlementTotal.HeaderText = "Settlement Total";
             this.MedBill_SettlementTotal.Name = "MedBill_SettlementTotal";
             this.MedBill_SettlementTotal.ReadOnly = true;
             // 
             // MedBill_TotalSharedAmount
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle36;
             this.MedBill_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBill_TotalSharedAmount.Name = "MedBill_TotalSharedAmount";
             this.MedBill_TotalSharedAmount.ReadOnly = true;
@@ -4405,24 +4925,24 @@
             // 
             // MedBill_PersonalResponsibilityCredit
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle37;
             this.MedBill_PersonalResponsibilityCredit.HeaderText = "Personal Responsibility Credit";
             this.MedBill_PersonalResponsibilityCredit.Name = "MedBill_PersonalResponsibilityCredit";
             this.MedBill_PersonalResponsibilityCredit.ReadOnly = true;
             // 
             // MedBill_WellBeingCare
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle38;
             this.MedBill_WellBeingCare.HeaderText = "Well Being Care";
             this.MedBill_WellBeingCare.Name = "MedBill_WellBeingCare";
             this.MedBill_WellBeingCare.ReadOnly = true;
             // 
             // MedBill_WellBeingCareTotal
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle39;
             this.MedBill_WellBeingCareTotal.HeaderText = "Well Being Care Total";
             this.MedBill_WellBeingCareTotal.Name = "MedBill_WellBeingCareTotal";
             this.MedBill_WellBeingCareTotal.ReadOnly = true;
@@ -4706,15 +5226,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle40;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle41;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -4765,8 +5285,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle42;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -5034,11 +5554,13 @@
             this.SubjectTaskInMedBill,
             this.DueDateTaskInMedBill,
             this.AssignedToTaskInMedBill,
-            this.StatusTaskInMedBill});
+            this.StatusTaskInMedBill,
+            this.TaskIdMedBill});
             this.gvMostRecentTasks.Location = new System.Drawing.Point(6, 83);
             this.gvMostRecentTasks.Name = "gvMostRecentTasks";
             this.gvMostRecentTasks.Size = new System.Drawing.Size(378, 256);
             this.gvMostRecentTasks.TabIndex = 53;
+            this.gvMostRecentTasks.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMostRecentTasks_CellDoubleClick);
             // 
             // SubjectTaskInMedBill
             // 
@@ -5062,6 +5584,12 @@
             this.StatusTaskInMedBill.HeaderText = "Status";
             this.StatusTaskInMedBill.Name = "StatusTaskInMedBill";
             this.StatusTaskInMedBill.Width = 80;
+            // 
+            // TaskIdMedBill
+            // 
+            this.TaskIdMedBill.HeaderText = "Task Id";
+            this.TaskIdMedBill.Name = "TaskIdMedBill";
+            this.TaskIdMedBill.Width = 80;
             // 
             // label66
             // 
@@ -5903,10 +6431,10 @@
             this.tabPaymentMethod.Controls.Add(this.tbpgACH);
             this.tabPaymentMethod.Controls.Add(this.tbpgCreditCard);
             this.tabPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPaymentMethod.Location = new System.Drawing.Point(50, 101);
+            this.tabPaymentMethod.Location = new System.Drawing.Point(50, 72);
             this.tabPaymentMethod.Name = "tabPaymentMethod";
             this.tabPaymentMethod.SelectedIndex = 0;
-            this.tabPaymentMethod.Size = new System.Drawing.Size(1765, 752);
+            this.tabPaymentMethod.Size = new System.Drawing.Size(1765, 781);
             this.tabPaymentMethod.TabIndex = 7;
             // 
             // tbpgCheck
@@ -5947,56 +6475,56 @@
             this.tbpgCheck.Location = new System.Drawing.Point(4, 25);
             this.tbpgCheck.Name = "tbpgCheck";
             this.tbpgCheck.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpgCheck.Size = new System.Drawing.Size(1757, 723);
+            this.tbpgCheck.Size = new System.Drawing.Size(1757, 752);
             this.tbpgCheck.TabIndex = 0;
             this.tbpgCheck.Text = "Check";
             this.tbpgCheck.UseVisualStyleBackColor = true;
             // 
             // txtCheckPaymentAcctNoAtProvider
             // 
-            this.txtCheckPaymentAcctNoAtProvider.Location = new System.Drawing.Point(960, 664);
+            this.txtCheckPaymentAcctNoAtProvider.Location = new System.Drawing.Point(958, 708);
             this.txtCheckPaymentAcctNoAtProvider.Name = "txtCheckPaymentAcctNoAtProvider";
             this.txtCheckPaymentAcctNoAtProvider.Size = new System.Drawing.Size(100, 22);
             this.txtCheckPaymentAcctNoAtProvider.TabIndex = 45;
             // 
             // txtCheckPaymentServiceDate
             // 
-            this.txtCheckPaymentServiceDate.Location = new System.Drawing.Point(864, 600);
+            this.txtCheckPaymentServiceDate.Location = new System.Drawing.Point(862, 644);
             this.txtCheckPaymentServiceDate.Name = "txtCheckPaymentServiceDate";
             this.txtCheckPaymentServiceDate.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentServiceDate.TabIndex = 44;
             // 
             // txtCheckPaymentMedicalProvider
             // 
-            this.txtCheckPaymentMedicalProvider.Location = new System.Drawing.Point(864, 632);
+            this.txtCheckPaymentMedicalProvider.Location = new System.Drawing.Point(862, 676);
             this.txtCheckPaymentMedicalProvider.Name = "txtCheckPaymentMedicalProvider";
             this.txtCheckPaymentMedicalProvider.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentMedicalProvider.TabIndex = 43;
             // 
             // txtCheckPaymentMedBillNo
             // 
-            this.txtCheckPaymentMedBillNo.Location = new System.Drawing.Point(864, 568);
+            this.txtCheckPaymentMedBillNo.Location = new System.Drawing.Point(862, 612);
             this.txtCheckPaymentMedBillNo.Name = "txtCheckPaymentMedBillNo";
             this.txtCheckPaymentMedBillNo.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentMedBillNo.TabIndex = 42;
             // 
             // txtCheckPaymentCurrentProgram
             // 
-            this.txtCheckPaymentCurrentProgram.Location = new System.Drawing.Point(864, 511);
+            this.txtCheckPaymentCurrentProgram.Location = new System.Drawing.Point(862, 555);
             this.txtCheckPaymentCurrentProgram.Name = "txtCheckPaymentCurrentProgram";
             this.txtCheckPaymentCurrentProgram.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentCurrentProgram.TabIndex = 41;
             // 
             // txtCheckPaymentIncdProgram
             // 
-            this.txtCheckPaymentIncdProgram.Location = new System.Drawing.Point(864, 479);
+            this.txtCheckPaymentIncdProgram.Location = new System.Drawing.Point(862, 523);
             this.txtCheckPaymentIncdProgram.Name = "txtCheckPaymentIncdProgram";
             this.txtCheckPaymentIncdProgram.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentIncdProgram.TabIndex = 40;
             // 
             // txtCheckPaymentIncdNo
             // 
-            this.txtCheckPaymentIncdNo.Location = new System.Drawing.Point(864, 445);
+            this.txtCheckPaymentIncdNo.Location = new System.Drawing.Point(862, 489);
             this.txtCheckPaymentIncdNo.Name = "txtCheckPaymentIncdNo";
             this.txtCheckPaymentIncdNo.Size = new System.Drawing.Size(196, 22);
             this.txtCheckPaymentIncdNo.TabIndex = 39;
@@ -6004,7 +6532,7 @@
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(745, 480);
+            this.label118.Location = new System.Drawing.Point(743, 524);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(112, 16);
             this.label118.TabIndex = 38;
@@ -6013,7 +6541,7 @@
             // label117
             // 
             this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(745, 512);
+            this.label117.Location = new System.Drawing.Point(743, 556);
             this.label117.Name = "label117";
             this.label117.Size = new System.Drawing.Size(108, 16);
             this.label117.TabIndex = 37;
@@ -6022,7 +6550,7 @@
             // label116
             // 
             this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(743, 571);
+            this.label116.Location = new System.Drawing.Point(741, 615);
             this.label116.Name = "label116";
             this.label116.Size = new System.Drawing.Size(101, 16);
             this.label116.TabIndex = 36;
@@ -6031,7 +6559,7 @@
             // label115
             // 
             this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(743, 603);
+            this.label115.Location = new System.Drawing.Point(741, 647);
             this.label115.Name = "label115";
             this.label115.Size = new System.Drawing.Size(103, 16);
             this.label115.TabIndex = 35;
@@ -6040,7 +6568,7 @@
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(743, 635);
+            this.label114.Location = new System.Drawing.Point(741, 679);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(113, 16);
             this.label114.TabIndex = 34;
@@ -6049,7 +6577,7 @@
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(743, 666);
+            this.label113.Location = new System.Drawing.Point(741, 710);
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(211, 16);
             this.label113.TabIndex = 33;
@@ -6058,7 +6586,7 @@
             // label97
             // 
             this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(745, 448);
+            this.label97.Location = new System.Drawing.Point(743, 492);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(78, 16);
             this.label97.TabIndex = 27;
@@ -6068,7 +6596,7 @@
             // 
             this.chkCheckReconcile.AutoSize = true;
             this.chkCheckReconcile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCheckReconcile.Location = new System.Drawing.Point(1538, 552);
+            this.chkCheckReconcile.Location = new System.Drawing.Point(1536, 596);
             this.chkCheckReconcile.Name = "chkCheckReconcile";
             this.chkCheckReconcile.Size = new System.Drawing.Size(15, 14);
             this.chkCheckReconcile.TabIndex = 26;
@@ -6077,7 +6605,7 @@
             // txtCheckDate
             // 
             this.txtCheckDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckDate.Location = new System.Drawing.Point(1538, 520);
+            this.txtCheckDate.Location = new System.Drawing.Point(1536, 564);
             this.txtCheckDate.Name = "txtCheckDate";
             this.txtCheckDate.Size = new System.Drawing.Size(100, 22);
             this.txtCheckDate.TabIndex = 25;
@@ -6085,7 +6613,7 @@
             // txtCheckNo
             // 
             this.txtCheckNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckNo.Location = new System.Drawing.Point(1538, 488);
+            this.txtCheckNo.Location = new System.Drawing.Point(1536, 532);
             this.txtCheckNo.Name = "txtCheckNo";
             this.txtCheckNo.Size = new System.Drawing.Size(100, 22);
             this.txtCheckNo.TabIndex = 24;
@@ -6093,7 +6621,7 @@
             // txtCheckPaymentIndName
             // 
             this.txtCheckPaymentIndName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentIndName.Location = new System.Drawing.Point(169, 502);
+            this.txtCheckPaymentIndName.Location = new System.Drawing.Point(167, 546);
             this.txtCheckPaymentIndName.Name = "txtCheckPaymentIndName";
             this.txtCheckPaymentIndName.Size = new System.Drawing.Size(164, 22);
             this.txtCheckPaymentIndName.TabIndex = 23;
@@ -6101,7 +6629,7 @@
             // txtCheckPaymentIndNo
             // 
             this.txtCheckPaymentIndNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentIndNo.Location = new System.Drawing.Point(169, 470);
+            this.txtCheckPaymentIndNo.Location = new System.Drawing.Point(167, 514);
             this.txtCheckPaymentIndNo.Name = "txtCheckPaymentIndNo";
             this.txtCheckPaymentIndNo.Size = new System.Drawing.Size(165, 22);
             this.txtCheckPaymentIndNo.TabIndex = 22;
@@ -6109,7 +6637,7 @@
             // txtCheckPaymentMembNo
             // 
             this.txtCheckPaymentMembNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentMembNo.Location = new System.Drawing.Point(169, 438);
+            this.txtCheckPaymentMembNo.Location = new System.Drawing.Point(167, 482);
             this.txtCheckPaymentMembNo.Name = "txtCheckPaymentMembNo";
             this.txtCheckPaymentMembNo.Size = new System.Drawing.Size(164, 22);
             this.txtCheckPaymentMembNo.TabIndex = 21;
@@ -6125,7 +6653,7 @@
             this.groupBox3.Controls.Add(this.label106);
             this.groupBox3.Controls.Add(this.label107);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(37, 548);
+            this.groupBox3.Location = new System.Drawing.Point(35, 592);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(418, 138);
             this.groupBox3.TabIndex = 20;
@@ -6204,7 +6732,7 @@
             // 
             this.label104.AutoSize = true;
             this.label104.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label104.Location = new System.Drawing.Point(1412, 491);
+            this.label104.Location = new System.Drawing.Point(1410, 535);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(70, 16);
             this.label104.TabIndex = 16;
@@ -6214,7 +6742,7 @@
             // 
             this.label103.AutoSize = true;
             this.label103.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label103.Location = new System.Drawing.Point(1412, 520);
+            this.label103.Location = new System.Drawing.Point(1410, 564);
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(81, 16);
             this.label103.TabIndex = 15;
@@ -6224,7 +6752,7 @@
             // 
             this.label102.AutoSize = true;
             this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label102.Location = new System.Drawing.Point(1412, 550);
+            this.label102.Location = new System.Drawing.Point(1410, 594);
             this.label102.Name = "label102";
             this.label102.Size = new System.Drawing.Size(113, 16);
             this.label102.TabIndex = 14;
@@ -6234,7 +6762,7 @@
             // 
             this.label100.AutoSize = true;
             this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label100.Location = new System.Drawing.Point(46, 441);
+            this.label100.Location = new System.Drawing.Point(44, 485);
             this.label100.Name = "label100";
             this.label100.Size = new System.Drawing.Size(72, 16);
             this.label100.TabIndex = 12;
@@ -6244,7 +6772,7 @@
             // 
             this.label99.AutoSize = true;
             this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label99.Location = new System.Drawing.Point(46, 472);
+            this.label99.Location = new System.Drawing.Point(44, 516);
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(89, 16);
             this.label99.TabIndex = 11;
@@ -6254,7 +6782,7 @@
             // 
             this.label98.AutoSize = true;
             this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label98.Location = new System.Drawing.Point(46, 503);
+            this.label98.Location = new System.Drawing.Point(44, 547);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(108, 16);
             this.label98.TabIndex = 10;
@@ -6264,7 +6792,7 @@
             // 
             this.chkApprovalByFD.AutoSize = true;
             this.chkApprovalByFD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkApprovalByFD.Location = new System.Drawing.Point(1625, 455);
+            this.chkApprovalByFD.Location = new System.Drawing.Point(1623, 499);
             this.chkApprovalByFD.Name = "chkApprovalByFD";
             this.chkApprovalByFD.Size = new System.Drawing.Size(45, 20);
             this.chkApprovalByFD.TabIndex = 8;
@@ -6275,7 +6803,7 @@
             // 
             this.chkApprovalByRN.AutoSize = true;
             this.chkApprovalByRN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkApprovalByRN.Location = new System.Drawing.Point(1539, 455);
+            this.chkApprovalByRN.Location = new System.Drawing.Point(1537, 499);
             this.chkApprovalByRN.Name = "chkApprovalByRN";
             this.chkApprovalByRN.Size = new System.Drawing.Size(47, 20);
             this.chkApprovalByRN.TabIndex = 7;
@@ -6286,7 +6814,7 @@
             // 
             this.label96.AutoSize = true;
             this.label96.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label96.Location = new System.Drawing.Point(1409, 457);
+            this.label96.Location = new System.Drawing.Point(1407, 501);
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(106, 16);
             this.label96.TabIndex = 4;
@@ -6309,7 +6837,7 @@
             this.gvCheckPaymentSummary.Location = new System.Drawing.Point(35, 60);
             this.gvCheckPaymentSummary.Name = "gvCheckPaymentSummary";
             this.gvCheckPaymentSummary.ReadOnly = true;
-            this.gvCheckPaymentSummary.Size = new System.Drawing.Size(1691, 331);
+            this.gvCheckPaymentSummary.Size = new System.Drawing.Size(1691, 394);
             this.gvCheckPaymentSummary.TabIndex = 1;
             // 
             // IncidentNoCheckPayment
@@ -6413,7 +6941,7 @@
             this.tbpgACH.Location = new System.Drawing.Point(4, 25);
             this.tbpgACH.Name = "tbpgACH";
             this.tbpgACH.Padding = new System.Windows.Forms.Padding(3);
-            this.tbpgACH.Size = new System.Drawing.Size(1757, 723);
+            this.tbpgACH.Size = new System.Drawing.Size(1757, 752);
             this.tbpgACH.TabIndex = 1;
             this.tbpgACH.Text = "ACH";
             this.tbpgACH.UseVisualStyleBackColor = true;
@@ -6889,7 +7417,7 @@
             this.tbpgCreditCard.Controls.Add(this.gvPaymentCreditCard);
             this.tbpgCreditCard.Location = new System.Drawing.Point(4, 25);
             this.tbpgCreditCard.Name = "tbpgCreditCard";
-            this.tbpgCreditCard.Size = new System.Drawing.Size(1757, 723);
+            this.tbpgCreditCard.Size = new System.Drawing.Size(1757, 752);
             this.tbpgCreditCard.TabIndex = 2;
             this.tbpgCreditCard.Text = "Credit Card";
             this.tbpgCreditCard.UseVisualStyleBackColor = true;
@@ -6899,7 +7427,8 @@
             this.txtCreditCardNote.Location = new System.Drawing.Point(35, 399);
             this.txtCreditCardNote.Multiline = true;
             this.txtCreditCardNote.Name = "txtCreditCardNote";
-            this.txtCreditCardNote.Size = new System.Drawing.Size(878, 107);
+            this.txtCreditCardNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCreditCardNote.Size = new System.Drawing.Size(878, 93);
             this.txtCreditCardNote.TabIndex = 49;
             // 
             // label146
@@ -6914,7 +7443,7 @@
             // chkCreditCardReconcile
             // 
             this.chkCreditCardReconcile.AutoSize = true;
-            this.chkCreditCardReconcile.Location = new System.Drawing.Point(1262, 729);
+            this.chkCreditCardReconcile.Location = new System.Drawing.Point(1258, 698);
             this.chkCreditCardReconcile.Name = "chkCreditCardReconcile";
             this.chkCreditCardReconcile.Size = new System.Drawing.Size(15, 14);
             this.chkCreditCardReconcile.TabIndex = 47;
@@ -6922,28 +7451,28 @@
             // 
             // txtCMMCreditCardNo
             // 
-            this.txtCMMCreditCardNo.Location = new System.Drawing.Point(1156, 602);
+            this.txtCMMCreditCardNo.Location = new System.Drawing.Point(1151, 586);
             this.txtCMMCreditCardNo.Name = "txtCMMCreditCardNo";
             this.txtCMMCreditCardNo.Size = new System.Drawing.Size(233, 22);
             this.txtCMMCreditCardNo.TabIndex = 46;
             // 
             // txtCCPaymentDate
             // 
-            this.txtCCPaymentDate.Location = new System.Drawing.Point(1156, 635);
+            this.txtCCPaymentDate.Location = new System.Drawing.Point(1151, 619);
             this.txtCCPaymentDate.Name = "txtCCPaymentDate";
             this.txtCCPaymentDate.Size = new System.Drawing.Size(162, 22);
             this.txtCCPaymentDate.TabIndex = 45;
             // 
             // txtCMMConfirmationNo
             // 
-            this.txtCMMConfirmationNo.Location = new System.Drawing.Point(1156, 668);
+            this.txtCMMConfirmationNo.Location = new System.Drawing.Point(1151, 652);
             this.txtCMMConfirmationNo.Name = "txtCMMConfirmationNo";
             this.txtCMMConfirmationNo.Size = new System.Drawing.Size(233, 22);
             this.txtCMMConfirmationNo.TabIndex = 44;
             // 
             // txtCCCOMNo
             // 
-            this.txtCCCOMNo.Location = new System.Drawing.Point(1156, 569);
+            this.txtCCCOMNo.Location = new System.Drawing.Point(1151, 553);
             this.txtCCCOMNo.Name = "txtCCCOMNo";
             this.txtCCCOMNo.Size = new System.Drawing.Size(233, 22);
             this.txtCCCOMNo.TabIndex = 42;
@@ -6951,7 +7480,7 @@
             // chkStatusCompleted
             // 
             this.chkStatusCompleted.AutoSize = true;
-            this.chkStatusCompleted.Location = new System.Drawing.Point(1273, 537);
+            this.chkStatusCompleted.Location = new System.Drawing.Point(1268, 521);
             this.chkStatusCompleted.Name = "chkStatusCompleted";
             this.chkStatusCompleted.Size = new System.Drawing.Size(93, 20);
             this.chkStatusCompleted.TabIndex = 41;
@@ -6961,7 +7490,7 @@
             // chkStatusPending
             // 
             this.chkStatusPending.AutoSize = true;
-            this.chkStatusPending.Location = new System.Drawing.Point(1156, 538);
+            this.chkStatusPending.Location = new System.Drawing.Point(1151, 522);
             this.chkStatusPending.Name = "chkStatusPending";
             this.chkStatusPending.Size = new System.Drawing.Size(77, 20);
             this.chkStatusPending.TabIndex = 40;
@@ -6971,7 +7500,7 @@
             // label150
             // 
             this.label150.AutoSize = true;
-            this.label150.Location = new System.Drawing.Point(989, 638);
+            this.label150.Location = new System.Drawing.Point(984, 622);
             this.label150.Name = "label150";
             this.label150.Size = new System.Drawing.Size(151, 16);
             this.label150.TabIndex = 39;
@@ -6980,7 +7509,7 @@
             // label149
             // 
             this.label149.AutoSize = true;
-            this.label149.Location = new System.Drawing.Point(989, 671);
+            this.label149.Location = new System.Drawing.Point(984, 655);
             this.label149.Name = "label149";
             this.label149.Size = new System.Drawing.Size(140, 16);
             this.label149.TabIndex = 38;
@@ -6989,7 +7518,7 @@
             // label148
             // 
             this.label148.AutoSize = true;
-            this.label148.Location = new System.Drawing.Point(1095, 728);
+            this.label148.Location = new System.Drawing.Point(1091, 697);
             this.label148.Name = "label148";
             this.label148.Size = new System.Drawing.Size(113, 16);
             this.label148.TabIndex = 37;
@@ -6997,35 +7526,35 @@
             // 
             // txtProviderTelNo
             // 
-            this.txtProviderTelNo.Location = new System.Drawing.Point(649, 570);
+            this.txtProviderTelNo.Location = new System.Drawing.Point(644, 554);
             this.txtProviderTelNo.Name = "txtProviderTelNo";
             this.txtProviderTelNo.Size = new System.Drawing.Size(184, 22);
             this.txtProviderTelNo.TabIndex = 34;
             // 
             // txtContactPersonRN
             // 
-            this.txtContactPersonRN.Location = new System.Drawing.Point(649, 602);
+            this.txtContactPersonRN.Location = new System.Drawing.Point(644, 586);
             this.txtContactPersonRN.Name = "txtContactPersonRN";
             this.txtContactPersonRN.Size = new System.Drawing.Size(184, 22);
             this.txtContactPersonRN.TabIndex = 33;
             // 
             // txtContactPersonFD
             // 
-            this.txtContactPersonFD.Location = new System.Drawing.Point(649, 635);
+            this.txtContactPersonFD.Location = new System.Drawing.Point(644, 619);
             this.txtContactPersonFD.Name = "txtContactPersonFD";
             this.txtContactPersonFD.Size = new System.Drawing.Size(184, 22);
             this.txtContactPersonFD.TabIndex = 32;
             // 
             // txtCreditCardMedicalProvider
             // 
-            this.txtCreditCardMedicalProvider.Location = new System.Drawing.Point(649, 668);
+            this.txtCreditCardMedicalProvider.Location = new System.Drawing.Point(644, 652);
             this.txtCreditCardMedicalProvider.Name = "txtCreditCardMedicalProvider";
             this.txtCreditCardMedicalProvider.Size = new System.Drawing.Size(184, 22);
             this.txtCreditCardMedicalProvider.TabIndex = 31;
             // 
             // txtAccountNoAtProvider
             // 
-            this.txtAccountNoAtProvider.Location = new System.Drawing.Point(649, 536);
+            this.txtAccountNoAtProvider.Location = new System.Drawing.Point(644, 520);
             this.txtAccountNoAtProvider.Name = "txtAccountNoAtProvider";
             this.txtAccountNoAtProvider.Size = new System.Drawing.Size(184, 22);
             this.txtAccountNoAtProvider.TabIndex = 30;
@@ -7033,7 +7562,7 @@
             // rbCreditCardCollectionAgency
             // 
             this.rbCreditCardCollectionAgency.AutoSize = true;
-            this.rbCreditCardCollectionAgency.Location = new System.Drawing.Point(275, 729);
+            this.rbCreditCardCollectionAgency.Location = new System.Drawing.Point(271, 698);
             this.rbCreditCardCollectionAgency.Name = "rbCreditCardCollectionAgency";
             this.rbCreditCardCollectionAgency.Size = new System.Drawing.Size(134, 20);
             this.rbCreditCardCollectionAgency.TabIndex = 29;
@@ -7045,7 +7574,7 @@
             // rbCreditCardPayableProvider
             // 
             this.rbCreditCardPayableProvider.AutoSize = true;
-            this.rbCreditCardPayableProvider.Location = new System.Drawing.Point(168, 729);
+            this.rbCreditCardPayableProvider.Location = new System.Drawing.Point(164, 698);
             this.rbCreditCardPayableProvider.Name = "rbCreditCardPayableProvider";
             this.rbCreditCardPayableProvider.Size = new System.Drawing.Size(77, 20);
             this.rbCreditCardPayableProvider.TabIndex = 28;
@@ -7055,7 +7584,7 @@
             // 
             // txtCreditCardIndName
             // 
-            this.txtCreditCardIndName.Location = new System.Drawing.Point(168, 600);
+            this.txtCreditCardIndName.Location = new System.Drawing.Point(163, 584);
             this.txtCreditCardIndName.Name = "txtCreditCardIndName";
             this.txtCreditCardIndName.ReadOnly = true;
             this.txtCreditCardIndName.Size = new System.Drawing.Size(241, 22);
@@ -7063,7 +7592,7 @@
             // 
             // txtCreditCardIncidentProgram
             // 
-            this.txtCreditCardIncidentProgram.Location = new System.Drawing.Point(168, 635);
+            this.txtCreditCardIncidentProgram.Location = new System.Drawing.Point(163, 619);
             this.txtCreditCardIncidentProgram.Name = "txtCreditCardIncidentProgram";
             this.txtCreditCardIncidentProgram.ReadOnly = true;
             this.txtCreditCardIncidentProgram.Size = new System.Drawing.Size(241, 22);
@@ -7071,7 +7600,7 @@
             // 
             // txtCreditCardCurrentProgram
             // 
-            this.txtCreditCardCurrentProgram.Location = new System.Drawing.Point(168, 669);
+            this.txtCreditCardCurrentProgram.Location = new System.Drawing.Point(163, 653);
             this.txtCreditCardCurrentProgram.Name = "txtCreditCardCurrentProgram";
             this.txtCreditCardCurrentProgram.ReadOnly = true;
             this.txtCreditCardCurrentProgram.Size = new System.Drawing.Size(241, 22);
@@ -7079,7 +7608,7 @@
             // 
             // txtCreditCardIndId
             // 
-            this.txtCreditCardIndId.Location = new System.Drawing.Point(168, 566);
+            this.txtCreditCardIndId.Location = new System.Drawing.Point(163, 550);
             this.txtCreditCardIndId.Name = "txtCreditCardIndId";
             this.txtCreditCardIndId.ReadOnly = true;
             this.txtCreditCardIndId.Size = new System.Drawing.Size(241, 22);
@@ -7088,7 +7617,7 @@
             // label145
             // 
             this.label145.AutoSize = true;
-            this.label145.Location = new System.Drawing.Point(41, 602);
+            this.label145.Location = new System.Drawing.Point(36, 586);
             this.label145.Name = "label145";
             this.label145.Size = new System.Drawing.Size(108, 16);
             this.label145.TabIndex = 22;
@@ -7097,7 +7626,7 @@
             // rbCreditCardPhone
             // 
             this.rbCreditCardPhone.AutoSize = true;
-            this.rbCreditCardPhone.Location = new System.Drawing.Point(275, 534);
+            this.rbCreditCardPhone.Location = new System.Drawing.Point(270, 518);
             this.rbCreditCardPhone.Name = "rbCreditCardPhone";
             this.rbCreditCardPhone.Size = new System.Drawing.Size(65, 20);
             this.rbCreditCardPhone.TabIndex = 21;
@@ -7108,7 +7637,7 @@
             // rbCreditCardOnline
             // 
             this.rbCreditCardOnline.AutoSize = true;
-            this.rbCreditCardOnline.Location = new System.Drawing.Point(168, 534);
+            this.rbCreditCardOnline.Location = new System.Drawing.Point(163, 518);
             this.rbCreditCardOnline.Name = "rbCreditCardOnline";
             this.rbCreditCardOnline.Size = new System.Drawing.Size(64, 20);
             this.rbCreditCardOnline.TabIndex = 20;
@@ -7119,7 +7648,7 @@
             // label144
             // 
             this.label144.AutoSize = true;
-            this.label144.Location = new System.Drawing.Point(508, 539);
+            this.label144.Location = new System.Drawing.Point(503, 523);
             this.label144.Name = "label144";
             this.label144.Size = new System.Drawing.Size(80, 16);
             this.label144.TabIndex = 19;
@@ -7128,7 +7657,7 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(508, 572);
+            this.label143.Location = new System.Drawing.Point(503, 556);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(106, 16);
             this.label143.TabIndex = 18;
@@ -7137,7 +7666,7 @@
             // label142
             // 
             this.label142.AutoSize = true;
-            this.label142.Location = new System.Drawing.Point(508, 605);
+            this.label142.Location = new System.Drawing.Point(503, 589);
             this.label142.Name = "label142";
             this.label142.Size = new System.Drawing.Size(133, 16);
             this.label142.TabIndex = 17;
@@ -7146,7 +7675,7 @@
             // label141
             // 
             this.label141.AutoSize = true;
-            this.label141.Location = new System.Drawing.Point(508, 638);
+            this.label141.Location = new System.Drawing.Point(503, 622);
             this.label141.Name = "label141";
             this.label141.Size = new System.Drawing.Size(131, 16);
             this.label141.TabIndex = 16;
@@ -7155,7 +7684,7 @@
             // label140
             // 
             this.label140.AutoSize = true;
-            this.label140.Location = new System.Drawing.Point(508, 671);
+            this.label140.Location = new System.Drawing.Point(503, 655);
             this.label140.Name = "label140";
             this.label140.Size = new System.Drawing.Size(113, 16);
             this.label140.TabIndex = 15;
@@ -7164,7 +7693,7 @@
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(989, 605);
+            this.label139.Location = new System.Drawing.Point(984, 589);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(133, 16);
             this.label139.TabIndex = 14;
@@ -7173,7 +7702,7 @@
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(989, 539);
+            this.label138.Location = new System.Drawing.Point(984, 523);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(69, 16);
             this.label138.TabIndex = 13;
@@ -7182,7 +7711,7 @@
             // label137
             // 
             this.label137.AutoSize = true;
-            this.label137.Location = new System.Drawing.Point(989, 572);
+            this.label137.Location = new System.Drawing.Point(984, 556);
             this.label137.Name = "label137";
             this.label137.Size = new System.Drawing.Size(83, 16);
             this.label137.TabIndex = 12;
@@ -7191,7 +7720,7 @@
             // label130
             // 
             this.label130.AutoSize = true;
-            this.label130.Location = new System.Drawing.Point(41, 728);
+            this.label130.Location = new System.Drawing.Point(37, 697);
             this.label130.Name = "label130";
             this.label130.Size = new System.Drawing.Size(76, 16);
             this.label130.TabIndex = 11;
@@ -7200,7 +7729,7 @@
             // label136
             // 
             this.label136.AutoSize = true;
-            this.label136.Location = new System.Drawing.Point(41, 668);
+            this.label136.Location = new System.Drawing.Point(36, 652);
             this.label136.Name = "label136";
             this.label136.Size = new System.Drawing.Size(108, 16);
             this.label136.TabIndex = 10;
@@ -7209,7 +7738,7 @@
             // label135
             // 
             this.label135.AutoSize = true;
-            this.label135.Location = new System.Drawing.Point(41, 635);
+            this.label135.Location = new System.Drawing.Point(36, 619);
             this.label135.Name = "label135";
             this.label135.Size = new System.Drawing.Size(112, 16);
             this.label135.TabIndex = 9;
@@ -7218,7 +7747,7 @@
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(42, 569);
+            this.label95.Location = new System.Drawing.Point(37, 553);
             this.label95.Name = "label95";
             this.label95.Size = new System.Drawing.Size(82, 16);
             this.label95.TabIndex = 7;
@@ -7227,7 +7756,7 @@
             // label129
             // 
             this.label129.AutoSize = true;
-            this.label129.Location = new System.Drawing.Point(42, 536);
+            this.label129.Location = new System.Drawing.Point(37, 520);
             this.label129.Name = "label129";
             this.label129.Size = new System.Drawing.Size(112, 16);
             this.label129.TabIndex = 6;
@@ -7249,79 +7778,44 @@
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13,
-            this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15,
-            this.dataGridViewTextBoxColumn16,
-            this.dataGridViewTextBoxColumn17,
-            this.CreditCardMemberReimbursement});
+            this.IndividualNamePaymentCreditCard,
+            this.HouseholdRoleInPaymentCreditCard,
+            this.IndividualIdInPaymentCreditCard,
+            this.PrimaryNameInPaymentCreditCard,
+            this.IncidentNoInPaymentCreditCard,
+            this.MedBillNoInPaymentCreditCard,
+            this.SettlementNoInPaymentCreditCard,
+            this.AmountInPaymentCreditCard,
+            this.ProgramNameInPaymentCreditCard,
+            this.IncidentProgramInPaymentCreditCard,
+            this.MembershipStartDateInPaymentCreditCard,
+            this.MembershipNoInPaymentCreditCard,
+            this.IBReceivedDateInPaymentCreditCard,
+            this.DateOfServiceInPaymentCreditCard,
+            this.MedProviderInPaymentCreditCard,
+            this.ShippingStreetInPaymentCreditCard,
+            this.ShippingCityInPaymentCreditCard,
+            this.ShippingStateInPaymentCreditCard,
+            this.ShippingZipInPaymentCreditCard,
+            this.SettlementTypeInPaymentCreditCard,
+            this.WellbeingCareSharingInPaymentCreditCard,
+            this.AccountNameInPaymentCreditCard,
+            this.CreatedByInPaymentCreditCard,
+            this.LastModifiedByInPaymentCreditCard,
+            this.MembershipStatusInPaymentCreditCard,
+            this.ApprovedInPaymentCreditCard,
+            this.ApprovedDateInPaymentCreditCard});
             this.gvPaymentCreditCard.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentCreditCard.Name = "gvPaymentCreditCard";
             this.gvPaymentCreditCard.ReadOnly = true;
             this.gvPaymentCreditCard.Size = new System.Drawing.Size(1691, 299);
             this.gvPaymentCreditCard.TabIndex = 3;
             // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Incident";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Medical Bill";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Total Amount";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            this.dataGridViewTextBoxColumn13.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.HeaderText = "PR";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            this.dataGridViewTextBoxColumn14.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.HeaderText = "CMM Discount";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.ReadOnly = true;
-            this.dataGridViewTextBoxColumn15.Width = 120;
-            // 
-            // dataGridViewTextBoxColumn16
-            // 
-            this.dataGridViewTextBoxColumn16.HeaderText = "Member Discount";
-            this.dataGridViewTextBoxColumn16.Name = "dataGridViewTextBoxColumn16";
-            this.dataGridViewTextBoxColumn16.ReadOnly = true;
-            this.dataGridViewTextBoxColumn16.Width = 140;
-            // 
-            // dataGridViewTextBoxColumn17
-            // 
-            this.dataGridViewTextBoxColumn17.HeaderText = "Provider Payment";
-            this.dataGridViewTextBoxColumn17.Name = "dataGridViewTextBoxColumn17";
-            this.dataGridViewTextBoxColumn17.ReadOnly = true;
-            this.dataGridViewTextBoxColumn17.Width = 140;
-            // 
-            // CreditCardMemberReimbursement
-            // 
-            this.CreditCardMemberReimbursement.HeaderText = "Member Reimbursement";
-            this.CreditCardMemberReimbursement.Name = "CreditCardMemberReimbursement";
-            this.CreditCardMemberReimbursement.ReadOnly = true;
-            this.CreditCardMemberReimbursement.Width = 200;
-            // 
             // label147
             // 
             this.label147.AutoSize = true;
             this.label147.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label147.Location = new System.Drawing.Point(45, 43);
+            this.label147.Location = new System.Drawing.Point(45, 31);
             this.label147.Name = "label147";
             this.label147.Size = new System.Drawing.Size(228, 29);
             this.label147.TabIndex = 6;
@@ -7720,15 +8214,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle43;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle44;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -7756,8 +8250,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -8121,13 +8615,182 @@
             // 
             // btnWellBeingExport
             // 
-            this.btnWellBeingExport.Location = new System.Drawing.Point(449, 24);
+            this.btnWellBeingExport.Location = new System.Drawing.Point(449, 23);
             this.btnWellBeingExport.Name = "btnWellBeingExport";
             this.btnWellBeingExport.Size = new System.Drawing.Size(119, 23);
             this.btnWellBeingExport.TabIndex = 5;
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
+            // 
+            // IndividualNamePaymentCreditCard
+            // 
+            this.IndividualNamePaymentCreditCard.HeaderText = "Individual Name";
+            this.IndividualNamePaymentCreditCard.Name = "IndividualNamePaymentCreditCard";
+            this.IndividualNamePaymentCreditCard.ReadOnly = true;
+            // 
+            // HouseholdRoleInPaymentCreditCard
+            // 
+            this.HouseholdRoleInPaymentCreditCard.HeaderText = "Household Role";
+            this.HouseholdRoleInPaymentCreditCard.Name = "HouseholdRoleInPaymentCreditCard";
+            this.HouseholdRoleInPaymentCreditCard.ReadOnly = true;
+            // 
+            // IndividualIdInPaymentCreditCard
+            // 
+            this.IndividualIdInPaymentCreditCard.HeaderText = "Individual Id";
+            this.IndividualIdInPaymentCreditCard.Name = "IndividualIdInPaymentCreditCard";
+            this.IndividualIdInPaymentCreditCard.ReadOnly = true;
+            // 
+            // PrimaryNameInPaymentCreditCard
+            // 
+            this.PrimaryNameInPaymentCreditCard.HeaderText = "Primary Name";
+            this.PrimaryNameInPaymentCreditCard.Name = "PrimaryNameInPaymentCreditCard";
+            this.PrimaryNameInPaymentCreditCard.ReadOnly = true;
+            // 
+            // IncidentNoInPaymentCreditCard
+            // 
+            this.IncidentNoInPaymentCreditCard.HeaderText = "Incident No";
+            this.IncidentNoInPaymentCreditCard.Name = "IncidentNoInPaymentCreditCard";
+            this.IncidentNoInPaymentCreditCard.ReadOnly = true;
+            // 
+            // MedBillNoInPaymentCreditCard
+            // 
+            this.MedBillNoInPaymentCreditCard.HeaderText = "Medical Bill";
+            this.MedBillNoInPaymentCreditCard.Name = "MedBillNoInPaymentCreditCard";
+            this.MedBillNoInPaymentCreditCard.ReadOnly = true;
+            this.MedBillNoInPaymentCreditCard.Width = 120;
+            // 
+            // SettlementNoInPaymentCreditCard
+            // 
+            this.SettlementNoInPaymentCreditCard.HeaderText = "Settlement No";
+            this.SettlementNoInPaymentCreditCard.Name = "SettlementNoInPaymentCreditCard";
+            this.SettlementNoInPaymentCreditCard.ReadOnly = true;
+            this.SettlementNoInPaymentCreditCard.Width = 120;
+            // 
+            // AmountInPaymentCreditCard
+            // 
+            this.AmountInPaymentCreditCard.HeaderText = "Amount";
+            this.AmountInPaymentCreditCard.Name = "AmountInPaymentCreditCard";
+            this.AmountInPaymentCreditCard.ReadOnly = true;
+            this.AmountInPaymentCreditCard.Width = 120;
+            // 
+            // ProgramNameInPaymentCreditCard
+            // 
+            this.ProgramNameInPaymentCreditCard.HeaderText = "Program Name";
+            this.ProgramNameInPaymentCreditCard.Name = "ProgramNameInPaymentCreditCard";
+            this.ProgramNameInPaymentCreditCard.ReadOnly = true;
+            // 
+            // IncidentProgramInPaymentCreditCard
+            // 
+            this.IncidentProgramInPaymentCreditCard.HeaderText = "Incident Program";
+            this.IncidentProgramInPaymentCreditCard.Name = "IncidentProgramInPaymentCreditCard";
+            this.IncidentProgramInPaymentCreditCard.ReadOnly = true;
+            // 
+            // MembershipStartDateInPaymentCreditCard
+            // 
+            this.MembershipStartDateInPaymentCreditCard.HeaderText = "Membership Start Date";
+            this.MembershipStartDateInPaymentCreditCard.Name = "MembershipStartDateInPaymentCreditCard";
+            this.MembershipStartDateInPaymentCreditCard.ReadOnly = true;
+            // 
+            // MembershipNoInPaymentCreditCard
+            // 
+            this.MembershipNoInPaymentCreditCard.HeaderText = "Membership No";
+            this.MembershipNoInPaymentCreditCard.Name = "MembershipNoInPaymentCreditCard";
+            this.MembershipNoInPaymentCreditCard.ReadOnly = true;
+            // 
+            // IBReceivedDateInPaymentCreditCard
+            // 
+            this.IBReceivedDateInPaymentCreditCard.HeaderText = "IB Received Date";
+            this.IBReceivedDateInPaymentCreditCard.Name = "IBReceivedDateInPaymentCreditCard";
+            this.IBReceivedDateInPaymentCreditCard.ReadOnly = true;
+            this.IBReceivedDateInPaymentCreditCard.Width = 120;
+            // 
+            // DateOfServiceInPaymentCreditCard
+            // 
+            this.DateOfServiceInPaymentCreditCard.HeaderText = "Date of Service";
+            this.DateOfServiceInPaymentCreditCard.Name = "DateOfServiceInPaymentCreditCard";
+            this.DateOfServiceInPaymentCreditCard.ReadOnly = true;
+            // 
+            // MedProviderInPaymentCreditCard
+            // 
+            this.MedProviderInPaymentCreditCard.HeaderText = "Medical Provider";
+            this.MedProviderInPaymentCreditCard.Name = "MedProviderInPaymentCreditCard";
+            this.MedProviderInPaymentCreditCard.ReadOnly = true;
+            // 
+            // ShippingStreetInPaymentCreditCard
+            // 
+            this.ShippingStreetInPaymentCreditCard.HeaderText = "Shipping Street";
+            this.ShippingStreetInPaymentCreditCard.Name = "ShippingStreetInPaymentCreditCard";
+            this.ShippingStreetInPaymentCreditCard.ReadOnly = true;
+            // 
+            // ShippingCityInPaymentCreditCard
+            // 
+            this.ShippingCityInPaymentCreditCard.HeaderText = "Shipping City";
+            this.ShippingCityInPaymentCreditCard.Name = "ShippingCityInPaymentCreditCard";
+            this.ShippingCityInPaymentCreditCard.ReadOnly = true;
+            // 
+            // ShippingStateInPaymentCreditCard
+            // 
+            this.ShippingStateInPaymentCreditCard.HeaderText = "Shipping State";
+            this.ShippingStateInPaymentCreditCard.Name = "ShippingStateInPaymentCreditCard";
+            this.ShippingStateInPaymentCreditCard.ReadOnly = true;
+            // 
+            // ShippingZipInPaymentCreditCard
+            // 
+            this.ShippingZipInPaymentCreditCard.HeaderText = "Shipping Zip";
+            this.ShippingZipInPaymentCreditCard.Name = "ShippingZipInPaymentCreditCard";
+            this.ShippingZipInPaymentCreditCard.ReadOnly = true;
+            // 
+            // SettlementTypeInPaymentCreditCard
+            // 
+            this.SettlementTypeInPaymentCreditCard.HeaderText = "Type";
+            this.SettlementTypeInPaymentCreditCard.Name = "SettlementTypeInPaymentCreditCard";
+            this.SettlementTypeInPaymentCreditCard.ReadOnly = true;
+            // 
+            // WellbeingCareSharingInPaymentCreditCard
+            // 
+            this.WellbeingCareSharingInPaymentCreditCard.HeaderText = "WellBeing Care Sharing";
+            this.WellbeingCareSharingInPaymentCreditCard.Name = "WellbeingCareSharingInPaymentCreditCard";
+            this.WellbeingCareSharingInPaymentCreditCard.ReadOnly = true;
+            this.WellbeingCareSharingInPaymentCreditCard.Width = 140;
+            // 
+            // AccountNameInPaymentCreditCard
+            // 
+            this.AccountNameInPaymentCreditCard.HeaderText = "Account Name";
+            this.AccountNameInPaymentCreditCard.Name = "AccountNameInPaymentCreditCard";
+            this.AccountNameInPaymentCreditCard.ReadOnly = true;
+            // 
+            // CreatedByInPaymentCreditCard
+            // 
+            this.CreatedByInPaymentCreditCard.HeaderText = "Created By";
+            this.CreatedByInPaymentCreditCard.Name = "CreatedByInPaymentCreditCard";
+            this.CreatedByInPaymentCreditCard.ReadOnly = true;
+            // 
+            // LastModifiedByInPaymentCreditCard
+            // 
+            this.LastModifiedByInPaymentCreditCard.HeaderText = "Last Modified By";
+            this.LastModifiedByInPaymentCreditCard.Name = "LastModifiedByInPaymentCreditCard";
+            this.LastModifiedByInPaymentCreditCard.ReadOnly = true;
+            this.LastModifiedByInPaymentCreditCard.Width = 120;
+            // 
+            // MembershipStatusInPaymentCreditCard
+            // 
+            this.MembershipStatusInPaymentCreditCard.HeaderText = "Membership Status";
+            this.MembershipStatusInPaymentCreditCard.Name = "MembershipStatusInPaymentCreditCard";
+            this.MembershipStatusInPaymentCreditCard.ReadOnly = true;
+            this.MembershipStatusInPaymentCreditCard.Width = 120;
+            // 
+            // ApprovedInPaymentCreditCard
+            // 
+            this.ApprovedInPaymentCreditCard.HeaderText = "Approved";
+            this.ApprovedInPaymentCreditCard.Name = "ApprovedInPaymentCreditCard";
+            this.ApprovedInPaymentCreditCard.ReadOnly = true;
+            // 
+            // ApprovedDateInPaymentCreditCard
+            // 
+            this.ApprovedDateInPaymentCreditCard.HeaderText = "Approved Date";
+            this.ApprovedDateInPaymentCreditCard.Name = "ApprovedDateInPaymentCreditCard";
+            this.ApprovedDateInPaymentCreditCard.ReadOnly = true;
             // 
             // frmCMMManager
             // 
@@ -8150,26 +8813,31 @@
             this.tbCMMManager.ResumeLayout(false);
             this.tbpgDashboardRNManager.ResumeLayout(false);
             this.tbpgDashboardRNManager.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerPending)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerComplete)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerDashboard)).EndInit();
             this.tbpgDashboardRNStaff.ResumeLayout(false);
             this.tbpgDashboardRNStaff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffPending)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffComplete)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffActiveTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).EndInit();
+            this.tbpgDashboardNPManager.ResumeLayout(false);
+            this.tbpgDashboardNPManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPManager)).EndInit();
+            this.tbpgDashboardNPStaff.ResumeLayout(false);
+            this.tbpgDashboardNPStaff.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskNPStaff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskNPStaff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).EndInit();
             this.tbpgDashboardFDStaff.ResumeLayout(false);
             this.tbpgDashboardFDStaff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).EndInit();
-            this.tbpgDashboardNPStaff.ResumeLayout(false);
-            this.tbpgDashboardNPStaff.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffMostRecentItem)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaffActiveTask)).EndInit();
             this.tbpgSearchResult.ResumeLayout(false);
             this.tbpgSearchResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).EndInit();
@@ -8397,8 +9065,8 @@
         private System.Windows.Forms.Button btnCaseCreationNewSupportLog;
         private System.Windows.Forms.DataGridView gvNewTaskRNtoNP;
         private System.Windows.Forms.DataGridView gvNewTaskNPtoRNFD;
-        private System.Windows.Forms.Button btnNewTaskRNtoNP;
-        private System.Windows.Forms.Button btnNewTaskNPtoRNandFD;
+        private System.Windows.Forms.Button btnNewTaskRNtoNPnFD;
+        private System.Windows.Forms.Button btnNewTaskNPtoRN;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Button btnIncomplete;
         private System.Windows.Forms.Button btnApprovedSendToRN;
@@ -8622,14 +9290,6 @@
         private System.Windows.Forms.Label label129;
         private System.Windows.Forms.Label label94;
         private System.Windows.Forms.DataGridView gvPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn16;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn17;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardMemberReimbursement;
         private System.Windows.Forms.Label label147;
         private System.Windows.Forms.Label label153;
         private System.Windows.Forms.Label label152;
@@ -8672,9 +9332,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedDateTimeFinishedTask;
         private System.Windows.Forms.DataGridView gvRNManagerDashboard;
         private System.Windows.Forms.Label label155;
-        private System.Windows.Forms.DataGridView gvRNManagerPending;
-        private System.Windows.Forms.Label label158;
-        private System.Windows.Forms.DataGridView gvRNManagerComplete;
+        private System.Windows.Forms.DataGridView gvRNManagerCompleteTask;
         private System.Windows.Forms.Label label157;
         private System.Windows.Forms.DataGridView gvRNManagerActiveTask;
         private System.Windows.Forms.Label label156;
@@ -8684,7 +9342,7 @@
         private System.Windows.Forms.Label label160;
         private System.Windows.Forms.Label label159;
         private System.Windows.Forms.DataGridView gvDashboardRNStaffPending;
-        private System.Windows.Forms.DataGridView gvDashboardRNStaffComplete;
+        private System.Windows.Forms.DataGridView gvRNStaffCompleteTask;
         private System.Windows.Forms.Label label164;
         private System.Windows.Forms.Label label163;
         private System.Windows.Forms.DataGridView gvRNStaffActiveTask;
@@ -8696,9 +9354,7 @@
         private System.Windows.Forms.DataGridView gvDashboardFDStaffCheckPayment;
         private System.Windows.Forms.Label label166;
         private System.Windows.Forms.Label label165;
-        private System.Windows.Forms.DataGridView gvDashboardNPStaffMostRecentItem;
-        private System.Windows.Forms.Label label171;
-        private System.Windows.Forms.DataGridView gvDashboardNPStaffActiveTask;
+        private System.Windows.Forms.DataGridView gvDashboardNPStaff;
         private System.Windows.Forms.Label label170;
         private System.Windows.Forms.Label label169;
         private System.Windows.Forms.TextBox txtCaseName;
@@ -9020,20 +9676,110 @@
         private CalendarColumn DueDateTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusTaskInMedBill;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
         private CalendarColumn CreateDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
         private CalendarColumn ActivityDateRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNameRNStaff;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn HasAttachmentRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNStaff;
+        private System.Windows.Forms.Label label183;
+        private System.Windows.Forms.Label label182;
+        private System.Windows.Forms.Label label181;
+        private System.Windows.Forms.DataGridView gvNPManagerCompleteTask;
+        private System.Windows.Forms.DataGridView gvNPManagerActiveTask;
+        private System.Windows.Forms.DataGridView gvDashboardNPManager;
+        private System.Windows.Forms.DataGridView gvActiveTaskNPStaff;
+        private System.Windows.Forms.Label label171;
+        private System.Windows.Forms.DataGridView gvCompleteTaskNPStaff;
+        private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HouseholdRoleInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrimaryNameInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNoInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProgramNameInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentProgramInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStartDateInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IBReceivedDateInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServiceInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStateInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypeInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WellbeingCareSharingInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNameInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDateInPaymentCreditCard;
     }
 }
 

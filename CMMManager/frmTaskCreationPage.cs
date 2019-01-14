@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Linq;
+//using System.Linq;
 using System.IO;
 
 namespace CMMManager
@@ -17,20 +17,31 @@ namespace CMMManager
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };
     public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved };
     public enum TaskPriority { High, Normal, Low };
+    public enum TaskMode { AddNew, EditInDashboard, EditInMedBill }
 
     public partial class frmTaskCreationPage : Form
     {
-        private String IndividualId;
+
+        private TaskMode taskMode;
+        private String TaskCreatorName;
+        private String WhoId;
         private RelatedToTable relatedTable;
-        //private RelatedName relatedName;
         private String IndividualName;
-        private String TableName;
-        private int LoggedInUserId;
-
-        private List<String> lstAttachedFilesNames;
-        private String AttachmentDestinationPath = @"\\cmm-2014u\Sharefolder\TaskAttachments\";
-
+        private String WhatId;
+        private UserInfo TaskCreatorInfo;
+        private UserInfo LoggedInuserInfo;
+        private UserInfo AssignedToStaffInfo;
         private List<UserInfo> lstUserInfo;
+
+        /// <summary>
+        /// For modifying Task from Med Bill form
+        /// </summary>
+        //taskMode = mode;
+        private int? nTaskId;
+        //private int nLoggedInUserId;
+        //private UserRole nLoggedInUserRoleId;
+        //private Department LoggedInUserDepartment;
+
 
         private SqlConnection connRN;
         private SqlConnection connSalesForce;
@@ -40,21 +51,61 @@ namespace CMMManager
         public frmTaskCreationPage()
         {
             InitializeComponent();
+            //InitializeTaskForm();
         }
 
-        public frmTaskCreationPage(String individualId, RelatedToTable relatedTo, String individualName, String relatedToTable, int loggedInUserId)
+        public frmTaskCreationPage(String IndividualId, 
+                                   RelatedToTable relatedTo, 
+                                   String individualName, 
+                                   String MedBillId, 
+                                   int loggedInUserId,
+                                   String loggedInUserName,
+                                   UserRole loggedInUserRoleId, 
+                                   Department loggedInUserDepartment,
+                                   TaskMode mode)
         {
-            IndividualId = individualId;
+
+            taskMode = mode;
+            WhoId = IndividualId;
             relatedTable = relatedTo;
-            //relatedName = related_name;
             IndividualName = individualName;
-            TableName = relatedToTable;
-            LoggedInUserId = loggedInUserId;
+            WhatId = MedBillId;
+
+            LoggedInuserInfo = new UserInfo();
+
+            LoggedInuserInfo.UserId = loggedInUserId;
+            LoggedInuserInfo.UserName = loggedInUserName;
+            LoggedInuserInfo.UserRoleId = loggedInUserRoleId;
+            LoggedInuserInfo.departmentInfo.DepartmentId = loggedInUserDepartment;
+
+            AssignedToStaffInfo = new UserInfo();
 
             InitializeComponent();
-
-            lstAttachedFilesNames = new List<string>();
             lstUserInfo = new List<UserInfo>();
+
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+
+            connRN = new SqlConnection(connStringRN);
+            connSalesForce = new SqlConnection(connStringSalesForce);
+
+        }
+
+        public frmTaskCreationPage(int task_id, String individual_id, int login_user_id, String login_user_name, UserRole login_user_role_id, Department login_user_department, TaskMode mode)
+        {
+
+            taskMode = mode;
+            nTaskId = task_id;
+            WhoId = individual_id;
+
+            LoggedInuserInfo = new UserInfo();
+            lstUserInfo = new List<UserInfo>();
+            InitializeComponent();
+
+            LoggedInuserInfo.UserId = login_user_id;
+            LoggedInuserInfo.UserName = login_user_name;
+            LoggedInuserInfo.UserRoleId = login_user_role_id;
+            LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
 
             connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
             connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
@@ -63,276 +114,836 @@ namespace CMMManager
             connSalesForce = new SqlConnection(connStringSalesForce);
         }
 
+        public frmTaskCreationPage(int task_id, String individual_id, String creator_name, int creator_id, int login_user_id, String login_user_name, UserRole login_user_role_id, Department login_user_department, TaskMode mode)
+        {
+            taskMode = mode;
+            nTaskId = task_id;
+            WhoId = individual_id;
+            TaskCreatorName = creator_name;
+
+            TaskCreatorInfo = new UserInfo();
+
+            TaskCreatorInfo.UserId = creator_id;
+            TaskCreatorInfo.UserName = creator_name;
+
+            LoggedInuserInfo = new UserInfo();
+            lstUserInfo = new List<UserInfo>();
+            InitializeComponent();
+
+            LoggedInuserInfo.UserId = login_user_id;
+            LoggedInuserInfo.UserName = login_user_name;
+            LoggedInuserInfo.UserRoleId = login_user_role_id;
+            LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
+
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+
+            connRN = new SqlConnection(connStringRN);
+            connSalesForce = new SqlConnection(connStringSalesForce);
+        }
+
+        private void InitializeTaskForm()
+        {
+            //nTaskId = null;
+            txtTaskCreator.Text = String.Empty;
+            txtTaskNameAssignedTo.Text = String.Empty;
+            txtTaskSubject.Text = String.Empty;
+            comboTaskRelatedTo.Items.Clear();
+            txtTaskRelatedTo.Text = String.Empty;
+            txtNameOnTask.Text = String.Empty;
+            txtIndividualId.Text = String.Empty;
+            txtTaskComments.Text = String.Empty;
+            txtTaskSolution.Text = String.Empty;
+            txtTaskPhone.Text = String.Empty;
+            txtTaskEmail.Text = String.Empty;
+            chkReminder.Checked = false;
+
+        }
+
+
         private void frmTaskCreationPage_Load(object sender, EventArgs e)
         {
-            lstUserInfo.Clear();
-            lstAttachedFilesNames.Clear();
-
-            String strSqlQueryForAllStaff = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
-                                            "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
-                                            "from [dbo].[tbl_user]";
-
-            SqlCommand cmdQueryForAllStaff = new SqlCommand(strSqlQueryForAllStaff, connRN);
-            cmdQueryForAllStaff.CommandType = CommandType.Text;
-
-            if (connRN.State != ConnectionState.Closed)
+            if (taskMode == TaskMode.AddNew)
             {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                nTaskId = null;
+                lstUserInfo.Clear();
+                InitializeTaskForm();
 
-            SqlDataReader rdrUserInfo = cmdQueryForAllStaff.ExecuteReader();
-            if (rdrUserInfo.HasRows)
-            {
-                while (rdrUserInfo.Read())
+                txtTaskCreator.Text = LoggedInuserInfo.UserName;
+
+                String strSqlQueryForAllStaff = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                                                "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                                "from [dbo].[tbl_user]";
+
+                SqlCommand cmdQueryForAllStaff = new SqlCommand(strSqlQueryForAllStaff, connRN);
+                cmdQueryForAllStaff.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
                 {
-                    lstUserInfo.Add(new UserInfo { UserId = rdrUserInfo.GetInt16(0),
-                                                   UserName = rdrUserInfo.GetString(1),
-                                                   UserEmail = rdrUserInfo.GetString(2),
-                                                   UserRoleId = rdrUserInfo.GetInt16(3),
-                                                   DepartmentId = rdrUserInfo.GetInt16(4) });
+                    connRN.Close();
+                    connRN.Open();
                 }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                SqlDataReader rdrUserInfo = cmdQueryForAllStaff.ExecuteReader();
+                if (rdrUserInfo.HasRows)
+                {
+                    while (rdrUserInfo.Read())
+                    {
+                        lstUserInfo.Add(new UserInfo
+                        {
+                            UserId = rdrUserInfo.GetInt16(0),
+                            UserName = rdrUserInfo.GetString(1),
+                            UserEmail = rdrUserInfo.GetString(2),
+                            UserRoleId = (UserRole)rdrUserInfo.GetInt16(3),
+                            departmentInfo = new DepartmentInfo { DepartmentId = (Department)rdrUserInfo.GetInt16(4), DepartmentName = string.Empty }
+                        });
+                    }
+                }
+                rdrUserInfo.Close();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                var srcStaffInfo = new AutoCompleteStringCollection();
+
+                foreach (UserInfo info in lstUserInfo)
+                {
+                    srcStaffInfo.Add(info.UserName);
+                }
+
+                txtTaskNameAssignedTo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtTaskNameAssignedTo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtTaskNameAssignedTo.AutoCompleteCustomSource = srcStaffInfo;
+
+                // Populate the sending department combo box
+
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Membership);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Case);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Illness);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Incident);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.MedicalBill);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Settlement);
+
+                comboTaskRelatedTo.SelectedItem = RelatedToTable.MedicalBill;
+
+                txtTaskRelatedTo.Text = WhatId;
+                txtNameOnTask.Text = IndividualName;
+                txtIndividualId.Text = WhoId;
+
+                String PhoneNo = String.Empty;
+                String Email = String.Empty;
+
+                String strSqlQueryForPhoneAndEmail = "select [dbo].[contact].[HomePhone], [dbo].[contact].[Email] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForPhoneAndEmail = new SqlCommand(strSqlQueryForPhoneAndEmail, connSalesForce);
+                cmdQueryForPhoneAndEmail.CommandType = CommandType.Text;
+
+                cmdQueryForPhoneAndEmail.Parameters.AddWithValue("@IndividualId", WhoId);
+
+                if (connSalesForce.State != ConnectionState.Closed)
+                {
+                    connSalesForce.Close();
+                    connSalesForce.Open();
+                }
+                else if (connSalesForce.State == ConnectionState.Closed) connSalesForce.Open();
+                SqlDataReader rdrPhoneAndEmail = cmdQueryForPhoneAndEmail.ExecuteReader();
+                if (rdrPhoneAndEmail.HasRows)
+                {
+                    rdrPhoneAndEmail.Read();
+                    if (!rdrPhoneAndEmail.IsDBNull(0)) PhoneNo = rdrPhoneAndEmail.GetString(0);
+                    if (!rdrPhoneAndEmail.IsDBNull(1)) Email = rdrPhoneAndEmail.GetString(1);
+                }
+                rdrPhoneAndEmail.Close();
+                if (connSalesForce.State == ConnectionState.Open) connSalesForce.Close();
+
+                txtTaskPhone.Text = PhoneNo;
+                txtTaskEmail.Text = Email;
+
+                comboTaskStatus.SelectedIndex = 0;
+                comboTaskPriority.SelectedIndex = 1;
+
+                comboReminderTimePicker.SelectedIndex = 18;
             }
-            rdrUserInfo.Close();
-            if (connRN.State == ConnectionState.Open) connRN.Close();
-
-            var srcStaffInfo = new AutoCompleteStringCollection();
-
-            foreach (UserInfo info in lstUserInfo)
+            else if (taskMode == TaskMode.EditInMedBill)
             {
-                srcStaffInfo.Add(info.UserName);
+                lstUserInfo.Clear();
+                InitializeTaskForm();
+                txtTaskCreator.Text = TaskCreatorInfo.UserName;
+                String strSqlQueryForAllStaff = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                                                "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                                "from [dbo].[tbl_user]";
+
+                SqlCommand cmdQueryForAllStaff = new SqlCommand(strSqlQueryForAllStaff, connRN);
+                cmdQueryForAllStaff.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                SqlDataReader rdrUserInfo = cmdQueryForAllStaff.ExecuteReader();
+                if (rdrUserInfo.HasRows)
+                {
+                    while (rdrUserInfo.Read())
+                    {
+                        lstUserInfo.Add(new UserInfo
+                        {
+                            UserId = rdrUserInfo.GetInt16(0),
+                            UserName = rdrUserInfo.GetString(1),
+                            UserEmail = rdrUserInfo.GetString(2),
+                            UserRoleId = (UserRole)rdrUserInfo.GetInt16(3),
+                            departmentInfo = new DepartmentInfo { DepartmentId = (Department)rdrUserInfo.GetInt16(4), DepartmentName = string.Empty }
+                        });
+                    }
+                }
+                rdrUserInfo.Close();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                var srcStaffInfo = new AutoCompleteStringCollection();
+
+                foreach (UserInfo info in lstUserInfo)
+                {
+                    srcStaffInfo.Add(info.UserName);
+                }
+
+                txtTaskNameAssignedTo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtTaskNameAssignedTo.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtTaskNameAssignedTo.AutoCompleteCustomSource = srcStaffInfo;
+
+                // Populate the sending department combo box
+
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Membership);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Case);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Illness);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Incident);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.MedicalBill);
+                comboTaskRelatedTo.Items.Add(RelatedToTable.Settlement);
+
+                //comboTaskRelatedTo.SelectedItem = RelatedToTable.MedicalBill;
+
+                txtTaskRelatedTo.Text = WhatId;
+                txtNameOnTask.Text = IndividualName;
+                txtIndividualId.Text = WhoId;
+
+                String PhoneNo = String.Empty;
+                String Email = String.Empty;
+
+                String strSqlQueryForPhoneAndEmail = "select [dbo].[contact].[HomePhone], [dbo].[contact].[Email] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForPhoneAndEmail = new SqlCommand(strSqlQueryForPhoneAndEmail, connSalesForce);
+                cmdQueryForPhoneAndEmail.CommandType = CommandType.Text;
+
+                cmdQueryForPhoneAndEmail.Parameters.AddWithValue("@IndividualId", WhoId);
+
+                if (connSalesForce.State != ConnectionState.Closed)
+                {
+                    connSalesForce.Close();
+                    connSalesForce.Open();
+                }
+                else if (connSalesForce.State == ConnectionState.Closed) connSalesForce.Open();
+                SqlDataReader rdrPhoneAndEmail = cmdQueryForPhoneAndEmail.ExecuteReader();
+                if (rdrPhoneAndEmail.HasRows)
+                {
+                    rdrPhoneAndEmail.Read();
+                    if (!rdrPhoneAndEmail.IsDBNull(0)) PhoneNo = rdrPhoneAndEmail.GetString(0);
+                    if (!rdrPhoneAndEmail.IsDBNull(1)) Email = rdrPhoneAndEmail.GetString(1);
+                }
+                rdrPhoneAndEmail.Close();
+                if (connSalesForce.State == ConnectionState.Open) connSalesForce.Close();
+
+                txtTaskPhone.Text = PhoneNo;
+                txtTaskEmail.Text = Email;
+
+                String strSqlQeuryForTaskSelected = "select [dbo].[tbl_user].[User_Name], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], " +
+                                                    "[dbo].[tbl_task].[whatid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whoid], " +
+                                                    "[dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], [dbo].[tbl_task].[Status], [dbo].[tbl_task].[Priority], " +
+                                                    "[dbo].[tbl_task].[IsReminderSet], [dbo].[tbl_task].[ReminderDateTime] " +
+                                                    "from [dbo].[tbl_task] " +
+                                                    "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
+                                                    "where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdQueryForTaskSelected = new SqlCommand(strSqlQeuryForTaskSelected, connRN);
+                cmdQueryForTaskSelected.CommandType = CommandType.Text;
+
+                cmdQueryForTaskSelected.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrTaskToModify = cmdQueryForTaskSelected.ExecuteReader();
+                if (rdrTaskToModify.HasRows)
+                {
+                    rdrTaskToModify.Read();
+                    if (!rdrTaskToModify.IsDBNull(0)) txtTaskNameAssignedTo.Text = rdrTaskToModify.GetString(0);
+                    else txtTaskNameAssignedTo.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(1)) txtTaskSubject.Text = rdrTaskToModify.GetString(1);
+                    else txtTaskSubject.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(2)) dtpTaskDueDate.Text = rdrTaskToModify.GetDateTime(2).ToString("MM/dd/yyyy");
+                    if (!rdrTaskToModify.IsDBNull(3)) comboTaskRelatedTo.SelectedIndex = rdrTaskToModify.GetInt16(3);
+                    else comboTaskRelatedTo.SelectedIndex = -1;
+                    if (!rdrTaskToModify.IsDBNull(4)) txtTaskRelatedTo.Text = rdrTaskToModify.GetString(4);
+                    else txtTaskRelatedTo.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(5)) txtNameOnTask.Text = rdrTaskToModify.GetString(5);
+                    else txtNameOnTask.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(6)) txtIndividualId.Text = rdrTaskToModify.GetString(6);
+                    else txtIndividualId.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(7)) txtTaskComments.Text = rdrTaskToModify.GetString(7);
+                    else txtTaskComments.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(8)) txtTaskSolution.Text = rdrTaskToModify.GetString(8);
+                    else txtTaskSolution.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(9)) comboTaskStatus.SelectedIndex = rdrTaskToModify.GetByte(9);
+                    else comboTaskStatus.SelectedIndex = -1;
+                    if (!rdrTaskToModify.IsDBNull(10)) comboTaskPriority.SelectedIndex = rdrTaskToModify.GetByte(10);
+                    else comboTaskPriority.SelectedIndex = -1;
+                    if (!rdrTaskToModify.IsDBNull(11)) chkReminder.Checked = rdrTaskToModify.GetBoolean(11);
+                    else chkReminder.Checked = false;
+                    if (!rdrTaskToModify.IsDBNull(12))
+                    {
+                        dtpReminderDatePicker.Text = rdrTaskToModify.GetDateTime(12).ToString("MM/dd/yyyy");
+                        String strTime = rdrTaskToModify.GetDateTime(12).ToString("h:mm tt");
+                        SetReminderTime(strTime);
+                    }
+                }
+                rdrTaskToModify.Close();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                if (LoggedInuserInfo.UserRoleId == UserRole.FDStaff ||
+                    LoggedInuserInfo.UserRoleId == UserRole.NPStaff ||
+                    LoggedInuserInfo.UserRoleId == UserRole.RNStaff)
+                {
+                    txtTaskNameAssignedTo.ReadOnly = true;
+                    txtTaskSubject.ReadOnly = true;
+                    dtpTaskDueDate.Enabled = false;
+                    comboTaskRelatedTo.Enabled = false;
+                    txtTaskRelatedTo.ReadOnly = true;
+                    txtNameOnTask.ReadOnly = true;
+                    txtIndividualId.ReadOnly = true;
+                    txtTaskComments.ReadOnly = true;
+                    chkReminder.Enabled = false;
+                    dtpReminderDatePicker.Enabled = false;
+                    comboReminderTimePicker.Enabled = false;
+                }
+
             }
-
-            txtTaskNameAssignedTo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            txtTaskNameAssignedTo.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtTaskNameAssignedTo.AutoCompleteCustomSource = srcStaffInfo;
-
-            comboTaskRelatedTo.Items.Add(RelatedToTable.Membership);
-            comboTaskRelatedTo.Items.Add(RelatedToTable.Case);
-            comboTaskRelatedTo.Items.Add(RelatedToTable.Illness);
-            comboTaskRelatedTo.Items.Add(RelatedToTable.Incident);
-            comboTaskRelatedTo.Items.Add(RelatedToTable.MedicalBill);
-            comboTaskRelatedTo.Items.Add(RelatedToTable.Settlement);
-
-            comboTaskRelatedTo.SelectedItem = RelatedToTable.MedicalBill;
-
-            //comboTaskName.Items.Add(RelatedName.Individual);
-            //comboTaskName.Items.Add(RelatedName.Prospect);
-
-            //comboTaskName.SelectedItem = RelatedName.Individual;
-            txtTaskRelatedTo.Text = TableName;
-            txtNameOnTask.Text = IndividualName;
-            txtIndividualId.Text = IndividualId;
-
-            String PhoneNo = String.Empty;
-            String Email = String.Empty;
-
-            String strSqlQueryForPhoneAndEmail = "select [dbo].[contact].[HomePhone], [dbo].[contact].[Email] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
-
-            SqlCommand cmdQueryForPhoneAndEmail = new SqlCommand(strSqlQueryForPhoneAndEmail, connSalesForce);
-            cmdQueryForPhoneAndEmail.CommandType = CommandType.Text;
-
-            cmdQueryForPhoneAndEmail.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-            if (connSalesForce.State != ConnectionState.Closed)
+            else if (taskMode == TaskMode.EditInDashboard)
             {
-                connSalesForce.Close();
-                connSalesForce.Open();
+
             }
-            else if (connSalesForce.State == ConnectionState.Closed) connSalesForce.Open();
-            SqlDataReader rdrPhoneAndEmail = cmdQueryForPhoneAndEmail.ExecuteReader();
-            if (rdrPhoneAndEmail.HasRows)
+        }
+
+        private void SetReminderTime(String time)
+        {
+            switch(time)
             {
-                rdrPhoneAndEmail.Read();
-                if (!rdrPhoneAndEmail.IsDBNull(0)) PhoneNo = rdrPhoneAndEmail.GetString(0);
-                if (!rdrPhoneAndEmail.IsDBNull(1)) Email = rdrPhoneAndEmail.GetString(1);
+                case "12:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 0;
+                    break;
+
+                case "12:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 1;
+                    break;
+
+                case "1:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 2;
+                    break;
+
+                case "1:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 3;
+                    break;
+
+                case "2:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 4;
+                    break;
+
+                case "2:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 5;
+                    break;
+
+                case "3:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 6;
+                    break;
+
+                case "3:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 7;
+                    break;
+
+                case "4:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 8;
+                    break;
+
+                case "4:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 9;
+                    break;
+
+                case "5:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 10;
+                    break;
+
+                case "5:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 11;
+                    break;
+
+                case "6:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 12;
+                    break;
+
+                case "6:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 13;
+                    break;
+
+                case "7:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 14;
+                    break;
+
+                case "7:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 15;
+                    break;
+
+                case "8:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 16;
+                    break;
+
+                case "8:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 17;
+                    break;
+
+                case "9:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 18;
+                    break;
+
+                case "9:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 19;
+                    break;
+
+                case "10:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 20;
+                    break;
+
+                case "10:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 21;
+                    break;
+
+                case "11:00 AM":
+                    comboReminderTimePicker.SelectedIndex = 22;
+                    break;
+
+                case "11:30 AM":
+                    comboReminderTimePicker.SelectedIndex = 23;
+                    break;
+
+                case "12:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 24;
+                    break;
+
+                case "12:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 25;
+                    break;
+
+                case "1:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 26;
+                    break;
+
+                case "1:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 27;
+                    break;
+
+                case "2:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 28;
+                    break;
+
+                case "2:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 29;
+                    break;
+
+                case "3:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 30;
+                    break;
+
+                case "3:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 31;
+                    break;
+
+                case "4:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 32;
+                    break;
+
+                case "4:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 33;
+                    break;
+
+                case "5:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 34;
+                    break;
+
+                case "5:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 35;
+                    break;
+
+                case "6:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 36;
+                    break;
+
+                case "6:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 37;
+                    break;
+
+                case "7:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 38;
+                    break;
+
+                case "7:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 39;
+                    break;
+
+                case "8:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 40;
+                    break;
+
+                case "8:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 41;
+                    break;
+
+                case "9:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 42;
+                    break;
+
+                case "9:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 43;
+                    break;
+
+                case "10:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 44;
+                    break;
+
+                case "10:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 45;
+                    break;
+
+                case "11:00 PM":
+                    comboReminderTimePicker.SelectedIndex = 46;
+                    break;
+
+                case "11:30 PM":
+                    comboReminderTimePicker.SelectedIndex = 47;
+                    break;
             }
-            rdrPhoneAndEmail.Close();
-            if (connSalesForce.State == ConnectionState.Open) connSalesForce.Close();
-
-            txtTaskPhone.Text = PhoneNo;
-            txtTaskEmail.Text = Email;
-
-            comboTaskStatus.SelectedIndex = 0;
-            comboTaskPriority.SelectedIndex = 1;
-
-            comboReminderTimePicker.SelectedIndex = 18;
         }
 
         private void btnSaveTask_Click(object sender, EventArgs e)
         {
-            String NameAssignedTo = txtTaskNameAssignedTo.Text.Trim();
-
-            String strSqlQueryForUserId = "select [dbo].[tbl_user].[User_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @UserName";
-
-            SqlCommand cmdQueryForUserId = new SqlCommand(strSqlQueryForUserId, connRN);
-            cmdQueryForUserId.CommandType = CommandType.Text;
-
-            cmdQueryForUserId.Parameters.AddWithValue("@UserName", NameAssignedTo);
-
-            if (connRN.State != ConnectionState.Closed)
+            if (nTaskId == null)    // Create new task
             {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            Object objUserId = cmdQueryForUserId.ExecuteScalar();
-            int? nUserId = null;    // This variable would be used in insert sql statement for Task table
-            if (objUserId != null) nUserId = Int16.Parse(objUserId.ToString());
-            if (connRN.State == ConnectionState.Open) connRN.Close();
-
-            String Subject = txtTaskSubject.Text.Trim();
-            DateTime DueDate = dtpTaskDueDate.Value;
-
-            String RelatedTableName = comboTaskRelatedTo.SelectedItem.ToString();
-            String WhatId = txtTaskRelatedTo.Text.Trim();         // Related Id
-            //String RelatedName = comboTaskName.SelectedItem.ToString();
-            String WhoId = txtIndividualId.Text.Trim();             // Related name
-            String WhoName = txtNameOnTask.Text.Trim();             // Individual Name
-
-            String Comment = txtTaskComments.Text.Trim();
-            String Solution = txtTaskSolution.Text.Trim();
-
-            TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
-            TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
-
-            String strDate = String.Empty;
-            String strTmpTime = String.Empty;
-            String strTime = String.Empty;
-            String TmpTime = String.Empty;
-            DateTime? Reminder = null;
-
-            if (chkReminder.Checked)
-            {
-                strDate = dtpReminderDatePicker.Value.ToString("MM/dd/yyyy");
-                strTmpTime = comboReminderTimePicker.SelectedItem.ToString();
-                strTime = String.Empty;
-                TmpTime = strTmpTime.Substring(strTmpTime.Length - 2, 2);
-
-                if (strTmpTime.Substring(strTmpTime.Length - 2, 2) == "PM")
+                if (txtTaskNameAssignedTo.Text.Trim() == String.Empty)
                 {
-                    int nTime = Int16.Parse(strTmpTime.Substring(0, strTmpTime.IndexOf(':')));
-                    nTime += 12;
-                    strTime = nTime.ToString() + ':' + strTmpTime.Substring(strTmpTime.IndexOf(':') + 1, 2) + " AM";
+                    MessageBox.Show("Please enter the Assigned to name: ");
+                    return;
                 }
-                else strTime = strTmpTime;
 
-                Reminder = new DateTime(Int16.Parse(strDate.Substring(6, 4)),
-                                        Int16.Parse(strDate.Substring(0, 2)),
-                                        Int16.Parse(strDate.Substring(3, 2)),
-                                        Int16.Parse(strTime.Substring(0, 2)),
-                                        Int16.Parse(strTime.Substring(3, 2)),
-                                        0);
+                String NameAssignedTo = txtTaskNameAssignedTo.Text.Trim();
+
+                String strSqlQueryForAssignedToInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[Department_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @UserName";
+
+                SqlCommand cmdQueryForAssignedToInfo = new SqlCommand(strSqlQueryForAssignedToInfo, connRN);
+                cmdQueryForAssignedToInfo.CommandType = CommandType.Text;
+
+                cmdQueryForAssignedToInfo.Parameters.AddWithValue("@UserName", NameAssignedTo);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+                SqlDataReader rdrAssignedTo = cmdQueryForAssignedToInfo.ExecuteReader();
+                if (rdrAssignedTo.HasRows)
+                {
+                    rdrAssignedTo.Read();
+                    if (!rdrAssignedTo.IsDBNull(0)) AssignedToStaffInfo.UserId = rdrAssignedTo.GetInt16(0);
+                    if (!rdrAssignedTo.IsDBNull(1)) AssignedToStaffInfo.departmentInfo.DepartmentId = (Department)rdrAssignedTo.GetInt16(1);
+                }
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                String Subject = txtTaskSubject.Text.Trim();
+                DateTime DueDate = dtpTaskDueDate.Value;
+
+                String RelatedTableName = comboTaskRelatedTo.SelectedItem.ToString();
+                String WhatId = txtTaskRelatedTo.Text.Trim();         // Related Id
+                String WhoId = txtIndividualId.Text.Trim();             // Related name
+                String WhoName = txtNameOnTask.Text.Trim();             // Individual Name
+
+                String Comment = txtTaskComments.Text.Trim();
+                String Solution = txtTaskSolution.Text.Trim();
+
+                TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+                TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
+
+                String strDate = String.Empty;
+                String strTmpTime = String.Empty;
+                String strTime = String.Empty;
+                String TmpTime = String.Empty;
+                DateTime? Reminder = null;
+
+                if (chkReminder.Checked)
+                {
+                    strDate = dtpReminderDatePicker.Value.ToString("MM/dd/yyyy");
+                    strTmpTime = comboReminderTimePicker.SelectedItem.ToString();
+                    strTime = String.Empty;
+                    TmpTime = strTmpTime.Substring(strTmpTime.Length - 2, 2);
+
+                    if (strTmpTime.Substring(strTmpTime.Length - 2, 2) == "PM")
+                    {
+                        int nTime = Int16.Parse(strTmpTime.Substring(0, strTmpTime.IndexOf(':')));
+                        nTime += 12;
+                        strTime = nTime.ToString() + ':' + strTmpTime.Substring(strTmpTime.IndexOf(':') + 1, 2) + " AM";
+                    }
+                    else strTime = strTmpTime;
+
+                    //Reminder = new DateTime(Int16.Parse(strDate.Substring(6, 4)),
+                    //                        Int16.Parse(strDate.Substring(0, 2)),
+                    //                        Int16.Parse(strDate.Substring(3, 2)),
+                    //                        Int16.Parse(strTime.Substring(0, strTime.IndexOf(':')),
+                    //                        Int16.Parse(strTime.Substring(strTime.IndexOf(':') + 1, 2)),
+                    //                        0);
+
+                    int Year = Int16.Parse(strDate.Substring(6, 4));
+                    int Month = Int16.Parse(strDate.Substring(0, 2));
+                    int Day = Int16.Parse(strDate.Substring(3, 2));
+                    String Hour = strTime.Substring(0, strTime.IndexOf(':'));
+                    String Minute = strTime.Substring(strTime.IndexOf(':') + 1, 2);
+
+                    Reminder = new DateTime(Year, Month, Day, Int16.Parse(Hour), Int16.Parse(Minute), 0);
+                   
+                }
+
+                String strSqlInsertIntoTask = "insert into [dbo].[tbl_task] ([dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], [dbo].[tbl_task].[IsDeleted], " +
+                                              "[dbo].[tbl_task].[AssignedTo], [dbo].[tbl_task].[SendingDepartment], [dbo].[tbl_task].[ReceivingDepartment], " +
+                                              "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], " +
+                                              "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[CreatedById], [dbo].[tbl_task].[LastModifiedDate], [dbo].[tbl_task].[LastModifiedById], " +
+                                              "[dbo].[tbl_task].[ActivityDate], " +
+                                              "[dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], [dbo].[tbl_task].[Status], [dbo].[tbl_task].[Priority], " +
+                                              "[dbo].[tbl_task].[IsClosed], [dbo].[tbl_task].[ReminderDateTime], [dbo].[tbl_task].[IsReminderSet], [dbo].[tbl_task].[IsArchived]) " +
+                                              "values (@WhoId, @IndividualName, @WhatId, 0, @AssignedTo, @SendingDepartment, @ReceivingDepartment, " +
+                                              "@Subject, @DueDate, @RelatedTo, @CreateDate, @CreatedById, " +
+                                              "@LastModifiedDate, @LastModifiedById, @ActivityDate, " +
+                                              "@Comment, @Solution, @Status, @Priority, @IsClosed, @ReminderDateTime, @IsReminderSet, @IsArchived)";
+
+                SqlCommand cmdInsertIntoTask = new SqlCommand(strSqlInsertIntoTask, connRN);
+                cmdInsertIntoTask.CommandType = CommandType.Text;
+
+                cmdInsertIntoTask.Parameters.AddWithValue("@WhoId", WhoId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@IndividualName", WhoName);
+                cmdInsertIntoTask.Parameters.AddWithValue("@WhatId", WhatId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@AssignedTo", AssignedToStaffInfo.UserId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@SendingDepartment", LoggedInuserInfo.departmentInfo.DepartmentId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@ReceivingDepartment", AssignedToStaffInfo.departmentInfo.DepartmentId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@Subject", Subject);
+                cmdInsertIntoTask.Parameters.AddWithValue("@DueDate", DueDate);
+                cmdInsertIntoTask.Parameters.AddWithValue("@RelatedTo", comboTaskRelatedTo.SelectedIndex);
+                cmdInsertIntoTask.Parameters.AddWithValue("@CreateDate", DateTime.Today);
+                cmdInsertIntoTask.Parameters.AddWithValue("@CreatedById", LoggedInuserInfo.UserId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
+                cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedById", LoggedInuserInfo.UserId);
+                cmdInsertIntoTask.Parameters.AddWithValue("@ActivityDate", DateTime.Today);
+                cmdInsertIntoTask.Parameters.AddWithValue("@Comment", Comment);
+                cmdInsertIntoTask.Parameters.AddWithValue("@Solution", Solution);
+                cmdInsertIntoTask.Parameters.AddWithValue("@Status", ts);
+                cmdInsertIntoTask.Parameters.AddWithValue("@Priority", tp);
+                cmdInsertIntoTask.Parameters.AddWithValue("@IsClosed", 0);
+                if (chkReminder.Checked) cmdInsertIntoTask.Parameters.AddWithValue("@ReminderDateTime", Reminder);
+                else cmdInsertIntoTask.Parameters.AddWithValue("@ReminderDateTime", DBNull.Value);
+                cmdInsertIntoTask.Parameters.AddWithValue("@IsReminderSet", chkReminder.Checked);
+                cmdInsertIntoTask.Parameters.AddWithValue("@IsArchived", 0);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                int nRowInserted = cmdInsertIntoTask.ExecuteNonQuery();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                if (nRowInserted == 1)
+                {
+                    MessageBox.Show("The task has been created.");
+                    return;
+                }
+                else if (nRowInserted == 0)
+                {
+                    MessageBox.Show("The task has not been created.");
+                    return;
+                }
             }
-
-            String strSqlQueryForAccountId = "select [dbo].[contact].[AccountId] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
-
-            SqlCommand cmdQueryForAccountId = new SqlCommand(strSqlQueryForAccountId, connSalesForce);
-            cmdQueryForAccountId.CommandType = CommandType.Text;
-
-            cmdQueryForAccountId.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-            if (connSalesForce.State != ConnectionState.Closed)
+            else // modify the task
             {
-                connSalesForce.Close();
-                connSalesForce.Open();
-            }
-            else if (connSalesForce.State == ConnectionState.Closed) connSalesForce.Open();
-            Object objAccountId = cmdQueryForAccountId.ExecuteScalar();
-            if (connSalesForce.State == ConnectionState.Open) connSalesForce.Close();
+                if (LoggedInuserInfo.UserRoleId == UserRole.FDStaff ||
+                    LoggedInuserInfo.UserRoleId == UserRole.NPStaff ||
+                    LoggedInuserInfo.UserRoleId == UserRole.RNStaff)
+                {
+                    String strSqlUpdateTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[Solution] = @Solution, [dbo].[tbl_task].[Status] = @Status, [dbo].[tbl_task].[Priority] = @Priority " +
+                                              "where [dbo].[tbl_task].[id] = @TaskId";
 
-            String AccountId = String.Empty;
-            if (objAccountId != null) AccountId = objAccountId.ToString();
+                    SqlCommand cmdUpdateTask = new SqlCommand(strSqlUpdateTask, connRN);
+                    cmdUpdateTask.CommandType = CommandType.Text;
 
-            String strSqlInsertIntoTask = "insert into [dbo].[tbl_task] ([dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], [dbo].[tbl_task].[IsDeleted], " +
-                                          "[dbo].[tbl_task].[AssignedTo], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], " +
-                                          "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task].[CreatedById], [dbo].[tbl_task].[LastModifiedDate], [dbo].[tbl_task].[LastModifiedById], " +
-                                          "[dbo].[tbl_task].[ActivityDate], " +
-                                          "[dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], [dbo].[tbl_task].[Status], [dbo].[tbl_task].[Priority], " +
-                                          "[dbo].[tbl_task].[AccountId], [dbo].[tbl_task].[IsClosed], [dbo].[tbl_task].[ReminderDateTime], [dbo].[tbl_task].[IsReminderSet], " +
-                                          "[dbo].[tbl_task].[IsArchived], [dbo].[tbl_task].[HasAttachment], [dbo].[tbl_task].[Attachment]) " +
-                                          "values (@WhoId, @IndividualName, @WhatId, 0, @AssignedTo, @Subject, @DueDate, @CreateDate, @CreatedById, " +
-                                          "@LastModifiedDate, @LastModifiedById, @ActivityDate, " +
-                                          "@Comment, @Solution, @Status, @Priority, @AccountId, @IsClosed, @ReminderDateTime, @IsReminderSet, @IsArchived, @HasAttachment, @Attachment)";
+                    cmdUpdateTask.Parameters.AddWithValue("@Solution", txtTaskSolution.Text.Trim());
+                    cmdUpdateTask.Parameters.AddWithValue("@Status", (TaskStatus)comboTaskStatus.SelectedIndex);
+                    cmdUpdateTask.Parameters.AddWithValue("@Priority", (TaskPriority)comboTaskPriority.SelectedIndex);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskId", nTaskId);
 
-            SqlCommand cmdInsertIntoTask = new SqlCommand(strSqlInsertIntoTask, connRN);
-            cmdInsertIntoTask.CommandType = CommandType.Text;
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    int nUpdatedRow = cmdUpdateTask.ExecuteNonQuery();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
 
-            cmdInsertIntoTask.Parameters.AddWithValue("@WhoId", WhoId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@IndividualName", WhoName);
-            cmdInsertIntoTask.Parameters.AddWithValue("@WhatId", WhatId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@AssignedTo", nUserId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@Subject", Subject);
-            cmdInsertIntoTask.Parameters.AddWithValue("@DueDate", DueDate);
-            cmdInsertIntoTask.Parameters.AddWithValue("@CreateDate", DateTime.Today);
-            cmdInsertIntoTask.Parameters.AddWithValue("@CreatedById", LoggedInUserId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
-            cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedById", LoggedInUserId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@ActivityDate", DateTime.Today);
-            cmdInsertIntoTask.Parameters.AddWithValue("@Comment", Comment);
-            cmdInsertIntoTask.Parameters.AddWithValue("@Solution", Solution);
-            cmdInsertIntoTask.Parameters.AddWithValue("@Status", ts);
-            cmdInsertIntoTask.Parameters.AddWithValue("@Priority", tp);
-            cmdInsertIntoTask.Parameters.AddWithValue("@AccountId", AccountId);
-            cmdInsertIntoTask.Parameters.AddWithValue("@IsClosed", 0);
-            if (chkReminder.Checked) cmdInsertIntoTask.Parameters.AddWithValue("@ReminderDateTime", Reminder);
-            else cmdInsertIntoTask.Parameters.AddWithValue("@ReminderDateTime", DBNull.Value);
-            cmdInsertIntoTask.Parameters.AddWithValue("@IsReminderSet", chkReminder.Checked);
-            cmdInsertIntoTask.Parameters.AddWithValue("@IsArchived", 0);
-            if (lstAttachments.Items.Count > 0)
-            {
-                cmdInsertIntoTask.Parameters.AddWithValue("@HasAttachment", 1);
-            }
-            else if (lstAttachments.Items.Count == 0)
-            {
-                cmdInsertIntoTask.Parameters.AddWithValue("@HasAttachment", 0);
-            }
-            String AttachedFileNames = String.Empty;
+                    if (nUpdatedRow == 1)
+                    {
+                        MessageBox.Show("The task id: " + nTaskId.ToString() + " has been updated.");
+                        Close();
+                    }
+                }
 
-            for (int i = 0; i < lstAttachments.Items.Count; i++)
-            {
-                AttachedFileNames += lstAttachments.Items[i].ToString() + "; ";
-                File.Copy(lstAttachments.Items[i].ToString(), AttachmentDestinationPath + lstAttachedFilesNames[i]);
-            }
-            cmdInsertIntoTask.Parameters.AddWithValue("@Attachment", AttachedFileNames);
+                if (LoggedInuserInfo.UserRoleId == UserRole.SuperAdmin ||
+                    LoggedInuserInfo.UserRoleId == UserRole.Administrator ||
+                    LoggedInuserInfo.UserRoleId == UserRole.FDManager ||
+                    LoggedInuserInfo.UserRoleId == UserRole.NPManager ||
+                    LoggedInuserInfo.UserRoleId == UserRole.RNManager)
+                {
+                    String NameAssignedTo = txtTaskNameAssignedTo.Text.Trim();
+                    String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] from [dbo].[tbl_user] " +
+                                                          "where [dbo].[tbl_user].[User_Name] = @UserName";
 
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            int nRowInserted = cmdInsertIntoTask.ExecuteNonQuery();
-            if (connRN.State == ConnectionState.Open) connRN.Close();
+                    SqlCommand cmdQueryForUserInfo = new SqlCommand(strSqlQueryForUserInfo, connRN);
+                    cmdQueryForUserInfo.CommandType = CommandType.Text;
 
-            if (nRowInserted == 1)
-            {
-                MessageBox.Show("The task has been created.");
-                return;
+                    cmdQueryForUserInfo.Parameters.AddWithValue("@UserName", NameAssignedTo);
+                    UserInfo userInfo = new UserInfo();
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlDataReader rdrUserInfo = cmdQueryForUserInfo.ExecuteReader();
+                    if (rdrUserInfo.HasRows)
+                    {
+                        if (rdrUserInfo.Read())
+                        {
+                            if (!rdrUserInfo.IsDBNull(0)) userInfo.UserId = rdrUserInfo.GetInt16(0);
+                            if (!rdrUserInfo.IsDBNull(1)) userInfo.UserRoleId = (UserRole)rdrUserInfo.GetInt16(1);
+                            if (!rdrUserInfo.IsDBNull(2)) userInfo.departmentInfo.DepartmentId = (Department)rdrUserInfo.GetInt16(2);
+                        }
+                    }
+                    rdrUserInfo.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    String Subject = txtTaskSubject.Text.Trim();
+                    DateTime DueDate = dtpTaskDueDate.Value;
+                    RelatedToTable relatedToTable = (RelatedToTable)comboTaskRelatedTo.SelectedIndex;
+                    String WhatId = txtTaskRelatedTo.Text.Trim();
+                    String WhoId = txtIndividualId.Text.Trim();
+                    String Comment = txtTaskComments.Text.Trim();
+                    String Solution = txtTaskSolution.Text.Trim();
+
+                    TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+                    TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
+
+                    String strDate = String.Empty;
+                    String strTmpTime = String.Empty;
+                    String strTime = String.Empty;
+                    String TmpTime = String.Empty;
+                    DateTime? Reminder = null;
+
+                    if (chkReminder.Checked)
+                    {
+                        strDate = dtpReminderDatePicker.Value.ToString("MM/dd/yyyy");
+                        strTmpTime = comboReminderTimePicker.SelectedItem.ToString();
+                        TmpTime = strTmpTime.Substring(strTmpTime.Length - 2, 2);
+
+                        if (strTmpTime.Substring(strTmpTime.Length - 2, 2) == "PM")
+                        {
+                            int nTime = Int16.Parse(strTmpTime.Substring(0, strTmpTime.IndexOf(":")));
+                            nTime += 12;
+                            strTime = nTime.ToString() + ":" + strTmpTime.Substring(strTmpTime.IndexOf(":") + 1, 2) + "AM";
+                        }
+                        else strTime = strTmpTime;
+
+                        int Year = Int16.Parse(strDate.Substring(6, 4));
+                        int Month = Int16.Parse(strDate.Substring(0, 2));
+                        int Day = Int16.Parse(strDate.Substring(3, 2));
+                        String Hour = strTime.Substring(0, strTime.IndexOf(':'));
+                        String Minute = strTime.Substring(strTime.IndexOf(':') + 1, 2);
+
+                        Reminder = new DateTime(Year, Month, Day, Int16.Parse(Hour), Int16.Parse(Minute), 0);
+                    }
+
+                    String strSqlUpdateTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[AssignedTo] = @AssignedTo, " +
+                                                "[dbo].[tbl_task].[Subject] = @TaskSubject, " +
+                                                "[dbo].[tbl_task].[DueDate] = @TaskDueDate, " +
+                                                "[dbo].[tbl_task].[RelatedToTableId] = @RelatedToTableId, " +
+                                                "[dbo].[tbl_task].[whatid] = @WhatId, " +
+                                                "[dbo].[tbl_task].[IndividualName] = @IndividualName, " +
+                                                "[dbo].[tbl_task].[whoid] = @WhoId, " +
+                                                "[dbo].[tbl_task].[Comment] = @TaskComment, " +
+                                                "[dbo].[tbl_task].[Solution] = @TaskSolution, " +
+                                                "[dbo].[tbl_task].[Status] = @TaskStatus, " +
+                                                "[dbo].[tbl_task].[Priority] = @TaskPriority, " +
+                                                "[dbo].[tbl_task].[IsReminderSet] = @ReminderSet, " +
+                                                "[dbo].[tbl_task].[ReminderDateTime] = @ReminderDateTime " +
+                                                "where [dbo].[tbl_task].[id] = @TaskId";
+
+                    SqlCommand cmdUpdateTask = new SqlCommand(strSqlUpdateTask, connRN);
+                    cmdUpdateTask.CommandType = CommandType.Text;
+
+                    cmdUpdateTask.Parameters.AddWithValue("@AssignedTo", userInfo.UserId);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskSubject", Subject);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskDueDate", DueDate);
+                    cmdUpdateTask.Parameters.AddWithValue("@RelatedToTableId", (int)relatedToTable);
+                    cmdUpdateTask.Parameters.AddWithValue("@WhatId", WhatId);
+                    cmdUpdateTask.Parameters.AddWithValue("@IndividualName", txtNameOnTask.Text.Trim());
+                    cmdUpdateTask.Parameters.AddWithValue("@WhoId", WhoId);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskComment", Comment);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskSolution", Solution);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskStatus", (int)ts);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskPriority", (int)tp);
+                    cmdUpdateTask.Parameters.AddWithValue("@ReminderSet", chkReminder.Checked);
+                    if (chkReminder.Checked) cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", Reminder);
+                    else cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", DBNull.Value);
+                    cmdUpdateTask.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    int nRowUpdated = cmdUpdateTask.ExecuteNonQuery();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    if (nRowUpdated == 1)
+                    {
+                        MessageBox.Show("The Task id: " + nTaskId + " has been updated successfully.");
+                        Close();
+                    }
+
+                }
             }
-            else if (nRowInserted == 0)
-            {
-                MessageBox.Show("The task has not been created.");
-                return;
-            }
+            Close();
         }
 
-        private void btnAttachFile_Click(object sender, EventArgs e)
+        private void btnCancelTask_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDlg = new OpenFileDialog();
-
-            openFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpef";
-            openFileDlg.DefaultExt = "pdf";
-            openFileDlg.RestoreDirectory = true;
-
-            if (openFileDlg.ShowDialog() == DialogResult.OK)
-            {
-                lstAttachments.Items.Add(openFileDlg.FileName);
-                lstAttachedFilesNames.Add(openFileDlg.SafeFileName);
-                return;
-            }
-            else return;
+            Close();
         }
     }
 
@@ -341,25 +952,42 @@ namespace CMMManager
         public int? UserId;
         public String UserName;
         public String UserEmail;
-        public int? UserRoleId;
-        public int? DepartmentId;
+        public UserRole UserRoleId;
+        public DepartmentInfo departmentInfo;
 
         public UserInfo()
         {
             UserId = null;
             UserName = String.Empty;
             UserEmail = String.Empty;
-            UserRoleId = null;
-            DepartmentId = null;
+            departmentInfo = new DepartmentInfo();
         }
 
-        public UserInfo(int user_id, String user_name, String user_email, int user_role_id, int department_id)
+        public UserInfo(int user_id, String user_name, String user_email, UserRole user_role_id, Department department_id)
         {
             UserId = user_id;
             UserName = user_name;
             UserEmail = user_email;
             UserRoleId = user_role_id;
-            DepartmentId = department_id;
+            departmentInfo = new DepartmentInfo(department_id, String.Empty);
+        }
+    }
+
+    public class DepartmentInfo
+    {
+        public Department DepartmentId;
+        public String DepartmentName;
+
+        public DepartmentInfo()
+        {
+            //DepartmentId = null;
+            DepartmentName = String.Empty;
+        }
+
+        public DepartmentInfo(Department departmentId, String departmentName)
+        {
+            DepartmentId = departmentId;
+            DepartmentName = departmentName;
         }
     }
 }

@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTaskInfo = new System.Windows.Forms.GroupBox();
+            this.txtTaskCreator = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtIndividualId = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -63,12 +65,8 @@
             this.btnSaveTask = new System.Windows.Forms.Button();
             this.btnCancelTask = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.grpAttachments = new System.Windows.Forms.GroupBox();
-            this.lstAttachments = new System.Windows.Forms.ListBox();
-            this.btnAttachFile = new System.Windows.Forms.Button();
             this.grpTaskInfo.SuspendLayout();
             this.AdditionalInfo.SuspendLayout();
-            this.grpAttachments.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -83,6 +81,8 @@
             // 
             // grpTaskInfo
             // 
+            this.grpTaskInfo.Controls.Add(this.txtTaskCreator);
+            this.grpTaskInfo.Controls.Add(this.label16);
             this.grpTaskInfo.Controls.Add(this.label8);
             this.grpTaskInfo.Controls.Add(this.txtIndividualId);
             this.grpTaskInfo.Controls.Add(this.label15);
@@ -103,16 +103,35 @@
             this.grpTaskInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpTaskInfo.Location = new System.Drawing.Point(39, 80);
             this.grpTaskInfo.Name = "grpTaskInfo";
-            this.grpTaskInfo.Size = new System.Drawing.Size(1021, 329);
+            this.grpTaskInfo.Size = new System.Drawing.Size(1010, 329);
             this.grpTaskInfo.TabIndex = 1;
             this.grpTaskInfo.TabStop = false;
             this.grpTaskInfo.Text = "Task Information";
+            // 
+            // txtTaskCreator
+            // 
+            this.txtTaskCreator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskCreator.Location = new System.Drawing.Point(100, 36);
+            this.txtTaskCreator.Name = "txtTaskCreator";
+            this.txtTaskCreator.ReadOnly = true;
+            this.txtTaskCreator.Size = new System.Drawing.Size(165, 20);
+            this.txtTaskCreator.TabIndex = 23;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(19, 37);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(50, 15);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Creator:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(766, 67);
+            this.label8.Location = new System.Drawing.Point(769, 97);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(75, 15);
             this.label8.TabIndex = 21;
@@ -121,16 +140,16 @@
             // txtIndividualId
             // 
             this.txtIndividualId.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndividualId.Location = new System.Drawing.Point(847, 67);
+            this.txtIndividualId.Location = new System.Drawing.Point(847, 96);
             this.txtIndividualId.Name = "txtIndividualId";
-            this.txtIndividualId.Size = new System.Drawing.Size(157, 20);
+            this.txtIndividualId.Size = new System.Drawing.Size(134, 20);
             this.txtIndividualId.TabIndex = 20;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(544, 67);
+            this.label15.Location = new System.Drawing.Point(518, 97);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(44, 15);
             this.label15.TabIndex = 19;
@@ -143,7 +162,7 @@
             this.txtTaskSolution.Multiline = true;
             this.txtTaskSolution.Name = "txtTaskSolution";
             this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskSolution.Size = new System.Drawing.Size(412, 161);
+            this.txtTaskSolution.Size = new System.Drawing.Size(389, 161);
             this.txtTaskSolution.TabIndex = 15;
             // 
             // dtpTaskDueDate
@@ -151,7 +170,7 @@
             this.dtpTaskDueDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpTaskDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpTaskDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpTaskDueDate.Location = new System.Drawing.Point(89, 97);
+            this.dtpTaskDueDate.Location = new System.Drawing.Point(592, 37);
             this.dtpTaskDueDate.Name = "dtpTaskDueDate";
             this.dtpTaskDueDate.Size = new System.Drawing.Size(137, 20);
             this.dtpTaskDueDate.TabIndex = 14;
@@ -159,43 +178,43 @@
             // txtTaskSubject
             // 
             this.txtTaskSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskSubject.Location = new System.Drawing.Point(89, 67);
+            this.txtTaskSubject.Location = new System.Drawing.Point(100, 96);
             this.txtTaskSubject.Name = "txtTaskSubject";
-            this.txtTaskSubject.Size = new System.Drawing.Size(412, 20);
+            this.txtTaskSubject.Size = new System.Drawing.Size(389, 20);
             this.txtTaskSubject.TabIndex = 12;
             // 
             // comboTaskRelatedTo
             // 
             this.comboTaskRelatedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboTaskRelatedTo.FormattingEnabled = true;
-            this.comboTaskRelatedTo.Location = new System.Drawing.Point(591, 36);
+            this.comboTaskRelatedTo.Location = new System.Drawing.Point(592, 66);
             this.comboTaskRelatedTo.Name = "comboTaskRelatedTo";
-            this.comboTaskRelatedTo.Size = new System.Drawing.Size(199, 21);
+            this.comboTaskRelatedTo.Size = new System.Drawing.Size(186, 21);
             this.comboTaskRelatedTo.TabIndex = 16;
             // 
             // txtTaskComments
             // 
             this.txtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskComments.Location = new System.Drawing.Point(89, 140);
+            this.txtTaskComments.Location = new System.Drawing.Point(100, 140);
             this.txtTaskComments.Multiline = true;
             this.txtTaskComments.Name = "txtTaskComments";
             this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskComments.Size = new System.Drawing.Size(412, 160);
+            this.txtTaskComments.Size = new System.Drawing.Size(389, 160);
             this.txtTaskComments.TabIndex = 11;
             // 
             // txtTaskNameAssignedTo
             // 
             this.txtTaskNameAssignedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskNameAssignedTo.Location = new System.Drawing.Point(90, 37);
+            this.txtTaskNameAssignedTo.Location = new System.Drawing.Point(100, 66);
             this.txtTaskNameAssignedTo.Name = "txtTaskNameAssignedTo";
-            this.txtTaskNameAssignedTo.Size = new System.Drawing.Size(187, 20);
+            this.txtTaskNameAssignedTo.Size = new System.Drawing.Size(165, 20);
             this.txtTaskNameAssignedTo.TabIndex = 8;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(533, 140);
+            this.label10.Location = new System.Drawing.Point(518, 140);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 15);
             this.label10.TabIndex = 7;
@@ -215,7 +234,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(38, 67);
+            this.label7.Location = new System.Drawing.Point(19, 96);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 15);
             this.label7.TabIndex = 4;
@@ -224,16 +243,16 @@
             // txtTaskRelatedTo
             // 
             this.txtTaskRelatedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskRelatedTo.Location = new System.Drawing.Point(796, 36);
+            this.txtTaskRelatedTo.Location = new System.Drawing.Point(790, 66);
             this.txtTaskRelatedTo.Name = "txtTaskRelatedTo";
-            this.txtTaskRelatedTo.Size = new System.Drawing.Size(208, 20);
+            this.txtTaskRelatedTo.Size = new System.Drawing.Size(191, 20);
             this.txtTaskRelatedTo.TabIndex = 10;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(27, 97);
+            this.label6.Location = new System.Drawing.Point(511, 37);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 15);
             this.label6.TabIndex = 3;
@@ -243,7 +262,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 37);
+            this.label3.Location = new System.Drawing.Point(19, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 15);
             this.label3.TabIndex = 0;
@@ -252,7 +271,7 @@
             // txtNameOnTask
             // 
             this.txtNameOnTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNameOnTask.Location = new System.Drawing.Point(592, 67);
+            this.txtNameOnTask.Location = new System.Drawing.Point(592, 96);
             this.txtNameOnTask.Name = "txtNameOnTask";
             this.txtNameOnTask.Size = new System.Drawing.Size(140, 20);
             this.txtNameOnTask.TabIndex = 9;
@@ -261,7 +280,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(518, 37);
+            this.label4.Location = new System.Drawing.Point(518, 67);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(70, 15);
             this.label4.TabIndex = 1;
@@ -283,7 +302,7 @@
             this.AdditionalInfo.Controls.Add(this.label11);
             this.AdditionalInfo.Location = new System.Drawing.Point(39, 424);
             this.AdditionalInfo.Name = "AdditionalInfo";
-            this.AdditionalInfo.Size = new System.Drawing.Size(501, 160);
+            this.AdditionalInfo.Size = new System.Drawing.Size(1010, 112);
             this.AdditionalInfo.TabIndex = 2;
             this.AdditionalInfo.TabStop = false;
             this.AdditionalInfo.Text = "Additional Information";
@@ -340,7 +359,7 @@
             "10:30 PM",
             "11:00 PM",
             "11:30 PM"});
-            this.comboReminderTimePicker.Location = new System.Drawing.Point(229, 117);
+            this.comboReminderTimePicker.Location = new System.Drawing.Point(733, 32);
             this.comboReminderTimePicker.Name = "comboReminderTimePicker";
             this.comboReminderTimePicker.Size = new System.Drawing.Size(102, 21);
             this.comboReminderTimePicker.TabIndex = 30;
@@ -349,7 +368,7 @@
             // 
             this.dtpReminderDatePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpReminderDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpReminderDatePicker.Location = new System.Drawing.Point(112, 116);
+            this.dtpReminderDatePicker.Location = new System.Drawing.Point(616, 31);
             this.dtpReminderDatePicker.Name = "dtpReminderDatePicker";
             this.dtpReminderDatePicker.Size = new System.Drawing.Size(111, 22);
             this.dtpReminderDatePicker.TabIndex = 29;
@@ -357,7 +376,7 @@
             // chkReminder
             // 
             this.chkReminder.AutoSize = true;
-            this.chkReminder.Location = new System.Drawing.Point(91, 119);
+            this.chkReminder.Location = new System.Drawing.Point(595, 34);
             this.chkReminder.Name = "chkReminder";
             this.chkReminder.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.chkReminder.Size = new System.Drawing.Size(15, 14);
@@ -368,7 +387,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(24, 117);
+            this.label2.Location = new System.Drawing.Point(518, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(65, 15);
             this.label2.TabIndex = 27;
@@ -376,7 +395,7 @@
             // 
             // txtTaskEmail
             // 
-            this.txtTaskEmail.Location = new System.Drawing.Point(317, 70);
+            this.txtTaskEmail.Location = new System.Drawing.Point(359, 65);
             this.txtTaskEmail.Name = "txtTaskEmail";
             this.txtTaskEmail.ReadOnly = true;
             this.txtTaskEmail.Size = new System.Drawing.Size(130, 20);
@@ -384,7 +403,7 @@
             // 
             // txtTaskPhone
             // 
-            this.txtTaskPhone.Location = new System.Drawing.Point(317, 39);
+            this.txtTaskPhone.Location = new System.Drawing.Point(359, 33);
             this.txtTaskPhone.Name = "txtTaskPhone";
             this.txtTaskPhone.ReadOnly = true;
             this.txtTaskPhone.Size = new System.Drawing.Size(130, 20);
@@ -394,7 +413,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(271, 70);
+            this.label14.Location = new System.Drawing.Point(287, 65);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(42, 15);
             this.label14.TabIndex = 24;
@@ -404,7 +423,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(267, 39);
+            this.label13.Location = new System.Drawing.Point(287, 34);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(46, 15);
             this.label13.TabIndex = 23;
@@ -417,7 +436,7 @@
             "High",
             "Normal",
             "Low"});
-            this.comboTaskPriority.Location = new System.Drawing.Point(89, 70);
+            this.comboTaskPriority.Location = new System.Drawing.Point(100, 64);
             this.comboTaskPriority.Name = "comboTaskPriority";
             this.comboTaskPriority.Size = new System.Drawing.Size(137, 21);
             this.comboTaskPriority.TabIndex = 22;
@@ -432,7 +451,7 @@
             "Waiting on someone else",
             "Deferred",
             "Solved"});
-            this.comboTaskStatus.Location = new System.Drawing.Point(89, 39);
+            this.comboTaskStatus.Location = new System.Drawing.Point(100, 33);
             this.comboTaskStatus.Name = "comboTaskStatus";
             this.comboTaskStatus.Size = new System.Drawing.Size(137, 21);
             this.comboTaskStatus.TabIndex = 21;
@@ -441,7 +460,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(42, 70);
+            this.label12.Location = new System.Drawing.Point(19, 64);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(47, 15);
             this.label12.TabIndex = 20;
@@ -451,7 +470,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(45, 39);
+            this.label11.Location = new System.Drawing.Point(19, 33);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(44, 15);
             this.label11.TabIndex = 19;
@@ -459,7 +478,7 @@
             // 
             // btnSaveTask
             // 
-            this.btnSaveTask.Location = new System.Drawing.Point(808, 627);
+            this.btnSaveTask.Location = new System.Drawing.Point(797, 558);
             this.btnSaveTask.Name = "btnSaveTask";
             this.btnSaveTask.Size = new System.Drawing.Size(112, 29);
             this.btnSaveTask.TabIndex = 7;
@@ -469,12 +488,13 @@
             // 
             // btnCancelTask
             // 
-            this.btnCancelTask.Location = new System.Drawing.Point(948, 627);
+            this.btnCancelTask.Location = new System.Drawing.Point(937, 558);
             this.btnCancelTask.Name = "btnCancelTask";
             this.btnCancelTask.Size = new System.Drawing.Size(112, 29);
             this.btnCancelTask.TabIndex = 8;
             this.btnCancelTask.Text = "Cancel";
             this.btnCancelTask.UseVisualStyleBackColor = true;
+            this.btnCancelTask.Click += new System.EventHandler(this.btnCancelTask_Click);
             // 
             // label5
             // 
@@ -486,41 +506,11 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "Name";
             // 
-            // grpAttachments
-            // 
-            this.grpAttachments.Controls.Add(this.lstAttachments);
-            this.grpAttachments.Controls.Add(this.btnAttachFile);
-            this.grpAttachments.Location = new System.Drawing.Point(571, 424);
-            this.grpAttachments.Name = "grpAttachments";
-            this.grpAttachments.Size = new System.Drawing.Size(489, 160);
-            this.grpAttachments.TabIndex = 9;
-            this.grpAttachments.TabStop = false;
-            this.grpAttachments.Text = "Attachments";
-            // 
-            // lstAttachments
-            // 
-            this.lstAttachments.FormattingEnabled = true;
-            this.lstAttachments.Location = new System.Drawing.Point(15, 39);
-            this.lstAttachments.Name = "lstAttachments";
-            this.lstAttachments.Size = new System.Drawing.Size(352, 95);
-            this.lstAttachments.TabIndex = 8;
-            // 
-            // btnAttachFile
-            // 
-            this.btnAttachFile.Location = new System.Drawing.Point(373, 39);
-            this.btnAttachFile.Name = "btnAttachFile";
-            this.btnAttachFile.Size = new System.Drawing.Size(99, 29);
-            this.btnAttachFile.TabIndex = 7;
-            this.btnAttachFile.Text = "Attach File";
-            this.btnAttachFile.UseVisualStyleBackColor = true;
-            this.btnAttachFile.Click += new System.EventHandler(this.btnAttachFile_Click);
-            // 
             // frmTaskCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1107, 680);
-            this.Controls.Add(this.grpAttachments);
+            this.ClientSize = new System.Drawing.Size(1083, 611);
             this.Controls.Add(this.btnCancelTask);
             this.Controls.Add(this.btnSaveTask);
             this.Controls.Add(this.AdditionalInfo);
@@ -534,7 +524,6 @@
             this.grpTaskInfo.PerformLayout();
             this.AdditionalInfo.ResumeLayout(false);
             this.AdditionalInfo.PerformLayout();
-            this.grpAttachments.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,10 +564,9 @@
         private System.Windows.Forms.DateTimePicker dtpReminderDatePicker;
         private System.Windows.Forms.CheckBox chkReminder;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox grpAttachments;
-        private System.Windows.Forms.ListBox lstAttachments;
-        private System.Windows.Forms.Button btnAttachFile;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtIndividualId;
+        private System.Windows.Forms.TextBox txtTaskCreator;
+        private System.Windows.Forms.Label label16;
     }
 }
