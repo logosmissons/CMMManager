@@ -1964,10 +1964,231 @@ namespace CMMManager
                         gvPaymentCreditCard.Rows.Add(row);
                     }
                 }
+                rdrCreditCardPayment.Close();
                 if (connRN.State == ConnectionState.Open) connRN.Close();
 
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                String strSqlQueryForCheckPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
+                                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
+                                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
+                                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
+                                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
+                                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
+                                         "from [RN_DB].[dbo].[tbl_settlement] " +
+                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
+                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
+                                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
+                                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
+                                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
+                                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                                         "[RN_DB].[dbo].[tbl_settlement].[CheckDate] IS NULL";
+
+                SqlCommand cmdQeuryForPaymentCheck = new SqlCommand(strSqlQueryForCheckPayment, connRN);
+                cmdQeuryForPaymentCheck.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                gvPaymentCheck.Rows.Clear();
+                SqlDataReader rdrPaymentCheck = cmdQeuryForPaymentCheck.ExecuteReader();
+                if (rdrPaymentCheck.HasRows)
+                {
+                    while(rdrPaymentCheck.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        if (!rdrPaymentCheck.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(0) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(1) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(3) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(4) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(5) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(6) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDecimal(7).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(8) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(9) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(10).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(11) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(12).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(13).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(14) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(15) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(16) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(17) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(18) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(19) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDecimal(20).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(21) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(22) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(23) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(24) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetBoolean(25) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentCheck.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(26).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvPaymentCheck.Rows.Add(row);
+                    }
+                }
+                rdrPaymentCheck.Close();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///
+                String strSqlQueryForACHPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
+                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
+                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
+                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
+                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
+                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
+                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
+                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
+                         "from [RN_DB].[dbo].[tbl_settlement] " +
+                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
+                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
+                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
+                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
+                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
+                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
+                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
+                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                         "[RN_DB].[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+                         "[RN_DB].[dbo].[tbl_settlement].[ACH_Date] IS NULL";
+
+                SqlCommand cmdPaymentACH = new SqlCommand(strSqlQueryForACHPayment, connRN);
+                cmdPaymentACH.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                gvPaymentACH.Rows.Clear();
+                SqlDataReader rdrPaymentACH = cmdPaymentACH.ExecuteReader();
+                if (rdrPaymentACH.HasRows)
+                {
+                    while (rdrPaymentACH.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+
+                        if (!rdrPaymentACH.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(0) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(1) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(3) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(4) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(5) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(6) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDecimal(7).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(8) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(9) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(10).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(11) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(12).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(13).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(14) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(15) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(16) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(17) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(18) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(19) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDecimal(20).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(21) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(22) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(23) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(24) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetBoolean(25) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(26).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
 
+                        gvPaymentACH.Rows.Add(row);
+                    }
+                }
+
+
+
+                if (connRN.State == ConnectionState.Closed) connRN.Open();
 
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3750,7 +3971,7 @@ namespace CMMManager
 
                     if (connRN4.State != ConnectionState.Closed) connRN4.Close();
 
-                    if (nResult == 1)
+                    if (nResult == 2)
                     {
                         MessageBox.Show("The case has been saved.", "Information");
 
@@ -3961,7 +4182,7 @@ namespace CMMManager
                     int nRowAffected = cmdUpdateCase.ExecuteNonQuery();
                     if (connRN4.State != ConnectionState.Closed) connRN4.Close();
 
-                    if (nRowAffected == 1)
+                    if (nRowAffected == 3)
                     {
                         MessageBox.Show("The change has been saved.", "Information");
 
@@ -7409,6 +7630,7 @@ namespace CMMManager
 
                     if (nRowInserted == 1)
                     {
+                        MessageBox.Show("The medical bill has been saved.", "Information");
 
                         // handle Well Being Care case
                         Boolean bWellBeingCare = true;
@@ -8573,109 +8795,22 @@ namespace CMMManager
                         }
 
                         // Calculate the Total Shared Amount in Medical Bill
-                        String strSqlQueryForTotalSharedAmountSettlementInMedBill = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
-                                                                                    "inner join [dbo].[tbl_settlement_type_code] " +
-                                                                                    "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                                                    "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillId and " +
-                                                                                    "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                                                    "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
-                                                                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
-                                                                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
 
-                        SqlCommand cmdQueryForTotalSharedAmountInSettlemetsInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountSettlementInMedBill, connRN5);
-                        cmdQueryForTotalSharedAmountInSettlemetsInMedBill.CommandType = CommandType.Text;
-
-                        cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
+                        if (gvSettlementsInMedBill.Rows.Count > 0)
                         {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            String strSqlQueryForTotalSharedAmountSettlementInMedBill = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                                        "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                                        "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                                        "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillId and " +
+                                                                                        "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                                                        "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
+                                                                                        "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+                                                                                        "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
 
-                        Object objTotalSharedAmountSettlementInMedBill = cmdQueryForTotalSharedAmountInSettlemetsInMedBill.ExecuteScalar();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+                            SqlCommand cmdQueryForTotalSharedAmountInSettlemetsInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountSettlementInMedBill, connRN5);
+                            cmdQueryForTotalSharedAmountInSettlemetsInMedBill.CommandType = CommandType.Text;
 
-                        Decimal TotalSharedAmountSettlement = 0;
-                        if (objTotalSharedAmountSettlementInMedBill.ToString() != String.Empty)
-                        {
-                            TotalSharedAmountSettlement = Decimal.Parse(objTotalSharedAmountSettlementInMedBill.ToString());
-                        }
-
-                        String strSqlQueryForMedicalProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
-                                                                     "inner join [dbo].[tbl_settlement_type_code] " +
-                                                                     "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                                     "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillId and " +
-                                                                     "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
-
-                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN5);
-                        cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
-
-                        cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-
-                        Object objMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
-
-                        Decimal MedicalProviderRefund = 0;
-                        if (objMedicalProviderRefund.ToString() != String.Empty) MedicalProviderRefund = Decimal.Parse(objMedicalProviderRefund.ToString());
-
-                        TotalSharedAmountSettlement -= MedicalProviderRefund;
-
-                        String strSqlUpdateMedBillForTotalSharedAmount = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @TotalSharedAmount " +
-                                                 "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
-                                                 "[dbo].[tbl_medbill].[IsDeleted] = 0 and " +
-                                                 "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
-                                                 "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
-                                                 "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
-
-                        SqlCommand cmdUpdateMedBillForTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForTotalSharedAmount, connRN5);
-                        cmdUpdateMedBillForTotalSharedAmount.CommandType = CommandType.Text;
-
-                        cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountSettlement);
-                        cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@MedBillNo", txtMedBillNo.Text.Trim());
-                        cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
-                        cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
-                        cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        int nMedBillUpdated = cmdUpdateMedBillForTotalSharedAmount.ExecuteNonQuery();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
-
-                        if (nMedBillUpdated == 0)
-                        {
-                            MessageBox.Show("The Medical Bill has not been updated with Total Shared Amount.", "Error");
-                            return;
-                        }
-
-                        if (strIllnessIdForIncidentSharedTotal != String.Empty &&
-                            strIncidentIdForIncidentSharedTotal != String.Empty)
-                        {
-
-                            String strSqlQueryForIncidentTotalSharedAmount = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
-                                                 "where [dbo].[tbl_medbill].[IsDeleted] = 0 and " +
-                                                 "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
-                                                 "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
-                                                 "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
-
-                            SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN5);
-                            cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
-
-                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
-                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
-                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                            cmdQueryForTotalSharedAmountInSettlemetsInMedBill.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
 
                             if (connRN5.State != ConnectionState.Closed)
                             {
@@ -8683,56 +8818,89 @@ namespace CMMManager
                                 connRN5.Open();
                             }
                             else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                            Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
+
+                            Object objTotalSharedAmountSettlementInMedBill = cmdQueryForTotalSharedAmountInSettlemetsInMedBill.ExecuteScalar();
                             if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                            Decimal IncidentTotalSharedAmount = 0;
-                            if (objIncidentTotalSharedAmount.ToString() != String.Empty)
+                            Decimal TotalSharedAmountSettlement = 0;
+                            if (objTotalSharedAmountSettlementInMedBill.ToString() != String.Empty)
                             {
-                                IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
+                                TotalSharedAmountSettlement = Decimal.Parse(objTotalSharedAmountSettlementInMedBill.ToString());
                             }
-                            else
+
+                            String strSqlQueryForMedicalProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                         "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                         "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                         "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillId and " +
+                                                                         "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
+
+                            SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN5);
+                            cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
+
+                            cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillId", txtMedBillNo.Text.Trim());
+
+                            if (connRN5.State != ConnectionState.Closed)
                             {
-                                MessageBox.Show("No Incident Total Shared Amount", "Error");
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                            Object objMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
+
+                            Decimal MedicalProviderRefund = 0;
+                            if (objMedicalProviderRefund.ToString() != String.Empty) MedicalProviderRefund = Decimal.Parse(objMedicalProviderRefund.ToString());
+
+                            TotalSharedAmountSettlement -= MedicalProviderRefund;
+
+                            String strSqlUpdateMedBillForTotalSharedAmount = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @TotalSharedAmount " +
+                                                     "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                     "[dbo].[tbl_medbill].[IsDeleted] = 0 and " +
+                                                     "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                     "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
+                                                     "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
+
+                            SqlCommand cmdUpdateMedBillForTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForTotalSharedAmount, connRN5);
+                            cmdUpdateMedBillForTotalSharedAmount.CommandType = CommandType.Text;
+
+                            cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountSettlement);
+                            cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@MedBillNo", txtMedBillNo.Text.Trim());
+                            cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
+                            cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
+                            cmdUpdateMedBillForTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nMedBillUpdated = cmdUpdateMedBillForTotalSharedAmount.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            if (nMedBillUpdated == 0)
+                            {
+                                MessageBox.Show("The Medical Bill has not been updated with Total Shared Amount.", "Error");
                                 return;
                             }
 
-                            String strUpdateIncidentSharedTotal = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[TotalSharedAmount] = @TotalSharedAmount " +
-                                      "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
-                                      "[dbo].[tbl_incident].[Incident_id] = @IncidentId and" +
-                                      "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
-                                      "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
-
-                            SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strUpdateIncidentSharedTotal, connRN5);
-                            cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
-
-                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
-                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
-                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
-                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                            if (connRN5.State != ConnectionState.Closed)
+                            if (strIllnessIdForIncidentSharedTotal != String.Empty &&
+                                strIncidentIdForIncidentSharedTotal != String.Empty)
                             {
-                                connRN5.Close();
-                                connRN5.Open();
-                            }
-                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                            int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery();
-                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                            if (nIncidentUpdated == 1)
-                            {
-                                String strSqlQueryForIllnessTotalSharedAmount = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
-                                               "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
-                                               "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
-                                               "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
+                                String strSqlQueryForIncidentTotalSharedAmount = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
+                                                     "where [dbo].[tbl_medbill].[IsDeleted] = 0 and " +
+                                                     "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                     "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
+                                                     "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
 
+                                SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN5);
+                                cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
 
-                                SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN5);
-                                cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
-
-                                cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
-                                cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                                cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
+                                cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
+                                cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
                                 if (connRN5.State != ConnectionState.Closed)
                                 {
@@ -8740,23 +8908,33 @@ namespace CMMManager
                                     connRN5.Open();
                                 }
                                 else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                                Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
+                                Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
                                 if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                Decimal IllnessTotalSharedAmount = 0;
-                                if (objIllnessTotalSharedAmount.ToString() != String.Empty) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
+                                Decimal IncidentTotalSharedAmount = 0;
+                                if (objIncidentTotalSharedAmount.ToString() != String.Empty)
+                                {
+                                    IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No Incident Total Shared Amount", "Error");
+                                    return;
+                                }
 
-                                String strSqlUpdateIllnessSharedTotal = "update [dbo].[tbl_illness] set [dbo].[tbl_illness].[TotalSharedAmount] = @TotalSharedAmount " +
-                                        "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
-                                        "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
-                                        "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+                                String strUpdateIncidentSharedTotal = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[TotalSharedAmount] = @TotalSharedAmount " +
+                                          "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
+                                          "[dbo].[tbl_incident].[Incident_id] = @IncidentId and" +
+                                          "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
+                                          "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                                SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN5);
-                                cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
+                                SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strUpdateIncidentSharedTotal, connRN5);
+                                cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
 
-                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
-                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
-                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                                cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
+                                cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentIdForIncidentSharedTotal));
+                                cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
+                                cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
                                 if (connRN5.State != ConnectionState.Closed)
                                 {
@@ -8764,19 +8942,22 @@ namespace CMMManager
                                     connRN5.Open();
                                 }
                                 else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                                int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
+                                int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery();
                                 if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                if (nIllnessUpdated == 1)
+                                if (nIncidentUpdated == 1)
                                 {
-                                    String strSqlQueryForIndividualTotalSharedAmount = "select sum([dbo].[tbl_illness].[TotalSharedAmount]) from [dbo].[tbl_illness] " +
-                                                   "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
-                                                   "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+                                    String strSqlQueryForIllnessTotalSharedAmount = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
+                                                   "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
+                                                   "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
+                                                   "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                                    SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN5);
-                                    cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
 
-                                    cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                                    SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN5);
+                                    cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
+
+                                    cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
+                                    cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
                                     if (connRN5.State != ConnectionState.Closed)
                                     {
@@ -8784,57 +8965,102 @@ namespace CMMManager
                                         connRN5.Open();
                                     }
                                     else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                                    Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
+                                    Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
                                     if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                    Decimal IndividualTotalSharedAmount = 0;
-                                    if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
+                                    Decimal IllnessTotalSharedAmount = 0;
+                                    if (objIllnessTotalSharedAmount.ToString() != String.Empty) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
 
+                                    String strSqlUpdateIllnessSharedTotal = "update [dbo].[tbl_illness] set [dbo].[tbl_illness].[TotalSharedAmount] = @TotalSharedAmount " +
+                                            "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
+                                            "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
+                                            "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                                    String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
-                                                                                     "where [dbo].[contact].[IsDeleted] = 0 and " +
-                                                                                     "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+                                    SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN5);
+                                    cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
 
-                                    SqlCommand cmdUpdateIndividualTotalSharedAmount = new SqlCommand(strSqlUpdateIndividualTotalSharedAmount, connSalesforce);
-                                    cmdUpdateIndividualTotalSharedAmount.CommandType = CommandType.Text;
+                                    cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
+                                    cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessIdForIncidentSharedTotal));
+                                    cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                                    cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualTotalSharedAmount", IndividualTotalSharedAmount);
-                                    cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                                    if (connSalesforce.State == ConnectionState.Open)
+                                    if (connRN5.State != ConnectionState.Closed)
                                     {
-                                        connSalesforce.Close();
-                                        connSalesforce.Open();
+                                        connRN5.Close();
+                                        connRN5.Open();
                                     }
-                                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                    int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
+                                    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                    int nIndividualUpdated = cmdUpdateIndividualTotalSharedAmount.ExecuteNonQuery();
-                                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
-
-                                    if (nIndividualUpdated == 1) txtTotalSharedAmount.Text = IndividualTotalSharedAmount.ToString("C");
-
-                                    if (nIndividualUpdated != 1)
+                                    if (nIllnessUpdated == 1)
                                     {
-                                        MessageBox.Show("Individual Total Shared Amount has not been updated.", "Error");
+                                        String strSqlQueryForIndividualTotalSharedAmount = "select sum([dbo].[tbl_illness].[TotalSharedAmount]) from [dbo].[tbl_illness] " +
+                                                       "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
+                                                       "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+                                        SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN5);
+                                        cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
+
+                                        cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                                        if (connRN5.State != ConnectionState.Closed)
+                                        {
+                                            connRN5.Close();
+                                            connRN5.Open();
+                                        }
+                                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                        Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
+                                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                                        Decimal IndividualTotalSharedAmount = 0;
+                                        if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
+
+
+                                        String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
+                                                                                         "where [dbo].[contact].[IsDeleted] = 0 and " +
+                                                                                         "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                        SqlCommand cmdUpdateIndividualTotalSharedAmount = new SqlCommand(strSqlUpdateIndividualTotalSharedAmount, connSalesforce);
+                                        cmdUpdateIndividualTotalSharedAmount.CommandType = CommandType.Text;
+
+                                        cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualTotalSharedAmount", IndividualTotalSharedAmount);
+                                        cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                                        if (connSalesforce.State == ConnectionState.Open)
+                                        {
+                                            connSalesforce.Close();
+                                            connSalesforce.Open();
+                                        }
+                                        else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                                        int nIndividualUpdated = cmdUpdateIndividualTotalSharedAmount.ExecuteNonQuery();
+                                        if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                        if (nIndividualUpdated == 1) txtTotalSharedAmount.Text = IndividualTotalSharedAmount.ToString("C");
+
+                                        if (nIndividualUpdated != 1)
+                                        {
+                                            MessageBox.Show("Individual Total Shared Amount has not been updated.", "Alert");
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Illness total Shared Amount has not been updated.", "Alert");
                                         return;
                                     }
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Illness total Shared Amount has not been updated.", "Error");
+                                    MessageBox.Show("Incident Total Shared Amount has not been updated.", "Alert");
                                     return;
                                 }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Incident Total Shared Amount has not been updated.", "Error");
-                                return;
                             }
                         }
 
                         String strSqlQueryForTotalMedBillAmountForIndividualId = "select sum([dbo].[tbl_medbill].[BillAmount]) from [dbo].[tbl_medbill] " +
-                                                                                 "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
-                                                                                 "[dbo].[tbl_medbill].[IsDeleted] = 0";
+                                                                                    "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                                    "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
                         SqlCommand cmdQueryForTotalMedBillAmountForIndividualId = new SqlCommand(strSqlQueryForTotalMedBillAmountForIndividualId, connRN5);
                         cmdQueryForTotalMedBillAmountForIndividualId.CommandType = CommandType.Text;
@@ -8854,7 +9080,7 @@ namespace CMMManager
                         if (objTotalMedBillAmountForIndividualId != null) TotalMedBillAmountForIndividualId = Decimal.Parse(objTotalMedBillAmountForIndividualId.ToString());
 
                         String strSqlUpdateIndividualTotalMedBillAmount = "update [dbo].[contact] set [dbo].[contact].[MedicalBillAmountTotal] = @MedBillTotalForIndividual " +
-                                                                          "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+                                                                            "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
                         SqlCommand cmdUpdateIndividualTotalMedBillAmount = new SqlCommand(strSqlUpdateIndividualTotalMedBillAmount, connSalesforce);
                         cmdUpdateIndividualTotalMedBillAmount.CommandType = CommandType.Text;
@@ -8878,6 +9104,7 @@ namespace CMMManager
                             MessageBox.Show("The individual Medical Bill Amount Total has not been updated.", "Error");
                             return;
                         }
+                        
                     }
                     else if (nRowInserted == 0)
                     {
@@ -10043,157 +10270,21 @@ namespace CMMManager
                         }
                         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                        String strSqlQueryForTotalSharedAmountInMedBill = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
-                                                  "inner join [dbo].[tbl_settlement_type_code] on " +
-                                                  "[dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                  "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
-                                                  "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                  "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
-                                                  "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
-                                                  "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
-
-                        SqlCommand cmdQueryForTotalSharedAmountInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountInMedBill, connRN5);
-                        cmdQueryForTotalSharedAmountInMedBill.CommandType = CommandType.Text;
-
-                        cmdQueryForTotalSharedAmountInMedBill.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
-
-                        if (connRN5.State != ConnectionState.Closed)
+                        if (gvSettlementsInMedBill.Rows.Count > 0)
                         {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        Object objTotalSharedAmountInMedBill = cmdQueryForTotalSharedAmountInMedBill.ExecuteScalar();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+                            String strSqlQueryForTotalSharedAmountInMedBill = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                      "inner join [dbo].[tbl_settlement_type_code] on " +
+                                                      "[dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                      "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
+                                                      "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                      "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
+                                                      "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement')";
 
-                        Decimal TotalSharedAmountInMedBill = 0;
-                        if (objTotalSharedAmountInMedBill.ToString() != String.Empty) TotalSharedAmountInMedBill = Decimal.Parse(objTotalSharedAmountInMedBill.ToString());
+                            SqlCommand cmdQueryForTotalSharedAmountInMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountInMedBill, connRN5);
+                            cmdQueryForTotalSharedAmountInMedBill.CommandType = CommandType.Text;
 
-                        String strSqlQueryForMedicalProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
-                                                                     "inner join [dbo].[tbl_settlement_type_code] on " +
-                                                                     "[dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                                     "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
-                                                                     "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
-
-                        SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN5);
-                        cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
-
-                        cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        Object objTotalMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
-
-                        Decimal TotalMedicalProviderRefund = 0;
-                        if (objTotalMedicalProviderRefund.ToString() != String.Empty) TotalMedicalProviderRefund = Decimal.Parse(objTotalMedicalProviderRefund.ToString());
-
-                        TotalSharedAmountInMedBill -= TotalMedicalProviderRefund;
-
-                        String strSqlUpdateMedBillWithTotalSharedAmount = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @TotalSharedAmount " +
-                                                  "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
-                                                  "[dbo].[tbl_medbill].[IsDeleted] = 0 and " +
-                                                  "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
-                                                  "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
-                                                  "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
-
-
-                        SqlCommand cmdUpdateMedBillWithTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillWithTotalSharedAmount, connRN5);
-                        cmdUpdateMedBillWithTotalSharedAmount.CommandType = CommandType.Text;
-
-                        cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountInMedBill);
-                        cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
-                        cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
-                        cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
-                        cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        int nMedBillUpdated = cmdUpdateMedBillWithTotalSharedAmount.ExecuteNonQuery();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
-
-                        if (nMedBillUpdated == 0)
-                        {
-                            MessageBox.Show("The Medical Bill has not been updated with Total Shared Amount.", "Error");
-                            return;
-                        }
-
-                        String strSqlQueryForIncidentTotalSharedAmount = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
-                                                 "where [dbo].[tbl_medbill].[IsDeleted] = 0 and " +
-                                                 "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
-                                                 "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
-                                                 "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
-
-                        SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN5);
-                        cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
-
-                        cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
-                        cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
-                        cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
-
-                        Decimal IncidentTotalSharedAmount = 0;
-                        if (objIncidentTotalSharedAmount.ToString() != String.Empty) IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
-                        else
-                        {
-                            MessageBox.Show("No Incident Total Shared Amount", "Error");
-                            return;
-                        }
-
-                        String strSqlUpdateIncidentSharedTotalAmount = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[TotalSharedAmount] = @TotalSharedAmount," +
-                                                                       "[dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff " +
-                                                                       "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
-                                                                       "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
-                                                                       "[dbo].[tbl_incident].[Incident_id] = @IncidentId and " +
-                                                                       "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
-
-                        SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount, connRN5);
-                        cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
-
-                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
-                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@ModifiStaff", nLoggedUserId);
-                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
-                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
-                        cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
-
-                        if (connRN5.State != ConnectionState.Closed)
-                        {
-                            connRN5.Close();
-                            connRN5.Open();
-                        }
-                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                        int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery(); // incident id is null in incident_history table
-                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
-
-                        if (nIncidentUpdated == 3)
-                        {
-                            String strSqlQueryForIllnessTotalSharedAmount = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
-                                                "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
-                                                "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
-                                                "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
-
-                            SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN5);
-                            cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
-
-                            cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
-                            cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                            cmdQueryForTotalSharedAmountInMedBill.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
 
                             if (connRN5.State != ConnectionState.Closed)
                             {
@@ -10201,23 +10292,23 @@ namespace CMMManager
                                 connRN5.Open();
                             }
                             else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                            Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
+                            Object objTotalSharedAmountInMedBill = cmdQueryForTotalSharedAmountInMedBill.ExecuteScalar();
                             if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                            Decimal IllnessTotalSharedAmount = 0;
-                            if (objIllnessTotalSharedAmount.ToString() != String.Empty) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
+                            Decimal TotalSharedAmountInMedBill = 0;
+                            if (objTotalSharedAmountInMedBill.ToString() != String.Empty) TotalSharedAmountInMedBill = Decimal.Parse(objTotalSharedAmountInMedBill.ToString());
 
-                            String strSqlUpdateIllnessSharedTotal = "update [dbo].[tbl_illness] set [dbo].[tbl_illness].[TotalSharedAmount] = @TotalSharedAmount " +
-                                        "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
-                                        "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
-                                        "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+                            String strSqlQueryForMedicalProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                         "inner join [dbo].[tbl_settlement_type_code] on " +
+                                                                         "[dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                         "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
+                                                                         "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Medical Provider Refund'";
 
-                            SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN5);
-                            cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
+                            SqlCommand cmdQueryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN5);
+                            cmdQueryForMedicalProviderRefund.CommandType = CommandType.Text;
 
-                            cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
-                            cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
-                            cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                            cmdQueryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
 
                             if (connRN5.State != ConnectionState.Closed)
                             {
@@ -10225,19 +10316,113 @@ namespace CMMManager
                                 connRN5.Open();
                             }
                             else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                            int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
+                            Object objTotalMedicalProviderRefund = cmdQueryForMedicalProviderRefund.ExecuteScalar();
                             if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                            if (nIllnessUpdated == 1)
+                            Decimal TotalMedicalProviderRefund = 0;
+                            if (objTotalMedicalProviderRefund.ToString() != String.Empty) TotalMedicalProviderRefund = Decimal.Parse(objTotalMedicalProviderRefund.ToString());
+
+                            TotalSharedAmountInMedBill -= TotalMedicalProviderRefund;
+
+                            String strSqlUpdateMedBillWithTotalSharedAmount = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @TotalSharedAmount " +
+                                                      "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                      "[dbo].[tbl_medbill].[IsDeleted] = 0 and " +
+                                                      "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                      "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
+                                                      "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
+
+
+                            SqlCommand cmdUpdateMedBillWithTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillWithTotalSharedAmount, connRN5);
+                            cmdUpdateMedBillWithTotalSharedAmount.CommandType = CommandType.Text;
+
+                            cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmountInMedBill);
+                            cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
+                            cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                            cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
+                            cmdUpdateMedBillWithTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                            if (connRN5.State != ConnectionState.Closed)
                             {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nMedBillUpdated = cmdUpdateMedBillWithTotalSharedAmount.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                String strSqlQueryForIndividualTotalSharedAmount = "select sum([dbo].[tbl_illness].[TotalSharedAmount]) from [dbo].[tbl_illness] " +
-                                                    "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
-                                                    "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+                            if (nMedBillUpdated == 0)
+                            {
+                                MessageBox.Show("The Medical Bill has not been updated with Total Shared Amount.", "Error");
+                                return;
+                            }
 
-                                SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN5);
-                                cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
-                                cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                            String strSqlQueryForIncidentTotalSharedAmount = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
+                                                     "where [dbo].[tbl_medbill].[IsDeleted] = 0 and " +
+                                                     "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                     "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId and " +
+                                                     "[dbo].[tbl_medbill].[Individual_Id] = @IndividualId";
+
+                            SqlCommand cmdQueryForIncidentTotalSharedAmount = new SqlCommand(strSqlQueryForIncidentTotalSharedAmount, connRN5);
+                            cmdQueryForIncidentTotalSharedAmount.CommandType = CommandType.Text;
+
+                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
+                            cmdQueryForIncidentTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            Object objIncidentTotalSharedAmount = cmdQueryForIncidentTotalSharedAmount.ExecuteScalar();
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            Decimal IncidentTotalSharedAmount = 0;
+                            if (objIncidentTotalSharedAmount.ToString() != String.Empty) IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
+                            else
+                            {
+                                MessageBox.Show("No Incident Total Shared Amount", "Error");
+                                return;
+                            }
+
+                            String strSqlUpdateIncidentSharedTotalAmount = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[TotalSharedAmount] = @TotalSharedAmount," +
+                                                                           "[dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff " +
+                                                                           "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
+                                                                           "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
+                                                                           "[dbo].[tbl_incident].[Incident_id] = @IncidentId and " +
+                                                                           "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
+
+                            SqlCommand cmdUpdateIncidentSharedTotal = new SqlCommand(strSqlUpdateIncidentSharedTotalAmount, connRN5);
+                            cmdUpdateIncidentSharedTotal.CommandType = CommandType.Text;
+
+                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IncidentTotalSharedAmount);
+                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@ModifiStaff", nLoggedUserId);
+                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", Int32.Parse(strIncidentId));
+                            cmdUpdateIncidentSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery(); // incident id is null in incident_history table
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            if (nIncidentUpdated == 3)
+                            {
+                                String strSqlQueryForIllnessTotalSharedAmount = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
+                                                    "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
+                                                    "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
+                                                    "[dbo].[tbl_incident].[Individual_id] = @IndividualId";
+
+                                SqlCommand cmdQueryForIllnessTotalSharedAmount = new SqlCommand(strSqlQueryForIllnessTotalSharedAmount, connRN5);
+                                cmdQueryForIllnessTotalSharedAmount.CommandType = CommandType.Text;
+
+                                cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                                cmdQueryForIllnessTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
                                 if (connRN5.State != ConnectionState.Closed)
                                 {
@@ -10245,51 +10430,95 @@ namespace CMMManager
                                     connRN5.Open();
                                 }
                                 else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-                                Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
+                                Object objIllnessTotalSharedAmount = cmdQueryForIllnessTotalSharedAmount.ExecuteScalar();
                                 if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                Decimal IndividualTotalSharedAmount = 0;
-                                if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
+                                Decimal IllnessTotalSharedAmount = 0;
+                                if (objIllnessTotalSharedAmount.ToString() != String.Empty) IllnessTotalSharedAmount = Decimal.Parse(objIllnessTotalSharedAmount.ToString());
 
-                                String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
-                                                                                 "where [dbo].[contact].[IsDeleted] = 0 and " +
-                                                                                 "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+                                String strSqlUpdateIllnessSharedTotal = "update [dbo].[tbl_illness] set [dbo].[tbl_illness].[TotalSharedAmount] = @TotalSharedAmount " +
+                                            "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
+                                            "[dbo].[tbl_illness].[Illness_Id] = @IllnessId and " +
+                                            "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
-                                SqlCommand cmdUpdateIndividualTotalSharedAmount = new SqlCommand(strSqlUpdateIndividualTotalSharedAmount, connSalesforce);
-                                cmdUpdateIndividualTotalSharedAmount.CommandType = CommandType.Text;
+                                SqlCommand cmdUpdateIllnessSharedTotal = new SqlCommand(strSqlUpdateIllnessSharedTotal, connRN5);
+                                cmdUpdateIllnessSharedTotal.CommandType = CommandType.Text;
 
-                                cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualTotalSharedAmount", IndividualTotalSharedAmount);
-                                cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@TotalSharedAmount", IllnessTotalSharedAmount);
+                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                                cmdUpdateIllnessSharedTotal.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
 
-                                if (connSalesforce.State == ConnectionState.Open)
+                                if (connRN5.State != ConnectionState.Closed)
                                 {
-                                    connSalesforce.Close();
-                                    connSalesforce.Open();
+                                    connRN5.Close();
+                                    connRN5.Open();
                                 }
-                                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
-                                int nIndividualUpdated = cmdUpdateIndividualTotalSharedAmount.ExecuteNonQuery();
-                                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                int nIllnessUpdated = cmdUpdateIllnessSharedTotal.ExecuteNonQuery();
+                                if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                if (nIndividualUpdated == 1) txtTotalSharedAmount.Text = IndividualTotalSharedAmount.ToString("C");
-
-                                if (nIndividualUpdated != 1)
+                                if (nIllnessUpdated == 1)
                                 {
-                                    MessageBox.Show("Individual Total Shared Amount has not been updated.", "Error");
+
+                                    String strSqlQueryForIndividualTotalSharedAmount = "select sum([dbo].[tbl_illness].[TotalSharedAmount]) from [dbo].[tbl_illness] " +
+                                                        "where [dbo].[tbl_illness].[IsDeleted] = 0 and " +
+                                                        "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+                                    SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN5);
+                                    cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
+                                    cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                                    if (connRN5.State != ConnectionState.Closed)
+                                    {
+                                        connRN5.Close();
+                                        connRN5.Open();
+                                    }
+                                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                    Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
+                                    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                                    Decimal IndividualTotalSharedAmount = 0;
+                                    if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
+
+                                    String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
+                                                                                     "where [dbo].[contact].[IsDeleted] = 0 and " +
+                                                                                     "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                                    SqlCommand cmdUpdateIndividualTotalSharedAmount = new SqlCommand(strSqlUpdateIndividualTotalSharedAmount, connSalesforce);
+                                    cmdUpdateIndividualTotalSharedAmount.CommandType = CommandType.Text;
+
+                                    cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualTotalSharedAmount", IndividualTotalSharedAmount);
+                                    cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", txtIndividualIDMedBill.Text.Trim());
+
+                                    if (connSalesforce.State == ConnectionState.Open)
+                                    {
+                                        connSalesforce.Close();
+                                        connSalesforce.Open();
+                                    }
+                                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                                    int nIndividualUpdated = cmdUpdateIndividualTotalSharedAmount.ExecuteNonQuery();
+                                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                                    if (nIndividualUpdated == 1) txtTotalSharedAmount.Text = IndividualTotalSharedAmount.ToString("C");
+
+                                    if (nIndividualUpdated != 1)
+                                    {
+                                        MessageBox.Show("Individual Total Shared Amount has not been updated.", "Error");
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Illness Total Shared Amount has not been updated.", "Error");
                                     return;
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Illness Total Shared Amount has not been updated.", "Error");
+                                MessageBox.Show("Incident Total Shared Amount has not been updated.", "Error");
                                 return;
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Incident Total Shared Amount has not been updated.", "Error");
-                            return;
-                        }
-
                         String strSqlQueryForTotalMedBillAmountForIndividualId = "select sum([dbo].[tbl_medbill].[BillAmount]) from [dbo].[tbl_medbill] " +
                                                          "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
                                                          "[dbo].[tbl_medbill].[IsDeleted] = 0";
@@ -30107,6 +30336,57 @@ namespace CMMManager
             }
             
         }
+
+        //private void tabPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void gvSettlementsInMedBill_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        //{
+        //    CalendarEditingControl cec = e.Control as CalendarEditingControl;
+
+        //    if (cec != null)
+        //    {
+        //        //e.Control.KeyPress -= new KeyPressEventHandler(dgvSettlements_KeyPress);
+        //        //e.Control.KeyPress += new KeyPressEventHandler(dgvSettlements_KeyPress);
+        //        e.Control.MouseClick -= new MouseEventHandler(dgvSettlements_MouseClick);
+        //        e.Control.MouseClick += new MouseEventHandler(dgvSettlements_MouseClick);
+        //    }
+        //    //cec.KeyPress += new KeyPressEventHandler(dgvCalendarCell_KeyPress);
+
+        //}
+
+        //private void dgvSettlements_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    if (e.KeyChar == (char)Keys.Back)
+        //    {
+        //        //MessageBox.Show("You pressed delete or backspace key.");
+        //        CalendarEditingControl cec = sender as CalendarEditingControl;
+
+        //        //if (cec == null) MessageBox.Show("CEC is NULL");
+        //        //if (cec != null)    //. MessageBox.Show("CEC is not NULL");
+
+        //        if (cec != null)
+        //        {
+        //            cec.Format = DateTimePickerFormat.Custom;
+        //            cec.CustomFormat = " ";
+        //        }
+
+        //    }
+        //}
+
+        //private void dgvSettlements_MouseClick(object sender, MouseEventArgs e)
+        //{
+        //    CalendarEditingControl cec = sender as CalendarEditingControl;
+
+        //    if (cec != null)
+        //    {
+        //        //cec.Format = DateTimePickerFormat.Custom;
+        //        //cec.CustomFormat = "MM/dd/yyyy";
+        //        MessageBox.Show("Mouse clicked");
+        //    }
+        //}
     }
 
     //public class ApprovedSettlementInfo

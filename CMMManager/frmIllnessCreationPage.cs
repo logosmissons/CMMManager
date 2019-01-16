@@ -517,7 +517,7 @@ namespace CMMManager
                 //int nNewInsertedId = (int)cmdCreateIllness.ExecuteScalar();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                if (nRowInserted == 2)
+                if (nRowInserted == 1)
                 {
                     MessageBox.Show("New Illness has been created.", "Information");
                     DialogResult = DialogResult.OK;
