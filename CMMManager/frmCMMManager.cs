@@ -817,6 +817,23 @@ namespace CMMManager
             }
         }
 
+
+        private void OnCreditCardPaymentChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnCreditCardPaymentChange;
+
+                UpdateGridViewCreditCardPayment();
+            }
+        }
+
+        private void UpdateGridViewCreditCardPayment()
+        {
+
+        }
+
         private void AddRowToActiveTaskNPManagerSafely(DataGridViewRow row)
         {
             gvNPManagerActiveTask.BeginInvoke(new AddRowToActiveTaskNPManager(AddRowActiveTaskNPManager), row);
@@ -1554,6 +1571,207 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
 
+                    String strSqlQueryForIncompleteCases = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case].[Contact_ID], " +
+                                                           "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                           "[dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[POP_Form], " +
+                                                           "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[AddBill_Form] " +
+                                                           "from [dbo].[tbl_case] " +
+                                                           "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_case].[CreateStaff] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                           "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_case].[ModifiStaff] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                           "where ([dbo].[tbl_case].[NPF_Form] = 0 or " +
+                                                           "[dbo].[tbl_case].[IB_Form] = 0 or " +
+                                                           "[dbo].[tbl_case].[POP_Form] = 0) and " +
+                                                           "[dbo].[tbl_case].[IsDeleted] = 0";
+
+                    SqlCommand cmdQueryForIncompleteCase = new SqlCommand(strSqlQueryForIncompleteCases, connRN);
+                    cmdQueryForIncompleteCase.CommandType = CommandType.Text;
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlDataReader rdrImcompleteCases = cmdQueryForIncompleteCase.ExecuteReader();
+                    gvRNManagerIncompleteCase.Rows.Clear();
+                    if (rdrImcompleteCases.HasRows)
+                    {
+                        while(rdrImcompleteCases.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrImcompleteCases.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrImcompleteCases.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrImcompleteCases.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrImcompleteCases.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrImcompleteCases.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrImcompleteCases.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrImcompleteCases.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrImcompleteCases.GetString(3) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrImcompleteCases.IsDBNull(4))
+                            {
+                                Boolean bNPF_Form = rdrImcompleteCases.GetBoolean(4);
+                                if (bNPF_Form)
+                                {
+                                    DataGridViewCheckBoxCell chkNPFCell = new DataGridViewCheckBoxCell();
+                                    chkNPFCell.Value = bNPF_Form;
+                                    row.Cells.Add(chkNPFCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkNPFCell = new DataGridViewCheckBoxCell();
+                                    chkNPFCell.Value = bNPF_Form;
+                                    chkNPFCell.Style.BackColor = Color.Pink;
+                                    row.Cells.Add(chkNPFCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            if (!rdrImcompleteCases.IsDBNull(5))
+                            {
+                                Boolean bIB_Form = rdrImcompleteCases.GetBoolean(5);
+                                if (bIB_Form)
+                                {
+                                    DataGridViewCheckBoxCell chkIBCell = new DataGridViewCheckBoxCell();
+                                    chkIBCell.Value = bIB_Form;
+                                    row.Cells.Add(chkIBCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkIBCell = new DataGridViewCheckBoxCell();
+                                    chkIBCell.Style.BackColor = Color.Pink;
+                                    chkIBCell.Value = bIB_Form;
+                                    row.Cells.Add(chkIBCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            if (!rdrImcompleteCases.IsDBNull(6))
+                            {
+                                Boolean bPOP_Form = rdrImcompleteCases.GetBoolean(6);
+                                if (bPOP_Form)
+                                {
+                                    DataGridViewCheckBoxCell chkPOPCell = new DataGridViewCheckBoxCell();
+                                    chkPOPCell.Value = bPOP_Form;
+                                    row.Cells.Add(chkPOPCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkPOPCell = new DataGridViewCheckBoxCell();
+                                    chkPOPCell.Style.BackColor = Color.Pink;
+                                    chkPOPCell.Value = bPOP_Form;
+                                    row.Cells.Add(chkPOPCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            if (!rdrImcompleteCases.IsDBNull(7))
+                            {
+                                Boolean bMedRec_Form = rdrImcompleteCases.GetBoolean(7);
+                                if (bMedRec_Form)
+                                {
+                                    DataGridViewCheckBoxCell chkMedRecCell = new DataGridViewCheckBoxCell();
+                                    chkMedRecCell.Value = bMedRec_Form;
+                                    row.Cells.Add(chkMedRecCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkMedRecCell = new DataGridViewCheckBoxCell();
+                                    chkMedRecCell.Style.BackColor = Color.Pink;
+                                    chkMedRecCell.Value = bMedRec_Form;
+                                    row.Cells.Add(chkMedRecCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            if (!rdrImcompleteCases.IsDBNull(8))
+                            {
+                                Boolean bUnknown = rdrImcompleteCases.GetBoolean(8);
+                                if (bUnknown)
+                                {
+                                    DataGridViewCheckBoxCell chkUnknownCell = new DataGridViewCheckBoxCell();
+                                    chkUnknownCell.Value = bUnknown;
+                                    row.Cells.Add(chkUnknownCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkUnknownCell = new DataGridViewCheckBoxCell();
+                                    chkUnknownCell.Style.BackColor = Color.Pink;
+                                    chkUnknownCell.Value = bUnknown;
+                                    row.Cells.Add(chkUnknownCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            if (!rdrImcompleteCases.IsDBNull(9))
+                            {
+                                Boolean bAddBill_Form = rdrImcompleteCases.GetBoolean(9);
+                                if (bAddBill_Form)
+                                {
+                                    DataGridViewCheckBoxCell chkAddBillCell = new DataGridViewCheckBoxCell();
+                                    chkAddBillCell.Value = bAddBill_Form;
+                                    row.Cells.Add(chkAddBillCell);
+                                }
+                                else
+                                {
+                                    DataGridViewCheckBoxCell chkAddBillCell = new DataGridViewCheckBoxCell();
+                                    chkAddBillCell.Style.BackColor = Color.Pink;
+                                    chkAddBillCell.Value = bAddBill_Form;
+                                    row.Cells.Add(chkAddBillCell);
+                                }
+                            }
+                            else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                            gvRNManagerIncompleteCase.Rows.Add(row);
+                        }
+                    }
+                    rdrImcompleteCases.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    ///
+                    String strSqlQueryForMedBillPending = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[Individual_Id], " +
+                                                          "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                          "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_MedicalProvider].[NAME], [dbo].[tbl_pending_reason].[name] " +
+                                                          "from [dbo].[tbl_medbill] " +
+                                                          "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                          "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                          "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                                                          "inner join [dbo].[tbl_pending_reason] on [dbo].[tbl_medbill].[PendingReason] = [dbo].[tbl_pending_reason].[ID] " +
+                                                          "where [dbo].[tbl_medbill].[BillStatus] = 0";
+
+                    SqlCommand cmdQueryForMedBillPending = new SqlCommand(strSqlQueryForMedBillPending, connRN);
+                    cmdQueryForMedBillPending.CommandType = CommandType.Text;
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    gvRNManagerMedBillPending.Rows.Clear();
+                    SqlDataReader rdrMedBillsPending = cmdQueryForMedBillPending.ExecuteReader();
+                    if (rdrMedBillsPending.HasRows)
+                    {
+                        while(rdrMedBillsPending.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+                            if (!rdrMedBillsPending.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(0) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(1) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(2) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(3) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetDecimal(4).ToString("C") });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(5) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            if (!rdrMedBillsPending.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(6) });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                            gvRNManagerMedBillPending.Rows.Add(row);
+                        }
+                    }
+                    rdrMedBillsPending.Close();
+                    if (connRN.State == ConnectionState.Open) connRN.Close();
+                    
+
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     String strSqlQueryForActiveTasks = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
                                                        "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task_created_by].[User_Name], " +
                                                        "[dbo].[tbl_task].[whatid], " +
@@ -1892,6 +2110,9 @@ namespace CMMManager
 
                 SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
                 cmdQueryForCreditCardPayment.CommandType = CommandType.Text;
+
+                SqlDependency dependencyCreditCardPayment = new SqlDependency(cmdQueryForCreditCardPayment);
+                dependencyCreditCardPayment.OnChange += new OnChangeEventHandler(OnCreditCardPaymentChange);
 
                 if (connRN.State != ConnectionState.Closed)
                 {
@@ -20258,6 +20479,8 @@ namespace CMMManager
         {
             if (gvIndividualSearched.Rows.Count > 0) gvIndividualSearched.DataSource = null;
 
+            tbCMMManager.SelectedTab = tbpgSearchResult;
+
             String strTextSearched = txtSearch.Text.Trim();
 
             String strSqlSearchContact = "select [dbo].[contact].[Individual_ID__C] as [Individual No.], " +
@@ -30330,11 +30553,15 @@ namespace CMMManager
                 //}
 
                 //if (connRN5.State == ConnectionState.Open) connRN5.Close();
-
-                
-
             }
-            
+        }
+
+        private void gvSettlementsInMedBill_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                gvSettlementsInMedBill.CurrentCell.Value = String.Empty;
+            }
         }
 
         //private void tabPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
