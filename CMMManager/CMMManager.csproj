@@ -77,6 +77,18 @@
     <Compile Include="frmCMMManager.Designer.cs">
       <DependentUpon>frmCMMManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConfirmCheckPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfirmCheckPayment.Designer.cs">
+      <DependentUpon>frmConfirmCheckPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConfirmPaymentDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfirmPaymentDlg.Designer.cs">
+      <DependentUpon>frmConfirmPaymentDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDeleteSuccess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +185,12 @@
     <Compile Include="frmSearchResult.Designer.cs">
       <DependentUpon>frmSearchResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSettlementNote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSettlementNote.Designer.cs">
+      <DependentUpon>frmSettlementNote.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaskCreationPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +208,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmCMMManager.resx">
       <DependentUpon>frmCMMManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirmCheckPayment.resx">
+      <DependentUpon>frmConfirmCheckPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirmPaymentDlg.resx">
+      <DependentUpon>frmConfirmPaymentDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteSuccess.resx">
       <DependentUpon>frmDeleteSuccess.cs</DependentUpon>
@@ -238,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSearchResult.resx">
       <DependentUpon>frmSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSettlementNote.resx">
+      <DependentUpon>frmSettlementNote.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskCreationPage.resx">
       <DependentUpon>frmTaskCreationPage.cs</DependentUpon>

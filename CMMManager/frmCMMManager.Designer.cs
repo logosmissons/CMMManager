@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -180,6 +180,14 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.txtAccountNo = new System.Windows.Forms.TextBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.txtAccountHolder = new System.Windows.Forms.TextBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.txtBankRoutingNo = new System.Windows.Forms.TextBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.txtBankName = new System.Windows.Forms.TextBox();
+            this.label96 = new System.Windows.Forms.Label();
             this.txtTotalMedBillAmount = new System.Windows.Forms.TextBox();
             this.label174 = new System.Windows.Forms.Label();
             this.rbEnglish = new System.Windows.Forms.RadioButton();
@@ -261,7 +269,7 @@
             this.txtPowerOfAttorney = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.cbGender = new System.Windows.Forms.ComboBox();
-            this.cbPaymentMethod = new System.Windows.Forms.ComboBox();
+            this.cbReimbursementMethod = new System.Windows.Forms.ComboBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.txtIndChurchName = new System.Windows.Forms.TextBox();
@@ -634,183 +642,84 @@
             this.tbpgPayment = new System.Windows.Forms.TabPage();
             this.tabPaymentMethod = new System.Windows.Forms.TabControl();
             this.tbpgCheck = new System.Windows.Forms.TabPage();
-            this.txtCheckPaymentAcctNoAtProvider = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentServiceDate = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentMedicalProvider = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentMedBillNo = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentCurrentProgram = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIncdProgram = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIncdNo = new System.Windows.Forms.TextBox();
-            this.label118 = new System.Windows.Forms.Label();
-            this.label117 = new System.Windows.Forms.Label();
-            this.label116 = new System.Windows.Forms.Label();
-            this.label115 = new System.Windows.Forms.Label();
-            this.label114 = new System.Windows.Forms.Label();
-            this.label113 = new System.Windows.Forms.Label();
-            this.label97 = new System.Windows.Forms.Label();
-            this.chkCheckReconcile = new System.Windows.Forms.CheckBox();
-            this.txtCheckDate = new System.Windows.Forms.TextBox();
-            this.txtCheckNo = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIndName = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIndNo = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentMembNo = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtCheckPaymentIndZip = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIndState = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIndCity = new System.Windows.Forms.TextBox();
-            this.txtCheckPaymentIndSteet = new System.Windows.Forms.TextBox();
-            this.label101 = new System.Windows.Forms.Label();
-            this.label105 = new System.Windows.Forms.Label();
-            this.label106 = new System.Windows.Forms.Label();
-            this.label107 = new System.Windows.Forms.Label();
-            this.label104 = new System.Windows.Forms.Label();
-            this.label103 = new System.Windows.Forms.Label();
-            this.label102 = new System.Windows.Forms.Label();
-            this.label100 = new System.Windows.Forms.Label();
-            this.label99 = new System.Windows.Forms.Label();
-            this.label98 = new System.Windows.Forms.Label();
-            this.chkApprovalByFD = new System.Windows.Forms.CheckBox();
-            this.chkApprovalByRN = new System.Windows.Forms.CheckBox();
-            this.label96 = new System.Windows.Forms.Label();
+            this.btnConfirmCheckPayment = new System.Windows.Forms.Button();
             this.gvPaymentCheck = new System.Windows.Forms.DataGridView();
+            this.SelectedPaymentCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IndividualNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualIdPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrimaryNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IncidentNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SettlementNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStartDatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IBReceivedDatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateOfServicePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShippingStreetPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShippingCityPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShippingStatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShippingZipPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SettlementTypePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WellBeingCareSharingPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastModifiedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MembershipStatusPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedDatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label93 = new System.Windows.Forms.Label();
             this.tbpgACH = new System.Windows.Forms.TabPage();
-            this.chkACHReconcile = new System.Windows.Forms.CheckBox();
-            this.txtACHPaymentDate = new System.Windows.Forms.TextBox();
-            this.txtACHPaymentNo = new System.Windows.Forms.TextBox();
-            this.label131 = new System.Windows.Forms.Label();
-            this.label132 = new System.Windows.Forms.Label();
-            this.label133 = new System.Windows.Forms.Label();
-            this.chkACHApprovalByFD = new System.Windows.Forms.CheckBox();
-            this.chkACHApprovalByRN = new System.Windows.Forms.CheckBox();
-            this.label134 = new System.Windows.Forms.Label();
-            this.txtMemberAccountNoAtProvider = new System.Windows.Forms.TextBox();
-            this.txtServiceDateACH = new System.Windows.Forms.TextBox();
-            this.txtMedicalProviderACH = new System.Windows.Forms.TextBox();
-            this.txtMedBillNoACH = new System.Windows.Forms.TextBox();
-            this.txtCurrentProgramACH = new System.Windows.Forms.TextBox();
-            this.txtIncidentProgramACH = new System.Windows.Forms.TextBox();
-            this.txtIncidentNoACH = new System.Windows.Forms.TextBox();
-            this.label109 = new System.Windows.Forms.Label();
-            this.label110 = new System.Windows.Forms.Label();
-            this.label111 = new System.Windows.Forms.Label();
-            this.label112 = new System.Windows.Forms.Label();
-            this.label119 = new System.Windows.Forms.Label();
-            this.label120 = new System.Windows.Forms.Label();
-            this.label121 = new System.Windows.Forms.Label();
-            this.txtIndividualNameACH = new System.Windows.Forms.TextBox();
-            this.txtIndividualNoACH = new System.Windows.Forms.TextBox();
-            this.txtMembNoACH = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtIndZipACH = new System.Windows.Forms.TextBox();
-            this.txtIndStateACH = new System.Windows.Forms.TextBox();
-            this.txtIndCityACH = new System.Windows.Forms.TextBox();
-            this.txtIndStreetAddressACH = new System.Windows.Forms.TextBox();
-            this.label122 = new System.Windows.Forms.Label();
-            this.label123 = new System.Windows.Forms.Label();
-            this.label124 = new System.Windows.Forms.Label();
-            this.label125 = new System.Windows.Forms.Label();
-            this.label126 = new System.Windows.Forms.Label();
-            this.label127 = new System.Windows.Forms.Label();
-            this.label128 = new System.Windows.Forms.Label();
+            this.btnACHExport = new System.Windows.Forms.Button();
             this.gvPaymentACH = new System.Windows.Forms.DataGridView();
+            this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IndividualNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HouseholdRolePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualIdPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrimaryNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SettlementNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AmountPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProgramNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentProgramPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStartDatePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IBReceivedDatePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOfServicePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedProviderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStreetPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingCityPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStatePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingZipPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementTypePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WellBeingCareSharingPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BankNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoutingNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountHolderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedDatePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label108 = new System.Windows.Forms.Label();
             this.tbpgCreditCard = new System.Windows.Forms.TabPage();
-            this.txtCreditCardNote = new System.Windows.Forms.TextBox();
-            this.label146 = new System.Windows.Forms.Label();
-            this.chkCreditCardReconcile = new System.Windows.Forms.CheckBox();
-            this.txtCMMCreditCardNo = new System.Windows.Forms.TextBox();
-            this.txtCCPaymentDate = new System.Windows.Forms.TextBox();
-            this.txtCMMConfirmationNo = new System.Windows.Forms.TextBox();
-            this.txtCCCOMNo = new System.Windows.Forms.TextBox();
-            this.chkStatusCompleted = new System.Windows.Forms.CheckBox();
-            this.chkStatusPending = new System.Windows.Forms.CheckBox();
-            this.label150 = new System.Windows.Forms.Label();
-            this.label149 = new System.Windows.Forms.Label();
-            this.label148 = new System.Windows.Forms.Label();
-            this.txtProviderTelNo = new System.Windows.Forms.TextBox();
-            this.txtContactPersonRN = new System.Windows.Forms.TextBox();
-            this.txtContactPersonFD = new System.Windows.Forms.TextBox();
-            this.txtCreditCardMedicalProvider = new System.Windows.Forms.TextBox();
-            this.txtAccountNoAtProvider = new System.Windows.Forms.TextBox();
-            this.rbCreditCardCollectionAgency = new System.Windows.Forms.RadioButton();
-            this.rbCreditCardPayableProvider = new System.Windows.Forms.RadioButton();
-            this.txtCreditCardIndName = new System.Windows.Forms.TextBox();
-            this.txtCreditCardIncidentProgram = new System.Windows.Forms.TextBox();
-            this.txtCreditCardCurrentProgram = new System.Windows.Forms.TextBox();
-            this.txtCreditCardIndId = new System.Windows.Forms.TextBox();
-            this.label145 = new System.Windows.Forms.Label();
-            this.rbCreditCardPhone = new System.Windows.Forms.RadioButton();
-            this.rbCreditCardOnline = new System.Windows.Forms.RadioButton();
-            this.label144 = new System.Windows.Forms.Label();
-            this.label143 = new System.Windows.Forms.Label();
-            this.label142 = new System.Windows.Forms.Label();
-            this.label141 = new System.Windows.Forms.Label();
-            this.label140 = new System.Windows.Forms.Label();
-            this.label139 = new System.Windows.Forms.Label();
-            this.label138 = new System.Windows.Forms.Label();
-            this.label137 = new System.Windows.Forms.Label();
-            this.label130 = new System.Windows.Forms.Label();
-            this.label136 = new System.Windows.Forms.Label();
-            this.label135 = new System.Windows.Forms.Label();
-            this.label95 = new System.Windows.Forms.Label();
-            this.label129 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
             this.gvPaymentCreditCard = new System.Windows.Forms.DataGridView();
+            this.CreditCardPaymentConfirm = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.IndividualNamePaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedProviderInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhoneNoMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNoMedProviderCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOfBirthCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SSNCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SexCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrimaryNameInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStreetInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingCityInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingZipInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOfServiceInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BillAmountCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardNoCreditCardPayment = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.MembershipStatusInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaymentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbpgInactive = new System.Windows.Forms.TabPage();
+            this.gvPaymentInactive = new System.Windows.Forms.DataGridView();
+            this.IndividualIdPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNamePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StateNamePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmailPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhonePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label95 = new System.Windows.Forms.Label();
             this.label147 = new System.Windows.Forms.Label();
             this.tbpgTask = new System.Windows.Forms.TabPage();
             this.btnEvent = new System.Windows.Forms.Button();
@@ -928,31 +837,7 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedRNCreditCardPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IndividualIdInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNamePaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOfBirthCreditCardPayment = new CMMManager.CalendarColumn();
-            this.SSNCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SexCreditCardPayment = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.PrimaryNameInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BillAmountCreditCardPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardNoCreditCardPayment = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.MedProviderInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOfServiceInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStreetInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingCityInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingZipInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStatusInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ApprovedDateInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedByInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnConfirmACH = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
@@ -1013,13 +898,13 @@
             this.tbpgPayment.SuspendLayout();
             this.tabPaymentMethod.SuspendLayout();
             this.tbpgCheck.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentCheck)).BeginInit();
             this.tbpgACH.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentACH)).BeginInit();
             this.tbpgCreditCard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentCreditCard)).BeginInit();
+            this.tbpgInactive.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).BeginInit();
             this.tbpgTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTask)).BeginInit();
@@ -2246,6 +2131,14 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.txtAccountNo);
+            this.tbpgIndividual.Controls.Add(this.label99);
+            this.tbpgIndividual.Controls.Add(this.txtAccountHolder);
+            this.tbpgIndividual.Controls.Add(this.label98);
+            this.tbpgIndividual.Controls.Add(this.txtBankRoutingNo);
+            this.tbpgIndividual.Controls.Add(this.label97);
+            this.tbpgIndividual.Controls.Add(this.txtBankName);
+            this.tbpgIndividual.Controls.Add(this.label96);
             this.tbpgIndividual.Controls.Add(this.txtTotalMedBillAmount);
             this.tbpgIndividual.Controls.Add(this.label174);
             this.tbpgIndividual.Controls.Add(this.rbEnglish);
@@ -2302,7 +2195,7 @@
             this.tbpgIndividual.Controls.Add(this.txtPowerOfAttorney);
             this.tbpgIndividual.Controls.Add(this.label32);
             this.tbpgIndividual.Controls.Add(this.cbGender);
-            this.tbpgIndividual.Controls.Add(this.cbPaymentMethod);
+            this.tbpgIndividual.Controls.Add(this.cbReimbursementMethod);
             this.tbpgIndividual.Controls.Add(this.label35);
             this.tbpgIndividual.Controls.Add(this.label31);
             this.tbpgIndividual.Controls.Add(this.txtIndChurchName);
@@ -2356,9 +2249,77 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // txtAccountNo
+            // 
+            this.txtAccountNo.Location = new System.Drawing.Point(466, 490);
+            this.txtAccountNo.Name = "txtAccountNo";
+            this.txtAccountNo.Size = new System.Drawing.Size(177, 20);
+            this.txtAccountNo.TabIndex = 232;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label99.Location = new System.Drawing.Point(357, 491);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(80, 16);
+            this.label99.TabIndex = 231;
+            this.label99.Text = "Account No:";
+            // 
+            // txtAccountHolder
+            // 
+            this.txtAccountHolder.Location = new System.Drawing.Point(466, 456);
+            this.txtAccountHolder.Name = "txtAccountHolder";
+            this.txtAccountHolder.Size = new System.Drawing.Size(177, 20);
+            this.txtAccountHolder.TabIndex = 230;
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label98.Location = new System.Drawing.Point(357, 457);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(103, 16);
+            this.label98.TabIndex = 229;
+            this.label98.Text = "Account Holder:";
+            // 
+            // txtBankRoutingNo
+            // 
+            this.txtBankRoutingNo.Location = new System.Drawing.Point(130, 490);
+            this.txtBankRoutingNo.Name = "txtBankRoutingNo";
+            this.txtBankRoutingNo.Size = new System.Drawing.Size(137, 20);
+            this.txtBankRoutingNo.TabIndex = 228;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label97.Location = new System.Drawing.Point(46, 491);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(78, 16);
+            this.label97.TabIndex = 227;
+            this.label97.Text = "Routing No:";
+            // 
+            // txtBankName
+            // 
+            this.txtBankName.Location = new System.Drawing.Point(130, 456);
+            this.txtBankName.Name = "txtBankName";
+            this.txtBankName.Size = new System.Drawing.Size(174, 20);
+            this.txtBankName.TabIndex = 226;
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label96.Location = new System.Drawing.Point(46, 457);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(82, 16);
+            this.label96.TabIndex = 225;
+            this.label96.Text = "Bank Name:";
+            // 
             // txtTotalMedBillAmount
             // 
-            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(517, 779);
+            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(517, 789);
             this.txtTotalMedBillAmount.Name = "txtTotalMedBillAmount";
             this.txtTotalMedBillAmount.ReadOnly = true;
             this.txtTotalMedBillAmount.Size = new System.Drawing.Size(128, 20);
@@ -2368,7 +2329,7 @@
             // 
             this.label174.AutoSize = true;
             this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label174.Location = new System.Drawing.Point(349, 781);
+            this.label174.Location = new System.Drawing.Point(349, 791);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(162, 16);
             this.label174.TabIndex = 223;
@@ -2377,7 +2338,7 @@
             // rbEnglish
             // 
             this.rbEnglish.AutoSize = true;
-            this.rbEnglish.Location = new System.Drawing.Point(259, 150);
+            this.rbEnglish.Location = new System.Drawing.Point(259, 130);
             this.rbEnglish.Name = "rbEnglish";
             this.rbEnglish.Size = new System.Drawing.Size(59, 17);
             this.rbEnglish.TabIndex = 2;
@@ -2388,7 +2349,7 @@
             // 
             this.rbKorean.AutoSize = true;
             this.rbKorean.Checked = true;
-            this.rbKorean.Location = new System.Drawing.Point(186, 150);
+            this.rbKorean.Location = new System.Drawing.Point(186, 130);
             this.rbKorean.Name = "rbKorean";
             this.rbKorean.Size = new System.Drawing.Size(59, 17);
             this.rbKorean.TabIndex = 1;
@@ -2398,7 +2359,7 @@
             // 
             // txtRelationship
             // 
-            this.txtRelationship.Location = new System.Drawing.Point(447, 427);
+            this.txtRelationship.Location = new System.Drawing.Point(447, 378);
             this.txtRelationship.Name = "txtRelationship";
             this.txtRelationship.Size = new System.Drawing.Size(196, 20);
             this.txtRelationship.TabIndex = 22;
@@ -2406,7 +2367,7 @@
             // dtpBirthDate
             // 
             this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBirthDate.Location = new System.Drawing.Point(130, 240);
+            this.dtpBirthDate.Location = new System.Drawing.Point(130, 204);
             this.dtpBirthDate.Name = "dtpBirthDate";
             this.dtpBirthDate.Size = new System.Drawing.Size(115, 20);
             this.dtpBirthDate.TabIndex = 7;
@@ -2869,7 +2830,7 @@
             // 
             // txtWellBeingAmt
             // 
-            this.txtWellBeingAmt.Location = new System.Drawing.Point(517, 813);
+            this.txtWellBeingAmt.Location = new System.Drawing.Point(517, 823);
             this.txtWellBeingAmt.Name = "txtWellBeingAmt";
             this.txtWellBeingAmt.ReadOnly = true;
             this.txtWellBeingAmt.Size = new System.Drawing.Size(127, 20);
@@ -2879,7 +2840,7 @@
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(349, 814);
+            this.label44.Location = new System.Drawing.Point(349, 824);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(124, 16);
             this.label44.TabIndex = 192;
@@ -2887,7 +2848,7 @@
             // 
             // txtProgramChangeReqDate
             // 
-            this.txtProgramChangeReqDate.Location = new System.Drawing.Point(248, 662);
+            this.txtProgramChangeReqDate.Location = new System.Drawing.Point(248, 680);
             this.txtProgramChangeReqDate.Name = "txtProgramChangeReqDate";
             this.txtProgramChangeReqDate.ReadOnly = true;
             this.txtProgramChangeReqDate.Size = new System.Drawing.Size(106, 20);
@@ -2897,7 +2858,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(47, 665);
+            this.label42.Location = new System.Drawing.Point(47, 683);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(199, 16);
             this.label42.TabIndex = 190;
@@ -2905,7 +2866,7 @@
             // 
             // txtOver10KAmount
             // 
-            this.txtOver10KAmount.Location = new System.Drawing.Point(185, 813);
+            this.txtOver10KAmount.Location = new System.Drawing.Point(185, 823);
             this.txtOver10KAmount.Name = "txtOver10KAmount";
             this.txtOver10KAmount.ReadOnly = true;
             this.txtOver10KAmount.Size = new System.Drawing.Size(128, 20);
@@ -2915,7 +2876,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(47, 815);
+            this.label34.Location = new System.Drawing.Point(47, 825);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(113, 16);
             this.label34.TabIndex = 188;
@@ -2923,7 +2884,7 @@
             // 
             // txtMembershipStartDate
             // 
-            this.txtMembershipStartDate.Location = new System.Drawing.Point(162, 613);
+            this.txtMembershipStartDate.Location = new System.Drawing.Point(162, 640);
             this.txtMembershipStartDate.Name = "txtMembershipStartDate";
             this.txtMembershipStartDate.ReadOnly = true;
             this.txtMembershipStartDate.Size = new System.Drawing.Size(142, 20);
@@ -2933,7 +2894,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(47, 614);
+            this.label28.Location = new System.Drawing.Point(47, 641);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(70, 16);
             this.label28.TabIndex = 186;
@@ -2941,7 +2902,7 @@
             // 
             // txtTotalSharedAmount
             // 
-            this.txtTotalSharedAmount.Location = new System.Drawing.Point(185, 779);
+            this.txtTotalSharedAmount.Location = new System.Drawing.Point(185, 789);
             this.txtTotalSharedAmount.Name = "txtTotalSharedAmount";
             this.txtTotalSharedAmount.ReadOnly = true;
             this.txtTotalSharedAmount.Size = new System.Drawing.Size(128, 20);
@@ -2951,7 +2912,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(46, 780);
+            this.label29.Location = new System.Drawing.Point(46, 790);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(137, 16);
             this.label29.TabIndex = 184;
@@ -2959,7 +2920,7 @@
             // 
             // txtIndMemberShipStatus
             // 
-            this.txtIndMemberShipStatus.Location = new System.Drawing.Point(185, 730);
+            this.txtIndMemberShipStatus.Location = new System.Drawing.Point(185, 748);
             this.txtIndMemberShipStatus.Name = "txtIndMemberShipStatus";
             this.txtIndMemberShipStatus.ReadOnly = true;
             this.txtIndMemberShipStatus.Size = new System.Drawing.Size(169, 20);
@@ -2968,7 +2929,7 @@
             // txtDeceasedDate
             // 
             this.txtDeceasedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeceasedDate.Location = new System.Drawing.Point(545, 663);
+            this.txtDeceasedDate.Location = new System.Drawing.Point(545, 681);
             this.txtDeceasedDate.Name = "txtDeceasedDate";
             this.txtDeceasedDate.ReadOnly = true;
             this.txtDeceasedDate.Size = new System.Drawing.Size(100, 20);
@@ -2978,7 +2939,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(47, 730);
+            this.label27.Location = new System.Drawing.Point(47, 748);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(126, 16);
             this.label27.TabIndex = 181;
@@ -2988,7 +2949,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(437, 664);
+            this.label26.Location = new System.Drawing.Point(437, 682);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(107, 16);
             this.label26.TabIndex = 180;
@@ -2996,7 +2957,7 @@
             // 
             // txtMembershipCancelledDate
             // 
-            this.txtMembershipCancelledDate.Location = new System.Drawing.Point(545, 696);
+            this.txtMembershipCancelledDate.Location = new System.Drawing.Point(545, 714);
             this.txtMembershipCancelledDate.Name = "txtMembershipCancelledDate";
             this.txtMembershipCancelledDate.ReadOnly = true;
             this.txtMembershipCancelledDate.Size = new System.Drawing.Size(100, 20);
@@ -3006,7 +2967,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(437, 696);
+            this.label25.Location = new System.Drawing.Point(437, 714);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(104, 16);
             this.label25.TabIndex = 178;
@@ -3014,7 +2975,7 @@
             // 
             // txtCancelationRequestDate
             // 
-            this.txtCancelationRequestDate.Location = new System.Drawing.Point(248, 696);
+            this.txtCancelationRequestDate.Location = new System.Drawing.Point(248, 714);
             this.txtCancelationRequestDate.Name = "txtCancelationRequestDate";
             this.txtCancelationRequestDate.ReadOnly = true;
             this.txtCancelationRequestDate.Size = new System.Drawing.Size(106, 20);
@@ -3024,7 +2985,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(47, 697);
+            this.label24.Location = new System.Drawing.Point(47, 715);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(171, 16);
             this.label24.TabIndex = 176;
@@ -3032,7 +2993,7 @@
             // 
             // txtProgramHistory
             // 
-            this.txtProgramHistory.Location = new System.Drawing.Point(162, 578);
+            this.txtProgramHistory.Location = new System.Drawing.Point(162, 605);
             this.txtProgramHistory.Name = "txtProgramHistory";
             this.txtProgramHistory.ReadOnly = true;
             this.txtProgramHistory.Size = new System.Drawing.Size(483, 20);
@@ -3042,7 +3003,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(47, 578);
+            this.label22.Location = new System.Drawing.Point(47, 605);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(108, 16);
             this.label22.TabIndex = 174;
@@ -3050,7 +3011,7 @@
             // 
             // txtProgram
             // 
-            this.txtProgram.Location = new System.Drawing.Point(162, 543);
+            this.txtProgram.Location = new System.Drawing.Point(162, 570);
             this.txtProgram.Name = "txtProgram";
             this.txtProgram.ReadOnly = true;
             this.txtProgram.Size = new System.Drawing.Size(142, 20);
@@ -3060,7 +3021,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(47, 544);
+            this.label21.Location = new System.Drawing.Point(47, 571);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(108, 16);
             this.label21.TabIndex = 172;
@@ -3070,7 +3031,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(355, 428);
+            this.label40.Location = new System.Drawing.Point(355, 379);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(86, 16);
             this.label40.TabIndex = 171;
@@ -3078,7 +3039,7 @@
             // 
             // txtPowerOfAttorney
             // 
-            this.txtPowerOfAttorney.Location = new System.Drawing.Point(162, 427);
+            this.txtPowerOfAttorney.Location = new System.Drawing.Point(162, 378);
             this.txtPowerOfAttorney.Name = "txtPowerOfAttorney";
             this.txtPowerOfAttorney.Size = new System.Drawing.Size(147, 20);
             this.txtPowerOfAttorney.TabIndex = 21;
@@ -3087,7 +3048,7 @@
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(46, 429);
+            this.label32.Location = new System.Drawing.Point(46, 380);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(115, 16);
             this.label32.TabIndex = 168;
@@ -3100,25 +3061,26 @@
             this.cbGender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.cbGender.Location = new System.Drawing.Point(357, 240);
+            this.cbGender.Location = new System.Drawing.Point(357, 204);
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(93, 21);
             this.cbGender.TabIndex = 8;
             // 
-            // cbPaymentMethod
+            // cbReimbursementMethod
             // 
-            this.cbPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPaymentMethod.FormattingEnabled = true;
-            this.cbPaymentMethod.Location = new System.Drawing.Point(274, 461);
-            this.cbPaymentMethod.Name = "cbPaymentMethod";
-            this.cbPaymentMethod.Size = new System.Drawing.Size(121, 21);
-            this.cbPaymentMethod.TabIndex = 23;
+            this.cbReimbursementMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbReimbursementMethod.FormattingEnabled = true;
+            this.cbReimbursementMethod.Location = new System.Drawing.Point(274, 419);
+            this.cbReimbursementMethod.Name = "cbReimbursementMethod";
+            this.cbReimbursementMethod.Size = new System.Drawing.Size(121, 21);
+            this.cbReimbursementMethod.TabIndex = 23;
+            this.cbReimbursementMethod.SelectedIndexChanged += new System.EventHandler(this.cbReimbursementMethod_SelectedIndexChanged);
             // 
             // label35
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(46, 464);
+            this.label35.Location = new System.Drawing.Point(46, 422);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(221, 16);
             this.label35.TabIndex = 165;
@@ -3128,7 +3090,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(46, 150);
+            this.label31.Location = new System.Drawing.Point(46, 130);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(131, 16);
             this.label31.TabIndex = 162;
@@ -3136,7 +3098,7 @@
             // 
             // txtIndChurchName
             // 
-            this.txtIndChurchName.Location = new System.Drawing.Point(162, 497);
+            this.txtIndChurchName.Location = new System.Drawing.Point(162, 531);
             this.txtIndChurchName.Name = "txtIndChurchName";
             this.txtIndChurchName.Size = new System.Drawing.Size(233, 20);
             this.txtIndChurchName.TabIndex = 24;
@@ -3145,7 +3107,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(46, 499);
+            this.label30.Location = new System.Drawing.Point(46, 533);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(87, 13);
             this.label30.TabIndex = 160;
@@ -3153,7 +3115,7 @@
             // 
             // txtBusinessPhone
             // 
-            this.txtBusinessPhone.Location = new System.Drawing.Point(447, 393);
+            this.txtBusinessPhone.Location = new System.Drawing.Point(447, 344);
             this.txtBusinessPhone.Name = "txtBusinessPhone";
             this.txtBusinessPhone.Size = new System.Drawing.Size(196, 20);
             this.txtBusinessPhone.TabIndex = 20;
@@ -3162,7 +3124,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(316, 394);
+            this.label23.Location = new System.Drawing.Point(316, 345);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(125, 16);
             this.label23.TabIndex = 158;
@@ -3171,7 +3133,7 @@
             // cbPreferredCommunication
             // 
             this.cbPreferredCommunication.FormattingEnabled = true;
-            this.cbPreferredCommunication.Location = new System.Drawing.Point(551, 150);
+            this.cbPreferredCommunication.Location = new System.Drawing.Point(551, 130);
             this.cbPreferredCommunication.Name = "cbPreferredCommunication";
             this.cbPreferredCommunication.Size = new System.Drawing.Size(92, 21);
             this.cbPreferredCommunication.TabIndex = 3;
@@ -3180,7 +3142,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(385, 150);
+            this.label20.Location = new System.Drawing.Point(385, 130);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(160, 16);
             this.label20.TabIndex = 156;
@@ -3188,7 +3150,7 @@
             // 
             // txtCellPhone1
             // 
-            this.txtCellPhone1.Location = new System.Drawing.Point(162, 393);
+            this.txtCellPhone1.Location = new System.Drawing.Point(162, 344);
             this.txtCellPhone1.Name = "txtCellPhone1";
             this.txtCellPhone1.Size = new System.Drawing.Size(148, 20);
             this.txtCellPhone1.TabIndex = 19;
@@ -3197,7 +3159,7 @@
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(46, 394);
+            this.label19.Location = new System.Drawing.Point(46, 345);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(93, 16);
             this.label19.TabIndex = 154;
@@ -3205,7 +3167,7 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(96, 359);
+            this.txtEmail.Location = new System.Drawing.Point(96, 310);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(213, 20);
             this.txtEmail.TabIndex = 18;
@@ -3214,7 +3176,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(46, 359);
+            this.label18.Location = new System.Drawing.Point(46, 310);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 16);
             this.label18.TabIndex = 152;
@@ -3222,56 +3184,56 @@
             // 
             // txtState2
             // 
-            this.txtState2.Location = new System.Drawing.Point(619, 324);
+            this.txtState2.Location = new System.Drawing.Point(619, 275);
             this.txtState2.Name = "txtState2";
             this.txtState2.Size = new System.Drawing.Size(24, 20);
             this.txtState2.TabIndex = 17;
             // 
             // txtState1
             // 
-            this.txtState1.Location = new System.Drawing.Point(619, 289);
+            this.txtState1.Location = new System.Drawing.Point(619, 240);
             this.txtState1.Name = "txtState1";
             this.txtState1.Size = new System.Drawing.Size(24, 20);
             this.txtState1.TabIndex = 13;
             // 
             // txtCity2
             // 
-            this.txtCity2.Location = new System.Drawing.Point(469, 324);
+            this.txtCity2.Location = new System.Drawing.Point(469, 275);
             this.txtCity2.Name = "txtCity2";
             this.txtCity2.Size = new System.Drawing.Size(107, 20);
             this.txtCity2.TabIndex = 16;
             // 
             // txtCity1
             // 
-            this.txtCity1.Location = new System.Drawing.Point(469, 289);
+            this.txtCity1.Location = new System.Drawing.Point(469, 240);
             this.txtCity1.Name = "txtCity1";
             this.txtCity1.Size = new System.Drawing.Size(107, 20);
             this.txtCity1.TabIndex = 12;
             // 
             // txtZip2
             // 
-            this.txtZip2.Location = new System.Drawing.Point(350, 324);
+            this.txtZip2.Location = new System.Drawing.Point(350, 275);
             this.txtZip2.Name = "txtZip2";
             this.txtZip2.Size = new System.Drawing.Size(74, 20);
             this.txtZip2.TabIndex = 15;
             // 
             // txtZip1
             // 
-            this.txtZip1.Location = new System.Drawing.Point(350, 289);
+            this.txtZip1.Location = new System.Drawing.Point(350, 240);
             this.txtZip1.Name = "txtZip1";
             this.txtZip1.Size = new System.Drawing.Size(74, 20);
             this.txtZip1.TabIndex = 11;
             // 
             // txtStreetAddress2
             // 
-            this.txtStreetAddress2.Location = new System.Drawing.Point(162, 324);
+            this.txtStreetAddress2.Location = new System.Drawing.Point(162, 275);
             this.txtStreetAddress2.Name = "txtStreetAddress2";
             this.txtStreetAddress2.Size = new System.Drawing.Size(147, 20);
             this.txtStreetAddress2.TabIndex = 14;
             // 
             // txtStreetAddress1
             // 
-            this.txtStreetAddress1.Location = new System.Drawing.Point(162, 289);
+            this.txtStreetAddress1.Location = new System.Drawing.Point(162, 240);
             this.txtStreetAddress1.Name = "txtStreetAddress1";
             this.txtStreetAddress1.Size = new System.Drawing.Size(148, 20);
             this.txtStreetAddress1.TabIndex = 10;
@@ -3280,7 +3242,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(580, 323);
+            this.label17.Location = new System.Drawing.Point(580, 275);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(42, 16);
             this.label17.TabIndex = 143;
@@ -3290,7 +3252,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(433, 324);
+            this.label16.Location = new System.Drawing.Point(433, 275);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(33, 16);
             this.label16.TabIndex = 142;
@@ -3300,7 +3262,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(315, 324);
+            this.label15.Location = new System.Drawing.Point(315, 275);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(30, 16);
             this.label15.TabIndex = 141;
@@ -3310,7 +3272,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(46, 324);
+            this.label14.Location = new System.Drawing.Point(46, 275);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(101, 16);
             this.label14.TabIndex = 140;
@@ -3320,7 +3282,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(580, 287);
+            this.label13.Location = new System.Drawing.Point(580, 240);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(42, 16);
             this.label13.TabIndex = 139;
@@ -3330,7 +3292,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(433, 288);
+            this.label12.Location = new System.Drawing.Point(433, 240);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 16);
             this.label12.TabIndex = 138;
@@ -3340,7 +3302,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(315, 289);
+            this.label11.Location = new System.Drawing.Point(315, 240);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 16);
             this.label11.TabIndex = 137;
@@ -3350,7 +3312,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(46, 289);
+            this.label10.Location = new System.Drawing.Point(46, 240);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(118, 16);
             this.label10.TabIndex = 136;
@@ -3358,7 +3320,7 @@
             // 
             // txtIndividualSSN
             // 
-            this.txtIndividualSSN.Location = new System.Drawing.Point(535, 240);
+            this.txtIndividualSSN.Location = new System.Drawing.Point(535, 204);
             this.txtIndividualSSN.Name = "txtIndividualSSN";
             this.txtIndividualSSN.Size = new System.Drawing.Size(109, 20);
             this.txtIndividualSSN.TabIndex = 9;
@@ -3367,7 +3329,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(456, 240);
+            this.label9.Location = new System.Drawing.Point(456, 204);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(39, 16);
             this.label9.TabIndex = 134;
@@ -3377,7 +3339,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(262, 240);
+            this.label8.Location = new System.Drawing.Point(262, 204);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 16);
             this.label8.TabIndex = 133;
@@ -3387,7 +3349,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(46, 240);
+            this.label7.Location = new System.Drawing.Point(46, 204);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 16);
             this.label7.TabIndex = 131;
@@ -3395,21 +3357,21 @@
             // 
             // txtLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(535, 206);
+            this.txtLastName.Location = new System.Drawing.Point(535, 170);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(109, 20);
             this.txtLastName.TabIndex = 6;
             // 
             // txtMiddleName
             // 
-            this.txtMiddleName.Location = new System.Drawing.Point(357, 206);
+            this.txtMiddleName.Location = new System.Drawing.Point(357, 170);
             this.txtMiddleName.Name = "txtMiddleName";
             this.txtMiddleName.Size = new System.Drawing.Size(93, 20);
             this.txtMiddleName.TabIndex = 5;
             // 
             // txtFirstName
             // 
-            this.txtFirstName.Location = new System.Drawing.Point(130, 207);
+            this.txtFirstName.Location = new System.Drawing.Point(130, 171);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(115, 20);
             this.txtFirstName.TabIndex = 4;
@@ -3418,7 +3380,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(456, 206);
+            this.label6.Location = new System.Drawing.Point(456, 170);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 16);
             this.label6.TabIndex = 127;
@@ -3428,7 +3390,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(262, 208);
+            this.label5.Location = new System.Drawing.Point(262, 172);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 16);
             this.label5.TabIndex = 126;
@@ -3438,7 +3400,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(46, 208);
+            this.label4.Location = new System.Drawing.Point(46, 172);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 16);
             this.label4.TabIndex = 125;
@@ -4643,9 +4605,9 @@
             // 
             // Illness_TotalSharedAmount
             // 
-            dataGridViewCellStyle16.Format = "C2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle1;
             this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
             this.Illness_TotalSharedAmount.ReadOnly = true;
@@ -4653,9 +4615,9 @@
             // 
             // Illness_LimitedSharing
             // 
-            dataGridViewCellStyle17.Format = "C2";
-            dataGridViewCellStyle17.NullValue = null;
-            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Format = "C2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle2;
             this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
             this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
             this.Illness_LimitedSharing.ReadOnly = true;
@@ -5053,32 +5015,32 @@
             // 
             // MedBill_BillAmount
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle3;
             this.MedBill_BillAmount.HeaderText = "Amount";
             this.MedBill_BillAmount.Name = "MedBill_BillAmount";
             this.MedBill_BillAmount.ReadOnly = true;
             // 
             // MedBill_Balance
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle4;
             this.MedBill_Balance.HeaderText = "Balance";
             this.MedBill_Balance.Name = "MedBill_Balance";
             this.MedBill_Balance.ReadOnly = true;
             // 
             // MedBill_SettlementTotal
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_SettlementTotal.DefaultCellStyle = dataGridViewCellStyle5;
             this.MedBill_SettlementTotal.HeaderText = "Settlement Total";
             this.MedBill_SettlementTotal.Name = "MedBill_SettlementTotal";
             this.MedBill_SettlementTotal.ReadOnly = true;
             // 
             // MedBill_TotalSharedAmount
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle6;
             this.MedBill_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBill_TotalSharedAmount.Name = "MedBill_TotalSharedAmount";
             this.MedBill_TotalSharedAmount.ReadOnly = true;
@@ -5157,24 +5119,24 @@
             // 
             // MedBill_PersonalResponsibilityCredit
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle7;
             this.MedBill_PersonalResponsibilityCredit.HeaderText = "Personal Responsibility Credit";
             this.MedBill_PersonalResponsibilityCredit.Name = "MedBill_PersonalResponsibilityCredit";
             this.MedBill_PersonalResponsibilityCredit.ReadOnly = true;
             // 
             // MedBill_WellBeingCare
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle8;
             this.MedBill_WellBeingCare.HeaderText = "Well Being Care";
             this.MedBill_WellBeingCare.Name = "MedBill_WellBeingCare";
             this.MedBill_WellBeingCare.ReadOnly = true;
             // 
             // MedBill_WellBeingCareTotal
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle9;
             this.MedBill_WellBeingCareTotal.HeaderText = "Well Being Care Total";
             this.MedBill_WellBeingCareTotal.Name = "MedBill_WellBeingCareTotal";
             this.MedBill_WellBeingCareTotal.ReadOnly = true;
@@ -5459,15 +5421,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle10;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle11;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -5518,8 +5480,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle12;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -6663,6 +6625,7 @@
             this.tabPaymentMethod.Controls.Add(this.tbpgCheck);
             this.tabPaymentMethod.Controls.Add(this.tbpgACH);
             this.tabPaymentMethod.Controls.Add(this.tbpgCreditCard);
+            this.tabPaymentMethod.Controls.Add(this.tbpgInactive);
             this.tabPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPaymentMethod.Location = new System.Drawing.Point(50, 72);
             this.tabPaymentMethod.Name = "tabPaymentMethod";
@@ -6672,36 +6635,7 @@
             // 
             // tbpgCheck
             // 
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentAcctNoAtProvider);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentServiceDate);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentMedicalProvider);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentMedBillNo);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentCurrentProgram);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentIncdProgram);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentIncdNo);
-            this.tbpgCheck.Controls.Add(this.label118);
-            this.tbpgCheck.Controls.Add(this.label117);
-            this.tbpgCheck.Controls.Add(this.label116);
-            this.tbpgCheck.Controls.Add(this.label115);
-            this.tbpgCheck.Controls.Add(this.label114);
-            this.tbpgCheck.Controls.Add(this.label113);
-            this.tbpgCheck.Controls.Add(this.label97);
-            this.tbpgCheck.Controls.Add(this.chkCheckReconcile);
-            this.tbpgCheck.Controls.Add(this.txtCheckDate);
-            this.tbpgCheck.Controls.Add(this.txtCheckNo);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentIndName);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentIndNo);
-            this.tbpgCheck.Controls.Add(this.txtCheckPaymentMembNo);
-            this.tbpgCheck.Controls.Add(this.groupBox3);
-            this.tbpgCheck.Controls.Add(this.label104);
-            this.tbpgCheck.Controls.Add(this.label103);
-            this.tbpgCheck.Controls.Add(this.label102);
-            this.tbpgCheck.Controls.Add(this.label100);
-            this.tbpgCheck.Controls.Add(this.label99);
-            this.tbpgCheck.Controls.Add(this.label98);
-            this.tbpgCheck.Controls.Add(this.chkApprovalByFD);
-            this.tbpgCheck.Controls.Add(this.chkApprovalByRN);
-            this.tbpgCheck.Controls.Add(this.label96);
+            this.tbpgCheck.Controls.Add(this.btnConfirmCheckPayment);
             this.tbpgCheck.Controls.Add(this.gvPaymentCheck);
             this.tbpgCheck.Controls.Add(this.label93);
             this.tbpgCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -6713,345 +6647,15 @@
             this.tbpgCheck.Text = "Check";
             this.tbpgCheck.UseVisualStyleBackColor = true;
             // 
-            // txtCheckPaymentAcctNoAtProvider
-            // 
-            this.txtCheckPaymentAcctNoAtProvider.Location = new System.Drawing.Point(958, 708);
-            this.txtCheckPaymentAcctNoAtProvider.Name = "txtCheckPaymentAcctNoAtProvider";
-            this.txtCheckPaymentAcctNoAtProvider.Size = new System.Drawing.Size(100, 22);
-            this.txtCheckPaymentAcctNoAtProvider.TabIndex = 45;
-            // 
-            // txtCheckPaymentServiceDate
-            // 
-            this.txtCheckPaymentServiceDate.Location = new System.Drawing.Point(862, 644);
-            this.txtCheckPaymentServiceDate.Name = "txtCheckPaymentServiceDate";
-            this.txtCheckPaymentServiceDate.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentServiceDate.TabIndex = 44;
-            // 
-            // txtCheckPaymentMedicalProvider
-            // 
-            this.txtCheckPaymentMedicalProvider.Location = new System.Drawing.Point(862, 676);
-            this.txtCheckPaymentMedicalProvider.Name = "txtCheckPaymentMedicalProvider";
-            this.txtCheckPaymentMedicalProvider.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentMedicalProvider.TabIndex = 43;
-            // 
-            // txtCheckPaymentMedBillNo
-            // 
-            this.txtCheckPaymentMedBillNo.Location = new System.Drawing.Point(862, 612);
-            this.txtCheckPaymentMedBillNo.Name = "txtCheckPaymentMedBillNo";
-            this.txtCheckPaymentMedBillNo.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentMedBillNo.TabIndex = 42;
-            // 
-            // txtCheckPaymentCurrentProgram
-            // 
-            this.txtCheckPaymentCurrentProgram.Location = new System.Drawing.Point(862, 555);
-            this.txtCheckPaymentCurrentProgram.Name = "txtCheckPaymentCurrentProgram";
-            this.txtCheckPaymentCurrentProgram.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentCurrentProgram.TabIndex = 41;
-            // 
-            // txtCheckPaymentIncdProgram
-            // 
-            this.txtCheckPaymentIncdProgram.Location = new System.Drawing.Point(862, 523);
-            this.txtCheckPaymentIncdProgram.Name = "txtCheckPaymentIncdProgram";
-            this.txtCheckPaymentIncdProgram.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentIncdProgram.TabIndex = 40;
-            // 
-            // txtCheckPaymentIncdNo
-            // 
-            this.txtCheckPaymentIncdNo.Location = new System.Drawing.Point(862, 489);
-            this.txtCheckPaymentIncdNo.Name = "txtCheckPaymentIncdNo";
-            this.txtCheckPaymentIncdNo.Size = new System.Drawing.Size(196, 22);
-            this.txtCheckPaymentIncdNo.TabIndex = 39;
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(743, 524);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(112, 16);
-            this.label118.TabIndex = 38;
-            this.label118.Text = "Incident Program:";
-            // 
-            // label117
-            // 
-            this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(743, 556);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(108, 16);
-            this.label117.TabIndex = 37;
-            this.label117.Text = "Current Program:";
-            // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(741, 615);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(101, 16);
-            this.label116.TabIndex = 36;
-            this.label116.Text = "Medical Bill No:";
-            // 
-            // label115
-            // 
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(741, 647);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(103, 16);
-            this.label115.TabIndex = 35;
-            this.label115.Text = "Date of Service:";
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(741, 679);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(113, 16);
-            this.label114.TabIndex = 34;
-            this.label114.Text = "Medical Provider:";
-            // 
-            // label113
-            // 
-            this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(741, 710);
-            this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(211, 16);
-            this.label113.TabIndex = 33;
-            this.label113.Text = "Member\'s Account No at Provider:";
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(743, 492);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(78, 16);
-            this.label97.TabIndex = 27;
-            this.label97.Text = "Incident No:";
-            // 
-            // chkCheckReconcile
-            // 
-            this.chkCheckReconcile.AutoSize = true;
-            this.chkCheckReconcile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCheckReconcile.Location = new System.Drawing.Point(1536, 596);
-            this.chkCheckReconcile.Name = "chkCheckReconcile";
-            this.chkCheckReconcile.Size = new System.Drawing.Size(15, 14);
-            this.chkCheckReconcile.TabIndex = 26;
-            this.chkCheckReconcile.UseVisualStyleBackColor = true;
-            // 
-            // txtCheckDate
-            // 
-            this.txtCheckDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckDate.Location = new System.Drawing.Point(1536, 564);
-            this.txtCheckDate.Name = "txtCheckDate";
-            this.txtCheckDate.Size = new System.Drawing.Size(100, 22);
-            this.txtCheckDate.TabIndex = 25;
-            // 
-            // txtCheckNo
-            // 
-            this.txtCheckNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckNo.Location = new System.Drawing.Point(1536, 532);
-            this.txtCheckNo.Name = "txtCheckNo";
-            this.txtCheckNo.Size = new System.Drawing.Size(100, 22);
-            this.txtCheckNo.TabIndex = 24;
-            // 
-            // txtCheckPaymentIndName
-            // 
-            this.txtCheckPaymentIndName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentIndName.Location = new System.Drawing.Point(167, 546);
-            this.txtCheckPaymentIndName.Name = "txtCheckPaymentIndName";
-            this.txtCheckPaymentIndName.Size = new System.Drawing.Size(164, 22);
-            this.txtCheckPaymentIndName.TabIndex = 23;
-            // 
-            // txtCheckPaymentIndNo
-            // 
-            this.txtCheckPaymentIndNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentIndNo.Location = new System.Drawing.Point(167, 514);
-            this.txtCheckPaymentIndNo.Name = "txtCheckPaymentIndNo";
-            this.txtCheckPaymentIndNo.Size = new System.Drawing.Size(165, 22);
-            this.txtCheckPaymentIndNo.TabIndex = 22;
-            // 
-            // txtCheckPaymentMembNo
-            // 
-            this.txtCheckPaymentMembNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckPaymentMembNo.Location = new System.Drawing.Point(167, 482);
-            this.txtCheckPaymentMembNo.Name = "txtCheckPaymentMembNo";
-            this.txtCheckPaymentMembNo.Size = new System.Drawing.Size(164, 22);
-            this.txtCheckPaymentMembNo.TabIndex = 21;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.txtCheckPaymentIndZip);
-            this.groupBox3.Controls.Add(this.txtCheckPaymentIndState);
-            this.groupBox3.Controls.Add(this.txtCheckPaymentIndCity);
-            this.groupBox3.Controls.Add(this.txtCheckPaymentIndSteet);
-            this.groupBox3.Controls.Add(this.label101);
-            this.groupBox3.Controls.Add(this.label105);
-            this.groupBox3.Controls.Add(this.label106);
-            this.groupBox3.Controls.Add(this.label107);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(35, 592);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(418, 138);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Individual Address";
-            // 
-            // txtCheckPaymentIndZip
-            // 
-            this.txtCheckPaymentIndZip.Location = new System.Drawing.Point(78, 95);
-            this.txtCheckPaymentIndZip.Name = "txtCheckPaymentIndZip";
-            this.txtCheckPaymentIndZip.Size = new System.Drawing.Size(100, 22);
-            this.txtCheckPaymentIndZip.TabIndex = 23;
-            // 
-            // txtCheckPaymentIndState
-            // 
-            this.txtCheckPaymentIndState.Location = new System.Drawing.Point(302, 64);
-            this.txtCheckPaymentIndState.Name = "txtCheckPaymentIndState";
-            this.txtCheckPaymentIndState.Size = new System.Drawing.Size(88, 22);
-            this.txtCheckPaymentIndState.TabIndex = 22;
-            // 
-            // txtCheckPaymentIndCity
-            // 
-            this.txtCheckPaymentIndCity.Location = new System.Drawing.Point(78, 64);
-            this.txtCheckPaymentIndCity.Name = "txtCheckPaymentIndCity";
-            this.txtCheckPaymentIndCity.Size = new System.Drawing.Size(159, 22);
-            this.txtCheckPaymentIndCity.TabIndex = 21;
-            // 
-            // txtCheckPaymentIndSteet
-            // 
-            this.txtCheckPaymentIndSteet.Location = new System.Drawing.Point(78, 32);
-            this.txtCheckPaymentIndSteet.Name = "txtCheckPaymentIndSteet";
-            this.txtCheckPaymentIndSteet.Size = new System.Drawing.Size(312, 22);
-            this.txtCheckPaymentIndSteet.TabIndex = 20;
-            // 
-            // label101
-            // 
-            this.label101.AutoSize = true;
-            this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label101.Location = new System.Drawing.Point(26, 35);
-            this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(46, 16);
-            this.label101.TabIndex = 13;
-            this.label101.Text = "Street:";
-            // 
-            // label105
-            // 
-            this.label105.AutoSize = true;
-            this.label105.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label105.Location = new System.Drawing.Point(26, 97);
-            this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(30, 16);
-            this.label105.TabIndex = 17;
-            this.label105.Text = "Zip:";
-            // 
-            // label106
-            // 
-            this.label106.AutoSize = true;
-            this.label106.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label106.Location = new System.Drawing.Point(254, 66);
-            this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(42, 16);
-            this.label106.TabIndex = 18;
-            this.label106.Text = "State:";
-            // 
-            // label107
-            // 
-            this.label107.AutoSize = true;
-            this.label107.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label107.Location = new System.Drawing.Point(26, 66);
-            this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(33, 16);
-            this.label107.TabIndex = 19;
-            this.label107.Text = "City:";
-            // 
-            // label104
-            // 
-            this.label104.AutoSize = true;
-            this.label104.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label104.Location = new System.Drawing.Point(1410, 535);
-            this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(70, 16);
-            this.label104.TabIndex = 16;
-            this.label104.Text = "Check No:";
-            // 
-            // label103
-            // 
-            this.label103.AutoSize = true;
-            this.label103.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label103.Location = new System.Drawing.Point(1410, 564);
-            this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(81, 16);
-            this.label103.TabIndex = 15;
-            this.label103.Text = "Check Date:";
-            // 
-            // label102
-            // 
-            this.label102.AutoSize = true;
-            this.label102.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label102.Location = new System.Drawing.Point(1410, 594);
-            this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(113, 16);
-            this.label102.TabIndex = 14;
-            this.label102.Text = "Check Reconcile:";
-            // 
-            // label100
-            // 
-            this.label100.AutoSize = true;
-            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label100.Location = new System.Drawing.Point(44, 485);
-            this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(72, 16);
-            this.label100.TabIndex = 12;
-            this.label100.Text = "MEMB No:";
-            // 
-            // label99
-            // 
-            this.label99.AutoSize = true;
-            this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label99.Location = new System.Drawing.Point(44, 516);
-            this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(89, 16);
-            this.label99.TabIndex = 11;
-            this.label99.Text = "Individual No:";
-            // 
-            // label98
-            // 
-            this.label98.AutoSize = true;
-            this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label98.Location = new System.Drawing.Point(44, 547);
-            this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(108, 16);
-            this.label98.TabIndex = 10;
-            this.label98.Text = "Individual Name:";
-            // 
-            // chkApprovalByFD
-            // 
-            this.chkApprovalByFD.AutoSize = true;
-            this.chkApprovalByFD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkApprovalByFD.Location = new System.Drawing.Point(1623, 499);
-            this.chkApprovalByFD.Name = "chkApprovalByFD";
-            this.chkApprovalByFD.Size = new System.Drawing.Size(45, 20);
-            this.chkApprovalByFD.TabIndex = 8;
-            this.chkApprovalByFD.Text = "FD";
-            this.chkApprovalByFD.UseVisualStyleBackColor = true;
-            // 
-            // chkApprovalByRN
-            // 
-            this.chkApprovalByRN.AutoSize = true;
-            this.chkApprovalByRN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkApprovalByRN.Location = new System.Drawing.Point(1537, 499);
-            this.chkApprovalByRN.Name = "chkApprovalByRN";
-            this.chkApprovalByRN.Size = new System.Drawing.Size(47, 20);
-            this.chkApprovalByRN.TabIndex = 7;
-            this.chkApprovalByRN.Text = "RN";
-            this.chkApprovalByRN.UseVisualStyleBackColor = true;
-            // 
-            // label96
-            // 
-            this.label96.AutoSize = true;
-            this.label96.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label96.Location = new System.Drawing.Point(1407, 501);
-            this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(106, 16);
-            this.label96.TabIndex = 4;
-            this.label96.Text = "Approval Status:";
+            // btnConfirmCheckPayment
+            // 
+            this.btnConfirmCheckPayment.Location = new System.Drawing.Point(1579, 674);
+            this.btnConfirmCheckPayment.Name = "btnConfirmCheckPayment";
+            this.btnConfirmCheckPayment.Size = new System.Drawing.Size(147, 32);
+            this.btnConfirmCheckPayment.TabIndex = 2;
+            this.btnConfirmCheckPayment.Text = "Confirm Payment";
+            this.btnConfirmCheckPayment.UseVisualStyleBackColor = true;
+            this.btnConfirmCheckPayment.Click += new System.EventHandler(this.btnConfirmCheckPayment_Click);
             // 
             // gvPaymentCheck
             // 
@@ -7059,203 +6663,141 @@
             this.gvPaymentCheck.AllowUserToDeleteRows = false;
             this.gvPaymentCheck.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheck.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedPaymentCheck,
             this.IndividualNamePaymentCheck,
-            this.HouseholdRolePaymentCheck,
             this.IndividualIdPaymentCheck,
+            this.HouseholdRolePaymentCheck,
             this.PrimaryNamePaymentCheck,
             this.IncidentNoPaymentCheck,
-            this.MedBillNoPaymentCheck,
+            this.IncidentProgramNamePaymentCheck,
             this.SettlementNoPaymentCheck,
             this.AmountPaymentCheck,
-            this.ProgramNamePaymentCheck,
-            this.IncidentProgramNamePaymentCheck,
-            this.MembershipStartDatePaymentCheck,
-            this.MembershipNoPaymentCheck,
-            this.IBReceivedDatePaymentCheck,
             this.DateOfServicePaymentCheck,
             this.MedProviderPaymentCheck,
+            this.AccountNamePaymentCheck,
             this.ShippingStreetPaymentCheck,
             this.ShippingCityPaymentCheck,
             this.ShippingStatePaymentCheck,
             this.ShippingZipPaymentCheck,
             this.SettlementTypePaymentCheck,
-            this.WellBeingCareSharingPaymentCheck,
-            this.AccountNamePaymentCheck,
             this.CreatedByPaymentCheck,
             this.LastModifiedByPaymentCheck,
             this.MembershipStatusPaymentCheck,
-            this.ApprovedPaymentCheck,
-            this.ApprovedDatePaymentCheck});
+            this.MembershipNoPaymentCheck});
+            this.gvPaymentCheck.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvPaymentCheck.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentCheck.Name = "gvPaymentCheck";
-            this.gvPaymentCheck.ReadOnly = true;
-            this.gvPaymentCheck.Size = new System.Drawing.Size(1691, 394);
+            this.gvPaymentCheck.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentCheck.TabIndex = 1;
+            this.gvPaymentCheck.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheck_CellClick);
+            this.gvPaymentCheck.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheck_ColumnHeaderMouseDoubleClick);
+            // 
+            // SelectedPaymentCheck
+            // 
+            this.SelectedPaymentCheck.HeaderText = "Selected";
+            this.SelectedPaymentCheck.Name = "SelectedPaymentCheck";
+            this.SelectedPaymentCheck.Width = 80;
             // 
             // IndividualNamePaymentCheck
             // 
             this.IndividualNamePaymentCheck.HeaderText = "Individual Name";
             this.IndividualNamePaymentCheck.Name = "IndividualNamePaymentCheck";
-            this.IndividualNamePaymentCheck.ReadOnly = true;
-            // 
-            // HouseholdRolePaymentCheck
-            // 
-            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
-            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
-            this.HouseholdRolePaymentCheck.ReadOnly = true;
             // 
             // IndividualIdPaymentCheck
             // 
             this.IndividualIdPaymentCheck.HeaderText = "Individual Id";
             this.IndividualIdPaymentCheck.Name = "IndividualIdPaymentCheck";
-            this.IndividualIdPaymentCheck.ReadOnly = true;
+            // 
+            // HouseholdRolePaymentCheck
+            // 
+            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
+            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
             // 
             // PrimaryNamePaymentCheck
             // 
             this.PrimaryNamePaymentCheck.HeaderText = "Primary Name";
             this.PrimaryNamePaymentCheck.Name = "PrimaryNamePaymentCheck";
-            this.PrimaryNamePaymentCheck.ReadOnly = true;
             // 
             // IncidentNoPaymentCheck
             // 
             this.IncidentNoPaymentCheck.HeaderText = "Incident No";
             this.IncidentNoPaymentCheck.Name = "IncidentNoPaymentCheck";
-            this.IncidentNoPaymentCheck.ReadOnly = true;
-            // 
-            // MedBillNoPaymentCheck
-            // 
-            this.MedBillNoPaymentCheck.HeaderText = "Medical Bill No";
-            this.MedBillNoPaymentCheck.Name = "MedBillNoPaymentCheck";
-            this.MedBillNoPaymentCheck.ReadOnly = true;
-            // 
-            // SettlementNoPaymentCheck
-            // 
-            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
-            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
-            this.SettlementNoPaymentCheck.ReadOnly = true;
-            // 
-            // AmountPaymentCheck
-            // 
-            this.AmountPaymentCheck.HeaderText = "Amount";
-            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
-            this.AmountPaymentCheck.ReadOnly = true;
-            // 
-            // ProgramNamePaymentCheck
-            // 
-            this.ProgramNamePaymentCheck.HeaderText = "Program Name";
-            this.ProgramNamePaymentCheck.Name = "ProgramNamePaymentCheck";
-            this.ProgramNamePaymentCheck.ReadOnly = true;
             // 
             // IncidentProgramNamePaymentCheck
             // 
             this.IncidentProgramNamePaymentCheck.HeaderText = "Incident Program";
             this.IncidentProgramNamePaymentCheck.Name = "IncidentProgramNamePaymentCheck";
-            this.IncidentProgramNamePaymentCheck.ReadOnly = true;
             // 
-            // MembershipStartDatePaymentCheck
+            // SettlementNoPaymentCheck
             // 
-            this.MembershipStartDatePaymentCheck.HeaderText = "Membership Start Date";
-            this.MembershipStartDatePaymentCheck.Name = "MembershipStartDatePaymentCheck";
-            this.MembershipStartDatePaymentCheck.ReadOnly = true;
+            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
+            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
             // 
-            // MembershipNoPaymentCheck
+            // AmountPaymentCheck
             // 
-            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
-            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
-            this.MembershipNoPaymentCheck.ReadOnly = true;
-            // 
-            // IBReceivedDatePaymentCheck
-            // 
-            this.IBReceivedDatePaymentCheck.HeaderText = "IB Received Date";
-            this.IBReceivedDatePaymentCheck.Name = "IBReceivedDatePaymentCheck";
-            this.IBReceivedDatePaymentCheck.ReadOnly = true;
-            this.IBReceivedDatePaymentCheck.Width = 120;
+            this.AmountPaymentCheck.HeaderText = "Amount";
+            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
             // 
             // DateOfServicePaymentCheck
             // 
             this.DateOfServicePaymentCheck.HeaderText = "Service Date";
             this.DateOfServicePaymentCheck.Name = "DateOfServicePaymentCheck";
-            this.DateOfServicePaymentCheck.ReadOnly = true;
             // 
             // MedProviderPaymentCheck
             // 
             this.MedProviderPaymentCheck.HeaderText = "Medical Provider";
             this.MedProviderPaymentCheck.Name = "MedProviderPaymentCheck";
-            this.MedProviderPaymentCheck.ReadOnly = true;
-            // 
-            // ShippingStreetPaymentCheck
-            // 
-            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
-            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
-            this.ShippingStreetPaymentCheck.ReadOnly = true;
-            // 
-            // ShippingCityPaymentCheck
-            // 
-            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
-            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
-            this.ShippingCityPaymentCheck.ReadOnly = true;
-            // 
-            // ShippingStatePaymentCheck
-            // 
-            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
-            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
-            this.ShippingStatePaymentCheck.ReadOnly = true;
-            // 
-            // ShippingZipPaymentCheck
-            // 
-            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
-            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
-            this.ShippingZipPaymentCheck.ReadOnly = true;
-            // 
-            // SettlementTypePaymentCheck
-            // 
-            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
-            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
-            this.SettlementTypePaymentCheck.ReadOnly = true;
-            // 
-            // WellBeingCareSharingPaymentCheck
-            // 
-            this.WellBeingCareSharingPaymentCheck.HeaderText = "Well Being Care Sharing";
-            this.WellBeingCareSharingPaymentCheck.Name = "WellBeingCareSharingPaymentCheck";
-            this.WellBeingCareSharingPaymentCheck.ReadOnly = true;
-            this.WellBeingCareSharingPaymentCheck.Width = 140;
             // 
             // AccountNamePaymentCheck
             // 
             this.AccountNamePaymentCheck.HeaderText = "Account Name";
             this.AccountNamePaymentCheck.Name = "AccountNamePaymentCheck";
-            this.AccountNamePaymentCheck.ReadOnly = true;
+            // 
+            // ShippingStreetPaymentCheck
+            // 
+            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
+            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
+            // 
+            // ShippingCityPaymentCheck
+            // 
+            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
+            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
+            // 
+            // ShippingStatePaymentCheck
+            // 
+            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
+            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
+            // 
+            // ShippingZipPaymentCheck
+            // 
+            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
+            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
+            // 
+            // SettlementTypePaymentCheck
+            // 
+            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
+            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
             // 
             // CreatedByPaymentCheck
             // 
             this.CreatedByPaymentCheck.HeaderText = "Created By";
             this.CreatedByPaymentCheck.Name = "CreatedByPaymentCheck";
-            this.CreatedByPaymentCheck.ReadOnly = true;
             // 
             // LastModifiedByPaymentCheck
             // 
             this.LastModifiedByPaymentCheck.HeaderText = "Last Modified By";
             this.LastModifiedByPaymentCheck.Name = "LastModifiedByPaymentCheck";
-            this.LastModifiedByPaymentCheck.ReadOnly = true;
             this.LastModifiedByPaymentCheck.Width = 120;
             // 
             // MembershipStatusPaymentCheck
             // 
             this.MembershipStatusPaymentCheck.HeaderText = "Membership Status";
             this.MembershipStatusPaymentCheck.Name = "MembershipStatusPaymentCheck";
-            this.MembershipStatusPaymentCheck.ReadOnly = true;
             // 
-            // ApprovedPaymentCheck
+            // MembershipNoPaymentCheck
             // 
-            this.ApprovedPaymentCheck.HeaderText = "Approved";
-            this.ApprovedPaymentCheck.Name = "ApprovedPaymentCheck";
-            this.ApprovedPaymentCheck.ReadOnly = true;
-            // 
-            // ApprovedDatePaymentCheck
-            // 
-            this.ApprovedDatePaymentCheck.HeaderText = "Approved Date";
-            this.ApprovedDatePaymentCheck.Name = "ApprovedDatePaymentCheck";
-            this.ApprovedDatePaymentCheck.ReadOnly = true;
+            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
+            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
             // 
             // label93
             // 
@@ -7269,36 +6811,8 @@
             // 
             // tbpgACH
             // 
-            this.tbpgACH.Controls.Add(this.chkACHReconcile);
-            this.tbpgACH.Controls.Add(this.txtACHPaymentDate);
-            this.tbpgACH.Controls.Add(this.txtACHPaymentNo);
-            this.tbpgACH.Controls.Add(this.label131);
-            this.tbpgACH.Controls.Add(this.label132);
-            this.tbpgACH.Controls.Add(this.label133);
-            this.tbpgACH.Controls.Add(this.chkACHApprovalByFD);
-            this.tbpgACH.Controls.Add(this.chkACHApprovalByRN);
-            this.tbpgACH.Controls.Add(this.label134);
-            this.tbpgACH.Controls.Add(this.txtMemberAccountNoAtProvider);
-            this.tbpgACH.Controls.Add(this.txtServiceDateACH);
-            this.tbpgACH.Controls.Add(this.txtMedicalProviderACH);
-            this.tbpgACH.Controls.Add(this.txtMedBillNoACH);
-            this.tbpgACH.Controls.Add(this.txtCurrentProgramACH);
-            this.tbpgACH.Controls.Add(this.txtIncidentProgramACH);
-            this.tbpgACH.Controls.Add(this.txtIncidentNoACH);
-            this.tbpgACH.Controls.Add(this.label109);
-            this.tbpgACH.Controls.Add(this.label110);
-            this.tbpgACH.Controls.Add(this.label111);
-            this.tbpgACH.Controls.Add(this.label112);
-            this.tbpgACH.Controls.Add(this.label119);
-            this.tbpgACH.Controls.Add(this.label120);
-            this.tbpgACH.Controls.Add(this.label121);
-            this.tbpgACH.Controls.Add(this.txtIndividualNameACH);
-            this.tbpgACH.Controls.Add(this.txtIndividualNoACH);
-            this.tbpgACH.Controls.Add(this.txtMembNoACH);
-            this.tbpgACH.Controls.Add(this.groupBox4);
-            this.tbpgACH.Controls.Add(this.label126);
-            this.tbpgACH.Controls.Add(this.label127);
-            this.tbpgACH.Controls.Add(this.label128);
+            this.tbpgACH.Controls.Add(this.btnConfirmACH);
+            this.tbpgACH.Controls.Add(this.btnACHExport);
             this.tbpgACH.Controls.Add(this.gvPaymentACH);
             this.tbpgACH.Controls.Add(this.label108);
             this.tbpgACH.Location = new System.Drawing.Point(4, 25);
@@ -7309,345 +6823,15 @@
             this.tbpgACH.Text = "ACH";
             this.tbpgACH.UseVisualStyleBackColor = true;
             // 
-            // chkACHReconcile
-            // 
-            this.chkACHReconcile.AutoSize = true;
-            this.chkACHReconcile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkACHReconcile.Location = new System.Drawing.Point(1552, 552);
-            this.chkACHReconcile.Name = "chkACHReconcile";
-            this.chkACHReconcile.Size = new System.Drawing.Size(15, 14);
-            this.chkACHReconcile.TabIndex = 79;
-            this.chkACHReconcile.UseVisualStyleBackColor = true;
-            // 
-            // txtACHPaymentDate
-            // 
-            this.txtACHPaymentDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtACHPaymentDate.Location = new System.Drawing.Point(1552, 520);
-            this.txtACHPaymentDate.Name = "txtACHPaymentDate";
-            this.txtACHPaymentDate.Size = new System.Drawing.Size(100, 22);
-            this.txtACHPaymentDate.TabIndex = 78;
-            // 
-            // txtACHPaymentNo
-            // 
-            this.txtACHPaymentNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtACHPaymentNo.Location = new System.Drawing.Point(1552, 488);
-            this.txtACHPaymentNo.Name = "txtACHPaymentNo";
-            this.txtACHPaymentNo.Size = new System.Drawing.Size(100, 22);
-            this.txtACHPaymentNo.TabIndex = 77;
-            // 
-            // label131
-            // 
-            this.label131.AutoSize = true;
-            this.label131.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label131.Location = new System.Drawing.Point(1426, 491);
-            this.label131.Name = "label131";
-            this.label131.Size = new System.Drawing.Size(60, 16);
-            this.label131.TabIndex = 76;
-            this.label131.Text = "ACH No:";
-            // 
-            // label132
-            // 
-            this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label132.Location = new System.Drawing.Point(1426, 520);
-            this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(71, 16);
-            this.label132.TabIndex = 75;
-            this.label132.Text = "ACH Date:";
-            // 
-            // label133
-            // 
-            this.label133.AutoSize = true;
-            this.label133.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label133.Location = new System.Drawing.Point(1426, 550);
-            this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(103, 16);
-            this.label133.TabIndex = 74;
-            this.label133.Text = "ACH Reconcile:";
-            // 
-            // chkACHApprovalByFD
-            // 
-            this.chkACHApprovalByFD.AutoSize = true;
-            this.chkACHApprovalByFD.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkACHApprovalByFD.Location = new System.Drawing.Point(1639, 455);
-            this.chkACHApprovalByFD.Name = "chkACHApprovalByFD";
-            this.chkACHApprovalByFD.Size = new System.Drawing.Size(45, 20);
-            this.chkACHApprovalByFD.TabIndex = 73;
-            this.chkACHApprovalByFD.Text = "FD";
-            this.chkACHApprovalByFD.UseVisualStyleBackColor = true;
-            // 
-            // chkACHApprovalByRN
-            // 
-            this.chkACHApprovalByRN.AutoSize = true;
-            this.chkACHApprovalByRN.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkACHApprovalByRN.Location = new System.Drawing.Point(1553, 455);
-            this.chkACHApprovalByRN.Name = "chkACHApprovalByRN";
-            this.chkACHApprovalByRN.Size = new System.Drawing.Size(47, 20);
-            this.chkACHApprovalByRN.TabIndex = 72;
-            this.chkACHApprovalByRN.Text = "RN";
-            this.chkACHApprovalByRN.UseVisualStyleBackColor = true;
-            // 
-            // label134
-            // 
-            this.label134.AutoSize = true;
-            this.label134.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label134.Location = new System.Drawing.Point(1423, 457);
-            this.label134.Name = "label134";
-            this.label134.Size = new System.Drawing.Size(106, 16);
-            this.label134.TabIndex = 71;
-            this.label134.Text = "Approval Status:";
-            // 
-            // txtMemberAccountNoAtProvider
-            // 
-            this.txtMemberAccountNoAtProvider.Location = new System.Drawing.Point(907, 663);
-            this.txtMemberAccountNoAtProvider.Name = "txtMemberAccountNoAtProvider";
-            this.txtMemberAccountNoAtProvider.Size = new System.Drawing.Size(100, 22);
-            this.txtMemberAccountNoAtProvider.TabIndex = 70;
-            // 
-            // txtServiceDateACH
-            // 
-            this.txtServiceDateACH.Location = new System.Drawing.Point(811, 600);
-            this.txtServiceDateACH.Name = "txtServiceDateACH";
-            this.txtServiceDateACH.Size = new System.Drawing.Size(196, 22);
-            this.txtServiceDateACH.TabIndex = 69;
-            // 
-            // txtMedicalProviderACH
-            // 
-            this.txtMedicalProviderACH.Location = new System.Drawing.Point(811, 631);
-            this.txtMedicalProviderACH.Name = "txtMedicalProviderACH";
-            this.txtMedicalProviderACH.Size = new System.Drawing.Size(196, 22);
-            this.txtMedicalProviderACH.TabIndex = 68;
-            // 
-            // txtMedBillNoACH
-            // 
-            this.txtMedBillNoACH.Location = new System.Drawing.Point(811, 568);
-            this.txtMedBillNoACH.Name = "txtMedBillNoACH";
-            this.txtMedBillNoACH.Size = new System.Drawing.Size(196, 22);
-            this.txtMedBillNoACH.TabIndex = 67;
-            // 
-            // txtCurrentProgramACH
-            // 
-            this.txtCurrentProgramACH.Location = new System.Drawing.Point(811, 501);
-            this.txtCurrentProgramACH.Name = "txtCurrentProgramACH";
-            this.txtCurrentProgramACH.Size = new System.Drawing.Size(196, 22);
-            this.txtCurrentProgramACH.TabIndex = 66;
-            // 
-            // txtIncidentProgramACH
-            // 
-            this.txtIncidentProgramACH.Location = new System.Drawing.Point(811, 469);
-            this.txtIncidentProgramACH.Name = "txtIncidentProgramACH";
-            this.txtIncidentProgramACH.Size = new System.Drawing.Size(196, 22);
-            this.txtIncidentProgramACH.TabIndex = 65;
-            // 
-            // txtIncidentNoACH
-            // 
-            this.txtIncidentNoACH.Location = new System.Drawing.Point(811, 435);
-            this.txtIncidentNoACH.Name = "txtIncidentNoACH";
-            this.txtIncidentNoACH.Size = new System.Drawing.Size(196, 22);
-            this.txtIncidentNoACH.TabIndex = 64;
-            // 
-            // label109
-            // 
-            this.label109.AutoSize = true;
-            this.label109.Location = new System.Drawing.Point(692, 470);
-            this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(112, 16);
-            this.label109.TabIndex = 63;
-            this.label109.Text = "Incident Program:";
-            // 
-            // label110
-            // 
-            this.label110.AutoSize = true;
-            this.label110.Location = new System.Drawing.Point(692, 502);
-            this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(108, 16);
-            this.label110.TabIndex = 62;
-            this.label110.Text = "Current Program:";
-            // 
-            // label111
-            // 
-            this.label111.AutoSize = true;
-            this.label111.Location = new System.Drawing.Point(690, 571);
-            this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(101, 16);
-            this.label111.TabIndex = 61;
-            this.label111.Text = "Medical Bill No:";
-            // 
-            // label112
-            // 
-            this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(690, 603);
-            this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(103, 16);
-            this.label112.TabIndex = 60;
-            this.label112.Text = "Date of Service:";
-            // 
-            // label119
-            // 
-            this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(690, 635);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(113, 16);
-            this.label119.TabIndex = 59;
-            this.label119.Text = "Medical Provider:";
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Location = new System.Drawing.Point(690, 666);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(211, 16);
-            this.label120.TabIndex = 58;
-            this.label120.Text = "Member\'s Account No at Provider:";
-            // 
-            // label121
-            // 
-            this.label121.AutoSize = true;
-            this.label121.Location = new System.Drawing.Point(692, 438);
-            this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(78, 16);
-            this.label121.TabIndex = 57;
-            this.label121.Text = "Incident No:";
-            // 
-            // txtIndividualNameACH
-            // 
-            this.txtIndividualNameACH.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndividualNameACH.Location = new System.Drawing.Point(170, 499);
-            this.txtIndividualNameACH.Name = "txtIndividualNameACH";
-            this.txtIndividualNameACH.Size = new System.Drawing.Size(164, 22);
-            this.txtIndividualNameACH.TabIndex = 56;
-            // 
-            // txtIndividualNoACH
-            // 
-            this.txtIndividualNoACH.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndividualNoACH.Location = new System.Drawing.Point(170, 467);
-            this.txtIndividualNoACH.Name = "txtIndividualNoACH";
-            this.txtIndividualNoACH.Size = new System.Drawing.Size(165, 22);
-            this.txtIndividualNoACH.TabIndex = 55;
-            // 
-            // txtMembNoACH
-            // 
-            this.txtMembNoACH.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMembNoACH.Location = new System.Drawing.Point(170, 435);
-            this.txtMembNoACH.Name = "txtMembNoACH";
-            this.txtMembNoACH.Size = new System.Drawing.Size(164, 22);
-            this.txtMembNoACH.TabIndex = 54;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.txtIndZipACH);
-            this.groupBox4.Controls.Add(this.txtIndStateACH);
-            this.groupBox4.Controls.Add(this.txtIndCityACH);
-            this.groupBox4.Controls.Add(this.txtIndStreetAddressACH);
-            this.groupBox4.Controls.Add(this.label122);
-            this.groupBox4.Controls.Add(this.label123);
-            this.groupBox4.Controls.Add(this.label124);
-            this.groupBox4.Controls.Add(this.label125);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(39, 552);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(418, 138);
-            this.groupBox4.TabIndex = 53;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Individual Address";
-            // 
-            // txtIndZipACH
-            // 
-            this.txtIndZipACH.Location = new System.Drawing.Point(78, 95);
-            this.txtIndZipACH.Name = "txtIndZipACH";
-            this.txtIndZipACH.Size = new System.Drawing.Size(100, 22);
-            this.txtIndZipACH.TabIndex = 23;
-            // 
-            // txtIndStateACH
-            // 
-            this.txtIndStateACH.Location = new System.Drawing.Point(302, 64);
-            this.txtIndStateACH.Name = "txtIndStateACH";
-            this.txtIndStateACH.Size = new System.Drawing.Size(88, 22);
-            this.txtIndStateACH.TabIndex = 22;
-            // 
-            // txtIndCityACH
-            // 
-            this.txtIndCityACH.Location = new System.Drawing.Point(78, 64);
-            this.txtIndCityACH.Name = "txtIndCityACH";
-            this.txtIndCityACH.Size = new System.Drawing.Size(159, 22);
-            this.txtIndCityACH.TabIndex = 21;
-            // 
-            // txtIndStreetAddressACH
-            // 
-            this.txtIndStreetAddressACH.Location = new System.Drawing.Point(78, 32);
-            this.txtIndStreetAddressACH.Name = "txtIndStreetAddressACH";
-            this.txtIndStreetAddressACH.Size = new System.Drawing.Size(312, 22);
-            this.txtIndStreetAddressACH.TabIndex = 20;
-            // 
-            // label122
-            // 
-            this.label122.AutoSize = true;
-            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label122.Location = new System.Drawing.Point(26, 35);
-            this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(46, 16);
-            this.label122.TabIndex = 13;
-            this.label122.Text = "Street:";
-            // 
-            // label123
-            // 
-            this.label123.AutoSize = true;
-            this.label123.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label123.Location = new System.Drawing.Point(26, 97);
-            this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(30, 16);
-            this.label123.TabIndex = 17;
-            this.label123.Text = "Zip:";
-            // 
-            // label124
-            // 
-            this.label124.AutoSize = true;
-            this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label124.Location = new System.Drawing.Point(254, 66);
-            this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(42, 16);
-            this.label124.TabIndex = 18;
-            this.label124.Text = "State:";
-            // 
-            // label125
-            // 
-            this.label125.AutoSize = true;
-            this.label125.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label125.Location = new System.Drawing.Point(26, 66);
-            this.label125.Name = "label125";
-            this.label125.Size = new System.Drawing.Size(33, 16);
-            this.label125.TabIndex = 19;
-            this.label125.Text = "City:";
-            // 
-            // label126
-            // 
-            this.label126.AutoSize = true;
-            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label126.Location = new System.Drawing.Point(47, 438);
-            this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(72, 16);
-            this.label126.TabIndex = 52;
-            this.label126.Text = "MEMB No:";
-            // 
-            // label127
-            // 
-            this.label127.AutoSize = true;
-            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label127.Location = new System.Drawing.Point(47, 469);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(89, 16);
-            this.label127.TabIndex = 51;
-            this.label127.Text = "Individual No:";
-            // 
-            // label128
-            // 
-            this.label128.AutoSize = true;
-            this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label128.Location = new System.Drawing.Point(47, 500);
-            this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(108, 16);
-            this.label128.TabIndex = 50;
-            this.label128.Text = "Individual Name:";
+            // btnACHExport
+            // 
+            this.btnACHExport.Location = new System.Drawing.Point(1450, 674);
+            this.btnACHExport.Name = "btnACHExport";
+            this.btnACHExport.Size = new System.Drawing.Size(118, 32);
+            this.btnACHExport.TabIndex = 3;
+            this.btnACHExport.Text = "Export";
+            this.btnACHExport.UseVisualStyleBackColor = true;
+            this.btnACHExport.Click += new System.EventHandler(this.btnACHExport_Click);
             // 
             // gvPaymentACH
             // 
@@ -7655,203 +6839,93 @@
             this.gvPaymentACH.AllowUserToDeleteRows = false;
             this.gvPaymentACH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentACH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedACHPayment,
             this.IndividualNamePaymentACH,
-            this.HouseholdRolePaymentACH,
             this.IndividualIdPaymentACH,
-            this.PrimaryNamePaymentACH,
-            this.IncidentNoPaymentACH,
-            this.MedBillNoPaymentACH,
             this.SettlementNoPaymentACH,
             this.AmountPaymentACH,
-            this.ProgramNamePaymentACH,
-            this.IncidentProgramPaymentACH,
-            this.MembershipStartDatePaymentACH,
-            this.MembershipNoPaymentACH,
-            this.IBReceivedDatePaymentACH,
-            this.DateOfServicePaymentACH,
-            this.MedProviderPaymentACH,
-            this.ShippingStreetPaymentACH,
-            this.ShippingCityPaymentACH,
-            this.ShippingStatePaymentACH,
-            this.ShippingZipPaymentACH,
-            this.SettlementTypePaymentACH,
-            this.WellBeingCareSharingPaymentACH,
-            this.AccountNamePaymentACH,
+            this.BankNamePaymentACH,
+            this.RoutingNoPaymentACH,
+            this.AccountNoPaymentACH,
+            this.AccountHolderPaymentACH,
             this.CreatedByPaymentACH,
             this.LastModifiedByPaymentACH,
-            this.MembershipStatusPaymentACH,
-            this.ApprovedPaymentACH,
-            this.ApprovedDatePaymentACH});
+            this.MembershipStatusPaymentACH});
+            this.gvPaymentACH.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvPaymentACH.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentACH.Name = "gvPaymentACH";
-            this.gvPaymentACH.ReadOnly = true;
-            this.gvPaymentACH.Size = new System.Drawing.Size(1691, 331);
+            this.gvPaymentACH.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentACH.TabIndex = 2;
+            this.gvPaymentACH.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellClick);
+            this.gvPaymentACH.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentACH_ColumnHeaderMouseDoubleClick);
+            // 
+            // SelectedACHPayment
+            // 
+            this.SelectedACHPayment.HeaderText = "Selected";
+            this.SelectedACHPayment.Name = "SelectedACHPayment";
+            this.SelectedACHPayment.Width = 80;
             // 
             // IndividualNamePaymentACH
             // 
-            this.IndividualNamePaymentACH.HeaderText = "Individual Id";
+            this.IndividualNamePaymentACH.HeaderText = "Individual Name";
             this.IndividualNamePaymentACH.Name = "IndividualNamePaymentACH";
-            this.IndividualNamePaymentACH.ReadOnly = true;
-            // 
-            // HouseholdRolePaymentACH
-            // 
-            this.HouseholdRolePaymentACH.HeaderText = "Household Role";
-            this.HouseholdRolePaymentACH.Name = "HouseholdRolePaymentACH";
-            this.HouseholdRolePaymentACH.ReadOnly = true;
+            this.IndividualNamePaymentACH.Width = 120;
             // 
             // IndividualIdPaymentACH
             // 
             this.IndividualIdPaymentACH.HeaderText = "Individual Id";
             this.IndividualIdPaymentACH.Name = "IndividualIdPaymentACH";
-            this.IndividualIdPaymentACH.ReadOnly = true;
-            // 
-            // PrimaryNamePaymentACH
-            // 
-            this.PrimaryNamePaymentACH.HeaderText = "Primary Name";
-            this.PrimaryNamePaymentACH.Name = "PrimaryNamePaymentACH";
-            this.PrimaryNamePaymentACH.ReadOnly = true;
-            // 
-            // IncidentNoPaymentACH
-            // 
-            this.IncidentNoPaymentACH.HeaderText = "Incident No";
-            this.IncidentNoPaymentACH.Name = "IncidentNoPaymentACH";
-            this.IncidentNoPaymentACH.ReadOnly = true;
-            // 
-            // MedBillNoPaymentACH
-            // 
-            this.MedBillNoPaymentACH.HeaderText = "Medical Bill No";
-            this.MedBillNoPaymentACH.Name = "MedBillNoPaymentACH";
-            this.MedBillNoPaymentACH.ReadOnly = true;
             // 
             // SettlementNoPaymentACH
             // 
             this.SettlementNoPaymentACH.HeaderText = "Settlement No";
             this.SettlementNoPaymentACH.Name = "SettlementNoPaymentACH";
-            this.SettlementNoPaymentACH.ReadOnly = true;
+            this.SettlementNoPaymentACH.Width = 120;
             // 
             // AmountPaymentACH
             // 
             this.AmountPaymentACH.HeaderText = "Amount";
             this.AmountPaymentACH.Name = "AmountPaymentACH";
-            this.AmountPaymentACH.ReadOnly = true;
             // 
-            // ProgramNamePaymentACH
+            // BankNamePaymentACH
             // 
-            this.ProgramNamePaymentACH.HeaderText = "Program Name";
-            this.ProgramNamePaymentACH.Name = "ProgramNamePaymentACH";
-            this.ProgramNamePaymentACH.ReadOnly = true;
+            this.BankNamePaymentACH.HeaderText = "Bank Name";
+            this.BankNamePaymentACH.Name = "BankNamePaymentACH";
+            this.BankNamePaymentACH.Width = 120;
             // 
-            // IncidentProgramPaymentACH
+            // RoutingNoPaymentACH
             // 
-            this.IncidentProgramPaymentACH.HeaderText = "Incident Program";
-            this.IncidentProgramPaymentACH.Name = "IncidentProgramPaymentACH";
-            this.IncidentProgramPaymentACH.ReadOnly = true;
+            this.RoutingNoPaymentACH.HeaderText = "Routing No";
+            this.RoutingNoPaymentACH.Name = "RoutingNoPaymentACH";
+            this.RoutingNoPaymentACH.Width = 120;
             // 
-            // MembershipStartDatePaymentACH
+            // AccountNoPaymentACH
             // 
-            this.MembershipStartDatePaymentACH.HeaderText = "Membership Start Date";
-            this.MembershipStartDatePaymentACH.Name = "MembershipStartDatePaymentACH";
-            this.MembershipStartDatePaymentACH.ReadOnly = true;
+            this.AccountNoPaymentACH.HeaderText = "Account No";
+            this.AccountNoPaymentACH.Name = "AccountNoPaymentACH";
+            this.AccountNoPaymentACH.Width = 120;
             // 
-            // MembershipNoPaymentACH
+            // AccountHolderPaymentACH
             // 
-            this.MembershipNoPaymentACH.HeaderText = "Membership No";
-            this.MembershipNoPaymentACH.Name = "MembershipNoPaymentACH";
-            this.MembershipNoPaymentACH.ReadOnly = true;
-            // 
-            // IBReceivedDatePaymentACH
-            // 
-            this.IBReceivedDatePaymentACH.HeaderText = "IB Received Date";
-            this.IBReceivedDatePaymentACH.Name = "IBReceivedDatePaymentACH";
-            this.IBReceivedDatePaymentACH.ReadOnly = true;
-            this.IBReceivedDatePaymentACH.Width = 120;
-            // 
-            // DateOfServicePaymentACH
-            // 
-            this.DateOfServicePaymentACH.HeaderText = "Service Date";
-            this.DateOfServicePaymentACH.Name = "DateOfServicePaymentACH";
-            this.DateOfServicePaymentACH.ReadOnly = true;
-            // 
-            // MedProviderPaymentACH
-            // 
-            this.MedProviderPaymentACH.HeaderText = "Medical Provider";
-            this.MedProviderPaymentACH.Name = "MedProviderPaymentACH";
-            this.MedProviderPaymentACH.ReadOnly = true;
-            // 
-            // ShippingStreetPaymentACH
-            // 
-            this.ShippingStreetPaymentACH.HeaderText = "ShippingStreet";
-            this.ShippingStreetPaymentACH.Name = "ShippingStreetPaymentACH";
-            this.ShippingStreetPaymentACH.ReadOnly = true;
-            // 
-            // ShippingCityPaymentACH
-            // 
-            this.ShippingCityPaymentACH.HeaderText = "Shipping City";
-            this.ShippingCityPaymentACH.Name = "ShippingCityPaymentACH";
-            this.ShippingCityPaymentACH.ReadOnly = true;
-            // 
-            // ShippingStatePaymentACH
-            // 
-            this.ShippingStatePaymentACH.HeaderText = "Shipping State";
-            this.ShippingStatePaymentACH.Name = "ShippingStatePaymentACH";
-            this.ShippingStatePaymentACH.ReadOnly = true;
-            // 
-            // ShippingZipPaymentACH
-            // 
-            this.ShippingZipPaymentACH.HeaderText = "Shipping Zip";
-            this.ShippingZipPaymentACH.Name = "ShippingZipPaymentACH";
-            this.ShippingZipPaymentACH.ReadOnly = true;
-            // 
-            // SettlementTypePaymentACH
-            // 
-            this.SettlementTypePaymentACH.HeaderText = "Settlement Type";
-            this.SettlementTypePaymentACH.Name = "SettlementTypePaymentACH";
-            this.SettlementTypePaymentACH.ReadOnly = true;
-            // 
-            // WellBeingCareSharingPaymentACH
-            // 
-            this.WellBeingCareSharingPaymentACH.HeaderText = "Well Being Care Sharing";
-            this.WellBeingCareSharingPaymentACH.Name = "WellBeingCareSharingPaymentACH";
-            this.WellBeingCareSharingPaymentACH.ReadOnly = true;
-            this.WellBeingCareSharingPaymentACH.Width = 120;
-            // 
-            // AccountNamePaymentACH
-            // 
-            this.AccountNamePaymentACH.HeaderText = "Account Name";
-            this.AccountNamePaymentACH.Name = "AccountNamePaymentACH";
-            this.AccountNamePaymentACH.ReadOnly = true;
+            this.AccountHolderPaymentACH.HeaderText = "Account Holder";
+            this.AccountHolderPaymentACH.Name = "AccountHolderPaymentACH";
+            this.AccountHolderPaymentACH.Width = 120;
             // 
             // CreatedByPaymentACH
             // 
             this.CreatedByPaymentACH.HeaderText = "Created By";
             this.CreatedByPaymentACH.Name = "CreatedByPaymentACH";
-            this.CreatedByPaymentACH.ReadOnly = true;
             // 
             // LastModifiedByPaymentACH
             // 
             this.LastModifiedByPaymentACH.HeaderText = "Last Modified By";
             this.LastModifiedByPaymentACH.Name = "LastModifiedByPaymentACH";
-            this.LastModifiedByPaymentACH.ReadOnly = true;
             this.LastModifiedByPaymentACH.Width = 120;
             // 
             // MembershipStatusPaymentACH
             // 
             this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
             this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
-            this.MembershipStatusPaymentACH.ReadOnly = true;
-            // 
-            // ApprovedPaymentACH
-            // 
-            this.ApprovedPaymentACH.HeaderText = "Approved";
-            this.ApprovedPaymentACH.Name = "ApprovedPaymentACH";
-            this.ApprovedPaymentACH.ReadOnly = true;
-            // 
-            // ApprovedDatePaymentACH
-            // 
-            this.ApprovedDatePaymentACH.HeaderText = "Approved Date";
-            this.ApprovedDatePaymentACH.Name = "ApprovedDatePaymentACH";
-            this.ApprovedDatePaymentACH.ReadOnly = true;
             // 
             // label108
             // 
@@ -7865,45 +6939,6 @@
             // 
             // tbpgCreditCard
             // 
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardNote);
-            this.tbpgCreditCard.Controls.Add(this.label146);
-            this.tbpgCreditCard.Controls.Add(this.chkCreditCardReconcile);
-            this.tbpgCreditCard.Controls.Add(this.txtCMMCreditCardNo);
-            this.tbpgCreditCard.Controls.Add(this.txtCCPaymentDate);
-            this.tbpgCreditCard.Controls.Add(this.txtCMMConfirmationNo);
-            this.tbpgCreditCard.Controls.Add(this.txtCCCOMNo);
-            this.tbpgCreditCard.Controls.Add(this.chkStatusCompleted);
-            this.tbpgCreditCard.Controls.Add(this.chkStatusPending);
-            this.tbpgCreditCard.Controls.Add(this.label150);
-            this.tbpgCreditCard.Controls.Add(this.label149);
-            this.tbpgCreditCard.Controls.Add(this.label148);
-            this.tbpgCreditCard.Controls.Add(this.txtProviderTelNo);
-            this.tbpgCreditCard.Controls.Add(this.txtContactPersonRN);
-            this.tbpgCreditCard.Controls.Add(this.txtContactPersonFD);
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardMedicalProvider);
-            this.tbpgCreditCard.Controls.Add(this.txtAccountNoAtProvider);
-            this.tbpgCreditCard.Controls.Add(this.rbCreditCardCollectionAgency);
-            this.tbpgCreditCard.Controls.Add(this.rbCreditCardPayableProvider);
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardIndName);
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardIncidentProgram);
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardCurrentProgram);
-            this.tbpgCreditCard.Controls.Add(this.txtCreditCardIndId);
-            this.tbpgCreditCard.Controls.Add(this.label145);
-            this.tbpgCreditCard.Controls.Add(this.rbCreditCardPhone);
-            this.tbpgCreditCard.Controls.Add(this.rbCreditCardOnline);
-            this.tbpgCreditCard.Controls.Add(this.label144);
-            this.tbpgCreditCard.Controls.Add(this.label143);
-            this.tbpgCreditCard.Controls.Add(this.label142);
-            this.tbpgCreditCard.Controls.Add(this.label141);
-            this.tbpgCreditCard.Controls.Add(this.label140);
-            this.tbpgCreditCard.Controls.Add(this.label139);
-            this.tbpgCreditCard.Controls.Add(this.label138);
-            this.tbpgCreditCard.Controls.Add(this.label137);
-            this.tbpgCreditCard.Controls.Add(this.label130);
-            this.tbpgCreditCard.Controls.Add(this.label136);
-            this.tbpgCreditCard.Controls.Add(this.label135);
-            this.tbpgCreditCard.Controls.Add(this.label95);
-            this.tbpgCreditCard.Controls.Add(this.label129);
             this.tbpgCreditCard.Controls.Add(this.label94);
             this.tbpgCreditCard.Controls.Add(this.gvPaymentCreditCard);
             this.tbpgCreditCard.Location = new System.Drawing.Point(4, 25);
@@ -7912,346 +6947,6 @@
             this.tbpgCreditCard.TabIndex = 2;
             this.tbpgCreditCard.Text = "Credit Card";
             this.tbpgCreditCard.UseVisualStyleBackColor = true;
-            // 
-            // txtCreditCardNote
-            // 
-            this.txtCreditCardNote.Location = new System.Drawing.Point(35, 399);
-            this.txtCreditCardNote.Multiline = true;
-            this.txtCreditCardNote.Name = "txtCreditCardNote";
-            this.txtCreditCardNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCreditCardNote.Size = new System.Drawing.Size(878, 93);
-            this.txtCreditCardNote.TabIndex = 49;
-            // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Location = new System.Drawing.Point(32, 380);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(40, 16);
-            this.label146.TabIndex = 48;
-            this.label146.Text = "Note:";
-            // 
-            // chkCreditCardReconcile
-            // 
-            this.chkCreditCardReconcile.AutoSize = true;
-            this.chkCreditCardReconcile.Location = new System.Drawing.Point(1258, 698);
-            this.chkCreditCardReconcile.Name = "chkCreditCardReconcile";
-            this.chkCreditCardReconcile.Size = new System.Drawing.Size(15, 14);
-            this.chkCreditCardReconcile.TabIndex = 47;
-            this.chkCreditCardReconcile.UseVisualStyleBackColor = true;
-            // 
-            // txtCMMCreditCardNo
-            // 
-            this.txtCMMCreditCardNo.Location = new System.Drawing.Point(1151, 586);
-            this.txtCMMCreditCardNo.Name = "txtCMMCreditCardNo";
-            this.txtCMMCreditCardNo.Size = new System.Drawing.Size(233, 22);
-            this.txtCMMCreditCardNo.TabIndex = 46;
-            // 
-            // txtCCPaymentDate
-            // 
-            this.txtCCPaymentDate.Location = new System.Drawing.Point(1151, 619);
-            this.txtCCPaymentDate.Name = "txtCCPaymentDate";
-            this.txtCCPaymentDate.Size = new System.Drawing.Size(162, 22);
-            this.txtCCPaymentDate.TabIndex = 45;
-            // 
-            // txtCMMConfirmationNo
-            // 
-            this.txtCMMConfirmationNo.Location = new System.Drawing.Point(1151, 652);
-            this.txtCMMConfirmationNo.Name = "txtCMMConfirmationNo";
-            this.txtCMMConfirmationNo.Size = new System.Drawing.Size(233, 22);
-            this.txtCMMConfirmationNo.TabIndex = 44;
-            // 
-            // txtCCCOMNo
-            // 
-            this.txtCCCOMNo.Location = new System.Drawing.Point(1151, 553);
-            this.txtCCCOMNo.Name = "txtCCCOMNo";
-            this.txtCCCOMNo.Size = new System.Drawing.Size(233, 22);
-            this.txtCCCOMNo.TabIndex = 42;
-            // 
-            // chkStatusCompleted
-            // 
-            this.chkStatusCompleted.AutoSize = true;
-            this.chkStatusCompleted.Location = new System.Drawing.Point(1268, 521);
-            this.chkStatusCompleted.Name = "chkStatusCompleted";
-            this.chkStatusCompleted.Size = new System.Drawing.Size(93, 20);
-            this.chkStatusCompleted.TabIndex = 41;
-            this.chkStatusCompleted.Text = "Completed";
-            this.chkStatusCompleted.UseVisualStyleBackColor = true;
-            // 
-            // chkStatusPending
-            // 
-            this.chkStatusPending.AutoSize = true;
-            this.chkStatusPending.Location = new System.Drawing.Point(1151, 522);
-            this.chkStatusPending.Name = "chkStatusPending";
-            this.chkStatusPending.Size = new System.Drawing.Size(77, 20);
-            this.chkStatusPending.TabIndex = 40;
-            this.chkStatusPending.Text = "Pending";
-            this.chkStatusPending.UseVisualStyleBackColor = true;
-            // 
-            // label150
-            // 
-            this.label150.AutoSize = true;
-            this.label150.Location = new System.Drawing.Point(984, 622);
-            this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(151, 16);
-            this.label150.TabIndex = 39;
-            this.label150.Text = "CMM CC Payment Date:";
-            // 
-            // label149
-            // 
-            this.label149.AutoSize = true;
-            this.label149.Location = new System.Drawing.Point(984, 655);
-            this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(140, 16);
-            this.label149.TabIndex = 38;
-            this.label149.Text = "CMM Confirmation No:";
-            // 
-            // label148
-            // 
-            this.label148.AutoSize = true;
-            this.label148.Location = new System.Drawing.Point(1091, 697);
-            this.label148.Name = "label148";
-            this.label148.Size = new System.Drawing.Size(113, 16);
-            this.label148.TabIndex = 37;
-            this.label148.Text = "Check Reconcile:";
-            // 
-            // txtProviderTelNo
-            // 
-            this.txtProviderTelNo.Location = new System.Drawing.Point(644, 554);
-            this.txtProviderTelNo.Name = "txtProviderTelNo";
-            this.txtProviderTelNo.Size = new System.Drawing.Size(184, 22);
-            this.txtProviderTelNo.TabIndex = 34;
-            // 
-            // txtContactPersonRN
-            // 
-            this.txtContactPersonRN.Location = new System.Drawing.Point(644, 586);
-            this.txtContactPersonRN.Name = "txtContactPersonRN";
-            this.txtContactPersonRN.Size = new System.Drawing.Size(184, 22);
-            this.txtContactPersonRN.TabIndex = 33;
-            // 
-            // txtContactPersonFD
-            // 
-            this.txtContactPersonFD.Location = new System.Drawing.Point(644, 619);
-            this.txtContactPersonFD.Name = "txtContactPersonFD";
-            this.txtContactPersonFD.Size = new System.Drawing.Size(184, 22);
-            this.txtContactPersonFD.TabIndex = 32;
-            // 
-            // txtCreditCardMedicalProvider
-            // 
-            this.txtCreditCardMedicalProvider.Location = new System.Drawing.Point(644, 652);
-            this.txtCreditCardMedicalProvider.Name = "txtCreditCardMedicalProvider";
-            this.txtCreditCardMedicalProvider.Size = new System.Drawing.Size(184, 22);
-            this.txtCreditCardMedicalProvider.TabIndex = 31;
-            // 
-            // txtAccountNoAtProvider
-            // 
-            this.txtAccountNoAtProvider.Location = new System.Drawing.Point(644, 520);
-            this.txtAccountNoAtProvider.Name = "txtAccountNoAtProvider";
-            this.txtAccountNoAtProvider.Size = new System.Drawing.Size(184, 22);
-            this.txtAccountNoAtProvider.TabIndex = 30;
-            // 
-            // rbCreditCardCollectionAgency
-            // 
-            this.rbCreditCardCollectionAgency.AutoSize = true;
-            this.rbCreditCardCollectionAgency.Location = new System.Drawing.Point(271, 698);
-            this.rbCreditCardCollectionAgency.Name = "rbCreditCardCollectionAgency";
-            this.rbCreditCardCollectionAgency.Size = new System.Drawing.Size(134, 20);
-            this.rbCreditCardCollectionAgency.TabIndex = 29;
-            this.rbCreditCardCollectionAgency.TabStop = true;
-            this.rbCreditCardCollectionAgency.Text = "Collection Agency";
-            this.rbCreditCardCollectionAgency.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbCreditCardCollectionAgency.UseVisualStyleBackColor = true;
-            // 
-            // rbCreditCardPayableProvider
-            // 
-            this.rbCreditCardPayableProvider.AutoSize = true;
-            this.rbCreditCardPayableProvider.Location = new System.Drawing.Point(164, 698);
-            this.rbCreditCardPayableProvider.Name = "rbCreditCardPayableProvider";
-            this.rbCreditCardPayableProvider.Size = new System.Drawing.Size(77, 20);
-            this.rbCreditCardPayableProvider.TabIndex = 28;
-            this.rbCreditCardPayableProvider.TabStop = true;
-            this.rbCreditCardPayableProvider.Text = "Provider";
-            this.rbCreditCardPayableProvider.UseVisualStyleBackColor = true;
-            // 
-            // txtCreditCardIndName
-            // 
-            this.txtCreditCardIndName.Location = new System.Drawing.Point(163, 584);
-            this.txtCreditCardIndName.Name = "txtCreditCardIndName";
-            this.txtCreditCardIndName.ReadOnly = true;
-            this.txtCreditCardIndName.Size = new System.Drawing.Size(241, 22);
-            this.txtCreditCardIndName.TabIndex = 27;
-            // 
-            // txtCreditCardIncidentProgram
-            // 
-            this.txtCreditCardIncidentProgram.Location = new System.Drawing.Point(163, 619);
-            this.txtCreditCardIncidentProgram.Name = "txtCreditCardIncidentProgram";
-            this.txtCreditCardIncidentProgram.ReadOnly = true;
-            this.txtCreditCardIncidentProgram.Size = new System.Drawing.Size(241, 22);
-            this.txtCreditCardIncidentProgram.TabIndex = 26;
-            // 
-            // txtCreditCardCurrentProgram
-            // 
-            this.txtCreditCardCurrentProgram.Location = new System.Drawing.Point(163, 653);
-            this.txtCreditCardCurrentProgram.Name = "txtCreditCardCurrentProgram";
-            this.txtCreditCardCurrentProgram.ReadOnly = true;
-            this.txtCreditCardCurrentProgram.Size = new System.Drawing.Size(241, 22);
-            this.txtCreditCardCurrentProgram.TabIndex = 25;
-            // 
-            // txtCreditCardIndId
-            // 
-            this.txtCreditCardIndId.Location = new System.Drawing.Point(163, 550);
-            this.txtCreditCardIndId.Name = "txtCreditCardIndId";
-            this.txtCreditCardIndId.ReadOnly = true;
-            this.txtCreditCardIndId.Size = new System.Drawing.Size(241, 22);
-            this.txtCreditCardIndId.TabIndex = 23;
-            // 
-            // label145
-            // 
-            this.label145.AutoSize = true;
-            this.label145.Location = new System.Drawing.Point(36, 586);
-            this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(108, 16);
-            this.label145.TabIndex = 22;
-            this.label145.Text = "Individual Name:";
-            // 
-            // rbCreditCardPhone
-            // 
-            this.rbCreditCardPhone.AutoSize = true;
-            this.rbCreditCardPhone.Location = new System.Drawing.Point(270, 518);
-            this.rbCreditCardPhone.Name = "rbCreditCardPhone";
-            this.rbCreditCardPhone.Size = new System.Drawing.Size(65, 20);
-            this.rbCreditCardPhone.TabIndex = 21;
-            this.rbCreditCardPhone.TabStop = true;
-            this.rbCreditCardPhone.Text = "Phone";
-            this.rbCreditCardPhone.UseVisualStyleBackColor = true;
-            // 
-            // rbCreditCardOnline
-            // 
-            this.rbCreditCardOnline.AutoSize = true;
-            this.rbCreditCardOnline.Location = new System.Drawing.Point(163, 518);
-            this.rbCreditCardOnline.Name = "rbCreditCardOnline";
-            this.rbCreditCardOnline.Size = new System.Drawing.Size(64, 20);
-            this.rbCreditCardOnline.TabIndex = 20;
-            this.rbCreditCardOnline.TabStop = true;
-            this.rbCreditCardOnline.Text = "Online";
-            this.rbCreditCardOnline.UseVisualStyleBackColor = true;
-            // 
-            // label144
-            // 
-            this.label144.AutoSize = true;
-            this.label144.Location = new System.Drawing.Point(503, 523);
-            this.label144.Name = "label144";
-            this.label144.Size = new System.Drawing.Size(80, 16);
-            this.label144.TabIndex = 19;
-            this.label144.Text = "Account No:";
-            // 
-            // label143
-            // 
-            this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(503, 556);
-            this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(106, 16);
-            this.label143.TabIndex = 18;
-            this.label143.Text = "Provider Tel No:";
-            // 
-            // label142
-            // 
-            this.label142.AutoSize = true;
-            this.label142.Location = new System.Drawing.Point(503, 589);
-            this.label142.Name = "label142";
-            this.label142.Size = new System.Drawing.Size(133, 16);
-            this.label142.TabIndex = 17;
-            this.label142.Text = "Contact Person (RN):";
-            // 
-            // label141
-            // 
-            this.label141.AutoSize = true;
-            this.label141.Location = new System.Drawing.Point(503, 622);
-            this.label141.Name = "label141";
-            this.label141.Size = new System.Drawing.Size(131, 16);
-            this.label141.TabIndex = 16;
-            this.label141.Text = "Contact Person (FD):";
-            // 
-            // label140
-            // 
-            this.label140.AutoSize = true;
-            this.label140.Location = new System.Drawing.Point(503, 655);
-            this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(113, 16);
-            this.label140.TabIndex = 15;
-            this.label140.Text = "Medical Provider:";
-            // 
-            // label139
-            // 
-            this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(984, 589);
-            this.label139.Name = "label139";
-            this.label139.Size = new System.Drawing.Size(133, 16);
-            this.label139.TabIndex = 14;
-            this.label139.Text = "CMM Credit Card No:";
-            // 
-            // label138
-            // 
-            this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(984, 523);
-            this.label138.Name = "label138";
-            this.label138.Size = new System.Drawing.Size(69, 16);
-            this.label138.TabIndex = 13;
-            this.label138.Text = "FD Status:";
-            // 
-            // label137
-            // 
-            this.label137.AutoSize = true;
-            this.label137.Location = new System.Drawing.Point(984, 556);
-            this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(83, 16);
-            this.label137.TabIndex = 12;
-            this.label137.Text = "CC COM No:";
-            // 
-            // label130
-            // 
-            this.label130.AutoSize = true;
-            this.label130.Location = new System.Drawing.Point(37, 697);
-            this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(76, 16);
-            this.label130.TabIndex = 11;
-            this.label130.Text = "Payable to:";
-            // 
-            // label136
-            // 
-            this.label136.AutoSize = true;
-            this.label136.Location = new System.Drawing.Point(36, 652);
-            this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(108, 16);
-            this.label136.TabIndex = 10;
-            this.label136.Text = "Current Program:";
-            // 
-            // label135
-            // 
-            this.label135.AutoSize = true;
-            this.label135.Location = new System.Drawing.Point(36, 619);
-            this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(112, 16);
-            this.label135.TabIndex = 9;
-            this.label135.Text = "Incident Program:";
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(37, 553);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(82, 16);
-            this.label95.TabIndex = 7;
-            this.label95.Text = "Individual Id:";
-            // 
-            // label129
-            // 
-            this.label129.AutoSize = true;
-            this.label129.Location = new System.Drawing.Point(37, 520);
-            this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(112, 16);
-            this.label129.TabIndex = 6;
-            this.label129.Text = "Payment Method:";
             // 
             // label94
             // 
@@ -8269,36 +6964,248 @@
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SelectedRNCreditCardPayment,
-            this.IndividualIdInPaymentCreditCard,
-            this.MembershipNoInPaymentCreditCard,
+            this.CreditCardPaymentConfirm,
             this.IndividualNamePaymentCreditCard,
+            this.MedProviderInPaymentCreditCard,
+            this.PhoneNoMedicalProvider,
+            this.AccountNoMedProviderCreditCardPayment,
             this.DateOfBirthCreditCardPayment,
             this.SSNCreditCardPayment,
             this.SexCreditCardPayment,
             this.PrimaryNameInPaymentCreditCard,
-            this.IncidentNoInPaymentCreditCard,
+            this.ShippingStreetInPaymentCreditCard,
+            this.ShippingCityInPaymentCreditCard,
+            this.ShippingStateInPaymentCreditCard,
+            this.ShippingZipInPaymentCreditCard,
+            this.DateOfServiceInPaymentCreditCard,
             this.MedBillNoInPaymentCreditCard,
             this.BillAmountCreditCardPayment,
             this.SettlementNoInPaymentCreditCard,
             this.AmountInPaymentCreditCard,
             this.CreditCardNoCreditCardPayment,
-            this.MedProviderInPaymentCreditCard,
-            this.DateOfServiceInPaymentCreditCard,
-            this.ShippingStreetInPaymentCreditCard,
-            this.ShippingCityInPaymentCreditCard,
-            this.ShippingStateInPaymentCreditCard,
-            this.ShippingZipInPaymentCreditCard,
             this.MembershipStatusInPaymentCreditCard,
-            this.ApprovedInPaymentCreditCard,
-            this.ApprovedDateInPaymentCreditCard,
+            this.CreditCardPaymentNote,
             this.CreatedByInPaymentCreditCard,
-            this.LastModifiedByInPaymentCreditCard});
+            this.LastModifiedByInPaymentCreditCard,
+            this.IndividualIdInPaymentCreditCard,
+            this.MembershipNoInPaymentCreditCard});
             this.gvPaymentCreditCard.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentCreditCard.Name = "gvPaymentCreditCard";
-            this.gvPaymentCreditCard.ReadOnly = true;
-            this.gvPaymentCreditCard.Size = new System.Drawing.Size(1691, 299);
+            this.gvPaymentCreditCard.Size = new System.Drawing.Size(1691, 664);
             this.gvPaymentCreditCard.TabIndex = 3;
+            this.gvPaymentCreditCard.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCreditCard_CellContentClick);
+            this.gvPaymentCreditCard.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCreditCard_CellDoubleClick);
+            // 
+            // CreditCardPaymentConfirm
+            // 
+            this.CreditCardPaymentConfirm.HeaderText = "Confirm Payment";
+            this.CreditCardPaymentConfirm.Name = "CreditCardPaymentConfirm";
+            this.CreditCardPaymentConfirm.Width = 120;
+            // 
+            // IndividualNamePaymentCreditCard
+            // 
+            this.IndividualNamePaymentCreditCard.HeaderText = "Individual Name";
+            this.IndividualNamePaymentCreditCard.Name = "IndividualNamePaymentCreditCard";
+            // 
+            // MedProviderInPaymentCreditCard
+            // 
+            this.MedProviderInPaymentCreditCard.HeaderText = "Medical Provider";
+            this.MedProviderInPaymentCreditCard.Name = "MedProviderInPaymentCreditCard";
+            // 
+            // PhoneNoMedicalProvider
+            // 
+            this.PhoneNoMedicalProvider.HeaderText = "Medical Provider Phone No";
+            this.PhoneNoMedicalProvider.Name = "PhoneNoMedicalProvider";
+            // 
+            // AccountNoMedProviderCreditCardPayment
+            // 
+            this.AccountNoMedProviderCreditCardPayment.HeaderText = "Account # At Provider";
+            this.AccountNoMedProviderCreditCardPayment.Name = "AccountNoMedProviderCreditCardPayment";
+            // 
+            // DateOfBirthCreditCardPayment
+            // 
+            this.DateOfBirthCreditCardPayment.HeaderText = "Date Of Birth";
+            this.DateOfBirthCreditCardPayment.Name = "DateOfBirthCreditCardPayment";
+            this.DateOfBirthCreditCardPayment.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DateOfBirthCreditCardPayment.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // SSNCreditCardPayment
+            // 
+            this.SSNCreditCardPayment.HeaderText = "SSN";
+            this.SSNCreditCardPayment.Name = "SSNCreditCardPayment";
+            // 
+            // SexCreditCardPayment
+            // 
+            this.SexCreditCardPayment.HeaderText = "Sex";
+            this.SexCreditCardPayment.Name = "SexCreditCardPayment";
+            this.SexCreditCardPayment.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SexCreditCardPayment.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SexCreditCardPayment.Width = 80;
+            // 
+            // PrimaryNameInPaymentCreditCard
+            // 
+            this.PrimaryNameInPaymentCreditCard.HeaderText = "Primary Name";
+            this.PrimaryNameInPaymentCreditCard.Name = "PrimaryNameInPaymentCreditCard";
+            // 
+            // ShippingStreetInPaymentCreditCard
+            // 
+            this.ShippingStreetInPaymentCreditCard.HeaderText = "Shipping Street";
+            this.ShippingStreetInPaymentCreditCard.Name = "ShippingStreetInPaymentCreditCard";
+            // 
+            // ShippingCityInPaymentCreditCard
+            // 
+            this.ShippingCityInPaymentCreditCard.HeaderText = "Shipping City";
+            this.ShippingCityInPaymentCreditCard.Name = "ShippingCityInPaymentCreditCard";
+            // 
+            // ShippingStateInPaymentCreditCard
+            // 
+            this.ShippingStateInPaymentCreditCard.HeaderText = "Shipping State";
+            this.ShippingStateInPaymentCreditCard.Name = "ShippingStateInPaymentCreditCard";
+            // 
+            // ShippingZipInPaymentCreditCard
+            // 
+            this.ShippingZipInPaymentCreditCard.HeaderText = "Shipping Zip";
+            this.ShippingZipInPaymentCreditCard.Name = "ShippingZipInPaymentCreditCard";
+            // 
+            // DateOfServiceInPaymentCreditCard
+            // 
+            this.DateOfServiceInPaymentCreditCard.HeaderText = "Date of Service";
+            this.DateOfServiceInPaymentCreditCard.Name = "DateOfServiceInPaymentCreditCard";
+            // 
+            // MedBillNoInPaymentCreditCard
+            // 
+            this.MedBillNoInPaymentCreditCard.HeaderText = "Medical Bill";
+            this.MedBillNoInPaymentCreditCard.Name = "MedBillNoInPaymentCreditCard";
+            this.MedBillNoInPaymentCreditCard.Width = 120;
+            // 
+            // BillAmountCreditCardPayment
+            // 
+            this.BillAmountCreditCardPayment.HeaderText = "Bill Amount";
+            this.BillAmountCreditCardPayment.Name = "BillAmountCreditCardPayment";
+            // 
+            // SettlementNoInPaymentCreditCard
+            // 
+            this.SettlementNoInPaymentCreditCard.HeaderText = "Settlement No";
+            this.SettlementNoInPaymentCreditCard.Name = "SettlementNoInPaymentCreditCard";
+            this.SettlementNoInPaymentCreditCard.Width = 120;
+            // 
+            // AmountInPaymentCreditCard
+            // 
+            this.AmountInPaymentCreditCard.HeaderText = "Amount";
+            this.AmountInPaymentCreditCard.Name = "AmountInPaymentCreditCard";
+            this.AmountInPaymentCreditCard.Width = 120;
+            // 
+            // CreditCardNoCreditCardPayment
+            // 
+            this.CreditCardNoCreditCardPayment.HeaderText = "Credit Card";
+            this.CreditCardNoCreditCardPayment.Name = "CreditCardNoCreditCardPayment";
+            // 
+            // MembershipStatusInPaymentCreditCard
+            // 
+            this.MembershipStatusInPaymentCreditCard.HeaderText = "Membership Status";
+            this.MembershipStatusInPaymentCreditCard.Name = "MembershipStatusInPaymentCreditCard";
+            this.MembershipStatusInPaymentCreditCard.Width = 120;
+            // 
+            // CreditCardPaymentNote
+            // 
+            this.CreditCardPaymentNote.HeaderText = "Note";
+            this.CreditCardPaymentNote.Name = "CreditCardPaymentNote";
+            this.CreditCardPaymentNote.Width = 120;
+            // 
+            // CreatedByInPaymentCreditCard
+            // 
+            this.CreatedByInPaymentCreditCard.HeaderText = "Created By";
+            this.CreatedByInPaymentCreditCard.Name = "CreatedByInPaymentCreditCard";
+            // 
+            // LastModifiedByInPaymentCreditCard
+            // 
+            this.LastModifiedByInPaymentCreditCard.HeaderText = "Last Modified By";
+            this.LastModifiedByInPaymentCreditCard.Name = "LastModifiedByInPaymentCreditCard";
+            this.LastModifiedByInPaymentCreditCard.Width = 120;
+            // 
+            // IndividualIdInPaymentCreditCard
+            // 
+            this.IndividualIdInPaymentCreditCard.HeaderText = "Individual Id";
+            this.IndividualIdInPaymentCreditCard.Name = "IndividualIdInPaymentCreditCard";
+            // 
+            // MembershipNoInPaymentCreditCard
+            // 
+            this.MembershipNoInPaymentCreditCard.HeaderText = "Membership No";
+            this.MembershipNoInPaymentCreditCard.Name = "MembershipNoInPaymentCreditCard";
+            // 
+            // tbpgInactive
+            // 
+            this.tbpgInactive.Controls.Add(this.gvPaymentInactive);
+            this.tbpgInactive.Controls.Add(this.label95);
+            this.tbpgInactive.Location = new System.Drawing.Point(4, 25);
+            this.tbpgInactive.Name = "tbpgInactive";
+            this.tbpgInactive.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgInactive.TabIndex = 3;
+            this.tbpgInactive.Text = "Inactive";
+            this.tbpgInactive.UseVisualStyleBackColor = true;
+            // 
+            // gvPaymentInactive
+            // 
+            this.gvPaymentInactive.AllowUserToAddRows = false;
+            this.gvPaymentInactive.AllowUserToDeleteRows = false;
+            this.gvPaymentInactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvPaymentInactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdPaymentInactive,
+            this.IndividualNamePaymentInactive,
+            this.MembershipNoPaymentInactive,
+            this.MembershipStatusPaymentInactive,
+            this.StateNamePaymentInactive,
+            this.EmailPaymentInactive,
+            this.PhonePaymentInactive});
+            this.gvPaymentInactive.Location = new System.Drawing.Point(37, 61);
+            this.gvPaymentInactive.Name = "gvPaymentInactive";
+            this.gvPaymentInactive.Size = new System.Drawing.Size(1689, 601);
+            this.gvPaymentInactive.TabIndex = 6;
+            // 
+            // IndividualIdPaymentInactive
+            // 
+            this.IndividualIdPaymentInactive.HeaderText = "Individual Id";
+            this.IndividualIdPaymentInactive.Name = "IndividualIdPaymentInactive";
+            // 
+            // IndividualNamePaymentInactive
+            // 
+            this.IndividualNamePaymentInactive.HeaderText = "Individual Name";
+            this.IndividualNamePaymentInactive.Name = "IndividualNamePaymentInactive";
+            // 
+            // MembershipNoPaymentInactive
+            // 
+            this.MembershipNoPaymentInactive.HeaderText = "Membership No";
+            this.MembershipNoPaymentInactive.Name = "MembershipNoPaymentInactive";
+            // 
+            // MembershipStatusPaymentInactive
+            // 
+            this.MembershipStatusPaymentInactive.HeaderText = "Membership Status";
+            this.MembershipStatusPaymentInactive.Name = "MembershipStatusPaymentInactive";
+            // 
+            // StateNamePaymentInactive
+            // 
+            this.StateNamePaymentInactive.HeaderText = "State";
+            this.StateNamePaymentInactive.Name = "StateNamePaymentInactive";
+            // 
+            // EmailPaymentInactive
+            // 
+            this.EmailPaymentInactive.HeaderText = "Email";
+            this.EmailPaymentInactive.Name = "EmailPaymentInactive";
+            // 
+            // PhonePaymentInactive
+            // 
+            this.PhonePaymentInactive.HeaderText = "Phone";
+            this.PhonePaymentInactive.Name = "PhonePaymentInactive";
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label95.Location = new System.Drawing.Point(34, 31);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(65, 16);
+            this.label95.TabIndex = 5;
+            this.label95.Text = "Summary";
             // 
             // label147
             // 
@@ -8703,15 +7610,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -8739,8 +7646,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -9112,163 +8019,14 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // SelectedRNCreditCardPayment
+            // btnConfirmACH
             // 
-            this.SelectedRNCreditCardPayment.HeaderText = "Selected";
-            this.SelectedRNCreditCardPayment.Name = "SelectedRNCreditCardPayment";
-            this.SelectedRNCreditCardPayment.ReadOnly = true;
-            this.SelectedRNCreditCardPayment.Width = 80;
-            // 
-            // IndividualIdInPaymentCreditCard
-            // 
-            this.IndividualIdInPaymentCreditCard.HeaderText = "Individual Id";
-            this.IndividualIdInPaymentCreditCard.Name = "IndividualIdInPaymentCreditCard";
-            this.IndividualIdInPaymentCreditCard.ReadOnly = true;
-            // 
-            // MembershipNoInPaymentCreditCard
-            // 
-            this.MembershipNoInPaymentCreditCard.HeaderText = "Membership No";
-            this.MembershipNoInPaymentCreditCard.Name = "MembershipNoInPaymentCreditCard";
-            this.MembershipNoInPaymentCreditCard.ReadOnly = true;
-            // 
-            // IndividualNamePaymentCreditCard
-            // 
-            this.IndividualNamePaymentCreditCard.HeaderText = "Individual Name";
-            this.IndividualNamePaymentCreditCard.Name = "IndividualNamePaymentCreditCard";
-            this.IndividualNamePaymentCreditCard.ReadOnly = true;
-            // 
-            // DateOfBirthCreditCardPayment
-            // 
-            this.DateOfBirthCreditCardPayment.HeaderText = "Date Of Birth";
-            this.DateOfBirthCreditCardPayment.Name = "DateOfBirthCreditCardPayment";
-            this.DateOfBirthCreditCardPayment.ReadOnly = true;
-            // 
-            // SSNCreditCardPayment
-            // 
-            this.SSNCreditCardPayment.HeaderText = "SSN";
-            this.SSNCreditCardPayment.Name = "SSNCreditCardPayment";
-            this.SSNCreditCardPayment.ReadOnly = true;
-            this.SSNCreditCardPayment.Width = 60;
-            // 
-            // SexCreditCardPayment
-            // 
-            this.SexCreditCardPayment.HeaderText = "Sex";
-            this.SexCreditCardPayment.Name = "SexCreditCardPayment";
-            this.SexCreditCardPayment.ReadOnly = true;
-            this.SexCreditCardPayment.Width = 50;
-            // 
-            // PrimaryNameInPaymentCreditCard
-            // 
-            this.PrimaryNameInPaymentCreditCard.HeaderText = "Primary Name";
-            this.PrimaryNameInPaymentCreditCard.Name = "PrimaryNameInPaymentCreditCard";
-            this.PrimaryNameInPaymentCreditCard.ReadOnly = true;
-            // 
-            // IncidentNoInPaymentCreditCard
-            // 
-            this.IncidentNoInPaymentCreditCard.HeaderText = "Incident No";
-            this.IncidentNoInPaymentCreditCard.Name = "IncidentNoInPaymentCreditCard";
-            this.IncidentNoInPaymentCreditCard.ReadOnly = true;
-            // 
-            // MedBillNoInPaymentCreditCard
-            // 
-            this.MedBillNoInPaymentCreditCard.HeaderText = "Medical Bill";
-            this.MedBillNoInPaymentCreditCard.Name = "MedBillNoInPaymentCreditCard";
-            this.MedBillNoInPaymentCreditCard.ReadOnly = true;
-            this.MedBillNoInPaymentCreditCard.Width = 120;
-            // 
-            // BillAmountCreditCardPayment
-            // 
-            this.BillAmountCreditCardPayment.HeaderText = "Bill Amount";
-            this.BillAmountCreditCardPayment.Name = "BillAmountCreditCardPayment";
-            this.BillAmountCreditCardPayment.ReadOnly = true;
-            // 
-            // SettlementNoInPaymentCreditCard
-            // 
-            this.SettlementNoInPaymentCreditCard.HeaderText = "Settlement No";
-            this.SettlementNoInPaymentCreditCard.Name = "SettlementNoInPaymentCreditCard";
-            this.SettlementNoInPaymentCreditCard.ReadOnly = true;
-            this.SettlementNoInPaymentCreditCard.Width = 120;
-            // 
-            // AmountInPaymentCreditCard
-            // 
-            this.AmountInPaymentCreditCard.HeaderText = "Amount";
-            this.AmountInPaymentCreditCard.Name = "AmountInPaymentCreditCard";
-            this.AmountInPaymentCreditCard.ReadOnly = true;
-            this.AmountInPaymentCreditCard.Width = 120;
-            // 
-            // CreditCardNoCreditCardPayment
-            // 
-            this.CreditCardNoCreditCardPayment.HeaderText = "Credit Card";
-            this.CreditCardNoCreditCardPayment.Name = "CreditCardNoCreditCardPayment";
-            this.CreditCardNoCreditCardPayment.ReadOnly = true;
-            // 
-            // MedProviderInPaymentCreditCard
-            // 
-            this.MedProviderInPaymentCreditCard.HeaderText = "Medical Provider";
-            this.MedProviderInPaymentCreditCard.Name = "MedProviderInPaymentCreditCard";
-            this.MedProviderInPaymentCreditCard.ReadOnly = true;
-            // 
-            // DateOfServiceInPaymentCreditCard
-            // 
-            this.DateOfServiceInPaymentCreditCard.HeaderText = "Date of Service";
-            this.DateOfServiceInPaymentCreditCard.Name = "DateOfServiceInPaymentCreditCard";
-            this.DateOfServiceInPaymentCreditCard.ReadOnly = true;
-            // 
-            // ShippingStreetInPaymentCreditCard
-            // 
-            this.ShippingStreetInPaymentCreditCard.HeaderText = "Shipping Street";
-            this.ShippingStreetInPaymentCreditCard.Name = "ShippingStreetInPaymentCreditCard";
-            this.ShippingStreetInPaymentCreditCard.ReadOnly = true;
-            // 
-            // ShippingCityInPaymentCreditCard
-            // 
-            this.ShippingCityInPaymentCreditCard.HeaderText = "Shipping City";
-            this.ShippingCityInPaymentCreditCard.Name = "ShippingCityInPaymentCreditCard";
-            this.ShippingCityInPaymentCreditCard.ReadOnly = true;
-            // 
-            // ShippingStateInPaymentCreditCard
-            // 
-            this.ShippingStateInPaymentCreditCard.HeaderText = "Shipping State";
-            this.ShippingStateInPaymentCreditCard.Name = "ShippingStateInPaymentCreditCard";
-            this.ShippingStateInPaymentCreditCard.ReadOnly = true;
-            // 
-            // ShippingZipInPaymentCreditCard
-            // 
-            this.ShippingZipInPaymentCreditCard.HeaderText = "Shipping Zip";
-            this.ShippingZipInPaymentCreditCard.Name = "ShippingZipInPaymentCreditCard";
-            this.ShippingZipInPaymentCreditCard.ReadOnly = true;
-            // 
-            // MembershipStatusInPaymentCreditCard
-            // 
-            this.MembershipStatusInPaymentCreditCard.HeaderText = "Membership Status";
-            this.MembershipStatusInPaymentCreditCard.Name = "MembershipStatusInPaymentCreditCard";
-            this.MembershipStatusInPaymentCreditCard.ReadOnly = true;
-            this.MembershipStatusInPaymentCreditCard.Width = 120;
-            // 
-            // ApprovedInPaymentCreditCard
-            // 
-            this.ApprovedInPaymentCreditCard.HeaderText = "Approved";
-            this.ApprovedInPaymentCreditCard.Name = "ApprovedInPaymentCreditCard";
-            this.ApprovedInPaymentCreditCard.ReadOnly = true;
-            // 
-            // ApprovedDateInPaymentCreditCard
-            // 
-            this.ApprovedDateInPaymentCreditCard.HeaderText = "Approved Date";
-            this.ApprovedDateInPaymentCreditCard.Name = "ApprovedDateInPaymentCreditCard";
-            this.ApprovedDateInPaymentCreditCard.ReadOnly = true;
-            // 
-            // CreatedByInPaymentCreditCard
-            // 
-            this.CreatedByInPaymentCreditCard.HeaderText = "Created By";
-            this.CreatedByInPaymentCreditCard.Name = "CreatedByInPaymentCreditCard";
-            this.CreatedByInPaymentCreditCard.ReadOnly = true;
-            // 
-            // LastModifiedByInPaymentCreditCard
-            // 
-            this.LastModifiedByInPaymentCreditCard.HeaderText = "Last Modified By";
-            this.LastModifiedByInPaymentCreditCard.Name = "LastModifiedByInPaymentCreditCard";
-            this.LastModifiedByInPaymentCreditCard.ReadOnly = true;
-            this.LastModifiedByInPaymentCreditCard.Width = 120;
+            this.btnConfirmACH.Location = new System.Drawing.Point(1608, 674);
+            this.btnConfirmACH.Name = "btnConfirmACH";
+            this.btnConfirmACH.Size = new System.Drawing.Size(118, 32);
+            this.btnConfirmACH.TabIndex = 4;
+            this.btnConfirmACH.Text = "Confirm";
+            this.btnConfirmACH.UseVisualStyleBackColor = true;
             // 
             // frmCMMManager
             // 
@@ -9371,17 +8129,16 @@
             this.tabPaymentMethod.ResumeLayout(false);
             this.tbpgCheck.ResumeLayout(false);
             this.tbpgCheck.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentCheck)).EndInit();
             this.tbpgACH.ResumeLayout(false);
             this.tbpgACH.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentACH)).EndInit();
             this.tbpgCreditCard.ResumeLayout(false);
             this.tbpgCreditCard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentCreditCard)).EndInit();
+            this.tbpgInactive.ResumeLayout(false);
+            this.tbpgInactive.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).EndInit();
             this.tbpgTask.ResumeLayout(false);
             this.tbpgTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
@@ -9433,7 +8190,7 @@
         private System.Windows.Forms.TextBox txtPowerOfAttorney;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox cbGender;
-        private System.Windows.Forms.ComboBox cbPaymentMethod;
+        private System.Windows.Forms.ComboBox cbReimbursementMethod;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.TextBox txtIndChurchName;
@@ -9630,129 +8387,11 @@
         private System.Windows.Forms.Button btnAddNewSettlement;
         private System.Windows.Forms.TabControl tabPaymentMethod;
         private System.Windows.Forms.TabPage tbpgCheck;
-        private System.Windows.Forms.TextBox txtCheckPaymentAcctNoAtProvider;
-        private System.Windows.Forms.TextBox txtCheckPaymentServiceDate;
-        private System.Windows.Forms.TextBox txtCheckPaymentMedicalProvider;
-        private System.Windows.Forms.TextBox txtCheckPaymentMedBillNo;
-        private System.Windows.Forms.TextBox txtCheckPaymentCurrentProgram;
-        private System.Windows.Forms.TextBox txtCheckPaymentIncdProgram;
-        private System.Windows.Forms.TextBox txtCheckPaymentIncdNo;
-        private System.Windows.Forms.Label label118;
-        private System.Windows.Forms.Label label117;
-        private System.Windows.Forms.Label label116;
-        private System.Windows.Forms.Label label115;
-        private System.Windows.Forms.Label label114;
-        private System.Windows.Forms.Label label113;
-        private System.Windows.Forms.Label label97;
-        private System.Windows.Forms.CheckBox chkCheckReconcile;
-        private System.Windows.Forms.TextBox txtCheckDate;
-        private System.Windows.Forms.TextBox txtCheckNo;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndName;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndNo;
-        private System.Windows.Forms.TextBox txtCheckPaymentMembNo;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndZip;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndState;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndCity;
-        private System.Windows.Forms.TextBox txtCheckPaymentIndSteet;
-        private System.Windows.Forms.Label label101;
-        private System.Windows.Forms.Label label105;
-        private System.Windows.Forms.Label label106;
-        private System.Windows.Forms.Label label107;
-        private System.Windows.Forms.Label label104;
-        private System.Windows.Forms.Label label103;
-        private System.Windows.Forms.Label label102;
-        private System.Windows.Forms.Label label100;
-        private System.Windows.Forms.Label label99;
-        private System.Windows.Forms.Label label98;
-        private System.Windows.Forms.CheckBox chkApprovalByFD;
-        private System.Windows.Forms.CheckBox chkApprovalByRN;
-        private System.Windows.Forms.Label label96;
         private System.Windows.Forms.DataGridView gvPaymentCheck;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.TabPage tbpgACH;
-        private System.Windows.Forms.CheckBox chkACHReconcile;
-        private System.Windows.Forms.TextBox txtACHPaymentDate;
-        private System.Windows.Forms.TextBox txtACHPaymentNo;
-        private System.Windows.Forms.Label label131;
-        private System.Windows.Forms.Label label132;
-        private System.Windows.Forms.Label label133;
-        private System.Windows.Forms.CheckBox chkACHApprovalByFD;
-        private System.Windows.Forms.CheckBox chkACHApprovalByRN;
-        private System.Windows.Forms.Label label134;
-        private System.Windows.Forms.TextBox txtMemberAccountNoAtProvider;
-        private System.Windows.Forms.TextBox txtServiceDateACH;
-        private System.Windows.Forms.TextBox txtMedicalProviderACH;
-        private System.Windows.Forms.TextBox txtMedBillNoACH;
-        private System.Windows.Forms.TextBox txtCurrentProgramACH;
-        private System.Windows.Forms.TextBox txtIncidentProgramACH;
-        private System.Windows.Forms.TextBox txtIncidentNoACH;
-        private System.Windows.Forms.Label label109;
-        private System.Windows.Forms.Label label110;
-        private System.Windows.Forms.Label label111;
-        private System.Windows.Forms.Label label112;
-        private System.Windows.Forms.Label label119;
-        private System.Windows.Forms.Label label120;
-        private System.Windows.Forms.Label label121;
-        private System.Windows.Forms.TextBox txtIndividualNameACH;
-        private System.Windows.Forms.TextBox txtIndividualNoACH;
-        private System.Windows.Forms.TextBox txtMembNoACH;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TextBox txtIndZipACH;
-        private System.Windows.Forms.TextBox txtIndStateACH;
-        private System.Windows.Forms.TextBox txtIndCityACH;
-        private System.Windows.Forms.TextBox txtIndStreetAddressACH;
-        private System.Windows.Forms.Label label122;
-        private System.Windows.Forms.Label label123;
-        private System.Windows.Forms.Label label124;
-        private System.Windows.Forms.Label label125;
-        private System.Windows.Forms.Label label126;
-        private System.Windows.Forms.Label label127;
-        private System.Windows.Forms.Label label128;
         private System.Windows.Forms.DataGridView gvPaymentACH;
         private System.Windows.Forms.Label label108;
-        private System.Windows.Forms.TabPage tbpgCreditCard;
-        private System.Windows.Forms.TextBox txtCreditCardNote;
-        private System.Windows.Forms.Label label146;
-        private System.Windows.Forms.CheckBox chkCreditCardReconcile;
-        private System.Windows.Forms.TextBox txtCMMCreditCardNo;
-        private System.Windows.Forms.TextBox txtCCPaymentDate;
-        private System.Windows.Forms.TextBox txtCMMConfirmationNo;
-        private System.Windows.Forms.TextBox txtCCCOMNo;
-        private System.Windows.Forms.CheckBox chkStatusCompleted;
-        private System.Windows.Forms.CheckBox chkStatusPending;
-        private System.Windows.Forms.Label label150;
-        private System.Windows.Forms.Label label149;
-        private System.Windows.Forms.Label label148;
-        private System.Windows.Forms.TextBox txtProviderTelNo;
-        private System.Windows.Forms.TextBox txtContactPersonRN;
-        private System.Windows.Forms.TextBox txtContactPersonFD;
-        private System.Windows.Forms.TextBox txtCreditCardMedicalProvider;
-        private System.Windows.Forms.TextBox txtAccountNoAtProvider;
-        private System.Windows.Forms.RadioButton rbCreditCardCollectionAgency;
-        private System.Windows.Forms.RadioButton rbCreditCardPayableProvider;
-        private System.Windows.Forms.TextBox txtCreditCardIndName;
-        private System.Windows.Forms.TextBox txtCreditCardIncidentProgram;
-        private System.Windows.Forms.TextBox txtCreditCardCurrentProgram;
-        private System.Windows.Forms.TextBox txtCreditCardIndId;
-        private System.Windows.Forms.Label label145;
-        private System.Windows.Forms.RadioButton rbCreditCardPhone;
-        private System.Windows.Forms.RadioButton rbCreditCardOnline;
-        private System.Windows.Forms.Label label144;
-        private System.Windows.Forms.Label label143;
-        private System.Windows.Forms.Label label142;
-        private System.Windows.Forms.Label label141;
-        private System.Windows.Forms.Label label140;
-        private System.Windows.Forms.Label label139;
-        private System.Windows.Forms.Label label138;
-        private System.Windows.Forms.Label label137;
-        private System.Windows.Forms.Label label130;
-        private System.Windows.Forms.Label label136;
-        private System.Windows.Forms.Label label135;
-        private System.Windows.Forms.Label label95;
-        private System.Windows.Forms.Label label129;
-        private System.Windows.Forms.Label label94;
-        private System.Windows.Forms.DataGridView gvPaymentCreditCard;
         private System.Windows.Forms.Label label147;
         private System.Windows.Forms.Label label153;
         private System.Windows.Forms.Label label152;
@@ -10216,60 +8855,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HouseholdRolePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrimaryNamePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNoPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProgramNamePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentProgramNamePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStartDatePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IBReceivedDatePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServicePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStatePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WellBeingCareSharingPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNamePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedPaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDatePaymentCheck;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HouseholdRolePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrimaryNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProgramNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentProgramPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStartDatePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IBReceivedDatePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServicePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStatePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WellBeingCareSharingPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDatePaymentACH;
         private System.Windows.Forms.DataGridView gvRNManagerMedBillPending;
         private System.Windows.Forms.Label label185;
         private System.Windows.Forms.Label label158;
@@ -10290,31 +8875,88 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingBillAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingMedicalProvider;
         private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingIPendingReason;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedRNCreditCardPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoInPaymentCreditCard;
+        private System.Windows.Forms.TabPage tbpgCreditCard;
+        private System.Windows.Forms.Label label94;
+        private System.Windows.Forms.DataGridView gvPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewButtonColumn CreditCardPaymentConfirm;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentCreditCard;
-        private CalendarColumn DateOfBirthCreditCardPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhoneNoMedicalProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoMedProviderCreditCardPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfBirthCreditCardPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn SSNCreditCardPayment;
-        private System.Windows.Forms.DataGridViewComboBoxColumn SexCreditCardPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SexCreditCardPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrimaryNameInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStateInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServiceInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNoInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn BillAmountCreditCardPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn AmountInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewComboBoxColumn CreditCardNoCreditCardPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServiceInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStateInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedInPaymentCreditCard;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDateInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaymentNote;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdInPaymentCreditCard;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoInPaymentCreditCard;
+        private System.Windows.Forms.Button btnACHExport;
+        private System.Windows.Forms.Button btnConfirmCheckPayment;
+        private System.Windows.Forms.TabPage tbpgInactive;
+        private System.Windows.Forms.DataGridView gvPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StateNamePaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
+        private System.Windows.Forms.Label label95;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
+        private System.Windows.Forms.TextBox txtAccountNo;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.TextBox txtAccountHolder;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.TextBox txtBankRoutingNo;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.TextBox txtBankName;
+        private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HouseholdRolePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrimaryNamePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentProgramNamePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateOfServicePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedProviderPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNamePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStreetPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingCityPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingStatePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShippingZipPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypePaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
+        private System.Windows.Forms.Button btnConfirmACH;
     }
 }
 

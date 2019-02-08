@@ -6,8 +6,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using System.Linq;
+using Microsoft.Win32;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
@@ -22,7 +24,7 @@ namespace CMMManager
     public enum IllnessOption { Select, Close, Cancel };
     public enum IncidentOption { Select, Close, Cancel };
     public enum CaseStatus { OnGoing, Processing, Closed };
-    public enum SettlementType { SelfPayDiscount = 1, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, MemberReimbursement, Ineligible, MedicalProviderRefund };
+    public enum SettlementType { SelfPayDiscount = 1, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, MemberReimbursement, Ineligible, MedicalProviderRefund, PRReimbursement, MemberDiscount };
 
     public enum PaymentMethodExport { Check = 1, CreditCard, ACH_Banking };
     public enum ProgramNameExport { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };
@@ -71,6 +73,8 @@ namespace CMMManager
 
         public IndividualInfo IndividualSearched;
         public IndividualInfo IndividualForMedBill;
+
+        public BankInfo IndividualBankInfo;
 
         // Delegates for Cross thread method call
         delegate void SetTabPages(int nIndex);
@@ -125,6 +129,22 @@ namespace CMMManager
         private delegate void RemoveActiveTaskNPManager(int nRow);
         private delegate void RemoveAllActiveTaskNPManager();
         private delegate void AddRowToActiveTaskNPManager(DataGridViewRow row);
+
+        private delegate void RemoveCreditCardPayment(int nRow);
+        private delegate void RemoveAllCreditCardPayment();
+        private delegate void AddRowToCreditCardPayment(DataGridViewRow row);
+
+        private delegate void RemoveCheckPayment(int nRow);
+        private delegate void RemoveAllCheckPayment();
+        private delegate void AddRowToCheckPayment(DataGridViewRow row);
+
+        private delegate void RemoveACHPayment(int nRow);
+        private delegate void RemoveAllACHPayment();
+        private delegate void AddRowToACHPayment(DataGridViewRow row);
+
+        private delegate void RemoveInactivePayment(int nRow);
+        private delegate void RemoveAllInactivePayment();
+        private delegate void AddRowToInactivePayment(DataGridViewRow row);
 
         private delegate void SetBalaceMedBill(Decimal Balance);
         private delegate void SetTotalSharedAmount(Decimal TotalSharedAmount);
@@ -214,7 +234,7 @@ namespace CMMManager
         public List<IncidentProgramInfo> lstIncidentProgramInfo;
         public SelectedIllness Illness;
         public SelectedIncident Incident;
-        
+
 
         private String strNPFFormFileName = String.Empty;
         private String strIBFileName = String.Empty;
@@ -295,6 +315,7 @@ namespace CMMManager
             SqlDependency.Start(rn_cnn_str4);
             SqlDependency.Start(rn_cnn_str5);
 
+            IndividualBankInfo = new BankInfo();
 
             dicMedBillTypes = new Dictionary<int, String>();
             dicMedBillStatus = new Dictionary<int, String>();
@@ -311,8 +332,6 @@ namespace CMMManager
             lstSettlementType = new List<SettlementTypeInfo>();
             lstPersonalResponsibilityType = new List<PersonalResponsiblityTypeInfo>();
             lstMedBillNoteTypeInfo = new List<MedBillNoteTypeInfo>();
-
-            //strNewMedBillNo = "MEDBILL-0150000";
 
             Illness = new SelectedIllness();
             Incident = new SelectedIncident();
@@ -427,13 +446,13 @@ namespace CMMManager
             {
                 connRN.Close();
                 connRN.Open();
-             }
+            }
             else if (connRN.State == ConnectionState.Closed) connRN.Open();
 
             SqlDataReader rdrMedBillStatus = cmdQueryForMedBillStatus.ExecuteReader();
             if (rdrMedBillStatus.HasRows)
             {
-                while(rdrMedBillStatus.Read())
+                while (rdrMedBillStatus.Read())
                 {
                     dicMedBillStatus.Add(rdrMedBillStatus.GetInt16(0), rdrMedBillStatus.GetString(1));
                 }
@@ -680,6 +699,70 @@ namespace CMMManager
 
         }
 
+        private void InitializedIndividualBankInfo()
+        {
+            IndividualBankInfo.BankName = String.Empty;
+            IndividualBankInfo.BankRoutingNumber = String.Empty;
+            IndividualBankInfo.AccountNumber = String.Empty;
+            IndividualBankInfo.AccountHolder = String.Empty;
+        }
+
+        private void InitializeIndividualInfo()
+        {
+            txtAccountNo.Text = String.Empty;
+            txtAccountHolder.Text = String.Empty;
+            txtBankRoutingNo.Text = String.Empty;
+            txtBankName.Text = String.Empty;
+            txtTotalMedBillAmount.Text = String.Empty;
+            rbEnglish.Checked = false;
+            rbKorean.Checked = false;
+            txtRelationship.Text = String.Empty;
+            chkCommunicationEtc.Checked = false;
+            chkCommunicationReq.Checked = false;
+            chkCommunicationFax.Checked = false;
+            chkCommunicationLetter.Checked = false;
+            chkCommunicationEmail.Checked = false;
+            chkCommunicationCall.Checked = false;
+            chkCommunicationAll.Checked = false;
+            gvRecentCommunication.Rows.Clear();
+            gvFamilyInformation.Rows.Clear();
+            gvProcessingCaseNo.Rows.Clear();
+            txtWellBeingAmt.Text = String.Empty;
+            txtProgramChangeReqDate.Text = String.Empty;
+            txtOver10KAmount.Text = String.Empty;
+            txtMembershipStartDate.Text = String.Empty;
+            txtTotalSharedAmount.Text = String.Empty;
+            txtIndMemberShipStatus.Text = String.Empty;
+            txtDeceasedDate.Text = String.Empty;
+            txtMembershipCancelledDate.Text = String.Empty;
+            txtCancelationRequestDate.Text = String.Empty;
+            txtProgramHistory.Text = String.Empty;
+            txtProgram.Text = String.Empty;
+            txtPowerOfAttorney.Text = String.Empty;
+            cbGender.SelectedIndex = -1;
+            cbReimbursementMethod.SelectedIndex = -1;
+            txtIndChurchName.Text = String.Empty;
+            txtBusinessPhone.Text = String.Empty;
+            cbPreferredCommunication.SelectedIndex = -1;
+            txtCellPhone1.Text = String.Empty;
+            txtEmail.Text = String.Empty;
+            txtState1.Text = String.Empty;
+            txtState2.Text = String.Empty;
+            txtCity1.Text = String.Empty;
+            txtCity2.Text = String.Empty;
+            txtZip1.Text = String.Empty;
+            txtZip2.Text = String.Empty;
+            txtStreetAddress1.Text = String.Empty;
+            txtStreetAddress2.Text = String.Empty;
+            txtIndividualSSN.Text = String.Empty;
+            txtLastName.Text = String.Empty;
+            txtMiddleName.Text = String.Empty;
+            txtFirstName.Text = String.Empty;
+            txtCRM_ID.Text = String.Empty;
+            txtIndividualID.Text = String.Empty;
+            txtMembershipID.Text = String.Empty;
+        }
+
         private void InitializeCaseForm()
         {
             cbCaseStatus.Items.Clear();
@@ -818,6 +901,241 @@ namespace CMMManager
         }
 
 
+        private void AddRowToCheckPaymentSafely(DataGridViewRow row)
+        {
+            gvPaymentCheck.BeginInvoke(new AddRowToCheckPayment(AddRowPaymentCheck), row);
+        }
+
+        private void RemoveRowCheckPaymentSafely(int nRow)
+        {
+            gvPaymentCheck.BeginInvoke(new RemoveACHPayment(RemoveRowPaymentCheck), nRow);
+        }
+
+        private void RemoveAllRowCheckPaymentSafely()
+        {
+            gvPaymentCheck.BeginInvoke(new RemoveAllCheckPayment(RemoveAllRowPaymentCheck));
+        }
+
+        private void AddRowPaymentCheck(DataGridViewRow row)
+        {
+            gvPaymentCheck.Rows.Add(row);
+        }
+
+        private void RemoveRowPaymentCheck(int i)
+        {
+            gvPaymentCheck.Rows.RemoveAt(i);
+        }
+
+        private void RemoveAllRowPaymentCheck()
+        {
+            gvPaymentCheck.Rows.Clear();
+        }
+
+        private void OnCheckPaymentChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnCheckPaymentChange;
+
+                UpdateGridViewCheckPayment();
+            }
+        }
+
+        private void UpdateGridViewCheckPayment()
+        {
+            String strSqlQueryForCheckPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
+                                                "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+                                                "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_MedicalProvider].[NAME], " +
+                                                "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name] " +
+                                                "from [dbo].[tbl_settlement] " +
+                                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                                                "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                                                "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                                                "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+                                                "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
+                                                "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+            SqlCommand cmdQeuryForPaymentCheck = new SqlCommand(strSqlQueryForCheckPayment, connRN);
+            cmdQeuryForPaymentCheck.CommandType = CommandType.Text;
+
+            SqlDependency dependencyCheckPayment = new SqlDependency(cmdQeuryForPaymentCheck);
+            dependencyCheckPayment.OnChange += new OnChangeEventHandler(OnCheckPaymentChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            List<CheckPaymentInfo> lstCheckPaymentInfo = new List<CheckPaymentInfo>();
+            SqlDataReader rdrCheckPayment = cmdQeuryForPaymentCheck.ExecuteReader();
+            if (rdrCheckPayment.HasRows)
+            {
+                while (rdrCheckPayment.Read())
+                {
+                    CheckPaymentInfo infoCheckPayment = new CheckPaymentInfo();
+                    if (!rdrCheckPayment.IsDBNull(0)) infoCheckPayment.bIsPaid = rdrCheckPayment.GetBoolean(0);
+                    if (!rdrCheckPayment.IsDBNull(1)) infoCheckPayment.IndividualId = rdrCheckPayment.GetString(1);
+                    if (!rdrCheckPayment.IsDBNull(2)) infoCheckPayment.IncidentNo = rdrCheckPayment.GetString(2);
+                    if (!rdrCheckPayment.IsDBNull(3)) infoCheckPayment.IncidentProgram = rdrCheckPayment.GetString(3);
+                    if (!rdrCheckPayment.IsDBNull(4)) infoCheckPayment.ServiceDate = rdrCheckPayment.GetDateTime(4);
+                    if (!rdrCheckPayment.IsDBNull(5)) infoCheckPayment.SettlementNo = rdrCheckPayment.GetString(5);
+                    if (!rdrCheckPayment.IsDBNull(6)) infoCheckPayment.SettlementAmount = rdrCheckPayment.GetDecimal(6);
+                    if (!rdrCheckPayment.IsDBNull(7)) infoCheckPayment.MedicalProviderName = rdrCheckPayment.GetString(7);
+                    if (!rdrCheckPayment.IsDBNull(8)) infoCheckPayment.SettlementType = rdrCheckPayment.GetString(8);
+                    if (!rdrCheckPayment.IsDBNull(9)) infoCheckPayment.CreatedBy = rdrCheckPayment.GetString(9);
+                    if (!rdrCheckPayment.IsDBNull(10)) infoCheckPayment.LastModifiedBy = rdrCheckPayment.GetString(10);
+
+                    lstCheckPaymentInfo.Add(infoCheckPayment);
+                }
+            }
+            rdrCheckPayment.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+
+            foreach (CheckPaymentInfo info in lstCheckPaymentInfo)
+            {
+                String strSqlQueryForIndividualInfoForCheckPayment = "select [dbo].[contact].[Name], [dbo].[contact].[Household_Role__c], " +
+                                                                     "[dbo].[contact].[Primary_Name__c], " +
+                                                                     "[dbo].[account].[SHIPPINGSTREET], [dbo].[account].[SHIPPINGCITY], " +
+                                                                     "[dbo].[account].[SHIPPINGSTATE], [dbo].[account].[SHIPPINGPOSTALCODE], " +
+                                                                     "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                                                                     "from [dbo].[contact] " +
+                                                                     "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                                     "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
+                                                                     "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualInfoForCheckPayment = new SqlCommand(strSqlQueryForIndividualInfoForCheckPayment, connSalesforce);
+                cmdQueryForIndividualInfoForCheckPayment.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualInfoForCheckPayment.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                SqlDataReader rdrIndividualInfoForCheckPayment = cmdQueryForIndividualInfoForCheckPayment.ExecuteReader();
+                if (rdrIndividualInfoForCheckPayment.HasRows)
+                {
+                    rdrIndividualInfoForCheckPayment.Read();
+
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(0)) info.IndividualName = rdrIndividualInfoForCheckPayment.GetString(0);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(1)) info.HouseholdRole = rdrIndividualInfoForCheckPayment.GetString(1);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(2)) info.PrimaryName = rdrIndividualInfoForCheckPayment.GetString(2);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(3)) info.ShippingStreet = rdrIndividualInfoForCheckPayment.GetString(3);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(4)) info.ShippingCity = rdrIndividualInfoForCheckPayment.GetString(4);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(5)) info.ShippingState = rdrIndividualInfoForCheckPayment.GetString(5);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(6)) info.ShippingZip = rdrIndividualInfoForCheckPayment.GetString(6);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(7)) info.MembershipStatus = rdrIndividualInfoForCheckPayment.GetString(7);
+                    if (!rdrIndividualInfoForCheckPayment.IsDBNull(8)) info.MemebershipNo = rdrIndividualInfoForCheckPayment.GetString(8);
+
+                }
+                rdrIndividualInfoForCheckPayment.Close();
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+            }
+
+            if (IsHandleCreated) RemoveAllRowCheckPaymentSafely();
+            else gvPaymentCheck.Rows.Clear();
+
+            foreach (CheckPaymentInfo info in lstCheckPaymentInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                row.Cells[1].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                row.Cells[2].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.HouseholdRole });
+                row.Cells[3].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.PrimaryName });
+                row.Cells[4].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNo });
+                row.Cells[5].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentProgram });
+                row.Cells[6].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementNo });
+                row.Cells[7].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementAmount.ToString("C") });
+                row.Cells[8].ReadOnly = true;
+                row.Cells[8].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ServiceDate.Value.ToString("MM/dd/yyyy") });
+                row.Cells[9].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MedicalProviderName });
+                row.Cells[10].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNoAtMedProvider });
+                row.Cells[11].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingStreet });
+                row.Cells[12].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingCity });
+                row.Cells[13].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingState });
+                row.Cells[14].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingZip });
+                row.Cells[15].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementType });
+                row.Cells[16].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreatedBy });
+                row.Cells[17].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.LastModifiedBy });
+                row.Cells[18].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                row.Cells[19].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
+                row.Cells[20].ReadOnly = true;
+
+                if (IsHandleCreated) AddRowToCheckPaymentSafely(row);
+                else gvPaymentCheck.Rows.Add(row);
+            }
+        }
+
+        private void AddRowToCreditCardPaymentSafely(DataGridViewRow row)
+        {
+            gvPaymentCreditCard.BeginInvoke(new AddRowToCreditCardPayment(AddRowPaymentCreditCard), row);
+        }
+
+        private void RemoveRowCreditCardPaymentSafely(int nRow)
+        {
+            gvPaymentCreditCard.BeginInvoke(new RemoveCreditCardPayment(RemoveRowPaymentCreditCard), nRow);
+        }
+
+        private void RemoveAllRowCreditCardPaymentSafely()
+        {
+            gvPaymentCreditCard.BeginInvoke(new RemoveAllCreditCardPayment(RemoveAllPaymentCreditCard));
+        }
+
+        private void AddRowPaymentCreditCard(DataGridViewRow row)
+        {
+            gvPaymentCreditCard.Rows.Add(row);
+        }
+
+        private void RemoveRowPaymentCreditCard(int i)
+        {
+            gvPaymentCreditCard.Rows.RemoveAt(i);
+        }
+
+        private void RemoveAllPaymentCreditCard()
+        {
+            gvPaymentCreditCard.Rows.Clear();
+        }
+
         private void OnCreditCardPaymentChange(object sender, SqlNotificationEventArgs e)
         {
             if (e.Type == SqlNotificationType.Change)
@@ -832,8 +1150,546 @@ namespace CMMManager
         private void UpdateGridViewCreditCardPayment()
         {
 
+            String strSqlQueryForCreditCardPayment = "select [dbo].[tbl_settlement].[IsPaid], " +
+                                         "[dbo].[tbl_MedicalProvider].[Name], [dbo].[tbl_MedicalProvider].[PHONE], " +
+                                         "[dbo].[tbl_medbill].[Account_At_Provider], " +
+                                         "[dbo].[tbl_medbill].[BillDate], " +
+                                         "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[BillAmount], " +
+                                         "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+                                         "[dbo].[tbl_settlement].[Notes], " +
+                                         "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                         "[dbo].[tbl_medbill].[Individual_Id] " +
+                                         "from [dbo].[tbl_settlement] " +
+                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                         "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                                         "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                         "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                         "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                         "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                         "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                         "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+                                         "[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
+                                         "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                         "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                         "[dbo].[tbl_settlement].[CMMCreditCard] = 0 and " +
+                                         "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL " +
+                                         "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+            SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
+            cmdQueryForCreditCardPayment.CommandType = CommandType.Text;
+
+            SqlDependency dependencyCreditCardPayment = new SqlDependency(cmdQueryForCreditCardPayment);
+            dependencyCreditCardPayment.OnChange += new OnChangeEventHandler(OnCreditCardPaymentChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            List<CreditCardPaymentInfo> lstCreditCardPaymentInfo = new List<CreditCardPaymentInfo>();
+            SqlDataReader rdrCreditCardPayment = cmdQueryForCreditCardPayment.ExecuteReader();
+            if (rdrCreditCardPayment.HasRows)
+            {
+                while (rdrCreditCardPayment.Read())
+                {
+                    CreditCardPaymentInfo ccPaymentInfo = new CreditCardPaymentInfo();
+
+                    if (!rdrCreditCardPayment.IsDBNull(0)) ccPaymentInfo.bIsPaid = rdrCreditCardPayment.GetBoolean(0);
+                    else ccPaymentInfo.bIsPaid = false;
+                    if (!rdrCreditCardPayment.IsDBNull(1)) ccPaymentInfo.MedicalProviderName = rdrCreditCardPayment.GetString(1);
+                    else ccPaymentInfo.MedicalProviderName = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(2)) ccPaymentInfo.MedicalProviderPhone = rdrCreditCardPayment.GetString(2);
+                    else ccPaymentInfo.MedicalProviderPhone = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(3)) ccPaymentInfo.AccountNoAtProvider = rdrCreditCardPayment.GetString(3);
+                    else ccPaymentInfo.AccountNoAtProvider = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(4)) ccPaymentInfo.ServiceDate = rdrCreditCardPayment.GetDateTime(4);
+                    else ccPaymentInfo.ServiceDate = null;
+                    if (!rdrCreditCardPayment.IsDBNull(5)) ccPaymentInfo.MedicalBillNo = rdrCreditCardPayment.GetString(5);
+                    else ccPaymentInfo.MedicalBillNo = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(6)) ccPaymentInfo.MedBillAmount = rdrCreditCardPayment.GetDecimal(6);
+                    else ccPaymentInfo.MedBillAmount = 0;
+                    if (!rdrCreditCardPayment.IsDBNull(7)) ccPaymentInfo.SettlementName = rdrCreditCardPayment.GetString(7);
+                    else ccPaymentInfo.SettlementName = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(8)) ccPaymentInfo.SettlementAmount = rdrCreditCardPayment.GetDecimal(8);
+                    else ccPaymentInfo.SettlementAmount = 0;
+                    if (!rdrCreditCardPayment.IsDBNull(9)) ccPaymentInfo.SettlementNote = rdrCreditCardPayment.GetString(9);
+                    else ccPaymentInfo.SettlementNote = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(10)) ccPaymentInfo.CreateStaffName = rdrCreditCardPayment.GetString(10);
+                    else ccPaymentInfo.CreateStaffName = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(11)) ccPaymentInfo.ModifyStaffName = rdrCreditCardPayment.GetString(11);
+                    else ccPaymentInfo.ModifyStaffName = String.Empty;
+                    if (!rdrCreditCardPayment.IsDBNull(12)) ccPaymentInfo.IndividualID = rdrCreditCardPayment.GetString(12);
+                    else ccPaymentInfo.IndividualID = String.Empty;
+
+                    lstCreditCardPaymentInfo.Add(ccPaymentInfo);
+                }
+            }
+            rdrCreditCardPayment.Close();
+            if (connRN.State != ConnectionState.Open) connRN.Close();
+
+            foreach (CreditCardPaymentInfo info in lstCreditCardPaymentInfo)
+            {
+
+                String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], [dbo].[contact].[Birthdate], [dbo].[contact].[Social_Security_Number__c], " +
+                                                      "[dbo].[contact].[CMM_Gender__c], [dbo].[contact].[Primary_Name__c], " +
+                                                      "[dbo].[contact].[MailingStreet], [dbo].[contact].[MailingCity], " +
+                                                      "[dbo].[contact].[MailingState], [dbo].[contact].[MailingPostalCode], " +
+                                                      "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                                                      "from [dbo].[contact] " +
+                                                      "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", info.IndividualID);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                SqlDataReader rdrIndividualInfo = cmdQueryForIndividualInfo.ExecuteReader();
+                if (rdrIndividualInfo.HasRows)
+                {
+                    rdrIndividualInfo.Read();
+                    if (!rdrIndividualInfo.IsDBNull(0)) info.IndividualName = rdrIndividualInfo.GetString(0);
+                    else info.IndividualName = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(1)) info.IndividualBirthDate = rdrIndividualInfo.GetDateTime(1);
+                    else info.IndividualBirthDate = null;
+                    if (!rdrIndividualInfo.IsDBNull(2)) info.SocialSecurityNumber = rdrIndividualInfo.GetString(2);
+                    else info.SocialSecurityNumber = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(3)) info.Sex = rdrIndividualInfo.GetString(3);
+                    else info.Sex = "Unknown";
+                    if (!rdrIndividualInfo.IsDBNull(4)) info.PrimaryName = rdrIndividualInfo.GetString(4);
+                    else info.PrimaryName = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(5)) info.MailingStreet = rdrIndividualInfo.GetString(5);
+                    else info.MailingStreet = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(6)) info.MailingCity = rdrIndividualInfo.GetString(6);
+                    else info.MailingCity = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(7)) info.MailingState = rdrIndividualInfo.GetString(7);
+                    else info.MailingState = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(8)) info.MailingZip = rdrIndividualInfo.GetString(8);
+                    else info.MailingZip = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(9)) info.MembershipStatus = rdrIndividualInfo.GetString(9);
+                    else info.MembershipStatus = String.Empty;
+                    if (!rdrIndividualInfo.IsDBNull(10)) info.MembershipNumber = rdrIndividualInfo.GetString(10);
+                }
+                rdrIndividualInfo.Close();
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+            }
+
+            if (IsHandleCreated) RemoveAllRowCreditCardPaymentSafely();
+            else gvPaymentCreditCard.Rows.Clear();
+            //gvPaymentCreditCard.Rows.Clear();
+            foreach (CreditCardPaymentInfo ccPaymentInfo in lstCreditCardPaymentInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewButtonCell { Value = "Confirm Payment" });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualName });
+                row.Cells[1].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalProviderName });
+                row.Cells[2].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalProviderPhone });
+                row.Cells[3].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.AccountNoAtProvider });
+                row.Cells[4].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualBirthDate.Value.ToString("MM/dd/yyyy") });
+                row.Cells[5].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SocialSecurityNumber });
+                row.Cells[6].ReadOnly = true;
+                DataGridViewTextBoxCell sexCell = new DataGridViewTextBoxCell();
+                if (ccPaymentInfo.Sex == "Male") sexCell.Value = "M";
+                else if (ccPaymentInfo.Sex == "Female") sexCell.Value = "F";
+                else if (ccPaymentInfo.Sex == "0") sexCell.Value = "Unknown";
+                row.Cells.Add(sexCell);
+                row.Cells[7].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.PrimaryName });
+                row.Cells[8].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingStreet });
+                row.Cells[9].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingCity });
+                row.Cells[10].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingState });
+                row.Cells[11].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingZip });
+                row.Cells[12].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.ServiceDate });
+                row.Cells[13].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalBillNo });
+                row.Cells[14].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedBillAmount.ToString("C") });
+                row.Cells[15].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                row.Cells[15].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementName });
+                row.Cells[16].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementAmount.ToString("C") });
+                row.Cells[17].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DataGridViewComboBoxCell comboCreditCardCell = new DataGridViewComboBoxCell();
+                for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                {
+                    comboCreditCardCell.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                }
+                row.Cells.Add(comboCreditCardCell);
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MembershipStatus });
+                row.Cells[19].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementNote });
+                row.Cells[20].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.CreateStaffName });
+                row.Cells[21].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.ModifyStaffName });
+                row.Cells[22].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualID });
+                row.Cells[23].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MembershipNumber });
+                row.Cells[24].ReadOnly = true;
+
+                if (IsHandleCreated) AddRowToCreditCardPaymentSafely(row);
+                else gvPaymentCreditCard.Rows.Add(row);
+                //gvPaymentCreditCard.Rows.Add(row);
+            }
+            rdrCreditCardPayment.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
+
+        private void AddRowToACHPaymentSafely(DataGridViewRow row)
+        {
+            gvPaymentACH.BeginInvoke(new AddRowToACHPayment(AddRowPaymentACH), row);
+        }
+
+        private void RemoveRowACHPaymentSafely(int nRow)
+        {
+            gvPaymentACH.BeginInvoke(new RemoveACHPayment(RemoveRowPaymentACH), nRow);
+        }
+
+        private void RemoveAllRowACHPaymentSafely()
+        {
+            gvPaymentACH.BeginInvoke(new RemoveAllACHPayment(RemoveAllPaymentACH));
+        }
+
+        private void AddRowPaymentACH(DataGridViewRow row)
+        {
+            gvPaymentACH.Rows.Add(row);
+        }
+
+        private void RemoveRowPaymentACH(int i)
+        {
+            gvPaymentACH.Rows.RemoveAt(i);
+        }
+
+        private void RemoveAllPaymentACH()
+        {
+            gvPaymentACH.Rows.Clear();
+        }
+
+        private void OnACHPaymentChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnACHPaymentChange;
+
+                UpdateGridViewACHPayment();
+            }
+        }
+
+        private void UpdateGridViewACHPayment()
+        {
+
+            String strSqlQueryForACHPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], " +
+                                  "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+                                  "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name] " +
+                                  "from [dbo].[tbl_settlement] " +
+                                  "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                  "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                  "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                  "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                  "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                  "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                  "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                  "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                  "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                  "[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
+                                  "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                  "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                  "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+                                  "[dbo].[tbl_settlement].[ACH_Date] IS NULL " +
+                                  "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+
+            SqlCommand cmdPaymentACH = new SqlCommand(strSqlQueryForACHPayment, connRN);
+            cmdPaymentACH.CommandType = CommandType.Text;
+
+            SqlDependency dependencyPaymentACH = new SqlDependency(cmdPaymentACH);
+            dependencyPaymentACH.OnChange += new OnChangeEventHandler(OnACHPaymentChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrPaymentACH = cmdPaymentACH.ExecuteReader();
+            List<ACHPaymentInfo> lstACHPaymentInfo = new List<ACHPaymentInfo>();
+            if (rdrPaymentACH.HasRows)
+            {
+                while (rdrPaymentACH.Read())
+                {
+                    ACHPaymentInfo achInfo = new ACHPaymentInfo();
+
+                    if (!rdrPaymentACH.IsDBNull(0)) achInfo.bIsPaid = rdrPaymentACH.GetBoolean(0);
+                    if (!rdrPaymentACH.IsDBNull(1)) achInfo.IndividualId = rdrPaymentACH.GetString(1);
+                    if (!rdrPaymentACH.IsDBNull(2)) achInfo.SettlementNo = rdrPaymentACH.GetString(2);
+                    if (!rdrPaymentACH.IsDBNull(3)) achInfo.SettlementAmount = rdrPaymentACH.GetDecimal(3);
+                    if (!rdrPaymentACH.IsDBNull(4)) achInfo.CreateStaffName = rdrPaymentACH.GetString(4);
+                    if (!rdrPaymentACH.IsDBNull(5)) achInfo.ModifiStaffName = rdrPaymentACH.GetString(5);
+
+                    lstACHPaymentInfo.Add(achInfo);
+                }
+            }
+            if (connRN.State == ConnectionState.Closed) connRN.Open();
+
+            foreach (ACHPaymentInfo info in lstACHPaymentInfo)
+            {
+                String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], " +
+                                                      "[dbo].[contact].[BankName__c], [dbo].[contact].[RoutingNumber__c], " +
+                                                      "[dbo].[contact].[AccountNumber__c], [dbo].[contact].[AccountHolder__c], " +
+                                                      "[dbo].[membership].[Pay_BankName__c], [dbo].[membership].[Pay_RoutingNumber__c], " +
+                                                      "[dbo].[membership].[Pay_AccountNumber__c], [dbo].[membership].[Pay_AccountHolder__c], " +
+                                                      "[dbo].[contact].[c4g_Membership_Status__c] " +
+                                                      "from [dbo].[contact] " +
+                                                      "inner join [dbo].[membership] on [dbo].[contact].[c4g_Membership__c] = [dbo].[membership].[Id] " +
+                                                      "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                SqlDataReader rdrACHPaymentIndividualInfo = cmdQueryForIndividualInfo.ExecuteReader();
+                if (rdrACHPaymentIndividualInfo.HasRows)
+                {
+                    rdrACHPaymentIndividualInfo.Read();
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(0)) info.IndividualName = rdrACHPaymentIndividualInfo.GetString(0);
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(1)) info.BankName = rdrACHPaymentIndividualInfo.GetString(1);
+                    else if (!rdrACHPaymentIndividualInfo.IsDBNull(5)) info.BankName = rdrACHPaymentIndividualInfo.GetString(5);
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(2)) info.RoutingNumber = rdrACHPaymentIndividualInfo.GetString(2);
+                    else if (!rdrACHPaymentIndividualInfo.IsDBNull(6)) info.RoutingNumber = rdrACHPaymentIndividualInfo.GetString(6);
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(3)) info.AccountNumber = rdrACHPaymentIndividualInfo.GetString(3);
+                    else if (!rdrACHPaymentIndividualInfo.IsDBNull(7)) info.AccountNumber = rdrACHPaymentIndividualInfo.GetString(7);
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(4)) info.AccountHolder = rdrACHPaymentIndividualInfo.GetString(4);
+                    else if (!rdrACHPaymentIndividualInfo.IsDBNull(8)) info.AccountHolder = rdrACHPaymentIndividualInfo.GetString(8);
+                    if (!rdrACHPaymentIndividualInfo.IsDBNull(5)) info.MembershipStatus = rdrACHPaymentIndividualInfo.GetString(9);
+                }
+                rdrACHPaymentIndividualInfo.Close();
+            }
+            if (IsHandleCreated) RemoveAllRowACHPaymentSafely();
+            else gvPaymentACH.Rows.Clear();
+
+            foreach (ACHPaymentInfo info in lstACHPaymentInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                row.Cells[1].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                row.Cells[2].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementNo });
+                row.Cells[3].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementAmount.ToString("C") });
+                row.Cells[4].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                row.Cells[4].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.BankName });
+                row.Cells[5].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.RoutingNumber });
+                row.Cells[6].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNumber });
+                row.Cells[7].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountHolder });
+                row.Cells[8].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreateStaffName });
+                row.Cells[9].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ModifiStaffName });
+                row.Cells[10].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                row.Cells[11].ReadOnly = true;
+                if (IsHandleCreated) AddRowToACHPaymentSafely(row);
+                else gvPaymentACH.Rows.Add(row);
+            }
+        }
+
+
+
+        private void AddRowToPaymentInactiveSafely(DataGridViewRow row)
+        {
+            gvPaymentInactive.BeginInvoke(new AddRowToInactivePayment(AddRowPaymentInactive), row);
+        }
+
+        private void RemoveRowPaymentInactiveSafely(int i)
+        {
+            gvPaymentInactive.BeginInvoke(new RemoveInactivePayment(RemoveRowPaymentInactive), i);
+        }
+
+        private void RemoveAllRowPaymentInactiveSafely()
+        {
+            gvPaymentInactive.BeginInvoke(new RemoveAllInactivePayment(RemoveAllRowPaymentInactive));
+        }
+
+        private void AddRowPaymentInactive(DataGridViewRow row)
+        {
+            gvPaymentInactive.Rows.Add(row);
+        }
+
+        private void RemoveRowPaymentInactive(int i)
+        {
+            gvPaymentInactive.Rows.RemoveAt(i);
+        }
+
+        private void RemoveAllRowPaymentInactive()
+        {
+            gvPaymentInactive.Rows.Clear();
+        }
+
+        private void OnPaymentInactiveChange(object sender, SqlNotificationEventArgs e)
+        {
+            if (e.Type == SqlNotificationType.Change)
+            {
+                SqlDependency dependency = sender as SqlDependency;
+                dependency.OnChange -= OnPaymentInactiveChange;
+
+                UpdateGridViewInactivePayment();
+            }
+        }
+
+        private void UpdateGridViewInactivePayment()
+        {
+            List<String> lstIndividualIDs = new List<String>();
+            String strSqlQueryForPaymentInactive = "select distinct([dbo].[tbl_medbill].[Individual_Id]) " +
+                                                    "from [dbo].[tbl_medbill] " +
+                                                    "inner join [dbo].[tbl_settlement] on [dbo].[tbl_medbill].[BillNo] = [dbo].[tbl_settlement].[MedicalBillID] " +
+                                                    "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                    "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                    "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                    "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                    "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                    "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                    "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                    "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL " +
+                                                    "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+            SqlCommand cmdQueryForPaymentInactive = new SqlCommand(strSqlQueryForPaymentInactive, connRN);
+            cmdQueryForPaymentInactive.CommandType = CommandType.Text;
+
+            SqlDependency dependencyPaymentInactive = new SqlDependency(cmdQueryForPaymentInactive);
+            dependencyPaymentInactive.OnChange += new OnChangeEventHandler(OnPaymentInactiveChange);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrPaymentInactive = cmdQueryForPaymentInactive.ExecuteReader();
+            gvPaymentInactive.Rows.Clear();
+            if (rdrPaymentInactive.HasRows)
+            {
+                while (rdrPaymentInactive.Read())
+                {
+                    String IndividualID = String.Empty;
+                    if (!rdrPaymentInactive.IsDBNull(0)) IndividualID = rdrPaymentInactive.GetString(0);
+                    lstIndividualIDs.Add(IndividualID);
+                }
+            }
+            rdrPaymentInactive.Close();
+            if (connRN.State == ConnectionState.Open) connRN.Close();
+
+            List<InactivePaymentInfo> lstInactivePaymentInfo = new List<InactivePaymentInfo>();
+            foreach (String IndividualId in lstIndividualIDs)
+            {
+                String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], [dbo].[contact].[Membership_Number__c], [dbo].[contact].[c4g_Membership_Status__c], " +
+                                                       "[dbo].[account].[ShippingState], " +
+                                                       "[dbo].[contact].[Email], [dbo].[account].[cmm_Email__c], " +
+                                                       "[dbo].[contact].[Phone], [dbo].[account].[Phone] " +
+                                                       "from [dbo].[contact] " +
+                                                       "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[Id] " +
+                                                       "where ([dbo].[contact].[c4g_Membership_Status__c] like '%Cancelled%' or " +
+                                                       "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) = 'Past Due' or " +
+                                                       "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) = 'Hold' or " +
+                                                       "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) IS NULL) and " +
+                                                       "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                SqlDataReader rdrPaymentInactiveIndividual = cmdQueryForIndividualInfo.ExecuteReader();
+                if (rdrPaymentInactiveIndividual.HasRows)
+                {
+                    rdrPaymentInactiveIndividual.Read();
+                    InactivePaymentInfo info = new InactivePaymentInfo();
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(0)) info.IndividualName = rdrPaymentInactiveIndividual.GetString(0);
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(1)) info.MembershipNo = rdrPaymentInactiveIndividual.GetString(1);
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(2)) info.MembershipStatus = rdrPaymentInactiveIndividual.GetString(2);
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(3)) info.State = rdrPaymentInactiveIndividual.GetString(3);
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(4)) info.Email = rdrPaymentInactiveIndividual.GetString(4);
+                    else if (!rdrPaymentInactiveIndividual.IsDBNull(5)) info.Email = rdrPaymentInactiveIndividual.GetString(5);
+                    if (!rdrPaymentInactiveIndividual.IsDBNull(6)) info.Phone = rdrPaymentInactiveIndividual.GetString(6);
+                    else if (!rdrPaymentInactiveIndividual.IsDBNull(7)) info.Phone = rdrPaymentInactiveIndividual.GetString(7);
+                    lstInactivePaymentInfo.Add(info);
+                }
+                rdrPaymentInactiveIndividual.Close();
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+            }
+
+            if (IsHandleCreated) RemoveAllRowPaymentInactiveSafely();
+            else gvPaymentInactive.Rows.Clear();
+
+            foreach (InactivePaymentInfo info in lstInactivePaymentInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                row.Cells[0].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                row.Cells[1].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipNo });
+                row.Cells[2].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                row.Cells[3].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.State });
+                row.Cells[4].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.Email });
+                row.Cells[5].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = info.Phone });
+                row.Cells[6].ReadOnly = true;
+                //gvPaymentInactive.Rows.Add(row);
+                if (IsHandleCreated) AddRowToPaymentInactiveSafely(row);
+                else gvPaymentInactive.Rows.Add(row);
+            }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
         private void AddRowToActiveTaskNPManagerSafely(DataGridViewRow row)
         {
             gvNPManagerActiveTask.BeginInvoke(new AddRowToActiveTaskNPManager(AddRowActiveTaskNPManager), row);
@@ -1438,7 +2294,7 @@ namespace CMMManager
                     LoggedInUserName = frmLogin.LoggedInUserName;
                     LoggedInUserRole = frmLogin.nLoggedUserRole;
                     LoggedInUserDepartment = frmLogin.nLoggedInUserDepartmentId;
-                   
+
                     break;
                 }
                 else if (loginResult == DialogResult.Cancel)
@@ -1466,6 +2322,33 @@ namespace CMMManager
                 //tbCMMManager.TabPages.Remove(tbpgCaseView);
                 //tbCMMManager.TabPages.Remove(tbpgCreateCase);
                 //tbCMMManager.TabPages.Remove(tbpgMedicalBill);
+
+                lblPrescriptionName.Visible = false;
+                lblPrescriptionDescription.Visible = false;
+                lblPrescriptionNote.Visible = false;
+                lblNumberOfMedication.Visible = false;
+
+                txtPrescriptionName.Visible = false;
+                txtPrescriptionDescription.Visible = false;
+                txtPrescriptionNote.Visible = false;
+                txtNumberOfMedication.Visible = false;
+
+                lblNumberOfPhysicalTheraph.Visible = false;
+                txtNumPhysicalTherapy.Visible = false;
+                lblPhysicalTherapyRxNote.Visible = false;
+                txtPhysicalTherapyRxNote.Visible = false;
+
+                rbInpatient.Visible = true;
+                rbOutpatient.Visible = true;
+
+                lblMedBillNote.Visible = true;
+                txtMedBillNote.Visible = true;
+
+                lblPendingReason.Visible = true;
+                comboPendingReason.Visible = true;
+
+                lblIneligibleReason.Visible = true;
+                comboIneligibleReason.Visible = true;
 
                 if (LoggedInUserRole == UserRole.SuperAdmin)
                 {
@@ -1524,7 +2407,7 @@ namespace CMMManager
                     SqlDataReader rdrActiveTask = cmdQueryForActiveTask.ExecuteReader();
                     if (rdrActiveTask.HasRows)
                     {
-                        while(rdrActiveTask.Read())
+                        while (rdrActiveTask.Read())
                         {
                             DataGridViewRow row = new DataGridViewRow();
                             if (!rdrActiveTask.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrActiveTask.GetString(0) });
@@ -1596,7 +2479,7 @@ namespace CMMManager
                     gvRNManagerIncompleteCase.Rows.Clear();
                     if (rdrImcompleteCases.HasRows)
                     {
-                        while(rdrImcompleteCases.Read())
+                        while (rdrImcompleteCases.Read())
                         {
                             DataGridViewRow row = new DataGridViewRow();
                             if (!rdrImcompleteCases.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrImcompleteCases.GetString(0) });
@@ -1746,7 +2629,7 @@ namespace CMMManager
                     SqlDataReader rdrMedBillsPending = cmdQueryForMedBillPending.ExecuteReader();
                     if (rdrMedBillsPending.HasRows)
                     {
-                        while(rdrMedBillsPending.Read())
+                        while (rdrMedBillsPending.Read())
                         {
                             DataGridViewRow row = new DataGridViewRow();
                             if (!rdrMedBillsPending.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillsPending.GetString(0) });
@@ -1768,7 +2651,7 @@ namespace CMMManager
                     }
                     rdrMedBillsPending.Close();
                     if (connRN.State == ConnectionState.Open) connRN.Close();
-                    
+
 
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2077,36 +2960,68 @@ namespace CMMManager
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Payment tab
-                String strSqlQueryForCreditCardPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
-                                                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
-                                                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
-                                                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
-                                                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
-                                                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
-                                                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
-                                                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
-                                                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
-                                                         "from [RN_DB].[dbo].[tbl_settlement] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
-                                                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
-                                                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
-                                                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCard] = 0 and " +
-                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL";
+
+                //String strSqlQueryForCreditCardPayment = "select [RN_DB].[dbo].[tbl_settlement].[IsPaid], [SalesForce].[dbo].[contact].[Name], " +
+                //                                         "[RN_DB].[dbo].[tbl_MedicalProvider].[Name], [RN_DB].[dbo].[tbl_MedicalProvider].[PHONE], " +
+                //                                         "[RN_DB].[dbo].[tbl_medbill].[Account_At_Provider], " +
+                //                                         "[SalesForce].[dbo].[contact].[Birthdate], " +
+                //                                         "[SalesForce].[dbo].[contact].[Social_Security_Number__c], [SalesForce].[dbo].[contact].[CMM_Gender__c], " +
+                //                                         "[SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                //                                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                //                                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                //                                         "[RN_DB].[dbo].[tbl_medbill].[BillDate], " +
+                //                                         "[RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_medbill].[BillAmount], " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[Name], [RN_DB].[dbo].[tbl_settlement].[Amount], " +
+                //                                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[Notes], " +
+                //                                         "[RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                //                                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Membership_Number__c] " +
+                //                                         "from [RN_DB].[dbo].[tbl_settlement] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                //                                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                //                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                //                                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
+                //                                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
+                //                                         "where ([RN_DB].[dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCard] = 0 and " +
+                //                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL";
+
+                String strSqlQueryForCreditCardPayment = "select [dbo].[tbl_settlement].[IsPaid], " +
+                                                         "[dbo].[tbl_MedicalProvider].[Name], [dbo].[tbl_MedicalProvider].[PHONE], " +
+                                                         "[dbo].[tbl_medbill].[Account_At_Provider], " +
+                                                         "[dbo].[tbl_medbill].[BillDate], " +
+                                                         "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[BillAmount], " +
+                                                         "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+                                                         "[dbo].[tbl_settlement].[Notes], " +
+                                                         "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                         "[dbo].[tbl_medbill].[Individual_Id] " +
+                                                         "from [dbo].[tbl_settlement] " +
+                                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                         "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                                                         "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                         "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                         "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                         "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                         "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                         "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+                                                         "[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
+                                                         "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                         "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                         "[dbo].[tbl_settlement].[CMMCreditCard] = 0 and " +
+                                                         "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL " +
+                                                         "order by [dbo].[tbl_medbill].[Individual_Id]";
 
                 SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
                 cmdQueryForCreditCardPayment.CommandType = CommandType.Text;
@@ -2120,109 +3035,232 @@ namespace CMMManager
                     connRN.Open();
                 }
                 else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                List<CreditCardPaymentInfo> lstCreditCardPaymentInfo = new List<CreditCardPaymentInfo>();
                 SqlDataReader rdrCreditCardPayment = cmdQueryForCreditCardPayment.ExecuteReader();
-                gvPaymentCreditCard.Rows.Clear();
                 if (rdrCreditCardPayment.HasRows)
                 {
-                    while(rdrCreditCardPayment.Read())
+                    while (rdrCreditCardPayment.Read())
                     {
-                        DataGridViewRow row = new DataGridViewRow();
-                        if (!rdrCreditCardPayment.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(0) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(1) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(2) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(3) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(4) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(5) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(6) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDecimal(7).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(8) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(9) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(10).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(11) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(12).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(13).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(14) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(15) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(16) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(17) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(18) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(19) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDecimal(20).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(21) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(22) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(23) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetString(24) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetBoolean(25) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrCreditCardPayment.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCreditCardPayment.GetDateTime(26).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        CreditCardPaymentInfo ccPaymentInfo = new CreditCardPaymentInfo();
 
-                        gvPaymentCreditCard.Rows.Add(row);
+                        if (!rdrCreditCardPayment.IsDBNull(0)) ccPaymentInfo.bIsPaid = rdrCreditCardPayment.GetBoolean(0);
+                        else ccPaymentInfo.bIsPaid = false;
+                        if (!rdrCreditCardPayment.IsDBNull(1)) ccPaymentInfo.MedicalProviderName = rdrCreditCardPayment.GetString(1);
+                        else ccPaymentInfo.MedicalProviderName = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(2)) ccPaymentInfo.MedicalProviderPhone = rdrCreditCardPayment.GetString(2);
+                        else ccPaymentInfo.MedicalProviderPhone = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(3)) ccPaymentInfo.AccountNoAtProvider = rdrCreditCardPayment.GetString(3);
+                        else ccPaymentInfo.AccountNoAtProvider = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(4)) ccPaymentInfo.ServiceDate = rdrCreditCardPayment.GetDateTime(4);
+                        else ccPaymentInfo.ServiceDate = null;
+                        if (!rdrCreditCardPayment.IsDBNull(5)) ccPaymentInfo.MedicalBillNo = rdrCreditCardPayment.GetString(5);
+                        else ccPaymentInfo.MedicalBillNo = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(6)) ccPaymentInfo.MedBillAmount = rdrCreditCardPayment.GetDecimal(6);
+                        else ccPaymentInfo.MedBillAmount = 0;
+                        if (!rdrCreditCardPayment.IsDBNull(7)) ccPaymentInfo.SettlementName = rdrCreditCardPayment.GetString(7);
+                        else ccPaymentInfo.SettlementName = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(8)) ccPaymentInfo.SettlementAmount = rdrCreditCardPayment.GetDecimal(8);
+                        else ccPaymentInfo.SettlementAmount = 0;
+                        if (!rdrCreditCardPayment.IsDBNull(9)) ccPaymentInfo.SettlementNote = rdrCreditCardPayment.GetString(9);
+                        else ccPaymentInfo.SettlementNote = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(10)) ccPaymentInfo.CreateStaffName = rdrCreditCardPayment.GetString(10);
+                        else ccPaymentInfo.CreateStaffName = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(11)) ccPaymentInfo.ModifyStaffName = rdrCreditCardPayment.GetString(11);
+                        else ccPaymentInfo.ModifyStaffName = String.Empty;
+                        if (!rdrCreditCardPayment.IsDBNull(12)) ccPaymentInfo.IndividualID = rdrCreditCardPayment.GetString(12);
+                        else ccPaymentInfo.IndividualID = String.Empty;
+
+                        lstCreditCardPaymentInfo.Add(ccPaymentInfo);
                     }
+                }
+                rdrCreditCardPayment.Close();
+                if (connRN.State != ConnectionState.Open) connRN.Close();
+
+                foreach (CreditCardPaymentInfo info in lstCreditCardPaymentInfo)
+                {
+
+                    String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], [dbo].[contact].[Birthdate], [dbo].[contact].[Social_Security_Number__c], " +
+                                                          "[dbo].[contact].[CMM_Gender__c], [dbo].[contact].[Primary_Name__c], " +
+                                                          "[dbo].[contact].[MailingStreet], [dbo].[contact].[MailingCity], " +
+                                                          "[dbo].[contact].[MailingState], [dbo].[contact].[MailingPostalCode], " +
+                                                          "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                                                          "from [dbo].[contact] " +
+                                                          "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                    SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                    cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                    cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", info.IndividualID);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    SqlDataReader rdrIndividualInfo = cmdQueryForIndividualInfo.ExecuteReader();
+                    if (rdrIndividualInfo.HasRows)
+                    {
+                        rdrIndividualInfo.Read();
+                        if (!rdrIndividualInfo.IsDBNull(0)) info.IndividualName = rdrIndividualInfo.GetString(0);
+                        else info.IndividualName = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(1)) info.IndividualBirthDate = rdrIndividualInfo.GetDateTime(1);
+                        else info.IndividualBirthDate = null;
+                        if (!rdrIndividualInfo.IsDBNull(2)) info.SocialSecurityNumber = rdrIndividualInfo.GetString(2);
+                        else info.SocialSecurityNumber = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(3)) info.Sex = rdrIndividualInfo.GetString(3);
+                        else info.Sex = "Unknown";
+                        if (!rdrIndividualInfo.IsDBNull(4)) info.PrimaryName = rdrIndividualInfo.GetString(4);
+                        else info.PrimaryName = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(5)) info.MailingStreet = rdrIndividualInfo.GetString(5);
+                        else info.MailingStreet = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(6)) info.MailingCity = rdrIndividualInfo.GetString(6);
+                        else info.MailingCity = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(7)) info.MailingState = rdrIndividualInfo.GetString(7);
+                        else info.MailingState = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(8)) info.MailingZip = rdrIndividualInfo.GetString(8);
+                        else info.MailingZip = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(9)) info.MembershipStatus = rdrIndividualInfo.GetString(9);
+                        else info.MembershipStatus = String.Empty;
+                        if (!rdrIndividualInfo.IsDBNull(10)) info.MembershipNumber = rdrIndividualInfo.GetString(10);
+                    }
+                    rdrIndividualInfo.Close();
+                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                }
+
+                gvPaymentCreditCard.Rows.Clear();
+                foreach (CreditCardPaymentInfo ccPaymentInfo in lstCreditCardPaymentInfo)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewButtonCell { Value = "Confirm Payment" });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualName });
+                    row.Cells[1].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalProviderName });
+                    row.Cells[2].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalProviderPhone });
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.AccountNoAtProvider });
+                    row.Cells[4].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualBirthDate.Value.ToString("MM/dd/yyyy") });
+                    row.Cells[5].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SocialSecurityNumber });
+                    row.Cells[6].ReadOnly = true;
+                    DataGridViewTextBoxCell sexCell = new DataGridViewTextBoxCell();
+                    if (ccPaymentInfo.Sex == "Male") sexCell.Value = "M";
+                    else if (ccPaymentInfo.Sex == "Female") sexCell.Value = "F";
+                    else if (ccPaymentInfo.Sex == "0") sexCell.Value = "Unknown";
+                    row.Cells.Add(sexCell);
+                    row.Cells[7].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.PrimaryName });
+                    row.Cells[8].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingStreet });
+                    row.Cells[9].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingCity });
+                    row.Cells[10].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingState });
+                    row.Cells[11].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MailingZip });
+                    row.Cells[12].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.ServiceDate });
+                    row.Cells[13].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedicalBillNo });
+                    row.Cells[14].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MedBillAmount.ToString("C") });
+                    row.Cells[15].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    row.Cells[15].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementName });
+                    row.Cells[16].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementAmount.ToString("C") });
+                    row.Cells[17].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    DataGridViewComboBoxCell comboCreditCardCell = new DataGridViewComboBoxCell();
+                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                    {
+                        comboCreditCardCell.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                    }
+                    row.Cells.Add(comboCreditCardCell);
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MembershipStatus });
+                    row.Cells[19].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.SettlementNote });
+                    row.Cells[20].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.CreateStaffName });
+                    row.Cells[21].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.ModifyStaffName });
+                    row.Cells[22].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.IndividualID });
+                    row.Cells[23].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = ccPaymentInfo.MembershipNumber });
+                    row.Cells[24].ReadOnly = true;
+
+                    gvPaymentCreditCard.Rows.Add(row);
                 }
                 rdrCreditCardPayment.Close();
                 if (connRN.State == ConnectionState.Open) connRN.Close();
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                String strSqlQueryForCheckPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
-                                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
-                                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
-                                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
-                                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
-                                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
-                                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
-                                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
-                                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
-                                         "from [RN_DB].[dbo].[tbl_settlement] " +
-                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
-                                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
-                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
-                                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
-                                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
-                                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
-                                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
-                                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
-                                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
-                                         "[RN_DB].[dbo].[tbl_settlement].[CheckDate] IS NULL";
+                //String strSqlQueryForCheckPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
+                //                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                //                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
+                //                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
+                //                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
+                //                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                //                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                //                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
+                //                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                //                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
+                //                         "from [RN_DB].[dbo].[tbl_settlement] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                //                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                //                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                //                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
+                //                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
+                //                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                //                         "[RN_DB].[dbo].[tbl_settlement].[CheckDate] IS NULL";
+
+                String strSqlQueryForCheckPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
+                                                    "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+                                                    "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_MedicalProvider].[NAME], " +
+                                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name] " +
+                                                    "from [dbo].[tbl_settlement] " +
+                                                    "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                    "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                    "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                    "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                                                    "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                    "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                    "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                    "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                    "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                    "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                    "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                    "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                    "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                                                    "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                    "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                    "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                                                    "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+                                                    "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
+                                                    "order by [dbo].[tbl_medbill].[Individual_Id]";
 
                 SqlCommand cmdQeuryForPaymentCheck = new SqlCommand(strSqlQueryForCheckPayment, connRN);
                 cmdQeuryForPaymentCheck.CommandType = CommandType.Text;
+
+                SqlDependency dependencyCheckPayment = new SqlDependency(cmdQeuryForPaymentCheck);
+                dependencyCheckPayment.OnChange += new OnChangeEventHandler(OnCheckPaymentChange);
 
                 if (connRN.State != ConnectionState.Closed)
                 {
@@ -2231,107 +3269,152 @@ namespace CMMManager
                 }
                 else if (connRN.State == ConnectionState.Closed) connRN.Open();
                 gvPaymentCheck.Rows.Clear();
-                SqlDataReader rdrPaymentCheck = cmdQeuryForPaymentCheck.ExecuteReader();
-                if (rdrPaymentCheck.HasRows)
+                List<CheckPaymentInfo> lstCheckPaymentInfo = new List<CheckPaymentInfo>();
+                SqlDataReader rdrCheckPayment = cmdQeuryForPaymentCheck.ExecuteReader();
+                if (rdrCheckPayment.HasRows)
                 {
-                    while(rdrPaymentCheck.Read())
+                    while (rdrCheckPayment.Read())
                     {
-                        DataGridViewRow row = new DataGridViewRow();
-                        if (!rdrPaymentCheck.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(0) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(1) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(2) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(3) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(4) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(5) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(6) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDecimal(7).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(8) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(9) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(10).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(11) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(12).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(13).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(14) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(15) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(16) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(17) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(18) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(19) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDecimal(20).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(21) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(22) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(23) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetString(24) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetBoolean(25) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentCheck.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentCheck.GetDateTime(26).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        CheckPaymentInfo infoCheckPayment = new CheckPaymentInfo();
+                        if (!rdrCheckPayment.IsDBNull(0)) infoCheckPayment.bIsPaid = rdrCheckPayment.GetBoolean(0);
+                        if (!rdrCheckPayment.IsDBNull(1)) infoCheckPayment.IndividualId = rdrCheckPayment.GetString(1);
+                        if (!rdrCheckPayment.IsDBNull(2)) infoCheckPayment.IncidentNo = rdrCheckPayment.GetString(2);
+                        if (!rdrCheckPayment.IsDBNull(3)) infoCheckPayment.IncidentProgram = rdrCheckPayment.GetString(3);
+                        if (!rdrCheckPayment.IsDBNull(4)) infoCheckPayment.ServiceDate = rdrCheckPayment.GetDateTime(4);
+                        if (!rdrCheckPayment.IsDBNull(5)) infoCheckPayment.SettlementNo = rdrCheckPayment.GetString(5);
+                        if (!rdrCheckPayment.IsDBNull(6)) infoCheckPayment.SettlementAmount = rdrCheckPayment.GetDecimal(6);
+                        if (!rdrCheckPayment.IsDBNull(7)) infoCheckPayment.MedicalProviderName = rdrCheckPayment.GetString(7);
+                        if (!rdrCheckPayment.IsDBNull(8)) infoCheckPayment.SettlementType = rdrCheckPayment.GetString(8);
+                        if (!rdrCheckPayment.IsDBNull(9)) infoCheckPayment.CreatedBy = rdrCheckPayment.GetString(9);
+                        if (!rdrCheckPayment.IsDBNull(10)) infoCheckPayment.LastModifiedBy = rdrCheckPayment.GetString(10);
 
-                        gvPaymentCheck.Rows.Add(row);
+                        lstCheckPaymentInfo.Add(infoCheckPayment);
                     }
                 }
-                rdrPaymentCheck.Close();
+                rdrCheckPayment.Close();
                 if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                foreach (CheckPaymentInfo info in lstCheckPaymentInfo)
+                {
+                    String strSqlQueryForIndividualInfoForCheckPayment = "select [dbo].[contact].[Name], [dbo].[contact].[Household_Role__c], " +
+                                                                         "[dbo].[contact].[Primary_Name__c], " +
+                                                                         "[dbo].[account].[SHIPPINGSTREET], [dbo].[account].[SHIPPINGCITY], " +
+                                                                         "[dbo].[account].[SHIPPINGSTATE], [dbo].[account].[SHIPPINGPOSTALCODE], " +
+                                                                         "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                                                                         "from [dbo].[contact] " +
+                                                                         "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                                         "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
+                                                                         "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                    SqlCommand cmdQueryForIndividualInfoForCheckPayment = new SqlCommand(strSqlQueryForIndividualInfoForCheckPayment, connSalesforce);
+                    cmdQueryForIndividualInfoForCheckPayment.CommandType = CommandType.Text;
+
+                    cmdQueryForIndividualInfoForCheckPayment.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    SqlDataReader rdrIndividualInfoForCheckPayment = cmdQueryForIndividualInfoForCheckPayment.ExecuteReader();
+                    if (rdrIndividualInfoForCheckPayment.HasRows)
+                    {
+                        rdrIndividualInfoForCheckPayment.Read();
+
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(0)) info.IndividualName = rdrIndividualInfoForCheckPayment.GetString(0);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(1)) info.HouseholdRole = rdrIndividualInfoForCheckPayment.GetString(1);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(2)) info.PrimaryName = rdrIndividualInfoForCheckPayment.GetString(2);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(3)) info.ShippingStreet = rdrIndividualInfoForCheckPayment.GetString(3);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(4)) info.ShippingCity = rdrIndividualInfoForCheckPayment.GetString(4);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(5)) info.ShippingState = rdrIndividualInfoForCheckPayment.GetString(5);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(6)) info.ShippingZip = rdrIndividualInfoForCheckPayment.GetString(6);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(7)) info.MembershipStatus = rdrIndividualInfoForCheckPayment.GetString(7);
+                        if (!rdrIndividualInfoForCheckPayment.IsDBNull(8)) info.MemebershipNo = rdrIndividualInfoForCheckPayment.GetString(8);
+
+                    }
+                    rdrIndividualInfoForCheckPayment.Close();
+                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                }
+
+                gvPaymentCheck.Rows.Clear();
+                foreach (CheckPaymentInfo info in lstCheckPaymentInfo)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                    row.Cells[1].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                    row.Cells[2].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.HouseholdRole });
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.PrimaryName });
+                    row.Cells[4].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNo });
+                    row.Cells[5].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentProgram });
+                    row.Cells[6].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementNo });
+                    row.Cells[7].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementAmount.ToString("C") });
+                    row.Cells[8].ReadOnly = true;
+                    row.Cells[8].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ServiceDate.Value.ToString("MM/dd/yyyy") });
+                    row.Cells[9].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MedicalProviderName });
+                    row.Cells[10].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNoAtMedProvider });
+                    row.Cells[11].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingStreet });
+                    row.Cells[12].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingCity });
+                    row.Cells[13].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingState });
+                    row.Cells[14].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingZip });
+                    row.Cells[15].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementType });
+                    row.Cells[16].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreatedBy });
+                    row.Cells[17].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.LastModifiedBy });
+                    row.Cells[18].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                    row.Cells[19].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
+                    row.Cells[20].ReadOnly = true;
+
+                    gvPaymentCheck.Rows.Add(row);
+                }
+
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///
-                String strSqlQueryForACHPayment = "select [SalesForce].[dbo].[contact].[Name], [SalesForce].[dbo].[contact].[Household_Role__c], " +
-                         "[SalesForce].[dbo].[contact].[Individual_ID__c], [SalesForce].[dbo].[contact].[Primary_Name__c], " +
-                         "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
-                         "[RN_DB].[dbo].[tbl_settlement].[Amount], [SalesForce].[dbo].[program].[Name], [RN_DB].[dbo].[tbl_program].[ProgramName], " +
-                         "[SalesForce].[dbo].[contact].[Membership_IND_Start_date__c], [SalesForce].[dbo].[contact].[Membership_Number__c], " +
-                         "[RN_DB].[dbo].[tbl_case].[IB_Receiv_Date], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_MedicalProvider].[Name], " +
-                         "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
-                         "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
-                         "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], [RN_DB].[dbo].[tbl_medbill].[WellBeingCareTotal], " +
-                         "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_CreateStaff].[Staff_Name], [RN_DB].[dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                         "[SalesForce].[dbo].[contact].[c4g_Membership_Status__c], " +
-                         "[RN_DB].[dbo].[tbl_settlement].[Approved], [RN_DB].[dbo].[tbl_settlement].[ApprovedDate] " +
-                         "from [RN_DB].[dbo].[tbl_settlement] " +
-                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
-                         "inner join [RN_DB].[dbo].[tbl_case] on [RN_DB].[dbo].[tbl_medbill].[Case_Id] = [RN_DB].[dbo].[tbl_case].[Case_Name] " +
-                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
-                         "inner join [RN_DB].[dbo].[tbl_MedicalProvider] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [RN_DB].[dbo].[tbl_MedicalProvider].[ID] " +
-                         "inner join [RN_DB].[dbo].[tbl_program] on [RN_DB].[dbo].[tbl_incident].[Program_id] = [RN_DB].[dbo].[tbl_program].[Program_Id] " +
-                         "inner join [RN_DB].[dbo].[tbl_CreateStaff] on [RN_DB].[dbo].[tbl_medbill].[CreatedById] = [RN_DB].[dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                         "inner join [RN_DB].[dbo].[tbl_ModifiStaff] on [RN_DB].[dbo].[tbl_medbill].[LastModifiedById] = [RN_DB].[dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
-                         "inner join [SalesForce].[dbo].[program] on [SalesForce].[dbo].[contact].[c4g_Plan__c] = [SalesForce].[dbo].[program].[ID] " +
-                         "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[ID] " +
-                         "where [RN_DB].[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                         "[RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
-                         "[RN_DB].[dbo].[tbl_settlement].[Approved] = 1 and " +
-                         "[RN_DB].[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                         "[RN_DB].[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
-                         "[RN_DB].[dbo].[tbl_settlement].[ACH_Date] IS NULL";
+                String strSqlQueryForACHPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], " +
+                                                  "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+                                                  "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name] " +
+                                                  "from [dbo].[tbl_settlement] " +
+                                                  "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                  "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                  "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                  "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                  "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                  "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                  "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                  "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                  "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                  "[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
+                                                  "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                  "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                  "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+                                                  "[dbo].[tbl_settlement].[ACH_Date] IS NULL " +
+                                                  "order by [dbo].[tbl_medbill].[Individual_Id]";
+
 
                 SqlCommand cmdPaymentACH = new SqlCommand(strSqlQueryForACHPayment, connRN);
                 cmdPaymentACH.CommandType = CommandType.Text;
+
+                SqlDependency dependencyPaymentACH = new SqlDependency(cmdPaymentACH);
+                dependencyPaymentACH.OnChange += new OnChangeEventHandler(OnACHPaymentChange);
 
                 if (connRN.State != ConnectionState.Closed)
                 {
@@ -2339,78 +3422,205 @@ namespace CMMManager
                     connRN.Open();
                 }
                 else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                gvPaymentACH.Rows.Clear();
                 SqlDataReader rdrPaymentACH = cmdPaymentACH.ExecuteReader();
+                List<ACHPaymentInfo> lstACHPaymentInfo = new List<ACHPaymentInfo>();
                 if (rdrPaymentACH.HasRows)
                 {
                     while (rdrPaymentACH.Read())
                     {
-                        DataGridViewRow row = new DataGridViewRow();
+                        ACHPaymentInfo achInfo = new ACHPaymentInfo();
 
-                        if (!rdrPaymentACH.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(0) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(1) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(2) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(3) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(4) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(5) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(6) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDecimal(7).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(8) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(9)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(9) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(10).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(11)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(11) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(12)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(12).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(13)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(13).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(14)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(14) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(15)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(15) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(16) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(17)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(17) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(18) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(19)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(19) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(20)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDecimal(20).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(21)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(21) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(22)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(22) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(23)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(23) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(24)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetString(24) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(25)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetBoolean(25) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrPaymentACH.IsDBNull(26)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrPaymentACH.GetDateTime(26).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrPaymentACH.IsDBNull(0)) achInfo.bIsPaid = rdrPaymentACH.GetBoolean(0);
+                        if (!rdrPaymentACH.IsDBNull(1)) achInfo.IndividualId = rdrPaymentACH.GetString(1);
+                        if (!rdrPaymentACH.IsDBNull(2)) achInfo.SettlementNo = rdrPaymentACH.GetString(2);
+                        if (!rdrPaymentACH.IsDBNull(3)) achInfo.SettlementAmount = rdrPaymentACH.GetDecimal(3);
+                        if (!rdrPaymentACH.IsDBNull(4)) achInfo.CreateStaffName = rdrPaymentACH.GetString(4);
+                        if (!rdrPaymentACH.IsDBNull(5)) achInfo.ModifiStaffName = rdrPaymentACH.GetString(5);
 
-
-                        gvPaymentACH.Rows.Add(row);
+                        lstACHPaymentInfo.Add(achInfo);
                     }
                 }
-
-
-
                 if (connRN.State == ConnectionState.Closed) connRN.Open();
 
+                foreach (ACHPaymentInfo info in lstACHPaymentInfo)
+                {
+                    String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], " +
+                                                          "[dbo].[contact].[BankName__c], [dbo].[contact].[RoutingNumber__c], " +
+                                                          "[dbo].[contact].[AccountNumber__c], [dbo].[contact].[AccountHolder__c], " +
+                                                          "[dbo].[membership].[Pay_BankName__c], [dbo].[membership].[Pay_RoutingNumber__c], " +
+                                                          "[dbo].[membership].[Pay_AccountNumber__c], [dbo].[membership].[Pay_AccountHolder__c], " +
+                                                          "[dbo].[contact].[c4g_Membership_Status__c] " +
+                                                          "from [dbo].[contact] " +
+                                                          "inner join [dbo].[membership] on [dbo].[contact].[c4g_Membership__c] = [dbo].[membership].[Id] " +
+                                                          "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                    SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                    cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                    cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                    SqlDataReader rdrACHPaymentIndividualInfo = cmdQueryForIndividualInfo.ExecuteReader();
+                    if (rdrACHPaymentIndividualInfo.HasRows)
+                    {
+                        rdrACHPaymentIndividualInfo.Read();
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(0)) info.IndividualName = rdrACHPaymentIndividualInfo.GetString(0);
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(1)) info.BankName = rdrACHPaymentIndividualInfo.GetString(1);
+                        else if (!rdrACHPaymentIndividualInfo.IsDBNull(5)) info.BankName = rdrACHPaymentIndividualInfo.GetString(5);
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(2)) info.RoutingNumber = rdrACHPaymentIndividualInfo.GetString(2);
+                        else if (!rdrACHPaymentIndividualInfo.IsDBNull(6)) info.RoutingNumber = rdrACHPaymentIndividualInfo.GetString(6);
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(3)) info.AccountNumber = rdrACHPaymentIndividualInfo.GetString(3);
+                        else if (!rdrACHPaymentIndividualInfo.IsDBNull(7)) info.AccountNumber = rdrACHPaymentIndividualInfo.GetString(7);
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(4)) info.AccountHolder = rdrACHPaymentIndividualInfo.GetString(4);
+                        else if (!rdrACHPaymentIndividualInfo.IsDBNull(8)) info.AccountHolder = rdrACHPaymentIndividualInfo.GetString(8);
+                        if (!rdrACHPaymentIndividualInfo.IsDBNull(5)) info.MembershipStatus = rdrACHPaymentIndividualInfo.GetString(9);
+                    }
+                    rdrACHPaymentIndividualInfo.Close();
+                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                }
+
+                gvPaymentACH.Rows.Clear();
+                foreach (ACHPaymentInfo info in lstACHPaymentInfo)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                    row.Cells[1].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                    row.Cells[2].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementNo });
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementAmount.ToString("C") });
+                    row.Cells[4].Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    row.Cells[4].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.BankName });
+                    row.Cells[5].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.RoutingNumber });
+                    row.Cells[6].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNumber });
+                    row.Cells[7].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountHolder });
+                    row.Cells[8].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreateStaffName });
+                    row.Cells[9].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ModifiStaffName });
+                    row.Cells[10].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                    row.Cells[11].ReadOnly = true;
+                    gvPaymentACH.Rows.Add(row);
+                }
+
+                List<String> lstIndividualIDs = new List<String>();
+                String strSqlQueryForPaymentInactive = "select distinct([dbo].[tbl_medbill].[Individual_Id]) " +
+                                                        "from [dbo].[tbl_medbill] " +
+                                                        "inner join [dbo].[tbl_settlement] on [dbo].[tbl_medbill].[BillNo] = [dbo].[tbl_settlement].[MedicalBillID] " +
+                                                        "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                        "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                        "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                                        "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                        "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                        "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                        "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                        "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL " +
+                                                        "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+                SqlCommand cmdQueryForPaymentInactive = new SqlCommand(strSqlQueryForPaymentInactive, connRN);
+                cmdQueryForPaymentInactive.CommandType = CommandType.Text;
+
+                SqlDependency dependencyPaymentInactive = new SqlDependency(cmdQueryForPaymentInactive);
+                dependencyPaymentInactive.OnChange += new OnChangeEventHandler(OnPaymentInactiveChange);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrPaymentInactive = cmdQueryForPaymentInactive.ExecuteReader();
+                gvPaymentInactive.Rows.Clear();
+                if (rdrPaymentInactive.HasRows)
+                {
+                    while (rdrPaymentInactive.Read())
+                    {
+                        String IndividualID = String.Empty;
+                        if (!rdrPaymentInactive.IsDBNull(0)) IndividualID = rdrPaymentInactive.GetString(0);
+                        lstIndividualIDs.Add(IndividualID);
+                    }
+                }
+                rdrPaymentInactive.Close();
+                if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                List<InactivePaymentInfo> lstInactivePaymentInfo = new List<InactivePaymentInfo>();
+                foreach (String IndividualId in lstIndividualIDs)
+                {
+                    String strSqlQueryForIndividualInfo = "select [dbo].[contact].[Name], [dbo].[contact].[Membership_Number__c], [dbo].[contact].[c4g_Membership_Status__c], " +
+                                                           "[dbo].[account].[ShippingState], " +
+                                                           "[dbo].[contact].[Email], [dbo].[account].[cmm_Email__c], " +
+                                                           "[dbo].[contact].[Phone], [dbo].[account].[Phone] " +
+                                                           "from [dbo].[contact] " +
+                                                           "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[Id] " +
+                                                           "where ([dbo].[contact].[c4g_Membership_Status__c] like '%Cancelled%' or " +
+                                                           "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) = 'Past Due' or " +
+                                                           "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) = 'Hold' or " +
+                                                           "cast([dbo].[contact].[c4g_Membership_Status__c] as nvarchar(max)) IS NULL) and " +
+                                                           "[dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                    SqlCommand cmdQueryForIndividualInfo = new SqlCommand(strSqlQueryForIndividualInfo, connSalesforce);
+                    cmdQueryForIndividualInfo.CommandType = CommandType.Text;
+
+                    cmdQueryForIndividualInfo.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    SqlDataReader rdrPaymentInactiveIndividual = cmdQueryForIndividualInfo.ExecuteReader();
+                    if (rdrPaymentInactiveIndividual.HasRows)
+                    {
+                        rdrPaymentInactiveIndividual.Read();
+                        InactivePaymentInfo info = new InactivePaymentInfo();
+                        info.IndividualId = IndividualId;
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(0)) info.IndividualName = rdrPaymentInactiveIndividual.GetString(0);
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(1)) info.MembershipNo = rdrPaymentInactiveIndividual.GetString(1);
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(2)) info.MembershipStatus = rdrPaymentInactiveIndividual.GetString(2);
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(3)) info.State = rdrPaymentInactiveIndividual.GetString(3);
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(4)) info.Email = rdrPaymentInactiveIndividual.GetString(4);
+                        else if (!rdrPaymentInactiveIndividual.IsDBNull(5)) info.Email = rdrPaymentInactiveIndividual.GetString(5);
+                        if (!rdrPaymentInactiveIndividual.IsDBNull(6)) info.Phone = rdrPaymentInactiveIndividual.GetString(6);
+                        else if (!rdrPaymentInactiveIndividual.IsDBNull(7)) info.Phone = rdrPaymentInactiveIndividual.GetString(7);
+                        lstInactivePaymentInfo.Add(info);
+                    }
+                    rdrPaymentInactiveIndividual.Close();
+                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                }
+                gvPaymentInactive.Rows.Clear();
+                foreach (InactivePaymentInfo info in lstInactivePaymentInfo)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                    row.Cells[0].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                    row.Cells[1].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipNo });
+                    row.Cells[2].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.State });
+                    row.Cells[4].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.Email });
+                    row.Cells[5].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.Phone });
+                    row.Cells[6].ReadOnly = true;
+                    gvPaymentInactive.Rows.Add(row);
+                }
 
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ToolTip tipBrowseForNPF = new ToolTip();
@@ -3541,7 +4751,7 @@ namespace CMMManager
             rdrIllnessForIndividual.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
         }
 
         private void AddRowIncidentList(DataGridViewRow row)
@@ -4029,7 +5239,7 @@ namespace CMMManager
                     caseDetail.IB_Form = 0;
                     caseDetail.IB_Form_File_Name = String.Empty;
                     caseDetail.IB_Form_Destination_File_Name = String.Empty;
-                    
+
                     caseDetail.POP_Form = 0;
                     caseDetail.POP_Form_File_Name = String.Empty;
                     caseDetail.POP_Form_Destionation_File_Name = String.Empty;
@@ -4376,7 +5586,7 @@ namespace CMMManager
                     cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_Destination_File_Name", caseDetail.MedRec_Form_Destination_File_Name);
                     if (caseDetail.MedRec_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", caseDetail.MedRec_ReceivedDate);
                     else cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", DBNull.Value);
-                   
+
                     cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form", caseDetail.Unknown_Form);
                     cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_File_Name", caseDetail.Unknown_Form_File_Name);
                     cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", caseDetail.Unknown_Form_Destination_File_Name);
@@ -4503,7 +5713,7 @@ namespace CMMManager
                 {
                     File.Delete(strNPFormFilePathDestination);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error");
                     return;
@@ -5805,7 +7015,7 @@ namespace CMMManager
                         caseDetail.ModificationDate = DateTime.Today;
                         caseDetail.CreateStaff = nLoggedUserId;
                         caseDetail.ModifyingStaff = nLoggedUserId;
-                        
+
                         caseDetail.Individual_Id = String.Empty;
                         caseDetail.NPF_Form = 0;
                         caseDetail.NPF_Form_File_Name = String.Empty;
@@ -6285,7 +7495,7 @@ namespace CMMManager
                 dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
                 dtpMedBillNPF.CustomFormat = " ";
             }
-          
+
         }
 
         private void chkMedBill_IBReceived_CheckedChanged(object sender, EventArgs e)
@@ -7786,7 +8996,7 @@ namespace CMMManager
                     cmdInsertNewMedBill.Parameters.AddWithValue("@WellBeingCareTotal", 0);
                     cmdInsertNewMedBill.Parameters.AddWithValue("@WellBeingCare", 0);
                     cmdInsertNewMedBill.Parameters.AddWithValue("@DueDate", dtpDueDate.Value);
-                    
+
                     if (comboMedBillType.SelectedIndex == 0)        // Medical Bill Type : Medical Bill
                     {
                         cmdInsertNewMedBill.Parameters.AddWithValue("@PrescriptionDrugName", DBNull.Value);
@@ -7916,7 +9126,7 @@ namespace CMMManager
                                 if (!rdrProgramForIndividual.IsDBNull(1)) ProgramName = rdrProgramForIndividual.GetString(1);
                             }
                             rdrProgramForIndividual.Close();
-                            if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();                            
+                            if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
                             if (ProgramName == "Gold Plus" || ProgramName == "Gold Medi-I" || ProgramName == "Gold Medi-II")
                             {
@@ -8177,11 +9387,12 @@ namespace CMMManager
 
                                 if ((gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Self Pay Discount") ||
                                     (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount") ||
+                                    (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Discount") ||
                                     (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment"))
                                 {
                                     //if (gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString() != String.Empty)
                                     if (gvSettlementsInMedBill["PersonalResponsibility", i]?.Value != null)
-                                    { 
+                                    {
                                         if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result)) PersonalResponsibilityAmount = result;
                                         else
                                         {
@@ -8215,6 +9426,7 @@ namespace CMMManager
                                 Decimal SettlementAmount = 0;
                                 if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Self Pay Discount" ||
                                     gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount" ||
+                                    gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Discount" ||
                                     gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment" ||
                                     gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "CMM Provider Payment" ||
                                     gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "CMM Discount" ||
@@ -9166,7 +10378,8 @@ namespace CMMManager
                                 int nIncidentUpdated = cmdUpdateIncidentSharedTotal.ExecuteNonQuery();
                                 if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
-                                if (nIncidentUpdated == 1)
+                                // check whether nIncidentUpdate is 1 or 3
+                                if (nIncidentUpdated == 3)
                                 {
                                     String strSqlQueryForIllnessTotalSharedAmount = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
                                                    "where [dbo].[tbl_incident].[IsDeleted] = 0 and " +
@@ -9237,7 +10450,7 @@ namespace CMMManager
                                         if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
 
 
-                                        String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
+                                        String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[c4g_Total_Shared_Amount__c] = @IndividualTotalSharedAmount " +
                                                                                          "where [dbo].[contact].[IsDeleted] = 0 and " +
                                                                                          "[dbo].[contact].[Individual_ID__c] = @IndividualId";
 
@@ -9300,7 +10513,7 @@ namespace CMMManager
                         Decimal TotalMedBillAmountForIndividualId = 0;
                         if (objTotalMedBillAmountForIndividualId != null) TotalMedBillAmountForIndividualId = Decimal.Parse(objTotalMedBillAmountForIndividualId.ToString());
 
-                        String strSqlUpdateIndividualTotalMedBillAmount = "update [dbo].[contact] set [dbo].[contact].[MedicalBillAmountTotal] = @MedBillTotalForIndividual " +
+                        String strSqlUpdateIndividualTotalMedBillAmount = "update [dbo].[contact] set [dbo].[contact].[c4g_Incidents_Total_Amount__c] = @MedBillTotalForIndividual " +
                                                                             "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
                         SqlCommand cmdUpdateIndividualTotalMedBillAmount = new SqlCommand(strSqlUpdateIndividualTotalMedBillAmount, connSalesforce);
@@ -9325,7 +10538,7 @@ namespace CMMManager
                             MessageBox.Show("The individual Medical Bill Amount Total has not been updated.", "Error");
                             return;
                         }
-                        
+
                     }
                     else if (nRowInserted == 0)
                     {
@@ -10701,7 +11914,7 @@ namespace CMMManager
                                     Decimal IndividualTotalSharedAmount = 0;
                                     if (objIndividualTotalSharedAmount.ToString() != String.Empty) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
 
-                                    String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
+                                    String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[c4g_Total_Shared_Amount__c] = @IndividualTotalSharedAmount " +
                                                                                      "where [dbo].[contact].[IsDeleted] = 0 and " +
                                                                                      "[dbo].[contact].[Individual_ID__c] = @IndividualId";
 
@@ -10761,7 +11974,7 @@ namespace CMMManager
                         Decimal TotalMedBillAmountForIndividualId = 0;
                         if (objTotalMedBillAmountForIndividualId != null) TotalMedBillAmountForIndividualId = Decimal.Parse(objTotalMedBillAmountForIndividualId.ToString());
 
-                        String strSqlUpdateIndividualTotalMedBillAmount = "update [dbo].[contact] set [dbo].[contact].[MedicalBillAmountTotal] = @MedBillTotalForIndividual " +
+                        String strSqlUpdateIndividualTotalMedBillAmount = "update [dbo].[contact] set [dbo].[contact].[c4g_Incidents_Total_Amount__c] = @MedBillTotalForIndividual " +
                                                                           "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
                         SqlCommand cmdUpdateIndividualTotalMedBillAmount = new SqlCommand(strSqlUpdateIndividualTotalMedBillAmount, connSalesforce);
@@ -11995,6 +13208,7 @@ namespace CMMManager
             String strCity = txtCity1.Text.Trim();
             String strState = txtState1.Text.Trim();
             String strZip = txtZip1.Text.Trim();
+            String strCurrentProgram = txtProgram.Text.Trim();
 
             if (PrevTabPage == TabPage.Individual)
             {
@@ -12020,6 +13234,8 @@ namespace CMMManager
 
                     strCaseIdForIllness = strCaseNameSelected;
                     txtMedBill_CaseNo.Text = strCaseNameSelected;
+                    txtMemberProgram.Text = strCurrentProgram;
+
                     //txtMedicalBillStatus.Text = "Pending Status";
 
                     String strSqlQueryForCase = "select dbo.tbl_case.Case_Name, dbo.tbl_case.[NPF_Form], dbo.tbl_case.[NPF_Form_File_Name], dbo.tbl_case.[NPF_Receiv_Date], " +
@@ -12779,6 +13995,7 @@ namespace CMMManager
 
                     strCaseIdForIllness = strCaseNameSelected;
                     txtMedBill_CaseNo.Text = strCaseNameSelected;
+                    txtMemberProgram.Text = strCurrentProgram;
                     //txtMedicalBillStatus.Text = "Pending Status";
 
 
@@ -12968,7 +14185,7 @@ namespace CMMManager
                     }
                     else strNewMedBillNo = "MEDBILL - 0150000";
                     txtMedBillNo.Text = strNewMedBillNo;
-                        
+
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     /// Populate the medical bill types
                     /// 
@@ -13528,11 +14745,11 @@ namespace CMMManager
             }
 
 
-                /////////////////////////////////////////////////////////////////////////////////////////////////////
-                //btnAddNewSettlement.Enabled = false;
-                //btnSaveSettlement.Enabled = false;
-                ////btnEditSettlement.Enabled = false;
-                //btnDeleteSettlement.Enabled = false;
+            /////////////////////////////////////////////////////////////////////////////////////////////////////
+            //btnAddNewSettlement.Enabled = false;
+            //btnSaveSettlement.Enabled = false;
+            ////btnEditSettlement.Enabled = false;
+            //btnDeleteSettlement.Enabled = false;
 
             //}
             //else MessageBox.Show("Medical Bill page is already open", "Alert");
@@ -13656,7 +14873,7 @@ namespace CMMManager
                 return;
             }
 
-            
+
 
             settlementMode = SettlementMode.AddNew;
             String SettlementName = "STLM-";
@@ -13832,7 +15049,7 @@ namespace CMMManager
                         else comboCellCreditCards.Items.Add(String.Empty);
                     }
                     gvSettlementsInMedBill["CreditCard", gvSettlementsInMedBill.Rows.Count - 1] = comboCellCreditCards;
-                    for(int i = 0; i < comboCellCreditCards.Items.Count; i++)
+                    for (int i = 0; i < comboCellCreditCards.Items.Count; i++)
                     {
                         if (comboCellCreditCards.Items[i].ToString() == String.Empty)
                             gvSettlementsInMedBill["CreditCard", gvSettlementsInMedBill.Rows.Count - 1].Value = comboCellCreditCards.Items[i];
@@ -14025,7 +15242,7 @@ namespace CMMManager
         //            if (connRN.State != ConnectionState.Closed) connRN.Close();
 
         //            String SettlementName = gvSettlementsInMedBill["SettlementName", i].Value.ToString();
-                    
+
         //            // Check whether or not the settlement is already in data base
         //            String strSqlQueryForSettlementName = "select [dbo].[tbl_settlement].[Name] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @Settlement";
 
@@ -14223,7 +15440,7 @@ namespace CMMManager
         //                    //    //String strSqlUpdateMedBill = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @Settlement"  
         //                    //    // 11/01/18 begin here
         //                    //}
-                                
+
 
 
         //                }
@@ -14643,7 +15860,7 @@ namespace CMMManager
             //gvSettlementsInMedBill.Rows.Clear();
             //if (rdrSettlements.HasRows)
             //{
-                
+
             //    while (rdrSettlements.Read())
             //    {
             //        DataGridViewRow row = new DataGridViewRow();
@@ -14852,8 +16069,9 @@ namespace CMMManager
                     Decimal SumPersonalResponsibility = 0;
 
                     Decimal result = 0;
-                    if ((gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Self Pay Discount")||
-                        (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "3rd Party Discount")||
+                    if ((gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Self Pay Discount") ||
+                        (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "3rd Party Discount") ||
+                        (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Member Discount") ||
                         (gvSettlementsInMedBill["SettlementTypeValue", e.RowIndex]?.Value?.ToString() == "Member Payment"))
                     {
                         result = 0;
@@ -14932,7 +16150,7 @@ namespace CMMManager
 
                         gvSettlementsInMedBill["ACHNo", e.RowIndex].Value = String.Empty;
                         gvSettlementsInMedBill.Rows[e.RowIndex].Cells["ACHNo"].ReadOnly = true;
- 
+
                         gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CreditCard"];
                     }
 
@@ -15317,7 +16535,7 @@ namespace CMMManager
         {
             //if (!tbCMMManager.TabPages.Contains(tbpgMedicalBill))
             //{
-            
+
             DataGridView gvMedBill = (DataGridView)sender;
             String IndividualId = String.Empty;
             String CaseNo = String.Empty;
@@ -15618,7 +16836,7 @@ namespace CMMManager
                         if (comboMedBillType.SelectedIndex == 1) txtPrescriptionNote.Text = rdrMedBillEdit.GetString(18);
                         if (comboMedBillType.SelectedIndex == 2) txtPhysicalTherapyRxNote.Text = rdrMedBillEdit.GetString(18);
                     }
- 
+
                     if (!rdrMedBillEdit.IsDBNull(19))
                     {
                         ICD10Code = rdrMedBillEdit.GetString(19).Trim();
@@ -15737,9 +16955,9 @@ namespace CMMManager
                 lstIncidentProgramInfo.Clear();
                 if (rdrIncident.HasRows)
                 {
-                    while(rdrIncident.Read())
+                    while (rdrIncident.Read())
                     {
-                        if (!rdrIncident.IsDBNull(0)&&!rdrIncident.IsDBNull(1))
+                        if (!rdrIncident.IsDBNull(0) && !rdrIncident.IsDBNull(1))
                         {
                             IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncident.GetBoolean(2), rdrIncident.GetInt16(0), rdrIncident.GetString(1).Trim());
                             lstIncidentProgramInfo.Add(incidentProgram);
@@ -15775,9 +16993,9 @@ namespace CMMManager
                 //lstIncidentProgramInfo.Clear();
                 if (rdrIncidentChange.HasRows)
                 {
-                    while(rdrIncidentChange.Read())
+                    while (rdrIncidentChange.Read())
                     {
-                        if (!rdrIncidentChange.IsDBNull(0)&&!rdrIncidentChange.IsDBNull(1))
+                        if (!rdrIncidentChange.IsDBNull(0) && !rdrIncidentChange.IsDBNull(1))
                         {
                             IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncidentChange.GetBoolean(2), rdrIncidentChange.GetInt16(0), rdrIncidentChange.GetString(1).Trim());
                             lstIncidentProgramInfo.Add(incidentProgram);
@@ -15787,7 +17005,7 @@ namespace CMMManager
                 rdrIncidentChange.Close();
                 if (connRN4.State == ConnectionState.Open) connRN4.Close();
 
-                foreach(IncidentProgramInfo incdInfo in lstIncidentProgramInfo)
+                foreach (IncidentProgramInfo incdInfo in lstIncidentProgramInfo)
                 {
                     if (incdInfo.bIsDeleted == true)
                     {
@@ -16159,7 +17377,7 @@ namespace CMMManager
                 CaseNo = txtCaseName.Text.Trim();
                 MedicalBillNo = gvMedBill[1, nRowSelected].Value.ToString();
 
- 
+
                 lstPaymentMethod.Clear();
                 String strSqlQueryForPaymentMethod = "select [dbo].[tbl_payment_method].[PaymentMethod_Id], [dbo].[tbl_payment_method].[PaymentMethod_Value] from [dbo].[tbl_payment_method] " +
                                                         "order by [dbo].[tbl_payment_method].[PaymentMethod_Value]";
@@ -16501,7 +17719,7 @@ namespace CMMManager
                             txtACHNoCell.Value = null;
                             row.Cells.Add(txtACHNoCell);
                             DataGridViewComboBoxCell comboCreditCardCell = new DataGridViewComboBoxCell();
-                            for(int i = 0; i < lstCreditCardInfo.Count; i++)
+                            for (int i = 0; i < lstCreditCardInfo.Count; i++)
                             {
                                 if (lstCreditCardInfo[i].CreditCardNo != null) comboCreditCardCell.Items.Add(lstCreditCardInfo[i].CreditCardNo);
                                 else comboCreditCardCell.Items.Add(String.Empty);
@@ -16747,7 +17965,7 @@ namespace CMMManager
                 gvMostRecentTasks.Rows.Clear();
                 if (rdrTaskForMedBill.HasRows)
                 {
-                    while(rdrTaskForMedBill.Read())
+                    while (rdrTaskForMedBill.Read())
                     {
                         DataGridViewRow row = new DataGridViewRow();
                         if (!rdrTaskForMedBill.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(0) });
@@ -17069,7 +18287,7 @@ namespace CMMManager
                         //{
                         //    txtCaseStatus.Text = "Pending - Additional Documents required";
                         //}
-                        switch(rdrCaseInfo.GetInt16(17))
+                        switch (rdrCaseInfo.GetInt16(17))
                         {
                             case (int)CaseStatus.OnGoing:
                                 cbCaseStatus.SelectedIndex = (int)CaseStatus.OnGoing;
@@ -17175,7 +18393,7 @@ namespace CMMManager
         {
             gvCasePageMedBills.BeginInvoke(new AddRowToMedBillsInCaseEdit(AddRowMedBillsInCaseEdit), row);
         }
-            
+
 
         private void ClearAllMedBillsInCaseEdit()
         {
@@ -17187,7 +18405,7 @@ namespace CMMManager
             gvCasePageMedBills.Rows.Add(row);
         }
 
-        private void OnMedBillsInCaseEditChange (object sender, SqlNotificationEventArgs e)
+        private void OnMedBillsInCaseEditChange(object sender, SqlNotificationEventArgs e)
         {
             if (e.Type == SqlNotificationType.Change)
             {
@@ -17366,7 +18584,7 @@ namespace CMMManager
 
                 if (rdrMedBillTypes.HasRows)
                 {
-                    while(rdrMedBillTypes.Read())
+                    while (rdrMedBillTypes.Read())
                     {
                         if (!rdrMedBillTypes.IsDBNull(0) && !rdrMedBillTypes.IsDBNull(1))
                         {
@@ -19030,7 +20248,7 @@ namespace CMMManager
 
 
             }
-              
+
             //}
             //else
             //{
@@ -19512,7 +20730,7 @@ namespace CMMManager
             {
                 Balance = BillAmount - SettlementTotal;
                 SetMedBillBalanceSafely(Balance);
-              
+
             }
 
             Decimal TotalSharedAmount = 0;
@@ -20051,7 +21269,7 @@ namespace CMMManager
                         rdrSettlementApproved.Close();
                         if (connRN5.State != ConnectionState.Closed) connRN.Close();
 
-                        if (bApproved == true && 
+                        if (bApproved == true &&
                             (LoggedInUserRole == UserRole.FDStaff || LoggedInUserRole == UserRole.NPStaff || LoggedInUserRole == UserRole.RNStaff))
                         {
                             MessageBox.Show("The Settlement is approved and cannot be deleted.", "Alert");
@@ -20407,7 +21625,7 @@ namespace CMMManager
 
                 lblIneligibleReason.Visible = true;
                 comboIneligibleReason.Visible = true;
-                
+
             }
 
             if (comboBox.SelectedItem.ToString() == "Prescription")
@@ -20471,7 +21689,7 @@ namespace CMMManager
                 txtNumPhysicalTherapy.Visible = true;
                 lblPhysicalTherapyRxNote.Visible = true;
                 txtPhysicalTherapyRxNote.Visible = true;
-                
+
             }
         }
 
@@ -20507,7 +21725,7 @@ namespace CMMManager
                              "contact.MailingStreet like '%' + @MailingStreet + '%' or " +
                              "contact.Birthdate like '%' + @Birthdate + '%' or " +
                              "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
-                             "contact.c4g_Membership__C like '%' + @MembershipID + '%' or " +
+                             "contact.Membership_Number__c like '%' + @MembershipID + '%' or " +
                              "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
                              "contact.Social_Security_Number__C like '%' + @SSN + '%' or " +
                              "contact.Individual_ID__C like '%' + @IndividualID + '%' or " +
@@ -20557,6 +21775,8 @@ namespace CMMManager
 
         private void gvIndividualSearched_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            InitializedIndividualBankInfo();
+            InitializeIndividualInfo();
             InitializeCaseForm();
             InitializeMedBillForm();
             //InitializeMedBillTabOnNewMedBill();
@@ -20567,8 +21787,8 @@ namespace CMMManager
             //}
 
             //int nRowSelected = gvIndividual.CurrentCell.RowIndex;
-            int nRowSelected =  e.RowIndex;
-            
+            int nRowSelected = e.RowIndex;
+
             //IndividualSearched.strID = gvIndividualSearched["ID", nRowSelected].Value.ToString();
             //IndividualSearched.strAccountID = gvIndividualSearched["AccountID", nRowSelected].Value.ToString();
             //IndividualSearched.strLastName = gvIndividualSearched["LASTNAME", nRowSelected].Value.ToString();
@@ -20684,7 +21904,7 @@ namespace CMMManager
             }
 
 
-            switch(gvIndividualSearched["House Type", nRowSelected]?.Value?.ToString())
+            switch (gvIndividualSearched["House Type", nRowSelected]?.Value?.ToString())
             {
                 case "Head of Household":
                     IndividualSearched.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
@@ -20700,7 +21920,7 @@ namespace CMMManager
                     break;
             }
 
-            switch(gvIndividualSearched["Program Name", nRowSelected]?.Value?.ToString())
+            switch (gvIndividualSearched["Program Name", nRowSelected]?.Value?.ToString())
             {
                 case "Gold Plus":
                     IndividualSearched.IndividualPlan = Plan.GoldPlus;
@@ -20853,7 +22073,7 @@ namespace CMMManager
 
             if (rdrCommunicationMethods.HasRows)
             {
-                while(rdrCommunicationMethods.Read())
+                while (rdrCommunicationMethods.Read())
                 {
                     lstCommunicationMethod.Add(rdrCommunicationMethods.GetString(0));
                 }
@@ -20894,17 +22114,19 @@ namespace CMMManager
             rdrReimbursementMethod.Close();
             if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
 
-            cbPaymentMethod.Items.Clear();
+            cbReimbursementMethod.Items.Clear();
 
             foreach (String reimbursementMethod in lstReimbursementMethod)
             {
-                cbPaymentMethod.Items.Add(reimbursementMethod);
+                cbReimbursementMethod.Items.Add(reimbursementMethod);
             }
 
-            String strSqlQueryForIndividualInfo = "select [dbo].[contact].[PreferredLanguage], [dbo].[contact].[PreferredCommunicationMethod], " +
+
+            String strSqlQueryForIndividualInfo = "select [dbo].[contact].[PreferredLanguage__c], [dbo].[contact].[PreferredCommunicationMethod__c], " +
                                                   "[dbo].[contact].[Phone], [dbo].[contact].[HomePhone], " +
-                                                  "[dbo].[contact].[PowerOfAttorney], [dbo].[contact].[Relationship], " +
-                                                  "[dbo].[contact].[ReimbursementMethod], " +
+                                                  "[dbo].[contact].[PowerOfAttorney__c], [dbo].[contact].[Relationship_POA__c], " +
+                                                  "[dbo].[contact].[ReimbursementMethod__c], " +
+                                                  "[dbo].[contact].[BankName__c], [dbo].[contact].[RoutingNumber__c], [dbo].[contact].[AccountNumber__c], [dbo].[contact].[AccountHolder__c], " +
                                                   "[dbo].[contact].[Social_Security_Number__c] " +
                                                   "from [dbo].[contact] " +
                                                   "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
@@ -20928,19 +22150,25 @@ namespace CMMManager
                 {
                     if (!rdrIndividualInfo.IsDBNull(0))
                     {
-                        if (rdrIndividualInfo.GetInt16(0) == 0)  // Preferred language is Korean
-                        {
-                            rbKorean.Checked = true;
-                        }
-                        else if (rdrIndividualInfo.GetInt16(0) == 1) // Preferred language is English
-                        {
-                            rbEnglish.Checked = true;
-                        }
+                        String PreferredLanguage = rdrIndividualInfo.GetString(0).Trim().ToUpper();
+                        if (PreferredLanguage == "KOREAN") rbKorean.Checked = true;
+                        else if (PreferredLanguage == "ENGLISH") rbEnglish.Checked = true;
                     }
+                    //{
+                    //    if (rdrIndividualInfo.GetInt16(0) == 0)  // Preferred language is Korean
+                    //    {
+                    //        rbKorean.Checked = true;
+                    //    }
+                    //    else if (rdrIndividualInfo.GetInt16(0) == 1) // Preferred language is English
+                    //    {
+                    //        rbEnglish.Checked = true;
+                    //    }
+                    //}
 
                     if (!rdrIndividualInfo.IsDBNull(1))
                     {
-                        cbPreferredCommunication.SelectedIndex = rdrIndividualInfo.GetInt16(1);
+                        //cbPreferredCommunication.SelectedIndex = rdrIndividualInfo.GetInt16(1);
+                        cbPreferredCommunication.SelectedItem = rdrIndividualInfo.GetString(1).Trim();
                     }
 
                     if (!rdrIndividualInfo.IsDBNull(2)) txtCellPhone1.Text = rdrIndividualInfo.GetString(2).Trim();
@@ -20949,11 +22177,47 @@ namespace CMMManager
                     if (!rdrIndividualInfo.IsDBNull(4)) txtPowerOfAttorney.Text = rdrIndividualInfo.GetString(4).Trim();
                     if (!rdrIndividualInfo.IsDBNull(5)) txtRelationship.Text = rdrIndividualInfo.GetString(5).Trim();
 
-                    if (!rdrIndividualInfo.IsDBNull(6)) cbPaymentMethod.SelectedIndex = rdrIndividualInfo.GetInt16(6);
+                    if (!rdrIndividualInfo.IsDBNull(6)) cbReimbursementMethod.SelectedItem = rdrIndividualInfo.GetString(6);
 
-                    if (!rdrIndividualInfo.IsDBNull(7))
+                    if (!rdrIndividualInfo.IsDBNull(7)) IndividualBankInfo.BankName = rdrIndividualInfo.GetString(7);
+                    if (!rdrIndividualInfo.IsDBNull(8)) IndividualBankInfo.BankRoutingNumber = rdrIndividualInfo.GetString(8);
+                    if (!rdrIndividualInfo.IsDBNull(9)) IndividualBankInfo.AccountNumber = rdrIndividualInfo.GetString(9);
+                    if (!rdrIndividualInfo.IsDBNull(10)) IndividualBankInfo.AccountHolder = rdrIndividualInfo.GetString(10);
+
+                    if (cbReimbursementMethod.SelectedItem != null)
                     {
-                        txtIndividualSSN.Text = rdrIndividualInfo.GetString(7).Trim();
+                        if (cbReimbursementMethod.SelectedItem.ToString() == "ACH/Banking")
+                        {
+                            //if (!rdrIndividualInfo.IsDBNull(7)) txtBankName.Text = rdrIndividualInfo.GetString(7);
+                            //if (!rdrIndividualInfo.IsDBNull(8)) txtBankRoutingNo.Text = rdrIndividualInfo.GetString(8);
+                            //if (!rdrIndividualInfo.IsDBNull(9)) txtAccountNo.Text = rdrIndividualInfo.GetString(9);
+                            //if (!rdrIndividualInfo.IsDBNull(10)) txtAccountHolder.Text = rdrIndividualInfo.GetString(10);
+                            txtBankName.ReadOnly = false;
+                            if (!rdrIndividualInfo.IsDBNull(7)) txtBankName.Text = IndividualBankInfo.BankName;
+                            txtBankRoutingNo.ReadOnly = false;
+                            if (!rdrIndividualInfo.IsDBNull(8)) txtBankRoutingNo.Text = IndividualBankInfo.BankRoutingNumber;
+                            txtAccountNo.ReadOnly = false;
+                            if (!rdrIndividualInfo.IsDBNull(9)) txtAccountNo.Text = IndividualBankInfo.AccountNumber;
+                            txtAccountHolder.ReadOnly = false;
+                            if (!rdrIndividualInfo.IsDBNull(10)) txtAccountHolder.Text = IndividualBankInfo.AccountHolder;
+                        }
+                    }
+                    else
+                    {
+                        txtBankName.ReadOnly = true;
+                        txtBankRoutingNo.ReadOnly = true;
+                        txtAccountNo.ReadOnly = true;
+                        txtAccountHolder.ReadOnly = true;
+
+                        txtBankName.Text = String.Empty;
+                        txtBankRoutingNo.Text = String.Empty;
+                        txtAccountNo.Text = String.Empty;
+                        txtAccountHolder.Text = String.Empty;
+                    }
+
+                    if (!rdrIndividualInfo.IsDBNull(11))
+                    {
+                        txtIndividualSSN.Text = rdrIndividualInfo.GetString(11).Trim();
                         IndividualSearched.strSSN = txtIndividualSSN.Text;
                     }
                 }
@@ -20972,7 +22236,7 @@ namespace CMMManager
 
             txtIndChurchName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtIndChurchName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            txtIndChurchName.AutoCompleteCustomSource = srcChurch;      
+            txtIndChurchName.AutoCompleteCustomSource = srcChurch;
 
             txtProgram.Text = IndividualSearched.IndividualPlan.ToString();
 
@@ -21054,7 +22318,7 @@ namespace CMMManager
             //IndividualSearched.strIndividualID = gvIndividualSearched["Individual No.", nRowSelected]?.Value?.ToString();
             String IndividualIdSelected = IndividualSearched.strIndividualID;
 
-            String strSqlQueryForIndividualTotalSharedAmount = "select [dbo].[contact].[TotalSharedAmount] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+            String strSqlQueryForIndividualTotalSharedAmount = "select [dbo].[contact].[c4g_Total_Shared_Amount__c] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
             SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connSalesforce);
             cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
@@ -21081,7 +22345,7 @@ namespace CMMManager
                 }
             }
 
-            String strSqlQueryForIndividualMedBillTotalAmount = "select [dbo].[contact].[MedicalBillAmountTotal] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+            String strSqlQueryForIndividualMedBillTotalAmount = "select [dbo].[contact].[c4g_Incidents_Total_Amount__c] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
             SqlCommand cmdQueryForIndividualMedBillTotalAmount = new SqlCommand(strSqlQueryForIndividualMedBillTotalAmount, connSalesforce);
             cmdQueryForIndividualMedBillTotalAmount.CommandType = CommandType.Text;
@@ -21166,9 +22430,9 @@ namespace CMMManager
                 {
                     //for (int i = 0; i < lstCaseInfo.Count; i++)
                     //{
-                        //if ((!rdrCasesForIndividual.IsDBNull(0)) &&
-                        //    (rdrCasesForIndividual.GetString(0) == lstCaseInfo[i].CaseName))
-                        //{
+                    //if ((!rdrCasesForIndividual.IsDBNull(0)) &&
+                    //    (rdrCasesForIndividual.GetString(0) == lstCaseInfo[i].CaseName))
+                    //{
 
                     DataGridViewRow row = new DataGridViewRow();
 
@@ -21217,7 +22481,7 @@ namespace CMMManager
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
                     gvProcessingCaseNo.Rows.Add(row);
-                        //}
+                    //}
                     //}
                 }
             }
@@ -21564,7 +22828,7 @@ namespace CMMManager
             SqlDataReader rdrIncidentForIndividual = cmdQueryForIncidentForIndividual.ExecuteReader();
             if (rdrIncidentForIndividual.HasRows)
             {
-                while(rdrIncidentForIndividual.Read())
+                while (rdrIncidentForIndividual.Read())
                 {
                     DataGridViewRow row = new DataGridViewRow();
 
@@ -27367,13 +28631,35 @@ namespace CMMManager
 
             String IndividualIdForUpdate = txtIndividualID.Text.Trim();
 
-            int nPreferredLanguage = 0;
+            //int nPreferredLanguage = 0;
+            String PreferredLanguage = String.Empty;
 
-            if (rbKorean.Checked) nPreferredLanguage = 0;
-            else if (rbEnglish.Checked) nPreferredLanguage = 1;
+            if (rbKorean.Checked) PreferredLanguage = "Korean";
+            else if (rbEnglish.Checked) PreferredLanguage = "English";
+            else
+            {
+                MessageBox.Show("Please selected the preferred language.", "Error");
+                return;
+            }
 
-            String strSqlUpdateIndividualInfo = "update [dbo].[contact] set [dbo].[contact].[PreferredLanguage] = @PreferredLanguage, " +
-                                                "[dbo].[contact].[PreferredCommunicationMethod] = @PreferredCommMethod, " +
+            String PreferredCommMethod = String.Empty;
+            if (cbPreferredCommunication.SelectedItem != null) PreferredCommMethod = cbPreferredCommunication.SelectedItem.ToString();
+            else
+            {
+                MessageBox.Show("Please select the preferred communication method.", "Error");
+                return;
+            }
+
+            String ReimbursementMethod = String.Empty;
+            if (cbReimbursementMethod.SelectedItem != null) ReimbursementMethod = cbReimbursementMethod.SelectedItem.ToString();
+            else
+            {
+                MessageBox.Show("Please select the reimbursement method.", "Error");
+                return;
+            }
+
+            String strSqlUpdateIndividualInfo = "update [dbo].[contact] set [dbo].[contact].[PreferredLanguage__c] = @PreferredLanguage, " +
+                                                "[dbo].[contact].[PreferredCommunicationMethod__c] = @PreferredCommMethod, " +
                                                 "[dbo].[contact].[FirstName] = @FirstName, " +
                                                 "[dbo].[contact].[MiddleName] = @MiddleName, " +
                                                 "[dbo].[contact].[LastName] = @LastName, " +
@@ -27391,17 +28677,21 @@ namespace CMMManager
                                                 "[dbo].[contact].[Email] = @Email, " +
                                                 "[dbo].[contact].[Phone] = @Phone, " +
                                                 "[dbo].[contact].[HomePhone] = @HomePhone, " +
-                                                "[dbo].[contact].[PowerOfAttorney] = @PowerOfAttorney, " +
-                                                "[dbo].[contact].[Relationship] = @Relationship, " +
-                                                "[dbo].[contact].[ReimbursementMethod] = @ReimbursementMethod, " +
+                                                "[dbo].[contact].[PowerOfAttorney__c] = @PowerOfAttorney, " +
+                                                "[dbo].[contact].[Relationship__c] = @Relationship, " +
+                                                "[dbo].[contact].[ReimbursementMethod__c] = @ReimbursementMethod, " +
+                                                "[dbo].[contact].[BankName__c] = @BankName, " +
+                                                "[dbo].[contact].[RoutingNumber__c] = @BankRoutingNumber, " +
+                                                "[dbo].[contact].[AccountNumber__c] = @AccountNumber, " +
+                                                "[dbo].[contact].[AccountHolder__c] = @AccountHolder, " +
                                                 "[dbo].[contact].[c4g_Church__c] = @ChurchId " +
                                                 "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
             SqlCommand cmdUpdateIndividualInfo = new SqlCommand(strSqlUpdateIndividualInfo, connSalesforce);
             cmdUpdateIndividualInfo.CommandType = CommandType.Text;
 
-            cmdUpdateIndividualInfo.Parameters.AddWithValue("@PreferredLanguage", nPreferredLanguage);
-            cmdUpdateIndividualInfo.Parameters.AddWithValue("@PreferredCommMethod", cbPreferredCommunication.SelectedIndex);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@PreferredLanguage", PreferredLanguage);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@PreferredCommMethod", PreferredCommMethod);
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@FirstName", txtFirstName.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim());
@@ -27421,7 +28711,11 @@ namespace CMMManager
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@HomePhone", txtBusinessPhone.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@PowerOfAttorney", txtPowerOfAttorney.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@Relationship", txtRelationship.Text.Trim());
-            cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbPaymentMethod.SelectedIndex);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", ReimbursementMethod);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@BankName", txtBankName.Text.Trim());
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@BankRoutingNumber", txtBankRoutingNo.Text.Trim());
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@AccountNumber", txtAccountNo.Text.Trim());
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@AccountHolder", txtAccountHolder.Text.Trim());
 
             if (txtIndChurchName.Text.Trim() != String.Empty)
             {
@@ -27488,7 +28782,7 @@ namespace CMMManager
                 //    return;
                 //}
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-             
+
                 //if (tbCMMManager.Contains(tbpgMedicalBill))
                 //{
                 //    DialogResult dlgSaveMedBill = MessageBox.Show("Do you want to save the Medical Bill?", "Alert", MessageBoxButtons.YesNo);
@@ -27630,7 +28924,7 @@ namespace CMMManager
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@HomePhone", txtBusinessPhone.Text.Trim());
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@PowerOfAttorney", txtPowerOfAttorney.Text.Trim());
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@Relationship", txtRelationship.Text.Trim());
-                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbPaymentMethod.SelectedIndex);
+                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbReimbursementMethod.SelectedIndex);
 
                     if (txtIndChurchName.Text.Trim() != String.Empty)
                     {
@@ -27689,7 +28983,7 @@ namespace CMMManager
         //{
 
         //}
-        
+
         //private void SaveCase()
         //{
 
@@ -27773,7 +29067,7 @@ namespace CMMManager
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@HomePhone", txtBusinessPhone.Text.Trim());
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@PowerOfAttorney", txtPowerOfAttorney.Text.Trim());
                     cmdUpdateIndividualInfo.Parameters.AddWithValue("@Relationship", txtRelationship.Text.Trim());
-                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbPaymentMethod.SelectedIndex);
+                    cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbReimbursementMethod.SelectedIndex);
 
                     if (txtIndChurchName.Text.Trim() != String.Empty)
                     {
@@ -27911,7 +29205,7 @@ namespace CMMManager
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@HomePhone", txtBusinessPhone.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@PowerOfAttorney", txtPowerOfAttorney.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@Relationship", txtRelationship.Text.Trim());
-            cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbPaymentMethod.SelectedIndex);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbReimbursementMethod.SelectedIndex);
 
             if (txtIndChurchName.Text.Trim() != String.Empty)
             {
@@ -28100,7 +29394,7 @@ namespace CMMManager
             frmIncident.strIndividualId = IndividualId;
             frmIncident.mode = frmIncidentCreationPage.IncidentMode.Edit;
 
-            frmIncident.ShowDialog();         
+            frmIncident.ShowDialog();
 
         }
 
@@ -29629,7 +30923,7 @@ namespace CMMManager
                     if (!rdrSettlementApproved.IsDBNull(14)) settlement.ICD10Code = rdrSettlementApproved.GetString(14);
                     if (settlement.ICD10Code != "Z00.00" && settlement.ICD10Code != "Z00.012") settlement.WellBeingCareShared = 0;
                     //if (settlement.ICD10Code == "Z00.00" || settlement.ICD10Code == "Z00.012") settlement.WellBeingCareShared = settlement.Amount;
-                    
+
                     if (!rdrSettlementApproved.IsDBNull(15)) settlement.AccountNoAtMedProvider = rdrSettlementApproved.GetString(15);
                     if (!rdrSettlementApproved.IsDBNull(16)) settlement.Approved = rdrSettlementApproved.GetBoolean(16);
 
@@ -29714,7 +31008,7 @@ namespace CMMManager
                 if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
             }
 
-            foreach(ApprovedSettlementInfo settlement in lstApprovedSettlement)
+            foreach (ApprovedSettlementInfo settlement in lstApprovedSettlement)
             {
                 String strSqlQueryForMedicalProviderName = "select [dbo].[MedicalProvider].[Name] from [dbo].[MedicalProvider] where [dbo].[MedicalProvider].[ID] = @MedicalProviderId";
 
@@ -30403,14 +31697,14 @@ namespace CMMManager
             String IndividualName = txtPatientNameMedBill.Text.Trim();
             String MedBillId = txtMedBillNo.Text.Trim();
 
-            frmTaskCreationPage frmTask = new frmTaskCreationPage(IndividualId, 
-                                                                  RelatedToTable.MedicalBill, 
+            frmTaskCreationPage frmTask = new frmTaskCreationPage(IndividualId,
+                                                                  RelatedToTable.MedicalBill,
                                                                   IndividualName,
-                                                                  MedBillId, 
+                                                                  MedBillId,
                                                                   nLoggedUserId,
                                                                   LoggedInUserName,
-                                                                  LoggedInUserRole, 
-                                                                  LoggedInUserDepartment, 
+                                                                  LoggedInUserRole,
+                                                                  LoggedInUserDepartment,
                                                                   TaskMode.AddNew);
             frmTask.ShowDialog();
         }
@@ -30488,7 +31782,7 @@ namespace CMMManager
                 frmTaskCreationPage frmTaskToModify = new frmTaskCreationPage(nTaskId, WhoId, TaskCreatorName, nTaskCreatorId.Value, nLoggedUserId, LoggedInUserName, LoggedInUserRole, LoggedInUserDepartment, TaskMode.EditInMedBill);
 
                 frmTaskToModify.ShowDialog();
-                
+
 
                 //if (LoggedInUserRole == UserRole.RNManager)
                 //{
@@ -30564,96 +31858,1049 @@ namespace CMMManager
             }
         }
 
-        //private void tabPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
-        //{
+        private void gvPaymentCreditCard_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView gvCCPayment = (DataGridView)sender;
 
-        //}
+            if (e.ColumnIndex == 0)
+            {
+                String ccPaymentIndividualId = String.Empty;
+                if (gvCCPayment["IndividualIdInPaymentCreditCard", e.RowIndex].Value != null) ccPaymentIndividualId = gvCCPayment["IndividualIdInPaymentCreditCard", e.RowIndex].Value.ToString();
+                String ccPaymentIndividualName = String.Empty;
+                if (gvCCPayment["IndividualNamePaymentCreditCard", e.RowIndex].Value != null) ccPaymentIndividualName = gvCCPayment["IndividualNamePaymentCreditCard", e.RowIndex].Value.ToString();
+                String ccPaymentMedicalBillNo = String.Empty;
+                if (gvCCPayment["MedBillNoInPaymentCreditCard", e.RowIndex].Value != null) ccPaymentMedicalBillNo = gvCCPayment["MedBillNoInPaymentCreditCard", e.RowIndex].Value.ToString();
+                String ccPaymentSettlementNo = String.Empty;
+                if (gvCCPayment["SettlementNoInPaymentCreditCard", e.RowIndex].Value != null) ccPaymentSettlementNo = gvCCPayment["SettlementNoInPaymentCreditCard", e.RowIndex].Value.ToString();
+                String ccPaymentMedicalProviderName = String.Empty;
+                if (gvCCPayment["MedProviderInPaymentCreditCard", e.RowIndex].Value != null) ccPaymentMedicalProviderName = gvCCPayment["MedProviderInPaymentCreditCard", e.RowIndex].Value.ToString();
+                String ccPaymentCreditCardNo = String.Empty;
+                if (gvCCPayment["CreditCardNoCreditCardPayment", e.RowIndex].Value != null) ccPaymentCreditCardNo = gvCCPayment["CreditCardNoCreditCardPayment", e.RowIndex].Value.ToString();
+                else
+                {
+                    MessageBox.Show("No credit card is selected.", "Alert");
+                    return;
+                }
+                String ccPaymentMedBillAmount = String.Empty;
+                Decimal MedBillAmount = 0;
+                Decimal MedBillAmountResult = 0;
+                if (gvCCPayment["BillAmountCreditCardPayment", e.RowIndex].Value != null)
+                {
+                    ccPaymentMedBillAmount = gvCCPayment["BillAmountCreditCardPayment", e.RowIndex].Value.ToString();
+                    if (Decimal.TryParse(ccPaymentMedBillAmount, NumberStyles.Currency, new CultureInfo("en-US"), out MedBillAmountResult))
+                    {
+                        MedBillAmount = MedBillAmountResult;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Medical bill amount is invalid.", "Error");
+                        return;
+                    }
+                }
 
-        //private void gvSettlementsInMedBill_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
-        //{
-        //    CalendarEditingControl cec = e.Control as CalendarEditingControl;
+                String ccPaymentSettlementPaymentAmount = String.Empty;
+                Decimal SettlementPaymentAmount = 0;
+                Decimal SettlementPaymentResult = 0;
+                if (gvCCPayment["AmountInPaymentCreditCard", e.RowIndex].Value != null)
+                {
+                    ccPaymentSettlementPaymentAmount = gvCCPayment["AmountInPaymentCreditCard", e.RowIndex].Value.ToString();
+                    if (Decimal.TryParse(ccPaymentSettlementPaymentAmount, NumberStyles.Currency, new CultureInfo("en-US"), out SettlementPaymentResult))
+                    {
+                        SettlementPaymentAmount = SettlementPaymentResult;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Settlement payment amount is invalid.", "Error");
+                        return;
+                    }
+                }
 
-        //    if (cec != null)
-        //    {
-        //        //e.Control.KeyPress -= new KeyPressEventHandler(dgvSettlements_KeyPress);
-        //        //e.Control.KeyPress += new KeyPressEventHandler(dgvSettlements_KeyPress);
-        //        e.Control.MouseClick -= new MouseEventHandler(dgvSettlements_MouseClick);
-        //        e.Control.MouseClick += new MouseEventHandler(dgvSettlements_MouseClick);
-        //    }
-        //    //cec.KeyPress += new KeyPressEventHandler(dgvCalendarCell_KeyPress);
+                Decimal SettlementAmountForComparison = 0;
+                String strSqlQueryForSettlementAmountForComparison = "select [dbo].[tbl_settlement].[Amount] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @SettlementNo";
 
-        //}
+                SqlCommand cmdQueryForSettlementAmountForComparison = new SqlCommand(strSqlQueryForSettlementAmountForComparison, connRN5);
+                cmdQueryForSettlementAmountForComparison.CommandType = CommandType.Text;
 
-        //private void dgvSettlements_KeyPress(object sender, KeyPressEventArgs e)
-        //{
-        //    if (e.KeyChar == (char)Keys.Back)
-        //    {
-        //        //MessageBox.Show("You pressed delete or backspace key.");
-        //        CalendarEditingControl cec = sender as CalendarEditingControl;
+                cmdQueryForSettlementAmountForComparison.Parameters.AddWithValue("@SettlementNo", ccPaymentSettlementNo);
 
-        //        //if (cec == null) MessageBox.Show("CEC is NULL");
-        //        //if (cec != null)    //. MessageBox.Show("CEC is not NULL");
+                if (connRN5.State != ConnectionState.Closed)
+                {
+                    connRN5.Close();
+                    connRN5.Open();
+                }
+                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
 
-        //        if (cec != null)
-        //        {
-        //            cec.Format = DateTimePickerFormat.Custom;
-        //            cec.CustomFormat = " ";
-        //        }
+                Object objSettlementAmountForComparison = cmdQueryForSettlementAmountForComparison.ExecuteScalar();
+                if (objSettlementAmountForComparison != null) SettlementAmountForComparison = Decimal.Parse(objSettlementAmountForComparison.ToString());
+                if (connRN5.State == ConnectionState.Open) connRN5.Close();
 
-        //    }
-        //}
+                String ccPaymentSettlementNotes = gvCCPayment["CreditCardPaymentNote", e.RowIndex].Value.ToString();
 
-        //private void dgvSettlements_MouseClick(object sender, MouseEventArgs e)
-        //{
-        //    CalendarEditingControl cec = sender as CalendarEditingControl;
+                frmConfirmPaymentDlg dlgConfirmation = new frmConfirmPaymentDlg(ccPaymentIndividualId,
+                                                                                ccPaymentIndividualName,
+                                                                                ccPaymentMedicalProviderName,
+                                                                                ccPaymentMedicalBillNo,
+                                                                                ccPaymentSettlementNo,
+                                                                                ccPaymentCreditCardNo,
+                                                                                MedBillAmount,
+                                                                                SettlementAmountForComparison,
+                                                                                SettlementPaymentAmount,
+                                                                                ccPaymentSettlementNotes);
+                DialogResult dlgResult = dlgConfirmation.ShowDialog();
+                String SettlementNote = dlgConfirmation.Note;
 
-        //    if (cec != null)
-        //    {
-        //        //cec.Format = DateTimePickerFormat.Custom;
-        //        //cec.CustomFormat = "MM/dd/yyyy";
-        //        MessageBox.Show("Mouse clicked");
-        //    }
-        //}
+                if (dlgResult == DialogResult.Yes)
+                {
+                    if (SettlementAmountForComparison == SettlementPaymentAmount)
+                    {
+                        String strSqlUpdateSettlementForPayment = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[Notes] = @PaymentNotes, " +
+                                                                  "[dbo].[tbl_settlement].[IsPaid] = @PaymentConfirmed, " +
+                                                                  "[dbo].[tbl_settlement].[PaidByID] = @PaidBy " +
+                                                                  "where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                        SqlCommand cmdUpdateSettlementForPayment = new SqlCommand(strSqlUpdateSettlementForPayment, connRN5);
+                        cmdUpdateSettlementForPayment.CommandType = CommandType.Text;
+
+                        cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentNotes", SettlementNote);
+                        cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentConfirmed", 1);
+                        cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaidBy", nLoggedUserId);
+                        cmdUpdateSettlementForPayment.Parameters.AddWithValue("@SettlementNo", ccPaymentSettlementNo);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        int nRowAffected = cmdUpdateSettlementForPayment.ExecuteNonQuery();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        if (nRowAffected == 1)
+                        {
+                            MessageBox.Show("The payment has been confirmed.", "Info");
+                            return;
+                        }
+                        else if (nRowAffected == 0)
+                        {
+                            MessageBox.Show("The payment has not been confirmed.", "Info");
+                            return;
+                        }
+                    }
+                    else if (SettlementAmountForComparison > SettlementPaymentAmount)
+                    {
+                        // update settlement for extra discount from medical provider
+                        String strSqlUpdateSettlementForModifiedPayment = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[Notes] = @PaymentNotes, " +
+                                                                          "[dbo].[tbl_settlement].[IsPaid] = @PaymentConfirmed, " +
+                                                                          "[dbo].[tbl_settlement].[PaidByID] = @PaidBy, " +
+                                                                          "[dbo].[tbl_settlement].[Amount] = @SettlementAmount " +
+                                                                          "where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                        SqlCommand cmdUpdateSettlementForModifiedPayment = new SqlCommand(strSqlUpdateSettlementForModifiedPayment, connRN5);
+                        cmdUpdateSettlementForModifiedPayment.CommandType = CommandType.Text;
+
+                        cmdUpdateSettlementForModifiedPayment.Parameters.AddWithValue("@PaymentNotes", SettlementNote);
+                        cmdUpdateSettlementForModifiedPayment.Parameters.AddWithValue("@PaymentConfirmed", 1);
+                        cmdUpdateSettlementForModifiedPayment.Parameters.AddWithValue("@PaidBy", nLoggedUserId);
+                        cmdUpdateSettlementForModifiedPayment.Parameters.AddWithValue("@SettlementAmount", SettlementPaymentAmount);
+                        cmdUpdateSettlementForModifiedPayment.Parameters.AddWithValue("@SettlementNo", ccPaymentSettlementNo);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        int nSettlementUpdated = cmdUpdateSettlementForModifiedPayment.ExecuteNonQuery();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        // insert into new discount settlement for the difference when medical provider gives member extra discount
+                        String strSqlQueryForLastSettlementNo = "select max([dbo].[tbl_settlement].[Name]) from [dbo].[tbl_settlement]";
+
+                        SqlCommand cmdQueryForLastSettlementNo = new SqlCommand(strSqlQueryForLastSettlementNo, connRN5);
+                        cmdQueryForLastSettlementNo.CommandType = CommandType.Text;
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        Object objMaxSettlementNo = cmdQueryForLastSettlementNo.ExecuteScalar();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                        String MaxSettlementNo = String.Empty;
+                        if (objMaxSettlementNo != null) MaxSettlementNo = objMaxSettlementNo.ToString();
+
+                        String MaxSettlementNumber = MaxSettlementNo.Substring(5);
+                        int nMaxSettlementNo = Int32.Parse(MaxSettlementNumber);
+                        nMaxSettlementNo++;
+                        String NewSettlementNo = "STLM-";
+                        NewSettlementNo += nMaxSettlementNo.ToString();
+
+                        Decimal SettlementAmount = SettlementAmountForComparison - SettlementPaymentAmount;
+                        String Notes = "Member Discount Settlement added by the application";
+                        //ccPaymentMedicalBillNo
+                        String strSqlInsertMemberDiscountSettlement = "insert into [dbo].[tbl_settlement] (IsDeleted, Name, CreateDate, CreateByID, LastModifiedDate, LastModifiedByID, " +
+                                                                      "SystemModifiedStamp, LastActivityDate, LastViewedDate, MedicalBillID, SettlementType, " +
+                                                                      "Amount, PersonalResponsibilityCredit, CMMPaymentMethod, CMMCreditCard ,Notes) " +
+                                                                      "values (0, @NewSettlementNo, @CreateDate, @CreateByID, @ModifiedDate, @LastModifiedByID, " +
+                                                                      "@SystemModifiedDate, @LastActivityDate, @LastViewedDate, @MedicalBillId, @SettlementType, " +
+                                                                      "@SettlementAmount, @PersonalResponsibility, @CMMPaymentMethod, @CMMCreditCard, @Notes)";
+
+                        SqlCommand cmdInsertMemberDiscountSettlement = new SqlCommand(strSqlInsertMemberDiscountSettlement, connRN5);
+                        cmdInsertMemberDiscountSettlement.CommandType = CommandType.Text;
+
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@NewSettlementNo", NewSettlementNo);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@CreateDate", DateTime.Today);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@CreateByID", nLoggedUserId);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@ModifiedDate", DateTime.Today);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@LastModifiedByID", nLoggedUserId);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@SystemModifiedDate", DateTime.Today);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@LastActivityDate", DateTime.Today);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@LastViewedDate", DateTime.Today);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@MedicalBillID", ccPaymentMedicalBillNo);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@SettlementType", SettlementType.MemberDiscount);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@SettlementAmount", SettlementAmount);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@PersonalResponsibility", SettlementAmount);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@CMMPaymentMethod", 0);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@CMMCreditCard", 0);
+                        cmdInsertMemberDiscountSettlement.Parameters.AddWithValue("@Notes", Notes);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        int nSettlementInserted = cmdInsertMemberDiscountSettlement.ExecuteNonQuery();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        // 02/06/19 - begin here to calculate Medical Bill Balance, PR Balance and update Medbill accordingly
+                        //ccPaymentMedicalBillNo
+                        String strSqlQueryForMedBillAmount = "select [dbo].[tbl_medbill].[BillAmount] from [dbo].[tbl_medbill] where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                        SqlCommand cmdQueryForMedBillAmount = new SqlCommand(strSqlQueryForMedBillAmount, connRN5);
+                        cmdQueryForMedBillAmount.CommandType = CommandType.Text;
+
+                        cmdQueryForMedBillAmount.Parameters.AddWithValue("@MedBillNo", ccPaymentMedicalBillNo);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        Object objBillAmount = cmdQueryForMedBillAmount.ExecuteScalar();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        Decimal MedicalBillAmount = 0;
+                        if (objBillAmount != null) MedicalBillAmount = Decimal.Parse(objBillAmount.ToString());
+
+                        String strSqlQueryForSettlementSum = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                             "where [dbo].[tbl_settlement].[MedicalBillID] = @MedicalBillNo and " +
+                                                             "([dbo].[tbl_settlement].[SettlementType] = 1 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 2 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 3 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 5 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 7 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 9 or " +
+                                                             "[dbo].[tbl_settlement].[SettlementType] = 10)";
+
+                        SqlCommand cmdQueryForSettlementSum = new SqlCommand(strSqlQueryForSettlementSum, connRN5);
+                        cmdQueryForSettlementSum.CommandType = CommandType.Text;
+
+                        cmdQueryForSettlementSum.Parameters.AddWithValue("@MedicalBillNo", ccPaymentMedicalBillNo);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        Object objSettlementSum = cmdQueryForSettlementSum.ExecuteScalar();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        Decimal SettlementSum = 0;
+                        if (objSettlementSum != null) SettlementSum = Decimal.Parse(objSettlementSum.ToString());
+
+                        String strSqlQueryForMedProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                 "where [dbo].[tbl_settlement].[MedicalBillID] = @MedicalBillNo and " +
+                                                                 "[dbo].[tbl_settlement].[SettlementType] = 8";
+
+                        SqlCommand cmdQueryForMedProviderRefund = new SqlCommand(strSqlQueryForMedProviderRefund, connRN5);
+                        cmdQueryForMedProviderRefund.CommandType = CommandType.Text;
+
+                        cmdQueryForMedProviderRefund.Parameters.AddWithValue("@MedicalBillNo", ccPaymentMedicalBillNo);
+
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        Object objMedProviderRefund = cmdQueryForMedProviderRefund.ExecuteScalar();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        Decimal MedProviderRefund = 0;
+                        if (objMedProviderRefund != null) MedProviderRefund = Decimal.Parse(objMedProviderRefund.ToString());
+
+                        Decimal MedBillBalance = MedicalBillAmount - SettlementSum + MedProviderRefund;
+
+                        String strSqlUpdateMedBillBalance = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[Balance] = @UpdatedMedBillBalance " +
+                                                            "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                        SqlCommand cmdUpdateMedBillBalance = new SqlCommand(strSqlUpdateMedBillBalance, connRN5);
+                        cmdUpdateMedBillBalance.CommandType = CommandType.Text;
+
+                        cmdUpdateMedBillBalance.Parameters.AddWithValue("@UpdatedMedBillBalance", MedBillBalance);
+                        cmdUpdateMedBillBalance.Parameters.AddWithValue("@MedBillNo", ccPaymentMedicalBillNo);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        int nUpdatedMedBill = cmdUpdateMedBillBalance.ExecuteNonQuery();
+                        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+
+                        //MedBillBalance -= SettlementAmount;
+
+                        //String strSqlUpdateMedBillBalance = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[Balance] = @NewBalance where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                        //SqlCommand cmdUpdateMedBillBalance = new SqlCommand(strSqlUpdateMedBillBalance, connRN5);
+                        //cmdUpdateMedBillBalance.CommandType = CommandType.Text;
+
+                        //cmdUpdateMedBillBalance.Parameters.AddWithValue("@NewBalance", MedBillBalance);
+                        //cmdUpdateMedBillBalance.Parameters.AddWithValue("@MedBillNo", ccPaymentMedicalBillNo);
+
+                        //if (connRN5.State != ConnectionState.Closed)
+                        //{
+                        //    connRN5.Close();
+                        //    connRN5.Open();
+                        //}
+                        //else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        //int nMedBillUpdated = cmdUpdateMedBillBalance.ExecuteNonQuery();
+                        //if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                        if (nSettlementUpdated == 1 && nSettlementInserted == 1)
+                        {
+                            MessageBox.Show("The payment has been confirmed.", "Info");
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("The payment has not been confirmed.", "Error");
+                            return;
+                        }
+                    }
+
+                    // Save the settlement payment
+                    //String SettlementNo = gvCCPayment["SettlementNoInPaymentCreditCard", e.RowIndex].Value.ToString();
+                    //String strPaymentAmount = gvCCPayment["AmountInPaymentCreditCard", e.RowIndex].Value.ToString();
+                    //String strSettlementNotes = gvCCPayment["CreditCardPaymentNote", e.RowIndex].Value.ToString();
+                    //String IndividualId = gvCCPayment["IndividualIdInPaymentCreditCard", e.RowIndex].Value.ToString();
+                    //Decimal AmountResult = 0;
+                    //Decimal PaymentAmount = 0;
+                    //if (Decimal.TryParse(strPaymentAmount.Trim(), NumberStyles.Currency, new CultureInfo("en-US"), out AmountResult))
+                    //{
+                    //    PaymentAmount = AmountResult;
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Payment amount is invalid.", "Error");
+                    //    return;
+                    //}
+
+                    //String strSqlQueryForSettlementAmount = "select [dbo].[tbl_settlement].[Amount] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                    //SqlCommand cmdQueryForSettlementAmount = new SqlCommand(strSqlQueryForSettlementAmount, connRN5);
+                    //cmdQueryForSettlementAmount.CommandType = CommandType.Text;
+
+                    //cmdQueryForSettlementAmount.Parameters.AddWithValue("@SettlementNo", SettlementNo);
+
+                    //if (connRN5.State != ConnectionState.Closed)
+                    //{
+                    //    connRN5.Close();
+                    //    connRN5.Open();
+                    //}
+                    //else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //Object objSettlementAmount = cmdQueryForSettlementAmount.ExecuteScalar();
+                    //Decimal SettlementAmount = 0;
+                    //if (objSettlementAmount != null) SettlementAmount = Decimal.Parse(objSettlementAmount.ToString());
+                    //if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //if (PaymentAmount == SettlementAmount)
+                    //{
+                    //    String strSqlUpdateSettlementForPayment = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[Notes] = @PaymentNotes, " +
+                    //                                              "[dbo].[tbl_settlement].[IsPaid] = @PaymentConfirmed, " +
+                    //                                              "[dbo].[tbl_settlement].[PaidByID] = @PaidBy " +
+                    //                                              "where [dbo].[tbl_settlement].[Name] = @SettlementName";
+
+                    //    SqlCommand cmdUpdateSettlementForPayment = new SqlCommand(strSqlUpdateSettlementForPayment, connRN5);
+                    //    cmdUpdateSettlementForPayment.CommandType = CommandType.Text;
+
+                    //    //cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentAmount", PaymentAmount);
+                    //    cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentNotes", strSettlementNotes);
+                    //    cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentConfirmed", 1);
+                    //    cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaidBy", nLoggedUserId);
+                    //    cmdUpdateSettlementForPayment.Parameters.AddWithValue("@SettlementName", SettlementNo);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    int nSettlementUpdated = cmdUpdateSettlementForPayment.ExecuteNonQuery();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                    //}
+                    //else
+                    //{
+                    //    String strSqlUpdateSettlementAmountForPayment = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[Amount] = @AmountPaid, " +
+                    //                                                    "[dbo].[tbl_settlement].[Notes] = @PaymentNotes, " +
+                    //                                                    "[dbo].[tbl_settlement].[IsPaid] = @PaymentConfirmed, " +
+                    //                                                    "[dbo].[tbl_settlement].[PaidByID] = @PaidBy " +
+                    //                                                    "where [dbo].[tbl_settlement].[Name] = @SettlementName";
+
+                    //    SqlCommand cmdUpdateSettlementAmountForPayment = new SqlCommand(strSqlUpdateSettlementAmountForPayment, connRN5);
+                    //    cmdUpdateSettlementAmountForPayment.CommandType = CommandType.Text;
+
+                    //    cmdUpdateSettlementAmountForPayment.Parameters.AddWithValue("@AmountPaid", PaymentAmount);
+                    //    cmdUpdateSettlementAmountForPayment.Parameters.AddWithValue("@PaymentNotes", strSettlementNotes);
+                    //    cmdUpdateSettlementAmountForPayment.Parameters.AddWithValue("@PaymentConfirmed", 1);
+                    //    cmdUpdateSettlementAmountForPayment.Parameters.AddWithValue("@PaidBy", nLoggedUserId);
+                    //    cmdUpdateSettlementAmountForPayment.Parameters.AddWithValue("@SettlementName", SettlementNo);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    int nRowSettlementUpdated = cmdUpdateSettlementAmountForPayment.ExecuteNonQuery();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String strSqlQueryForMedBillNoForSettlement = "select [dbo].[tbl_settlement].[MedicalBillID] from [dbo].[tbl_settlement] " +
+                    //                                                  "where [dbo].[tbl_settlement].[Name] = @SettlementName";
+
+                    //    SqlCommand cmdQueryForMedBillIDForSettlement = new SqlCommand(strSqlQueryForMedBillNoForSettlement, connRN5);
+                    //    cmdQueryForMedBillIDForSettlement.CommandType = CommandType.Text;
+
+                    //    cmdQueryForMedBillIDForSettlement.Parameters.AddWithValue("@SettlementName", SettlementNo);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objMedBillID = cmdQueryForMedBillIDForSettlement.ExecuteScalar();
+                    //    String MedBillIDForSettlement = String.Empty;
+                    //    if (objMedBillID != null) MedBillIDForSettlement = objMedBillID.ToString();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String strSqlQueryForTotalSharedAmountForMedBill = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                    //                                                       "where [dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                    //                                                       "[dbo].[tbl_settlement].[MedicalBillID] = @MedBillID and " +
+                    //                                                       "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+                    //                                                       "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                    //                                                       "[dbo].[tbl_settlement].[SettlementType] = 9)";
+
+                    //    SqlCommand cmdQueryForTotalSharedAmountForMedBill = new SqlCommand(strSqlQueryForTotalSharedAmountForMedBill, connRN5);
+                    //    cmdQueryForTotalSharedAmountForMedBill.CommandType = CommandType.Text;
+
+                    //    cmdQueryForTotalSharedAmountForMedBill.Parameters.AddWithValue("@MedBillID", MedBillIDForSettlement);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objTotalSharedAmount = cmdQueryForTotalSharedAmountForMedBill.ExecuteScalar();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                    //    Decimal TotalSharedAmount = 0;
+                    //    if (objTotalSharedAmount != null) TotalSharedAmount = Decimal.Parse(objTotalSharedAmount.ToString());
+
+                    //    String strSqlQueryForMedicalProviderRefund = "select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                    //                                                 "where [dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                    //                                                 "[dbo].[tbl_settlement].[MedicalBillID] = @MedBillID and " +
+                    //                                                 "[dbo].[tbl_settlement].[SettlementType] = 8";
+
+                    //    SqlCommand cmdQeuryForMedicalProviderRefund = new SqlCommand(strSqlQueryForMedicalProviderRefund, connRN5);
+                    //    cmdQeuryForMedicalProviderRefund.CommandType = CommandType.Text;
+
+                    //    cmdQeuryForMedicalProviderRefund.Parameters.AddWithValue("@MedBillID", MedBillIDForSettlement);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objMedProviderRefund = cmdQeuryForMedicalProviderRefund.ExecuteScalar();
+                    //    Decimal MedProviderRefund = 0;
+                    //    if (objMedProviderRefund != null) MedProviderRefund = Decimal.Parse(objMedProviderRefund.ToString());
+
+                    //    TotalSharedAmount -= MedProviderRefund;
+
+                    //    String strSqlUpdateMedBillForNewSTotalSharedAmount = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[TotalSharedAmount] = @TotalSharedAmount " +
+                    //                                                         "where [dbo].[tbl_medbill].[BillNo] = @MedBillID";
+
+                    //    SqlCommand cmdUpdateMedBillForNewTotalSharedAmount = new SqlCommand(strSqlUpdateMedBillForNewSTotalSharedAmount, connRN5);
+                    //    cmdUpdateMedBillForNewTotalSharedAmount.CommandType = CommandType.Text;
+
+                    //    cmdUpdateMedBillForNewTotalSharedAmount.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmount);
+                    //    cmdUpdateMedBillForNewTotalSharedAmount.Parameters.AddWithValue("@MedBillID", MedBillIDForSettlement);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    int nRowMedBillUpdated = cmdUpdateMedBillForNewTotalSharedAmount.ExecuteNonQuery();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String strSqlQueryForIncidentIdForMedBill = "select [dbo].[tbl_medbill].[Incident_Id] from [dbo].[tbl_medbill] " +
+                    //                                                "where [dbo].[tbl_medbill].[BillNo] = @MedBillID";
+
+                    //    SqlCommand cmdQueryForIncidentIdForMedBill = new SqlCommand(strSqlQueryForIncidentIdForMedBill, connRN5);
+                    //    cmdQueryForIncidentIdForMedBill.CommandType = CommandType.Text;
+
+                    //    cmdQueryForIncidentIdForMedBill.Parameters.AddWithValue("@MedBillID", MedBillIDForSettlement);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objIncidentId = cmdQueryForIncidentIdForMedBill.ExecuteScalar();
+                    //    String IncidentId = String.Empty;
+                    //    if (objIncidentId != null) IncidentId = objIncidentId.ToString();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    // 01/25/19 begin here to add tbl_medbill.IsDeleted = 0 to where clause
+                    //    String strSqlQueryForIncidentSharedTotal = "select sum([dbo].[tbl_medbill].[TotalSharedAmount]) from [dbo].[tbl_medbill] " +
+                    //                                               "where [dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
+
+                    //    SqlCommand cmdQueryForIncidentSharedTotal = new SqlCommand(strSqlQueryForIncidentSharedTotal, connRN5);
+                    //    cmdQueryForIncidentSharedTotal.Parameters.AddWithValue("@IncidentId", IncidentId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objIncidentTotalSharedAmount = cmdQueryForIncidentSharedTotal.ExecuteScalar();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    Decimal IncidentTotalSharedAmount = 0;
+                    //    if (objIncidentTotalSharedAmount != null) IncidentTotalSharedAmount = Decimal.Parse(objIncidentTotalSharedAmount.ToString());
+
+                    //    String strSqlUpdateIncidentForTotalSharedAmount = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[TotalSharedAmount] = @IncidentTotalSharedAmount " +
+                    //                                                      "where [dbo].[tbl_incident].[Incidend_id] = @IncidentId";
+
+                    //    SqlCommand cmdUpdateIncidentForTotalSharedAmount = new SqlCommand(strSqlUpdateIncidentForTotalSharedAmount, connRN5);
+                    //    cmdUpdateIncidentForTotalSharedAmount.CommandType = CommandType.Text;
+
+                    //    cmdUpdateIncidentForTotalSharedAmount.Parameters.AddWithValue("@IncidentTotalSharedAmount", IncidentTotalSharedAmount);
+                    //    cmdUpdateIncidentForTotalSharedAmount.Parameters.AddWithValue("@IncidentId", IncidentId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    int nRowIncidentUpdated = cmdUpdateIncidentForTotalSharedAmount.ExecuteNonQuery();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String strSqlQueryForIllnessId = "select [dbo].[tbl_incident].[Illness_id] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[Incident_id] = @IncidentId";
+
+                    //    SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN5);
+                    //    cmdQueryForIllnessId.CommandType = CommandType.Text;
+
+                    //    cmdQueryForIllnessId.Parameters.AddWithValue("@IncidentId", IncidentId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                    //    int nIllnessId = 0;
+                    //    if (objIllnessId != null) nIllnessId = Int32.Parse(objIllnessId.ToString());
+
+                    //    String strSqlQueryForIllnessSharedTotal = "select sum([dbo].[tbl_incident].[TotalSharedAmount]) from [dbo].[tbl_incident] " +
+                    //                                              "where [dbo].[tbl_incident].[Illness_id] = @IllnessId";
+
+                    //    SqlCommand cmdQueryForIllnessSharedTotal = new SqlCommand(strSqlQueryForIllnessSharedTotal, connRN5);
+                    //    cmdQueryForIllnessSharedTotal.CommandType = CommandType.Text;
+
+                    //    cmdQueryForIllnessSharedTotal.Parameters.AddWithValue("@IllnessId", nIllnessId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objIllnessTotalSharedAmount = cmdQueryForIllnessSharedTotal.ExecuteScalar();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                    //    Decimal IllnessTotalSharedAmount = Int32.Parse(objIllnessTotalSharedAmount.ToString());
+
+                    //    String strSqlUpdateIllnessTotalSharedAmount = "update [dbo].[tbl_illness] set [dbo].[tbl_illess].[TotalSharedAmount] = @IllnessTotalSharedAmount " +
+                    //                                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+
+                    //    SqlCommand cmdUpdateIllnessTotalSharedAmount = new SqlCommand(strSqlUpdateIllnessTotalSharedAmount, connRN5);
+                    //    cmdUpdateIllnessTotalSharedAmount.CommandType = CommandType.Text;
+
+                    //    cmdUpdateIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessTotalSharedAmount", IllnessTotalSharedAmount);
+                    //    cmdUpdateIllnessTotalSharedAmount.Parameters.AddWithValue("@IllnessId", nIllnessId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    int nRowIllnessUpdated = cmdUpdateIllnessTotalSharedAmount.ExecuteNonQuery();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String strSqlQueryForIndividualID = "select [dbo].[tbl_illness].[Individual_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+
+                    //    SqlCommand cmdQueryForIndividualID = new SqlCommand(strSqlQueryForIndividualID, connRN5);
+                    //    cmdQueryForIndividualID.Parameters.AddWithValue("@IllnessId", nIllnessId);
+
+                    //    if (connRN5.State != ConnectionState.Closed)
+                    //    {
+                    //        connRN5.Close();
+                    //        connRN5.Open();
+                    //    }
+                    //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //    Object objIndividualID = cmdQueryForIndividualID.ExecuteScalar();
+                    //    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //    String IndividualIdQueried = String.Empty;
+                    //    if (objIndividualID != null) IndividualIdQueried = objIndividualID.ToString();
+
+                    //    if (IndividualId.Trim() == IndividualIdQueried.Trim())
+                    //    {
+                    //        String strSqlQueryForIndividualTotalSharedAmount = "select sum([dbo].[tbl_illness].[TotalSharedAmount]) from [dbo].[tbl_illness] " +
+                    //                                                           "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+                    //        SqlCommand cmdQueryForIndividualTotalSharedAmount = new SqlCommand(strSqlQueryForIndividualTotalSharedAmount, connRN5);
+                    //        cmdQueryForIndividualTotalSharedAmount.CommandType = CommandType.Text;
+
+                    //        cmdQueryForIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                    //        if (connRN5.State != ConnectionState.Closed)
+                    //        {
+                    //            connRN5.Close();
+                    //            connRN5.Open();
+                    //        }
+                    //        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    //        Object objIndividualTotalSharedAmount = cmdQueryForIndividualTotalSharedAmount.ExecuteScalar();
+                    //        if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                    //        Decimal IndividualTotalSharedAmount = 0;
+                    //        if (objIndividualTotalSharedAmount != null) IndividualTotalSharedAmount = Decimal.Parse(objIndividualTotalSharedAmount.ToString());
+
+                    //        String strSqlUpdateIndividualTotalSharedAmount = "update [dbo].[contact] set [dbo].[contact].[TotalSharedAmount] = @IndividualTotalSharedAmount " +
+                    //                                                         "[dbo].[contact].[Individual_ID__c] = @IndivudalId";
+
+                    //        SqlCommand cmdUpdateIndividualTotalSharedAmount = new SqlCommand(strSqlUpdateIndividualTotalSharedAmount, connSalesforce);
+                    //        cmdUpdateIndividualTotalSharedAmount.CommandType = CommandType.Text;
+
+                    //        cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualTotalSharedAmount", IndividualTotalSharedAmount);
+                    //        cmdUpdateIndividualTotalSharedAmount.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                    //        if (connSalesforce.State != ConnectionState.Closed)
+                    //        {
+                    //            connSalesforce.Close();
+                    //            connSalesforce.Open();
+                    //        }
+                    //        else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    //        int nRowIndividualUpdated = cmdUpdateIndividualTotalSharedAmount.ExecuteNonQuery();
+                    //        if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+
+                    //    }
+                    //}
+                }
+                else if (dlgResult == DialogResult.Cancel) return;      // The user choose to cancel. return to credit card payment tab
+
+            }
+        }
+
+        private void gvPaymentCreditCard_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView gvCCPayment = sender as DataGridView;
+
+            if (e.ColumnIndex == 20)
+            {
+                String SettlementNo = gvCCPayment["SettlementNoInPaymentCreditCard", e.RowIndex].Value.ToString();
+                String SettlementNote = String.Empty;
+                if (gvCCPayment["CreditCardPaymentNote", e.RowIndex]?.Value != null) SettlementNote = gvCCPayment["CreditCardPaymentNote", e.RowIndex].Value.ToString();
+
+                frmSettlementNote frmNote = new frmSettlementNote(SettlementNo, SettlementNote);
+
+                DialogResult dlgResult = frmNote.ShowDialog();
+
+                if (dlgResult == DialogResult.OK)
+                {
+                    // Save the Settlement Note
+                    String strSettlementNo = frmNote.SettlementNo;
+                    String strSettlementNote = frmNote.SettlementNote;
+
+                    String strSqlUpdateSettlementNote = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[Notes] = @Notes where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                    SqlCommand cmdUpdateSettlementNote = new SqlCommand(strSqlUpdateSettlementNote, connRN5);
+                    cmdUpdateSettlementNote.CommandType = CommandType.Text;
+
+                    cmdUpdateSettlementNote.Parameters.AddWithValue("@Notes", strSettlementNote);
+                    cmdUpdateSettlementNote.Parameters.AddWithValue("@SettlementNo", strSettlementNo);
+
+                    if (connRN5.State != ConnectionState.Closed)
+                    {
+                        connRN5.Close();
+                        connRN5.Open();
+                    }
+                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    int nRowUpdated = cmdUpdateSettlementNote.ExecuteNonQuery();
+                    if (nRowUpdated == 1) MessageBox.Show("The Settlement Note has been saved.", "Info");
+                    else MessageBox.Show("The Settlement Note has not been saved.", "Error");
+                    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+
+                }
+                else return;
+            }
+        }
+
+        private void gvPaymentACH_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+            Boolean bAllACHSelected = true;
+
+            if (e.ColumnIndex == 0)
+            {
+                for (int i = 0; i < gvPaymentACH.Rows.Count; i++)
+                {
+                    if (Boolean.Parse(gvPaymentACH["SelectedACHPayment", i].Value.ToString()) == false) bAllACHSelected = false;
+                }
+                if (bAllACHSelected == false)
+                {
+                    for (int i = 0; i < gvPaymentACH.Rows.Count; i++)
+                    {
+                        gvPaymentACH["SelectedACHPayment", i].Value = true;
+                    }
+                }
+                else if (bAllACHSelected == true)
+                {
+                    for (int i = 0; i < gvPaymentACH.Rows.Count; i++)
+                    {
+                        gvPaymentACH["SelectedACHPayment", i].Value = false;
+                    }
+                }
+            }
+        }
+
+        private void gvPaymentACH_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                if (Boolean.Parse(gvPaymentACH[e.ColumnIndex, e.RowIndex].Value.ToString()) == true)
+                {
+                    gvPaymentACH[e.ColumnIndex, e.RowIndex].Value = false;
+                    return;
+                }
+                else
+                {
+                    gvPaymentACH[e.ColumnIndex, e.RowIndex].Value = true;
+                    return;
+                }
+            }
+        }
+
+        private void gvPaymentCheck_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Boolean bAllCheckPaymentSelected = true;
+
+            if (e.ColumnIndex == 0)
+            {
+                for (int i = 0; i < gvPaymentCheck.Rows.Count; i++)
+                {
+                    if (Boolean.Parse(gvPaymentCheck["SelectedPaymentCheck", i].Value.ToString()) == false) bAllCheckPaymentSelected = false;
+                }
+
+                if (bAllCheckPaymentSelected == false)
+                {
+                    for (int i = 0; i < gvPaymentCheck.Rows.Count; i++)
+                    {
+                        gvPaymentCheck["SelectedPaymentCheck", i].Value = true;
+                    }
+                }
+                else if (bAllCheckPaymentSelected == true)
+                {
+                    for (int i = 0; i < gvPaymentCheck.Rows.Count; i++)
+                    {
+                        gvPaymentCheck["SelectedPaymentCheck", i].Value = false;
+                    }
+                }
+            }
+        }
+
+        private void gvPaymentCheck_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                if (Boolean.Parse(gvPaymentCheck[e.ColumnIndex, e.RowIndex].Value.ToString()) == true)
+                {
+                    gvPaymentCheck[e.ColumnIndex, e.RowIndex].Value = false;
+                    return;
+                }
+                else
+                {
+                    gvPaymentCheck[e.ColumnIndex, e.RowIndex].Value = true;
+                    return;
+                }
+            }
+        }
+
+        private void cbReimbursementMethod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbReimbursementMethod.SelectedIndex == 0)
+            {
+                txtBankName.Text = String.Empty;
+                txtBankName.ReadOnly = true;
+                txtBankRoutingNo.Text = String.Empty;
+                txtBankRoutingNo.ReadOnly = true;
+                txtAccountNo.Text = String.Empty;
+                txtAccountNo.ReadOnly = true;
+                txtAccountHolder.Text = String.Empty;
+                txtAccountHolder.ReadOnly = true;
+            }
+            else if (cbReimbursementMethod.SelectedIndex == 1)
+            {
+                txtBankName.ReadOnly = false;
+                if (IndividualBankInfo.BankName != String.Empty) txtBankName.Text = IndividualBankInfo.BankName;
+                txtBankRoutingNo.ReadOnly = false;
+                if (IndividualBankInfo.BankRoutingNumber != String.Empty) txtBankRoutingNo.Text = IndividualBankInfo.BankRoutingNumber;
+                txtAccountNo.ReadOnly = false;
+                if (IndividualBankInfo.AccountNumber != String.Empty) txtAccountNo.Text = IndividualBankInfo.AccountNumber;
+                txtAccountHolder.ReadOnly = false;
+                if (IndividualBankInfo.AccountHolder != String.Empty) txtAccountHolder.Text = IndividualBankInfo.AccountHolder;
+            }
+        }
+
+        private void btnACHExport_Click(object sender, EventArgs e)
+        {
+            List<ACHPaymentExportInfo> lstACHPaymentExport = new List<ACHPaymentExportInfo>();
+
+            for (int i = 0; i < gvPaymentACH.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvPaymentACH["SelectedACHPayment", i].Value.ToString()) == true)
+                {
+                    String ACHPaymentBankAccountHolderName = String.Empty;
+                    if (gvPaymentACH["AccountHolderPaymentACH", i].Value != null) ACHPaymentBankAccountHolderName = gvPaymentACH["AccountHolderPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Bank account holder's name is empty.", "Error");
+                        return;
+                    }
+
+                    String ACHPaymentIndividualId = String.Empty;
+                    if (gvPaymentACH["IndividualIdPaymentACH", i].Value != null) ACHPaymentIndividualId = gvPaymentACH["IndividualIdPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Individual Id is empty.", "Error");
+                        return;
+                    }
+
+                    String ACHPaymentIndividualName = String.Empty;
+                    if (gvPaymentACH["IndividualNamePaymentACH", i].Value != null) ACHPaymentIndividualName = gvPaymentACH["IndividualNamePaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Individual name is empty.", "Error");
+                    }
+
+                    String ACHPaymentSettlementNo = String.Empty;
+                    if (gvPaymentACH["SettlementNoPaymentACH", i].Value != null) ACHPaymentSettlementNo = gvPaymentACH["SettlementNoPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Settlement No is empty.", "Error");
+                        return;
+                    }
+
+                    String Amount = String.Empty;
+                    if (gvPaymentACH["AmountPaymentACH", i].Value != null) Amount = gvPaymentACH["AmountPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Amount is empty.", "Error");
+                        return;
+                    }
+                    Decimal ACHPaymentAmount = 0;
+                    Decimal ACHAmountResult = 0;
+
+                    if (Decimal.TryParse(Amount, NumberStyles.Currency, new CultureInfo("en-US"), out ACHAmountResult))
+                    {
+                        ACHPaymentAmount = ACHAmountResult;
+                    }
+                    else
+                    {
+                        MessageBox.Show("ACH Amount is invalid.", "Error");
+                        return;
+                    }
+
+                    String ACHPaymentRoutingNo = String.Empty;
+                    if (gvPaymentACH["RoutingNoPaymentACH", i].Value != null) ACHPaymentRoutingNo = gvPaymentACH["RoutingNoPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Routing number is empty.", "Error");
+                        return;
+                    }
+
+                    String ACHPaymentAccountNo = String.Empty;
+                    if (gvPaymentACH["AccountNoPaymentACH", i].Value != null) ACHPaymentAccountNo = gvPaymentACH["AccountNoPaymentACH", i].Value.ToString();
+                    else
+                    {
+                        MessageBox.Show("Account numbre is empty", "Error");
+                        return;
+                    }
+
+                    ACHPaymentExportInfo ach_Info = new ACHPaymentExportInfo();
+                    ach_Info.BankAccountHolderName = ACHPaymentIndividualName;
+                    ach_Info.IndividualId = ACHPaymentIndividualId;
+                    ach_Info.IndividualName = ACHPaymentIndividualName;
+                    ach_Info.SettlementNumber = ACHPaymentSettlementNo;
+                    ach_Info.Amount = ACHPaymentAmount;
+                    ach_Info.RoutingNumber = ACHPaymentRoutingNo;
+                    ach_Info.AccountNumber = ACHPaymentAccountNo;
+
+                    lstACHPaymentExport.Add(ach_Info);
+                }
+            }
+
+            List<String> lstIndividualIDs = new List<String>();
+            lstIndividualIDs = lstACHPaymentExport.Select(x => x.IndividualId).Distinct().ToList();
+
+            List<ACHPaymentExportInfo> lstACHPaymentExportDistinctIndividual = new List<ACHPaymentExportInfo>();
+
+            foreach (String IndvidualId in lstIndividualIDs)
+            {
+                ACHPaymentExportInfo exportInfo = new ACHPaymentExportInfo();
+                exportInfo.IndividualId = IndvidualId;
+                foreach (ACHPaymentExportInfo info in lstACHPaymentExport)
+                {
+                    if (exportInfo.IndividualId == info.IndividualId)
+                    {
+                        exportInfo.BankAccountHolderName = info.BankAccountHolderName;
+                        exportInfo.IndividualName = info.IndividualName;
+                        exportInfo.SettlementNumber += info.SettlementNumber + "; ";
+                        exportInfo.Amount += info.Amount;
+                        exportInfo.RoutingNumber = info.RoutingNumber;
+                        exportInfo.AccountNumber = info.AccountNumber;
+                    }
+                }
+                lstACHPaymentExportDistinctIndividual.Add(exportInfo);
+            }
+
+            foreach (ACHPaymentExportInfo info in lstACHPaymentExportDistinctIndividual)
+            {
+                info.Description += " - " + info.IndividualName + " - " + info.SettlementNumber;
+            }
+
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.FileName = DateTime.Today.ToString("MMddyyyy");
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Text documents (.txt)|*.txt";
+
+
+            DialogResult result = dlg.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    using (FileStream fs = File.Create(dlg.FileName))
+                    {
+                        Byte[] heading = new UTF8Encoding(true).GetBytes("BANK HOLDER'S NAME\t\tAMOUNT\tROUTING NUMBER\tACCOUNT NUMBER\tDESCRIPTION" + Environment.NewLine);
+                        fs.Write(heading, 0, heading.Length);
+                        foreach (ACHPaymentExportInfo info in lstACHPaymentExportDistinctIndividual)
+                        {
+                            StringBuilder sbSettlement = new StringBuilder();
+                            sbSettlement.Append(info.IndividualName + '\t');
+                            sbSettlement.Append(info.IndividualId + '\t');
+                            sbSettlement.Append(info.Amount.ToString() + '\t');
+                            sbSettlement.Append(info.RoutingNumber + '\t');
+                            sbSettlement.Append(info.AccountNumber + '\t');
+                            sbSettlement.Append(info.Description + Environment.NewLine);
+                            Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+
+                            fs.Write(settlement, 0, settlement.Length);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+                foreach (ACHPaymentExportInfo info in lstACHPaymentExport)
+                {
+                    String strSqlUpdateSettlementPaid = "update [dbo].[tbl_settlement] set [dbo].[tbl_settlement].[IsPaid] = 1, [dbo].[tbl_settlement].[PaidByID] = @PaidByID " +
+                                                        "where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                    SqlCommand cmdUpdateSettlementPaid = new SqlCommand(strSqlUpdateSettlementPaid, connRN5);
+                    cmdUpdateSettlementPaid.CommandType = CommandType.Text;
+
+                    cmdUpdateSettlementPaid.Parameters.AddWithValue("@PaidByID", nLoggedUserId);
+                    cmdUpdateSettlementPaid.Parameters.AddWithValue("@SettlementNo", info.SettlementNumber);
+
+                    if (connRN5.State != ConnectionState.Closed)
+                    {
+                        connRN5.Close();
+                        connRN5.Open();
+                    }
+                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    int nSettlementUpdated = cmdUpdateSettlementPaid.ExecuteNonQuery();
+                    if (connRN5.State == ConnectionState.Open) connRN5.Close();
+                }
+            }
+        }
+
+        private void btnConfirmCheckPayment_Click(object sender, EventArgs e)
+        {
+            frmConfirmCheckPayment frmConfirm = new frmConfirmCheckPayment();
+
+            frmConfirm.ShowDialog();
+        }
     }
 
-    //public class ApprovedSettlementInfo
-    //{
-    //    public String FullName;
-    //    public String FirstName;
-    //    public String MiddleName;
-    //    public String LastName;
-    //    public HouseholdRole householdRole;
-    //    public String IndividualId;
-    //    public String PrimaryName;
-    //    public PaymentMethodExport CMMPaymentMethod;
-    //    public ProgramNameExport ProgramName;
-    //    public ProgramNameExport IncidentProgram;
-    //    public DateTime MembershipStartDate;
-    //    public String MembershipNo;
-    //    public DateTime IBReceivedDate;
-    //    public DateTime ServiceDate;
-    //    public String MedicalProvider;
-    //    public String AccountNoAtMedProvider;
-    //    public String AccountShippingStreet;
-    //    public String AccountShippingCity;
-    //    public String AccountShippingState;
-    //    public String AccountShppingZip;
-    //    public Decimal Amount;
-    //    public PaymentTypeExport PaymentType;
-    //    public String MedBillName;
-    //    public String SettlementName;
-    //    public Decimal WellBeingCareShared;
-    //    public String ICD10CodeDescription;
-    //    public String CreatedBy;
-    //    public String LastModifiedBy;
-    //    public String MembershipStatus;
-    //    public Boolean Approved;
+    public class BankInfo
+    {
+        public String BankName;
+        public String BankRoutingNumber;
+        public String AccountNumber;
+        public String AccountHolder;
 
-    //    public ApprovedSettlementInfo()
-    //    {
-
-    //    }
-    //}
+        public BankInfo()
+        {
+            BankName = String.Empty;
+            BankRoutingNumber = String.Empty;
+            AccountNumber = String.Empty;
+            AccountHolder = String.Empty;
+        }
+    }
 
     public class ApprovedSettlementInfo
     {
@@ -31059,6 +33306,199 @@ namespace CMMManager
         }
     }
 
+    public class CheckPaymentInfo
+    {
+        public Boolean bIsPaid;
+        public String IndividualName;
+        public String IndividualId;
+        public String HouseholdRole;
+        public String PrimaryName;
+        public String IncidentNo;
+        public String ProgramName;
+        public String IncidentProgram;
+        public String MedicalBillNo;
+        public Decimal MedicalBillAmount;
+        public DateTime? ServiceDate;
+        public String SettlementNo;
+        public Decimal SettlementAmount;
+        public String MedicalProviderName;
+        public String AccountNoAtMedProvider;
+        public String ShippingStreet;
+        public String ShippingCity;
+        public String ShippingState;
+        public String ShippingZip;
+        public String SettlementType;
+        public String CreatedBy;
+        public String LastModifiedBy;
+        public String MembershipStatus;
+        public String MemebershipNo;
+
+        public CheckPaymentInfo()
+        {
+            bIsPaid = false;
+            IndividualName = String.Empty;
+            IndividualId = String.Empty;
+            HouseholdRole = String.Empty;
+            PrimaryName = String.Empty;
+            IncidentNo = String.Empty;
+            ProgramName = String.Empty;
+            IncidentProgram = String.Empty;
+            MedicalBillNo = String.Empty;
+            MedicalBillAmount = 0;
+            ServiceDate = null;
+            SettlementNo = String.Empty;
+            SettlementAmount = 0;
+            MedicalProviderName = String.Empty;
+            AccountNoAtMedProvider = String.Empty;
+            ShippingStreet = String.Empty;
+            ShippingCity = String.Empty;
+            ShippingState = String.Empty;
+            ShippingZip = String.Empty;
+            SettlementType = String.Empty;
+            CreatedBy = String.Empty;
+            LastModifiedBy = String.Empty;
+            MembershipStatus = String.Empty;
+            MemebershipNo = String.Empty;
+        }
+    }
+
+    public class ACHPaymentInfo
+    {
+        public Boolean bIsPaid;
+        public String IndividualName;
+        public String IndividualId;
+        public String MedicalBillNo;
+        public String SettlementNo;
+        public Decimal SettlementAmount;
+        public String BankName;
+        public String RoutingNumber;
+        public String AccountNumber;
+        public String AccountHolder;
+        public String CreateStaffName;
+        public String ModifiStaffName;
+        public String MembershipStatus;
+
+        public ACHPaymentInfo()
+        {
+            bIsPaid = false;
+            IndividualName = String.Empty;
+            IndividualId = String.Empty;
+            MedicalBillNo = String.Empty;
+            SettlementNo = String.Empty;
+            SettlementAmount = 0;
+            BankName = String.Empty;
+            RoutingNumber = String.Empty;
+            AccountNumber = String.Empty;
+            AccountHolder = String.Empty;
+            CreateStaffName = String.Empty;
+            ModifiStaffName = String.Empty;
+            MembershipStatus = String.Empty;
+        }
+    }
+
+    public class ACHPaymentExportInfo
+    {
+        public String BankAccountHolderName;
+        public String IndividualId;
+        public String IndividualName;
+        public String SettlementNumber;
+        public Decimal Amount;
+        public String RoutingNumber;
+        public String AccountNumber;
+        public String Description;
+
+        public ACHPaymentExportInfo()
+        {
+            BankAccountHolderName = String.Empty;
+            IndividualId = String.Empty;
+            IndividualName = String.Empty;
+            SettlementNumber = String.Empty;
+            Amount = 0;
+            RoutingNumber = String.Empty;
+            AccountNumber = String.Empty;
+            Description = "CMM NEEDS SHARED";
+        }
+    }
+
+    public class CreditCardPaymentInfo
+    {
+        public Boolean bIsPaid;
+        public String IndividualName;
+        public String MedicalProviderName;
+        public String MedicalProviderPhone;
+        public String AccountNoAtProvider;
+        public DateTime? IndividualBirthDate;
+        public String SocialSecurityNumber;
+        public String Sex;
+        public String PrimaryName;
+        public String MailingStreet;
+        public String MailingCity;
+        public String MailingState;
+        public String MailingZip;
+        public DateTime? ServiceDate;
+        public String MedicalBillNo;
+        public Decimal MedBillAmount;
+        public String SettlementName;
+        public Decimal SettlementAmount;
+        public String MembershipStatus;
+        public String SettlementNote;
+        public String CreateStaffName;
+        public String ModifyStaffName;
+        public String IndividualID;
+        public String MembershipNumber;
+
+        public CreditCardPaymentInfo()
+        {
+            bIsPaid = false;
+            IndividualName = String.Empty;
+            MedicalProviderName = String.Empty;
+            MedicalProviderPhone = String.Empty;
+            AccountNoAtProvider = String.Empty;
+            SocialSecurityNumber = String.Empty;
+            Sex = String.Empty;
+            PrimaryName = String.Empty;
+            MailingStreet = String.Empty;
+            MailingCity = String.Empty;
+            MailingState = String.Empty;
+            MailingZip = String.Empty;
+            MedicalBillNo = String.Empty;
+            MedBillAmount = 0;
+            SettlementName = String.Empty;
+            SettlementAmount = 0;
+            MembershipStatus = String.Empty;
+            SettlementNote = String.Empty;
+            CreateStaffName = String.Empty;
+            ModifyStaffName = String.Empty;
+            IndividualID = String.Empty;
+            MembershipNumber = String.Empty;            
+        }
+    }
+
+    public class InactivePaymentInfo
+    {
+        public Boolean bIsPaid;
+        public String IndividualId;
+        public String IndividualName;
+        public String SettlementNo;
+        public String MembershipNo;
+        public String MembershipStatus;
+        public String State;
+        public String Email;
+        public String Phone;
+
+        public InactivePaymentInfo()
+        {
+            bIsPaid = false;
+            IndividualId = String.Empty;
+            IndividualName = String.Empty;
+            SettlementNo = String.Empty;
+            MembershipNo = String.Empty;
+            MembershipStatus = String.Empty;
+            State = String.Empty;
+            Email = String.Empty;
+            Phone = String.Empty;
+        }
+    }
     ///////////////////////////////////////////////////////////////////////////
     // DateTimePickerColumn for DataGridView
 
