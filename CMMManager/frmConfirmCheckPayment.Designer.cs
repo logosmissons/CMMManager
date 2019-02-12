@@ -33,17 +33,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dtpCheckDate = new System.Windows.Forms.DateTimePicker();
             this.txtStartingCheckNo = new System.Windows.Forms.TextBox();
-            this.btnConfirm = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(62, 39);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(91, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(314, 29);
+            this.label1.Size = new System.Drawing.Size(283, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Check Payment Confimation";
             // 
@@ -82,23 +82,25 @@
             this.txtStartingCheckNo.Size = new System.Drawing.Size(100, 22);
             this.txtStartingCheckNo.TabIndex = 4;
             // 
-            // btnConfirm
+            // btnOK
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(222, 167);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(94, 32);
-            this.btnConfirm.TabIndex = 5;
-            this.btnConfirm.Text = "Confirm";
-            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnOK.Location = new System.Drawing.Point(107, 158);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(104, 33);
+            this.btnOK.TabIndex = 5;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(337, 167);
+            this.btnCancel.Location = new System.Drawing.Point(251, 158);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(94, 32);
+            this.btnCancel.Size = new System.Drawing.Size(104, 33);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmConfirmCheckPayment
             // 
@@ -106,7 +108,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(459, 226);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnConfirm);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtStartingCheckNo);
             this.Controls.Add(this.dtpCheckDate);
             this.Controls.Add(this.label3);
@@ -126,7 +128,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtpCheckDate;
         private System.Windows.Forms.TextBox txtStartingCheckNo;
-        private System.Windows.Forms.Button btnConfirm;
+        private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
     }
 }

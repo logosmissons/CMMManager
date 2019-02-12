@@ -667,6 +667,7 @@
             this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label93 = new System.Windows.Forms.Label();
             this.tbpgACH = new System.Windows.Forms.TabPage();
+            this.btnConfirmACH = new System.Windows.Forms.Button();
             this.btnACHExport = new System.Windows.Forms.Button();
             this.gvPaymentACH = new System.Windows.Forms.DataGridView();
             this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -681,6 +682,7 @@
             this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsACHExportedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label108 = new System.Windows.Forms.Label();
             this.tbpgCreditCard = new System.Windows.Forms.TabPage();
             this.label94 = new System.Windows.Forms.Label();
@@ -837,7 +839,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.btnConfirmACH = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
@@ -6689,7 +6690,7 @@
             this.gvPaymentCheck.Name = "gvPaymentCheck";
             this.gvPaymentCheck.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentCheck.TabIndex = 1;
-            this.gvPaymentCheck.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheck_CellClick);
+            this.gvPaymentCheck.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheck_CellContentClick);
             this.gvPaymentCheck.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheck_ColumnHeaderMouseDoubleClick);
             // 
             // SelectedPaymentCheck
@@ -6823,9 +6824,19 @@
             this.tbpgACH.Text = "ACH";
             this.tbpgACH.UseVisualStyleBackColor = true;
             // 
+            // btnConfirmACH
+            // 
+            this.btnConfirmACH.Location = new System.Drawing.Point(1608, 674);
+            this.btnConfirmACH.Name = "btnConfirmACH";
+            this.btnConfirmACH.Size = new System.Drawing.Size(118, 32);
+            this.btnConfirmACH.TabIndex = 4;
+            this.btnConfirmACH.Text = "Confirm";
+            this.btnConfirmACH.UseVisualStyleBackColor = true;
+            this.btnConfirmACH.Click += new System.EventHandler(this.btnConfirmACH_Click);
+            // 
             // btnACHExport
             // 
-            this.btnACHExport.Location = new System.Drawing.Point(1450, 674);
+            this.btnACHExport.Location = new System.Drawing.Point(1472, 674);
             this.btnACHExport.Name = "btnACHExport";
             this.btnACHExport.Size = new System.Drawing.Size(118, 32);
             this.btnACHExport.TabIndex = 3;
@@ -6850,13 +6861,14 @@
             this.AccountHolderPaymentACH,
             this.CreatedByPaymentACH,
             this.LastModifiedByPaymentACH,
-            this.MembershipStatusPaymentACH});
+            this.MembershipStatusPaymentACH,
+            this.IsACHExportedACHPayment});
             this.gvPaymentACH.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvPaymentACH.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentACH.Name = "gvPaymentACH";
             this.gvPaymentACH.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentACH.TabIndex = 2;
-            this.gvPaymentACH.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellClick);
+            this.gvPaymentACH.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellContentClick);
             this.gvPaymentACH.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentACH_ColumnHeaderMouseDoubleClick);
             // 
             // SelectedACHPayment
@@ -6926,6 +6938,13 @@
             // 
             this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
             this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
+            // 
+            // IsACHExportedACHPayment
+            // 
+            this.IsACHExportedACHPayment.HeaderText = "Exported";
+            this.IsACHExportedACHPayment.Name = "IsACHExportedACHPayment";
+            this.IsACHExportedACHPayment.ReadOnly = true;
+            this.IsACHExportedACHPayment.Width = 80;
             // 
             // label108
             // 
@@ -8019,15 +8038,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // btnConfirmACH
-            // 
-            this.btnConfirmACH.Location = new System.Drawing.Point(1608, 674);
-            this.btnConfirmACH.Name = "btnConfirmACH";
-            this.btnConfirmACH.Size = new System.Drawing.Size(118, 32);
-            this.btnConfirmACH.TabIndex = 4;
-            this.btnConfirmACH.Text = "Confirm";
-            this.btnConfirmACH.UseVisualStyleBackColor = true;
-            // 
             // frmCMMManager
             // 
             this.AcceptButton = this.btnSearch;
@@ -8915,18 +8925,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
         private System.Windows.Forms.Label label95;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
         private System.Windows.Forms.TextBox txtAccountNo;
         private System.Windows.Forms.Label label99;
         private System.Windows.Forms.TextBox txtAccountHolder;
@@ -8957,6 +8955,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
         private System.Windows.Forms.Button btnConfirmACH;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsACHExportedACHPayment;
     }
 }
 

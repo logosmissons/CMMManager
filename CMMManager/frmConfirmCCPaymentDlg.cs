@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CMMManager
 {
-    public partial class frmConfirmPaymentDlg : Form
+    public partial class frmConfirmCCPaymentDlg : Form
     {
 
         private String IndividualId;
@@ -31,12 +31,12 @@ namespace CMMManager
             set { Comment = value; }
         }
 
-        public frmConfirmPaymentDlg()
+        public frmConfirmCCPaymentDlg()
         {
             InitializeComponent();
         }
 
-        public frmConfirmPaymentDlg(String individual_id,
+        public frmConfirmCCPaymentDlg(String individual_id,
                             String individual_name,
                             String medical_provider,
                             String med_bill_no,
@@ -60,7 +60,7 @@ namespace CMMManager
             Comment = note;
         }
 
-        public frmConfirmPaymentDlg(String individual_id, 
+        public frmConfirmCCPaymentDlg(String individual_id, 
                                     String individual_name, 
                                     String medical_provider,
                                     String med_bill_no, 
@@ -86,6 +86,7 @@ namespace CMMManager
 
         private void btnYes_Click(object sender, EventArgs e)
         {
+            Note = txtSettlementNote.Text.Trim();
             DialogResult = DialogResult.Yes;
             return;
         }

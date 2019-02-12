@@ -1,6 +1,6 @@
 ﻿namespace CMMManager
 {
-    partial class frmConfirmPaymentDlg
+    partial class frmConfirmCCPaymentDlg
     {
         /// <summary>
         /// Required designer variable.
@@ -69,7 +69,7 @@
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(104, 33);
             this.btnYes.TabIndex = 1;
-            this.btnYes.Text = "Yes";
+            this.btnYes.Text = "OK";
             this.btnYes.UseVisualStyleBackColor = true;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
             // 
@@ -254,7 +254,7 @@
             this.label11.TabIndex = 26;
             this.label11.Text = "Note";
             // 
-            // frmConfirmPaymentDlg
+            // frmConfirmCCPaymentDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -282,8 +282,8 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.label1);
-            this.Name = "frmConfirmPaymentDlg";
-            this.Text = "Payment Confirmation";
+            this.Name = "frmConfirmCCPaymentDlg";
+            this.Text = "Credit Card Payment Confirmation";
             this.Load += new System.EventHandler(this.frmConfirmPaymentDlg_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
