@@ -644,27 +644,6 @@
             this.tbpgCheck = new System.Windows.Forms.TabPage();
             this.btnConfirmCheckPayment = new System.Windows.Forms.Button();
             this.gvPaymentCheck = new System.Windows.Forms.DataGridView();
-            this.SelectedPaymentCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IndividualNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualIdPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrimaryNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOfServicePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStreetPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingCityPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingZipPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementTypePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStatusPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label93 = new System.Windows.Forms.Label();
             this.tbpgACH = new System.Windows.Forms.TabPage();
             this.btnConfirmACH = new System.Windows.Forms.Button();
@@ -839,6 +818,27 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.SelectedPaymentCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IndividualNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrimaryNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOfServicePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStreetPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingCityPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingZipPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
@@ -6693,113 +6693,6 @@
             this.gvPaymentCheck.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheck_CellContentClick);
             this.gvPaymentCheck.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheck_ColumnHeaderMouseDoubleClick);
             // 
-            // SelectedPaymentCheck
-            // 
-            this.SelectedPaymentCheck.HeaderText = "Selected";
-            this.SelectedPaymentCheck.Name = "SelectedPaymentCheck";
-            this.SelectedPaymentCheck.Width = 80;
-            // 
-            // IndividualNamePaymentCheck
-            // 
-            this.IndividualNamePaymentCheck.HeaderText = "Individual Name";
-            this.IndividualNamePaymentCheck.Name = "IndividualNamePaymentCheck";
-            // 
-            // IndividualIdPaymentCheck
-            // 
-            this.IndividualIdPaymentCheck.HeaderText = "Individual Id";
-            this.IndividualIdPaymentCheck.Name = "IndividualIdPaymentCheck";
-            // 
-            // HouseholdRolePaymentCheck
-            // 
-            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
-            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
-            // 
-            // PrimaryNamePaymentCheck
-            // 
-            this.PrimaryNamePaymentCheck.HeaderText = "Primary Name";
-            this.PrimaryNamePaymentCheck.Name = "PrimaryNamePaymentCheck";
-            // 
-            // IncidentNoPaymentCheck
-            // 
-            this.IncidentNoPaymentCheck.HeaderText = "Incident No";
-            this.IncidentNoPaymentCheck.Name = "IncidentNoPaymentCheck";
-            // 
-            // IncidentProgramNamePaymentCheck
-            // 
-            this.IncidentProgramNamePaymentCheck.HeaderText = "Incident Program";
-            this.IncidentProgramNamePaymentCheck.Name = "IncidentProgramNamePaymentCheck";
-            // 
-            // SettlementNoPaymentCheck
-            // 
-            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
-            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
-            // 
-            // AmountPaymentCheck
-            // 
-            this.AmountPaymentCheck.HeaderText = "Amount";
-            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
-            // 
-            // DateOfServicePaymentCheck
-            // 
-            this.DateOfServicePaymentCheck.HeaderText = "Service Date";
-            this.DateOfServicePaymentCheck.Name = "DateOfServicePaymentCheck";
-            // 
-            // MedProviderPaymentCheck
-            // 
-            this.MedProviderPaymentCheck.HeaderText = "Medical Provider";
-            this.MedProviderPaymentCheck.Name = "MedProviderPaymentCheck";
-            // 
-            // AccountNamePaymentCheck
-            // 
-            this.AccountNamePaymentCheck.HeaderText = "Account Name";
-            this.AccountNamePaymentCheck.Name = "AccountNamePaymentCheck";
-            // 
-            // ShippingStreetPaymentCheck
-            // 
-            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
-            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
-            // 
-            // ShippingCityPaymentCheck
-            // 
-            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
-            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
-            // 
-            // ShippingStatePaymentCheck
-            // 
-            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
-            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
-            // 
-            // ShippingZipPaymentCheck
-            // 
-            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
-            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
-            // 
-            // SettlementTypePaymentCheck
-            // 
-            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
-            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
-            // 
-            // CreatedByPaymentCheck
-            // 
-            this.CreatedByPaymentCheck.HeaderText = "Created By";
-            this.CreatedByPaymentCheck.Name = "CreatedByPaymentCheck";
-            // 
-            // LastModifiedByPaymentCheck
-            // 
-            this.LastModifiedByPaymentCheck.HeaderText = "Last Modified By";
-            this.LastModifiedByPaymentCheck.Name = "LastModifiedByPaymentCheck";
-            this.LastModifiedByPaymentCheck.Width = 120;
-            // 
-            // MembershipStatusPaymentCheck
-            // 
-            this.MembershipStatusPaymentCheck.HeaderText = "Membership Status";
-            this.MembershipStatusPaymentCheck.Name = "MembershipStatusPaymentCheck";
-            // 
-            // MembershipNoPaymentCheck
-            // 
-            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
-            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
-            // 
             // label93
             // 
             this.label93.AutoSize = true;
@@ -8038,6 +7931,115 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // SelectedPaymentCheck
+            // 
+            this.SelectedPaymentCheck.HeaderText = "Selected";
+            this.SelectedPaymentCheck.Name = "SelectedPaymentCheck";
+            this.SelectedPaymentCheck.Width = 80;
+            // 
+            // IndividualNamePaymentCheck
+            // 
+            this.IndividualNamePaymentCheck.HeaderText = "Individual Name";
+            this.IndividualNamePaymentCheck.Name = "IndividualNamePaymentCheck";
+            // 
+            // IndividualIdPaymentCheck
+            // 
+            this.IndividualIdPaymentCheck.HeaderText = "Individual Id";
+            this.IndividualIdPaymentCheck.Name = "IndividualIdPaymentCheck";
+            // 
+            // HouseholdRolePaymentCheck
+            // 
+            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
+            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
+            // 
+            // PrimaryNamePaymentCheck
+            // 
+            this.PrimaryNamePaymentCheck.HeaderText = "Primary Name";
+            this.PrimaryNamePaymentCheck.Name = "PrimaryNamePaymentCheck";
+            // 
+            // IncidentNoPaymentCheck
+            // 
+            this.IncidentNoPaymentCheck.HeaderText = "Incident No";
+            this.IncidentNoPaymentCheck.Name = "IncidentNoPaymentCheck";
+            // 
+            // IncidentProgramNamePaymentCheck
+            // 
+            this.IncidentProgramNamePaymentCheck.HeaderText = "Incident Program";
+            this.IncidentProgramNamePaymentCheck.Name = "IncidentProgramNamePaymentCheck";
+            // 
+            // SettlementNoPaymentCheck
+            // 
+            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
+            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
+            // 
+            // AmountPaymentCheck
+            // 
+            this.AmountPaymentCheck.HeaderText = "Amount";
+            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
+            // 
+            // DateOfServicePaymentCheck
+            // 
+            this.DateOfServicePaymentCheck.HeaderText = "Service Date";
+            this.DateOfServicePaymentCheck.Name = "DateOfServicePaymentCheck";
+            // 
+            // MedProviderPaymentCheck
+            // 
+            this.MedProviderPaymentCheck.HeaderText = "Medical Provider";
+            this.MedProviderPaymentCheck.Name = "MedProviderPaymentCheck";
+            // 
+            // AccountNamePaymentCheck
+            // 
+            this.AccountNamePaymentCheck.HeaderText = "Account Name";
+            this.AccountNamePaymentCheck.Name = "AccountNamePaymentCheck";
+            // 
+            // ShippingStreetPaymentCheck
+            // 
+            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
+            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
+            this.ShippingStreetPaymentCheck.Width = 200;
+            // 
+            // ShippingCityPaymentCheck
+            // 
+            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
+            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
+            // 
+            // ShippingStatePaymentCheck
+            // 
+            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
+            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
+            // 
+            // ShippingZipPaymentCheck
+            // 
+            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
+            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
+            // 
+            // SettlementTypePaymentCheck
+            // 
+            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
+            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
+            // 
+            // CreatedByPaymentCheck
+            // 
+            this.CreatedByPaymentCheck.HeaderText = "Created By";
+            this.CreatedByPaymentCheck.Name = "CreatedByPaymentCheck";
+            // 
+            // LastModifiedByPaymentCheck
+            // 
+            this.LastModifiedByPaymentCheck.HeaderText = "Last Modified By";
+            this.LastModifiedByPaymentCheck.Name = "LastModifiedByPaymentCheck";
+            this.LastModifiedByPaymentCheck.Width = 120;
+            // 
+            // MembershipStatusPaymentCheck
+            // 
+            this.MembershipStatusPaymentCheck.HeaderText = "Membership Status";
+            this.MembershipStatusPaymentCheck.Name = "MembershipStatusPaymentCheck";
+            // 
+            // MembershipNoPaymentCheck
+            // 
+            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
+            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
+            this.MembershipNoPaymentCheck.Width = 120;
+            // 
             // frmCMMManager
             // 
             this.AcceptButton = this.btnSearch;
@@ -8933,6 +8935,20 @@
         private System.Windows.Forms.Label label97;
         private System.Windows.Forms.TextBox txtBankName;
         private System.Windows.Forms.Label label96;
+        private System.Windows.Forms.Button btnConfirmACH;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsACHExportedACHPayment;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentCheck;
@@ -8954,20 +8970,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
-        private System.Windows.Forms.Button btnConfirmACH;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsACHExportedACHPayment;
     }
 }
 
