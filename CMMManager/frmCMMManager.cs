@@ -33212,7 +33212,7 @@ namespace CMMManager
                                     {
                                         if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
                                         {
-                                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
+                                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
                                                                 lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + "\",");
                                         }
                                         else
