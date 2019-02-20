@@ -5600,8 +5600,6 @@ namespace CMMManager
 
         private void btnCreateNewCase_Click(object sender, EventArgs e)
         {
-            //if (!tbCMMManager.TabPages.Contains(tbpgCreateCase))
-            //{
 
             caseMode = CaseMode.AddNew;
 
@@ -5611,8 +5609,6 @@ namespace CMMManager
             cmdCaseCount.CommandType = CommandType.Text;
             cmdCaseCount.CommandText = strSqlCaseCount;
 
-            String strNewCaseName = String.Empty;
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
             if (connRN3.State != ConnectionState.Closed)
             {
                 connRN3.Close();
@@ -5622,32 +5618,52 @@ namespace CMMManager
             Object objCaseCount = cmdCaseCount.ExecuteScalar();
             if (connRN3.State != ConnectionState.Closed) connRN3.Close();
 
-            //if ((Int32)cmdCaseCount.ExecuteScalar() == 0)
+            String strNewCaseName = String.Empty;
+
             if ((Int32)objCaseCount == 0)
             {
-                strNewCaseName = "Case-1";
-
-                String strSqlUpdateLastCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
-
-                SqlCommand cmdUpdateLastCaseId = new SqlCommand(strSqlUpdateLastCaseId, connRN3);
-                cmdUpdateLastCaseId.CommandType = CommandType.Text;
-
-                cmdUpdateLastCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
-
                 if (connRN3.State != ConnectionState.Closed)
                 {
                     connRN3.Close();
                     connRN3.Open();
                 }
                 else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                int nLastIdUpdated = cmdUpdateLastCaseId.ExecuteNonQuery();
-                if (connRN3.State != ConnectionState.Closed) connRN3.Close();
 
-                if (nLastIdUpdated != 1)
+                strNewCaseName = "Case-1";
+                SqlCommand cmdAddFirstCaseId = connRN3.CreateCommand();
+                SqlTransaction tranNewCaseId = connRN3.BeginTransaction(IsolationLevel.Serializable);
+
+                cmdAddFirstCaseId.Connection = connRN3;
+                cmdAddFirstCaseId.Transaction = tranNewCaseId;
+
+                try
                 {
-                    MessageBox.Show("Last Case Id has not been updated.", "Error");
-                    return;
+                    String strInsertFirstCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdAddFirstCaseId.CommandType = CommandType.Text;
+                    cmdAddFirstCaseId.CommandText = strInsertFirstCaseId;
+
+                    cmdAddFirstCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
+                    int nCaseIdUpdated = cmdAddFirstCaseId.ExecuteNonQuery();
+
+                    tranNewCaseId.Commit();
                 }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranNewCaseId.Rollback();
+                        MessageBox.Show(ex.Message, "Error");
+                        return;
+                    }
+                    catch (SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Sql Error");
+                        return;
+                    }
+                }
+
+                if (connRN3.State != ConnectionState.Closed) connRN3.Close();
 
                 String strCaseName = strNewCaseName;
                 strCaseNameSelected = strNewCaseName;
@@ -5684,9 +5700,10 @@ namespace CMMManager
                                                         "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_medbill].[LastModifiedDate], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
                                                         "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[SettlementTotal], [dbo].[tbl_medbill].[TotalSharedAmount], " +
                                                         "[dbo].[tbl_medbill].[Balance] " +
-                                                        "from ((([dbo].[tbl_medbill] inner join [dbo].[tbl_medbill_type] on [dbo].[tbl_medbill].[MedBillType_Id] = [dbo].[tbl_medbill_type].[MedBillTypeId]) " +
-                                                        "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id]) " +
-                                                        "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id]) " +
+                                                        "from [dbo].[tbl_medbill] " +
+                                                        "inner join [dbo].[tbl_medbill_type] on [dbo].[tbl_medbill].[MedBillType_Id] = [dbo].[tbl_medbill_type].[MedBillTypeId] " +
+                                                        "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                        "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
                                                         "where [dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
                                                         "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
                                                         "[dbo].[tbl_medbill].[IsDeleted] = 0";
@@ -5700,7 +5717,6 @@ namespace CMMManager
                 SqlDependency dependencyMedBillsInCase = new SqlDependency(cmdQueryForMedBillsInCase);
                 dependencyMedBillsInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseViewChange);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
                 if (connRN3.State != ConnectionState.Closed)
                 {
                     connRN3.Close();
@@ -5735,98 +5751,57 @@ namespace CMMManager
             }
             else
             {
-                //String strSqlLastCaseId = "select max(ID) from tbl_case";
-
-                String strSqlQueryForLastCaseId = "select [dbo].[tbl_LastID].[CaseId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
-
-                SqlCommand cmdQueryForLastCaseId = new SqlCommand(strSqlQueryForLastCaseId, connRN3);
-                cmdQueryForLastCaseId.CommandType = CommandType.Text;
-
                 if (connRN3.State != ConnectionState.Closed)
                 {
                     connRN3.Close();
                     connRN3.Open();
                 }
                 else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                Object objLastCaseId = cmdQueryForLastCaseId.ExecuteScalar();
-                if (connRN3.State != ConnectionState.Closed) connRN3.Close();
 
+                SqlCommand cmdCaseId = connRN3.CreateCommand();
+                SqlTransaction tranCaseId = connRN3.BeginTransaction(IsolationLevel.Serializable);
+                cmdCaseId.Connection = connRN3;
+                cmdCaseId.Transaction = tranCaseId;
 
-
-                //SqlCommand cmdMaxCaseID = connRN3.CreateCommand();
-                //cmdMaxCaseID.CommandType = CommandType.Text;
-                //cmdMaxCaseID.CommandText = strSqlLastCaseId;
-
-                ////if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //if (connRN3.State != ConnectionState.Closed)
-                //{
-                //    connRN3.Close();
-                //    connRN3.Open();
-                //}
-                //else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                ////Int32 nMaxId = (Int32)cmdMaxCaseID.ExecuteScalar();
-                //Object objMaxId = cmdMaxCaseID.ExecuteScalar();
-                //if (connRN3.State != ConnectionState.Closed) connRN3.Close();
-
-                //Int32 nMaxId = 0;
-                //Int32 nResultMaxId = 0;
-                //if (objLastCaseId != null)
-                //{
-                //    if (Int32.TryParse(objLastCaseId.ToString(), NumberStyles.Integer, new CultureInfo("en-US"), out nResultMaxId)) nMaxId = nResultMaxId;
-                //}
-                //else
-                //{
-                //    MessageBox.Show("No case in case table", "Error", MessageBoxButtons.OK);
-                //    return;
-                //}
-
-                //String strSqlMaxCaseName = "select Case_Name from tbl_case where ID = " + nMaxId;
-
-                //SqlCommand cmdMaxCaseName = connRN3.CreateCommand();
-                //cmdMaxCaseName.CommandType = CommandType.Text;
-                //cmdMaxCaseName.CommandText = strSqlMaxCaseName;
-
-                //if (connRN3.State != ConnectionState.Closed)
-                //{
-                //    connRN3.Close();
-                //    connRN3.Open();
-                //}
-                //else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                //Object objMaxCaseName = cmdMaxCaseName.ExecuteScalar();
-                //if (connRN3.State != ConnectionState.Closed) connRN3.Close();
-
-                //String strMaxCaseName = String.Empty;
-
-                //if (objMaxCaseName != null)
-                //{
-                //    strMaxCaseName = objMaxCaseName.ToString();
-                //}
-                //else
-                //{
-                //    MessageBox.Show("No case name for Case Id: " + nMaxId, "Error", MessageBoxButtons.OK);
-                //    return;
-                //}
-                String strMaxCaseName = String.Empty;
-                if (objLastCaseId != null) strMaxCaseName = objLastCaseId.ToString();
-
-                Int32 nNewCaseNo = Int32.Parse(strMaxCaseName.Substring(5));
-                nNewCaseNo++;
-                strNewCaseName = "Case-" + nNewCaseNo.ToString();
-
-                String strSqlUpdateLastCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
-
-                SqlCommand cmdUpdateLastCaseId = new SqlCommand(strSqlUpdateLastCaseId, connRN3);
-                cmdUpdateLastCaseId.CommandType = CommandType.Text;
-
-                cmdUpdateLastCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
-
-                if (connRN3.State != ConnectionState.Closed)
+                try
                 {
-                    connRN3.Close();
-                    connRN3.Open();
+                    String strSqlQueryForLastCaseId = "select [dbo].[tbl_LastID].[CaseId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdCaseId.CommandText = strSqlQueryForLastCaseId;
+                    cmdCaseId.CommandType = CommandType.Text;
+
+                    Object objLastCaseId = cmdCaseId.ExecuteScalar();
+
+                    String strMaxCaseName = String.Empty;
+                    if (objLastCaseId != null) strMaxCaseName = objLastCaseId.ToString();
+
+                    Int32 nNewCaseNo = Int32.Parse(strMaxCaseName.Substring(5));
+                    nNewCaseNo++;
+                    strNewCaseName = "Case-" + nNewCaseNo.ToString();
+
+                    String strSqlUpdateLastCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdCaseId.CommandText = strSqlUpdateLastCaseId;
+                    cmdCaseId.CommandType = CommandType.Text;
+
+                    cmdCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
+
+                    int nCaseIdUpdated = cmdCaseId.ExecuteNonQuery();
+
+                    tranCaseId.Commit();
                 }
-                else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                int nCaseIdUpdated = cmdUpdateLastCaseId.ExecuteNonQuery();
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranCaseId.Rollback();
+                    }
+                    catch(SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Error");
+                    }
+                    MessageBox.Show(ex.Message, "Error");
+                }
                 if (connRN3.State != ConnectionState.Closed) connRN3.Close();
 
                 String strCaseName = strNewCaseName;
@@ -5880,7 +5855,6 @@ namespace CMMManager
                 SqlDependency dependencyMedBillsInCase = new SqlDependency(cmdQueryForMedBillsInCase);
                 dependencyMedBillsInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseViewChange);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
                 if (connRN3.State != ConnectionState.Closed)
                 {
                     connRN3.Close();

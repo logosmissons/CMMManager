@@ -328,7 +328,7 @@ namespace CMMManager
 
         private void btnAddNew_Click(object sender, EventArgs e)
         {
-            String strSqlQueryForIllnessId = "select max([dbo].[tbl_illness].[Illness_Id]) from [dbo].[tbl_illness]";
+            String strSqlQueryForIllnessId = "select count([dbo].[tbl_illness].[Illness_Id]) from [dbo].[tbl_illness]";
 
             SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRNDB);
             cmdQueryForIllnessId.CommandType = CommandType.Text;
@@ -339,57 +339,172 @@ namespace CMMManager
                 connRNDB.Open();
             }
             else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-            Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
+            int nIllnessId = (int)cmdQueryForIllnessId.ExecuteScalar();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-            String strLastIllnessId = objIllnessId.ToString();
-
-            //String NewIllnessNo = String.Empty;
             String NewIllnessNo = "ILL-";
 
-            if (strLastIllnessId != String.Empty)
+            if (nIllnessId > 0)
             {
-                String strSqlQueryForLastIllnessNo = "select [dbo].[tbl_illness].[IllnessNo] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
 
-                SqlCommand cmdQueryForLastIllnessNo = new SqlCommand(strSqlQueryForLastIllnessNo, connRNDB);
-                cmdQueryForLastIllnessNo.CommandType = CommandType.Text;
-
-                cmdQueryForLastIllnessNo.Parameters.AddWithValue("@IllnessId", Int32.Parse(objIllnessId.ToString()));
-
-                if (connRNDB.State == ConnectionState.Open)
+                if (connRNDB.State != ConnectionState.Closed)
                 {
                     connRNDB.Close();
                     connRNDB.Open();
                 }
                 else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                Object objLastIllnessNo = cmdQueryForLastIllnessNo.ExecuteScalar();
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                if (objLastIllnessNo != null)
+                SqlCommand cmdLastIllnessNo = connRNDB.CreateCommand();
+                SqlTransaction tranIllnessNo = connRNDB.BeginTransaction(IsolationLevel.Serializable);
+
+                cmdLastIllnessNo.Connection = connRNDB;
+                cmdLastIllnessNo.Transaction = tranIllnessNo;
+
+                try
                 {
-                    String strLastIllnessNo = objLastIllnessNo.ToString().Substring(4);
-                    int LastIllnessNo = Int32.Parse(strLastIllnessNo);
-                    LastIllnessNo++;
+                    String strSqlQueryForIllnessNo = "select [dbo].[tbl_LastID].[IllnessId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
 
-                    NewIllnessNo += LastIllnessNo.ToString();
+                    cmdLastIllnessNo.CommandText = strSqlQueryForIllnessNo;
+                    cmdLastIllnessNo.CommandType = CommandType.Text;
 
-                    frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
+                    Object objLastIllnessNo = cmdLastIllnessNo.ExecuteScalar();
 
-                    frmIllnessCreation.IllnessNo = NewIllnessNo;
+                    String strLastIllnessNo = String.Empty;
+                    if (objLastIllnessNo != null)
+                    {
+                        strLastIllnessNo = objLastIllnessNo.ToString();
+                    }
 
-                    frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;
-                    frmIllnessCreation.strCaseNo = strCaseIdIllness;
-                    frmIllnessCreation.strIndividualNo = strIndividualId;
-                    frmIllnessCreation.MembershipStartDate = MembershipStartDate;
+                    int nNewIllnessNo = Int32.Parse(strLastIllnessNo.Substring(4));
+                    nNewIllnessNo++;
+                    NewIllnessNo += nNewIllnessNo.ToString();
 
-                    frmIllnessCreation.ShowDialog(this);
+                    String strSqlUpdateLastIllnessNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IllnessId] = @NewIllnessNo where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdLastIllnessNo.CommandText = strSqlUpdateLastIllnessNo;
+                    cmdLastIllnessNo.CommandType = CommandType.Text;
+
+                    cmdLastIllnessNo.Parameters.AddWithValue("@NewIllnessNo", NewIllnessNo);
+                    int nIllnessNoUpdated = cmdLastIllnessNo.ExecuteNonQuery();
+
+                    tranIllnessNo.Commit();
                 }
-            }
-            else
-            {
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranIllnessNo.Rollback();
+                        MessageBox.Show(ex.Message, "Error");
+                        return;
+                    }
+                    catch (SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Sql Error");
+                        return;
+                    }
+                }
+
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
                 frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
 
-                frmIllnessCreation.IllnessNo = "ILL-1";
+                frmIllnessCreation.IllnessNo = NewIllnessNo;
+
+                frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;
+                frmIllnessCreation.strCaseNo = strCaseIdIllness;
+                frmIllnessCreation.strIndividualNo = strIndividualId;
+                frmIllnessCreation.MembershipStartDate = MembershipStartDate;
+
+                frmIllnessCreation.ShowDialog(this);
+
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //String strSqlQueryForLastIllnessNo = "select [dbo].[tbl_illness].[IllnessNo] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+
+                //SqlCommand cmdQueryForLastIllnessNo = new SqlCommand(strSqlQueryForLastIllnessNo, connRNDB);
+                //cmdQueryForLastIllnessNo.CommandType = CommandType.Text;
+
+                //cmdQueryForLastIllnessNo.Parameters.AddWithValue("@IllnessId", Int32.Parse(objIllnessId.ToString()));
+
+                //if (connRNDB.State == ConnectionState.Open)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //Object objLastIllnessNo = cmdQueryForLastIllnessNo.ExecuteScalar();
+                //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                //if (objLastIllnessNo != null)
+                //{
+                //    String strLastIllnessNo = objLastIllnessNo.ToString().Substring(4);
+                //    int LastIllnessNo = Int32.Parse(strLastIllnessNo);
+                //    LastIllnessNo++;
+
+                //    NewIllnessNo += LastIllnessNo.ToString();
+
+                //    frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
+
+                //    frmIllnessCreation.IllnessNo = NewIllnessNo;
+
+                //    frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;
+                //    frmIllnessCreation.strCaseNo = strCaseIdIllness;
+                //    frmIllnessCreation.strIndividualNo = strIndividualId;
+                //    frmIllnessCreation.MembershipStartDate = MembershipStartDate;
+
+                //    frmIllnessCreation.ShowDialog(this);
+                //}
+            }
+            else if (nIllnessId == 0)
+            {
+
+                String NewIllnessId = "ILL-1";
+
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
+                SqlCommand cmdIllnessId = connRNDB.CreateCommand();
+                SqlTransaction tranIllnessId = connRNDB.BeginTransaction(IsolationLevel.Serializable);
+
+                cmdIllnessId.Connection = connRNDB;
+                cmdIllnessId.Transaction = tranIllnessId;
+
+                try
+                {
+                    String strSqlUpdateLastIllnessId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IllnessId] = @IllnessId where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdIllnessId.CommandText = strSqlUpdateLastIllnessId;
+                    cmdIllnessId.CommandType = CommandType.Text;
+
+                    cmdIllnessId.Parameters.AddWithValue("@IllnessId", NewIllnessId);
+
+                    int nIllnessIdUpdated = cmdIllnessId.ExecuteNonQuery();
+
+                    tranIllnessId.Commit();
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranIllnessId.Rollback();
+                        MessageBox.Show(ex.Message, "Error");
+                        return;
+                    }
+                    catch (SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Sql Error");
+                        return;
+                    }
+                }
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
+
+                frmIllnessCreation.IllnessNo = NewIllnessId;
 
                 frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;
                 frmIllnessCreation.strCaseNo = strCaseIdIllness;

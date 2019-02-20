@@ -349,6 +349,8 @@ namespace CMMManager
 
             frmIncidentCreation.mode = frmIncidentCreationPage.IncidentMode.AddNew;
 
+
+
             if (frmIncidentCreation.ShowDialog(this) == DialogResult.OK)
             {
                 String strSqlQueryForIncident = "select [dbo].[tbl_incident].[incident_id], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[individual_id], " +
