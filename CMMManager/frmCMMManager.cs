@@ -1223,7 +1223,6 @@ namespace CMMManager
                 connRN.Open();
             }
             else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            gvPaymentCheck.Rows.Clear();
             List<CheckPaymentInfo> lstCheckPaymentInfo = new List<CheckPaymentInfo>();
             SqlDataReader rdrCheckPayment = cmdQeuryForPaymentCheck.ExecuteReader();
             if (rdrCheckPayment.HasRows)
@@ -4561,6 +4560,7 @@ namespace CMMManager
             txtStreetAddress2.Enabled = true;
             txtIndividualSSN.Enabled = true;
             txtLastName.Enabled = true;
+            txtFirstName.Enabled = true;
             txtMiddleName.Enabled = true;
             txtLastName.Enabled = true;
             txtCRM_ID.Enabled = true;
@@ -4626,6 +4626,7 @@ namespace CMMManager
             txtStreetAddress2.Enabled = false;
             txtIndividualSSN.Enabled = false;
             txtLastName.Enabled = false;
+            txtFirstName.Enabled = false;
             txtMiddleName.Enabled = false;
             txtLastName.Enabled = false;
             txtCRM_ID.Enabled = false;
@@ -6395,6 +6396,30 @@ namespace CMMManager
                         btnNewMedBill_Case.Enabled = true;
                         btnEditMedBill.Enabled = true;
                         btnDeleteMedBill.Enabled = true;
+
+                        // delete case in use row inserted when the row was edited
+                        String strSqlDeleteCaseInUse = "delete from [dbo].[tbl_CaseInUse] " +
+                                                       "where [dbo].[tbl_CaseInUse].[Case_Name] = @CaseName and [dbo].[tbl_CaseInUse].[EditingStaff] = @ModifyingStaff";
+
+                        SqlCommand cmdDeleteCaseInUse = new SqlCommand(strSqlDeleteCaseInUse, connRN4);
+                        cmdDeleteCaseInUse.CommandType = CommandType.Text;
+
+                        cmdDeleteCaseInUse.Parameters.AddWithValue("@CaseName", caseDetail.CaseId);
+                        cmdDeleteCaseInUse.Parameters.AddWithValue("@ModifyingStaff", nLoggedUserId);
+
+                        if (connRN4.State != ConnectionState.Closed)
+                        {
+                            connRN4.Close();
+                            connRN4.Open();
+                        }
+                        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                        int nCaseInUseDeleted = cmdDeleteCaseInUse.ExecuteNonQuery();
+                        if (nCaseInUseDeleted == 0)
+                        {
+                            MessageBox.Show("Case in use: " + caseDetail.CaseId + " has not been deleted form tbl_CaseInUse table.", "Error");
+                        }
+
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
                     }
                     else if (nRowAffected == 0) MessageBox.Show("Update failed", "Error");
                 }
@@ -7054,8 +7079,65 @@ namespace CMMManager
             if (gvCaseHistory.Rows.Count > 0)
             {
                 nRowSelected = e.RowIndex;
-
+                
                 strCaseNameSelected = gvCaseHistory["CaseName", nRowSelected].Value.ToString();
+                CaseIdForCasePageMedBill = strCaseNameSelected;
+
+                String strSqlQueryForCaseInUse = "select [dbo].[tbl_CaseInUse].[Case_Name], [dbo].[tbl_CaseInUse].[EditingStaff] from [dbo].[tbl_CaseInUse] " +
+                                 "where [dbo].[tbl_CaseInUse].[Case_Name] = @CaseInUse";
+
+                SqlCommand cmdCaseInUse = new SqlCommand(strSqlQueryForCaseInUse, connRN2);
+                cmdCaseInUse.CommandType = CommandType.Text;
+
+                cmdCaseInUse.Parameters.AddWithValue("@CaseInUse", strCaseNameSelected);
+
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                SqlDataReader rdrCaseInUse = cmdCaseInUse.ExecuteReader();
+                if (rdrCaseInUse.HasRows)
+                {
+                    rdrCaseInUse.Read();
+                    if (strCaseNameSelected == rdrCaseInUse.GetString(0).Trim() &&
+                        nLoggedUserId != rdrCaseInUse.GetInt16(1))
+                    {
+                        MessageBox.Show("The Case: " + strCaseNameSelected + " is in use.", "Error");
+                        rdrCaseInUse.Close();
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        return;
+                    }
+                }
+                else
+                {
+                    rdrCaseInUse.Close();
+                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                    String strSqlInsertCaseInUse = "insert into [dbo].[tbl_CaseInUse] (Case_Name, EditingStaff) values (@CaseNO, @EditingStaff)";
+
+                    SqlCommand cmdInsertCaseInUse = new SqlCommand(strSqlInsertCaseInUse, connRN2);
+                    cmdInsertCaseInUse.CommandType = CommandType.Text;
+
+                    cmdInsertCaseInUse.Parameters.AddWithValue("@CaseNo", strCaseNameSelected);
+                    cmdInsertCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                    if (connRN2.State != ConnectionState.Closed)
+                    {
+                        connRN2.Close();
+                        connRN2.Open();
+                    }
+                    else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                    int nCaseInUserInserted = cmdInsertCaseInUse.ExecuteNonQuery();
+                    if (nCaseInUserInserted != 1)
+                    {
+                        MessageBox.Show("Case in use: " + strCaseNameSelected + " has not been inserted.", "Error");
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                        return;
+                    }
+                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                }
 
                 String strSqlQueryForCase = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_File_Name], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
                                             "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_File_Name], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
@@ -11618,6 +11700,31 @@ namespace CMMManager
 
                     if (nAffectedRow == 1)
                     {
+                        // Delete MedBill in use
+                        String MedBillInUse = txtMedBillNo.Text.Trim();
+                        String strSqlDeleteMedBillInUse = "delete from [dbo].[tbl_MedBillInUse] " +
+                                                          "where [dbo].[tbl_MedBillInUse].[BillNo] = @BillNo and [dbo].[tbl_MedBillInUse].[EditingStaff] = @ModifyingStaff";
+
+                        //MedBillNo
+                        SqlCommand cmdDeleteMedBillInUse = new SqlCommand(strSqlDeleteMedBillInUse, connRN5);
+                        cmdDeleteMedBillInUse.CommandType = CommandType.Text;
+
+                        cmdDeleteMedBillInUse.Parameters.AddWithValue("@BillNo", MedBillInUse);
+                        cmdDeleteMedBillInUse.Parameters.AddWithValue("@ModifyingStaff", nLoggedUserId);
+
+                        if (connRN5.State != ConnectionState.Closed)
+                        {
+                            connRN5.Close();
+                            connRN5.Open();
+                        }
+                        else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                        int nMedBillInUseDeleted = cmdDeleteMedBillInUse.ExecuteNonQuery();
+                        if (nMedBillInUseDeleted == 0)
+                        {
+                            MessageBox.Show("Medical Bill in use: " + MedBillInUse + " has not been deleted from tbl_MedBillInUse.", "Error");
+                        }
+                        if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
                         // handle Well Being Care case
                         String strNewMedBillNo = String.Empty;
 
@@ -14230,38 +14337,165 @@ namespace CMMManager
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                    String strSqlQueryForMaxMedBillNo = "select max(dbo.tbl_medbill.BillNo) from dbo.tbl_medbill";
+                    String strSqlQueryForCountMedBill = "select count([dbo].[tbl_medbill].[BillNo]) from [dbo].[tbl_medbill]";
 
-                    SqlCommand cmdQueryForMaxBillNo = new SqlCommand(strSqlQueryForMaxMedBillNo, connRN4);
-                    cmdQueryForMaxBillNo.CommandType = CommandType.Text;
+                    SqlCommand cmdQueryForCountMedBill = new SqlCommand(strSqlQueryForCountMedBill, connRN4);
+                    cmdQueryForCountMedBill.CommandType = CommandType.Text;
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
                     if (connRN4.State != ConnectionState.Closed)
                     {
                         connRN4.Close();
                         connRN4.Open();
                     }
                     else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
-                    //String strMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar().ToString();
-                    Object objMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar();
+                    int nMedBillCount = (int)cmdQueryForCountMedBill.ExecuteScalar();
                     if (connRN4.State != ConnectionState.Closed) connRN4.Close();
 
-                    String strMaxMedBillNo = String.Empty;
-                    if (objMaxMedBillNo != null) strMaxMedBillNo = objMaxMedBillNo.ToString();
 
                     String strNewMedBillNo = String.Empty;
-                    if (strMaxMedBillNo != String.Empty)
+                    if (nMedBillCount > 0)
                     {
-                        int nNewMedBillNo = Int32.Parse(strMaxMedBillNo.Substring(8));
-                        nNewMedBillNo++;
-                        int nLeadingZero = 0;
-                        while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
-                        strNewMedBillNo = "MEDBILL-";
-                        for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+                        if (connRN4.State != ConnectionState.Closed)
+                        {
+                            connRN4.Close();
+                            connRN4.Open();
+                        }
+                        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
 
-                        strNewMedBillNo += nNewMedBillNo.ToString();
+                        SqlCommand cmdNewMedBillId = connRN4.CreateCommand();
+                        SqlTransaction tranGetNewMedBillId = connRN4.BeginTransaction(IsolationLevel.Serializable);
+
+                        cmdNewMedBillId.Connection = connRN4;
+                        cmdNewMedBillId.Transaction = tranGetNewMedBillId;
+
+                        try
+                        {
+                            String strSqlQueryForLastMedBillId = "select [dbo].[tbl_LastID].[MedBillId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlQueryForLastMedBillId;
+
+                            Object objLastMedBillNo = cmdNewMedBillId.ExecuteScalar();
+
+                            String NewMedBillNo = String.Empty;
+                            if (objLastMedBillNo != null) NewMedBillNo = objLastMedBillNo.ToString();
+
+                            int nNewMedBillNo = Int32.Parse(NewMedBillNo.Substring(8));
+                            nNewMedBillNo++;
+
+                            int nLeadingZero = 0;
+                            while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
+                            strNewMedBillNo = "MEDBILL-";
+                            for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+
+                            strNewMedBillNo += nNewMedBillNo.ToString();
+
+                            String strSqlUpdateLastMedBillId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[MedBillId] = @NewMedBillId where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlUpdateLastMedBillId;
+
+                            cmdNewMedBillId.Parameters.AddWithValue("@NewMedBillId", strNewMedBillNo);
+
+                            int nNewMedBillNoUpdated = cmdNewMedBillId.ExecuteNonQuery();
+
+                            tranGetNewMedBillId.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            try
+                            {
+                                tranGetNewMedBillId.Rollback();
+                                MessageBox.Show(ex.Message, "Error");
+                                return;
+                            }
+                            catch (SqlException se)
+                            {
+                                MessageBox.Show(se.Message, "Sql Error");
+                                return;
+                            }
+                        }
+
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
                     }
-                    else strNewMedBillNo = "MEDBILL - 0150000";
+                    else
+                    {
+                        strNewMedBillNo = "MEDBILL-0150000";
+
+                        if (connRN4.State != ConnectionState.Closed)
+                        {
+                            connRN4.Close();
+                            connRN4.Open();
+                        }
+                        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+
+                        SqlCommand cmdNewMedBillId = connRN4.CreateCommand();
+                        SqlTransaction tranGetNewMedBillId = connRN4.BeginTransaction(IsolationLevel.Serializable);
+
+                        cmdNewMedBillId.Connection = connRN4;
+                        cmdNewMedBillId.Transaction = tranGetNewMedBillId;
+
+                        try
+                        {
+                            String strSqlUpdateLastMedBillId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[MedBillId] = @NewMedBillId where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlUpdateLastMedBillId;
+
+                            cmdNewMedBillId.Parameters.AddWithValue("@NewMedBillId", strNewMedBillNo);
+
+                            int nNewMedBillNoUpdated = cmdNewMedBillId.ExecuteNonQuery();
+
+                            tranGetNewMedBillId.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            try
+                            {
+                                tranGetNewMedBillId.Rollback();
+                                MessageBox.Show(ex.Message, "Error");
+                                return;
+                            }
+                            catch (SqlException se)
+                            {
+                                MessageBox.Show(se.Message, "Sql Error");
+                                return;
+                            }
+                        }
+
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                    }
+
+                    //String strSqlQueryForMaxMedBillNo = "select max(dbo.tbl_medbill.BillNo) from dbo.tbl_medbill";
+
+                    //SqlCommand cmdQueryForMaxBillNo = new SqlCommand(strSqlQueryForMaxMedBillNo, connRN4);
+                    //cmdQueryForMaxBillNo.CommandType = CommandType.Text;
+
+                    ////if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    //if (connRN4.State != ConnectionState.Closed)
+                    //{
+                    //    connRN4.Close();
+                    //    connRN4.Open();
+                    //}
+                    //else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    ////String strMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar().ToString();
+                    //Object objMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar();
+                    //if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                    //String strMaxMedBillNo = String.Empty;
+                    //if (objMaxMedBillNo != null) strMaxMedBillNo = objMaxMedBillNo.ToString();
+
+                    ////String strNewMedBillNo = String.Empty;
+                    //if (strMaxMedBillNo != String.Empty)
+                    //{
+                    //    int nNewMedBillNo = Int32.Parse(strMaxMedBillNo.Substring(8));
+                    //    nNewMedBillNo++;
+                    //    int nLeadingZero = 0;
+                    //    while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
+                    //    strNewMedBillNo = "MEDBILL-";
+                    //    for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+
+                    //    strNewMedBillNo += nNewMedBillNo.ToString();
+                    //}
+                    //else strNewMedBillNo = "MEDBILL - 0150000";
                     txtMedBillNo.Text = strNewMedBillNo;
 
                     // Populate Medical Bill Type combo box
@@ -14821,7 +15055,6 @@ namespace CMMManager
             {
                 if (gvCaseViewCaseHistory.Rows.Count > 0)
                 {
-
                     InitializeMedBillTabOnNewMedBill();
                     //nRowSelected = gvCaseViewCaseHistory.CurrentCell.RowIndex;
 
@@ -14997,40 +15230,168 @@ namespace CMMManager
                     txtMedBill_ICD10Code.AutoCompleteCustomSource = srcICD10Codes;
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    String strSqlQueryForMaxMedBillNo = "select max(dbo.tbl_medbill.BillNo) from dbo.tbl_medbill";
+                    ///
 
-                    SqlCommand cmdQueryForMaxBillNo = new SqlCommand(strSqlQueryForMaxMedBillNo, connRN4);
-                    cmdQueryForMaxBillNo.CommandType = CommandType.Text;
+                    String strSqlQueryForCountMedBill = "select count([dbo].[tbl_medbill].[BillNo]) from [dbo].[tbl_medbill]";
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlCommand cmdQueryForCountMedBill = new SqlCommand(strSqlQueryForCountMedBill, connRN4);
+                    cmdQueryForCountMedBill.CommandType = CommandType.Text;
+
                     if (connRN4.State != ConnectionState.Closed)
                     {
                         connRN4.Close();
                         connRN4.Open();
                     }
                     else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
-                    //String strMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar().ToString();
-                    Object objMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar();
+                    int nMedBillCount = (int)cmdQueryForCountMedBill.ExecuteScalar();
                     if (connRN4.State != ConnectionState.Closed) connRN4.Close();
 
-                    String strMaxMedBillNo = String.Empty;
-
-                    if (objMaxMedBillNo != null) strMaxMedBillNo = objMaxMedBillNo.ToString();
-
                     String strNewMedBillNo = String.Empty;
-
-                    if (strMaxMedBillNo != String.Empty)
+                    if (nMedBillCount > 0)
                     {
-                        int nNewMedBillNo = Int32.Parse(strMaxMedBillNo.Substring(8));
-                        nNewMedBillNo++;
-                        int nLeadingZero = 0;
-                        while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
-                        strNewMedBillNo = "MEDBILL-";
-                        for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+                        if (connRN4.State != ConnectionState.Closed)
+                        {
+                            connRN4.Close();
+                            connRN4.Open();
+                        }
+                        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
 
-                        strNewMedBillNo += nNewMedBillNo.ToString();
+                        SqlCommand cmdNewMedBillId = connRN4.CreateCommand();
+                        SqlTransaction tranGetNewMedBillId = connRN4.BeginTransaction(IsolationLevel.Serializable);
+
+                        cmdNewMedBillId.Connection = connRN4;
+                        cmdNewMedBillId.Transaction = tranGetNewMedBillId;
+
+                        try
+                        {
+                            String strSqlQueryForLastMedBillId = "select [dbo].[tbl_LastID].[MedBillId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlQueryForLastMedBillId;
+
+                            Object objLastMedBillNo = cmdNewMedBillId.ExecuteScalar();
+
+                            String NewMedBillNo = String.Empty;
+                            if (objLastMedBillNo != null) NewMedBillNo = objLastMedBillNo.ToString();
+
+                            int nNewMedBillNo = Int32.Parse(NewMedBillNo.Substring(8));
+                            nNewMedBillNo++;
+
+                            int nLeadingZero = 0;
+                            while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
+                            strNewMedBillNo = "MEDBILL-";
+                            for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+
+                            strNewMedBillNo += nNewMedBillNo.ToString();
+
+                            String strSqlUpdateLastMedBillId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[MedBillId] = @NewMedBillId where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlUpdateLastMedBillId;
+
+                            cmdNewMedBillId.Parameters.AddWithValue("@NewMedBillId", strNewMedBillNo);
+
+                            int nNewMedBillNoUpdated = cmdNewMedBillId.ExecuteNonQuery();
+
+                            tranGetNewMedBillId.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            try
+                            {
+                                tranGetNewMedBillId.Rollback();
+                                MessageBox.Show(ex.Message, "Error");
+                                return;
+                            }
+                            catch (SqlException se)
+                            {
+                                MessageBox.Show(se.Message, "Sql Error");
+                                return;
+                            }
+                        }
+
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
                     }
-                    else strNewMedBillNo = "MEDBILL - 0150000";
+                    else
+                    {
+                        strNewMedBillNo = "MEDBILL-0150000";
+
+                        if (connRN4.State != ConnectionState.Closed)
+                        {
+                            connRN4.Close();
+                            connRN4.Open();
+                        }
+                        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+
+                        SqlCommand cmdNewMedBillId = connRN4.CreateCommand();
+                        SqlTransaction tranGetNewMedBillId = connRN4.BeginTransaction(IsolationLevel.Serializable);
+
+                        cmdNewMedBillId.Connection = connRN4;
+                        cmdNewMedBillId.Transaction = tranGetNewMedBillId;
+
+                        try
+                        {
+                            String strSqlUpdateLastMedBillId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[MedBillId] = @NewMedBillId where [dbo].[tbl_LastID].[Id] = 1";
+                            cmdNewMedBillId.CommandType = CommandType.Text;
+                            cmdNewMedBillId.CommandText = strSqlUpdateLastMedBillId;
+
+                            cmdNewMedBillId.Parameters.AddWithValue("@NewMedBillId", strNewMedBillNo);
+
+                            int nNewMedBillNoUpdated = cmdNewMedBillId.ExecuteNonQuery();
+
+                            tranGetNewMedBillId.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            try
+                            {
+                                tranGetNewMedBillId.Rollback();
+                                MessageBox.Show(ex.Message, "Error");
+                                return;
+                            }
+                            catch (SqlException se)
+                            {
+                                MessageBox.Show(se.Message, "Sql Error");
+                                return;
+                            }
+                        }
+
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                    }
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //String strSqlQueryForMaxMedBillNo = "select max(dbo.tbl_medbill.BillNo) from dbo.tbl_medbill";
+
+                    //SqlCommand cmdQueryForMaxBillNo = new SqlCommand(strSqlQueryForMaxMedBillNo, connRN4);
+                    //cmdQueryForMaxBillNo.CommandType = CommandType.Text;
+
+                    ////if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    //if (connRN4.State != ConnectionState.Closed)
+                    //{
+                    //    connRN4.Close();
+                    //    connRN4.Open();
+                    //}
+                    //else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    ////String strMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar().ToString();
+                    //Object objMaxMedBillNo = cmdQueryForMaxBillNo.ExecuteScalar();
+                    //if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                    //String strMaxMedBillNo = String.Empty;
+
+                    //if (objMaxMedBillNo != null) strMaxMedBillNo = objMaxMedBillNo.ToString();
+
+                    //String strNewMedBillNo = String.Empty;
+
+                    //if (strMaxMedBillNo != String.Empty)
+                    //{
+                    //    int nNewMedBillNo = Int32.Parse(strMaxMedBillNo.Substring(8));
+                    //    nNewMedBillNo++;
+                    //    int nLeadingZero = 0;
+                    //    while ((nNewMedBillNo.ToString().Length + nLeadingZero) < 7) nLeadingZero++;
+                    //    strNewMedBillNo = "MEDBILL-";
+                    //    for (int i = 0; i < nLeadingZero; i++) strNewMedBillNo += '0';
+
+                    //    strNewMedBillNo += nNewMedBillNo.ToString();
+                    //}
+                    //else strNewMedBillNo = "MEDBILL - 0150000";
                     txtMedBillNo.Text = strNewMedBillNo;
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15733,34 +16094,151 @@ namespace CMMManager
 
             int nFirstSettlementNo = 300000;
 
-            String strSqlQueryForMaxSettlementName = "select max([dbo].[tbl_settlement].[Name]) from [dbo].[tbl_settlement]";
+            String strSqlQueryForCountSettlement = "select count([dbo].[tbl_settlement].[Name]) from [dbo].[tbl_settlement]";
 
-            SqlCommand cmdQueryForMaxSettlement = new SqlCommand(strSqlQueryForMaxSettlementName, connRN5);
-            cmdQueryForMaxSettlement.CommandType = CommandType.Text;
+            SqlCommand cmdQueryForCountSettlement = new SqlCommand(strSqlQueryForCountSettlement, connRN5);
+            cmdQueryForCountSettlement.CommandType = CommandType.Text;
 
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
             if (connRN5.State != ConnectionState.Closed)
             {
                 connRN5.Close();
                 connRN5.Open();
             }
             else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
-
-            //String MaxSettlementName = cmdQueryForMaxSettlement.ExecuteScalar().ToString();
-            Object objMaxSettlementName = cmdQueryForMaxSettlement.ExecuteScalar();
+            int nSettlementCount = (int)cmdQueryForCountSettlement.ExecuteScalar();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            String MaxSettlementName = String.Empty;
-
-            if (objMaxSettlementName != null) MaxSettlementName = objMaxSettlementName.ToString();
-
-            if (MaxSettlementName == String.Empty) SettlementName += nFirstSettlementNo.ToString();
-            else
+            if (nSettlementCount > 0)
             {
-                int NextSettlementNo = Int32.Parse(MaxSettlementName.Substring(5));
-                NextSettlementNo++;
-                SettlementName += NextSettlementNo.ToString();
+                if (connRN5.State != ConnectionState.Closed)
+                {
+                    connRN5.Close();
+                    connRN5.Open();
+                }
+                if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                SqlCommand cmdSettlementNo = connRN5.CreateCommand();
+                SqlTransaction tranSettlementNo = connRN5.BeginTransaction(IsolationLevel.Serializable);
+
+                cmdSettlementNo.Connection = connRN5;
+                cmdSettlementNo.Transaction = tranSettlementNo;
+
+                try
+                {
+                    String strSqlQueryForLastSettlementNo = "select [dbo].[tbl_LastID].[SettlementId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdSettlementNo.CommandText = strSqlQueryForLastSettlementNo;
+                    cmdSettlementNo.CommandType = CommandType.Text;
+
+                    Object objLastSettlementNo = cmdSettlementNo.ExecuteScalar();
+                    String strLastSettlementNo = String.Empty;
+
+                    if (objLastSettlementNo != null) strLastSettlementNo = objLastSettlementNo.ToString();
+
+                    int nNewSettlementNo = Int32.Parse(strLastSettlementNo.Substring(5));
+                    nNewSettlementNo++;
+                    SettlementName += nNewSettlementNo.ToString();
+
+                    String strSqlUpdateLastSettlementNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[SettlementId] = @NewSettlementNo where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdSettlementNo.CommandText = strSqlUpdateLastSettlementNo;
+                    cmdSettlementNo.CommandType = CommandType.Text;
+
+                    cmdSettlementNo.Parameters.AddWithValue("@NewSettlementNo", SettlementName);
+                    int nSettlementNameUpdated = cmdSettlementNo.ExecuteNonQuery();
+
+                    tranSettlementNo.Commit();
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranSettlementNo.Rollback();
+                        MessageBox.Show(ex.Message, "Error");
+                        return;
+                    }
+                    catch (SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Sql Error");
+                        return;
+                    }
+                }
+                if (connRN5.State != ConnectionState.Closed) connRN5.Close();
             }
+            else if (nSettlementCount == 0)
+            {
+
+                if (connRN5.State != ConnectionState.Closed)
+                {
+                    connRN5.Close();
+                    connRN5.Open();
+                }
+                if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+                SqlCommand cmdSettlementNo = connRN5.CreateCommand();
+                SqlTransaction tranSettlementNo = connRN5.BeginTransaction(IsolationLevel.Serializable);
+
+                cmdSettlementNo.Connection = connRN5;
+                cmdSettlementNo.Transaction = tranSettlementNo;
+
+                try
+                {
+                    SettlementName += nFirstSettlementNo.ToString();
+                    String strUpdateLastSettlementNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[SettlementId] = @FirstSettlementNo where [dbo].[tbl_LastID].[Id] = 1";
+
+                    cmdSettlementNo.CommandText = strUpdateLastSettlementNo;
+                    cmdSettlementNo.CommandType = CommandType.Text;
+
+                    cmdSettlementNo.Parameters.AddWithValue("@FirstSettlementNo", SettlementName);
+                    int nSettlementNoUpdated = cmdSettlementNo.ExecuteNonQuery();
+                    tranSettlementNo.Commit();
+                }
+                catch (Exception ex)
+                {
+                    try
+                    {
+                        tranSettlementNo.Rollback();
+                        MessageBox.Show(ex.Message, "Error");
+                        return;
+                    }
+                    catch (SqlException se)
+                    {
+                        MessageBox.Show(se.Message, "Sql Error");
+                        return;
+                    }
+                }
+                if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //String strSqlQueryForMaxSettlementName = "select max([dbo].[tbl_settlement].[Name]) from [dbo].[tbl_settlement]";
+
+            //SqlCommand cmdQueryForMaxSettlement = new SqlCommand(strSqlQueryForMaxSettlementName, connRN5);
+            //cmdQueryForMaxSettlement.CommandType = CommandType.Text;
+
+            ////if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //if (connRN5.State != ConnectionState.Closed)
+            //{
+            //    connRN5.Close();
+            //    connRN5.Open();
+            //}
+            //else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+
+            ////String MaxSettlementName = cmdQueryForMaxSettlement.ExecuteScalar().ToString();
+            //Object objMaxSettlementName = cmdQueryForMaxSettlement.ExecuteScalar();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            //String MaxSettlementName = String.Empty;
+
+            //if (objMaxSettlementName != null) MaxSettlementName = objMaxSettlementName.ToString();
+
+            //if (MaxSettlementName == String.Empty) SettlementName += nFirstSettlementNo.ToString();
+            //else
+            //{
+            //    int NextSettlementNo = Int32.Parse(MaxSettlementName.Substring(5));
+            //    NextSettlementNo++;
+            //    SettlementName += NextSettlementNo.ToString();
+            //}
 
             if (gvSettlementsInMedBill.Rows.Count == 0)
             {
@@ -15842,15 +16320,17 @@ namespace CMMManager
                 {
                     gvSettlementsInMedBill.Rows.Add();
                     gvSettlementsInMedBill["Selected", gvSettlementsInMedBill.Rows.Count - 1].Value = true;
-                    String NextSettlementName = gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 2].Value.ToString();
+                    gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 1].Value = SettlementName;
 
-                    int nNextSettlementNo = Int32.Parse(NextSettlementName.Substring(5));
-                    nNextSettlementNo++;
-                    NextSettlementName = NextSettlementName.Substring(0, 4) + "-" + nNextSettlementNo.ToString();
+                    //String NextSettlementName = gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 2].Value.ToString();
 
-                    if (Int32.Parse(SettlementName.Substring(5)) >= Int32.Parse(NextSettlementName.Substring(5)))
-                        gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 1].Value = SettlementName;
-                    else gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 1].Value = NextSettlementName;
+                    //int nNextSettlementNo = Int32.Parse(NextSettlementName.Substring(5));
+                    //nNextSettlementNo++;
+                    //NextSettlementName = NextSettlementName.Substring(0, 4) + "-" + nNextSettlementNo.ToString();
+
+                    //if (Int32.Parse(SettlementName.Substring(5)) >= Int32.Parse(NextSettlementName.Substring(5)))
+                    //    gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 1].Value = SettlementName;
+                    //else gvSettlementsInMedBill["SettlementName", gvSettlementsInMedBill.Rows.Count - 1].Value = NextSettlementName;
 
                     // Populate settlement type
                     DataGridViewComboBoxCell comboCellSettlementType = new DataGridViewComboBoxCell();
@@ -17070,7 +17550,63 @@ namespace CMMManager
 
                     IndividualId = txtIndividualID.Text.Trim();
                     CaseIdForCasePageMedBill = gvCaseUnderProgress["CaseIdForIndividual", nRowSelected].Value.ToString().Trim();
-                    //CaseNameSelected = gvCaseUnderProgress["CaseIdForIndividual", nRowSelected].Value.ToString().Trim();
+
+                    String strSqlQueryForCaseInUse = "select [dbo].[tbl_CaseInUse].[Case_Name], [dbo].[tbl_CaseInUse].[EditingStaff] from [dbo].[tbl_CaseInUse] " +
+                                                     "where [dbo].[tbl_CaseInUse].[Case_Name] = @CaseInUse";
+
+                    SqlCommand cmdCaseInUse = new SqlCommand(strSqlQueryForCaseInUse, connRN2);
+                    cmdCaseInUse.CommandType = CommandType.Text;
+
+                    cmdCaseInUse.Parameters.AddWithValue("@CaseInUse", CaseIdForCasePageMedBill);
+
+                    if (connRN2.State != ConnectionState.Closed)
+                    {
+                        connRN2.Close();
+                        connRN2.Open();
+                    }
+                    else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                    SqlDataReader rdrCaseInUse = cmdCaseInUse.ExecuteReader();
+                    if (rdrCaseInUse.HasRows)
+                    {
+                        rdrCaseInUse.Read();
+                        if (CaseIdForCasePageMedBill == rdrCaseInUse.GetString(0).Trim() &&
+                            nLoggedUserId != rdrCaseInUse.GetInt16(1))
+                        {
+                            MessageBox.Show("The Case: " + CaseIdForCasePageMedBill + " is in use.", "Error");
+                            rdrCaseInUse.Close();
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        rdrCaseInUse.Close();
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                        String strSqlInsertCaseInUse = "insert into [dbo].[tbl_CaseInUse] (Case_Name, EditingStaff) values (@CaseNO, @EditingStaff)";
+
+                        SqlCommand cmdInsertCaseInUse = new SqlCommand(strSqlInsertCaseInUse, connRN2);
+                        cmdInsertCaseInUse.CommandType = CommandType.Text;
+
+                        cmdInsertCaseInUse.Parameters.AddWithValue("@CaseNo", CaseIdForCasePageMedBill);
+                        cmdInsertCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                        if (connRN2.State != ConnectionState.Closed)
+                        {
+                            connRN2.Close();
+                            connRN2.Open();
+                        }
+                        else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                        int nCaseInUserInserted = cmdInsertCaseInUse.ExecuteNonQuery();
+                        if (nCaseInUserInserted != 1)
+                        {
+                            MessageBox.Show("Case in use: " + CaseIdForCasePageMedBill + " has not been inserted.", "Error");
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                            return;
+                        }
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    }
+
                     IndividualName = txtLastName.Text.Trim() + ", " + txtFirstName.Text.Trim() + " " + txtMiddleName.Text.Trim();
 
                     txtCreateCaseIndividualName.Text = IndividualName;
@@ -17417,6 +17953,65 @@ namespace CMMManager
 
                 String MedBillNoForCase = gvCasePageMedBills["MedBillNo", e.RowIndex].Value.ToString();
                 MedBillNoForTask = MedBillNoForCase;
+
+                String strSqlQueryForMedBillInUse = "select [dbo].[tbl_MedBillInUse].[BillNo], [dbo].[tbl_MedBillInUse].[EditingStaff] from [dbo].[tbl_MedBillInUse] " +
+                                                    "where [dbo].[tbl_MedBillInUse].[BillNo] = @MedBillInUse";
+
+                SqlCommand cmdQueryForMedBillInUse = new SqlCommand(strSqlQueryForMedBillInUse, connRN4);
+                cmdQueryForMedBillInUse.CommandType = CommandType.Text;
+
+                cmdQueryForMedBillInUse.Parameters.AddWithValue("@MedBillInUse", MedBillNoForCase);
+
+                if (connRN4.State != ConnectionState.Closed)
+                {
+                    connRN4.Close();
+                    connRN4.Open();
+                }
+                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                SqlDataReader rdrMedBillInUse = cmdQueryForMedBillInUse.ExecuteReader();
+                if (rdrMedBillInUse.HasRows)
+                {
+                    rdrMedBillInUse.Read();
+                    if (MedBillNoForCase == rdrMedBillInUse.GetString(0).Trim() &&
+                        nLoggedUserId != rdrMedBillInUse.GetInt16(1))
+                    {
+                        MessageBox.Show("The Medical Bill: " + MedBillNoForCase + " is in use.", "Error");
+                        rdrMedBillInUse.Close();
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                        return;
+                    }
+                }
+                else
+                {
+                    rdrMedBillInUse.Close();
+                    if (connRN4.State != ConnectionState.Closed) connRN.Close();
+
+                    String strSqlInsertMedBillInUse = "insert into [dbo].[tbl_MedBillInUse] (BillNo, EditingStaff) values (@MedBillNo, @ModifyingStaff)";
+
+                    SqlCommand cmdInsertMedBillInUse = new SqlCommand(strSqlInsertMedBillInUse, connRN4);
+                    cmdInsertMedBillInUse.CommandType = CommandType.Text;
+
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@MedBillNo", MedBillNoForCase);
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@ModifyingStaff", nLoggedUserId);
+
+                    if (connRN4.State != ConnectionState.Closed)
+                    {
+                        connRN4.Close();
+                        connRN4.Open();
+                    }
+                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    int nMedBillInUseInserted = cmdInsertMedBillInUse.ExecuteNonQuery();
+                    if (nMedBillInUseInserted != 1)
+                    {
+                        MessageBox.Show("Medical Bill in use: " + MedBillNoForCase + " has not been inserted.", "Error");
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                        return;
+                    }
+                    if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                }
+
+
+                //if (connRN4.State != ConnectionState.Closed) connRN4.Close();
 
 
                 //////////////////////////////////////////////////////////////////////////////////
@@ -30762,7 +31357,66 @@ namespace CMMManager
                 //               "[dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
                 //               "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
                 //               "[dbo].[tbl_medbill].[IsDeleted] = 0";
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+                String strSqlQueryForMedBillInUse = "select [dbo].[tbl_MedBillInUse].[BillNo], [dbo].[tbl_MedBillInUse].[EditingStaff] from [dbo].[tbl_MedBillInUse] " +
+                                    "where [dbo].[tbl_MedBillInUse].[BillNo] = @MedBillInUse";
+
+                SqlCommand cmdQueryForMedBillInUse = new SqlCommand(strSqlQueryForMedBillInUse, connRN4);
+                cmdQueryForMedBillInUse.CommandType = CommandType.Text;
+
+                cmdQueryForMedBillInUse.Parameters.AddWithValue("@MedBillInUse", MedBillNo);
+
+                if (connRN4.State != ConnectionState.Closed)
+                {
+                    connRN4.Close();
+                    connRN4.Open();
+                }
+                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                SqlDataReader rdrMedBillInUse = cmdQueryForMedBillInUse.ExecuteReader();
+                if (rdrMedBillInUse.HasRows)
+                {
+                    rdrMedBillInUse.Read();
+                    if (MedBillNo == rdrMedBillInUse.GetString(0).Trim() &&
+                        nLoggedUserId != rdrMedBillInUse.GetInt16(1))
+                    {
+                        MessageBox.Show("The Medical Bill: " + MedBillNo + " is in use.", "Error");
+                        rdrMedBillInUse.Close();
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                        return;
+                    }
+                }
+                else
+                {
+                    rdrMedBillInUse.Close();
+                    if (connRN4.State != ConnectionState.Closed) connRN.Close();
+
+                    String strSqlInsertMedBillInUse = "insert into [dbo].[tbl_MedBillInUse] (BillNo, EditingStaff) values (@MedBillNo, @ModifyingStaff)";
+
+                    SqlCommand cmdInsertMedBillInUse = new SqlCommand(strSqlInsertMedBillInUse, connRN4);
+                    cmdInsertMedBillInUse.CommandType = CommandType.Text;
+
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@ModifyingStaff", nLoggedUserId);
+
+                    if (connRN4.State != ConnectionState.Closed)
+                    {
+                        connRN4.Close();
+                        connRN4.Open();
+                    }
+                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    int nMedBillInUseInserted = cmdInsertMedBillInUse.ExecuteNonQuery();
+                    if (nMedBillInUseInserted != 1)
+                    {
+                        MessageBox.Show("Medical Bill in use: " + MedBillNo + " has not been inserted.", "Error");
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                        return;
+                    }
+                    if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                }
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 String strSqlQueryForMedBillEdit = "select [dbo].[tbl_medbill].[Case_Id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
                                                    "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[MedBillType_Id], [dbo].[tbl_medbill].[BillStatus], [dbo].[tbl_medbill].[BillClosed], " +
                                                    "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +

@@ -841,7 +841,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.btnAddNewMedBill = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
@@ -4574,7 +4573,7 @@
             this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvIllnessList.Size = new System.Drawing.Size(1738, 682);
             this.gvIllnessList.TabIndex = 13;
-            this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
+            //this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
             // 
             // Illness_IllnessNo
             // 
@@ -4765,7 +4764,7 @@
             this.gvIncidentList.ReadOnly = true;
             this.gvIncidentList.Size = new System.Drawing.Size(1743, 703);
             this.gvIncidentList.TabIndex = 23;
-            this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
+            //this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
             // 
             // Incident_IncidentNo
             // 
@@ -5203,7 +5202,6 @@
             // 
             // tbpgMedicalBill
             // 
-            this.tbpgMedicalBill.Controls.Add(this.btnAddNewMedBill);
             this.tbpgMedicalBill.Controls.Add(this.txtTotalSharedAmtMedBill);
             this.tbpgMedicalBill.Controls.Add(this.label63);
             this.tbpgMedicalBill.Controls.Add(this.txtPersonalResponsibility);
@@ -8064,15 +8062,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // btnAddNewMedBill
-            // 
-            this.btnAddNewMedBill.Location = new System.Drawing.Point(1567, 27);
-            this.btnAddNewMedBill.Name = "btnAddNewMedBill";
-            this.btnAddNewMedBill.Size = new System.Drawing.Size(110, 31);
-            this.btnAddNewMedBill.TabIndex = 153;
-            this.btnAddNewMedBill.Text = "Add New";
-            this.btnAddNewMedBill.UseVisualStyleBackColor = true;
-            // 
             // frmCMMManager
             // 
             this.AcceptButton = this.btnSearch;
@@ -9005,7 +8994,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
         private System.Windows.Forms.Label label100;
         private System.Windows.Forms.TextBox txtAnivDate;
-        private System.Windows.Forms.Button btnAddNewMedBill;
     }
 }
 

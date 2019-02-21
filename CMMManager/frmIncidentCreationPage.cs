@@ -73,133 +73,135 @@ namespace CMMManager
 
             if (mode == IncidentMode.AddNew)
             {
-                String strSqlQueryForCountIncidentId = "select count(Incident_id) from [dbo].[tbl_incident]";
+                //String strSqlQueryForCountIncidentId = "select count(Incident_id) from [dbo].[tbl_incident]";
 
-                SqlCommand cmdQueryForCountIncidentId = new SqlCommand(strSqlQueryForCountIncidentId, connRNDB);
-                cmdQueryForCountIncidentId.CommandType = CommandType.Text;
+                //SqlCommand cmdQueryForCountIncidentId = new SqlCommand(strSqlQueryForCountIncidentId, connRNDB);
+                //cmdQueryForCountIncidentId.CommandType = CommandType.Text;
 
-                if (connRNDB.State == ConnectionState.Open)
-                {
-                    connRNDB.Close();
-                    connRNDB.Open();
-                }
-                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                //int? nMaxIncidentId = int.Parse(cmdQueryForMaxIncidentId.ExecuteScalar().ToString());
-                int nCountIncidentId = (int)cmdQueryForCountIncidentId.ExecuteScalar();
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                //if (connRNDB.State == ConnectionState.Open)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                ////int? nMaxIncidentId = int.Parse(cmdQueryForMaxIncidentId.ExecuteScalar().ToString());
+                //int nCountIncidentId = (int)cmdQueryForCountIncidentId.ExecuteScalar();
+                //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                int? nMaxIncidentId = null;
-                int nResultMaxIncidentId = 0;
+                //int? nMaxIncidentId = null;
+                //int nResultMaxIncidentId = 0;
 
-                String NewIncidentNo = "INCD-";
+                //String NewIncidentNo = "INCD-";
 
-                if (nCountIncidentId > 0)
-                {
-                    if (connRNDB.State != ConnectionState.Closed)
-                    {
-                        connRNDB.Close();
-                        connRNDB.Open();
-                    }
-                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //if (nCountIncidentId > 0)
+                //{
+                //    if (connRNDB.State != ConnectionState.Closed)
+                //    {
+                //        connRNDB.Close();
+                //        connRNDB.Open();
+                //    }
+                //    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
-                    SqlCommand cmdLastIncidentNo = connRNDB.CreateCommand();
-                    SqlTransaction tranIncidentNo = connRNDB.BeginTransaction(IsolationLevel.Serializable);
+                //    SqlCommand cmdLastIncidentNo = connRNDB.CreateCommand();
+                //    SqlTransaction tranIncidentNo = connRNDB.BeginTransaction(IsolationLevel.Serializable);
 
-                    cmdLastIncidentNo.Connection = connRNDB;
-                    cmdLastIncidentNo.Transaction = tranIncidentNo;
+                //    cmdLastIncidentNo.Connection = connRNDB;
+                //    cmdLastIncidentNo.Transaction = tranIncidentNo;
 
-                    try
-                    {
-                        String strSqlQueryForLastIncidentNo = "select [dbo].[tbl_LastID].[IncidentId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+                //    try
+                //    {
+                //        String strSqlQueryForLastIncidentNo = "select [dbo].[tbl_LastID].[IncidentId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
 
-                        cmdLastIncidentNo.CommandText = strSqlQueryForLastIncidentNo;
-                        cmdLastIncidentNo.CommandType = CommandType.Text;
+                //        cmdLastIncidentNo.CommandText = strSqlQueryForLastIncidentNo;
+                //        cmdLastIncidentNo.CommandType = CommandType.Text;
 
-                        String strLastIncidentNo = String.Empty;
-                        Object objLastIncidentNo = cmdLastIncidentNo.ExecuteScalar();
+                //        String strLastIncidentNo = String.Empty;
+                //        Object objLastIncidentNo = cmdLastIncidentNo.ExecuteScalar();
 
-                        if (objLastIncidentNo != null) strLastIncidentNo = objLastIncidentNo.ToString();
+                //        if (objLastIncidentNo != null) strLastIncidentNo = objLastIncidentNo.ToString();
 
-                        int nNewIncidentNo = Int32.Parse(strLastIncidentNo.Substring(5));
-                        nNewIncidentNo++;
+                //        int nNewIncidentNo = Int32.Parse(strLastIncidentNo.Substring(5));
+                //        nNewIncidentNo++;
 
-                        NewIncidentNo += nNewIncidentNo.ToString();
+                //        NewIncidentNo += nNewIncidentNo.ToString();
 
-                        String strSqlUpdateLastIncidentNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IncidentId] = @NewIncidentNo where [dbo].[tbl_LastID].[Id] = 1";
+                //        String strSqlUpdateLastIncidentNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IncidentId] = @NewIncidentNo where [dbo].[tbl_LastID].[Id] = 1";
 
-                        cmdLastIncidentNo.CommandText = strSqlUpdateLastIncidentNo;
-                        cmdLastIncidentNo.CommandType = CommandType.Text;
+                //        cmdLastIncidentNo.CommandText = strSqlUpdateLastIncidentNo;
+                //        cmdLastIncidentNo.CommandType = CommandType.Text;
 
-                        cmdLastIncidentNo.Parameters.AddWithValue("@NewIncidentNo", NewIncidentNo);
+                //        cmdLastIncidentNo.Parameters.AddWithValue("@NewIncidentNo", NewIncidentNo);
 
-                        int nIncidentIdUpdated = cmdLastIncidentNo.ExecuteNonQuery();
+                //        int nIncidentIdUpdated = cmdLastIncidentNo.ExecuteNonQuery();
 
-                        tranIncidentNo.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        try
-                        {
-                            tranIncidentNo.Rollback();
-                            MessageBox.Show(ex.Message, "Error");
-                            return;
-                        }
-                        catch (SqlException se)
-                        {
-                            MessageBox.Show(se.Message, "Sql Error");
-                            return;
-                        }
-                    }
-                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
-                }
-                else
-                {
-                    NewIncidentNo += '1';
+                //        tranIncidentNo.Commit();
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        try
+                //        {
+                //            tranIncidentNo.Rollback();
+                //            MessageBox.Show(ex.Message, "Error");
+                //            return;
+                //        }
+                //        catch (SqlException se)
+                //        {
+                //            MessageBox.Show(se.Message, "Sql Error");
+                //            return;
+                //        }
+                //    }
+                //    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                //}
+                //else
+                //{
+                //    NewIncidentNo += '1';
 
-                    if (connRNDB.State != ConnectionState.Closed)
-                    {
-                        connRNDB.Close();
-                        connRNDB.Open();
-                    }
-                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //    if (connRNDB.State != ConnectionState.Closed)
+                //    {
+                //        connRNDB.Close();
+                //        connRNDB.Open();
+                //    }
+                //    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
 
-                    SqlCommand cmdIncidentId = connRNDB.CreateCommand();
-                    SqlTransaction tranIncidentId = connRNDB.BeginTransaction(IsolationLevel.Serializable);
+                //    SqlCommand cmdIncidentId = connRNDB.CreateCommand();
+                //    SqlTransaction tranIncidentId = connRNDB.BeginTransaction(IsolationLevel.Serializable);
 
-                    cmdIncidentId.Connection = connRNDB;
-                    cmdIncidentId.Transaction = tranIncidentId;
+                //    cmdIncidentId.Connection = connRNDB;
+                //    cmdIncidentId.Transaction = tranIncidentId;
 
-                    try
-                    {
-                        String strUpdateIncidentId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IncidentId] = @IncidentId where [dbo].[tbl_LastID].[Id] = 1";
+                //    try
+                //    {
+                //        String strUpdateIncidentId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IncidentId] = @IncidentId where [dbo].[tbl_LastID].[Id] = 1";
 
-                        cmdIncidentId.CommandText = strUpdateIncidentId;
-                        cmdIncidentId.CommandType = CommandType.Text;
+                //        cmdIncidentId.CommandText = strUpdateIncidentId;
+                //        cmdIncidentId.CommandType = CommandType.Text;
 
-                        cmdIncidentId.Parameters.AddWithValue("@IncidentId", NewIncidentNo);
-                        int nIncidentIdUpdated = cmdIncidentId.ExecuteNonQuery();
+                //        cmdIncidentId.Parameters.AddWithValue("@IncidentId", NewIncidentNo);
+                //        int nIncidentIdUpdated = cmdIncidentId.ExecuteNonQuery();
 
-                        tranIncidentId.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        try
-                        {
-                            tranIncidentId.Rollback();
-                            MessageBox.Show(ex.Message, "Error");
-                            return;
-                        }
-                        catch (SqlException se)
-                        {
-                            MessageBox.Show(se.Message, "Sql Error");
-                            return;
-                        }
-                    }
-                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
-                }
+                //        tranIncidentId.Commit();
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        try
+                //        {
+                //            tranIncidentId.Rollback();
+                //            MessageBox.Show(ex.Message, "Error");
+                //            return;
+                //        }
+                //        catch (SqlException se)
+                //        {
+                //            MessageBox.Show(se.Message, "Sql Error");
+                //            return;
+                //        }
+                //    }
+                //    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                //}
 
-                txtIncidentNo.Text = NewIncidentNo;
+                //txtIncidentNo.Text = NewIncidentNo;
+                txtIncidentNo.Text = strIncidentNo;
                 
+
                 String strSqlQueryForIllnessIntro = "select [dbo].[tbl_illness].[Introduction] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
                 SqlCommand cmdQueryForIllnessIntro = new SqlCommand(strSqlQueryForIllnessIntro, connRNDB);
@@ -218,7 +220,7 @@ namespace CMMManager
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 String strIllnessIntro = String.Empty;
-                if (objIllnessIntro != null) strIllnessIntro = objIllnessIntro.ToString();             
+                if (objIllnessIntro != null) strIllnessIntro = objIllnessIntro.ToString();
 
                 String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
@@ -634,7 +636,8 @@ namespace CMMManager
             String CaseId = strCaseId.Trim();
             //int IllnessId = Int32.Parse(strIllnessNo.Trim());
             int IllnessId = Int32.Parse(strIllnessId.Trim());
-            String NewIncidentNo = "INCD-";
+            //String NewIncidentNo = "INCD-";
+            String NewIncidentNo = txtIncidentNo.Text.Trim();
 
 
             if (mode == IncidentMode.AddNew)
@@ -669,56 +672,56 @@ namespace CMMManager
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                String strSqlQueryForMaxIncidentId = "select max([dbo].[tbl_incident].[incident_id]) from [dbo].[tbl_incident]";
+                //String strSqlQueryForMaxIncidentId = "select max([dbo].[tbl_incident].[incident_id]) from [dbo].[tbl_incident]";
 
-                SqlCommand cmdQueryForMaxIncidentId = new SqlCommand(strSqlQueryForMaxIncidentId, connRNDB);
-                cmdQueryForMaxIncidentId.CommandType = CommandType.Text;
+                //SqlCommand cmdQueryForMaxIncidentId = new SqlCommand(strSqlQueryForMaxIncidentId, connRNDB);
+                //cmdQueryForMaxIncidentId.CommandType = CommandType.Text;
 
-                if (connRNDB.State == ConnectionState.Open)
-                {
-                    connRNDB.Close();
-                    connRNDB.Open();
-                }
-                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                Object objMaxIncidentId = cmdQueryForMaxIncidentId.ExecuteScalar();
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                //if (connRNDB.State == ConnectionState.Open)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //Object objMaxIncidentId = cmdQueryForMaxIncidentId.ExecuteScalar();
+                //if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                String MaxIncidentId = objMaxIncidentId.ToString();
+                //String MaxIncidentId = objMaxIncidentId.ToString();
 
-                if (MaxIncidentId == String.Empty)
-                {
-                    NewIncidentNo += '1';
-                }
-                else
-                {
-                    int nMaxIncidentId = Int32.Parse(objMaxIncidentId.ToString());
+                //if (MaxIncidentId == String.Empty)
+                //{
+                //    NewIncidentNo += '1';
+                //}
+                //else
+                //{
+                //    int nMaxIncidentId = Int32.Parse(objMaxIncidentId.ToString());
 
-                    String strSqlQueryForMaxIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[Incident_id] = @IncidentId";
+                //    String strSqlQueryForMaxIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[Incident_id] = @IncidentId";
 
-                    SqlCommand cmdQueryForMaxIncidentNo = new SqlCommand(strSqlQueryForMaxIncidentNo, connRNDB);
-                    cmdQueryForMaxIncidentNo.Parameters.AddWithValue("@IncidentId", nMaxIncidentId);
+                //    SqlCommand cmdQueryForMaxIncidentNo = new SqlCommand(strSqlQueryForMaxIncidentNo, connRNDB);
+                //    cmdQueryForMaxIncidentNo.Parameters.AddWithValue("@IncidentId", nMaxIncidentId);
 
-                    if (connRNDB.State == ConnectionState.Open)
-                    {
-                        connRNDB.Close();
-                        connRNDB.Open();
-                    }
-                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                    Object objMaxIncidentNo = cmdQueryForMaxIncidentNo.ExecuteScalar();
-                    if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                //    if (connRNDB.State == ConnectionState.Open)
+                //    {
+                //        connRNDB.Close();
+                //        connRNDB.Open();
+                //    }
+                //    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //    Object objMaxIncidentNo = cmdQueryForMaxIncidentNo.ExecuteScalar();
+                //    if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
-                    if (objMaxIncidentNo != null)
-                    {
-                        int nMaxIncidentNo = Int32.Parse(objMaxIncidentNo.ToString().Substring(5));
-                        nMaxIncidentNo++;
-                        NewIncidentNo += nMaxIncidentNo.ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No incident no", "Error");
-                        return;
-                    }
-                }
+                //    if (objMaxIncidentNo != null)
+                //    {
+                //        int nMaxIncidentNo = Int32.Parse(objMaxIncidentNo.ToString().Substring(5));
+                //        nMaxIncidentNo++;
+                //        NewIncidentNo += nMaxIncidentNo.ToString();
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("No incident no", "Error");
+                //        return;
+                //    }
+                //}
 
                 String strInsertNewIncident = "insert into [dbo].[tbl_incident] " +
                         "([dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[IsDeleted], " +
@@ -835,7 +838,8 @@ namespace CMMManager
             }
             else if (mode == IncidentMode.Edit)
             {
-                String IncidentId = strIncidentId;
+                //String IncidentId = strIncidentId;
+                String IncidentNo = txtIncidentNo.Text.Trim();
 
                 String strSqlUpdateIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[ModifiDate] = @ModifiDate, [dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff, " +
                                               "[dbo].[tbl_incident].[Program_id] = @ProgramId, [dbo].[tbl_incident].[IncidentNote] = @IncidentNote " +
@@ -848,7 +852,8 @@ namespace CMMManager
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());
-                cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
+                //cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
+                cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
                 cmdUpdateIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
 
                 if (connRNDB.State == ConnectionState.Open)
