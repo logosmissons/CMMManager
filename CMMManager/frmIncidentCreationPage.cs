@@ -308,6 +308,9 @@ namespace CMMManager
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
 
                 comboProgram.SelectedIndex = 0;
+
+                dtpCreateDate.Enabled = false;
+                dtpModifiedDate.Enabled = false;
             }
             else if (mode == IncidentMode.Edit)
             {
@@ -455,6 +458,10 @@ namespace CMMManager
                 //}
 
                 if (strDiseaseName != String.Empty) txtICD10Name.Text = strDiseaseName.Trim();
+
+                dtpCreateDate.Enabled = false;
+                dtpModifiedDate.Enabled = false;
+
             }
 
 

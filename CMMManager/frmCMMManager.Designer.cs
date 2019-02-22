@@ -335,6 +335,11 @@
             this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
+            this.dtpIBReceivedDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpPoPReceivedDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpMRReceivedDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpOtherDocReceivedDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpNPFReceivedDate = new System.Windows.Forms.DateTimePicker();
             this.cbCaseStatus = new System.Windows.Forms.ComboBox();
             this.btnDeleteMedBill = new System.Windows.Forms.Button();
             this.btnEditMedBill = new System.Windows.Forms.Button();
@@ -348,11 +353,6 @@
             this.btnCaseCreationLowerCancel = new System.Windows.Forms.Button();
             this.btnCaseCreationSaveUpper = new System.Windows.Forms.Button();
             this.btnCaseCreationCancelUpper = new System.Windows.Forms.Button();
-            this.txtPoPUploadDate = new System.Windows.Forms.TextBox();
-            this.txtMRUploadDate = new System.Windows.Forms.TextBox();
-            this.txtOtherDocUploadDate = new System.Windows.Forms.TextBox();
-            this.txtIBUploadDate = new System.Windows.Forms.TextBox();
-            this.txtNPFUploadDate = new System.Windows.Forms.TextBox();
             this.label87 = new System.Windows.Forms.Label();
             this.label86 = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
@@ -2518,6 +2518,7 @@
             // 
             // btnIndViewUpdateLowerRight
             // 
+            this.btnIndViewUpdateLowerRight.Enabled = false;
             this.btnIndViewUpdateLowerRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIndViewUpdateLowerRight.Location = new System.Drawing.Point(1688, 822);
             this.btnIndViewUpdateLowerRight.Name = "btnIndViewUpdateLowerRight";
@@ -3656,6 +3657,11 @@
             // 
             // tbpgCreateCase
             // 
+            this.tbpgCreateCase.Controls.Add(this.dtpIBReceivedDate);
+            this.tbpgCreateCase.Controls.Add(this.dtpPoPReceivedDate);
+            this.tbpgCreateCase.Controls.Add(this.dtpMRReceivedDate);
+            this.tbpgCreateCase.Controls.Add(this.dtpOtherDocReceivedDate);
+            this.tbpgCreateCase.Controls.Add(this.dtpNPFReceivedDate);
             this.tbpgCreateCase.Controls.Add(this.cbCaseStatus);
             this.tbpgCreateCase.Controls.Add(this.btnDeleteMedBill);
             this.tbpgCreateCase.Controls.Add(this.btnEditMedBill);
@@ -3669,11 +3675,6 @@
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationLowerCancel);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationSaveUpper);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationCancelUpper);
-            this.tbpgCreateCase.Controls.Add(this.txtPoPUploadDate);
-            this.tbpgCreateCase.Controls.Add(this.txtMRUploadDate);
-            this.tbpgCreateCase.Controls.Add(this.txtOtherDocUploadDate);
-            this.tbpgCreateCase.Controls.Add(this.txtIBUploadDate);
-            this.tbpgCreateCase.Controls.Add(this.txtNPFUploadDate);
             this.tbpgCreateCase.Controls.Add(this.label87);
             this.tbpgCreateCase.Controls.Add(this.label86);
             this.tbpgCreateCase.Controls.Add(this.label85);
@@ -3730,6 +3731,51 @@
             this.tbpgCreateCase.TabIndex = 8;
             this.tbpgCreateCase.Text = "Case";
             this.tbpgCreateCase.UseVisualStyleBackColor = true;
+            // 
+            // dtpIBReceivedDate
+            // 
+            this.dtpIBReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpIBReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpIBReceivedDate.Location = new System.Drawing.Point(605, 202);
+            this.dtpIBReceivedDate.Name = "dtpIBReceivedDate";
+            this.dtpIBReceivedDate.Size = new System.Drawing.Size(100, 22);
+            this.dtpIBReceivedDate.TabIndex = 150;
+            // 
+            // dtpPoPReceivedDate
+            // 
+            this.dtpPoPReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpPoPReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpPoPReceivedDate.Location = new System.Drawing.Point(605, 236);
+            this.dtpPoPReceivedDate.Name = "dtpPoPReceivedDate";
+            this.dtpPoPReceivedDate.Size = new System.Drawing.Size(100, 22);
+            this.dtpPoPReceivedDate.TabIndex = 149;
+            // 
+            // dtpMRReceivedDate
+            // 
+            this.dtpMRReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpMRReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpMRReceivedDate.Location = new System.Drawing.Point(605, 269);
+            this.dtpMRReceivedDate.Name = "dtpMRReceivedDate";
+            this.dtpMRReceivedDate.Size = new System.Drawing.Size(100, 22);
+            this.dtpMRReceivedDate.TabIndex = 148;
+            // 
+            // dtpOtherDocReceivedDate
+            // 
+            this.dtpOtherDocReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpOtherDocReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpOtherDocReceivedDate.Location = new System.Drawing.Point(605, 302);
+            this.dtpOtherDocReceivedDate.Name = "dtpOtherDocReceivedDate";
+            this.dtpOtherDocReceivedDate.Size = new System.Drawing.Size(100, 22);
+            this.dtpOtherDocReceivedDate.TabIndex = 147;
+            // 
+            // dtpNPFReceivedDate
+            // 
+            this.dtpNPFReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNPFReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNPFReceivedDate.Location = new System.Drawing.Point(605, 168);
+            this.dtpNPFReceivedDate.Name = "dtpNPFReceivedDate";
+            this.dtpNPFReceivedDate.Size = new System.Drawing.Size(100, 22);
+            this.dtpNPFReceivedDate.TabIndex = 146;
             // 
             // cbCaseStatus
             // 
@@ -3792,7 +3838,7 @@
             // btnBrowseNPF
             // 
             this.btnBrowseNPF.Enabled = false;
-            this.btnBrowseNPF.Location = new System.Drawing.Point(340, 167);
+            this.btnBrowseNPF.Location = new System.Drawing.Point(328, 167);
             this.btnBrowseNPF.Name = "btnBrowseNPF";
             this.btnBrowseNPF.Size = new System.Drawing.Size(77, 23);
             this.btnBrowseNPF.TabIndex = 137;
@@ -3820,12 +3866,14 @@
             // 
             // btnCaseCreationLowerSave
             // 
+            this.btnCaseCreationLowerSave.Enabled = false;
             this.btnCaseCreationLowerSave.Location = new System.Drawing.Point(1678, 817);
             this.btnCaseCreationLowerSave.Name = "btnCaseCreationLowerSave";
             this.btnCaseCreationLowerSave.Size = new System.Drawing.Size(110, 31);
             this.btnCaseCreationLowerSave.TabIndex = 132;
             this.btnCaseCreationLowerSave.Text = "Save";
             this.btnCaseCreationLowerSave.UseVisualStyleBackColor = true;
+            this.btnCaseCreationLowerSave.Visible = false;
             this.btnCaseCreationLowerSave.Click += new System.EventHandler(this.btnCaseCreationLowerSave_Click);
             // 
             // btnCaseCreationLowerCancel
@@ -3862,56 +3910,11 @@
             this.btnCaseCreationCancelUpper.Visible = false;
             this.btnCaseCreationCancelUpper.Click += new System.EventHandler(this.btnCaseCreationCancelUpper_Click);
             // 
-            // txtPoPUploadDate
-            // 
-            this.txtPoPUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPoPUploadDate.Location = new System.Drawing.Point(623, 236);
-            this.txtPoPUploadDate.Name = "txtPoPUploadDate";
-            this.txtPoPUploadDate.ReadOnly = true;
-            this.txtPoPUploadDate.Size = new System.Drawing.Size(79, 22);
-            this.txtPoPUploadDate.TabIndex = 126;
-            // 
-            // txtMRUploadDate
-            // 
-            this.txtMRUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMRUploadDate.Location = new System.Drawing.Point(623, 269);
-            this.txtMRUploadDate.Name = "txtMRUploadDate";
-            this.txtMRUploadDate.ReadOnly = true;
-            this.txtMRUploadDate.Size = new System.Drawing.Size(79, 22);
-            this.txtMRUploadDate.TabIndex = 125;
-            // 
-            // txtOtherDocUploadDate
-            // 
-            this.txtOtherDocUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherDocUploadDate.Location = new System.Drawing.Point(623, 302);
-            this.txtOtherDocUploadDate.Name = "txtOtherDocUploadDate";
-            this.txtOtherDocUploadDate.ReadOnly = true;
-            this.txtOtherDocUploadDate.Size = new System.Drawing.Size(79, 22);
-            this.txtOtherDocUploadDate.TabIndex = 124;
-            // 
-            // txtIBUploadDate
-            // 
-            this.txtIBUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIBUploadDate.Location = new System.Drawing.Point(623, 202);
-            this.txtIBUploadDate.Name = "txtIBUploadDate";
-            this.txtIBUploadDate.ReadOnly = true;
-            this.txtIBUploadDate.Size = new System.Drawing.Size(79, 22);
-            this.txtIBUploadDate.TabIndex = 123;
-            // 
-            // txtNPFUploadDate
-            // 
-            this.txtNPFUploadDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNPFUploadDate.Location = new System.Drawing.Point(623, 169);
-            this.txtNPFUploadDate.Name = "txtNPFUploadDate";
-            this.txtNPFUploadDate.ReadOnly = true;
-            this.txtNPFUploadDate.Size = new System.Drawing.Size(79, 22);
-            this.txtNPFUploadDate.TabIndex = 122;
-            // 
             // label87
             // 
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(516, 206);
+            this.label87.Location = new System.Drawing.Point(499, 206);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(102, 16);
             this.label87.TabIndex = 121;
@@ -3921,7 +3924,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(516, 240);
+            this.label86.Location = new System.Drawing.Point(499, 240);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(102, 16);
             this.label86.TabIndex = 120;
@@ -3931,7 +3934,7 @@
             // 
             this.label85.AutoSize = true;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(516, 273);
+            this.label85.Location = new System.Drawing.Point(499, 273);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(102, 16);
             this.label85.TabIndex = 119;
@@ -3941,7 +3944,7 @@
             // 
             this.label84.AutoSize = true;
             this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label84.Location = new System.Drawing.Point(516, 304);
+            this.label84.Location = new System.Drawing.Point(499, 304);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(102, 16);
             this.label84.TabIndex = 118;
@@ -3951,7 +3954,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(516, 172);
+            this.label82.Location = new System.Drawing.Point(499, 172);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(102, 16);
             this.label82.TabIndex = 117;
@@ -3960,7 +3963,7 @@
             // btnBrowseUnknownDoc
             // 
             this.btnBrowseUnknownDoc.Enabled = false;
-            this.btnBrowseUnknownDoc.Location = new System.Drawing.Point(340, 301);
+            this.btnBrowseUnknownDoc.Location = new System.Drawing.Point(328, 301);
             this.btnBrowseUnknownDoc.Name = "btnBrowseUnknownDoc";
             this.btnBrowseUnknownDoc.Size = new System.Drawing.Size(77, 23);
             this.btnBrowseUnknownDoc.TabIndex = 116;
@@ -3971,7 +3974,7 @@
             // btnBrowseMR
             // 
             this.btnBrowseMR.Enabled = false;
-            this.btnBrowseMR.Location = new System.Drawing.Point(340, 268);
+            this.btnBrowseMR.Location = new System.Drawing.Point(328, 268);
             this.btnBrowseMR.Name = "btnBrowseMR";
             this.btnBrowseMR.Size = new System.Drawing.Size(77, 23);
             this.btnBrowseMR.TabIndex = 115;
@@ -3982,7 +3985,7 @@
             // btnBrowsePoP
             // 
             this.btnBrowsePoP.Enabled = false;
-            this.btnBrowsePoP.Location = new System.Drawing.Point(340, 235);
+            this.btnBrowsePoP.Location = new System.Drawing.Point(328, 235);
             this.btnBrowsePoP.Name = "btnBrowsePoP";
             this.btnBrowsePoP.Size = new System.Drawing.Size(77, 23);
             this.btnBrowsePoP.TabIndex = 114;
@@ -3993,7 +3996,7 @@
             // btnBrowseIB
             // 
             this.btnBrowseIB.Enabled = false;
-            this.btnBrowseIB.Location = new System.Drawing.Point(340, 201);
+            this.btnBrowseIB.Location = new System.Drawing.Point(328, 201);
             this.btnBrowseIB.Name = "btnBrowseIB";
             this.btnBrowseIB.Size = new System.Drawing.Size(77, 23);
             this.btnBrowseIB.TabIndex = 113;
@@ -4203,7 +4206,7 @@
             // btnUnknownDocUpload
             // 
             this.btnUnknownDocUpload.Enabled = false;
-            this.btnUnknownDocUpload.Location = new System.Drawing.Point(429, 301);
+            this.btnUnknownDocUpload.Location = new System.Drawing.Point(412, 301);
             this.btnUnknownDocUpload.Name = "btnUnknownDocUpload";
             this.btnUnknownDocUpload.Size = new System.Drawing.Size(77, 23);
             this.btnUnknownDocUpload.TabIndex = 97;
@@ -4236,7 +4239,7 @@
             // btnMedicalRecordUpload
             // 
             this.btnMedicalRecordUpload.Enabled = false;
-            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(429, 268);
+            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(412, 268);
             this.btnMedicalRecordUpload.Name = "btnMedicalRecordUpload";
             this.btnMedicalRecordUpload.Size = new System.Drawing.Size(77, 23);
             this.btnMedicalRecordUpload.TabIndex = 94;
@@ -4269,7 +4272,7 @@
             // btnPoPUpload
             // 
             this.btnPoPUpload.Enabled = false;
-            this.btnPoPUpload.Location = new System.Drawing.Point(429, 235);
+            this.btnPoPUpload.Location = new System.Drawing.Point(412, 235);
             this.btnPoPUpload.Name = "btnPoPUpload";
             this.btnPoPUpload.Size = new System.Drawing.Size(77, 23);
             this.btnPoPUpload.TabIndex = 91;
@@ -4302,7 +4305,7 @@
             // btnIBUpload
             // 
             this.btnIBUpload.Enabled = false;
-            this.btnIBUpload.Location = new System.Drawing.Point(429, 201);
+            this.btnIBUpload.Location = new System.Drawing.Point(412, 201);
             this.btnIBUpload.Name = "btnIBUpload";
             this.btnIBUpload.Size = new System.Drawing.Size(77, 23);
             this.btnIBUpload.TabIndex = 88;
@@ -4335,7 +4338,7 @@
             // btnNPFFormUpload
             // 
             this.btnNPFFormUpload.Enabled = false;
-            this.btnNPFFormUpload.Location = new System.Drawing.Point(429, 167);
+            this.btnNPFFormUpload.Location = new System.Drawing.Point(412, 167);
             this.btnNPFFormUpload.Name = "btnNPFFormUpload";
             this.btnNPFFormUpload.Size = new System.Drawing.Size(77, 23);
             this.btnNPFFormUpload.TabIndex = 85;
@@ -4349,7 +4352,7 @@
             this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(182, 302);
             this.txtOtherDocumentFilePath.Name = "txtOtherDocumentFilePath";
             this.txtOtherDocumentFilePath.ReadOnly = true;
-            this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(152, 22);
+            this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(138, 22);
             this.txtOtherDocumentFilePath.TabIndex = 84;
             // 
             // txtMedicalRecordFilePath
@@ -4358,7 +4361,7 @@
             this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(182, 269);
             this.txtMedicalRecordFilePath.Name = "txtMedicalRecordFilePath";
             this.txtMedicalRecordFilePath.ReadOnly = true;
-            this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(152, 22);
+            this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(138, 22);
             this.txtMedicalRecordFilePath.TabIndex = 83;
             // 
             // txtPopFilePath
@@ -4367,7 +4370,7 @@
             this.txtPopFilePath.Location = new System.Drawing.Point(182, 236);
             this.txtPopFilePath.Name = "txtPopFilePath";
             this.txtPopFilePath.ReadOnly = true;
-            this.txtPopFilePath.Size = new System.Drawing.Size(152, 22);
+            this.txtPopFilePath.Size = new System.Drawing.Size(138, 22);
             this.txtPopFilePath.TabIndex = 82;
             // 
             // txtIBFilePath
@@ -4376,7 +4379,7 @@
             this.txtIBFilePath.Location = new System.Drawing.Point(182, 202);
             this.txtIBFilePath.Name = "txtIBFilePath";
             this.txtIBFilePath.ReadOnly = true;
-            this.txtIBFilePath.Size = new System.Drawing.Size(152, 22);
+            this.txtIBFilePath.Size = new System.Drawing.Size(138, 22);
             this.txtIBFilePath.TabIndex = 81;
             // 
             // txtNPFFormFilePath
@@ -4385,7 +4388,7 @@
             this.txtNPFFormFilePath.Location = new System.Drawing.Point(182, 168);
             this.txtNPFFormFilePath.Name = "txtNPFFormFilePath";
             this.txtNPFFormFilePath.ReadOnly = true;
-            this.txtNPFFormFilePath.Size = new System.Drawing.Size(152, 22);
+            this.txtNPFFormFilePath.Size = new System.Drawing.Size(138, 22);
             this.txtNPFFormFilePath.TabIndex = 80;
             // 
             // chkOtherDocCaseCreationPage
@@ -4573,7 +4576,6 @@
             this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvIllnessList.Size = new System.Drawing.Size(1738, 682);
             this.gvIllnessList.TabIndex = 13;
-            //this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
             // 
             // Illness_IllnessNo
             // 
@@ -4764,7 +4766,6 @@
             this.gvIncidentList.ReadOnly = true;
             this.gvIncidentList.Size = new System.Drawing.Size(1743, 703);
             this.gvIncidentList.TabIndex = 23;
-            //this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
             // 
             // Incident_IncidentNo
             // 
@@ -5670,12 +5671,14 @@
             // 
             // btnMedBillCreationPgLowerSave
             // 
+            this.btnMedBillCreationPgLowerSave.Enabled = false;
             this.btnMedBillCreationPgLowerSave.Location = new System.Drawing.Point(1692, 828);
             this.btnMedBillCreationPgLowerSave.Name = "btnMedBillCreationPgLowerSave";
             this.btnMedBillCreationPgLowerSave.Size = new System.Drawing.Size(110, 31);
             this.btnMedBillCreationPgLowerSave.TabIndex = 134;
             this.btnMedBillCreationPgLowerSave.Text = "Save";
             this.btnMedBillCreationPgLowerSave.UseVisualStyleBackColor = true;
+            this.btnMedBillCreationPgLowerSave.Visible = false;
             this.btnMedBillCreationPgLowerSave.Click += new System.EventHandler(this.btnMedBillCreationPgLowerSave_Click);
             // 
             // gvUserModifiedDateHistory
@@ -8064,7 +8067,6 @@
             // 
             // frmCMMManager
             // 
-            this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1884, 982);
@@ -8315,11 +8317,6 @@
         private System.Windows.Forms.Button btnCreateNewCase;
         private System.Windows.Forms.DataGridView gvCaseViewCaseHistory;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.TextBox txtPoPUploadDate;
-        private System.Windows.Forms.TextBox txtMRUploadDate;
-        private System.Windows.Forms.TextBox txtOtherDocUploadDate;
-        private System.Windows.Forms.TextBox txtIBUploadDate;
-        private System.Windows.Forms.TextBox txtNPFUploadDate;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Label label86;
         private System.Windows.Forms.Label label85;
@@ -8994,6 +8991,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
         private System.Windows.Forms.Label label100;
         private System.Windows.Forms.TextBox txtAnivDate;
+        private System.Windows.Forms.DateTimePicker dtpIBReceivedDate;
+        private System.Windows.Forms.DateTimePicker dtpPoPReceivedDate;
+        private System.Windows.Forms.DateTimePicker dtpMRReceivedDate;
+        private System.Windows.Forms.DateTimePicker dtpOtherDocReceivedDate;
+        private System.Windows.Forms.DateTimePicker dtpNPFReceivedDate;
     }
 }
 
