@@ -23453,6 +23453,37 @@ namespace CMMManager
                 txtPhysicalTherapyRxNote.Visible = true;
 
             }
+
+            if (comboBox.SelectedItem.ToString() == "Medical Record")
+            {
+                lblPrescriptionName.Visible = false;
+                lblPrescriptionDescription.Visible = false;
+                lblPrescriptionNote.Visible = false;
+                lblNumberOfMedication.Visible = false;
+
+                txtPrescriptionName.Visible = false;
+                txtPrescriptionDescription.Visible = false;
+                txtPrescriptionNote.Visible = false;
+                txtNumberOfMedication.Visible = false;
+
+                lblNumberOfPhysicalTheraph.Visible = false;
+                txtNumPhysicalTherapy.Visible = false;
+                lblPhysicalTherapyRxNote.Visible = false;
+                txtPhysicalTherapyRxNote.Visible = false;
+
+                rbInpatient.Visible = true;
+                rbOutpatient.Visible = true;
+
+                lblMedBillNote.Visible = true;
+                txtMedBillNote.Visible = true;
+
+                lblPendingReason.Visible = true;
+                comboPendingReason.Visible = true;
+
+                lblIneligibleReason.Visible = true;
+                comboIneligibleReason.Visible = true;
+            }
+            
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
