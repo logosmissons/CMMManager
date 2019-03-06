@@ -59,11 +59,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumeration.cs" />
     <Compile Include="frmAskToSave.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAskToSave.Designer.cs">
       <DependentUpon>frmAskToSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAssignedTo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAssignedTo.Designer.cs">
+      <DependentUpon>frmAssignedTo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCMMLogin.cs">
       <SubType>Form</SubType>
@@ -204,10 +211,14 @@
       <DependentUpon>frmTaskCreationPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Individual.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAskToSave.resx">
       <DependentUpon>frmAskToSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAssignedTo.resx">
+      <DependentUpon>frmAssignedTo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCMMLogin.resx">
       <DependentUpon>frmCMMLogin.cs</DependentUpon>

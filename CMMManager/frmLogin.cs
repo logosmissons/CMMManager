@@ -11,10 +11,6 @@ using System.Data.SqlClient;
 
 namespace CMMManager
 {
-
-    public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, SuperAdmin = 20 };
-    public enum Department { NeedsProcessing = 1, ReviewAndNegotiation, Finance, IT };
-
     public partial class frmLogin : Form
     {
         private SqlConnection connRN;

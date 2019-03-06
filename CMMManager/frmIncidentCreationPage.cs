@@ -345,7 +345,7 @@ namespace CMMManager
                 //                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], " +
-                                "[dbo].[tbl_incident].[Program_id], " +
+                                "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IsWellBeing], " +
                                 "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
                                 "from [dbo].[tbl_incident] " +
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
@@ -388,9 +388,10 @@ namespace CMMManager
                     if (!rdrIncident.IsDBNull(1)) txtIllnessNo.Text = rdrIncident.GetString(1);
                     if (!rdrIncident.IsDBNull(2)) txtIncidentNo.Text = rdrIncident.GetString(2);
                     if (!rdrIncident.IsDBNull(3)) comboProgram.SelectedIndex = rdrIncident.GetInt16(3);
-                    if (!rdrIncident.IsDBNull(4)) dtpCreateDate.Text = rdrIncident.GetDateTime(4).ToString("MM/dd/yyyy");
-                    if (!rdrIncident.IsDBNull(5)) dtpModifiedDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
-                    if (!rdrIncident.IsDBNull(6)) txtIncidentNote.Text = rdrIncident.GetString(6);
+                    if (!rdrIncident.IsDBNull(4)) chkWellBeing.Checked = rdrIncident.GetBoolean(4);
+                    if (!rdrIncident.IsDBNull(5)) dtpCreateDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(6)) dtpModifiedDate.Text = rdrIncident.GetDateTime(6).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(7)) txtIncidentNote.Text = rdrIncident.GetString(7);
                 }
                 rdrIncident.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
@@ -736,8 +737,9 @@ namespace CMMManager
                         "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[CreateStaff], " +
                         "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff]," +
                         "[dbo].[tbl_incident].[Incident_Status], " +
-                        "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IncidentNote]) " +
-                        "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @ModifiStaff, @IncidentStatus, @ProgramId, @IncidentNote)";
+                        "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[IncidentNote]) " +
+                        "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @CreateDate, @CreateStaff, @ModifiDate, @ModifiStaff, @IncidentStatus, " +
+                        "@ProgramId, @WellBeing, @IncidentNote)";
                 //"SELECT SCOPE_IDENTITY()";
 
                 //int nUserId = 1;
@@ -758,6 +760,7 @@ namespace CMMManager
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentStatus", nIncidentStatus);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
+                cmdInsertIntoIncident.Parameters.AddWithValue("@WellBeing", chkWellBeing.Checked);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());
 
                 if (connRNDB.State == ConnectionState.Open)
@@ -849,7 +852,8 @@ namespace CMMManager
                 String IncidentNo = txtIncidentNo.Text.Trim();
 
                 String strSqlUpdateIncident = "update [dbo].[tbl_incident] set [dbo].[tbl_incident].[ModifiDate] = @ModifiDate, [dbo].[tbl_incident].[ModifiStaff] = @ModifiStaff, " +
-                                              "[dbo].[tbl_incident].[Program_id] = @ProgramId, [dbo].[tbl_incident].[IncidentNote] = @IncidentNote " +
+                                              "[dbo].[tbl_incident].[Program_id] = @ProgramId, [dbo].[tbl_incident].[IsWellBeing] = @WellBeing, " +
+                                              "[dbo].[tbl_incident].[IncidentNote] = @IncidentNote " +
                                               "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
                 SqlCommand cmdUpdateIncident = new SqlCommand(strSqlUpdateIncident, connRNDB);
@@ -858,6 +862,7 @@ namespace CMMManager
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value);
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
+                cmdUpdateIncident.Parameters.AddWithValue("@WellBeing", chkWellBeing.Checked);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNote", txtIncidentNote.Text.Trim());
                 //cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
                 cmdUpdateIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
