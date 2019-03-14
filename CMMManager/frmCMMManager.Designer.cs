@@ -814,7 +814,7 @@
             this.label154 = new System.Windows.Forms.Label();
             this.tbpgReport = new System.Windows.Forms.TabPage();
             this.tbpgBlueSheet = new System.Windows.Forms.TabPage();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tbMedBillBlueSheet = new System.Windows.Forms.TabControl();
             this.tbpgAllBlueSheet = new System.Windows.Forms.TabPage();
             this.gvSummaryBlueSheet = new System.Windows.Forms.DataGridView();
             this.gvIneligibleBlueSheet = new System.Windows.Forms.DataGridView();
@@ -833,10 +833,10 @@
             this.gvCMMPendingPaymentInTab = new System.Windows.Forms.DataGridView();
             this.label116 = new System.Windows.Forms.Label();
             this.tbpgPendingBlueSheet = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.gvPendingInTab = new System.Windows.Forms.DataGridView();
             this.label117 = new System.Windows.Forms.Label();
             this.tbpgIneligibleBlueSheet = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.gvIneligibleInTab = new System.Windows.Forms.DataGridView();
             this.label118 = new System.Windows.Forms.Label();
             this.tbpgPersonalResponsibilityBlueSheet = new System.Windows.Forms.TabPage();
             this.gvIneligibleNoSharing = new System.Windows.Forms.DataGridView();
@@ -847,7 +847,7 @@
             this.dtpCreditCardPaymentDateBlueSheet = new System.Windows.Forms.DateTimePicker();
             this.dtpACHTransactionDateBlueSheet = new System.Windows.Forms.DateTimePicker();
             this.dtpCheckIssueDateBlueSheet = new System.Windows.Forms.DateTimePicker();
-            this.txtCreditCardBlueSheet = new System.Windows.Forms.TextBox();
+            this.txtCreditCardNoBlueSheet = new System.Windows.Forms.TextBox();
             this.txtACHNoBlueSheet = new System.Windows.Forms.TextBox();
             this.txtCheckNoBlueSheet = new System.Windows.Forms.TextBox();
             this.label109 = new System.Windows.Forms.Label();
@@ -1017,7 +1017,7 @@
             this.tbpgCallLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCallLog)).BeginInit();
             this.tbpgBlueSheet.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tbMedBillBlueSheet.SuspendLayout();
             this.tbpgAllBlueSheet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSummaryBlueSheet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIneligibleBlueSheet)).BeginInit();
@@ -1029,9 +1029,9 @@
             this.tbpgCMMPendingPaymentBlueSheet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCMMPendingPaymentInTab)).BeginInit();
             this.tbpgPendingBlueSheet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPendingInTab)).BeginInit();
             this.tbpgIneligibleBlueSheet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIneligibleInTab)).BeginInit();
             this.tbpgPersonalResponsibilityBlueSheet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvIneligibleNoSharing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
@@ -7152,10 +7152,12 @@
             this.LastModifiedByProviderPaymentCheck,
             this.MembershipStatusProviderPaymentCheck,
             this.MembershipNoProviderPaymentCheck});
+            this.gvPaymentCheckProvider.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.gvPaymentCheckProvider.Location = new System.Drawing.Point(37, 64);
             this.gvPaymentCheckProvider.Name = "gvPaymentCheckProvider";
             this.gvPaymentCheckProvider.Size = new System.Drawing.Size(1691, 579);
             this.gvPaymentCheckProvider.TabIndex = 2;
+            this.gvPaymentCheckProvider.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheckProvider_CellContentClick);
             this.gvPaymentCheckProvider.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheckProvider_ColumnHeaderMouseDoubleClick);
             // 
             // SelectedProviderPaymentCheck
@@ -8129,7 +8131,7 @@
             // 
             // tbpgBlueSheet
             // 
-            this.tbpgBlueSheet.Controls.Add(this.tabControl1);
+            this.tbpgBlueSheet.Controls.Add(this.tbMedBillBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.grpPaymentInformationBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.btnGenerateKoreanPDFBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.btnGenerateEnglishPDFBlueSheet);
@@ -8147,19 +8149,19 @@
             this.tbpgBlueSheet.Text = "Blue Sheet";
             this.tbpgBlueSheet.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tbMedBillBlueSheet
             // 
-            this.tabControl1.Controls.Add(this.tbpgAllBlueSheet);
-            this.tabControl1.Controls.Add(this.tbpgPaidBlueSheet);
-            this.tabControl1.Controls.Add(this.tbpgCMMPendingPaymentBlueSheet);
-            this.tabControl1.Controls.Add(this.tbpgPendingBlueSheet);
-            this.tabControl1.Controls.Add(this.tbpgIneligibleBlueSheet);
-            this.tabControl1.Controls.Add(this.tbpgPersonalResponsibilityBlueSheet);
-            this.tabControl1.Location = new System.Drawing.Point(48, 184);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1383, 678);
-            this.tabControl1.TabIndex = 11;
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgAllBlueSheet);
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgPaidBlueSheet);
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgCMMPendingPaymentBlueSheet);
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgPendingBlueSheet);
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgIneligibleBlueSheet);
+            this.tbMedBillBlueSheet.Controls.Add(this.tbpgPersonalResponsibilityBlueSheet);
+            this.tbMedBillBlueSheet.Location = new System.Drawing.Point(48, 184);
+            this.tbMedBillBlueSheet.Name = "tbMedBillBlueSheet";
+            this.tbMedBillBlueSheet.SelectedIndex = 0;
+            this.tbMedBillBlueSheet.Size = new System.Drawing.Size(1383, 678);
+            this.tbMedBillBlueSheet.TabIndex = 11;
             // 
             // tbpgAllBlueSheet
             // 
@@ -8360,7 +8362,7 @@
             // 
             // tbpgPendingBlueSheet
             // 
-            this.tbpgPendingBlueSheet.Controls.Add(this.dataGridView1);
+            this.tbpgPendingBlueSheet.Controls.Add(this.gvPendingInTab);
             this.tbpgPendingBlueSheet.Controls.Add(this.label117);
             this.tbpgPendingBlueSheet.Location = new System.Drawing.Point(4, 22);
             this.tbpgPendingBlueSheet.Name = "tbpgPendingBlueSheet";
@@ -8369,16 +8371,16 @@
             this.tbpgPendingBlueSheet.Text = "Pending";
             this.tbpgPendingBlueSheet.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // gvPendingInTab
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(29, 30);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1320, 605);
-            this.dataGridView1.TabIndex = 4;
+            this.gvPendingInTab.AllowUserToAddRows = false;
+            this.gvPendingInTab.AllowUserToDeleteRows = false;
+            this.gvPendingInTab.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvPendingInTab.Location = new System.Drawing.Point(29, 30);
+            this.gvPendingInTab.Name = "gvPendingInTab";
+            this.gvPendingInTab.ReadOnly = true;
+            this.gvPendingInTab.Size = new System.Drawing.Size(1320, 605);
+            this.gvPendingInTab.TabIndex = 4;
             // 
             // label117
             // 
@@ -8393,7 +8395,7 @@
             // 
             // tbpgIneligibleBlueSheet
             // 
-            this.tbpgIneligibleBlueSheet.Controls.Add(this.dataGridView2);
+            this.tbpgIneligibleBlueSheet.Controls.Add(this.gvIneligibleInTab);
             this.tbpgIneligibleBlueSheet.Controls.Add(this.label118);
             this.tbpgIneligibleBlueSheet.Location = new System.Drawing.Point(4, 22);
             this.tbpgIneligibleBlueSheet.Name = "tbpgIneligibleBlueSheet";
@@ -8402,16 +8404,16 @@
             this.tbpgIneligibleBlueSheet.Text = "Ineligible";
             this.tbpgIneligibleBlueSheet.UseVisualStyleBackColor = true;
             // 
-            // dataGridView2
+            // gvIneligibleInTab
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(30, 36);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(1319, 595);
-            this.dataGridView2.TabIndex = 5;
+            this.gvIneligibleInTab.AllowUserToAddRows = false;
+            this.gvIneligibleInTab.AllowUserToDeleteRows = false;
+            this.gvIneligibleInTab.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvIneligibleInTab.Location = new System.Drawing.Point(30, 36);
+            this.gvIneligibleInTab.Name = "gvIneligibleInTab";
+            this.gvIneligibleInTab.ReadOnly = true;
+            this.gvIneligibleInTab.Size = new System.Drawing.Size(1319, 595);
+            this.gvIneligibleInTab.TabIndex = 5;
             // 
             // label118
             // 
@@ -8486,7 +8488,7 @@
             this.grpPaymentInformationBlueSheet.Controls.Add(this.dtpCreditCardPaymentDateBlueSheet);
             this.grpPaymentInformationBlueSheet.Controls.Add(this.dtpACHTransactionDateBlueSheet);
             this.grpPaymentInformationBlueSheet.Controls.Add(this.dtpCheckIssueDateBlueSheet);
-            this.grpPaymentInformationBlueSheet.Controls.Add(this.txtCreditCardBlueSheet);
+            this.grpPaymentInformationBlueSheet.Controls.Add(this.txtCreditCardNoBlueSheet);
             this.grpPaymentInformationBlueSheet.Controls.Add(this.txtACHNoBlueSheet);
             this.grpPaymentInformationBlueSheet.Controls.Add(this.txtCheckNoBlueSheet);
             this.grpPaymentInformationBlueSheet.Controls.Add(this.label109);
@@ -8529,13 +8531,13 @@
             this.dtpCheckIssueDateBlueSheet.Size = new System.Drawing.Size(158, 22);
             this.dtpCheckIssueDateBlueSheet.TabIndex = 9;
             // 
-            // txtCreditCardBlueSheet
+            // txtCreditCardNoBlueSheet
             // 
-            this.txtCreditCardBlueSheet.Location = new System.Drawing.Point(130, 96);
-            this.txtCreditCardBlueSheet.Name = "txtCreditCardBlueSheet";
-            this.txtCreditCardBlueSheet.ReadOnly = true;
-            this.txtCreditCardBlueSheet.Size = new System.Drawing.Size(169, 22);
-            this.txtCreditCardBlueSheet.TabIndex = 8;
+            this.txtCreditCardNoBlueSheet.Location = new System.Drawing.Point(130, 96);
+            this.txtCreditCardNoBlueSheet.Name = "txtCreditCardNoBlueSheet";
+            this.txtCreditCardNoBlueSheet.ReadOnly = true;
+            this.txtCreditCardNoBlueSheet.Size = new System.Drawing.Size(169, 22);
+            this.txtCreditCardNoBlueSheet.TabIndex = 8;
             // 
             // txtACHNoBlueSheet
             // 
@@ -9308,7 +9310,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCallLog)).EndInit();
             this.tbpgBlueSheet.ResumeLayout(false);
             this.tbpgBlueSheet.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tbMedBillBlueSheet.ResumeLayout(false);
             this.tbpgAllBlueSheet.ResumeLayout(false);
             this.tbpgAllBlueSheet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSummaryBlueSheet)).EndInit();
@@ -9324,10 +9326,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCMMPendingPaymentInTab)).EndInit();
             this.tbpgPendingBlueSheet.ResumeLayout(false);
             this.tbpgPendingBlueSheet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPendingInTab)).EndInit();
             this.tbpgIneligibleBlueSheet.ResumeLayout(false);
             this.tbpgIneligibleBlueSheet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIneligibleInTab)).EndInit();
             this.tbpgPersonalResponsibilityBlueSheet.ResumeLayout(false);
             this.tbpgPersonalResponsibilityBlueSheet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvIneligibleNoSharing)).EndInit();
@@ -10107,7 +10109,7 @@
         private System.Windows.Forms.DateTimePicker dtpCreditCardPaymentDateBlueSheet;
         private System.Windows.Forms.DateTimePicker dtpACHTransactionDateBlueSheet;
         private System.Windows.Forms.DateTimePicker dtpCheckIssueDateBlueSheet;
-        private System.Windows.Forms.TextBox txtCreditCardBlueSheet;
+        private System.Windows.Forms.TextBox txtCreditCardNoBlueSheet;
         private System.Windows.Forms.TextBox txtACHNoBlueSheet;
         private System.Windows.Forms.TextBox txtCheckNoBlueSheet;
         private System.Windows.Forms.Label label109;
@@ -10116,7 +10118,7 @@
         private System.Windows.Forms.Label label105;
         private System.Windows.Forms.Label label104;
         private System.Windows.Forms.Label label103;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tbMedBillBlueSheet;
         private System.Windows.Forms.TabPage tbpgAllBlueSheet;
         private System.Windows.Forms.TabPage tbpgPaidBlueSheet;
         private System.Windows.Forms.Label label114;
@@ -10137,9 +10139,9 @@
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.DataGridView gvCMMPendingPaymentInTab;
         private System.Windows.Forms.Label label116;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView gvPendingInTab;
         private System.Windows.Forms.Label label117;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridView gvIneligibleInTab;
         private System.Windows.Forms.Label label118;
         private System.Windows.Forms.DataGridView gvIneligibleNoSharing;
         private System.Windows.Forms.DataGridView gvPersonalResponsibility;

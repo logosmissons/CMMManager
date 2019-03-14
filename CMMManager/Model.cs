@@ -843,6 +843,151 @@ namespace CMMManager
     /// classes for BlueSheet
     /// </summary>
     /// 
+
+    public class MedBillCheckInfo
+    {
+        public String MedicalBillNo;
+        public String MedicalProviderName;
+        public String CheckNo;
+        public DateTime? CheckDate;
+        public Double Amount;
+        public String SettlementName;
+        public String ContactPrimaryName;
+        public String ContactMailingStreet;
+        public String ContactMailingCity;
+        public String ContactMailingState;
+        public String ContactMailingZip;
+        public String MembershipName;
+        public String ContactName;
+        public String ContactLastName;
+        public String ContactMiddleName;
+        public String ContactFirstName;
+        public String IndividualId;
+
+        public MedBillCheckInfo()
+        {
+            MedicalBillNo = String.Empty;
+            MedicalProviderName = String.Empty;
+            CheckNo = String.Empty;
+            CheckDate = null;
+            Amount = 0;
+            SettlementName = String.Empty;
+            ContactPrimaryName = String.Empty;
+            ContactMailingStreet = String.Empty;
+            ContactMailingCity = String.Empty;
+            ContactMailingState = String.Empty;
+            ContactMailingZip = String.Empty;
+            MembershipName = String.Empty;
+            ContactName = String.Empty;
+            ContactLastName = String.Empty;
+            ContactMiddleName = String.Empty;
+            ContactFirstName = String.Empty;
+            IndividualId = String.Empty;
+        }
+    }
+
+    public class MedBillACHInfo
+    {
+        public String MedicalBillNo;
+        public String MedicalProviderName;
+        public String ACH_No;
+        public DateTime? ACH_Date;
+        public Double Amount;
+        public String SettlementName;
+        public String ContactPrimaryName;
+        public String ContactMailingStreet;
+        public String ContactMailingCity;
+        public String ContactMailingState;
+        public String ContactMailingZip;
+        public String MembershipName;
+        public String ContactName;
+        public String ContactLastName;
+        public String ContactMiddleName;
+        public String ContactFirstName;
+        public String IndividualId;
+
+        public MedBillACHInfo()
+        {
+            MedicalBillNo = String.Empty;
+            MedicalProviderName = String.Empty;
+            ACH_No = String.Empty;
+            ACH_Date = null;
+            Amount = 0;
+            SettlementName = String.Empty;
+            ContactPrimaryName = String.Empty;
+            ContactMailingStreet = String.Empty;
+            ContactMailingCity = String.Empty;
+            ContactMailingState = String.Empty;
+            ContactMailingZip = String.Empty;
+            MembershipName = String.Empty;
+            ContactName = String.Empty;
+            ContactLastName = String.Empty;
+            ContactMiddleName = String.Empty;
+            ContactFirstName = String.Empty;
+            IndividualId = String.Empty;
+        }
+    }
+
+    public class MedBillCreditCardPaymentInfo
+    {
+        public String MedicalBillNo;
+        public String MedicalProviderName;
+        public String CreditCard_No;
+        public DateTime? Transaction_Date;
+        public Double Amount;
+        public String SettlementName;
+        public String ContactPrimaryName;
+        public String ContactMailingStreet;
+        public String ContactMailingCity;
+        public String ContactMailingState;
+        public String ContactMailingZip;
+        public String MembershipName;
+        public String ContactName;
+        public String ContactLastName;
+        public String ContactMiddleName;
+        public String ContactFirstName;
+        public String IndividualId;
+
+        public MedBillCreditCardPaymentInfo()
+        {
+            MedicalBillNo = String.Empty;
+            MedicalProviderName = String.Empty;
+            CreditCard_No = String.Empty;
+            Transaction_Date = null;
+            Amount = 0;
+            SettlementName = String.Empty;
+            ContactPrimaryName = String.Empty;
+            ContactMailingStreet = String.Empty;
+            ContactMailingCity = String.Empty;
+            ContactMailingState = String.Empty;
+            ContactMailingZip = String.Empty;
+            MembershipName = String.Empty;
+            ContactName = String.Empty;
+            ContactLastName = String.Empty;
+            ContactMiddleName = String.Empty;
+            ContactFirstName = String.Empty;
+            IndividualId = String.Empty;
+        }
+    }
+
+    public class IncidentInfo
+    {
+        public String IncidentNo;
+        public String SettlementType;
+        public String MedicalProviderName;
+        public String ContactName;
+
+        public IncidentInfo()
+        {
+            IncidentNo = String.Empty;
+            SettlementType = String.Empty;
+            MedicalProviderName = String.Empty;
+            ContactName = String.Empty;
+        }
+    }
+        
+
+
     public class SortedFieldBlueSheet
     {
 
