@@ -516,6 +516,27 @@
             this.MedBill_HippaSentDate = new CMMManager.CalendarColumn();
             this.MedBill_MedicalRecordDate = new CMMManager.CalendarColumn();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
+            this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
+            this.txtOtherDocMedBillFileName = new System.Windows.Forms.TextBox();
+            this.txtMedRecMedBillFileName = new System.Windows.Forms.TextBox();
+            this.txtPoPMedBillFileName = new System.Windows.Forms.TextBox();
+            this.txtIBMedBillFileName = new System.Windows.Forms.TextBox();
+            this.txtNPFMedBillFileName = new System.Windows.Forms.TextBox();
+            this.btnIBUploadMedBill = new System.Windows.Forms.Button();
+            this.btnOtherDocUploadMedBill = new System.Windows.Forms.Button();
+            this.btnMedRecUploadMedBill = new System.Windows.Forms.Button();
+            this.btnPoPUploadMedBill = new System.Windows.Forms.Button();
+            this.btnNPFUploadMedBill = new System.Windows.Forms.Button();
+            this.btnOtherDocMedBillView = new System.Windows.Forms.Button();
+            this.btnMedRecMedBillView = new System.Windows.Forms.Button();
+            this.btnPoPMedBillView = new System.Windows.Forms.Button();
+            this.btnIBMedBillView = new System.Windows.Forms.Button();
+            this.btnNPFMedBillView = new System.Windows.Forms.Button();
+            this.chkOtherDocMedBill = new System.Windows.Forms.CheckBox();
+            this.chkMedRecMedBill = new System.Windows.Forms.CheckBox();
+            this.chkPoPMedBill = new System.Windows.Forms.CheckBox();
+            this.chkIBMedBill = new System.Windows.Forms.CheckBox();
+            this.chkNPFMedBill = new System.Windows.Forms.CheckBox();
             this.txtTotalSharedAmtMedBill = new System.Windows.Forms.TextBox();
             this.label63 = new System.Windows.Forms.Label();
             this.txtPersonalResponsibility = new System.Windows.Forms.TextBox();
@@ -563,6 +584,11 @@
             this.rbModified = new System.Windows.Forms.RadioButton();
             this.rbDeclined = new System.Windows.Forms.RadioButton();
             this.rbAccepted = new System.Windows.Forms.RadioButton();
+            this.grpICD10Code = new System.Windows.Forms.GroupBox();
+            this.txtMedBillDiseaseName = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
+            this.txtMedBill_ICD10Code = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
             this.btnMedBillCreationPgLowerCancel = new System.Windows.Forms.Button();
             this.btnMedBillCreationPgLowerSave = new System.Windows.Forms.Button();
             this.gvUserModifiedDateHistory = new System.Windows.Forms.DataGridView();
@@ -637,11 +663,6 @@
             this.dtpMedBillPOP = new System.Windows.Forms.DateTimePicker();
             this.dtpMedBill_IB = new System.Windows.Forms.DateTimePicker();
             this.dtpMedBillNPF = new System.Windows.Forms.DateTimePicker();
-            this.grpICD10Code = new System.Windows.Forms.GroupBox();
-            this.txtMedBillDiseaseName = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.txtMedBill_ICD10Code = new System.Windows.Forms.TextBox();
-            this.label56 = new System.Windows.Forms.Label();
             this.grpPatientInfo = new System.Windows.Forms.GroupBox();
             this.txtMemberProgram = new System.Windows.Forms.TextBox();
             this.label72 = new System.Windows.Forms.Label();
@@ -858,7 +879,6 @@
             this.label103 = new System.Windows.Forms.Label();
             this.btnGenerateKoreanPDFBlueSheet = new System.Windows.Forms.Button();
             this.btnGenerateEnglishPDFBlueSheet = new System.Windows.Forms.Button();
-            this.btnCloseBlueSheet = new System.Windows.Forms.Button();
             this.btnSearchBlueSheet = new System.Windows.Forms.Button();
             this.grpPaymentMethodBlueSheet = new System.Windows.Forms.GroupBox();
             this.rbNoSharingOnlyBlueSheet = new System.Windows.Forms.RadioButton();
@@ -988,16 +1008,17 @@
             this.tbpgMedBillView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillList)).BeginInit();
             this.tbpgMedicalBill.SuspendLayout();
+            this.grpMedBillDocuments.SuspendLayout();
             this.grpEtc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsInMedBill)).BeginInit();
             this.grpMedBillInfo.SuspendLayout();
             this.grpMedicalProviderResponse.SuspendLayout();
+            this.grpICD10Code.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUserModifiedDateHistory)).BeginInit();
             this.grpTasks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvMostRecentTasks)).BeginInit();
             this.grpMedicalBillInformation.SuspendLayout();
             this.grpDocumentProcessing.SuspendLayout();
-            this.grpICD10Code.SuspendLayout();
             this.grpPatientInfo.SuspendLayout();
             this.tbpgPayment.SuspendLayout();
             this.tabPaymentMethod.SuspendLayout();
@@ -5418,6 +5439,7 @@
             // 
             // tbpgMedicalBill
             // 
+            this.tbpgMedicalBill.Controls.Add(this.grpMedBillDocuments);
             this.tbpgMedicalBill.Controls.Add(this.txtTotalSharedAmtMedBill);
             this.tbpgMedicalBill.Controls.Add(this.label63);
             this.tbpgMedicalBill.Controls.Add(this.txtPersonalResponsibility);
@@ -5426,6 +5448,7 @@
             this.tbpgMedicalBill.Controls.Add(this.gvSettlementsInMedBill);
             this.tbpgMedicalBill.Controls.Add(this.grpMedBillInfo);
             this.tbpgMedicalBill.Controls.Add(this.grpMedicalProviderResponse);
+            this.tbpgMedicalBill.Controls.Add(this.grpICD10Code);
             this.tbpgMedicalBill.Controls.Add(this.btnMedBillCreationPgLowerCancel);
             this.tbpgMedicalBill.Controls.Add(this.btnMedBillCreationPgLowerSave);
             this.tbpgMedicalBill.Controls.Add(this.gvUserModifiedDateHistory);
@@ -5438,7 +5461,6 @@
             this.tbpgMedicalBill.Controls.Add(this.grpTasks);
             this.tbpgMedicalBill.Controls.Add(this.grpMedicalBillInformation);
             this.tbpgMedicalBill.Controls.Add(this.grpDocumentProcessing);
-            this.tbpgMedicalBill.Controls.Add(this.grpICD10Code);
             this.tbpgMedicalBill.Controls.Add(this.grpPatientInfo);
             this.tbpgMedicalBill.Controls.Add(this.label52);
             this.tbpgMedicalBill.Location = new System.Drawing.Point(4, 22);
@@ -5447,6 +5469,231 @@
             this.tbpgMedicalBill.TabIndex = 10;
             this.tbpgMedicalBill.Text = "Medical Bill";
             this.tbpgMedicalBill.UseVisualStyleBackColor = true;
+            // 
+            // grpMedBillDocuments
+            // 
+            this.grpMedBillDocuments.Controls.Add(this.txtOtherDocMedBillFileName);
+            this.grpMedBillDocuments.Controls.Add(this.txtMedRecMedBillFileName);
+            this.grpMedBillDocuments.Controls.Add(this.txtPoPMedBillFileName);
+            this.grpMedBillDocuments.Controls.Add(this.txtIBMedBillFileName);
+            this.grpMedBillDocuments.Controls.Add(this.txtNPFMedBillFileName);
+            this.grpMedBillDocuments.Controls.Add(this.btnIBUploadMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.btnOtherDocUploadMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.btnMedRecUploadMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.btnPoPUploadMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.btnNPFUploadMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.btnOtherDocMedBillView);
+            this.grpMedBillDocuments.Controls.Add(this.btnMedRecMedBillView);
+            this.grpMedBillDocuments.Controls.Add(this.btnPoPMedBillView);
+            this.grpMedBillDocuments.Controls.Add(this.btnIBMedBillView);
+            this.grpMedBillDocuments.Controls.Add(this.btnNPFMedBillView);
+            this.grpMedBillDocuments.Controls.Add(this.chkOtherDocMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.chkMedRecMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.chkPoPMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.chkIBMedBill);
+            this.grpMedBillDocuments.Controls.Add(this.chkNPFMedBill);
+            this.grpMedBillDocuments.Location = new System.Drawing.Point(480, 254);
+            this.grpMedBillDocuments.Name = "grpMedBillDocuments";
+            this.grpMedBillDocuments.Size = new System.Drawing.Size(395, 171);
+            this.grpMedBillDocuments.TabIndex = 51;
+            this.grpMedBillDocuments.TabStop = false;
+            this.grpMedBillDocuments.Text = "Upload Medical Bill Documents";
+            // 
+            // txtOtherDocMedBillFileName
+            // 
+            this.txtOtherDocMedBillFileName.Location = new System.Drawing.Point(199, 141);
+            this.txtOtherDocMedBillFileName.Name = "txtOtherDocMedBillFileName";
+            this.txtOtherDocMedBillFileName.ReadOnly = true;
+            this.txtOtherDocMedBillFileName.Size = new System.Drawing.Size(114, 20);
+            this.txtOtherDocMedBillFileName.TabIndex = 32;
+            // 
+            // txtMedRecMedBillFileName
+            // 
+            this.txtMedRecMedBillFileName.Location = new System.Drawing.Point(199, 111);
+            this.txtMedRecMedBillFileName.Name = "txtMedRecMedBillFileName";
+            this.txtMedRecMedBillFileName.ReadOnly = true;
+            this.txtMedRecMedBillFileName.Size = new System.Drawing.Size(114, 20);
+            this.txtMedRecMedBillFileName.TabIndex = 31;
+            // 
+            // txtPoPMedBillFileName
+            // 
+            this.txtPoPMedBillFileName.Location = new System.Drawing.Point(199, 81);
+            this.txtPoPMedBillFileName.Name = "txtPoPMedBillFileName";
+            this.txtPoPMedBillFileName.ReadOnly = true;
+            this.txtPoPMedBillFileName.Size = new System.Drawing.Size(114, 20);
+            this.txtPoPMedBillFileName.TabIndex = 30;
+            // 
+            // txtIBMedBillFileName
+            // 
+            this.txtIBMedBillFileName.Location = new System.Drawing.Point(199, 51);
+            this.txtIBMedBillFileName.Name = "txtIBMedBillFileName";
+            this.txtIBMedBillFileName.ReadOnly = true;
+            this.txtIBMedBillFileName.Size = new System.Drawing.Size(114, 20);
+            this.txtIBMedBillFileName.TabIndex = 29;
+            // 
+            // txtNPFMedBillFileName
+            // 
+            this.txtNPFMedBillFileName.Location = new System.Drawing.Point(199, 21);
+            this.txtNPFMedBillFileName.Name = "txtNPFMedBillFileName";
+            this.txtNPFMedBillFileName.ReadOnly = true;
+            this.txtNPFMedBillFileName.Size = new System.Drawing.Size(113, 20);
+            this.txtNPFMedBillFileName.TabIndex = 28;
+            // 
+            // btnIBUploadMedBill
+            // 
+            this.btnIBUploadMedBill.Location = new System.Drawing.Point(113, 50);
+            this.btnIBUploadMedBill.Name = "btnIBUploadMedBill";
+            this.btnIBUploadMedBill.Size = new System.Drawing.Size(80, 23);
+            this.btnIBUploadMedBill.TabIndex = 27;
+            this.btnIBUploadMedBill.Text = "Upload";
+            this.btnIBUploadMedBill.UseVisualStyleBackColor = true;
+            this.btnIBUploadMedBill.Click += new System.EventHandler(this.btnIBUploadMedBill_Click);
+            // 
+            // btnOtherDocUploadMedBill
+            // 
+            this.btnOtherDocUploadMedBill.Location = new System.Drawing.Point(113, 140);
+            this.btnOtherDocUploadMedBill.Name = "btnOtherDocUploadMedBill";
+            this.btnOtherDocUploadMedBill.Size = new System.Drawing.Size(80, 23);
+            this.btnOtherDocUploadMedBill.TabIndex = 26;
+            this.btnOtherDocUploadMedBill.Text = "Upload";
+            this.btnOtherDocUploadMedBill.UseVisualStyleBackColor = true;
+            this.btnOtherDocUploadMedBill.Click += new System.EventHandler(this.btnOtherDocUploadMedBill_Click);
+            // 
+            // btnMedRecUploadMedBill
+            // 
+            this.btnMedRecUploadMedBill.Location = new System.Drawing.Point(113, 110);
+            this.btnMedRecUploadMedBill.Name = "btnMedRecUploadMedBill";
+            this.btnMedRecUploadMedBill.Size = new System.Drawing.Size(80, 23);
+            this.btnMedRecUploadMedBill.TabIndex = 25;
+            this.btnMedRecUploadMedBill.Text = "Upload";
+            this.btnMedRecUploadMedBill.UseVisualStyleBackColor = true;
+            this.btnMedRecUploadMedBill.Click += new System.EventHandler(this.btnMedRecUploadMedBill_Click);
+            // 
+            // btnPoPUploadMedBill
+            // 
+            this.btnPoPUploadMedBill.Location = new System.Drawing.Point(113, 80);
+            this.btnPoPUploadMedBill.Name = "btnPoPUploadMedBill";
+            this.btnPoPUploadMedBill.Size = new System.Drawing.Size(80, 23);
+            this.btnPoPUploadMedBill.TabIndex = 24;
+            this.btnPoPUploadMedBill.Text = "Upload";
+            this.btnPoPUploadMedBill.UseVisualStyleBackColor = true;
+            this.btnPoPUploadMedBill.Click += new System.EventHandler(this.btnPoPUploadMedBill_Click);
+            // 
+            // btnNPFUploadMedBill
+            // 
+            this.btnNPFUploadMedBill.Location = new System.Drawing.Point(113, 20);
+            this.btnNPFUploadMedBill.Name = "btnNPFUploadMedBill";
+            this.btnNPFUploadMedBill.Size = new System.Drawing.Size(80, 23);
+            this.btnNPFUploadMedBill.TabIndex = 23;
+            this.btnNPFUploadMedBill.Text = "Upload";
+            this.btnNPFUploadMedBill.UseVisualStyleBackColor = true;
+            this.btnNPFUploadMedBill.Click += new System.EventHandler(this.btnNPFUploadMedBill_Click);
+            // 
+            // btnOtherDocMedBillView
+            // 
+            this.btnOtherDocMedBillView.Location = new System.Drawing.Point(321, 140);
+            this.btnOtherDocMedBillView.Name = "btnOtherDocMedBillView";
+            this.btnOtherDocMedBillView.Size = new System.Drawing.Size(66, 23);
+            this.btnOtherDocMedBillView.TabIndex = 22;
+            this.btnOtherDocMedBillView.Text = "View";
+            this.btnOtherDocMedBillView.UseVisualStyleBackColor = true;
+            this.btnOtherDocMedBillView.Click += new System.EventHandler(this.btnOtherDocMedBillView_Click);
+            // 
+            // btnMedRecMedBillView
+            // 
+            this.btnMedRecMedBillView.Location = new System.Drawing.Point(321, 110);
+            this.btnMedRecMedBillView.Name = "btnMedRecMedBillView";
+            this.btnMedRecMedBillView.Size = new System.Drawing.Size(66, 23);
+            this.btnMedRecMedBillView.TabIndex = 21;
+            this.btnMedRecMedBillView.Text = "View";
+            this.btnMedRecMedBillView.UseVisualStyleBackColor = true;
+            this.btnMedRecMedBillView.Click += new System.EventHandler(this.btnMedRecMedBillView_Click);
+            // 
+            // btnPoPMedBillView
+            // 
+            this.btnPoPMedBillView.Location = new System.Drawing.Point(321, 80);
+            this.btnPoPMedBillView.Name = "btnPoPMedBillView";
+            this.btnPoPMedBillView.Size = new System.Drawing.Size(66, 23);
+            this.btnPoPMedBillView.TabIndex = 20;
+            this.btnPoPMedBillView.Text = "View";
+            this.btnPoPMedBillView.UseVisualStyleBackColor = true;
+            this.btnPoPMedBillView.Click += new System.EventHandler(this.btnPoPMedBillView_Click);
+            // 
+            // btnIBMedBillView
+            // 
+            this.btnIBMedBillView.Location = new System.Drawing.Point(321, 50);
+            this.btnIBMedBillView.Name = "btnIBMedBillView";
+            this.btnIBMedBillView.Size = new System.Drawing.Size(66, 23);
+            this.btnIBMedBillView.TabIndex = 19;
+            this.btnIBMedBillView.Text = "View";
+            this.btnIBMedBillView.UseVisualStyleBackColor = true;
+            this.btnIBMedBillView.Click += new System.EventHandler(this.btnIBMedBillView_Click);
+            // 
+            // btnNPFMedBillView
+            // 
+            this.btnNPFMedBillView.Location = new System.Drawing.Point(321, 20);
+            this.btnNPFMedBillView.Name = "btnNPFMedBillView";
+            this.btnNPFMedBillView.Size = new System.Drawing.Size(66, 23);
+            this.btnNPFMedBillView.TabIndex = 18;
+            this.btnNPFMedBillView.Text = "View";
+            this.btnNPFMedBillView.UseVisualStyleBackColor = true;
+            this.btnNPFMedBillView.Click += new System.EventHandler(this.btnNPFMedBillView_Click);
+            // 
+            // chkOtherDocMedBill
+            // 
+            this.chkOtherDocMedBill.AutoSize = true;
+            this.chkOtherDocMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkOtherDocMedBill.Location = new System.Drawing.Point(10, 142);
+            this.chkOtherDocMedBill.Name = "chkOtherDocMedBill";
+            this.chkOtherDocMedBill.Size = new System.Drawing.Size(87, 20);
+            this.chkOtherDocMedBill.TabIndex = 17;
+            this.chkOtherDocMedBill.Text = "Other Doc";
+            this.chkOtherDocMedBill.UseVisualStyleBackColor = true;
+            // 
+            // chkMedRecMedBill
+            // 
+            this.chkMedRecMedBill.AutoSize = true;
+            this.chkMedRecMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMedRecMedBill.Location = new System.Drawing.Point(10, 112);
+            this.chkMedRecMedBill.Name = "chkMedRecMedBill";
+            this.chkMedRecMedBill.Size = new System.Drawing.Size(102, 20);
+            this.chkMedRecMedBill.TabIndex = 16;
+            this.chkMedRecMedBill.Text = "Med Record";
+            this.chkMedRecMedBill.UseVisualStyleBackColor = true;
+            // 
+            // chkPoPMedBill
+            // 
+            this.chkPoPMedBill.AutoSize = true;
+            this.chkPoPMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkPoPMedBill.Location = new System.Drawing.Point(10, 82);
+            this.chkPoPMedBill.Name = "chkPoPMedBill";
+            this.chkPoPMedBill.Size = new System.Drawing.Size(53, 20);
+            this.chkPoPMedBill.TabIndex = 15;
+            this.chkPoPMedBill.Text = "PoP";
+            this.chkPoPMedBill.UseVisualStyleBackColor = true;
+            // 
+            // chkIBMedBill
+            // 
+            this.chkIBMedBill.AutoSize = true;
+            this.chkIBMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkIBMedBill.Location = new System.Drawing.Point(10, 52);
+            this.chkIBMedBill.Name = "chkIBMedBill";
+            this.chkIBMedBill.Size = new System.Drawing.Size(39, 20);
+            this.chkIBMedBill.TabIndex = 14;
+            this.chkIBMedBill.Text = "IB";
+            this.chkIBMedBill.UseVisualStyleBackColor = true;
+            // 
+            // chkNPFMedBill
+            // 
+            this.chkNPFMedBill.AutoSize = true;
+            this.chkNPFMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkNPFMedBill.Location = new System.Drawing.Point(10, 22);
+            this.chkNPFMedBill.Name = "chkNPFMedBill";
+            this.chkNPFMedBill.Size = new System.Drawing.Size(54, 20);
+            this.chkNPFMedBill.TabIndex = 13;
+            this.chkNPFMedBill.Text = "NPF";
+            this.chkNPFMedBill.UseVisualStyleBackColor = true;
+            this.chkNPFMedBill.CheckedChanged += new System.EventHandler(this.chkNPFMedBill_CheckedChanged);
             // 
             // txtTotalSharedAmtMedBill
             // 
@@ -5748,16 +5995,16 @@
             this.grpMedBillInfo.Controls.Add(this.btnMedBill_lllness);
             this.grpMedBillInfo.Controls.Add(this.txtMedBill_CaseNo);
             this.grpMedBillInfo.Controls.Add(this.label54);
-            this.grpMedBillInfo.Location = new System.Drawing.Point(37, 308);
+            this.grpMedBillInfo.Location = new System.Drawing.Point(37, 244);
             this.grpMedBillInfo.Name = "grpMedBillInfo";
-            this.grpMedBillInfo.Size = new System.Drawing.Size(432, 117);
+            this.grpMedBillInfo.Size = new System.Drawing.Size(432, 84);
             this.grpMedBillInfo.TabIndex = 137;
             this.grpMedBillInfo.TabStop = false;
             this.grpMedBillInfo.Text = "Medical Bill";
             // 
             // txtIncdProgram
             // 
-            this.txtIncdProgram.Location = new System.Drawing.Point(305, 31);
+            this.txtIncdProgram.Location = new System.Drawing.Point(305, 23);
             this.txtIncdProgram.Name = "txtIncdProgram";
             this.txtIncdProgram.ReadOnly = true;
             this.txtIncdProgram.Size = new System.Drawing.Size(113, 20);
@@ -5767,7 +6014,7 @@
             // 
             this.label77.AutoSize = true;
             this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label77.Location = new System.Drawing.Point(204, 32);
+            this.label77.Location = new System.Drawing.Point(204, 24);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(94, 16);
             this.label77.TabIndex = 42;
@@ -5775,7 +6022,7 @@
             // 
             // txtMedBill_Incident
             // 
-            this.txtMedBill_Incident.Location = new System.Drawing.Point(305, 70);
+            this.txtMedBill_Incident.Location = new System.Drawing.Point(305, 50);
             this.txtMedBill_Incident.Name = "txtMedBill_Incident";
             this.txtMedBill_Incident.ReadOnly = true;
             this.txtMedBill_Incident.Size = new System.Drawing.Size(113, 20);
@@ -5783,7 +6030,7 @@
             // 
             // txtMedBill_Illness
             // 
-            this.txtMedBill_Illness.Location = new System.Drawing.Point(98, 70);
+            this.txtMedBill_Illness.Location = new System.Drawing.Point(98, 50);
             this.txtMedBill_Illness.Name = "txtMedBill_Illness";
             this.txtMedBill_Illness.ReadOnly = true;
             this.txtMedBill_Illness.Size = new System.Drawing.Size(84, 20);
@@ -5791,7 +6038,7 @@
             // 
             // btnMedBill_Incident
             // 
-            this.btnMedBill_Incident.Location = new System.Drawing.Point(219, 69);
+            this.btnMedBill_Incident.Location = new System.Drawing.Point(219, 49);
             this.btnMedBill_Incident.Name = "btnMedBill_Incident";
             this.btnMedBill_Incident.Size = new System.Drawing.Size(77, 23);
             this.btnMedBill_Incident.TabIndex = 39;
@@ -5801,7 +6048,7 @@
             // 
             // btnMedBill_lllness
             // 
-            this.btnMedBill_lllness.Location = new System.Drawing.Point(15, 69);
+            this.btnMedBill_lllness.Location = new System.Drawing.Point(15, 49);
             this.btnMedBill_lllness.Name = "btnMedBill_lllness";
             this.btnMedBill_lllness.Size = new System.Drawing.Size(77, 23);
             this.btnMedBill_lllness.TabIndex = 38;
@@ -5811,7 +6058,7 @@
             // 
             // txtMedBill_CaseNo
             // 
-            this.txtMedBill_CaseNo.Location = new System.Drawing.Point(98, 31);
+            this.txtMedBill_CaseNo.Location = new System.Drawing.Point(98, 23);
             this.txtMedBill_CaseNo.Name = "txtMedBill_CaseNo";
             this.txtMedBill_CaseNo.ReadOnly = true;
             this.txtMedBill_CaseNo.Size = new System.Drawing.Size(84, 20);
@@ -5821,7 +6068,7 @@
             // 
             this.label54.AutoSize = true;
             this.label54.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(15, 31);
+            this.label54.Location = new System.Drawing.Point(15, 23);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(64, 16);
             this.label54.TabIndex = 31;
@@ -5871,6 +6118,56 @@
             this.rbAccepted.TabStop = true;
             this.rbAccepted.Text = "Accepted";
             this.rbAccepted.UseVisualStyleBackColor = true;
+            // 
+            // grpICD10Code
+            // 
+            this.grpICD10Code.Controls.Add(this.txtMedBillDiseaseName);
+            this.grpICD10Code.Controls.Add(this.label48);
+            this.grpICD10Code.Controls.Add(this.txtMedBill_ICD10Code);
+            this.grpICD10Code.Controls.Add(this.label56);
+            this.grpICD10Code.Location = new System.Drawing.Point(37, 338);
+            this.grpICD10Code.Name = "grpICD10Code";
+            this.grpICD10Code.Size = new System.Drawing.Size(432, 87);
+            this.grpICD10Code.TabIndex = 49;
+            this.grpICD10Code.TabStop = false;
+            this.grpICD10Code.Text = "ICD10 Code";
+            // 
+            // txtMedBillDiseaseName
+            // 
+            this.txtMedBillDiseaseName.Location = new System.Drawing.Point(136, 52);
+            this.txtMedBillDiseaseName.Name = "txtMedBillDiseaseName";
+            this.txtMedBillDiseaseName.ReadOnly = true;
+            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(211, 20);
+            this.txtMedBillDiseaseName.TabIndex = 18;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(13, 53);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(102, 16);
+            this.label48.TabIndex = 17;
+            this.label48.Text = "Disease Name:";
+            // 
+            // txtMedBill_ICD10Code
+            // 
+            this.txtMedBill_ICD10Code.Location = new System.Drawing.Point(136, 24);
+            this.txtMedBill_ICD10Code.Name = "txtMedBill_ICD10Code";
+            this.txtMedBill_ICD10Code.ReadOnly = true;
+            this.txtMedBill_ICD10Code.Size = new System.Drawing.Size(105, 20);
+            this.txtMedBill_ICD10Code.TabIndex = 16;
+            this.txtMedBill_ICD10Code.TextChanged += new System.EventHandler(this.txtICD10Code_TextChanged);
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Location = new System.Drawing.Point(13, 25);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(83, 16);
+            this.label56.TabIndex = 15;
+            this.label56.Text = "ICD10 Code:";
             // 
             // btnMedBillCreationPgLowerCancel
             // 
@@ -6480,16 +6777,16 @@
             this.grpDocumentProcessing.Controls.Add(this.dtpMedBillPOP);
             this.grpDocumentProcessing.Controls.Add(this.dtpMedBill_IB);
             this.grpDocumentProcessing.Controls.Add(this.dtpMedBillNPF);
-            this.grpDocumentProcessing.Location = new System.Drawing.Point(479, 199);
+            this.grpDocumentProcessing.Location = new System.Drawing.Point(480, 69);
             this.grpDocumentProcessing.Name = "grpDocumentProcessing";
-            this.grpDocumentProcessing.Size = new System.Drawing.Size(395, 226);
+            this.grpDocumentProcessing.Size = new System.Drawing.Size(395, 171);
             this.grpDocumentProcessing.TabIndex = 50;
             this.grpDocumentProcessing.TabStop = false;
             this.grpDocumentProcessing.Text = "Document Processing";
             // 
             // btnViewOtherDoc
             // 
-            this.btnViewOtherDoc.Location = new System.Drawing.Point(321, 186);
+            this.btnViewOtherDoc.Location = new System.Drawing.Point(321, 140);
             this.btnViewOtherDoc.Name = "btnViewOtherDoc";
             this.btnViewOtherDoc.Size = new System.Drawing.Size(66, 23);
             this.btnViewOtherDoc.TabIndex = 22;
@@ -6499,7 +6796,7 @@
             // 
             // btnViewMedRecord
             // 
-            this.btnViewMedRecord.Location = new System.Drawing.Point(321, 147);
+            this.btnViewMedRecord.Location = new System.Drawing.Point(321, 110);
             this.btnViewMedRecord.Name = "btnViewMedRecord";
             this.btnViewMedRecord.Size = new System.Drawing.Size(66, 23);
             this.btnViewMedRecord.TabIndex = 21;
@@ -6509,7 +6806,7 @@
             // 
             // btnViewPoP
             // 
-            this.btnViewPoP.Location = new System.Drawing.Point(321, 107);
+            this.btnViewPoP.Location = new System.Drawing.Point(321, 80);
             this.btnViewPoP.Name = "btnViewPoP";
             this.btnViewPoP.Size = new System.Drawing.Size(66, 23);
             this.btnViewPoP.TabIndex = 20;
@@ -6519,7 +6816,7 @@
             // 
             // btnViewIB
             // 
-            this.btnViewIB.Location = new System.Drawing.Point(321, 66);
+            this.btnViewIB.Location = new System.Drawing.Point(321, 50);
             this.btnViewIB.Name = "btnViewIB";
             this.btnViewIB.Size = new System.Drawing.Size(66, 23);
             this.btnViewIB.TabIndex = 19;
@@ -6529,7 +6826,7 @@
             // 
             // btnViewNPF
             // 
-            this.btnViewNPF.Location = new System.Drawing.Point(321, 26);
+            this.btnViewNPF.Location = new System.Drawing.Point(321, 20);
             this.btnViewNPF.Name = "btnViewNPF";
             this.btnViewNPF.Size = new System.Drawing.Size(66, 23);
             this.btnViewNPF.TabIndex = 18;
@@ -6541,7 +6838,7 @@
             // 
             this.chkOtherDocReceived.AutoSize = true;
             this.chkOtherDocReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkOtherDocReceived.Location = new System.Drawing.Point(10, 188);
+            this.chkOtherDocReceived.Location = new System.Drawing.Point(10, 142);
             this.chkOtherDocReceived.Name = "chkOtherDocReceived";
             this.chkOtherDocReceived.Size = new System.Drawing.Size(152, 20);
             this.chkOtherDocReceived.TabIndex = 17;
@@ -6553,7 +6850,7 @@
             // 
             this.chkMedRecordReceived.AutoSize = true;
             this.chkMedRecordReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedRecordReceived.Location = new System.Drawing.Point(10, 149);
+            this.chkMedRecordReceived.Location = new System.Drawing.Point(10, 112);
             this.chkMedRecordReceived.Name = "chkMedRecordReceived";
             this.chkMedRecordReceived.Size = new System.Drawing.Size(199, 20);
             this.chkMedRecordReceived.TabIndex = 16;
@@ -6565,7 +6862,7 @@
             // 
             this.chkMedBillPOPReceived.AutoSize = true;
             this.chkMedBillPOPReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBillPOPReceived.Location = new System.Drawing.Point(10, 109);
+            this.chkMedBillPOPReceived.Location = new System.Drawing.Point(10, 82);
             this.chkMedBillPOPReceived.Name = "chkMedBillPOPReceived";
             this.chkMedBillPOPReceived.Size = new System.Drawing.Size(150, 20);
             this.chkMedBillPOPReceived.TabIndex = 15;
@@ -6577,7 +6874,7 @@
             // 
             this.chkMedBill_IBReceived.AutoSize = true;
             this.chkMedBill_IBReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBill_IBReceived.Location = new System.Drawing.Point(10, 68);
+            this.chkMedBill_IBReceived.Location = new System.Drawing.Point(10, 52);
             this.chkMedBill_IBReceived.Name = "chkMedBill_IBReceived";
             this.chkMedBill_IBReceived.Size = new System.Drawing.Size(136, 20);
             this.chkMedBill_IBReceived.TabIndex = 14;
@@ -6589,7 +6886,7 @@
             // 
             this.chkMedBillNPFReceived.AutoSize = true;
             this.chkMedBillNPFReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBillNPFReceived.Location = new System.Drawing.Point(10, 28);
+            this.chkMedBillNPFReceived.Location = new System.Drawing.Point(10, 22);
             this.chkMedBillNPFReceived.Name = "chkMedBillNPFReceived";
             this.chkMedBillNPFReceived.Size = new System.Drawing.Size(151, 20);
             this.chkMedBillNPFReceived.TabIndex = 13;
@@ -6601,7 +6898,7 @@
             // 
             this.dtpMedBillOtherDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMedBillOtherDoc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillOtherDoc.Location = new System.Drawing.Point(212, 186);
+            this.dtpMedBillOtherDoc.Location = new System.Drawing.Point(212, 140);
             this.dtpMedBillOtherDoc.Name = "dtpMedBillOtherDoc";
             this.dtpMedBillOtherDoc.Size = new System.Drawing.Size(101, 22);
             this.dtpMedBillOtherDoc.TabIndex = 12;
@@ -6610,7 +6907,7 @@
             // 
             this.dtpMedBillMedRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMedBillMedRecord.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillMedRecord.Location = new System.Drawing.Point(212, 147);
+            this.dtpMedBillMedRecord.Location = new System.Drawing.Point(212, 110);
             this.dtpMedBillMedRecord.Name = "dtpMedBillMedRecord";
             this.dtpMedBillMedRecord.Size = new System.Drawing.Size(101, 22);
             this.dtpMedBillMedRecord.TabIndex = 11;
@@ -6619,7 +6916,7 @@
             // 
             this.dtpMedBillPOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMedBillPOP.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillPOP.Location = new System.Drawing.Point(212, 107);
+            this.dtpMedBillPOP.Location = new System.Drawing.Point(212, 80);
             this.dtpMedBillPOP.Name = "dtpMedBillPOP";
             this.dtpMedBillPOP.Size = new System.Drawing.Size(101, 22);
             this.dtpMedBillPOP.TabIndex = 10;
@@ -6628,7 +6925,7 @@
             // 
             this.dtpMedBill_IB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMedBill_IB.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBill_IB.Location = new System.Drawing.Point(212, 66);
+            this.dtpMedBill_IB.Location = new System.Drawing.Point(212, 50);
             this.dtpMedBill_IB.Name = "dtpMedBill_IB";
             this.dtpMedBill_IB.Size = new System.Drawing.Size(101, 22);
             this.dtpMedBill_IB.TabIndex = 9;
@@ -6637,60 +6934,10 @@
             // 
             this.dtpMedBillNPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMedBillNPF.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillNPF.Location = new System.Drawing.Point(212, 26);
+            this.dtpMedBillNPF.Location = new System.Drawing.Point(212, 20);
             this.dtpMedBillNPF.Name = "dtpMedBillNPF";
             this.dtpMedBillNPF.Size = new System.Drawing.Size(101, 22);
             this.dtpMedBillNPF.TabIndex = 8;
-            // 
-            // grpICD10Code
-            // 
-            this.grpICD10Code.Controls.Add(this.txtMedBillDiseaseName);
-            this.grpICD10Code.Controls.Add(this.label48);
-            this.grpICD10Code.Controls.Add(this.txtMedBill_ICD10Code);
-            this.grpICD10Code.Controls.Add(this.label56);
-            this.grpICD10Code.Location = new System.Drawing.Point(479, 69);
-            this.grpICD10Code.Name = "grpICD10Code";
-            this.grpICD10Code.Size = new System.Drawing.Size(396, 116);
-            this.grpICD10Code.TabIndex = 49;
-            this.grpICD10Code.TabStop = false;
-            this.grpICD10Code.Text = "ICD10 Code";
-            // 
-            // txtMedBillDiseaseName
-            // 
-            this.txtMedBillDiseaseName.Location = new System.Drawing.Point(121, 76);
-            this.txtMedBillDiseaseName.Name = "txtMedBillDiseaseName";
-            this.txtMedBillDiseaseName.ReadOnly = true;
-            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(211, 20);
-            this.txtMedBillDiseaseName.TabIndex = 18;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label48.Location = new System.Drawing.Point(13, 77);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(102, 16);
-            this.label48.TabIndex = 17;
-            this.label48.Text = "Disease Name:";
-            // 
-            // txtMedBill_ICD10Code
-            // 
-            this.txtMedBill_ICD10Code.Location = new System.Drawing.Point(121, 32);
-            this.txtMedBill_ICD10Code.Name = "txtMedBill_ICD10Code";
-            this.txtMedBill_ICD10Code.ReadOnly = true;
-            this.txtMedBill_ICD10Code.Size = new System.Drawing.Size(105, 20);
-            this.txtMedBill_ICD10Code.TabIndex = 16;
-            this.txtMedBill_ICD10Code.TextChanged += new System.EventHandler(this.txtICD10Code_TextChanged);
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(13, 33);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(83, 16);
-            this.label56.TabIndex = 15;
-            this.label56.Text = "ICD10 Code:";
             // 
             // grpPatientInfo
             // 
@@ -6710,14 +6957,14 @@
             this.grpPatientInfo.Controls.Add(this.label53);
             this.grpPatientInfo.Location = new System.Drawing.Point(37, 69);
             this.grpPatientInfo.Name = "grpPatientInfo";
-            this.grpPatientInfo.Size = new System.Drawing.Size(432, 230);
+            this.grpPatientInfo.Size = new System.Drawing.Size(432, 166);
             this.grpPatientInfo.TabIndex = 48;
             this.grpPatientInfo.TabStop = false;
             this.grpPatientInfo.Text = "Patient Info";
             // 
             // txtMemberProgram
             // 
-            this.txtMemberProgram.Location = new System.Drawing.Point(135, 150);
+            this.txtMemberProgram.Location = new System.Drawing.Point(136, 106);
             this.txtMemberProgram.Name = "txtMemberProgram";
             this.txtMemberProgram.ReadOnly = true;
             this.txtMemberProgram.Size = new System.Drawing.Size(121, 20);
@@ -6727,7 +6974,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(13, 151);
+            this.label72.Location = new System.Drawing.Point(13, 107);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(116, 16);
             this.label72.TabIndex = 28;
@@ -6735,7 +6982,7 @@
             // 
             // txtMedBillGuarantor
             // 
-            this.txtMedBillGuarantor.Location = new System.Drawing.Point(135, 188);
+            this.txtMedBillGuarantor.Location = new System.Drawing.Point(136, 133);
             this.txtMedBillGuarantor.Name = "txtMedBillGuarantor";
             this.txtMedBillGuarantor.Size = new System.Drawing.Size(121, 20);
             this.txtMedBillGuarantor.TabIndex = 27;
@@ -6744,7 +6991,7 @@
             // 
             this.label81.AutoSize = true;
             this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label81.Location = new System.Drawing.Point(13, 188);
+            this.label81.Location = new System.Drawing.Point(13, 134);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(70, 16);
             this.label81.TabIndex = 26;
@@ -6752,7 +6999,7 @@
             // 
             // txtMedBillAddress
             // 
-            this.txtMedBillAddress.Location = new System.Drawing.Point(136, 111);
+            this.txtMedBillAddress.Location = new System.Drawing.Point(136, 78);
             this.txtMedBillAddress.Name = "txtMedBillAddress";
             this.txtMedBillAddress.ReadOnly = true;
             this.txtMedBillAddress.Size = new System.Drawing.Size(282, 20);
@@ -6762,7 +7009,7 @@
             // 
             this.label80.AutoSize = true;
             this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label80.Location = new System.Drawing.Point(13, 112);
+            this.label80.Location = new System.Drawing.Point(13, 79);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(62, 16);
             this.label80.TabIndex = 24;
@@ -6770,7 +7017,7 @@
             // 
             // txtMedBillSSN
             // 
-            this.txtMedBillSSN.Location = new System.Drawing.Point(313, 72);
+            this.txtMedBillSSN.Location = new System.Drawing.Point(313, 50);
             this.txtMedBillSSN.Name = "txtMedBillSSN";
             this.txtMedBillSSN.ReadOnly = true;
             this.txtMedBillSSN.Size = new System.Drawing.Size(105, 20);
@@ -6780,7 +7027,7 @@
             // 
             this.label79.AutoSize = true;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label79.Location = new System.Drawing.Point(271, 72);
+            this.label79.Location = new System.Drawing.Point(271, 50);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(39, 16);
             this.label79.TabIndex = 22;
@@ -6788,7 +7035,7 @@
             // 
             // txtMedBillDOB
             // 
-            this.txtMedBillDOB.Location = new System.Drawing.Point(136, 72);
+            this.txtMedBillDOB.Location = new System.Drawing.Point(136, 50);
             this.txtMedBillDOB.Name = "txtMedBillDOB";
             this.txtMedBillDOB.ReadOnly = true;
             this.txtMedBillDOB.Size = new System.Drawing.Size(75, 20);
@@ -6798,7 +7045,7 @@
             // 
             this.label78.AutoSize = true;
             this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label78.Location = new System.Drawing.Point(13, 73);
+            this.label78.Location = new System.Drawing.Point(13, 50);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(80, 16);
             this.label78.TabIndex = 20;
@@ -6806,7 +7053,7 @@
             // 
             // txtPatientNameMedBill
             // 
-            this.txtPatientNameMedBill.Location = new System.Drawing.Point(313, 32);
+            this.txtPatientNameMedBill.Location = new System.Drawing.Point(313, 22);
             this.txtPatientNameMedBill.Name = "txtPatientNameMedBill";
             this.txtPatientNameMedBill.ReadOnly = true;
             this.txtPatientNameMedBill.Size = new System.Drawing.Size(105, 20);
@@ -6816,7 +7063,7 @@
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(13, 33);
+            this.label51.Location = new System.Drawing.Point(13, 22);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(84, 16);
             this.label51.TabIndex = 12;
@@ -6824,7 +7071,7 @@
             // 
             // txtIndividualIDMedBill
             // 
-            this.txtIndividualIDMedBill.Location = new System.Drawing.Point(136, 33);
+            this.txtIndividualIDMedBill.Location = new System.Drawing.Point(136, 22);
             this.txtIndividualIDMedBill.Name = "txtIndividualIDMedBill";
             this.txtIndividualIDMedBill.ReadOnly = true;
             this.txtIndividualIDMedBill.Size = new System.Drawing.Size(75, 20);
@@ -6834,7 +7081,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(218, 33);
+            this.label53.Location = new System.Drawing.Point(217, 23);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(92, 16);
             this.label53.TabIndex = 14;
@@ -8135,7 +8382,6 @@
             this.tbpgBlueSheet.Controls.Add(this.grpPaymentInformationBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.btnGenerateKoreanPDFBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.btnGenerateEnglishPDFBlueSheet);
-            this.tbpgBlueSheet.Controls.Add(this.btnCloseBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.btnSearchBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.grpPaymentMethodBlueSheet);
             this.tbpgBlueSheet.Controls.Add(this.txtIncidentNoBlueSheet);
@@ -8611,36 +8857,27 @@
             // 
             // btnGenerateKoreanPDFBlueSheet
             // 
-            this.btnGenerateKoreanPDFBlueSheet.Location = new System.Drawing.Point(220, 129);
+            this.btnGenerateKoreanPDFBlueSheet.Location = new System.Drawing.Point(278, 129);
             this.btnGenerateKoreanPDFBlueSheet.Name = "btnGenerateKoreanPDFBlueSheet";
-            this.btnGenerateKoreanPDFBlueSheet.Size = new System.Drawing.Size(149, 36);
+            this.btnGenerateKoreanPDFBlueSheet.Size = new System.Drawing.Size(205, 36);
             this.btnGenerateKoreanPDFBlueSheet.TabIndex = 9;
             this.btnGenerateKoreanPDFBlueSheet.Text = "Generate Korean PDF";
             this.btnGenerateKoreanPDFBlueSheet.UseVisualStyleBackColor = true;
             // 
             // btnGenerateEnglishPDFBlueSheet
             // 
-            this.btnGenerateEnglishPDFBlueSheet.Location = new System.Drawing.Point(392, 129);
+            this.btnGenerateEnglishPDFBlueSheet.Location = new System.Drawing.Point(508, 129);
             this.btnGenerateEnglishPDFBlueSheet.Name = "btnGenerateEnglishPDFBlueSheet";
-            this.btnGenerateEnglishPDFBlueSheet.Size = new System.Drawing.Size(149, 36);
+            this.btnGenerateEnglishPDFBlueSheet.Size = new System.Drawing.Size(205, 36);
             this.btnGenerateEnglishPDFBlueSheet.TabIndex = 8;
             this.btnGenerateEnglishPDFBlueSheet.Text = "Generate English PDF";
             this.btnGenerateEnglishPDFBlueSheet.UseVisualStyleBackColor = true;
-            // 
-            // btnCloseBlueSheet
-            // 
-            this.btnCloseBlueSheet.Location = new System.Drawing.Point(564, 129);
-            this.btnCloseBlueSheet.Name = "btnCloseBlueSheet";
-            this.btnCloseBlueSheet.Size = new System.Drawing.Size(149, 36);
-            this.btnCloseBlueSheet.TabIndex = 7;
-            this.btnCloseBlueSheet.Text = "Close";
-            this.btnCloseBlueSheet.UseVisualStyleBackColor = true;
             // 
             // btnSearchBlueSheet
             // 
             this.btnSearchBlueSheet.Location = new System.Drawing.Point(48, 129);
             this.btnSearchBlueSheet.Name = "btnSearchBlueSheet";
-            this.btnSearchBlueSheet.Size = new System.Drawing.Size(149, 36);
+            this.btnSearchBlueSheet.Size = new System.Drawing.Size(205, 36);
             this.btnSearchBlueSheet.TabIndex = 5;
             this.btnSearchBlueSheet.Text = "Search";
             this.btnSearchBlueSheet.UseVisualStyleBackColor = true;
@@ -9264,6 +9501,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillList)).EndInit();
             this.tbpgMedicalBill.ResumeLayout(false);
             this.tbpgMedicalBill.PerformLayout();
+            this.grpMedBillDocuments.ResumeLayout(false);
+            this.grpMedBillDocuments.PerformLayout();
             this.grpEtc.ResumeLayout(false);
             this.grpEtc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsInMedBill)).EndInit();
@@ -9271,6 +9510,8 @@
             this.grpMedBillInfo.PerformLayout();
             this.grpMedicalProviderResponse.ResumeLayout(false);
             this.grpMedicalProviderResponse.PerformLayout();
+            this.grpICD10Code.ResumeLayout(false);
+            this.grpICD10Code.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUserModifiedDateHistory)).EndInit();
             this.grpTasks.ResumeLayout(false);
             this.grpTasks.PerformLayout();
@@ -9279,8 +9520,6 @@
             this.grpMedicalBillInformation.PerformLayout();
             this.grpDocumentProcessing.ResumeLayout(false);
             this.grpDocumentProcessing.PerformLayout();
-            this.grpICD10Code.ResumeLayout(false);
-            this.grpICD10Code.PerformLayout();
             this.grpPatientInfo.ResumeLayout(false);
             this.grpPatientInfo.PerformLayout();
             this.tbpgPayment.ResumeLayout(false);
@@ -10103,7 +10342,6 @@
         private System.Windows.Forms.RadioButton rbCheckBlueSheet;
         private System.Windows.Forms.Button btnGenerateKoreanPDFBlueSheet;
         private System.Windows.Forms.Button btnGenerateEnglishPDFBlueSheet;
-        private System.Windows.Forms.Button btnCloseBlueSheet;
         private System.Windows.Forms.Button btnSearchBlueSheet;
         private System.Windows.Forms.GroupBox grpPaymentInformationBlueSheet;
         private System.Windows.Forms.DateTimePicker dtpCreditCardPaymentDateBlueSheet;
@@ -10251,6 +10489,27 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCaseTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReminderDateTimeTaskInCase;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCaseTask;
+        private System.Windows.Forms.GroupBox grpMedBillDocuments;
+        private System.Windows.Forms.Button btnOtherDocMedBillView;
+        private System.Windows.Forms.Button btnMedRecMedBillView;
+        private System.Windows.Forms.Button btnPoPMedBillView;
+        private System.Windows.Forms.Button btnIBMedBillView;
+        private System.Windows.Forms.Button btnNPFMedBillView;
+        private System.Windows.Forms.CheckBox chkOtherDocMedBill;
+        private System.Windows.Forms.CheckBox chkMedRecMedBill;
+        private System.Windows.Forms.CheckBox chkPoPMedBill;
+        private System.Windows.Forms.CheckBox chkIBMedBill;
+        private System.Windows.Forms.CheckBox chkNPFMedBill;
+        private System.Windows.Forms.Button btnIBUploadMedBill;
+        private System.Windows.Forms.Button btnOtherDocUploadMedBill;
+        private System.Windows.Forms.Button btnMedRecUploadMedBill;
+        private System.Windows.Forms.Button btnPoPUploadMedBill;
+        private System.Windows.Forms.Button btnNPFUploadMedBill;
+        private System.Windows.Forms.TextBox txtOtherDocMedBillFileName;
+        private System.Windows.Forms.TextBox txtMedRecMedBillFileName;
+        private System.Windows.Forms.TextBox txtPoPMedBillFileName;
+        private System.Windows.Forms.TextBox txtIBMedBillFileName;
+        private System.Windows.Forms.TextBox txtNPFMedBillFileName;
     }
 }
 
