@@ -12,6 +12,15 @@ using System.Linq;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using MigraDocDOM = MigraDoc.DocumentObjectModel;
+using PdfSharp;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+using PdfSharp.Charting;
+//using MigraDoc.DocumentObjectModel;
+using MigraDoc.Rendering;
+using MigraDoc.RtfRendering;
+
 
 //using Windows.Devices.Enumeration;
 //using Windows.Devices.Scanners;
@@ -1332,7 +1341,7 @@ namespace CMMManager
         }
 
 
-        private void AddRowCheckPaymentToPrivder (DataGridViewRow row)
+        private void AddRowCheckPaymentToPrivder(DataGridViewRow row)
         {
             gvPaymentCheckProvider.Rows.Add(row);
         }
@@ -6435,7 +6444,7 @@ namespace CMMManager
                     {
                         tranCaseId.Rollback();
                     }
-                    catch(SqlException se)
+                    catch (SqlException se)
                     {
                         MessageBox.Show(se.Message, "Error");
                     }
@@ -7727,7 +7736,7 @@ namespace CMMManager
             if (gvCaseHistory.Rows.Count > 0)
             {
                 nRowSelected = e.RowIndex;
-                
+
                 strCaseNameSelected = gvCaseHistory["CaseName", nRowSelected].Value.ToString();
                 CaseIdForCasePageMedBill = strCaseNameSelected;
 
@@ -7838,7 +7847,7 @@ namespace CMMManager
                             dtpNPFReceivedDate.Value = rdrCase.GetDateTime(3);
                             dtpNPFReceivedDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
                         }
-                            //txtNPFUploadDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
+                        //txtNPFUploadDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
                         if (rdrCase.GetBoolean(4) == true) chkIB_CaseCreationPage.Checked = true;
                         if (!rdrCase.IsDBNull(5)) txtIBFilePath.Text = rdrCase.GetString(5);
                         if (!rdrCase.IsDBNull(6))
@@ -7856,7 +7865,7 @@ namespace CMMManager
                             dtpIBReceivedDate.Value = rdrCase.GetDateTime(7);
                             dtpIBReceivedDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
                         }
-                            //txtIBUploadDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
+                        //txtIBUploadDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
                         if (rdrCase.GetBoolean(8) == true) chkPoP_CaseCreationPage.Checked = true;
                         if (!rdrCase.IsDBNull(9)) txtPopFilePath.Text = rdrCase.GetString(9);
                         if (!rdrCase.IsDBNull(10))
@@ -7874,7 +7883,7 @@ namespace CMMManager
                             dtpPoPReceivedDate.Value = rdrCase.GetDateTime(11);
                             dtpPoPReceivedDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
                         }
-                            //txtPoPUploadDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
+                        //txtPoPUploadDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
                         if (rdrCase.GetBoolean(12) == true) chkMedicalRecordCaseCreationPage.Checked = true;
                         if (!rdrCase.IsDBNull(13)) txtMedicalRecordFilePath.Text = rdrCase.GetString(13);
                         if (!rdrCase.IsDBNull(14))
@@ -7892,7 +7901,7 @@ namespace CMMManager
                             dtpMRReceivedDate.Value = rdrCase.GetDateTime(15);
                             dtpMRReceivedDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
                         }
-                            //txtMRUploadDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
+                        //txtMRUploadDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
                         if (rdrCase.GetBoolean(16) == true) chkOtherDocCaseCreationPage.Checked = true;
                         if (!rdrCase.IsDBNull(17)) txtOtherDocumentFilePath.Text = rdrCase.GetString(17);
                         if (!rdrCase.IsDBNull(18))
@@ -7910,7 +7919,7 @@ namespace CMMManager
                             dtpOtherDocReceivedDate.Value = rdrCase.GetDateTime(19);
                             dtpOtherDocReceivedDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
                         }
-                            //txtOtherDocUploadDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
+                        //txtOtherDocUploadDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
                         //if (rdrCase.GetBoolean(20) == true) txtCaseStatus.Text = "Complete and Ready";
                         //else txtCaseStatus.Text = "Pending - Additional Documents required";
                         if (!rdrCase.IsDBNull(20))
@@ -10869,7 +10878,7 @@ namespace CMMManager
                                     //if (AnivDate != null) IndividualAnivDate = AnivDate.Value;
                                     //else IndividualAnivDate = StartDate.Value;
 
-                                   
+
 
                                     int nAnivYear = dtpBillDate.Value.Year;
 
@@ -12448,8 +12457,30 @@ namespace CMMManager
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillStatus", comboMedBillStatus.SelectedIndex);
                     if (cbMedBillClosed.SelectedIndex == 0) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillClosed", 0);
                     else if (cbMedBillClosed.SelectedIndex == 1) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillClosed", 1);
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewSettlementTotal", 0);
-                    cmdUpdateMedBill.Parameters.AddWithValue("@NewBalance", 0);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+                    Decimal BalanceResult = 0;
+                    Decimal Balance = 0;
+
+                    if (Decimal.TryParse(txtBalance.Text.Trim(), NumberStyles.Currency, new CultureInfo("en-US"), out BalanceResult))
+                    {
+                        Balance = BalanceResult;
+                        cmdUpdateMedBill.Parameters.AddWithValue("@NewBalance", Balance);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Balance is invalid.", "Error");
+                        return;
+                    }
+
+                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewBalance", 0);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewBillDate", dtpBillDate.Value);
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewDueDate", dtpDueDate.Value);
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewTotalSharedAmount", 0);
@@ -14634,7 +14665,7 @@ namespace CMMManager
                         }
                         else if (connSalesforce2.State == ConnectionState.Closed) connSalesforce2.Open();
                         Object objMedicalProviderId = cmdQueryForMedicalProviderId.ExecuteScalar();
-                        if (connSalesforce2.State == ConnectionState.Open) connSalesforce2.Close();                          
+                        if (connSalesforce2.State == ConnectionState.Open) connSalesforce2.Close();
 
                         String MedicalProviderId = String.Empty;
                         if (objMedicalProviderId != null) MedicalProviderId = objMedicalProviderId.ToString();
@@ -18830,7 +18861,6 @@ namespace CMMManager
                     else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
 
                     SqlDataReader rdrMedBillInCase = cmdQueryForMedBillsInCase.ExecuteReader();
-
                     gvCasePageMedBills.Rows.Clear();
                     if (rdrMedBillInCase.HasRows)
                     {
@@ -18857,6 +18887,9 @@ namespace CMMManager
                     }
                     rdrMedBillInCase.Close();
                     if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    gvCasePageMedBills.Enabled = true;
+                    gvCasePageMedBills.Controls[0].Enabled = true;
+                    gvCasePageMedBills.Controls[1].Enabled = true;
 
                     String strSqlQueryForTaskInCase = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
                                   "[dbo].[tbl_task_assigned_to].[User_Name], [dbo].[tbl_task].[whatid], " +
@@ -18932,14 +18965,16 @@ namespace CMMManager
                     }
                     rdrTaskInCase.Close();
                     if (connRN2.State != ConnectionState.Closed) connRN2.Close();
-
                     EnableCaseForm();
+                    gvTaskInCase.Enabled = true;
+                    gvTaskInCase.Controls[0].Enabled = true;
+                    gvTaskInCase.Controls[1].Enabled = true;
 
                     btnCaseCreationSaveUpper.Enabled = true;
                     btnNewMedBill_Case.Enabled = true;
 
                     tbCMMManager.SelectedTab = tbpgCreateCase;
-                    
+
                 }
             }
         }
@@ -19423,7 +19458,7 @@ namespace CMMManager
                                 "[dbo].[tbl_medbill].[IB_Form], [dbo].[tbl_medbill].[IB_SourceFileName], [dbo].[tbl_medbill].[IB_DestinationFileName], " +
                                 "[dbo].[tbl_medbill].[POP_Form], [dbo].[tbl_medbill].[POP_SourceFileName], [dbo].[tbl_medbill].[POP_DestinationFileName], " +
                                 "[dbo].[tbl_medbill].[MedRec_Form], [dbo].[tbl_medbill].[MedRec_SourceFileName], [dbo].[tbl_medbill].[MedRec_DestinationFileName], " +
-                                "[dbo].[tbl_medbill].[Unknown_Form], [dbo].[tbl_medbill].[Unknown_SourceFileName], [dbo].[tbl_medbill].[Unknown_DestinationFileName] " + 
+                                "[dbo].[tbl_medbill].[Unknown_Form], [dbo].[tbl_medbill].[Unknown_SourceFileName], [dbo].[tbl_medbill].[Unknown_DestinationFileName] " +
                                 "from [dbo].[tbl_medbill] " +
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
@@ -19928,7 +19963,7 @@ namespace CMMManager
                 //                                       "[dbo].[tbl_incidend].[Case_id] = @CaseId and " +
                 //                                       "[dbo].[tbl_incident].[Illness_id] = @IllnessId and " +
                 //                                       "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
-                
+
 
                 //String strSqlQueryForIncidentChange = "select [dbo].[tbl_incident_history].[Program_id], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident_history].[IsDeleted] " +
                 //                                        "from [dbo].[tbl_incident_history] " +
@@ -20653,6 +20688,10 @@ namespace CMMManager
                     gvSettlementsInMedBill["ApprovedDate", i].ReadOnly = true;
                 }
 
+                gvSettlementsInMedBill.Enabled = true;
+                gvSettlementsInMedBill.Controls[0].Enabled = true;
+                gvSettlementsInMedBill.Controls[1].Enabled = true;
+
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///
                 //Decimal PersonalResponsibilityAmount = 0;
@@ -20865,6 +20904,9 @@ namespace CMMManager
                 ///
 
                 EnableMedicalBillForm();
+                gvMostRecentTasks.Enabled = true;
+                gvMostRecentTasks.Controls[0].Enabled = true;
+                gvMostRecentTasks.Controls[1].Enabled = true;
 
                 btnMedBillCreatePgUpperSave.Enabled = true;
                 //btnMedBillCreationPgLowerSave.Enabled = true;
@@ -21190,7 +21232,7 @@ namespace CMMManager
                         dtpNPFReceivedDate.Value = rdrCaseInfo.GetDateTime(4);
                         dtpNPFReceivedDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
                     }
-                        //txtNPFUploadDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                    //txtNPFUploadDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
 
                     // Populate IB Form Info
                     if (!rdrCaseInfo.IsDBNull(5))
@@ -21204,7 +21246,7 @@ namespace CMMManager
                         dtpIBReceivedDate.Value = rdrCaseInfo.GetDateTime(7);
                         dtpIBReceivedDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
                     }
-                        //txtIBUploadDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                    //txtIBUploadDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
 
                     // Populate POP Form Info
                     if (!rdrCaseInfo.IsDBNull(8))
@@ -21218,7 +21260,7 @@ namespace CMMManager
                         dtpPoPReceivedDate.Value = rdrCaseInfo.GetDateTime(10);
                         dtpPoPReceivedDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
                     }
-                        //txtPoPUploadDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
+                    //txtPoPUploadDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
 
                     // Populate Med Rec Form Info
                     if (!rdrCaseInfo.IsDBNull(11))
@@ -21232,7 +21274,7 @@ namespace CMMManager
                         dtpMRReceivedDate.Value = rdrCaseInfo.GetDateTime(13);
                         dtpMRReceivedDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
                     }
-                        //txtMRUploadDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                    //txtMRUploadDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
 
                     // Populate Unknown Doc Info
                     if (!rdrCaseInfo.IsDBNull(14))
@@ -21246,7 +21288,7 @@ namespace CMMManager
                         dtpOtherDocReceivedDate.Value = rdrCaseInfo.GetDateTime(16);
                         dtpOtherDocReceivedDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
                     }
-                        //txtOtherDocUploadDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
+                    //txtOtherDocUploadDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
 
                     // Populate case status
                     if (!rdrCaseInfo.IsDBNull(17))
@@ -24578,7 +24620,7 @@ namespace CMMManager
                             dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
                             dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
                         }
-                            //txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                        //txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
 
                         // IB Form
                         if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
@@ -24590,7 +24632,7 @@ namespace CMMManager
                             dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
                             dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
                         }
-                            //txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                        //txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
 
                         // POP Form
                         if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
@@ -24602,7 +24644,7 @@ namespace CMMManager
                             dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
                             dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
                         }
-                            //txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                        //txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
 
                         // Med Rec Form
                         if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
@@ -24614,7 +24656,7 @@ namespace CMMManager
                             dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
                             dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
                         }
-                            //txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                        //txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
 
                         // Unknown Doc Form
                         if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
@@ -24626,7 +24668,7 @@ namespace CMMManager
                             dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
                             dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
                         }
-                            //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
+                        //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
 
                         // Case status
                         //if (rdrCaseForIndividual.GetBoolean(27) == true) txtCaseStatus.Text = "Complete and Ready";
@@ -24893,7 +24935,7 @@ namespace CMMManager
                 lblIneligibleReason.Visible = true;
                 comboIneligibleReason.Visible = true;
             }
-            
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -25854,6 +25896,11 @@ namespace CMMManager
                 }
                 rdrCasesForIndividual.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                gvProcessingCaseNo.Enabled = true;
+                gvProcessingCaseNo.Controls[0].Enabled = true;
+                gvProcessingCaseNo.Controls[1].Enabled = true;
+
                 //}
 
                 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25978,6 +26025,10 @@ namespace CMMManager
                     }
                 }
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                gvCaseViewCaseHistory.Enabled = true;
+                gvCaseViewCaseHistory.Controls[0].Enabled = true;
+                gvCaseViewCaseHistory.Controls[1].Enabled = true;
 
                 txtIllnessViewMEMB.Text = IndividualSearched.strMembershipID;
                 txtIllnessViewIndId.Text = IndividualSearched.strIndividualID;
@@ -26165,6 +26216,10 @@ namespace CMMManager
                 rdrIllnessForIndividual.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+                gvIllnessList.Enabled = true;
+                gvIllnessList.Controls[0].Enabled = true;
+                gvIllnessList.Controls[1].Enabled = true;
+
 
                 //txtIllnessViewMEMB.Text = IndividualSearched.strMembershipID;
                 //txtIllnessViewIndId.Text = IndividualSearched.strIndividualID;
@@ -26236,6 +26291,10 @@ namespace CMMManager
                 }
                 rdrIncidentForIndividual.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                gvIncidentList.Enabled = true;
+                gvIncidentList.Controls[0].Enabled = true;
+                gvIncidentList.Controls[1].Enabled = true;
 
                 txtMedBillViewMEMB.Text = IndividualSearched.strMembershipID;
                 txtMedBillViewIndId.Text = IndividualSearched.strIndividualID;
@@ -26405,6 +26464,10 @@ namespace CMMManager
                     gvMedBillList.Rows.Add(row);
 
                 }
+
+                gvMedBillList.Enabled = true;
+                gvMedBillList.Controls[0].Enabled = true;
+                gvMedBillList.Controls[1].Enabled = true;
 
                 btnIndViewUpdateUpperRight.Enabled = true;
                 //btnIndViewUpdateLowerRight.Enabled = true;
@@ -35540,7 +35603,7 @@ namespace CMMManager
                         cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaymentConfirmed", 1);
                         cmdUpdateSettlementForPayment.Parameters.AddWithValue("@PaidBy", nLoggedUserId);
                         int? nCreditCardId = null;
-                        foreach(CreditCardInfo info in lstCreditCardInfo)
+                        foreach (CreditCardInfo info in lstCreditCardInfo)
                         {
                             String CreditCardNo = String.Empty;
                             if (gvCCPayment["CreditCardNoCreditCardPayment", e.RowIndex].Value != null) CreditCardNo = gvCCPayment["CreditCardNoCreditCardPayment", e.RowIndex].Value.ToString();
@@ -35552,7 +35615,7 @@ namespace CMMManager
                         cmdUpdateSettlementForPayment.Parameters.AddWithValue("@CreditCardId", nCreditCardId);
                         cmdUpdateSettlementForPayment.Parameters.AddWithValue("@CCPaidDate", DateTime.Today);
                         cmdUpdateSettlementForPayment.Parameters.AddWithValue("@SettlementNo", ccPaymentSettlementNo);
-                        
+
 
                         if (connRN5.State != ConnectionState.Closed)
                         {
@@ -36273,7 +36336,7 @@ namespace CMMManager
         {
 
             Boolean bIsACHPaymentSelected = false;
-            for(int i = 0; i < gvPaymentACH.Rows.Count; i++)
+            for (int i = 0; i < gvPaymentACH.Rows.Count; i++)
             {
                 if (Boolean.Parse(gvPaymentACH["SelectedACHPayment", i].Value.ToString()) == true) bIsACHPaymentSelected = true;
             }
@@ -37638,8 +37701,10 @@ namespace CMMManager
                 txtCheckNoBlueSheet.ReadOnly = false;
                 dtpCheckIssueDateBlueSheet.Enabled = true;
 
+                txtACHNoBlueSheet.Text = String.Empty;
                 txtACHNoBlueSheet.Enabled = false;
                 txtACHNoBlueSheet.ReadOnly = true;
+                txtCreditCardNoBlueSheet.Text = String.Empty;
                 txtCreditCardNoBlueSheet.Enabled = false;
                 txtCreditCardNoBlueSheet.ReadOnly = true;
                 dtpACHTransactionDateBlueSheet.Enabled = false;
@@ -37657,8 +37722,10 @@ namespace CMMManager
                 txtACHNoBlueSheet.ReadOnly = false;
                 dtpACHTransactionDateBlueSheet.Enabled = true;
 
+                txtCheckNoBlueSheet.Text = String.Empty;
                 txtCheckNoBlueSheet.Enabled = false;
                 txtCheckNoBlueSheet.ReadOnly = true;
+                txtCreditCardNoBlueSheet.Text = String.Empty;
                 txtCreditCardNoBlueSheet.Enabled = false;
                 txtCreditCardNoBlueSheet.ReadOnly = true;
                 dtpCheckIssueDateBlueSheet.Enabled = false;
@@ -37676,8 +37743,10 @@ namespace CMMManager
                 txtCreditCardNoBlueSheet.ReadOnly = false;
                 dtpCreditCardPaymentDateBlueSheet.Enabled = true;
 
+                txtCheckNoBlueSheet.Text = String.Empty;
                 txtCheckNoBlueSheet.Enabled = false;
                 txtCheckNoBlueSheet.ReadOnly = true;
+                txtACHNoBlueSheet.Text = String.Empty;
                 txtACHNoBlueSheet.Enabled = false;
                 txtACHNoBlueSheet.ReadOnly = true;
                 dtpCheckIssueDateBlueSheet.Enabled = false;
@@ -37810,7 +37879,7 @@ namespace CMMManager
                                                        "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[CheckNo] = @CheckNo and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[CheckDate] IS NOT NULL and " +
-                                                       "[RN_DB].[dbo].[tbl_settlement].[CheckDate] like '%' + @CheckDate + '%'";
+                                                       "cast([RN_DB].[dbo].[tbl_settlement].[CheckDate] as date) = @CheckDate";
 
                         SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill, connRN6);
                         cmdQueryForMedBill.CommandType = CommandType.Text;
@@ -37832,20 +37901,18 @@ namespace CMMManager
                             {
                                 if (!rdrMedBillInfo.IsDBNull(4)) ChkInfoEnteredBlueSheet.CheckAmount += Double.Parse(rdrMedBillInfo.GetDecimal(4).ToString());
                                 if (!rdrMedBillInfo.IsDBNull(2)) ChkInfoEnteredBlueSheet.CheckNumber = rdrMedBillInfo.GetString(2);
-                                MedBillCheckInfo info = new MedBillCheckInfo();
-                                if (!rdrMedBillInfo.IsDBNull(6)) info.ContactPrimaryName = rdrMedBillInfo.GetString(6);
-                                if (!rdrMedBillInfo.IsDBNull(7)) info.ContactMailingStreet = rdrMedBillInfo.GetString(7);
-                                if (!rdrMedBillInfo.IsDBNull(8)) info.ContactMailingCity = rdrMedBillInfo.GetString(8);
-                                if (!rdrMedBillInfo.IsDBNull(9)) info.ContactMailingState = rdrMedBillInfo.GetString(9);
-                                if (!rdrMedBillInfo.IsDBNull(10)) info.ContactMailingZip = rdrMedBillInfo.GetString(10);
-                                if (!rdrMedBillInfo.IsDBNull(10)) info.MembershipName = rdrMedBillInfo.GetString(11);
-                                if (!rdrMedBillInfo.IsDBNull(11)) info.ContactName = rdrMedBillInfo.GetString(12);
-                                if (!rdrMedBillInfo.IsDBNull(12)) info.ContactLastName = rdrMedBillInfo.GetString(13);
-                                if (!rdrMedBillInfo.IsDBNull(13)) info.ContactMiddleName = rdrMedBillInfo.GetString(14);
-                                if (!rdrMedBillInfo.IsDBNull(14)) info.ContactFirstName = rdrMedBillInfo.GetString(15);
-                                if (!rdrMedBillInfo.IsDBNull(15)) info.IndividualId = rdrMedBillInfo.GetString(16);
+                                if (!rdrMedBillInfo.IsDBNull(6)) strPrimaryNameBlueSheet = rdrMedBillInfo.GetString(6);
+                                if (!rdrMedBillInfo.IsDBNull(7)) strStreetAddressBlueSheet = rdrMedBillInfo.GetString(7);
+                                if (!rdrMedBillInfo.IsDBNull(8)) strCityBlueSheet = rdrMedBillInfo.GetString(8);
+                                if (!rdrMedBillInfo.IsDBNull(9)) strStateBlueSheet = rdrMedBillInfo.GetString(9);
+                                if (!rdrMedBillInfo.IsDBNull(10)) strZipBlueSheet = rdrMedBillInfo.GetString(10);
+                                if (!rdrMedBillInfo.IsDBNull(11)) strMembershipIdBlueSheet = rdrMedBillInfo.GetString(11);
+                                if (!rdrMedBillInfo.IsDBNull(12)) strIndividualNameBlueSheet = rdrMedBillInfo.GetString(12);
+                                if (!rdrMedBillInfo.IsDBNull(13)) strIndividualLastNameBlueSheet = rdrMedBillInfo.GetString(13);
+                                if (!rdrMedBillInfo.IsDBNull(14)) strIndividualMiddleNameBlueSheet = rdrMedBillInfo.GetString(14);
+                                if (!rdrMedBillInfo.IsDBNull(15)) strIndiviaualFirstNameBlueSheet = rdrMedBillInfo.GetString(15);
+                                if (!rdrMedBillInfo.IsDBNull(16)) strIndividualIDBlueSheet = rdrMedBillInfo.GetString(16);
 
-                                lstMedBillCheckInfo.Add(info);
                             }
                         }
                         rdrMedBillInfo.Close();
@@ -37907,8 +37974,10 @@ namespace CMMManager
                         else
                         {
                             MessageBox.Show("No Incident found.", "Alert");
+                            rdrIncidentInfo.Close();
                             return;
                         }
+                        rdrIncidentInfo.Close();
                         if (connRN6.State != ConnectionState.Closed) connRN6.Close();
 
                         foreach (IncidentInfo info in lstIncidentInfo)
@@ -37960,7 +38029,6 @@ namespace CMMManager
                                 connRN6.Open();
                             }
                             else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
-                            //Object objMedBillNo = cmdQueryForMedBillNo.ExecuteScalar();
                             SqlDataReader rdrMedBillNo = cmdQueryForMedBillNo.ExecuteReader();
                             if (rdrMedBillNo.HasRows)
                             {
@@ -37971,10 +38039,7 @@ namespace CMMManager
                             }
                             rdrMedBillNo.Close();
                             if (connRN6.State != ConnectionState.Closed) connRN6.Close();
-                            //String MedBillNo = String.Empty;
-                            //if (objMedBillNo != null) MedBillNo = objMedBillNo.ToString();
 
-                            //lstMedBillNamesBlueSheet.Add(MedBillNo);
                         }
                     }
 
@@ -38016,7 +38081,7 @@ namespace CMMManager
                                                        "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[ACH_Number] = @ACH_No and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[ACH_Date] IS NOT NULL and " +
-                                                       "[RN_DB].[dbo].[tbl_settlement].[ACH_Date] like '%' + @ACH_Date + '%'";
+                                                       "cast([RN_DB].[dbo].[tbl_settlement].[ACH_Date] as date) = @ACH_Date";
 
                         SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill, connRN6);
                         cmdQueryForMedBill.CommandType = CommandType.Text;
@@ -38038,29 +38103,363 @@ namespace CMMManager
                             {
                                 if (!rdrMedBillInfo.IsDBNull(4)) ACHInfoEnteredBlueSheet.ACHAmount += Double.Parse(rdrMedBillInfo.GetDecimal(4).ToString());
                                 if (!rdrMedBillInfo.IsDBNull(2)) ACHInfoEnteredBlueSheet.ACHNumber = rdrMedBillInfo.GetString(2);
-                                MedBillACHInfo info = new MedBillACHInfo();
-                                if (!rdrMedBillInfo.IsDBNull(6)) info.ContactPrimaryName = rdrMedBillInfo.GetString(6);
-                                if (!rdrMedBillInfo.IsDBNull(7)) info.ContactMailingStreet = rdrMedBillInfo.GetString(7);
-                                if (!rdrMedBillInfo.IsDBNull(8)) info.ContactMailingCity = rdrMedBillInfo.GetString(8);
-                                if (!rdrMedBillInfo.IsDBNull(9)) info.ContactMailingState = rdrMedBillInfo.GetString(9);
-                                if (!rdrMedBillInfo.IsDBNull(10)) info.ContactMailingZip = rdrMedBillInfo.GetString(10);
-                                if (!rdrMedBillInfo.IsDBNull(10)) info.MembershipName = rdrMedBillInfo.GetString(11);
-                                if (!rdrMedBillInfo.IsDBNull(11)) info.ContactName = rdrMedBillInfo.GetString(12);
-                                if (!rdrMedBillInfo.IsDBNull(12)) info.ContactLastName = rdrMedBillInfo.GetString(13);
-                                if (!rdrMedBillInfo.IsDBNull(13)) info.ContactMiddleName = rdrMedBillInfo.GetString(14);
-                                if (!rdrMedBillInfo.IsDBNull(14)) info.ContactFirstName = rdrMedBillInfo.GetString(15);
-                                if (!rdrMedBillInfo.IsDBNull(15)) info.IndividualId = rdrMedBillInfo.GetString(16);
 
-                                lstMedBillACHInfo.Add(info);
+                                //MedBillACHInfo info = new MedBillACHInfo();
+                                //if (!rdrMedBillInfo.IsDBNull(6)) info.ContactPrimaryName = rdrMedBillInfo.GetString(6);
+                                //if (!rdrMedBillInfo.IsDBNull(7)) info.ContactMailingStreet = rdrMedBillInfo.GetString(7);
+                                //if (!rdrMedBillInfo.IsDBNull(8)) info.ContactMailingCity = rdrMedBillInfo.GetString(8);
+                                //if (!rdrMedBillInfo.IsDBNull(9)) info.ContactMailingState = rdrMedBillInfo.GetString(9);
+                                //if (!rdrMedBillInfo.IsDBNull(10)) info.ContactMailingZip = rdrMedBillInfo.GetString(10);
+                                //if (!rdrMedBillInfo.IsDBNull(11)) info.MembershipName = rdrMedBillInfo.GetString(11);
+                                //if (!rdrMedBillInfo.IsDBNull(12)) info.ContactName = rdrMedBillInfo.GetString(12);
+                                //if (!rdrMedBillInfo.IsDBNull(13)) info.ContactLastName = rdrMedBillInfo.GetString(13);
+                                //if (!rdrMedBillInfo.IsDBNull(14)) info.ContactMiddleName = rdrMedBillInfo.GetString(14);
+                                //if (!rdrMedBillInfo.IsDBNull(15)) info.ContactFirstName = rdrMedBillInfo.GetString(15);
+                                //if (!rdrMedBillInfo.IsDBNull(16)) info.IndividualId = rdrMedBillInfo.GetString(16);
+
+                                //lstMedBillACHInfo.Add(info);
+                                if (!rdrMedBillInfo.IsDBNull(6)) strPrimaryNameBlueSheet = rdrMedBillInfo.GetString(6);
+                                if (!rdrMedBillInfo.IsDBNull(7)) strStreetAddressBlueSheet = rdrMedBillInfo.GetString(7);
+                                if (!rdrMedBillInfo.IsDBNull(8)) strCityBlueSheet = rdrMedBillInfo.GetString(8);
+                                if (!rdrMedBillInfo.IsDBNull(9)) strStateBlueSheet = rdrMedBillInfo.GetString(9);
+                                if (!rdrMedBillInfo.IsDBNull(10)) strZipBlueSheet = rdrMedBillInfo.GetString(10);
+                                if (!rdrMedBillInfo.IsDBNull(11)) strMembershipIdBlueSheet = rdrMedBillInfo.GetString(11);
+                                if (!rdrMedBillInfo.IsDBNull(12)) strIndividualNameBlueSheet = rdrMedBillInfo.GetString(12);
+                                if (!rdrMedBillInfo.IsDBNull(13)) strIndividualLastNameBlueSheet = rdrMedBillInfo.GetString(13);
+                                if (!rdrMedBillInfo.IsDBNull(14)) strIndividualMiddleNameBlueSheet = rdrMedBillInfo.GetString(14);
+                                if (!rdrMedBillInfo.IsDBNull(15)) strIndiviaualFirstNameBlueSheet = rdrMedBillInfo.GetString(15);
+                                if (!rdrMedBillInfo.IsDBNull(16)) strIndividualIDBlueSheet = rdrMedBillInfo.GetString(16);
+
                             }
                         }
                         rdrMedBillInfo.Close();
+                        if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                    }
 
+                    if (txtACHNoBlueSheet.Text.Trim() != String.Empty)
+                    {
+                        String strSqlQueryForIncidents = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                        "[SalesForce].[dbo].[account].[Name], [SalesForce].[dbo].[contact].[Name] " +
+                                                        "from [RN_DB].[dbo].[tbl_settlement] " +
+                                                        "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                        "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                                        "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                        "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                        "inner join [SalesForce].[dbo].[account] on [SalesForce].[dbo].[contact].[AccountId] = [SalesForce].[dbo].[account].[Id] " +
+                                                        "where ([RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
+                                                        "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR reimbursement' or " +
+                                                        "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment') and " +
+                                                        "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
+                                                        "[RN_DB].[dbo].[tbl_settlement].[ACH_Number] = @ACH_No and " +
+                                                        "[RN_DB].[dbo].[tbl_settlement].[ACH_Date] IS NOT NULL and " +
+                                                        "cast([RN_DB].[dbo].[tbl_settlement].[ACH_Date] as date) = @ACH_Date";
+
+                        SqlCommand cmdQueryForIncidents = new SqlCommand(strSqlQueryForIncidents, connRN6);
+                        cmdQueryForIncidents.CommandType = CommandType.Text;
+
+                        cmdQueryForIncidents.Parameters.AddWithValue("@IndividualId", txtIndividualIDBlueSheet.Text.Trim());
+                        cmdQueryForIncidents.Parameters.AddWithValue("@ACH_No", txtACHNoBlueSheet.Text.Trim());
+                        cmdQueryForIncidents.Parameters.AddWithValue("@ACH_Date", dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+
+                        if (connRN6.State != ConnectionState.Closed)
+                        {
+                            connRN6.Close();
+                            connRN6.Open();
+                        }
+                        else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                        SqlDataReader rdrIncidentInfo = cmdQueryForIncidents.ExecuteReader();
+                        if (rdrIncidentInfo.HasRows)
+                        {
+                            while (rdrIncidentInfo.Read())
+                            {
+                                IncidentInfo info = new IncidentInfo();
+                                if (!rdrIncidentInfo.IsDBNull(0)) info.IncidentNo = rdrIncidentInfo.GetString(0);
+                                if (!rdrIncidentInfo.IsDBNull(1)) info.SettlementType = rdrIncidentInfo.GetString(1);
+                                if (!rdrIncidentInfo.IsDBNull(2)) info.MedicalProviderName = rdrIncidentInfo.GetString(2);
+                                if (!rdrIncidentInfo.IsDBNull(3)) info.ContactName = rdrIncidentInfo.GetString(3);
+                                lstIncidentInfo.Add(info);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No incident found.", "Alert");
+                            rdrIncidentInfo.Close();
+                            return;
+                        }
+                        rdrIncidentInfo.Close();
                         if (connRN6.State != ConnectionState.Closed) connRN6.Close();
 
+                        foreach (IncidentInfo info in lstIncidentInfo)
+                        {
+                            if (info.SettlementType == "Member Reimbursement" ||
+                                info.SettlementType == "PR Reimbursement")
+                            {
+                                PaidToBlueSheet = EnumPaidTo.Member;
+                                ACHInfoEnteredBlueSheet.PaidTo = info.ContactName;
+                            }
+                            else if (info.SettlementType == "CMM Provider Payment")
+                            {
+                                PaidToBlueSheet = EnumPaidTo.MedicalProvider;
+                                ACHInfoEnteredBlueSheet.PaidTo = info.MedicalProviderName;
+                            }
+                            lstIncdNamesBlueSheet.Add(info.IncidentNo);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter ACH Number.", "Alert");
+                        return;
+                    }
 
+                    if (lstIncdNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String IncdName in lstIncdNamesBlueSheet.Distinct())
+                        {
+                            lstDistinctIncdNamesBlueSheet.Add(IncdName);
+                        }
+                        lstDistinctIncdNamesBlueSheet.Sort();
+                    }
+
+                    if (lstDistinctIncdNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String IncidentName in lstDistinctIncdNamesBlueSheet)
+                        {
+                            String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                             "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                             "where [dbo].[tbl_incident].[IncidentNo] = @IncidentName";
+
+                            SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN6);
+                            cmdQueryForMedBillNo.CommandType = CommandType.Text;
+
+                            cmdQueryForMedBillNo.Parameters.AddWithValue("@IncidentName", IncidentName);
+
+                            if (connRN6.State != ConnectionState.Closed)
+                            {
+                                connRN6.Close();
+                                connRN6.Open();
+                            }
+                            else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                            SqlDataReader rdrMedBillNo = cmdQueryForMedBillNo.ExecuteReader();
+                            if (rdrMedBillNo.HasRows)
+                            {
+                                while (rdrMedBillNo.Read())
+                                {
+                                    if (!rdrMedBillNo.IsDBNull(0)) lstMedBillNamesBlueSheet.Add(rdrMedBillNo.GetString(0));
+                                }
+                            }
+                            rdrMedBillNo.Close();
+                            if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                        }
+                    }
+                    if (lstMedBillNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String strMedBillNo in lstMedBillNamesBlueSheet)
+                        {
+                            lstDistinctMedBillNamesBlueSheet.Add(strMedBillNo);
+                        }
+                        lstDistinctMedBillNamesBlueSheet.Sort();
                     }
                 }
+
+                if (rbCreditCardBlueSheet.Checked)
+                {
+                    CreditCardPaymentEnteredBlueSheet = new CreditCardPaymentInfoBlueSheet();
+
+                    DateTime dtYesterday = DateTime.Parse(dtpCreditCardPaymentDateBlueSheet.Value.ToString("yyyy-MM-dd"));
+                    DateTime dtTomorrow = DateTime.Parse(dtpCreditCardPaymentDateBlueSheet.Value.ToString("yyyy-MM-dd")).AddDays(1);
+
+                    if (dtpCreditCardPaymentDateBlueSheet.Value.ToString() != String.Empty)
+                    {
+                        String strSqlQueryForMedicalBill = "select [RN_DB].[dbo].[tbl_settlement].[Amount], [RN_DB].[dbo].[tbl_medbill].[BillNo], " +
+                                                           "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate], " +
+                                                           "[RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_settlement].[Name], " +
+                                                           "[SalesForce].[dbo].[contact].[Primary_Name__c], " +
+                                                           "[SalesForce].[dbo].[contact].[MailingStreet], [SalesForce].[dbo].[contact].[MailingCity], " +
+                                                           "[SalesForce].[dbo].[contact].[MailingState], [SalesForce].[dbo].[contact].[MailingPostalCode], " +
+                                                           "[SalesForce].[dbo].[membership].[Name], " +
+                                                           "[SalesForce].[dbo].[contact].[Name], " +
+                                                           "[SalesForce].[dbo].[contact].[LastName], [SalesForce].[dbo].[contact].[MiddleName], [SalesForce].[dbo].[contact].[FirstName], " +
+                                                           "[SalesForce].[dbo].[contact].[Individual_ID__c], " +
+                                                           "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] " +
+                                                           "from [RN_DB].[dbo].[tbl_settlement] " +
+                                                           "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on " +
+                                                           "[RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                           "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                                           "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                           "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                           "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                           "inner join [SalesForce].[dbo].[membership] on [SalesForce].[dbo].[contact].[c4g_Membership__c] = [SalesForce].[dbo].[membership].[Id] " +
+                                                           "where [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' and " +
+                                                           "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
+                                                           "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL and " +
+                                                           "cast([RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] as date) = @CreditCardPaidDate";
+
+                        SqlCommand cmdQueryForMedicalBill = new SqlCommand(strSqlQueryForMedicalBill, connRN6);
+                        cmdQueryForMedicalBill.CommandType = CommandType.Text;
+
+                        cmdQueryForMedicalBill.Parameters.AddWithValue("@IndividualId", txtIndividualIDBlueSheet.Text.Trim());
+                        cmdQueryForMedicalBill.Parameters.AddWithValue("@CreditCardPaidDate", dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+
+                        if (connRN6.State != ConnectionState.Closed)
+                        {
+                            connRN6.Close();
+                            connRN6.Open();
+                        }
+                        else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                        SqlDataReader rdrMedicalBill = cmdQueryForMedicalBill.ExecuteReader();
+                        if (rdrMedicalBill.HasRows)
+                        {
+                            while (rdrMedicalBill.Read())
+                            {
+                                if (!rdrMedicalBill.IsDBNull(0)) CreditCardPaymentEnteredBlueSheet.CCPaymentAmount += (double?)rdrMedicalBill.GetDecimal(0);
+                                if (!rdrMedicalBill.IsDBNull(3)) CreditCardPaymentEnteredBlueSheet.dtPaymentDate = rdrMedicalBill.GetDateTime(3);
+                                if (!rdrMedicalBill.IsDBNull(6)) strPrimaryNameBlueSheet = rdrMedicalBill.GetString(6);
+                                if (!rdrMedicalBill.IsDBNull(7)) strStreetAddressBlueSheet = rdrMedicalBill.GetString(7);
+                                if (!rdrMedicalBill.IsDBNull(8)) strCityBlueSheet = rdrMedicalBill.GetString(8);
+                                if (!rdrMedicalBill.IsDBNull(9)) strStateBlueSheet = rdrMedicalBill.GetString(9);
+                                if (!rdrMedicalBill.IsDBNull(10)) strZipBlueSheet = rdrMedicalBill.GetString(10);
+                                if (!rdrMedicalBill.IsDBNull(11)) strMembershipIdBlueSheet = rdrMedicalBill.GetString(11);
+                                else strMembershipIdBlueSheet = String.Empty;
+                                if (!rdrMedicalBill.IsDBNull(12)) strIndividualNameBlueSheet = rdrMedicalBill.GetString(12);
+                                if (!rdrMedicalBill.IsDBNull(13)) strIndividualLastNameBlueSheet = rdrMedicalBill.GetString(13);
+                                if (!rdrMedicalBill.IsDBNull(14)) strIndividualMiddleNameBlueSheet = rdrMedicalBill.GetString(14);
+                                if (!rdrMedicalBill.IsDBNull(15)) strIndiviaualFirstNameBlueSheet = rdrMedicalBill.GetString(15);
+                                if (!rdrMedicalBill.IsDBNull(16)) strIndividualIDBlueSheet = rdrMedicalBill.GetString(16);
+                            }
+                        }
+                        rdrMedicalBill.Close();
+                        if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please enter credit card payment date.", "Error");
+                        return;
+                    }
+
+                    if (dtpCreditCardPaymentDateBlueSheet.Value.ToString() != String.Empty)
+                    {
+                        // 03/25/19 - begin here for dtpCreditCardPaymentDateBlueSheet.Value.ToString() != String.Empty
+
+                        String strSqlQueryForIncidents = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                         "[SalesForce].[dbo].[account].[Name], [SalesForce].[dbo].[contact].[Name] from " +
+                                                         "[RN_DB].[dbo].[tbl_settlement] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_medbill] on [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] = [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                         "inner join [RN_DB].[dbo].[tbl_settlement_type_code] " +
+                                                         "on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                         "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                         "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                         "where [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' and " +
+                                                         "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
+                                                         "[RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL and " +
+                                                         "cast([RN_DB].[dbo].[tbl_settlement].[CMMCreditCardPaidDate] as date) = @CreditCardPaidDate";
+
+                        SqlCommand cmdQueryForIncidents = new SqlCommand(strSqlQueryForIncidents, connRN6);
+                        cmdQueryForIncidents.CommandType = CommandType.Text;
+
+                        cmdQueryForIncidents.Parameters.AddWithValue("@IndividualId", txtIndividualIDBlueSheet.Text.Trim());
+                        //cmdQueryForIncidents.Parameters.AddWithValue("@CreditCardPaidDate", dtpCreditCardPaymentDateBlueSheet.Value.ToString("yyyy-MM-dd"));
+                        cmdQueryForIncidents.Parameters.AddWithValue("@CreditCardPaidDate", dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+
+                        if (connRN6.State != ConnectionState.Closed)
+                        {
+                            connRN6.Close();
+                            connRN6.Open();
+                        }
+                        else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                        SqlDataReader rdrIncidents = cmdQueryForIncidents.ExecuteReader();
+                        if (rdrIncidents.HasRows)
+                        {
+                            while (rdrIncidents.Read())
+                            {
+                                if (!rdrIncidents.IsDBNull(1))
+                                {
+                                    String SettlementType = rdrIncidents.GetString(1);
+                                    if (SettlementType == "Member Reimbursement")
+                                    {
+                                        PaidToBlueSheet = EnumPaidTo.Member;
+                                        if (!rdrIncidents.IsDBNull(3)) CreditCardPaymentEnteredBlueSheet.PaidTo = rdrIncidents.GetString(3);
+                                    }
+                                    else if (SettlementType == "CMM Provider Payment")
+                                    {
+                                        PaidToBlueSheet = EnumPaidTo.MedicalProvider;
+                                        if (!rdrIncidents.IsDBNull(3)) CreditCardPaymentEnteredBlueSheet.PaidTo = rdrIncidents.GetString(3);
+                                    }
+                                }
+                                if (!rdrIncidents.IsDBNull(0)) lstIncdNamesBlueSheet.Add(rdrIncidents.GetString(0));
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("No incident found.", "Information");
+                            rdrIncidents.Close();
+                            return;
+                        }
+                        rdrIncidents.Close();
+                        if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                    }
+
+                    if (lstIncdNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String IncdName in lstIncdNamesBlueSheet.Distinct())
+                        {
+                            lstDistinctIncdNamesBlueSheet.Add(IncdName);
+                        }
+                        lstDistinctIncdNamesBlueSheet.Sort();
+                    }
+
+                    if (lstDistinctIncdNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String IncdName in lstDistinctIncdNamesBlueSheet)
+                        {
+                            String strSqlQueryForMedBills = "select [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
+                                                            "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                            "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                            "where [RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                            SqlCommand cmdQueryForMedBills = new SqlCommand(strSqlQueryForMedBills, connRN6);
+                            cmdQueryForMedBills.CommandType = CommandType.Text;
+
+                            cmdQueryForMedBills.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                            if (connRN6.State != ConnectionState.Closed)
+                            {
+                                connRN6.Close();
+                                connRN6.Open();
+                            }
+                            else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                            SqlDataReader rdrMedBills = cmdQueryForMedBills.ExecuteReader();
+                            if (rdrMedBills.HasRows)
+                            {
+                                while (rdrMedBills.Read())
+                                {
+                                    if (!rdrMedBills.IsDBNull(0)) lstMedBillNamesBlueSheet.Add(rdrMedBills.GetString(0));
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("No medical bill for IncidentNo: " + IncdName, "Information");
+                                rdrMedBills.Close();
+                                return;
+                            }
+                            rdrMedBills.Close();
+                            if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                        }
+                    }
+
+                    if (lstMedBillNamesBlueSheet.Count > 0)
+                    {
+                        foreach (String strMedBillName in lstMedBillNamesBlueSheet.Distinct())
+                        {
+                            //lstDistinctIncdNamesBlueSheet.Add(strMedBillName);
+                            lstDistinctMedBillNamesBlueSheet.Add(strMedBillName);
+                        }
+                        //lstDistinctIncdNamesBlueSheet.Sort();
+                        lstDistinctMedBillNamesBlueSheet.Sort();
+                    }
+                }
+
+                lstIncidentsBlueSheet.Clear();
 
                 foreach (String strIncdName in lstDistinctIncdNamesBlueSheet)
                 {
@@ -38091,6 +38490,7 @@ namespace CMMManager
                             if (!rdrICD10Names.IsDBNull(2))
                             {
                                 lstIncidentsBlueSheet.Add(new IncidentBlueSheet { Name = rdrICD10Names.GetString(0), PatientName = rdrICD10Names.GetString(1), ICD10_Code = rdrICD10Names.GetString(3) });
+
                             }
                         }
                     }
@@ -38155,11 +38555,25 @@ namespace CMMManager
                     }
                     if (rbACHBlueSheet.Checked)
                     {
-
+                        strSqlSettlementPaid = "select [dbo].[tbl_medbill].[BillNo] " +
+                                                "from [dbo].[tbl_settlement] " +
+                                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                "(([dbo].[tbl_settlement].[ACH_Number] IS NOT NULL and [dbo].[tbl_settlement].[ACH_Date] IS NOT NULL) or " +
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0) or " +
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0))";
                     }
                     if (rbCreditCardBlueSheet.Checked)
                     {
-
+                        strSqlSettlementPaid = "select [dbo].[tbl_medbill].[BillNo] " +
+                                                "from [dbo].[tbl_settlement] " +
+                                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                "([dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL or " +
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0) or " +
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0))";
                     }
 
                     SqlCommand cmdQueryForSettlementPaid = new SqlCommand(strSqlSettlementPaid, connRN6);
@@ -38216,7 +38630,7 @@ namespace CMMManager
                     if (rdrMedBillPaid.HasRows)
                     {
                         bPaidHasRowBlueSheet = true;
-                      
+
                         while (rdrMedBillPaid.Read())
                         {
                             if (!rdrMedBillPaid.IsDBNull(0)) lstIncdNamesBlueSheet.Add(rdrMedBillPaid.GetString(0));
@@ -38247,7 +38661,7 @@ namespace CMMManager
                             }
 
                             // Ask Tim about this section to confirm, (personal responisibility types)
-                            String strSqlQueryForPersonalResponsibility = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[SettlementType] " +
+                            String strSqlQueryForPersonalResponsibility = "select [dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_settlement].[SettlementType] " +
                                                                           "from [dbo].[tbl_settlement] " +
                                                                           "inner join [dbo].[tbl_settlement_type_code] " +
                                                                           "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
@@ -38256,6 +38670,7 @@ namespace CMMManager
                                                                           "where ([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Payment' or " +
                                                                           "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = '3rd Party Discount' or " +
                                                                           "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Discount') and " +
+                                                                          "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0 and " +
                                                                           "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
 
@@ -38297,6 +38712,7 @@ namespace CMMManager
                                                                 "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
                                                                 "where [dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Discount' and " +
+                                                                "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] = 0 and " +
                                                                 "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
                             SqlCommand cmdQueryForMemberDiscount = new SqlCommand(strSqlQueryForMemberDiscount, connRN5);
@@ -38337,6 +38753,7 @@ namespace CMMManager
                                                                 "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
                                                                 "where [dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Discount' and " +
+                                                                "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] = 0 and " +
                                                                 "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
                             SqlCommand cmdQueryForCMMDiscount = new SqlCommand(strSqlQueryForCMMDiscount, connRN5);
@@ -38383,7 +38800,15 @@ namespace CMMManager
                             }
                             if (rbCreditCardBlueSheet.Checked)
                             {
-
+                                strSqlCMMProviderPayment = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[SettlementType] " +
+                                                           "from [dbo].[tbl_settlement] " +
+                                                           "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                           "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                           "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                           "where [dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' and " +
+                                                           "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
+                                                           "([dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL and " +
+                                                           "cast([dbo].[tbl_settlement].[CMMCreditCardPaidDate] as date) = @CreditCardPaidDate)";
                             }
 
                             SqlCommand cmdQueryForCMMProviderPayment = new SqlCommand(strSqlCMMProviderPayment, connRN5);
@@ -38391,6 +38816,7 @@ namespace CMMManager
 
                             cmdQueryForCMMProviderPayment.Parameters.AddWithValue("@MedBillNo", strMedBillNo);
                             cmdQueryForCMMProviderPayment.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+                            cmdQueryForCMMProviderPayment.Parameters.AddWithValue("@CreditCardPaidDate", dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
 
                             Decimal? CMMProviderPayment = 0;
 
@@ -38508,12 +38934,12 @@ namespace CMMManager
                                                                 "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                                 "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
-                                                                "where ([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' and  " +
+                                                                "where [dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' and  " +
                                                                 "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
                                                                 "(([dbo].[tbl_settlement].[CheckDate] IS NOT NULL and [dbo].[tbl_settlement].[CheckNo] != @CheckNo) or " +
                                                                 "([dbo].[tbl_settlement].[ACH_Date] IS NOT NULL and [dbo].[tbl_settlement].[ACH_Number] != @ACH_No) or " +
                                                                 "([dbo].[tbl_settlement].[CMMCreditCard] IS NOT NULL and [dbo].[tbl_settlement].[CMMCreditCard] != 0 and " +
-                                                                "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] < @CreditCardPaymentDate)";
+                                                                "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] < @CreditCardPaymentDate))";
 
                                 SqlCommand cmdQueryForPastProviderPayment = new SqlCommand(strSqlPastProviderPayment, connRN5);
                                 cmdQueryForPastProviderPayment.CommandType = CommandType.Text;
@@ -38555,7 +38981,7 @@ namespace CMMManager
                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and  " +
                                                     "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
                                                     "(([dbo].[tbl_settlement].[CheckDate] IS NOT NULL and [dbo].[tbl_settlement].[CheckNo] != @CheckNo) or " +
-                                                    "([dbo].[tbl_settlement].[ACH_Date] IS NOT NULL and [dbo].[tbl_settlement].[ACH_Number] != @ACH_No))";
+                                                    "([dbo].[tbl_settlement].[ACH_Date] IS NOT NULL and [dbo].[tbl_settlement].[ACH_Number] != @ACH_No)))";
 
                                 SqlCommand cmdQueryForPastMemberReimbursement = new SqlCommand(strSqlPastMemberReimbursement, connRN5);
                                 cmdQueryForPastMemberReimbursement.CommandType = CommandType.Text;
@@ -38788,12 +39214,1253 @@ namespace CMMManager
                     }
                     gvSharedInPaidTab.Columns["잔액/보류"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 }
+
+                DataTable dtCMMPendingPayment = new DataTable();
+                dtCMMPendingPayment.Columns.Add("INCD", typeof(String));
+                dtCMMPendingPayment.Columns.Add("회원 이름", typeof(String));
+                dtCMMPendingPayment.Columns.Add("MED_BILL", typeof(String));
+                dtCMMPendingPayment.Columns.Add("서비스 날짜", typeof(String));
+                dtCMMPendingPayment.Columns.Add("의료기관명", typeof(String));
+                dtCMMPendingPayment.Columns.Add("청구액(원금)", typeof(String));
+                dtCMMPendingPayment.Columns.Add("회원할인", typeof(String));
+                dtCMMPendingPayment.Columns.Add("CMM 할인", typeof(String));
+                dtCMMPendingPayment.Columns.Add("본인 부담금", typeof(String));
+                dtCMMPendingPayment.Columns.Add("정산 완료", typeof(String));
+                dtCMMPendingPayment.Columns.Add("지원 예정", typeof(String));
+
+                DataRow drCMMPendingPayment = null;
+
+                List<CMMPendingPaymentBlueSheet> lstCMMPendingPayment = new List<CMMPendingPaymentBlueSheet>();
+
+                foreach (String IncdName in lstDistinctIncdNamesBlueSheet)
+                {
+                    String strSqlQueryForMedBillCMMPendingPayment = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_settlement].[Approved], " +
+                                                                    "[dbo].[tbl_settlement].[SettlementType], [dbo].[tbl_settlement].[Amount] " +
+                                                                    "from [dbo].[tbl_settlement] " +
+                                                                    "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                    "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                    "where [dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                                    "[dbo].[tbl_settlement].[Amount] > 0 and " +
+                                                                    "[dbo].[tbl_settlement].[Amount] IS NOT NULL and " +
+                                                                    "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                                                                    "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+                                                                    "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL and" +
+                                                                    "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                    SqlCommand cmdQueryForMedBillCMMPendingPayment = new SqlCommand(strSqlQueryForMedBillCMMPendingPayment, connRN5);
+                    cmdQueryForMedBillCMMPendingPayment.CommandType = CommandType.Text;
+
+                    cmdQueryForMedBillCMMPendingPayment.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                    if (connRN5.State != ConnectionState.Closed)
+                    {
+                        connRN5.Close();
+                        connRN5.Open();
+                    }
+                    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                    SqlDataReader rdrMedBillCMMPendingPayment = cmdQueryForMedBillCMMPendingPayment.ExecuteReader();
+                    if (rdrMedBillCMMPendingPayment.HasRows)
+                    {
+                        bCMMPendingPaymentHasRowBlueSheet = true;
+
+                        List<String> lstCMMPendingPaymentMedBillNames = new List<string>();
+                        while (rdrMedBillCMMPendingPayment.Read())
+                        {
+                            if (!rdrMedBillCMMPendingPayment.IsDBNull(0)) lstCMMPendingPaymentMedBillNames.Add(rdrMedBillCMMPendingPayment.GetString(0));
+                        }
+
+                        List<string> lstCMMPendingPaymentDistinctMedBillNames = new List<string>();
+
+                        foreach (string MedBillName in lstCMMPendingPaymentMedBillNames.Distinct())
+                        {
+                            lstCMMPendingPaymentDistinctMedBillNames.Add(MedBillName);
+                        }
+
+                        foreach (String DistinctMedBillName in lstCMMPendingPaymentDistinctMedBillNames)
+                        {
+                            String strSqlQueryForCMMPendingPayment = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [SalesForce].[dbo].[contact].[Name], " +
+                                                                     "[RN_DB].[dbo].[tbl_medbill].[BillNo], [RN_DB].[dbo].[tbl_medbill].[BillDate], " +
+                                                                     "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_medbill].[BillAmount] " +
+                                                                     "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                                     "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                                     "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                                     "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                                     "where [RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                            SqlCommand cmdQueryForCMMPendingPayment = new SqlCommand(strSqlQueryForCMMPendingPayment, connRN7);
+                            cmdQueryForCMMPendingPayment.CommandType = CommandType.Text;
+
+                            cmdQueryForCMMPendingPayment.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                            cmdQueryForCMMPendingPayment.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                            if (connRN7.State != ConnectionState.Closed)
+                            {
+                                connRN7.Close();
+                                connRN7.Open();
+                            }
+                            else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                            SqlDataReader rdrCMMPendingPayment = cmdQueryForCMMPendingPayment.ExecuteReader();
+                            if (rdrCMMPendingPayment.HasRows)
+                            {
+                                CMMPendingPaymentBlueSheet cmm_pending_payment = new CMMPendingPaymentBlueSheet();
+                                while (rdrCMMPendingPayment.Read())
+                                {
+                                    drCMMPendingPayment = dtCMMPendingPayment.NewRow();
+                                    if (!rdrCMMPendingPayment.IsDBNull(0)) drCMMPendingPayment["INCD"] = rdrCMMPendingPayment.GetString(0);
+                                    if (!rdrCMMPendingPayment.IsDBNull(1)) drCMMPendingPayment["회원 이름"] = rdrCMMPendingPayment.GetString(1);
+                                    if (!rdrCMMPendingPayment.IsDBNull(2)) drCMMPendingPayment["MED_BILL"] = rdrCMMPendingPayment.GetString(2).Substring(8);
+                                    if (!rdrCMMPendingPayment.IsDBNull(3)) drCMMPendingPayment["서비스 날짜"] = rdrCMMPendingPayment.GetDateTime(3).ToString("MM/dd/yyyy");
+                                    if (!rdrCMMPendingPayment.IsDBNull(4)) drCMMPendingPayment["의료기관명"] = rdrCMMPendingPayment.GetString(4);
+                                    if (!rdrCMMPendingPayment.IsDBNull(5))
+                                    {
+                                        cmm_pending_payment.BillAmount = (double?)rdrCMMPendingPayment.GetDecimal(5);
+                                        drCMMPendingPayment["청구액(원금)"] = cmm_pending_payment.BillAmount.Value.ToString("C");
+                                    }
+
+                                    String strSqlQueryForCMMPendingMemberDiscount = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[SettlementType] " +
+                                                                                    "from [dbo].[tbl_settlement] " +
+                                                                                    "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                                    "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                                    "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                                    "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                                    "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                                    "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
+                                                                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Discount' and " +
+                                                                                    "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] = 0";
+
+                                    SqlCommand cmdQueryForCMMPendingMemberDiscount = new SqlCommand(strSqlQueryForCMMPendingMemberDiscount, connRN6);
+                                    cmdQueryForCMMPendingMemberDiscount.CommandType = CommandType.Text;
+
+                                    cmdQueryForCMMPendingMemberDiscount.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                                    cmdQueryForCMMPendingMemberDiscount.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                                    Double? MemberDiscount = 0;
+
+                                    if (connRN6.State != ConnectionState.Closed)
+                                    {
+                                        connRN6.Close();
+                                        connRN6.Open();
+                                    }
+                                    else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                    SqlDataReader rdrCMMPendingMemberDiscount = cmdQueryForCMMPendingMemberDiscount.ExecuteReader();
+                                    if (rdrCMMPendingMemberDiscount.HasRows)
+                                    {
+                                        while (rdrCMMPendingMemberDiscount.Read())
+                                        {
+                                            if (!rdrCMMPendingMemberDiscount.IsDBNull(0)) MemberDiscount += (double?)rdrCMMPendingMemberDiscount.GetDecimal(0);
+                                        }
+                                    }
+                                    rdrCMMPendingMemberDiscount.Close();
+                                    if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                    cmm_pending_payment.MemberDiscount = MemberDiscount.Value;
+                                    drCMMPendingPayment["회원할인"] = cmm_pending_payment.MemberDiscount.Value.ToString("C");
+
+                                    String strSqlQueryForCMMPendingCMMDiscount = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[SettlementType] " +
+                                                                                 "from [dbo].[tbl_settlement] " +
+                                                                                 "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                                 "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                                 "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " + "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                                 "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
+                                                                                 "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Discount' and " +
+                                                                                 "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] = 0";
+
+                                    SqlCommand cmdQueryForCMMPendingCMMDiscount = new SqlCommand(strSqlQueryForCMMPendingCMMDiscount, connRN6);
+                                    cmdQueryForCMMPendingCMMDiscount.CommandType = CommandType.Text;
+
+                                    cmdQueryForCMMPendingCMMDiscount.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                                    cmdQueryForCMMPendingCMMDiscount.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                                    Double? CMMDiscount = 0;
+
+                                    if (connRN6.State != ConnectionState.Closed)
+                                    {
+                                        connRN6.Close();
+                                        connRN6.Open();
+                                    }
+                                    else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                    SqlDataReader rdrCMMPendingCMMDiscount = cmdQueryForCMMPendingCMMDiscount.ExecuteReader();
+                                    if (rdrCMMPendingCMMDiscount.HasRows)
+                                    {
+                                        while (rdrCMMPendingCMMDiscount.Read())
+                                        {
+                                            if (!rdrCMMPendingCMMDiscount.IsDBNull(0)) CMMDiscount += (double?)rdrCMMPendingCMMDiscount.GetDecimal(0);
+                                        }
+                                    }
+                                    rdrCMMPendingCMMDiscount.Close();
+                                    if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                    cmm_pending_payment.CMMDiscount = CMMDiscount.Value;
+                                    drCMMPendingPayment["CMM 할인"] = cmm_pending_payment.CMMDiscount.Value.ToString("C");
+
+                                    String strSqlQueryForCMMPendingPersonalResponsibility = "select [dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_settlement].[SettlementType] " +
+                                                                                            "from [dbo].[tbl_settlement] " +
+                                                                                            "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                                            "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                                            "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                                            "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                                            "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                                            "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo and " +
+                                                                                            "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Payment' or " +
+                                                                                            "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = '3rd Party Discount' or " +
+                                                                                            "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Discount') and " +
+                                                                                            "[dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0";
+
+                                    SqlCommand cmdQueryForCMMPendingPersonalResponsibility = new SqlCommand(strSqlQueryForCMMPendingPersonalResponsibility, connRN6);
+                                    cmdQueryForCMMPendingPersonalResponsibility.CommandType = CommandType.Text;
+
+                                    cmdQueryForCMMPendingPersonalResponsibility.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                                    cmdQueryForCMMPendingPersonalResponsibility.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                                    Double? CMMPendingPersonalResponsibility = 0;
+
+                                    if (connRN6.State != ConnectionState.Closed)
+                                    {
+                                        connRN6.Close();
+                                        connRN6.Open();
+                                    }
+                                    else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                    SqlDataReader rdrCMMPendingPersonalResponsibility = cmdQueryForCMMPendingPersonalResponsibility.ExecuteReader();
+                                    if (rdrCMMPendingPersonalResponsibility.HasRows)
+                                    {
+                                        while (rdrCMMPendingPersonalResponsibility.Read())
+                                        {
+                                            if (!rdrCMMPendingPersonalResponsibility.IsDBNull(0)) CMMPendingPersonalResponsibility += (double?)rdrCMMPendingPersonalResponsibility.GetDecimal(0);
+                                        }
+                                    }
+                                    rdrCMMPendingPersonalResponsibility.Close();
+                                    if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                    cmm_pending_payment.PersonalResponsibility = CMMPendingPersonalResponsibility.Value;
+                                    drCMMPendingPayment["본인 부담금"] = cmm_pending_payment.PersonalResponsibility.Value.ToString("C");
+
+                                    String strSqlQueryForCMMPendingSharedAmount = "select [dbo].[tbl_settlement].[Amount] " +
+                                                                                  "from [dbo].[tbl_settlement] " +
+                                                                                  "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                                  "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                                  "where [dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                                                  "([dbo].[tbl_settlement].[CheckNo] IS NOT NULL or " +
+                                                                                  "[dbo].[tbl_settlement].[ACH_Number] IS NOT NULL or " +
+                                                                                  "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL) and " +
+                                                                                  "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                                  "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                                    SqlCommand cmdQueryForCMMPendingSharedAmount = new SqlCommand(strSqlQueryForCMMPendingSharedAmount, connRN6);
+                                    cmdQueryForCMMPendingSharedAmount.CommandType = CommandType.Text;
+
+                                    cmdQueryForCMMPendingSharedAmount.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                                    cmdQueryForCMMPendingSharedAmount.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                                    Double? SharedAmount = 0;
+
+                                    if (connRN6.State != ConnectionState.Closed)
+                                    {
+                                        connRN6.Close();
+                                        connRN6.Open();
+                                    }
+                                    else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                    SqlDataReader rdrCMMPendingSharedAmount = cmdQueryForCMMPendingSharedAmount.ExecuteReader();
+                                    if (rdrCMMPendingSharedAmount.HasRows)
+                                    {
+                                        while (rdrCMMPendingSharedAmount.Read())
+                                        {
+                                            if (!rdrCMMPendingSharedAmount.IsDBNull(0)) SharedAmount += (Double?)rdrCMMPendingSharedAmount.GetDecimal(0);
+                                        }
+                                    }
+                                    rdrCMMPendingSharedAmount.Close();
+                                    if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                    cmm_pending_payment.SharedAmount = SharedAmount.Value;
+                                    drCMMPendingPayment["정산 완료"] = cmm_pending_payment.SharedAmount.Value.ToString("C");
+
+                                    String strSqlQueryForCMMPendingBalance = "select [dbo].[tbl_settlement].[Amount] " +
+                                                                             "from [dbo].[tbl_settlement] " +
+                                                                             "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                                             "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                             "where [dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                                             "([dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+                                                                             "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+                                                                             "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL) and " +
+                                                                             "[dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                                             "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                                    SqlCommand cmdQueryforCMMPendingBalance = new SqlCommand(strSqlQueryForCMMPendingBalance, connRN6);
+                                    cmdQueryforCMMPendingBalance.CommandType = CommandType.Text;
+
+                                    cmdQueryforCMMPendingBalance.Parameters.AddWithValue("@MedBillNo", DistinctMedBillName);
+                                    cmdQueryforCMMPendingBalance.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                                    Double? Balance = 0;
+
+                                    if (connRN6.State != ConnectionState.Closed)
+                                    {
+                                        connRN6.Close();
+                                        connRN6.Open();
+                                    }
+                                    else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                    SqlDataReader rdrCMMPendingBalance = cmdQueryforCMMPendingBalance.ExecuteReader();
+                                    if (rdrCMMPendingBalance.HasRows)
+                                    {
+                                        while (rdrCMMPendingBalance.Read())
+                                        {
+                                            if (!rdrCMMPendingBalance.IsDBNull(0)) Balance += (Double?)rdrCMMPendingBalance.GetDecimal(0);
+                                        }
+                                    }
+                                    rdrCMMPendingBalance.Close();
+                                    if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                    cmm_pending_payment.AmountWillBeShared = Balance.Value;
+                                    drCMMPendingPayment["지원 예정"] = cmm_pending_payment.AmountWillBeShared.Value.ToString("C");
+
+                                    lstCMMPendingPayment.Add(cmm_pending_payment);
+                                    dtCMMPendingPayment.Rows.Add(drCMMPendingPayment);
+                                }
+                            }
+                            if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                        }
+                    }
+                    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+                }
+
+                if (bCMMPendingPaymentHasRowBlueSheet)
+                {
+                    double sumCMMPendingPaymentBillAmount = 0;
+                    double sumCMMPendingPaymentMemberDiscount = 0;
+                    double sumCMMPendingPaymentCMMDiscount = 0;
+                    double sumCMMPendingPaymentPersonalResponisiblity = 0;
+                    double sumCMMPendingPaymentSharedAmount = 0;
+                    double sumCMMPendingPaymentAmountWillBeShared = 0;
+
+                    foreach (CMMPendingPaymentBlueSheet cmm_payment in lstCMMPendingPayment)
+                    {
+                        sumCMMPendingPaymentBillAmount += cmm_payment.BillAmount.Value;
+                        sumCMMPendingPaymentMemberDiscount += cmm_payment.MemberDiscount.Value;
+                        sumCMMPendingPaymentCMMDiscount += cmm_payment.CMMDiscount.Value;
+                        sumCMMPendingPaymentPersonalResponisiblity += cmm_payment.PersonalResponsibility.Value;
+                        sumCMMPendingPaymentSharedAmount += cmm_payment.SharedAmount.Value;
+                        sumCMMPendingPaymentAmountWillBeShared += cmm_payment.AmountWillBeShared.Value;
+                    }
+
+                    DataRow drCMMPendingPaymentSum = dtCMMPendingPayment.NewRow();
+
+                    drCMMPendingPaymentSum["의료기관명"] = "합계";
+                    drCMMPendingPaymentSum["청구액(원금)"] = sumCMMPendingPaymentBillAmount.ToString("C");
+                    drCMMPendingPaymentSum["회원할인"] = sumCMMPendingPaymentMemberDiscount.ToString("C");
+                    drCMMPendingPaymentSum["CMM 할인"] = sumCMMPendingPaymentCMMDiscount.ToString("C");
+                    drCMMPendingPaymentSum["본인 부담금"] = sumCMMPendingPaymentPersonalResponisiblity.ToString("C");
+                    drCMMPendingPaymentSum["정산 완료"] = sumCMMPendingPaymentSharedAmount.ToString("C");
+                    drCMMPendingPaymentSum["지원 예정"] = sumCMMPendingPaymentAmountWillBeShared.ToString("C");
+
+                    dtCMMPendingPayment.Rows.Add(drCMMPendingPaymentSum);
+
+                    gvCMMPendingPaymentBlueSheet.DataSource = null;
+                    gvCMMPendingPaymentBlueSheet.DataSource = dtCMMPendingPayment;
+
+                    gvCMMPendingPaymentBlueSheet.Columns["INCD"].Width = 80;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원 이름"].Width = 150;
+                    gvCMMPendingPaymentBlueSheet.Columns["MED_BILL"].Width = 80;
+                    gvCMMPendingPaymentBlueSheet.Columns["서비스 날짜"].Width = 100;
+                    gvCMMPendingPaymentBlueSheet.Columns["의료기관명"].Width = 200;
+                    gvCMMPendingPaymentBlueSheet.Columns["청구액(원금)"].Width = 100;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원할인"].Width = 80;
+                    gvCMMPendingPaymentBlueSheet.Columns["CMM 할인"].Width = 100;
+                    gvCMMPendingPaymentBlueSheet.Columns["본인 부담금"].Width = 100;
+                    gvCMMPendingPaymentBlueSheet.Columns["정산 완료"].Width = 120;
+                    gvCMMPendingPaymentBlueSheet.Columns["지원 예정"].Width = 100;
+
+                    gvCMMPendingPaymentBlueSheet.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentBlueSheet.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentBlueSheet.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentBlueSheet.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    gvCMMPendingPaymentBlueSheet.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원할인"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentBlueSheet.Columns["CMM 할인"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentBlueSheet.Columns["본인 부담금"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentBlueSheet.Columns["정산 완료"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentBlueSheet.Columns["지원 예정"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+                    foreach (DataGridViewColumn col in gvCMMPendingPaymentBlueSheet.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+
+                    gvCMMPendingPaymentBlueSheet.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentBlueSheet.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentBlueSheet.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    //gvCMMPendingPayment.Columns["접수 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentBlueSheet.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvCMMPendingPaymentBlueSheet.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentBlueSheet.Columns["회원할인"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentBlueSheet.Columns["CMM 할인"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentBlueSheet.Columns["본인 부담금"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentBlueSheet.Columns["정산 완료"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentBlueSheet.Columns["지원 예정"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
+                    DataTable dtCMMPendingCopy = dtCMMPendingPayment.Copy();
+
+                    gvCMMPendingPaymentInTab.DataSource = dtCMMPendingCopy;
+
+                    foreach (DataGridViewColumn col in gvCMMPendingPaymentInTab.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    gvCMMPendingPaymentInTab.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentInTab.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentInTab.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentInTab.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvCMMPendingPaymentInTab.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvCMMPendingPaymentInTab.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentInTab.Columns["회원할인"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentInTab.Columns["CMM 할인"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentInTab.Columns["본인 부담금"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentInTab.Columns["정산 완료"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvCMMPendingPaymentInTab.Columns["지원 예정"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                    gvCMMPendingPaymentInTab.Columns["INCD"].Width = 80;
+                    gvCMMPendingPaymentInTab.Columns["회원 이름"].Width = 150;
+                    gvCMMPendingPaymentInTab.Columns["MED_BILL"].Width = 80;
+                    gvCMMPendingPaymentInTab.Columns["서비스 날짜"].Width = 100;
+                    gvCMMPendingPaymentInTab.Columns["의료기관명"].Width = 200;
+                    gvCMMPendingPaymentInTab.Columns["청구액(원금)"].Width = 100;
+                    gvCMMPendingPaymentInTab.Columns["회원할인"].Width = 80;
+                    gvCMMPendingPaymentInTab.Columns["CMM 할인"].Width = 100;
+                    gvCMMPendingPaymentInTab.Columns["본인 부담금"].Width = 100;
+                    gvCMMPendingPaymentInTab.Columns["정산 완료"].Width = 120;
+                    gvCMMPendingPaymentInTab.Columns["지원 예정"].Width = 100;
+
+                    gvCMMPendingPaymentInTab.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentInTab.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentInTab.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentInTab.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvCMMPendingPaymentInTab.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    gvCMMPendingPaymentInTab.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentInTab.Columns["회원할인"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentInTab.Columns["CMM 할인"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentInTab.Columns["본인 부담금"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentInTab.Columns["정산 완료"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvCMMPendingPaymentInTab.Columns["지원 예정"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+
+                // The beginning of Pending Status
+                DataTable dtPending = new DataTable();
+                dtPending.Columns.Add("INCD", typeof(String));
+                dtPending.Columns.Add("회원 이름", typeof(String));
+                dtPending.Columns.Add("MED_BILL", typeof(String));
+                dtPending.Columns.Add("서비스 날짜", typeof(String));
+                dtPending.Columns.Add("접수 날짜", typeof(String));
+                dtPending.Columns.Add("의료기관명", typeof(String));
+                dtPending.Columns.Add("청구액(원금)", typeof(String));
+                dtPending.Columns.Add("잔액/보류", typeof(String));
+                dtPending.Columns.Add("보류 사유", typeof(String));
+
+                DataRow drPending = null;
+                List<PendingBlueSheet> lstPending = new List<PendingBlueSheet>();
+
+                foreach (String IncdName in lstDistinctIncdNamesBlueSheet)
+                {
+                    String strSqlQueryForPending = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [SalesForce].[dbo].[contact].[Name], " +
+                                                   "[RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_medbill].[DueDate], [SalesForce].[dbo].[account].[Name], " +
+                                                   "[RN_DB].[dbo].[tbl_medbill].[Balance], [RN_DB].[dbo].[tbl_medbill].[BillAmount], [RN_DB].[dbo].[tbl_pending_reason].[name] " +
+                                                   "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                   "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                   "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                   "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                   "inner join [RN_DB].[dbo].[tbl_pending_reason] on [RN_DB].[dbo].[tbl_medbill].[PendingReason] = [RN_DB].[dbo].[tbl_pending_reason].[ID] " +
+                                                   "where [RN_DB].[dbo].[tbl_pending_reason].[name] IS NOT NULL and " +
+                                                   "[RN_DB].[dbo].[tbl_medbill].[Balance] > 0 and " +
+                                                   "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                    SqlCommand cmdQueryForPending = new SqlCommand(strSqlQueryForPending, connRN7);
+                    cmdQueryForPending.CommandType = CommandType.Text;
+
+                    cmdQueryForPending.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    SqlDataReader rdrPending = cmdQueryForPending.ExecuteReader();
+                    if (rdrPending.HasRows)
+                    {
+                        bPendingHasRowBlueSheet = true;
+
+                        while (rdrPending.Read())
+                        {
+                            PendingBlueSheet pending_expense = new PendingBlueSheet();
+
+                            drPending = dtPending.NewRow();
+
+                            if (!rdrPending.IsDBNull(0)) drPending["INCD"] = rdrPending.GetString(0);
+                            if (!rdrPending.IsDBNull(1)) drPending["MED_BILL"] = rdrPending.GetString(1).Substring(8);
+                            if (!rdrPending.IsDBNull(2)) drPending["회원 이름"] = rdrPending.GetString(2);
+                            if (!rdrPending.IsDBNull(3)) drPending["서비스 날짜"] = rdrPending.GetDateTime(3).ToString("MM/dd/yyyy");
+                            if (!rdrPending.IsDBNull(4)) drPending["접수 날짜"] = rdrPending.GetDateTime(4).ToString("MM/dd/yyyy");
+                            if (!rdrPending.IsDBNull(5)) drPending["의료기관명"] = rdrPending.GetString(5);
+                            if (!rdrPending.IsDBNull(6))
+                            {
+                                pending_expense.Balance = (double?)rdrPending.GetDecimal(6);
+                                drPending["잔액/보류"] = pending_expense.Balance.Value.ToString("C");
+                            }
+                            if (!rdrPending.IsDBNull(7))
+                            {
+                                pending_expense.BillAmount = (double?)rdrPending.GetDecimal(7);
+                                drPending["청구액(원금)"] = pending_expense.BillAmount.Value.ToString("C");
+                            }
+                            if (!rdrPending.IsDBNull(8)) drPending["보류 사유"] = rdrPending.GetString(8);
+
+                            dtPending.Rows.Add(drPending);
+                            lstPending.Add(pending_expense);
+                        }
+                    }
+                    rdrPending.Close();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                }
+                if (bPendingHasRowBlueSheet)
+                {
+                    double sumPendingBillAmount = 0;
+                    double sumPendingBalance = 0;
+
+                    foreach (PendingBlueSheet cmm_pending in lstPending)
+                    {
+                        sumPendingBillAmount += cmm_pending.BillAmount.Value;
+                        sumPendingBalance += cmm_pending.Balance.Value;
+                    }
+
+                    DataRow drPendingSum = dtPending.NewRow();
+
+                    drPendingSum["의료기관명"] = "합계";
+                    drPendingSum["청구액(원금)"] = sumPendingBillAmount.ToString("C");
+                    drPendingSum["잔액/보류"] = sumPendingBalance.ToString("C");
+
+                    dtPending.Rows.Add(drPendingSum);
+
+                    gvPendingBlueSheet.DataSource = null;
+                    gvPendingBlueSheet.DataSource = dtPending;
+
+                    foreach (DataGridViewColumn col in gvPendingBlueSheet.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    gvPendingBlueSheet.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["접수 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingBlueSheet.Columns["보류 사유"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvPendingBlueSheet.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvPendingBlueSheet.Columns["잔액/보류"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                    DataTable dtPendingInTab = dtPending.Copy();
+
+                    gvPendingInTab.DataSource = null;
+                    gvPendingInTab.DataSource = dtPendingInTab;
+
+                    foreach (DataGridViewColumn col in gvPendingInTab.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    gvPendingInTab.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["접수 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvPendingInTab.Columns["보류 사유"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvPendingInTab.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvPendingInTab.Columns["잔액/보류"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                    gvPendingBlueSheet.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingBlueSheet.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingBlueSheet.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingBlueSheet.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingBlueSheet.Columns["접수 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingBlueSheet.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    gvPendingBlueSheet.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvPendingBlueSheet.Columns["잔액/보류"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvPendingBlueSheet.Columns["보류 사유"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                    gvPendingBlueSheet.Columns["INCD"].Width = 80;
+                    gvPendingBlueSheet.Columns["회원 이름"].Width = 150;
+                    gvPendingBlueSheet.Columns["MED_BILL"].Width = 80;
+                    gvPendingBlueSheet.Columns["서비스 날짜"].Width = 100;
+                    gvPendingBlueSheet.Columns["접수 날짜"].Width = 100;
+                    gvPendingBlueSheet.Columns["의료기관명"].Width = 200;
+                    gvPendingBlueSheet.Columns["청구액(원금)"].Width = 100;
+                    gvPendingBlueSheet.Columns["잔액/보류"].Width = 80;
+                    gvPendingBlueSheet.Columns["보류 사유"].Width = 520;
+
+                    gvPendingInTab.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingInTab.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingInTab.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingInTab.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingInTab.Columns["접수 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvPendingInTab.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                    gvPendingInTab.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvPendingInTab.Columns["잔액/보류"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvPendingInTab.Columns["보류 사유"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+
+                DataTable dtMedicalBillIneligible = new DataTable();
+                dtMedicalBillIneligible.Columns.Add("INCD", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("회원 이름", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("MED_BILL", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("서비스 날짜", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("접수 날짜", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("의료기관명", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("청구액(원금)", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("전액/일부 지원불가 금액", typeof(String));
+                dtMedicalBillIneligible.Columns.Add("지원되지않는 사유", typeof(String));
+
+                DataRow drIneligible = null;
+
+                List<MedicalExpenseIneligibleBlueSheet> lstMedicalBillIneligible = new List<MedicalExpenseIneligibleBlueSheet>();
+
+                foreach (String IncdName in lstDistinctIncdNamesBlueSheet)
+                {
+
+                    String strSqlMedBillIneligible = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], [SalesForce].[dbo].[contact].[Name], " +
+                                                     "[RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_medbill].[DueDate], [RN_DB].[dbo].[tbl_medbill].[BillAmount], " +
+                                                     "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_ineligible_reason].[name] " +
+                                                     "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                     "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                     "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                     "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                     "inner join [RN_DB].[dbo].[tbl_ineligible_reason] on [RN_DB].[dbo].[tbl_medbill].[IneligibleReason] = [RN_DB].[dbo].[tbl_ineligible_reason].[id] " +
+                                                     "inner join [RN_DB].[dbo].[tbl_medbill_status_code] on [RN_DB].[dbo].[tbl_medbill].[BillStatus] = [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                     "where [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Ineligible' and " +
+                                                     "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
+                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                    SqlCommand cmdQueryForMedBillIneligible = new SqlCommand(strSqlMedBillIneligible, connRN7);
+                    cmdQueryForMedBillIneligible.CommandType = CommandType.Text;
+
+                    cmdQueryForMedBillIneligible.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    SqlDataReader rdrMedBillIneligible = cmdQueryForMedBillIneligible.ExecuteReader();
+                    if (rdrMedBillIneligible.HasRows)
+                    {
+                        bIneligibleHasRowBlueSheet = true;
+                        while (rdrMedBillIneligible.Read())
+                        {
+                            MedicalExpenseIneligibleBlueSheet expenseIneligible = new MedicalExpenseIneligibleBlueSheet();
+
+                            if (!rdrMedBillIneligible.IsDBNull(0)) drIneligible["INCD"] = rdrMedBillIneligible.GetString(0);
+                            if (!rdrMedBillIneligible.IsDBNull(1)) drIneligible["MED_BILL"] = rdrMedBillIneligible.GetString(1);
+                            if (!rdrMedBillIneligible.IsDBNull(2)) drIneligible["회원 이름"] = rdrMedBillIneligible.GetString(2);
+                            if (!rdrMedBillIneligible.IsDBNull(3)) drIneligible["서비스 날짜"] = rdrMedBillIneligible.GetDateTime(3).ToString("MM/dd/yyyy");
+                            if (!rdrMedBillIneligible.IsDBNull(4)) drIneligible["접수 날짜"] = rdrMedBillIneligible.GetDateTime(4).ToString("MM/dd/yyyy");
+                            if (!rdrMedBillIneligible.IsDBNull(5))
+                            {
+                                expenseIneligible.BillAmount = (double?)rdrMedBillIneligible.GetDecimal(5);
+                                drIneligible["청구액(원금)"] = expenseIneligible.BillAmount.Value.ToString("C");
+                                expenseIneligible.AmountIneligible = (double?)rdrMedBillIneligible.GetDecimal(5);
+                                drIneligible["전액/일부 지원불가 금액"] = expenseIneligible.AmountIneligible.Value.ToString("C");
+
+                            }
+                            if (!rdrMedBillIneligible.IsDBNull(6)) drIneligible["의료기관명"] = rdrMedBillIneligible.GetString(6);
+                            if (!rdrMedBillIneligible.IsDBNull(7)) drIneligible["지원되지않는 사유"] = rdrMedBillIneligible.GetString(7);
+
+                            lstMedicalBillIneligible.Add(expenseIneligible);
+                            dtMedicalBillIneligible.Rows.Add(drIneligible);
+                        }
+                    }
+                    rdrMedBillIneligible.Close();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                }
+
+                foreach (String IncdName in lstDistinctIncdNamesBlueSheet)
+                {
+                    String strSqlQueryForMedBillPartiallyIneligible = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                                      "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                                      "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                                      "inner join [dbo].[tbl_ineligible_reason] on [dbo].[tbl_medbill].[IneligibleReason] = [dbo].[tbl_ineligible_reason].[id] " +
+                                                                      "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and " +
+                                                                      "[dbo].[tbl_ineligible_reason].[name] = '' and" +
+                                                                      "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                    SqlCommand cmdQueryForMedBillPartiallyIneligible = new SqlCommand(strSqlQueryForMedBillPartiallyIneligible, connRN7);
+                    cmdQueryForMedBillPartiallyIneligible.CommandType = CommandType.Text;
+
+                    cmdQueryForMedBillPartiallyIneligible.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    SqlDataReader rdrMedBillPartiallyIneligible = cmdQueryForMedBillPartiallyIneligible.ExecuteReader();
+                    if (rdrMedBillPartiallyIneligible.HasRows)
+                    {
+                        bIneligibleHasRowBlueSheet = true;
+                        List<String> lstMedicalBillNames = new List<string>();
+                        List<String> lstDistinctMedicalBillNames = new List<string>();
+
+                        while (rdrMedBillPartiallyIneligible.Read())
+                        {
+                            if (!rdrMedBillPartiallyIneligible.IsDBNull(0)) lstMedicalBillNames.Add(rdrMedBillPartiallyIneligible.GetString(0));
+                        }
+                        foreach (String MedicalBillName in lstMedicalBillNames.Distinct())
+                        {
+                            lstDistinctMedicalBillNames.Add(MedicalBillName);
+                        }
+
+                        if (lstDistinctMedicalBillNames.Count > 0)
+                        {
+                            List<MedicalExpensePartiallyIneligibleBlueSheet> lstMedBillPartiallyIneligible = new List<MedicalExpensePartiallyIneligibleBlueSheet>();
+
+                            foreach (String strMedBillName in lstDistinctMedicalBillNames)
+                            {
+
+                                String strSqlQueryForPartiallyIneligible = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], " +
+                                                                           "[SalesForce].[dbo].[contact].[Name], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_medbill].[DueDate], " +
+                                                                           "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_medbill].[BillAmount], " +
+                                                                           "[RN_DB].[dbo].[tbl_settlement].[Amount], " +
+                                                                           "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue], [RN_DB].[dbo].[tbl_ineligible_reason].[name] " +
+                                                                           "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                                           "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                                           "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                                           "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                                           "inner join [RN_DB].[dbo].[tbl_settlement] on [RN_DB].[dbo].[tbl_medbill].[BillNo] = [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] " +
+                                                                           "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                           "inner join [RN_DB].[dbo].[tbl_medbill_status_code] on [RN_DB].[dbo].[tbl_medbill].[BillStatus] = [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                                           "inner join [RN_DB].[dbo].[tbl_ineligible_reason] on [RN_DB].[dbo].[tbl_medbill].[IneligibleReason] = [RN_DB].[dbo].[tbl_ineligible_reason].[id] " +
+                                                                           "where [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and " +
+                                                                           "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Ineligible' and " +
+                                                                           "[RN_DB].[dbo].[tbl_ineligible_reason].[name] != '' and " +
+                                                                           "[RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                                SqlCommand cmdQueryForPartiallyIneligible = new SqlCommand(strSqlQueryForPartiallyIneligible, connRN6);
+                                cmdQueryForPartiallyIneligible.CommandType = CommandType.Text;
+
+                                cmdQueryForPartiallyIneligible.Parameters.AddWithValue("@MedBillNo", strMedBillName);
+
+                                if (connRN6.State != ConnectionState.Closed)
+                                {
+                                    connRN6.Close();
+                                    connRN6.Open();
+                                }
+                                else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                SqlDataReader rdrPartiallyIneligible = cmdQueryForPartiallyIneligible.ExecuteReader();
+                                if (rdrPartiallyIneligible.HasRows)
+                                {
+                                    bIneligibleHasRowBlueSheet = true;
+
+                                    MedicalExpensePartiallyIneligibleBlueSheet medbill = new MedicalExpensePartiallyIneligibleBlueSheet();
+                                    MedicalExpenseIneligibleBlueSheet expenseIneligible = new MedicalExpenseIneligibleBlueSheet();
+
+                                    while (rdrPartiallyIneligible.Read())
+                                    {
+                                        if (!rdrPartiallyIneligible.IsDBNull(0)) medbill.INCD = rdrPartiallyIneligible.GetString(0).Substring(5);
+                                        if (!rdrPartiallyIneligible.IsDBNull(1)) medbill.MedBill = rdrPartiallyIneligible.GetString(1).Substring(8);
+                                        if (!rdrPartiallyIneligible.IsDBNull(2)) medbill.PatientName = rdrPartiallyIneligible.GetString(2);
+                                        if (!rdrPartiallyIneligible.IsDBNull(3)) medbill.ServiceDate = rdrPartiallyIneligible.GetDateTime(3);
+                                        else medbill.ServiceDate = null;
+                                        if (!rdrPartiallyIneligible.IsDBNull(4)) medbill.ReceiveDate = rdrPartiallyIneligible.GetDateTime(4);
+                                        else medbill.ReceiveDate = null;
+                                        if (!rdrPartiallyIneligible.IsDBNull(5)) medbill.MedicalProvider = rdrPartiallyIneligible.GetString(5);
+                                        else medbill.MedicalProvider = String.Empty;
+                                        if (!rdrPartiallyIneligible.IsDBNull(6))
+                                        {
+                                            expenseIneligible.BillAmount = (double?)rdrPartiallyIneligible.GetDecimal(6);
+                                            medbill.BillAmount = (double?)rdrPartiallyIneligible.GetDecimal(6);
+                                        }
+                                        else
+                                        {
+                                            expenseIneligible.BillAmount = 0;
+                                            medbill.BillAmount = 0;
+                                        }
+                                        if (rdrPartiallyIneligible.IsDBNull(7))
+                                        {
+                                            medbill.BillAmount = (double?)rdrPartiallyIneligible.GetDecimal(7);
+                                            expenseIneligible.AmountIneligible = (double?)rdrPartiallyIneligible.GetDecimal(7);
+                                        }
+                                        else
+                                        {
+                                            medbill.BillAmount = 0;
+                                            expenseIneligible.AmountIneligible = 0;
+                                        }
+                                        if (!rdrPartiallyIneligible.IsDBNull(9)) medbill.IneligibleReason = rdrPartiallyIneligible.GetString(9);
+
+                                        lstMedicalBillIneligible.Add(expenseIneligible);
+                                        lstMedBillPartiallyIneligible.Add(medbill);
+                                    }
+                                }
+                                rdrPartiallyIneligible.Close();
+                                if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+
+                                if (lstMedBillPartiallyIneligible.Count > 0)
+                                {
+                                    drIneligible = dtMedicalBillIneligible.NewRow();
+                                    drIneligible["INCD"] = lstMedBillPartiallyIneligible[0].INCD;
+                                    drIneligible["회원 이름"] = lstMedBillPartiallyIneligible[0].PatientName;
+                                    drIneligible["MED_BILL"] = lstMedBillPartiallyIneligible[0].MedBill;
+                                    if (lstMedBillPartiallyIneligible[0].ServiceDate != null) drIneligible["서비스 날짜"] = lstMedBillPartiallyIneligible[0].ServiceDate.Value.ToString("MM/dd/yyyy");
+                                    if (lstMedBillPartiallyIneligible[0].ReceiveDate != null) drIneligible["접수 날짜"] = lstMedBillPartiallyIneligible[0].ReceiveDate.Value.ToString("MM/dd/yyyy");
+                                    drIneligible["의료기관명"] = lstMedBillPartiallyIneligible[0].MedicalProvider;
+                                    drIneligible["청구액(원금)"] = lstMedBillPartiallyIneligible[0].BillAmount.Value.ToString("C");
+
+                                    Double? IneligibleAmount = 0;
+                                    for (int i = 0; i < lstMedBillPartiallyIneligible.Count; i++)
+                                    {
+                                        IneligibleAmount += lstMedBillPartiallyIneligible[i].IneligibleAmount;
+                                    }
+                                    drIneligible["전액/일부 지원불가 금액"] = IneligibleAmount.Value.ToString("C");
+                                    drIneligible["지원되지않는 사유"] = lstMedBillPartiallyIneligible[0].IneligibleReason;
+
+                                    dtMedicalBillIneligible.Rows.Add(drIneligible);
+                                }
+                            }
+                        }
+                    }
+                    rdrMedBillPartiallyIneligible.Close();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                }
+
+                foreach (string IncdName in lstDistinctIncdNamesBlueSheet)
+                {
+                    String strSqlMedBillClosed = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                 "inner join [dbo].[tbl_settlement] on [dbo].[tbl_medbill].[BillNo] = [dbo].[tbl_settlement].[MedicalBillID] " +
+                                                 "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
+                                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[incident_id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                 "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and " +
+                                                 "([dbo].[tbl_settlement].[CheckNo] = @CheckNo or " +
+                                                 "[dbo].[tbl_settlement].[ACH_Number] = @ACH_No or " +
+                                                 "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] >= @CreditCardPaymentDate) and " +
+                                                 "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                    SqlCommand cmdMedBillClosed = new SqlCommand(strSqlMedBillClosed, connRN7);
+                    cmdMedBillClosed.CommandType = CommandType.Text;
+
+                    cmdMedBillClosed.Parameters.AddWithValue("@CheckNo", txtCheckNoBlueSheet.Text.Trim());
+                    cmdMedBillClosed.Parameters.AddWithValue("@ACH_No", txtACHNoBlueSheet.Text.Trim());
+                    cmdMedBillClosed.Parameters.AddWithValue("@CreditCardPaymentDate", dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                    cmdMedBillClosed.Parameters.AddWithValue("@IncidentNo", IncdName);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Open();
+                        connRN7.Close();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    SqlDataReader rdrMedBillClosed = cmdMedBillClosed.ExecuteReader();
+                    if (rdrMedBillClosed.HasRows)
+                    {
+                        List<String> lstMedicalBillNames = new List<string>();
+                        while (rdrMedBillClosed.Read())
+                        {
+                            if (!rdrMedBillClosed.IsDBNull(0)) lstMedicalBillNames.Add(rdrMedBillClosed.GetString(0));
+                        }
+
+                        List<String> lstDistinctMedicalBillNames = new List<string>();
+
+                        foreach (String MedicalBillName in lstMedicalBillNames.Distinct())
+                        {
+                            lstDistinctMedicalBillNames.Add(MedicalBillName);
+                        }
+
+                        if (lstDistinctMedicalBillNames.Count > 0)
+                        {
+                            foreach (String strMedBillName in lstDistinctMedicalBillNames)
+                            {
+                                String strSqlMedBillClosedIneligible = "select [RN_DB].[dbo].[tbl_incident].[IncidentNo], [RN_DB].[dbo].[tbl_medbill].[BillNo], " +
+                                                                       "[SalesForce].[dbo].[contact].[Name], [RN_DB].[dbo].[tbl_medbill].[BillDate], [RN_DB].[dbo].[tbl_medbill].[DueDate], " +
+                                                                       "[SalesForce].[dbo].[account].[Name], [RN_DB].[dbo].[tbl_medbill].[BillAmount], [RN_DB].[dbo].[tbl_settlement].[Amount], " +
+                                                                       "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue], [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                                       "[RN_DB].[dbo].[tbl_ineligible_reason].[name] " +
+                                                                       "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                                       "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                                                       "inner join [RN_DB].[dbo].[tbl_settlement] on [RN_DB].[dbo].[tbl_medbill].[BillNo] = [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] " +
+                                                                       "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                       "inner join [RN_DB].[dbo].[tbl_ineligible_reason] on [RN_DB].[dbo].[tbl_medbill].[IneligibleReason] = [RN_DB].[dbo].[tbl_ineligible_reason].[id] " +
+                                                                       "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                                                       "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
+                                                                       "where ([RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Closed' or " +
+                                                                       "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Partially Ineligible') and " +
+                                                                       "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Ineligible' and " +
+                                                                       "[RN_DB].[dbo].[tbl_ineligible_reason].[name] != '' and " +
+                                                                       "[RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                                SqlCommand cmdQueryForMedBillClosedIneligible = new SqlCommand(strSqlMedBillClosedIneligible, connRN6);
+                                cmdQueryForMedBillClosedIneligible.CommandType = CommandType.Text;
+
+                                cmdQueryForMedBillClosedIneligible.Parameters.AddWithValue("@MedBillNo", strMedBillName);
+
+                                if (connRN6.State != ConnectionState.Closed)
+                                {
+                                    connRN6.Close();
+                                    connRN6.Open();
+                                }
+                                else if (connRN6.State == ConnectionState.Closed) connRN6.Open();
+                                SqlDataReader rdrMedBillClosedIneligible = cmdQueryForMedBillClosedIneligible.ExecuteReader();
+                                if (rdrMedBillClosedIneligible.HasRows)
+                                {
+                                    bIneligibleHasRowBlueSheet = true;
+                                    while (rdrMedBillClosedIneligible.Read())
+                                    {
+                                        MedicalExpenseIneligibleBlueSheet expenseIneligible = new MedicalExpenseIneligibleBlueSheet();
+
+                                        drIneligible = dtMedicalBillIneligible.NewRow();
+
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(0)) drIneligible["INCD"] = rdrMedBillClosedIneligible.GetString(0).Substring(5);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(1)) drIneligible["MED_BILL"] = rdrMedBillClosedIneligible.GetString(1).Substring(8);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(2)) drIneligible["회원 이름"] = rdrMedBillClosedIneligible.GetString(2);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(3)) drIneligible["서비스 날짜"] = rdrMedBillClosedIneligible.GetDateTime(3);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(4)) drIneligible["접수 날짜"] = rdrMedBillClosedIneligible.GetDateTime(4);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(5)) drIneligible["의료기관명"] = rdrMedBillClosedIneligible.GetString(5);
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(6))
+                                        {
+                                            expenseIneligible.BillAmount = (double?)rdrMedBillClosedIneligible.GetDecimal(6);
+                                            drIneligible["청구액(원금)"] = expenseIneligible.BillAmount.Value.ToString("C");
+                                        }
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(7))
+                                        {
+                                            expenseIneligible.AmountIneligible = (double?)rdrMedBillClosedIneligible.GetDecimal(7);
+                                            drIneligible["전액/일부 지원불가 금액"] = expenseIneligible.AmountIneligible.Value.ToString("C");
+                                        }
+                                        if (!rdrMedBillClosedIneligible.IsDBNull(10)) drIneligible["지원되지않는 사유"] = rdrMedBillClosedIneligible.GetString(10);
+
+                                        lstMedicalBillIneligible.Add(expenseIneligible);
+                                        dtMedicalBillIneligible.Rows.Add(drIneligible);
+                                    }
+                                }
+                                if (connRN6.State != ConnectionState.Closed) connRN6.Close();
+                            }
+                        }
+                    }
+                    rdrMedBillClosed.Close();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                }
+
+                if (bIneligibleHasRowBlueSheet)
+                {
+                    double sumIneligibleBillAmount = 0;
+                    double sumIneligibleAmountIneligible = 0;
+
+                    //foreach (MedicalExpenseIneligible expenseIneligible in lstMedicalBillIneligible)
+                    foreach (MedicalExpenseIneligibleBlueSheet expenseIneligible in lstMedicalBillIneligible)
+                    {
+                        sumIneligibleBillAmount += expenseIneligible.BillAmount.Value;
+                        sumIneligibleAmountIneligible += expenseIneligible.AmountIneligible.Value;
+                    }
+
+                    DataRow drSumIneligible = dtMedicalBillIneligible.NewRow();
+
+                    drSumIneligible["의료기관명"] = "합계";
+                    drSumIneligible["청구액(원금)"] = sumIneligibleBillAmount.ToString("C");
+                    drSumIneligible["전액/일부 지원불가 금액"] = sumIneligibleAmountIneligible.ToString("C");
+
+                    dtMedicalBillIneligible.Rows.Add(drSumIneligible);
+
+                    //gvIneligibleBlueSheet
+                    gvIneligibleBlueSheet.DataSource = null;
+                    gvIneligibleBlueSheet.DataSource = dtMedicalBillIneligible;
+
+                    foreach (DataGridViewColumn col in gvIneligibleBlueSheet.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    gvIneligibleBlueSheet.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["접수 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleBlueSheet.Columns["지원되지않는 사유"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvIneligibleBlueSheet.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvIneligibleBlueSheet.Columns["전액/일부 지원불가 금액"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
+                    DataTable dtIneligibleInTab = dtMedicalBillIneligible.Copy();
+                    gvIneligibleInTab.DataSource = dtIneligibleInTab;
+
+                    foreach (DataGridViewColumn col in gvIneligibleInTab.Columns)
+                    {
+                        col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    }
+
+                    gvIneligibleInTab.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["서비스 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["접수 날짜"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["의료기관명"].SortMode = DataGridViewColumnSortMode.Programmatic;
+                    gvIneligibleInTab.Columns["지원되지않는 사유"].SortMode = DataGridViewColumnSortMode.Programmatic;
+
+                    gvIneligibleInTab.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
+                    gvIneligibleInTab.Columns["전액/일부 지원불가 금액"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+
+                    gvIneligibleBlueSheet.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleBlueSheet.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleBlueSheet.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleBlueSheet.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleBlueSheet.Columns["접수 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleBlueSheet.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    gvIneligibleBlueSheet.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvIneligibleBlueSheet.Columns["전액/일부 지원불가 금액"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvIneligibleBlueSheet.Columns["지원되지않는 사유"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                    gvIneligibleBlueSheet.Columns["의료기관명"].Width = 200;
+                    gvIneligibleBlueSheet.Columns["청구액(원금)"].Width = 100;
+                    gvIneligibleBlueSheet.Columns["전액/일부 지원불가 금액"].Width = 180;
+                    gvIneligibleBlueSheet.Columns["지원되지않는 사유"].Width = 200;
+
+                    gvIneligibleInTab.Columns["INCD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleInTab.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleInTab.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleInTab.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleInTab.Columns["접수 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvIneligibleInTab.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    gvIneligibleInTab.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvIneligibleInTab.Columns["전액/일부 지원불가 금액"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    gvIneligibleInTab.Columns["지원되지않는 사유"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                }
             }
+        }
+
+        private void SortBillSharedTable(SortedFieldBlueSheet sf)
+        {
+            DataTable dtPaidWithSum = (DataTable)gvSharedMedBillBlueSheet.DataSource;
+
+            DataTable dtSorted = dtPaidWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+
+            /////////////////////////////////////////
+
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("본인 부담금", typeof(String));
+            dtClone.Columns.Add("회원할인", typeof(String));
+            dtClone.Columns.Add("CMM 할인", typeof(String));
+            dtClone.Columns.Add("의료기관 지불금", typeof(String));
+            //if (rbCheck.Checked || rbACH.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.Member)
+            {
+                dtClone.Columns.Add("기지급액", typeof(String));
+                dtClone.Columns.Add("회원 환불금", typeof(String));
+            }
+            //if (rbCreditCard.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+            {
+                dtClone.Columns.Add("기지급액 (의료기관)", typeof(String));
+                dtClone.Columns.Add("기지급액 (회원)", typeof(String));
+            }
+            dtClone.Columns.Add("잔액/보류", typeof(String));
+
+            dtPaidWithSum.Rows.RemoveAt(dtPaidWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtPaidWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtPaidWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtPaidWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtPaidWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtPaidWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtPaidWithSum.Rows[i]["서비스 날짜"].ToString());
+                dtClone.Rows[i]["의료기관명"] = dtPaidWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtPaidWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["본인 부담금"] = dtPaidWithSum.Rows[i]["본인 부담금"];
+                dtClone.Rows[i]["회원할인"] = dtPaidWithSum.Rows[i]["회원할인"];
+                dtClone.Rows[i]["CMM 할인"] = dtPaidWithSum.Rows[i]["CMM 할인"];
+                dtClone.Rows[i]["의료기관 지불금"] = dtPaidWithSum.Rows[i]["의료기관 지불금"];
+                //if (rbCheck.Checked || rbACH.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    dtClone.Rows[i]["기지급액"] = dtPaidWithSum.Rows[i]["기지급액"];
+                    dtClone.Rows[i]["회원 환불금"] = dtPaidWithSum.Rows[i]["회원 환불금"];
+                }
+                //if (rbCreditCard.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    dtClone.Rows[i]["기지급액 (의료기관)"] = dtPaidWithSum.Rows[i]["기지급액 (의료기관)"];
+                    dtClone.Rows[i]["기지급액 (회원)"] = dtPaidWithSum.Rows[i]["기지급액 (회원)"];
+                }
+                dtClone.Rows[i]["잔액/보류"] = dtPaidWithSum.Rows[i]["잔액/보류"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["본인 부담금"] = dtCloneSorted.Rows[i]["본인 부담금"];
+                dtSorted.Rows[i]["회원할인"] = dtCloneSorted.Rows[i]["회원할인"];
+                dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                dtSorted.Rows[i]["의료기관 지불금"] = dtCloneSorted.Rows[i]["의료기관 지불금"];
+                //if (rbCheck.Checked || rbACH.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    dtSorted.Rows[i]["기지급액"] = dtCloneSorted.Rows[i]["기지급액"];
+                    dtSorted.Rows[i]["회원 환불금"] = dtCloneSorted.Rows[i]["회원 환불금"];
+                }
+                //if (rbCreditCard.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    dtSorted.Rows[i]["기지급액 (의료기관)"] = dtCloneSorted.Rows[i]["기지급액 (의료기관)"];
+                    dtSorted.Rows[i]["기지급액 (회원)"] = dtCloneSorted.Rows[i]["기지급액 (회원)"];
+                }
+                dtSorted.Rows[i]["잔액/보류"] = dtCloneSorted.Rows[i]["잔액/보류"];
+            }
+
+            DataRow drBillPaidSumNew = dtSorted.NewRow();
+
+            List<MedicalExpenseBlueSheet> lstMedicalExpense = new List<MedicalExpenseBlueSheet>();
+
+            DataRow rowSelected = dtSorted.Rows[0];
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    //lstMedicalExpense.Add(new MedicalExpense(Double.Parse(row[5].ToString().Substring(1)),
+                    //                                         Double.Parse(row[6].ToString().Substring(1)),
+                    //                                         Double.Parse(row[7].ToString().Substring(1)),
+                    //                                         Double.Parse(row[8].ToString().Substring(1)),
+                    //                                         Double.Parse(row[9].ToString().Substring(1)),
+                    //                                         0,
+                    //                                         Double.Parse(row[10].ToString().Substring(1)),
+                    //                                         Double.Parse(row[11].ToString().Substring(1)),
+                    //                                         Double.Parse(row[12].ToString().Substring(1))));
+
+                    MedicalExpenseBlueSheet expense = new MedicalExpenseBlueSheet();
+                    expense.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                    expense.PersonalResponsibility = Double.Parse(row[6].ToString().Substring(1));
+                    expense.MemberDiscount = Double.Parse(row[7].ToString().Substring(1));
+                    expense.CMMDiscount = Double.Parse(row[8].ToString().Substring(1));
+                    expense.CMMProviderPayment = Double.Parse(row[9].ToString().Substring(1));
+                    expense.PastReimbursement = Double.Parse(row[10].ToString().Substring(1));
+                    expense.Reimbursement = Double.Parse(row[11].ToString().Substring(1));
+                    expense.Balance = Double.Parse(row[12].ToString().Substring(1));
+
+                    lstMedicalExpense.Add(expense);
+                }
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    MedicalExpenseBlueSheet expense = new MedicalExpenseBlueSheet();
+                    expense.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                    expense.PersonalResponsibility = Double.Parse(row[6].ToString().Substring(1));
+                    expense.MemberDiscount = Double.Parse(row[7].ToString().Substring(1));
+                    expense.CMMDiscount = Double.Parse(row[8].ToString().Substring(1));
+                    expense.CMMProviderPayment = Double.Parse(row[9].ToString().Substring(1));
+                    expense.PastCMMProviderPayment = Double.Parse(row[10].ToString().Substring(1));
+                    expense.PastReimbursement = Double.Parse(row[11].ToString().Substring(1));
+                    expense.Balance = Double.Parse(row[12].ToString().Substring(1));
+
+                    lstMedicalExpense.Add(expense);
+                }
+            }
+
+            drBillPaidSumNew["INCD"] = String.Empty;
+            drBillPaidSumNew["MED_BILL"] = String.Empty;
+            drBillPaidSumNew["서비스 날짜"] = String.Empty;
+            drBillPaidSumNew["의료기관명"] = "합계";
+
+            MedicalExpenseBlueSheet sumMedicalExpense = new MedicalExpenseBlueSheet();
+
+            foreach (MedicalExpenseBlueSheet expense in lstMedicalExpense)
+            {
+                sumMedicalExpense.BillAmount += expense.BillAmount;
+                sumMedicalExpense.MemberDiscount += expense.MemberDiscount;
+                sumMedicalExpense.CMMDiscount += expense.CMMDiscount;
+                sumMedicalExpense.PersonalResponsibility += expense.PersonalResponsibility;
+                sumMedicalExpense.CMMProviderPayment += expense.CMMProviderPayment;
+                sumMedicalExpense.PastCMMProviderPayment += expense.PastCMMProviderPayment;
+                sumMedicalExpense.PastReimbursement += expense.PastReimbursement;
+                sumMedicalExpense.Reimbursement += expense.Reimbursement;
+                sumMedicalExpense.Balance += expense.Balance;
+            }
+
+            drBillPaidSumNew["청구액(원금)"] = sumMedicalExpense.BillAmount.Value.ToString("C");
+            drBillPaidSumNew["본인 부담금"] = sumMedicalExpense.PersonalResponsibility.Value.ToString("C");
+            drBillPaidSumNew["회원할인"] = sumMedicalExpense.MemberDiscount.Value.ToString("C");
+            drBillPaidSumNew["CMM 할인"] = sumMedicalExpense.CMMDiscount.Value.ToString("C");
+            drBillPaidSumNew["의료기관 지불금"] = sumMedicalExpense.CMMProviderPayment.Value.ToString("C");
+            //if (rbCheck.Checked || rbACH.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.Member)
+            {
+                drBillPaidSumNew["기지급액"] = sumMedicalExpense.PastReimbursement.Value.ToString("C");
+                drBillPaidSumNew["회원 환불금"] = sumMedicalExpense.Reimbursement.Value.ToString("C");
+            }
+            //if (rbCreditCard.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+            {
+                drBillPaidSumNew["기지급액 (의료기관)"] = sumMedicalExpense.PastCMMProviderPayment.Value.ToString("C");
+                drBillPaidSumNew["기지급액 (회원)"] = sumMedicalExpense.PastReimbursement.Value.ToString("C");
+            }
+            drBillPaidSumNew["잔액/보류"] = sumMedicalExpense.Balance.Value.ToString("C");
+
+            dtSorted.Rows.Add(drBillPaidSumNew);
+            gvSharedMedBillBlueSheet.DataSource = dtSorted;
         }
 
         private void gvPaymentCheckProvider_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if ((e.ColumnIndex == 0 || e.ColumnIndex == 1) && e.RowIndex >=0)
+            if ((e.ColumnIndex == 0 || e.ColumnIndex == 1) && e.RowIndex >= 0)
             {
                 if (Boolean.Parse(gvPaymentCheckProvider[e.ColumnIndex, e.RowIndex].Value.ToString()) == true)
                 {
@@ -38889,7 +40556,7 @@ namespace CMMManager
                 OpenSourceFileDlg.Filter = "PDF Files | *.pdf; | JPG Files | *.jpg; *.jpeg";
                 OpenSourceFileDlg.DefaultExt = "pdf";
                 OpenSourceFileDlg.RestoreDirectory = true;
-                
+
                 if (OpenSourceFileDlg.ShowDialog() == DialogResult.OK)
                 {
                     strIBSourceFilePathMedBill = OpenSourceFileDlg.FileName.Trim();
@@ -39185,6 +40852,7408 @@ namespace CMMManager
                 {
                     if (strNPFormFileNameMedBill != String.Empty) txtNPFMedBillFileName.Text = strNPFormFileNameMedBill;
                 }
+            }
+        }
+
+        private void gvSharedMedBillBlueSheet_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (paidSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        paidSortedFieldBlueSheet.Field = "INCD";
+                        paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (paidSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        paidSortedFieldBlueSheet.Field = "회원 이름";
+                        paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (paidSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        paidSortedFieldBlueSheet.Field = "MED_BILL";
+                        paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (paidSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        paidSortedFieldBlueSheet.Field = "서비스 날짜";
+                        paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (paidSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        paidSortedFieldBlueSheet.Field = "의료기관명";
+                        paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+                    break;
+
+            }
+        }
+
+        private void SortBillSharedTableInPaidTab(SortedFieldBlueSheet sf)
+        {
+            DataTable dtPaidWithSum = (DataTable)gvSharedInPaidTab.DataSource;
+
+            DataTable dtSorted = dtPaidWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+
+            /////////////////////////////////////////
+
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("본인 부담금", typeof(String));
+            dtClone.Columns.Add("회원할인", typeof(String));
+            dtClone.Columns.Add("CMM 할인", typeof(String));
+            dtClone.Columns.Add("의료기관 지불금", typeof(String));
+            //if (rbCheck.Checked || rbACH.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.Member)
+            {
+                dtClone.Columns.Add("기지급액", typeof(String));
+                dtClone.Columns.Add("회원 환불금", typeof(String));
+            }
+            //if (rbCreditCard.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+            {
+                dtClone.Columns.Add("기지급액 (의료기관)", typeof(String));
+                dtClone.Columns.Add("기지급액 (회원)", typeof(String));
+            }
+            dtClone.Columns.Add("잔액/보류", typeof(String));
+
+            dtPaidWithSum.Rows.RemoveAt(dtPaidWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtPaidWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtPaidWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtPaidWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtPaidWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtPaidWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtPaidWithSum.Rows[i]["서비스 날짜"].ToString());
+                dtClone.Rows[i]["의료기관명"] = dtPaidWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtPaidWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["본인 부담금"] = dtPaidWithSum.Rows[i]["본인 부담금"];
+                dtClone.Rows[i]["회원할인"] = dtPaidWithSum.Rows[i]["회원할인"];
+                dtClone.Rows[i]["CMM 할인"] = dtPaidWithSum.Rows[i]["CMM 할인"];
+                dtClone.Rows[i]["의료기관 지불금"] = dtPaidWithSum.Rows[i]["의료기관 지불금"];
+                //if (rbCheck.Checked || rbACH.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    dtClone.Rows[i]["기지급액"] = dtPaidWithSum.Rows[i]["기지급액"];
+                    dtClone.Rows[i]["회원 환불금"] = dtPaidWithSum.Rows[i]["회원 환불금"];
+                }
+                //if (rbCreditCard.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    dtClone.Rows[i]["기지급액 (의료기관)"] = dtPaidWithSum.Rows[i]["기지급액 (의료기관)"];
+                    dtClone.Rows[i]["기지급액 (회원)"] = dtPaidWithSum.Rows[i]["기지급액 (회원)"];
+                }
+                dtClone.Rows[i]["잔액/보류"] = dtPaidWithSum.Rows[i]["잔액/보류"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["본인 부담금"] = dtCloneSorted.Rows[i]["본인 부담금"];
+                dtSorted.Rows[i]["회원할인"] = dtCloneSorted.Rows[i]["회원할인"];
+                dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                dtSorted.Rows[i]["의료기관 지불금"] = dtCloneSorted.Rows[i]["의료기관 지불금"];
+                //if (rbCheck.Checked || rbACH.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    dtSorted.Rows[i]["기지급액"] = dtCloneSorted.Rows[i]["기지급액"];
+                    dtSorted.Rows[i]["회원 환불금"] = dtCloneSorted.Rows[i]["회원 환불금"];
+                }
+                //if (rbCreditCard.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    dtSorted.Rows[i]["기지급액 (의료기관)"] = dtCloneSorted.Rows[i]["기지급액 (의료기관)"];
+                    dtSorted.Rows[i]["기지급액 (회원)"] = dtCloneSorted.Rows[i]["기지급액 (회원)"];
+                }
+                dtSorted.Rows[i]["잔액/보류"] = dtCloneSorted.Rows[i]["잔액/보류"];
+            }
+
+            DataRow drBillPaidSumNew = dtSorted.NewRow();
+
+            List<MedicalExpenseBlueSheet> lstMedicalExpense = new List<MedicalExpenseBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //if (rbCheck.Checked || rbACH.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.Member)
+                {
+                    //lstMedicalExpense.Add(new MedicalExpense(Double.Parse(row[5].ToString().Substring(1)),
+                    //                                         Double.Parse(row[6].ToString().Substring(1)),
+                    //                                         Double.Parse(row[7].ToString().Substring(1)),
+                    //                                         Double.Parse(row[8].ToString().Substring(1)),
+                    //                                         Double.Parse(row[9].ToString().Substring(1)),
+                    //                                         0,
+                    //                                         Double.Parse(row[10].ToString().Substring(1)),
+                    //                                         Double.Parse(row[11].ToString().Substring(1)),
+                    //                                         Double.Parse(row[12].ToString().Substring(1))));
+
+                    MedicalExpenseBlueSheet expense = new MedicalExpenseBlueSheet();
+                    expense.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                    expense.PersonalResponsibility = Double.Parse(row[6].ToString().Substring(1));
+                    expense.MemberDiscount = Double.Parse(row[7].ToString().Substring(1));
+                    expense.CMMDiscount = Double.Parse(row[8].ToString().Substring(1));
+                    expense.CMMProviderPayment = Double.Parse(row[9].ToString().Substring(1));
+                    expense.PastReimbursement = Double.Parse(row[10].ToString().Substring(1));
+                    expense.Reimbursement = Double.Parse(row[11].ToString().Substring(1));
+                    expense.Balance = Double.Parse(row[12].ToString().Substring(1));
+
+                    lstMedicalExpense.Add(expense);
+                }
+                //if (rbCreditCard.Checked)
+                if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                {
+                    //lstMedicalExpense.Add(new MedicalExpense(Double.Parse(row[5].ToString().Substring(1)),
+                    //                                         Double.Parse(row[6].ToString().Substring(1)),
+                    //                                         Double.Parse(row[7].ToString().Substring(1)),
+                    //                                         Double.Parse(row[8].ToString().Substring(1)),
+                    //                                         Double.Parse(row[9].ToString().Substring(1)),
+                    //                                         Double.Parse(row[10].ToString().Substring(1)),
+                    //                                         Double.Parse(row[11].ToString().Substring(1)),
+                    //                                         0,
+                    //                                         Double.Parse(row[12].ToString().Substring(1))));
+
+                    MedicalExpenseBlueSheet expense = new MedicalExpenseBlueSheet();
+                    expense.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                    expense.PersonalResponsibility = Double.Parse(row[6].ToString().Substring(1));
+                    expense.MemberDiscount = Double.Parse(row[7].ToString().Substring(1));
+                    expense.CMMDiscount = Double.Parse(row[8].ToString().Substring(1));
+                    expense.CMMProviderPayment = Double.Parse(row[9].ToString().Substring(1));
+                    expense.PastCMMProviderPayment = Double.Parse(row[10].ToString().Substring(1));
+                    expense.PastReimbursement = Double.Parse(row[11].ToString().Substring(1));
+                    expense.Balance = Double.Parse(row[12].ToString().Substring(1));
+
+                    lstMedicalExpense.Add(expense);
+
+                }
+            }
+
+            drBillPaidSumNew["INCD"] = String.Empty;
+            drBillPaidSumNew["MED_BILL"] = String.Empty;
+            drBillPaidSumNew["서비스 날짜"] = String.Empty;
+            drBillPaidSumNew["의료기관명"] = "합계";
+
+            MedicalExpenseBlueSheet sumMedicalExpense = new MedicalExpenseBlueSheet();
+
+            foreach (MedicalExpenseBlueSheet expense in lstMedicalExpense)
+            {
+                sumMedicalExpense.BillAmount += expense.BillAmount;
+                sumMedicalExpense.PersonalResponsibility += expense.PersonalResponsibility;
+                sumMedicalExpense.MemberDiscount += expense.MemberDiscount;
+                sumMedicalExpense.CMMDiscount += expense.CMMDiscount;
+                sumMedicalExpense.CMMProviderPayment += expense.CMMProviderPayment;
+                sumMedicalExpense.PastCMMProviderPayment += expense.PastCMMProviderPayment;
+                sumMedicalExpense.PastReimbursement += expense.PastReimbursement;
+                sumMedicalExpense.Reimbursement += expense.Reimbursement;
+                sumMedicalExpense.Balance += expense.Balance;
+            }
+
+            drBillPaidSumNew["청구액(원금)"] = sumMedicalExpense.BillAmount.Value.ToString("C");
+            drBillPaidSumNew["본인 부담금"] = sumMedicalExpense.PersonalResponsibility.Value.ToString("C");
+            drBillPaidSumNew["회원할인"] = sumMedicalExpense.MemberDiscount.Value.ToString("C");
+            drBillPaidSumNew["CMM 할인"] = sumMedicalExpense.CMMDiscount.Value.ToString("C");
+            drBillPaidSumNew["의료기관 지불금"] = sumMedicalExpense.CMMProviderPayment.Value.ToString("C");
+            //if (rbCheck.Checked || rbACH.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.Member)
+            {
+                drBillPaidSumNew["기지급액"] = sumMedicalExpense.PastReimbursement.Value.ToString("C");
+                drBillPaidSumNew["회원 환불금"] = sumMedicalExpense.Reimbursement.Value.ToString("C");
+            }
+            //if (rbCreditCard.Checked)
+            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+            {
+                drBillPaidSumNew["기지급액 (의료기관)"] = sumMedicalExpense.PastCMMProviderPayment.Value.ToString("C");
+                drBillPaidSumNew["기지급액 (회원)"] = sumMedicalExpense.PastReimbursement.Value.ToString("C");
+            }
+            drBillPaidSumNew["잔액/보류"] = sumMedicalExpense.Balance.Value.ToString("C");
+
+            dtSorted.Rows.Add(drBillPaidSumNew);
+            gvSharedInPaidTab.DataSource = dtSorted;
+        }
+
+        private void gvSharedInPaidTab_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (paidInPaidTabSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        paidInPaidTabSortedFieldBlueSheet.Field = "INCD";
+                        paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (paidInPaidTabSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        paidInPaidTabSortedFieldBlueSheet.Field = "회원 이름";
+                        paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (paidInPaidTabSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        paidInPaidTabSortedFieldBlueSheet.Field = "MED_BILL";
+                        paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (paidInPaidTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        paidInPaidTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                        paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (paidInPaidTabSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        paidInPaidTabSortedFieldBlueSheet.Field = "의료기관명";
+                        paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
+                    break;
+
+            }
+        }
+
+        private void SortCMMPendingPaymentTable(SortedFieldBlueSheet sf)
+        {
+            DataTable dtCMMPendingPaymentWithSum = (DataTable)gvCMMPendingPaymentBlueSheet.DataSource;
+
+            DataTable dtSorted = dtCMMPendingPaymentWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            //dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("회원할인", typeof(String));
+            dtClone.Columns.Add("CMM 할인", typeof(String));
+            dtClone.Columns.Add("본인 부담금", typeof(String));
+            dtClone.Columns.Add("정산 완료", typeof(String));
+            dtClone.Columns.Add("지원 예정", typeof(String));
+
+            dtCMMPendingPaymentWithSum.Rows.RemoveAt(dtCMMPendingPaymentWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtCMMPendingPaymentWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtCMMPendingPaymentWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtCMMPendingPaymentWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtCMMPendingPaymentWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtCMMPendingPaymentWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCMMPendingPaymentWithSum.Rows[i]["서비스 날짜"].ToString());
+
+                //String strDate = dtCMMPendingPaymentWithSum.Rows[i]["접수 날짜"].ToString();
+
+                //if (dtCMMPendingPaymentWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                //{
+                //    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtCMMPendingPaymentWithSum.Rows[i]["접수 날짜"].ToString());
+                //}
+                //else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtCMMPendingPaymentWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtCMMPendingPaymentWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["회원할인"] = dtCMMPendingPaymentWithSum.Rows[i]["회원할인"];
+                dtClone.Rows[i]["CMM 할인"] = dtCMMPendingPaymentWithSum.Rows[i]["CMM 할인"];
+                dtClone.Rows[i]["본인 부담금"] = dtCMMPendingPaymentWithSum.Rows[i]["본인 부담금"];
+                dtClone.Rows[i]["정산 완료"] = dtCMMPendingPaymentWithSum.Rows[i]["정산 완료"];
+                dtClone.Rows[i]["지원 예정"] = dtCMMPendingPaymentWithSum.Rows[i]["지원 예정"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                //if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                //{
+                //    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                //}
+                //else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["회원할인"] = dtCloneSorted.Rows[i]["회원할인"];
+                dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                dtSorted.Rows[i]["본인 부담금"] = dtCloneSorted.Rows[i]["본인 부담금"];
+                dtSorted.Rows[i]["정산 완료"] = dtCloneSorted.Rows[i]["정산 완료"];
+                dtSorted.Rows[i]["지원 예정"] = dtCloneSorted.Rows[i]["지원 예정"];
+            }
+
+            DataRow drCMMPendingPaymentSumNew = dtSorted.NewRow();
+
+            List<CMMPendingPaymentBlueSheet> lstCMMPendingPayment = new List<CMMPendingPaymentBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstCMMPendingPayment.Add(new CMMPendingPayment(Double.Parse(row[5].ToString().Substring(1)),
+                //                                               Double.Parse(row[6].ToString().Substring(1)),
+                //                                               Double.Parse(row[7].ToString().Substring(1)),
+                //                                               Double.Parse(row[8].ToString().Substring(1)),
+                //                                               Double.Parse(row[9].ToString().Substring(1)),
+                //                                               Double.Parse(row[10].ToString().Substring(1))));
+
+                CMMPendingPaymentBlueSheet cmm_pending_payment = new CMMPendingPaymentBlueSheet();
+                cmm_pending_payment.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                cmm_pending_payment.MemberDiscount = Double.Parse(row[6].ToString().Substring(1));
+                cmm_pending_payment.CMMDiscount = Double.Parse(row[7].ToString().Substring(1));
+                cmm_pending_payment.PersonalResponsibility = Double.Parse(row[8].ToString().Substring(1));
+                cmm_pending_payment.SharedAmount = Double.Parse(row[9].ToString().Substring(1));
+                cmm_pending_payment.AmountWillBeShared = Double.Parse(row[10].ToString().Substring(1));
+
+                lstCMMPendingPayment.Add(cmm_pending_payment);
+            }
+
+            drCMMPendingPaymentSumNew["INCD"] = String.Empty;
+            drCMMPendingPaymentSumNew["MED_BILL"] = String.Empty;
+            drCMMPendingPaymentSumNew["의료기관명"] = "합계";
+
+            CMMPendingPaymentBlueSheet sumCMMPendingPayment = new CMMPendingPaymentBlueSheet();
+
+            foreach (CMMPendingPaymentBlueSheet cmm_pending in lstCMMPendingPayment)
+            {
+                sumCMMPendingPayment.BillAmount += cmm_pending.BillAmount;
+                sumCMMPendingPayment.MemberDiscount += cmm_pending.MemberDiscount;
+                sumCMMPendingPayment.CMMDiscount += cmm_pending.CMMDiscount;
+                sumCMMPendingPayment.PersonalResponsibility += cmm_pending.PersonalResponsibility;
+                sumCMMPendingPayment.SharedAmount += cmm_pending.SharedAmount;
+                sumCMMPendingPayment.AmountWillBeShared += cmm_pending.AmountWillBeShared;
+            }
+
+            drCMMPendingPaymentSumNew["청구액(원금)"] = sumCMMPendingPayment.BillAmount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["회원할인"] = sumCMMPendingPayment.MemberDiscount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["CMM 할인"] = sumCMMPendingPayment.CMMDiscount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["본인 부담금"] = sumCMMPendingPayment.PersonalResponsibility.Value.ToString("C");
+            drCMMPendingPaymentSumNew["정산 완료"] = sumCMMPendingPayment.SharedAmount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["지원 예정"] = sumCMMPendingPayment.AmountWillBeShared.Value.ToString("C");
+
+            dtSorted.Rows.Add(drCMMPendingPaymentSumNew);
+            gvCMMPendingPaymentBlueSheet.DataSource = dtSorted;
+        }
+
+        private void gvCMMPendingPaymentBlueSheet_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (cmmPendingPaymentSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        cmmPendingPaymentSortedFieldBlueSheet.Field = "INCD";
+                        cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (cmmPendingPaymentSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        cmmPendingPaymentSortedFieldBlueSheet.Field = "회원 이름";
+                        cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (cmmPendingPaymentSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        cmmPendingPaymentSortedFieldBlueSheet.Field = "MED_BILL";
+                        cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (cmmPendingPaymentSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        cmmPendingPaymentSortedFieldBlueSheet.Field = "서비스 날짜";
+                        cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (cmmPendingPaymentSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        cmmPendingPaymentSortedFieldBlueSheet.Field = "의료기관명";
+                        cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortCMMPendingPaymentTableInTab(SortedFieldBlueSheet sf)
+        {
+            DataTable dtCMMPendingPaymentWithSum = (DataTable)gvCMMPendingPaymentInTab.DataSource;
+
+            DataTable dtSorted = dtCMMPendingPaymentWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            //dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("회원할인", typeof(String));
+            dtClone.Columns.Add("CMM 할인", typeof(String));
+            dtClone.Columns.Add("본인 부담금", typeof(String));
+            dtClone.Columns.Add("정산 완료", typeof(String));
+            dtClone.Columns.Add("지원 예정", typeof(String));
+
+            dtCMMPendingPaymentWithSum.Rows.RemoveAt(dtCMMPendingPaymentWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtCMMPendingPaymentWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtCMMPendingPaymentWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtCMMPendingPaymentWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtCMMPendingPaymentWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtCMMPendingPaymentWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCMMPendingPaymentWithSum.Rows[i]["서비스 날짜"].ToString());
+                //if (dtCMMPendingPaymentWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                //{
+                //    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtCMMPendingPaymentWithSum.Rows[i]["접수 날짜"].ToString());
+                //}
+                //else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtCMMPendingPaymentWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtCMMPendingPaymentWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["회원할인"] = dtCMMPendingPaymentWithSum.Rows[i]["회원할인"];
+                dtClone.Rows[i]["CMM 할인"] = dtCMMPendingPaymentWithSum.Rows[i]["CMM 할인"];
+                dtClone.Rows[i]["본인 부담금"] = dtCMMPendingPaymentWithSum.Rows[i]["본인 부담금"];
+                dtClone.Rows[i]["정산 완료"] = dtCMMPendingPaymentWithSum.Rows[i]["정산 완료"];
+                dtClone.Rows[i]["지원 예정"] = dtCMMPendingPaymentWithSum.Rows[i]["지원 예정"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                //if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                //{
+                //    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                //}
+                //else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["회원할인"] = dtCloneSorted.Rows[i]["회원할인"];
+                dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                dtSorted.Rows[i]["본인 부담금"] = dtCloneSorted.Rows[i]["본인 부담금"];
+                dtSorted.Rows[i]["정산 완료"] = dtCloneSorted.Rows[i]["정산 완료"];
+                dtSorted.Rows[i]["지원 예정"] = dtCloneSorted.Rows[i]["지원 예정"];
+            }
+
+            DataRow drCMMPendingPaymentSumNew = dtSorted.NewRow();
+
+            List<CMMPendingPaymentBlueSheet> lstCMMPendingPayment = new List<CMMPendingPaymentBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstCMMPendingPayment.Add(new CMMPendingPayment(Double.Parse(row[5].ToString().Substring(1)),
+                //                                               Double.Parse(row[6].ToString().Substring(1)),
+                //                                               Double.Parse(row[7].ToString().Substring(1)),
+                //                                               Double.Parse(row[8].ToString().Substring(1)),
+                //                                               Double.Parse(row[9].ToString().Substring(1)),
+                //                                               Double.Parse(row[10].ToString().Substring(1))));
+
+                CMMPendingPaymentBlueSheet cmm_pending_payment = new CMMPendingPaymentBlueSheet();
+                cmm_pending_payment.BillAmount = Double.Parse(row[5].ToString().Substring(1));
+                cmm_pending_payment.MemberDiscount = Double.Parse(row[6].ToString().Substring(1));
+                cmm_pending_payment.CMMDiscount = Double.Parse(row[7].ToString().Substring(1));
+                cmm_pending_payment.PersonalResponsibility = Double.Parse(row[8].ToString().Substring(1));
+                cmm_pending_payment.SharedAmount = Double.Parse(row[9].ToString().Substring(1));
+                cmm_pending_payment.AmountWillBeShared = Double.Parse(row[10].ToString().Substring(1));
+
+                lstCMMPendingPayment.Add(cmm_pending_payment);
+            }
+
+            drCMMPendingPaymentSumNew["INCD"] = String.Empty;
+            drCMMPendingPaymentSumNew["MED_BILL"] = String.Empty;
+            drCMMPendingPaymentSumNew["의료기관명"] = "합계";
+
+            CMMPendingPaymentBlueSheet sumCMMPendingPayment = new CMMPendingPaymentBlueSheet();
+
+            foreach (CMMPendingPaymentBlueSheet cmm_pending in lstCMMPendingPayment)
+            {
+                sumCMMPendingPayment.BillAmount += cmm_pending.BillAmount;
+                sumCMMPendingPayment.MemberDiscount += cmm_pending.MemberDiscount;
+                sumCMMPendingPayment.CMMDiscount += cmm_pending.CMMDiscount;
+                sumCMMPendingPayment.PersonalResponsibility += cmm_pending.PersonalResponsibility;
+                sumCMMPendingPayment.SharedAmount += cmm_pending.SharedAmount;
+                sumCMMPendingPayment.AmountWillBeShared += cmm_pending.AmountWillBeShared;
+            }
+
+            drCMMPendingPaymentSumNew["청구액(원금)"] = sumCMMPendingPayment.BillAmount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["회원할인"] = sumCMMPendingPayment.MemberDiscount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["CMM 할인"] = sumCMMPendingPayment.CMMDiscount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["본인 부담금"] = sumCMMPendingPayment.PersonalResponsibility.Value.ToString("C");
+            drCMMPendingPaymentSumNew["정산 완료"] = sumCMMPendingPayment.SharedAmount.Value.ToString("C");
+            drCMMPendingPaymentSumNew["지원 예정"] = sumCMMPendingPayment.AmountWillBeShared.Value.ToString("C");
+
+            dtSorted.Rows.Add(drCMMPendingPaymentSumNew);
+            gvCMMPendingPaymentInTab.DataSource = dtSorted;
+        }
+
+        private void gvCMMPendingPaymentInTab_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "INCD";
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "회원 이름";
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "MED_BILL";
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "의료기관명";
+                        cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortPendingTable(SortedFieldBlueSheet sf)
+        {
+            DataTable dtPendingWithSum = (DataTable)gvPendingBlueSheet.DataSource;
+
+            DataTable dtSorted = dtPendingWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            //dtClone.Columns.Add("회원 할인", typeof(String));
+            //dtClone.Columns.Add("CMM 할인", typeof(String));
+            //dtClone.Columns.Add("정산 완료", typeof(String));
+            dtClone.Columns.Add("잔액/보류", typeof(String));
+            dtClone.Columns.Add("보류 사유", typeof(String));
+
+            dtPendingWithSum.Rows.RemoveAt(dtPendingWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtPendingWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtPendingWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtPendingWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtPendingWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtPendingWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtPendingWithSum.Rows[i]["서비스 날짜"].ToString());
+                if (dtPendingWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtPendingWithSum.Rows[i]["접수 날짜"].ToString());
+                }
+                else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtPendingWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtPendingWithSum.Rows[i]["청구액(원금)"];
+                //dtClone.Rows[i]["회원 할인"] = dtPendingWithSum.Rows[i]["회원 할인"];
+                //dtClone.Rows[i]["CMM 할인"] = dtPendingWithSum.Rows[i]["CMM 할인"];
+                //dtClone.Rows[i]["정산 완료"] = dtPendingWithSum.Rows[i]["정산 완료"];
+                dtClone.Rows[i]["잔액/보류"] = dtPendingWithSum.Rows[i]["잔액/보류"];
+                dtClone.Rows[i]["보류 사유"] = dtPendingWithSum.Rows[i]["보류 사유"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                }
+                else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["잔액/보류"] = dtCloneSorted.Rows[i]["잔액/보류"];
+                //dtSorted.Rows[i]["회원 할인"] = dtCloneSorted.Rows[i]["회원 할인"];
+                //dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                //dtSorted.Rows[i]["정산 완료"] = dtCloneSorted.Rows[i]["정산 완료"];
+                //dtSorted.Rows[i]["보류"] = dtCloneSorted.Rows[i]["보류"];
+                dtSorted.Rows[i]["보류 사유"] = dtCloneSorted.Rows[i]["보류 사유"];
+            }
+
+            //dtSorted = dtPendingWithSum.DefaultView.ToTable();
+            DataRow drPendingSumNew = dtSorted.NewRow();
+            List<PendingBlueSheet> lstPending = new List<PendingBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstPending.Add(new Pending(Double.Parse(row[6].ToString().Substring(1)),
+                //                           Double.Parse(row[7].ToString().Substring(1)), 0, 0, 0, 0));
+                PendingBlueSheet pending = new PendingBlueSheet();
+                pending.BillAmount = Double.Parse(row[6].ToString().Substring(1));
+                pending.Balance = Double.Parse(row[7].ToString().Substring(1));
+                pending.MemberDiscount = 0;
+                pending.CMMDiscount = 0;
+                pending.SharedAmount = 0;
+                pending.PendingAmount = 0;
+
+                lstPending.Add(pending);
+            }
+
+            drPendingSumNew["INCD"] = String.Empty;
+            drPendingSumNew["MED_BILL"] = String.Empty;
+            //drPendingSumNew["서비스 날짜"] = String.Empty;
+            //drPendingSumNew["접수 날짜"] = String.Empty;
+            drPendingSumNew["의료기관명"] = "합계";
+            drPendingSumNew["보류 사유"] = String.Empty;
+
+            PendingBlueSheet sumPending = new PendingBlueSheet ();
+            foreach (PendingBlueSheet pending in lstPending)
+            {
+                sumPending.BillAmount += pending.BillAmount;
+                sumPending.Balance += pending.Balance;
+                //sumPending.MemberDiscount += pending.MemberDiscount;
+                //sumPending.CMMDiscount += pending.CMMDiscount;
+                //sumPending.SharedAmount += pending.SharedAmount;
+                //sumPending.PendingAmount += pending.PendingAmount;
+            }
+
+            drPendingSumNew["청구액(원금)"] = sumPending.BillAmount.Value.ToString("C");
+            //drPendingSumNew["회원 할인"] = sumPending.MemberDiscount.Value.ToString("C");
+            //drPendingSumNew["CMM 할인"] = sumPending.CMMDiscount.Value.ToString("C");
+            //drPendingSumNew["정산 완료"] = sumPending.SharedAmount.Value.ToString("C");
+            //drPendingSumNew["잔액/보류"] = sumPending.PendingAmount.Value.ToString("C");
+            drPendingSumNew["잔액/보류"] = sumPending.Balance.Value.ToString("C");
+
+            dtSorted.Rows.Add(drPendingSumNew);
+            gvPendingBlueSheet.DataSource = dtSorted;
+        }
+
+        private void gvPendingBlueSheet_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (pendingSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "INCD";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (pendingSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "회원 이름";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (pendingSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "MED_BILL";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (pendingSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "서비스 날짜";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+                //case 4:
+                //    if (pendingSortedField.Field != "접수 날짜")
+                //    {
+                //        pendingSortedField.Field = "접수 날짜";
+                //        pendingSortedField.Sorted = SortedField.EnumSorted.NotSorted;
+                //    }
+                //    SortPendingTable(pendingSortedField);
+                //    break;
+                case 5:
+                    if (pendingSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "의료기관명";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+                case 8:
+                    if (pendingSortedFieldBlueSheet.Field != "보류 사유")
+                    {
+                        pendingSortedFieldBlueSheet.Field = "보류 사유";
+                        pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortPendingTableInTab(SortedFieldBlueSheet sf)
+        {
+            DataTable dtPendingWithSum = (DataTable)gvPendingInTab.DataSource;
+
+            DataTable dtSorted = dtPendingWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            //dtClone.Columns.Add("회원 할인", typeof(String));
+            //dtClone.Columns.Add("CMM 할인", typeof(String));
+            //dtClone.Columns.Add("정산 완료", typeof(String));
+            dtClone.Columns.Add("잔액/보류", typeof(String));
+            dtClone.Columns.Add("보류 사유", typeof(String));
+
+            dtPendingWithSum.Rows.RemoveAt(dtPendingWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtPendingWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtPendingWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtPendingWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtPendingWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtPendingWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtPendingWithSum.Rows[i]["서비스 날짜"].ToString());
+                if (dtPendingWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtPendingWithSum.Rows[i]["접수 날짜"].ToString());
+                }
+                else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtPendingWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtPendingWithSum.Rows[i]["청구액(원금)"];
+                //dtClone.Rows[i]["회원 할인"] = dtPendingWithSum.Rows[i]["회원 할인"];
+                //dtClone.Rows[i]["CMM 할인"] = dtPendingWithSum.Rows[i]["CMM 할인"];
+                //dtClone.Rows[i]["정산 완료"] = dtPendingWithSum.Rows[i]["정산 완료"];
+                dtClone.Rows[i]["잔액/보류"] = dtPendingWithSum.Rows[i]["잔액/보류"];
+                dtClone.Rows[i]["보류 사유"] = dtPendingWithSum.Rows[i]["보류 사유"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                }
+                else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                //dtSorted.Rows[i]["회원 할인"] = dtCloneSorted.Rows[i]["회원 할인"];
+                //dtSorted.Rows[i]["CMM 할인"] = dtCloneSorted.Rows[i]["CMM 할인"];
+                //dtSorted.Rows[i]["정산 완료"] = dtCloneSorted.Rows[i]["정산 완료"];
+                dtSorted.Rows[i]["잔액/보류"] = dtCloneSorted.Rows[i]["잔액/보류"];
+                dtSorted.Rows[i]["보류 사유"] = dtCloneSorted.Rows[i]["보류 사유"];
+            }
+
+            //dtSorted = dtPendingWithSum.DefaultView.ToTable();
+            DataRow drPendingSumNew = dtSorted.NewRow();
+            List<PendingBlueSheet> lstPending = new List<PendingBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+
+                //lstPending.Add(new Pending(Double.Parse(row[6].ToString().Substring(1)),
+                //                           Double.Parse(row[7].ToString().Substring(1)), 0, 0, 0, 0));
+
+                PendingBlueSheet pending = new PendingBlueSheet();
+                pending.BillAmount = Double.Parse(row[6].ToString().Substring(1));
+                pending.Balance = Double.Parse(row[7].ToString().Substring(1));
+                pending.MemberDiscount = 0;
+                pending.CMMDiscount = 0;
+                pending.SharedAmount = 0;
+                pending.PendingAmount = 0;
+
+                lstPending.Add(pending);
+            }
+
+            drPendingSumNew["INCD"] = String.Empty;
+            drPendingSumNew["MED_BILL"] = String.Empty;
+            //drPendingSumNew["서비스 날짜"] = String.Empty;
+            //drPendingSumNew["접수 날짜"] = String.Empty;
+            drPendingSumNew["의료기관명"] = "합계";
+            drPendingSumNew["보류 사유"] = String.Empty;
+
+            PendingBlueSheet sumPending = new PendingBlueSheet();
+            foreach (PendingBlueSheet pending in lstPending)
+            {
+                sumPending.BillAmount += pending.BillAmount;
+                sumPending.Balance += pending.Balance;
+                //sumPending.MemberDiscount += pending.MemberDiscount;
+                //sumPending.CMMDiscount += pending.CMMDiscount;
+                //sumPending.SharedAmount += pending.SharedAmount;
+                //sumPending.PendingAmount += pending.PendingAmount;
+            }
+
+            drPendingSumNew["청구액(원금)"] = sumPending.BillAmount.Value.ToString("C");
+            drPendingSumNew["잔액/보류"] = sumPending.Balance.Value.ToString("C");
+            //drPendingSumNew["회원 할인"] = sumPending.MemberDiscount.Value.ToString("C");
+            //drPendingSumNew["CMM 할인"] = sumPending.CMMDiscount.Value.ToString("C");
+            //drPendingSumNew["정산 완료"] = sumPending.SharedAmount.Value.ToString("C");
+            //drPendingSumNew["잔액/보류"] = sumPending.PendingAmount.Value.ToString("C");
+
+            dtSorted.Rows.Add(drPendingSumNew);
+            gvPendingInTab.DataSource = dtSorted;
+        }
+
+        private void gvPendingInTab_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "INCD";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "회원 이름";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "MED_BILL";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+                //case 4:
+                //    if (pendingInTabSortedField.Field != "접수 날짜")
+                //    {
+                //        pendingInTabSortedField.Field = "접수 날짜";
+                //        pendingInTabSortedField.Sorted = SortedField.EnumSorted.NotSorted;
+                //    }
+                //    SortPendingTableInTab(pendingInTabSortedField);
+                //    break;
+                case 5:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "의료기관명";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+                case 8:
+                    if (pendingInTabSortedFieldBlueSheet.Field != "보류 사유")
+                    {
+                        pendingInTabSortedFieldBlueSheet.Field = "보류 사유";
+                        pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortIneligibleTable(SortedFieldBlueSheet sf)
+        {
+            DataTable dtIneligibleWithSum = (DataTable)gvIneligibleBlueSheet.DataSource;
+
+            DataTable dtSorted = dtIneligibleWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            //dtSorted.Columns.Add("서비스 날짜", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("전액/일부 지원불가 금액", typeof(String));
+            dtClone.Columns.Add("지원되지않는 사유", typeof(String));
+
+            dtIneligibleWithSum.Rows.RemoveAt(dtIneligibleWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtIneligibleWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtIneligibleWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtIneligibleWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtIneligibleWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtIneligibleWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtIneligibleWithSum.Rows[i]["서비스 날짜"].ToString());
+                if (dtIneligibleWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtIneligibleWithSum.Rows[i]["접수 날짜"].ToString());
+                }
+                else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtIneligibleWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtIneligibleWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["전액/일부 지원불가 금액"] = dtIneligibleWithSum.Rows[i]["전액/일부 지원불가 금액"];
+                dtClone.Rows[i]["지원되지않는 사유"] = dtIneligibleWithSum.Rows[i]["지원되지않는 사유"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    //dtIneligibleWithSum.DefaultView.Sort = sf.Field + " ASC";
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    //dtIneligibleWithSum.DefaultView.Sort = sf.Field + " ASC";
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    //dtIneligibleWithSum.DefaultView.Sort = sf.Field + " DESC";
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                }
+                else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["전액/일부 지원불가 금액"] = dtCloneSorted.Rows[i]["전액/일부 지원불가 금액"];
+                dtSorted.Rows[i]["지원되지않는 사유"] = dtCloneSorted.Rows[i]["지원되지않는 사유"];
+
+            }
+
+            DataRow drIneligibleSumNew = dtSorted.NewRow();
+
+            List<MedicalExpenseIneligibleBlueSheet> lstIneligible = new List<MedicalExpenseIneligibleBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstIneligible.Add(new MedicalExpenseIneligible(Double.Parse(row[6].ToString().Substring(1)),
+                //                                               Double.Parse(row[7].ToString().Substring(1))));
+
+                MedicalExpenseIneligibleBlueSheet ineligible = new MedicalExpenseIneligibleBlueSheet();
+                ineligible.BillAmount = Double.Parse(row[6].ToString().Substring(1));
+                ineligible.AmountIneligible = Double.Parse(row[7].ToString().Substring(1));
+
+                lstIneligible.Add(ineligible);
+            }
+
+            drIneligibleSumNew["INCD"] = String.Empty;
+            drIneligibleSumNew["MED_BILL"] = String.Empty;
+            //drIneligibleSumNew["서비스 날짜"] = String.Empty;
+            drIneligibleSumNew["의료기관명"] = "합계";
+            drIneligibleSumNew["지원되지않는 사유"] = String.Empty;
+
+            MedicalExpenseIneligibleBlueSheet sumIneligible = new MedicalExpenseIneligibleBlueSheet();
+
+            foreach (MedicalExpenseIneligibleBlueSheet expense in lstIneligible)
+            {
+                sumIneligible.BillAmount += expense.BillAmount;
+                sumIneligible.AmountIneligible += expense.AmountIneligible;
+            }
+
+            drIneligibleSumNew["청구액(원금)"] = sumIneligible.BillAmount.Value.ToString("C");
+            drIneligibleSumNew["전액/일부 지원불가 금액"] = sumIneligible.AmountIneligible.Value.ToString("C");
+
+            dtSorted.Rows.Add(drIneligibleSumNew);
+            gvIneligibleBlueSheet.DataSource = dtSorted;
+        }
+
+        private void gvIneligibleBlueSheet_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (ineligibleSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "INCD";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (ineligibleSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "회원 이름";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (ineligibleSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "MED_BILL";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (ineligibleSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "서비스 날짜";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (ineligibleSortedFieldBlueSheet.Field != "접수 날짜")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "접수 날짜";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 5:
+                    if (ineligibleSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "의료기관명";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+                case 8:
+                    if (ineligibleSortedFieldBlueSheet.Field != "지원되지않는 사유")
+                    {
+                        ineligibleSortedFieldBlueSheet.Field = "지원되지않는 사유";
+                        ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortIneligibleTableInTab(SortedFieldBlueSheet sf)
+        {
+            DataTable dtIneligibleWithSum = (DataTable)gvIneligibleInTab.DataSource;
+
+            DataTable dtSorted = dtIneligibleWithSum.Clone();
+
+            DataTable dtClone = new DataTable();
+            dtClone.Columns.Add("INCD", typeof(String));
+            dtClone.Columns.Add("회원 이름", typeof(String));
+            dtClone.Columns.Add("MED_BILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("접수 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("전액/일부 지원불가 금액", typeof(String));
+            dtClone.Columns.Add("지원되지않는 사유", typeof(String));
+
+            dtIneligibleWithSum.Rows.RemoveAt(dtIneligibleWithSum.Rows.Count - 1);
+
+            foreach (DataRow row in dtIneligibleWithSum.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtIneligibleWithSum.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["INCD"] = dtIneligibleWithSum.Rows[i]["INCD"];
+                dtClone.Rows[i]["회원 이름"] = dtIneligibleWithSum.Rows[i]["회원 이름"];
+                dtClone.Rows[i]["MED_BILL"] = dtIneligibleWithSum.Rows[i]["MED_BILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtIneligibleWithSum.Rows[i]["서비스 날짜"].ToString());
+                if (dtIneligibleWithSum.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtClone.Rows[i]["접수 날짜"] = DateTime.Parse(dtIneligibleWithSum.Rows[i]["접수 날짜"].ToString());
+                }
+                else dtClone.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtClone.Rows[i]["의료기관명"] = dtIneligibleWithSum.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtIneligibleWithSum.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["전액/일부 지원불가 금액"] = dtIneligibleWithSum.Rows[i]["전액/일부 지원불가 금액"];
+                dtClone.Rows[i]["지원되지않는 사유"] = dtIneligibleWithSum.Rows[i]["지원되지않는 사유"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["INCD"] = dtCloneSorted.Rows[i]["INCD"];
+                dtSorted.Rows[i]["회원 이름"] = dtCloneSorted.Rows[i]["회원 이름"];
+                dtSorted.Rows[i]["MED_BILL"] = dtCloneSorted.Rows[i]["MED_BILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                if (dtCloneSorted.Rows[i]["접수 날짜"].ToString() != String.Empty)
+                {
+                    dtSorted.Rows[i]["접수 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["접수 날짜"].ToString()).ToString("MM/dd/yyyy");
+                }
+                else dtSorted.Rows[i]["접수 날짜"] = DBNull.Value;
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["전액/일부 지원불가 금액"] = dtCloneSorted.Rows[i]["전액/일부 지원불가 금액"];
+                dtSorted.Rows[i]["지원되지않는 사유"] = dtCloneSorted.Rows[i]["지원되지않는 사유"];
+            }
+
+            DataRow drIneligibleSumNew = dtSorted.NewRow();
+
+            List<MedicalExpenseIneligibleBlueSheet> lstIneligible = new List<MedicalExpenseIneligibleBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstIneligible.Add(new MedicalExpenseIneligible(Double.Parse(row[6].ToString().Substring(1)),
+                //                                               Double.Parse(row[7].ToString().Substring(1))));
+
+                MedicalExpenseIneligibleBlueSheet ineligible = new MedicalExpenseIneligibleBlueSheet();
+                ineligible.BillAmount = Double.Parse(row[6].ToString().Substring(1));
+                ineligible.AmountIneligible = Double.Parse(row[7].ToString().Substring(1));
+
+                lstIneligible.Add(ineligible);
+            }
+
+            drIneligibleSumNew["INCD"] = String.Empty;
+            drIneligibleSumNew["MED_BILL"] = String.Empty;
+            //drIneligibleSumNew["서비스 날짜"] = String.Empty;
+            drIneligibleSumNew["의료기관명"] = "합계";
+            drIneligibleSumNew["지원되지않는 사유"] = String.Empty;
+
+            MedicalExpenseIneligibleBlueSheet sumIneligible = new MedicalExpenseIneligibleBlueSheet();
+
+            foreach (MedicalExpenseIneligibleBlueSheet expense in lstIneligible)
+            {
+                sumIneligible.BillAmount += expense.BillAmount;
+                sumIneligible.AmountIneligible += expense.AmountIneligible;
+            }
+
+            drIneligibleSumNew["청구액(원금)"] = sumIneligible.BillAmount.Value.ToString("C");
+            drIneligibleSumNew["전액/일부 지원불가 금액"] = sumIneligible.AmountIneligible.Value.ToString("C");
+
+            dtSorted.Rows.Add(drIneligibleSumNew);
+            gvIneligibleInTab.DataSource = dtSorted;
+        }
+
+        private void gvIneligibleInTab_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "INCD")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "INCD";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "회원 이름")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "회원 이름";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "MED_BILL")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "MED_BILL";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 3:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "접수 날짜")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "접수 날짜";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 5:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "의료기관명";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+                case 8:
+                    if (ineligibleInTabSortedFieldBlueSheet.Field != "지원되지않는 사유")
+                    {
+                        ineligibleInTabSortedFieldBlueSheet.Field = "지원되지않는 사유";
+                        ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void SortPersonalResponsibilityTable(SortedFieldBlueSheet sf)
+        {
+            DataTable dtPersonalResponsibility = (DataTable)gvPersonalResponsibility.DataSource;
+
+            DataTable dtSorted = dtPersonalResponsibility.Clone();
+            DataTable dtClone = new DataTable();
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////
+            dtClone.Columns.Add("MEDBILL", typeof(String));
+            dtClone.Columns.Add("서비스 날짜", typeof(DateTime));
+            dtClone.Columns.Add("의료기관명", typeof(String));
+            dtClone.Columns.Add("청구액(원금)", typeof(String));
+            dtClone.Columns.Add("Type", typeof(String));
+            dtClone.Columns.Add("PR Type: Member Payment", typeof(String));
+            dtClone.Columns.Add("PR Type: Member Discount", typeof(String));
+            dtClone.Columns.Add("PR Type: 3rd Party Discount", typeof(String));
+            dtClone.Columns.Add("Personal Responsibility Total", typeof(String));
+
+            //dtClone.Columns.Add("본인 부담금", typeof(String));
+
+
+            dtPersonalResponsibility.Rows.RemoveAt(dtPersonalResponsibility.Rows.Count - 1);
+
+            foreach (DataRow row in dtPersonalResponsibility.Rows)
+            {
+                DataRow rowClone = dtClone.NewRow();
+                dtClone.Rows.Add(rowClone);
+            }
+
+            for (int i = 0; i < dtPersonalResponsibility.Rows.Count; i++)
+            {
+                dtClone.Rows[i]["MEDBILL"] = dtPersonalResponsibility.Rows[i]["MEDBILL"];
+                dtClone.Rows[i]["서비스 날짜"] = DateTime.Parse(dtPersonalResponsibility.Rows[i]["서비스 날짜"].ToString());
+                dtClone.Rows[i]["의료기관명"] = dtPersonalResponsibility.Rows[i]["의료기관명"];
+                dtClone.Rows[i]["청구액(원금)"] = dtPersonalResponsibility.Rows[i]["청구액(원금)"];
+                dtClone.Rows[i]["Type"] = dtPersonalResponsibility.Rows[i]["Type"];
+                dtClone.Rows[i]["PR Type: Member Payment"] = dtPersonalResponsibility.Rows[i]["PR Type: Member Payment"];
+                dtClone.Rows[i]["PR Type: Member Discount"] = dtPersonalResponsibility.Rows[i]["PR Type: Member Discount"];
+                dtClone.Rows[i]["PR Type: 3rd Party Discount"] = dtPersonalResponsibility.Rows[i]["PR Type: 3rd Party Discount"];
+                dtClone.Rows[i]["Personal Responsibility Total"] = dtPersonalResponsibility.Rows[i]["Personal Responsibility Total"];
+                //dtClone.Rows[i]["본인 부담금"] = dtPersonalResponsibility.Rows[i]["본인 부담금"];
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtClone.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtClone.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtCloneSorted = dtClone.Clone();
+            dtCloneSorted = dtClone.DefaultView.ToTable();
+
+            foreach (DataRow row in dtCloneSorted.Rows)
+            {
+                DataRow rowSorted = dtSorted.NewRow();
+                dtSorted.Rows.Add(rowSorted);
+            }
+
+            for (int i = 0; i < dtCloneSorted.Rows.Count; i++)
+            {
+                dtSorted.Rows[i]["MEDBILL"] = dtCloneSorted.Rows[i]["MEDBILL"];
+                dtSorted.Rows[i]["서비스 날짜"] = DateTime.Parse(dtCloneSorted.Rows[i]["서비스 날짜"].ToString()).ToString("MM/dd/yyyy");
+                dtSorted.Rows[i]["의료기관명"] = dtCloneSorted.Rows[i]["의료기관명"];
+                dtSorted.Rows[i]["청구액(원금)"] = dtCloneSorted.Rows[i]["청구액(원금)"];
+                dtSorted.Rows[i]["Type"] = dtCloneSorted.Rows[i]["Type"];
+                dtSorted.Rows[i]["PR Type: Member Payment"] = dtCloneSorted.Rows[i]["PR Type: Member Payment"];
+                dtSorted.Rows[i]["PR Type: Member Discount"] = dtCloneSorted.Rows[i]["PR Type: Member Discount"];
+                dtSorted.Rows[i]["PR Type: 3rd Party Discount"] = dtCloneSorted.Rows[i]["PR Type: 3rd Party Discount"];
+                dtSorted.Rows[i]["Personal Responsibility Total"] = dtCloneSorted.Rows[i]["Personal Responsibility Total"];
+
+                //dtSorted.Rows[i]["본인 부담금"] = dtCloneSorted.Rows[i]["본인 부담금"];
+            }
+
+            DataRow drPersonalResponsibilitySumNew = dtSorted.NewRow();
+
+            List<PersonalResponsibilityExpenseBlueSheet> lstPersonalResponsibilityExpense = new List<PersonalResponsibilityExpenseBlueSheet>();
+
+            foreach (DataRow row in dtSorted.Rows)
+            {
+                //lstPersonalResponsibilityExpense.Add(new PersonalResponsibilityExpense { BillAmount = Double.Parse(row[3].ToString().Substring(1)),
+                //                                                                         MemberPayment = Double.Parse(row[5].ToString().Substring(1)),
+                //                                                                         MemberDiscount = Double.Parse(row[6].ToString().Substring(1)) });
+
+                PersonalResponsibilityExpenseBlueSheet expense = new PersonalResponsibilityExpenseBlueSheet();
+                expense.BillAmount = Double.Parse(row[3].ToString().Substring(1));
+                if (row[5] != DBNull.Value) expense.MemberPayment = Double.Parse(row[5].ToString().Substring(1));
+                if (row[6] != DBNull.Value) expense.MemberDiscount = Double.Parse(row[6].ToString().Substring(1));
+                if (row[7] != DBNull.Value) expense.ThirdPartyDiscount = Double.Parse(row[7].ToString().Substring(1));
+                if (row[8] != DBNull.Value) expense.PersonalResponsiblityTotal = Double.Parse(row[8].ToString().Substring(1));
+
+                lstPersonalResponsibilityExpense.Add(expense);
+
+            }
+
+            drPersonalResponsibilitySumNew["MEDBILL"] = String.Empty;
+            drPersonalResponsibilitySumNew["서비스 날짜"] = String.Empty;
+            drPersonalResponsibilitySumNew["의료기관명"] = "합계";
+
+            PersonalResponsibilityExpenseBlueSheet sumPersonalResponsibility = new PersonalResponsibilityExpenseBlueSheet();
+            foreach (PersonalResponsibilityExpenseBlueSheet expense in lstPersonalResponsibilityExpense)
+            {
+                sumPersonalResponsibility.BillAmount += expense.BillAmount;
+                sumPersonalResponsibility.MemberPayment += expense.MemberPayment;
+                sumPersonalResponsibility.MemberDiscount += expense.MemberDiscount;
+                //sumPersonalResponsibility.SettlementAmount += expense.SettlementAmount;
+            }
+
+            drPersonalResponsibilitySumNew["청구액(원금)"] = sumPersonalResponsibility.BillAmount.ToString("C");
+            drPersonalResponsibilitySumNew["PR Type: Member Payment"] = sumPersonalResponsibility.MemberPayment.ToString("C");
+            drPersonalResponsibilitySumNew["PR Type: Member Discount"] = sumPersonalResponsibility.MemberDiscount.ToString("C");
+            drPersonalResponsibilitySumNew["PR Type: 3rd Party Discount"] = sumPersonalResponsibility.ThirdPartyDiscount.ToString("C");
+            drPersonalResponsibilitySumNew["Personal Responsibility Total"] = sumPersonalResponsibility.PersonalResponsiblityTotal.ToString("C");
+            //drPersonalResponsibilitySumNew["본인 부담금"] = sumPersonalResponsibility.SettlementAmount.ToString("C");
+
+            dtSorted.Rows.Add(drPersonalResponsibilitySumNew);
+            gvPersonalResponsibility.DataSource = dtSorted;
+        }
+
+        private void gvPersonalResponsibility_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    if (prSortedFieldBlueSheet.Field != "MEDBILL")
+                    {
+                        prSortedFieldBlueSheet.Field = "MEDBILL";
+                        prSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPersonalResponsibilityTable(prSortedFieldBlueSheet);
+                    break;
+                case 1:
+                    if (prSortedFieldBlueSheet.Field != "서비스 날짜")
+                    {
+                        prSortedFieldBlueSheet.Field = "서비스 날짜";
+                        prSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPersonalResponsibilityTable(prSortedFieldBlueSheet);
+                    break;
+                case 2:
+                    if (prSortedFieldBlueSheet.Field != "의료기관명")
+                    {
+                        prSortedFieldBlueSheet.Field = "의료기관명";
+                        prSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPersonalResponsibilityTable(prSortedFieldBlueSheet);
+                    break;
+                case 4:
+                    if (prSortedFieldBlueSheet.Field != "Type")
+                    {
+                        prSortedFieldBlueSheet.Field = "Type";
+                        prSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPersonalResponsibilityTable(prSortedFieldBlueSheet);
+                    break;
+                case 5:
+                    if (prSortedFieldBlueSheet.Field != "PR Type")
+                    {
+                        prSortedFieldBlueSheet.Field = "PR Type";
+                        prSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortPersonalResponsibilityTable(prSortedFieldBlueSheet);
+                    break;
+            }
+        }
+
+        private void btnGenerateKoreanPDFBlueSheet_Click(object sender, EventArgs e)
+        {
+            if ((gvSharedMedBillBlueSheet.RowCount > 0) || (gvCMMPendingPaymentBlueSheet.RowCount > 0) || (gvPendingBlueSheet.RowCount > 0) || (gvIneligibleBlueSheet.RowCount > 0))
+            {
+
+                //DateTime? dtDocReceivedDate = null;
+
+                //frmDocReceivedDate frmDocumentReceivedDate = new frmDocReceivedDate();
+
+                //frmDocumentReceivedDate.StartPosition = FormStartPosition.CenterParent;
+
+                //var dlgResultDocReceivedDate = frmDocumentReceivedDate.ShowDialog();
+
+                //if (dlgResultDocReceivedDate == DialogResult.OK)
+                //{
+                //dtDocReceivedDate = frmDocumentReceivedDate.ReceivedDate;
+
+                MigraDocDOM.Document pdfDoc = new MigraDocDOM.Document();
+
+                MigraDocDOM.Section section = pdfDoc.AddSection();
+                pdfDoc.UseCmykColor = true;
+
+                section.PageSetup.PageFormat = MigraDocDOM.PageFormat.Letter;
+                section.PageSetup.HeaderDistance = "0.25in";
+                section.PageSetup.TopMargin = "1.5in";
+                //section.PageSetup.LeftMargin = "0.3in";
+                //section.PageSetup.RightMargin = "0.3in";
+                section.PageSetup.LeftMargin = "0.8in";
+                section.PageSetup.RightMargin = "0.8in";
+                section.PageSetup.BottomMargin = "0.5in";
+
+                section.PageSetup.DifferentFirstPageHeaderFooter = false;
+                section.Headers.Primary.Format.SpaceBefore = "0.25in";
+
+                MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("C:\\Program Files (x86)\\RN\\RNManager\\cmmlogo.png");
+                //MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("../cmmlogo.png");
+
+
+                //savefileDlg.FileName = strIndividualID + "_" + strIndividualName + "_" + DateTime.Today.ToString("MM-dd-yyyy") + "_Ko";
+
+
+                image.Height = "0.8in";
+                image.LockAspectRatio = true;
+                image.RelativeVertical = MigraDocDOM.Shapes.RelativeVertical.Line;
+                image.RelativeHorizontal = MigraDocDOM.Shapes.RelativeHorizontal.Margin;
+                image.Top = MigraDocDOM.Shapes.ShapePosition.Top;
+                image.Left = MigraDocDOM.Shapes.ShapePosition.Center;
+                image.WrapFormat.Style = MigraDocDOM.Shapes.WrapStyle.TopBottom;
+
+                MigraDocDOM.Paragraph paraCMMAddress = section.Headers.Primary.AddParagraph();
+                paraCMMAddress.Format.Font.Name = "Arial";
+                paraCMMAddress.Format.Font.Size = 8;
+                paraCMMAddress.Format.SpaceBefore = "0.15in";
+                paraCMMAddress.Format.SpaceAfter = "0.25in";
+                //paraCMMAddress.Format.LeftIndent = "0.5in";
+                //paraCMMAddress.Format.RightIndent = "0.5in";
+                paraCMMAddress.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                String strVerticalBar = " | ";
+                String strStreet = "5235 N. Elston Ave.";
+                String strCityStateZip = "Chicago, IL 60630";
+                String strPhone = "Phone 773.777.8889";
+                String strFax = "Fax 773.777.0004";
+                String strWebsiteAddr = "www.cmmlogos.org";
+
+                paraCMMAddress.AddFormattedText(strStreet, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strCityStateZip, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strPhone, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strFax, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strWebsiteAddr, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraToday = section.AddParagraph();
+                paraToday.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraToday.Format.Font.Name = "Arial";
+                paraToday.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraToday.Format.SpaceBefore = "0.25in";
+                paraToday.Format.SpaceAfter = "0.25in";
+                //paraToday.Format.LeftIndent = "0.5in";
+                //paraToday.Format.RightIndent = "0.5in";
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+
+                MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
+
+                paraMembershipInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraMembershipInfo.Format.Font.Name = "Arial";
+                //paraMembershipInfo.Format.SpaceBefore = "0.70in";
+                paraMembershipInfo.Format.SpaceBefore = "0.20in";
+                paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                //paraMembershipInfo.Format.LeftIndent = "0.5in";
+                //paraMembershipInfo.Format.RightIndent = "0.5in";
+                paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraMembershipInfo.AddFormattedText("Primary Name: " + strPrimaryName + "\n");
+                if (strMembershipIdBlueSheet != String.Empty) paraMembershipInfo.AddFormattedText(strMembershipIdBlueSheet + " (" + strIndividualIDBlueSheet + ")\n");
+                else paraMembershipInfo.AddFormattedText(strIndividualIDBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strIndividualNameBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strStreetAddressBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strCityBlueSheet + ", " + strStateBlueSheet + " " + strZipBlueSheet + "\n");
+
+
+                MigraDocDOM.Paragraph paraDearMember = section.AddParagraph();
+                paraDearMember.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraDearMember.Format.Font.Name = "Malgun Gothic";
+                paraDearMember.Format.Font.Size = 8;
+                paraDearMember.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraDearMember.Format.LeftIndent = "0.5in";
+                //paraDearMember.Format.RightIndent = "0.5in";
+                paraDearMember.Format.SpaceBefore = "0.1in";
+                paraDearMember.Format.SpaceAfter = "0.1in";
+                if (strIndividualMiddleNameBlueSheet != String.Empty) paraDearMember.AddFormattedText(strIndividualLastNameBlueSheet + ", " + strIndiviaualFirstNameBlueSheet + " 회원께,");
+                else paraDearMember.AddFormattedText(strIndividualLastNameBlueSheet + ", " + strIndiviaualFirstNameBlueSheet + " " + strIndividualMiddleNameBlueSheet + " 회원께,");
+
+
+                MigraDocDOM.Paragraph paraGreetingMessage = section.AddParagraph();
+
+                paraGreetingMessage.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage.Format.Font.Name = "Malgun Gothic";
+                paraGreetingMessage.Format.Font.Size = 8;
+                paraGreetingMessage.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage.Format.RightIndent = "0.5in";
+                paraGreetingMessage.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage.AddFormattedText(strGreetingMessage, TextFormat.NotBold);
+                paraGreetingMessage.AddFormattedText(strGreetingMessagePara1, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage2 = section.AddParagraph();
+                paraGreetingMessage2.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage2.Format.Font.Name = "Malgun Gothic";
+                paraGreetingMessage2.Format.Font.Size = 8;
+                paraGreetingMessage2.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage2.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage2.Format.RightIndent = "0.5in";
+                paraGreetingMessage2.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraGreetingMessage2.AddFormattedText(strGreetingMessagePara2, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage3 = section.AddParagraph();
+                paraGreetingMessage3.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage3.Format.Font.Name = "Malgun Gothic";
+                paraGreetingMessage3.Format.Font.Size = 8;
+                paraGreetingMessage3.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraGreetingMessage3.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraGreetingMessage3.AddFormattedText(strGreetingMessagePara3, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage4 = section.AddParagraph();
+                paraGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage4.Format.Font.Name = "Malgun Gothic";
+                paraGreetingMessage4.Format.Font.Size = 8;
+                //paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage4.Format.RightIndent = "0.5in";
+                paraGreetingMessage4.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraGreetingMessage4.AddFormattedText(strGreetingMessagePara4, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraNeedsProcessing = section.AddParagraph();
+
+                paraNeedsProcessing.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraNeedsProcessing.Format.Font.Name = "Arial";
+                paraNeedsProcessing.Format.Font.Size = 8;
+                paraNeedsProcessing.Format.Font.Bold = true;
+                paraNeedsProcessing.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraNeedsProcessing.Format.SpaceBefore = "0.2in";
+                //paraNeedsProcessing.Format.LeftIndent = "0.5in";
+                //paraNeedsProcessing.Format.RightIndent = "0.5in";
+                paraNeedsProcessing.AddFormattedText(strCMM_NeedProcessing + "\n");
+
+                MigraDocDOM.Paragraph paraPhoneFaxEmail = section.AddParagraph();
+                paraPhoneFaxEmail.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPhoneFaxEmail.Format.Font.Size = 8;
+                paraPhoneFaxEmail.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraPhoneFaxEmail.Format.LeftIndent = "0.5in";
+                paraPhoneFaxEmail.Format.RightIndent = "0.5in";
+                paraPhoneFaxEmail.AddFormattedText(strNP_Phone_Fax_Email + "\n");
+
+                MigraDocDOM.Paragraph paraHorizontalLine = section.AddParagraph();
+
+                paraHorizontalLine.Format.SpaceBefore = "0.05in";
+                paraHorizontalLine.Format.SpaceAfter = "0.05in";
+                paraHorizontalLine.Format.Borders.Top.Width = 0;
+                paraHorizontalLine.Format.Borders.Left.Width = 0;
+                paraHorizontalLine.Format.Borders.Right.Width = 0;
+                paraHorizontalLine.Format.Borders.Bottom.Width = 1;
+                paraHorizontalLine.Format.Borders.Bottom.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraHorizontalLine.Format.Borders.Style = MigraDocDOM.BorderStyle.DashDot;
+
+                MigraDocDOM.Paragraph paraNPStatement = section.AddParagraph();
+                paraNPStatement.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                paraNPStatement.Format.Font.Name = "Malgun Gothic";
+                paraNPStatement.Format.Font.Size = 12;
+                paraNPStatement.Format.Font.Bold = true;
+                paraNPStatement.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                paraNPStatement.Format.SpaceAfter = "0.1in";
+
+                paraNPStatement.AddFormattedText("의료비 정산 내역서\n", MigraDocDOM.TextFormat.Bold);
+
+                MigraDocDOM.Paragraph paraCheckInfo = section.AddParagraph();
+                paraCheckInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraCheckInfo.Format.Font.Name = "Arial";
+                paraCheckInfo.Format.Font.Size = 8;
+                paraCheckInfo.Format.Font.Bold = true;
+                paraCheckInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraCheckInfo.Format.SpaceBefore = "0.1in";
+                //paraCheckInfo.Format.SpaceAfter = "0.1in";
+
+                if (rbCheckBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
+                                                    "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                                                    "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+
+                }
+                else if (rbACHBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Issue Date: " + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM/dd/yyyy") +
+                                                    "\tACH No: " + ACHInfoEnteredBlueSheet.ACHNumber +
+                                                    "\tACH Amount: " + ACHInfoEnteredBlueSheet.ACHAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + ACHInfoEnteredBlueSheet.PaidTo);
+                }
+                else if (rbCreditCardBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Date: " + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM/dd/yyyy") +
+                                                    "\tCredit Card Payment Amount: " + CreditCardPaymentEnteredBlueSheet.CCPaymentAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + CreditCardPaymentEnteredBlueSheet.PaidTo);
+                }
+
+                //int nRowHeight = 302;
+                int nRowHeight = 296;
+
+                if (lstIncidentsBlueSheet.Count > 0)
+                {
+                    MigraDocDOM.Paragraph paraIncd = section.AddParagraph();
+
+                    paraIncd.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                    paraIncd.Format.Font.Name = "Malgun Gothic";
+                    paraIncd.Format.Font.Size = 8;
+                    paraIncd.Format.Font.Bold = true;
+
+                    MigraDocDOM.Tables.Table tableIncd = new MigraDocDOM.Tables.Table();
+                    tableIncd.Borders.Width = 0;
+                    tableIncd.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Column colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(0.85));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                    //colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(1.1));
+                    //colINCD.Format.Alignment = ParagraphAlignment.Left;
+                    colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(4.5));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                    foreach (IncidentBlueSheet incd in lstIncidentsBlueSheet)
+                    {
+                        nRowHeight += 18;
+
+                        MigraDocDOM.Tables.Row IncdRow = tableIncd.AddRow();
+                        IncdRow.Height = "0.15in";
+                        IncdRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        MigraDocDOM.Tables.Cell cellIncdName = IncdRow.Cells[0];
+                        cellIncdName.Format.Font.Bold = true;
+                        cellIncdName.Format.Font.Size = 8;
+                        //cellIncdName.Format.Font.Name = "Malgun Gothic";
+                        cellIncdName.Format.Font.Name = "Arial";
+                        cellIncdName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellIncdName.AddParagraph(incd.Name + ": ");
+
+                        //MigraDocDOM.Tables.Cell cellPatientName = IncdRow.Cells[1];
+                        //cellPatientName.Format.Font.Bold = true;
+                        //cellPatientName.Format.Font.Size = 8;
+                        ////cellPatientName.Format.Font.Name = "Malgun Gothic";
+                        //cellIncdName.Format.Font.Name = "Arial";
+                        //cellPatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        //if (incd.PatientName.Length > 11)
+                        //{
+                        //    cellPatientName.AddParagraph(incd.PatientName.Substring(0, 11) + " ...");
+                        //}
+                        //else cellPatientName.AddParagraph(incd.PatientName);
+
+                        MigraDocDOM.Tables.Cell cellICD10Code = IncdRow.Cells[1];
+                        cellICD10Code.Format.Font.Bold = true;
+                        cellICD10Code.Format.Font.Size = 8;
+                        //cellICD10Code.Format.Font.Name = "Malgun Gothic";
+                        cellIncdName.Format.Font.Name = "Arial";
+                        cellICD10Code.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellICD10Code.AddParagraph(incd.ICD10_Code);
+                    }
+
+                    pdfDoc.LastSection.Add(tableIncd);
+                }
+
+                //section.AddParagraph();
+                //lstPaidMedicalExpenseTableRow.Clear();
+
+                if (gvSharedMedBillBlueSheet.RowCount > 0)
+                {
+
+                    section.AddParagraph();
+                    lstPaidMedicalExpenseTableRowBlueSheet.Clear();
+
+                    //nRowHeight += 30;
+                    nRowHeight += 22;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    //paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceBefore = "0.08in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                    paraSpaceBefore.Format.Font.Name = "Malgun Gothic";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("CMM이 회원 및 의료기관으로 지불한 의료비", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvSharedMedBillBlueSheet.RowCount; nRow++)
+                    {
+
+                        PaidMedicalExpenseTableRowBlueSheet expenseRow = new PaidMedicalExpenseTableRowBlueSheet();
+                        expenseRow.PatientName = gvSharedMedBillBlueSheet[1, nRow].Value.ToString();
+                        expenseRow.MED_BILL = gvSharedMedBillBlueSheet[2, nRow].Value.ToString();
+                        //String strBillDate = gvBillPaid[3, nRow].Value.ToString();
+                        //DateTime? dtBillDate = DateTime.Parse(strBillDate);
+                        //expenseRow.Bill_Date = dtBillDate
+                        if (gvSharedMedBillBlueSheet[3, nRow].Value.ToString() != String.Empty) expenseRow.Bill_Date = DateTime.Parse(gvSharedMedBillBlueSheet[3, nRow].Value.ToString());
+                        else expenseRow.Bill_Date = null;
+                        expenseRow.Medical_Provider = gvSharedMedBillBlueSheet[4, nRow].Value.ToString();
+                        expenseRow.Bill_Amount = gvSharedMedBillBlueSheet[5, nRow].Value.ToString();
+                        expenseRow.Personal_Responsibility = gvSharedMedBillBlueSheet[6, nRow].Value.ToString();
+                        expenseRow.Member_Discount = gvSharedMedBillBlueSheet[7, nRow].Value.ToString();
+                        expenseRow.CMM_Discount = gvSharedMedBillBlueSheet[8, nRow].Value.ToString();
+                        expenseRow.CMM_Provider_Payment = gvSharedMedBillBlueSheet[9, nRow].Value.ToString();
+                        //if (rbCheck.Checked || rbACH.Checked)
+                        if (PaidToBlueSheet == EnumPaidTo.Member)
+                        {
+                            expenseRow.PastReimbursement = gvSharedMedBillBlueSheet[10, nRow].Value.ToString();
+                            expenseRow.Reimbursement = gvSharedMedBillBlueSheet[11, nRow].Value.ToString();
+                        }
+                        //if (rbCreditCard.Checked)
+                        if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                        {
+                            expenseRow.PastCMM_Provider_Payment = gvSharedMedBillBlueSheet[10, nRow].Value.ToString();
+                            expenseRow.PastReimbursement = gvSharedMedBillBlueSheet[11, nRow].Value.ToString();
+                            //expenseRow.Reimbursement = gvBillPaid[12, nRow].Value.ToString();
+                        }
+                        expenseRow.Balance = gvSharedMedBillBlueSheet[12, nRow].Value.ToString();
+                        lstPaidMedicalExpenseTableRowBlueSheet.Add(expenseRow);
+                    }
+
+
+
+                    MigraDocDOM.Tables.Table table = new MigraDocDOM.Tables.Table();
+                    table.Borders.Width = 0.1;
+                    table.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column col = table.AddColumn(Unit.FromInch(0.8));
+                    //col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //col = table.AddColumn(MigraDocDOM.Unit.FromInch(1.4));
+                    //col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(1.2));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //if (rbCreditCard.Checked)
+                    //{
+                    //    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    //}
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row row = table.AddRow();
+
+                    nRowHeight += 22;
+                    row.Height = "0.3in";
+                    row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellTitlePatientName = row.Cells[0];
+                    //cellTitlePatientName.AddParagraph("회원 이름");
+                    //cellTitlePatientName.Format.Font.Bold = true;
+                    //cellTitlePatientName.Format.Font.Size = 7;
+                    //cellTitlePatientName.Format.Font.Name = "Malgun Gothic";
+                    //cellTitlePatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleMedBill = row.Cells[0];
+                    cellTitleMedBill.AddParagraph("MEDBILL");
+                    cellTitleMedBill.Format.Font.Bold = true;
+                    cellTitleMedBill.Format.Font.Size = 7;
+                    cellTitleMedBill.Format.Font.Name = "Malgun Gothic";
+                    cellTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleBillDate = row.Cells[1];
+                    cellTitleBillDate.AddParagraph("서비스 날짜");
+                    cellTitleBillDate.Format.Font.Bold = true;
+                    cellTitleBillDate.Format.Font.Size = 7;
+                    cellTitleBillDate.Format.Font.Name = "Malgun Gothic";
+                    cellTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleMedicalProvider = row.Cells[2];
+                    cellTitleMedicalProvider.AddParagraph("의료기관명");
+                    cellTitleMedicalProvider.Format.Font.Bold = true;
+                    cellTitleMedicalProvider.Format.Font.Size = 7;
+                    cellTitleMedicalProvider.Format.Font.Name = "Malgun Gothic";
+                    cellTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleBillAmount = row.Cells[3];
+                    cellTitleBillAmount.AddParagraph("청구 (원금)");
+                    cellTitleBillAmount.Format.Font.Bold = true;
+                    cellTitleBillAmount.Format.Font.Size = 7;
+                    cellTitleBillAmount.Format.Font.Name = "Malgun Gothic";
+                    cellTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitlePersonalResponsibility = row.Cells[4];
+                    cellTitlePersonalResponsibility.AddParagraph("본인 부담금");
+                    cellTitlePersonalResponsibility.Format.Font.Bold = true;
+                    cellTitlePersonalResponsibility.Format.Font.Size = 7;
+                    cellTitlePersonalResponsibility.Format.Font.Name = "Malgun Gothic";
+                    cellTitlePersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleMemberDiscount = row.Cells[5];
+                    cellTitleMemberDiscount.AddParagraph("회원 (할인)");
+                    cellTitleMemberDiscount.Format.Font.Bold = true;
+                    cellTitleMemberDiscount.Format.Font.Size = 7;
+                    cellTitleMemberDiscount.Format.Font.Name = "Malgun Gothic";
+                    cellTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleCMMDiscount = row.Cells[6];
+                    cellTitleCMMDiscount.AddParagraph("CMM (할인)");
+                    cellTitleCMMDiscount.Format.Font.Bold = true;
+                    cellTitleCMMDiscount.Format.Font.Size = 7;
+                    cellTitleCMMDiscount.Format.Font.Name = "Malgun Gothic";
+                    cellTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleCMMProviderDiscount = row.Cells[7];
+                    cellTitleCMMProviderDiscount.AddParagraph("의료기관 지불금");
+                    cellTitleCMMProviderDiscount.Format.Font.Bold = true;
+                    cellTitleCMMProviderDiscount.Format.Font.Size = 7;
+                    cellTitleCMMProviderDiscount.Format.Font.Name = "Malgun Gothic";
+                    cellTitleCMMProviderDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //if (rbCheck.Checked || rbACH.Checked)
+                    if (PaidToBlueSheet == EnumPaidTo.Member)
+                    {
+                        MigraDocDOM.Tables.Cell cellTitlePastReimbursement = row.Cells[8];
+                        cellTitlePastReimbursement.AddParagraph("기지급액");
+                        cellTitlePastReimbursement.Format.Font.Bold = true;
+                        cellTitlePastReimbursement.Format.Font.Size = 7;
+                        cellTitlePastReimbursement.Format.Font.Name = "Malgun Gothic";
+                        cellTitlePastReimbursement.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                        MigraDocDOM.Tables.Cell cellTitleReimbursement = row.Cells[9];
+                        cellTitleReimbursement.AddParagraph("회원 환불금");
+                        cellTitleReimbursement.Format.Font.Bold = true;
+                        cellTitleReimbursement.Format.Font.Size = 7;
+                        cellTitleReimbursement.Format.Font.Name = "Malgun Gothic";
+                        cellTitleReimbursement.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100); ;
+
+
+                    }
+                    //if (rbCreditCard.Checked)
+                    if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                    {
+                        MigraDocDOM.Tables.Cell cellTitlePastReimbursement = row.Cells[8];
+                        cellTitlePastReimbursement.AddParagraph("기지급액 (의료기관)");
+                        cellTitlePastReimbursement.Format.Font.Bold = true;
+                        cellTitlePastReimbursement.Format.Font.Size = 7;
+                        cellTitlePastReimbursement.Format.Font.Name = "Malgun Gothic";
+                        cellTitlePastReimbursement.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                        MigraDocDOM.Tables.Cell cellTitlePastCMMProviderPayment = row.Cells[9];
+                        cellTitlePastCMMProviderPayment.AddParagraph("기지급액 (회원)");
+                        cellTitlePastCMMProviderPayment.Format.Font.Bold = true;
+                        cellTitlePastCMMProviderPayment.Format.Font.Size = 7;
+                        cellTitlePastCMMProviderPayment.Format.Font.Name = "Malgun Gothic";
+                        cellTitlePastCMMProviderPayment.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                        //MigraDocDOM.Tables.Cell cellTitleReimbursement = row.Cells[10];
+                        //cellTitleReimbursement.AddParagraph("회원 환불금");
+                        //cellTitleReimbursement.Format.Font.Bold = true;
+                        //cellTitleReimbursement.Format.Font.Size = 7;
+                        //cellTitleReimbursement.Format.Font.Name = "Malgun Gothic";
+                        //cellTitleReimbursement.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100); ;
+
+
+                    }
+                    MigraDocDOM.Tables.Cell cellTitleBalance = row.Cells[10];
+                    cellTitleBalance.AddParagraph("잔액/보류");
+                    cellTitleBalance.Format.Font.Bold = true;
+                    cellTitleBalance.Format.Font.Size = 7;
+                    cellTitleBalance.Format.Font.Name = "Malgun Gothic";
+                    cellTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+
+                    for (int i = 0; i < lstPaidMedicalExpenseTableRowBlueSheet.Count; i++)
+                    {
+                        if (nRowHeight > 645) nRowHeight = 0;
+                        nRowHeight += 18;
+                        MigraDocDOM.Tables.Row rowData = table.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        if (i < lstPaidMedicalExpenseTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstPaidMedicalExpenseTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Date.Value.ToString("MM/dd/yy"));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+                            if (lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Length > 16)
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Substring(0, 16) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Personal_Responsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Provider_Payment);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //if (rbCheck.Checked || rbACH.Checked)
+                            if (PaidToBlueSheet == EnumPaidTo.Member)
+                            {
+                                cell = rowData.Cells[8];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                                cell.Format.Font.Bold = false;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                cell = rowData.Cells[9];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Reimbursement);
+                                cell.Format.Font.Bold = false;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            }
+                            //if (rbCreditCard.Checked)
+                            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                            {
+                                cell = rowData.Cells[8];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastCMM_Provider_Payment);
+                                cell.Format.Font.Bold = false;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                cell = rowData.Cells[9];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                                cell.Format.Font.Bold = false;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                //cell = rowData.Cells[10];
+                                //cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].Reimbursement);
+                                //cell.Format.Font.Bold = false;
+                                //cell.Format.Font.Name = "Malgun Gothic";
+                                //cell.Format.Font.Size = 7;
+                                //cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                                //cell.Format.Alignment = ParagraphAlignment.Right;
+                            }
+
+                            cell = rowData.Cells[10];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        }
+                        if (i == lstPaidMedicalExpenseTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstPaidMedicalExpenseTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[1];
+                            //cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].Bill_Date.Value.ToString("MM/dd/yy"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            if (lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Length > 22)
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Substring(0, 22) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider);
+                            }
+
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Personal_Responsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Provider_Payment);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //if (rbCheck.Checked || rbACH.Checked)
+                            if (PaidToBlueSheet == EnumPaidTo.Member)
+                            {
+                                cell = rowData.Cells[8];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                cell = rowData.Cells[9];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Reimbursement);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            }
+                            //if (rbCreditCard.Checked)
+                            if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                            {
+                                cell = rowData.Cells[8];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastCMM_Provider_Payment);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                cell = rowData.Cells[9];
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                //cell = rowData.Cells[10];
+                                //cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].Reimbursement);
+                                //cell.Format.Font.Bold = true;
+                                //cell.Format.Font.Name = "Malgun Gothic";
+                                //cell.Format.Font.Size = 7;
+                                //cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                                //cell.Format.Alignment = ParagraphAlignment.Right;
+                            }
+
+                            cell = rowData.Cells[10];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                    }
+
+                    pdfDoc.LastSection.Add(table);
+                }
+
+                int nHeightAfterCMMPendingPayment = 0;
+
+                if (gvCMMPendingPaymentBlueSheet.RowCount > 0)
+                {
+                    nHeightAfterCMMPendingPayment += 22;
+                    for (int nRow = 0; nRow < gvCMMPendingPaymentBlueSheet.RowCount; nRow++)
+                    {
+                        nHeightAfterCMMPendingPayment += 15;
+                    }
+
+                    if ((nRowHeight > 645) ||
+                        (nRowHeight + nHeightAfterCMMPendingPayment) > 645)
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // The beginning of CMM Pending Payment table
+
+
+                if (gvCMMPendingPaymentBlueSheet.RowCount > 0)
+                {
+                    lstCMMPendingPaymentTableRowBlueSheet.Clear();
+                    nRowHeight += 30;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                    paraSpaceBefore.Format.Font.Name = "Malgun Gothic";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("지원 예정 의료비", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvCMMPendingPaymentBlueSheet.RowCount; nRow++)
+                    {
+                        CMMPendingPaymentTableRowBlueSheet cmmPendingRow = new CMMPendingPaymentTableRowBlueSheet();
+
+                        cmmPendingRow.PatientName = gvCMMPendingPaymentBlueSheet[1, nRow].Value.ToString();
+                        cmmPendingRow.MED_BILL = gvCMMPendingPaymentBlueSheet[2, nRow].Value.ToString();
+                        cmmPendingRow.Bill_Date = gvCMMPendingPaymentBlueSheet[3, nRow].Value.ToString();
+                        //cmmPendingRow.Due_Date = gvCMMPendingPayment[4, nRow].Value.ToString();
+                        cmmPendingRow.Medical_Provider = gvCMMPendingPaymentBlueSheet[4, nRow].Value.ToString();
+                        cmmPendingRow.Bill_Amount = gvCMMPendingPaymentBlueSheet[5, nRow].Value.ToString();
+                        cmmPendingRow.Member_Discount = gvCMMPendingPaymentBlueSheet[6, nRow].Value.ToString();
+                        cmmPendingRow.CMM_Discount = gvCMMPendingPaymentBlueSheet[7, nRow].Value.ToString();
+                        cmmPendingRow.PersonalResponsibility = gvCMMPendingPaymentBlueSheet[8, nRow].Value.ToString();
+                        //cmmPendingRow.Member_Discount = gvCMMPendingPayment[7, nRow].Value.ToString();
+                        //cmmPendingRow.CMM_Discount = gvCMMPendingPayment[8, nRow].Value.ToString();
+                        cmmPendingRow.Shared_Amount = gvCMMPendingPaymentBlueSheet[9, nRow].Value.ToString();
+                        cmmPendingRow.Balance = gvCMMPendingPaymentBlueSheet[10, nRow].Value.ToString();
+
+                        lstCMMPendingPaymentTableRowBlueSheet.Add(cmmPendingRow);
+                    }
+
+                    MigraDocDOM.Tables.Table tableCMMPendingPayment = new MigraDocDOM.Tables.Table();
+
+                    tableCMMPendingPayment.Borders.Width = 0.1;
+                    tableCMMPendingPayment.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    //colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(1.4));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row cmm_pending_row = tableCMMPendingPayment.AddRow();
+
+                    cmm_pending_row.Height = "0.3in";
+                    cmm_pending_row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    nRowHeight += 22;
+
+                    //MigraDocDOM.Tables.Cell cellCMMPendingTitlePatientName = cmm_pending_row.Cells[0];
+                    //cellCMMPendingTitlePatientName.AddParagraph("회원 이름");
+                    //cellCMMPendingTitlePatientName.Format.Font.Bold = true;
+                    //cellCMMPendingTitlePatientName.Format.Font.Size = 7;
+                    //cellCMMPendingTitlePatientName.Format.Font.Name = "Malgun Gothic";
+                    //cellCMMPendingTitlePatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMedBill = cmm_pending_row.Cells[0];
+                    cellCMMPendingTitleMedBill.AddParagraph("MEDBILL");
+                    cellCMMPendingTitleMedBill.Format.Font.Bold = true;
+                    cellCMMPendingTitleMedBill.Format.Font.Size = 7;
+                    cellCMMPendingTitleMedBill.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBillDate = cmm_pending_row.Cells[1];
+                    cellCMMPendingTitleBillDate.AddParagraph("서비스 날짜");
+                    cellCMMPendingTitleBillDate.Format.Font.Bold = true;
+                    cellCMMPendingTitleBillDate.Format.Font.Size = 7;
+                    cellCMMPendingTitleBillDate.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellCMMPendingTitleDueDate = cmm_pending_row.Cells[3];
+                    //cellCMMPendingTitleDueDate.AddParagraph("접수 날짜");
+                    //cellCMMPendingTitleDueDate.Format.Font.Bold = true;
+                    //cellCMMPendingTitleDueDate.Format.Font.Size = 7;
+                    //cellCMMPendingTitleDueDate.Format.Font.Name = "Malgun Gothic";
+                    //cellCMMPendingTitleDueDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMedicalProvider = cmm_pending_row.Cells[2];
+                    cellCMMPendingTitleMedicalProvider.AddParagraph("의료기관명");
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Bold = true;
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Size = 7;
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBillAmount = cmm_pending_row.Cells[3];
+                    cellCMMPendingTitleBillAmount.AddParagraph("청구액(원금)");
+                    cellCMMPendingTitleBillAmount.Format.Font.Bold = true;
+                    cellCMMPendingTitleBillAmount.Format.Font.Size = 7;
+                    cellCMMPendingTitleBillAmount.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMemberDiscount = cmm_pending_row.Cells[4];
+                    cellCMMPendingTitleMemberDiscount.AddParagraph("회원할인");
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Bold = true;
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Size = 7;
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleCMMDiscount = cmm_pending_row.Cells[5];
+                    cellCMMPendingTitleCMMDiscount.AddParagraph("CMM 할인");
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Bold = true;
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Size = 7;
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitlePersonalResponsibility = cmm_pending_row.Cells[6];
+                    cellCMMPendingTitlePersonalResponsibility.AddParagraph("본인 부담금");
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Bold = true;
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Size = 7;
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleSharedAmount = cmm_pending_row.Cells[7];
+                    cellCMMPendingTitleSharedAmount.AddParagraph("정산 완료");
+                    cellCMMPendingTitleSharedAmount.Format.Font.Bold = true;
+                    cellCMMPendingTitleSharedAmount.Format.Font.Size = 7;
+                    cellCMMPendingTitleSharedAmount.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleSharedAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBalance = cmm_pending_row.Cells[8];
+                    cellCMMPendingTitleBalance.AddParagraph("지원 예정");
+                    cellCMMPendingTitleBalance.Format.Font.Bold = true;
+                    cellCMMPendingTitleBalance.Format.Font.Size = 7;
+                    cellCMMPendingTitleBalance.Format.Font.Name = "Malgun Gothic";
+                    cellCMMPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    for (int i = 0; i < lstCMMPendingPaymentTableRowBlueSheet.Count; i++)
+                    {
+                        nRowHeight += 18;
+                        MigraDocDOM.Tables.Row rowData = tableCMMPendingPayment.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        if (i < lstCMMPendingPaymentTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstCMMPendingPaymentTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            //cell = rowData.Cells[3];
+                            //cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Due_Date);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            if (lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Length > 23)
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Substring(0, 23) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].PersonalResponsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Shared_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                        if (i == lstCMMPendingPaymentTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstCMMPendingPaymentTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            //cell = rowData.Cells[3];
+                            //cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Due_Date);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            if (lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Length > 25)
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Substring(0, 25) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider);
+                            }
+
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].PersonalResponsibility);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Shared_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                    }
+
+                    pdfDoc.LastSection.Add(tableCMMPendingPayment);
+                }
+
+                int nHeightAfterPending = 0;
+
+                if (gvPendingBlueSheet.RowCount > 0)
+                {
+                    nHeightAfterPending += 22;
+                    for (int nRow = 0; nRow < gvPendingBlueSheet.RowCount; nRow++)
+                    {
+                        nHeightAfterPending += 15;
+                    }
+
+                    if ((nRowHeight > 645) || ((nRowHeight + nHeightAfterPending) > 645))
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+                // Pending table
+                if (gvPendingBlueSheet.RowCount > 0)
+                {
+                    lstPendingTableRowBlueSheet.Clear();
+
+                    nRowHeight += 18;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                    paraSpaceBefore.Format.Font.Name = "Malgun Gothic";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("보류 중인 의료비", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvPendingBlueSheet.RowCount; nRow++)
+                    {
+                        nRowHeight += 12;
+
+                        PendingTableRowBlueSheet pendingRow = new PendingTableRowBlueSheet();
+                        pendingRow.PatientName = gvPendingBlueSheet[1, nRow].Value.ToString();
+                        pendingRow.MED_BILL = gvPendingBlueSheet[2, nRow].Value.ToString();
+                        pendingRow.Bill_Date = gvPendingBlueSheet[3, nRow].Value.ToString();
+                        pendingRow.Due_Date = gvPendingBlueSheet[4, nRow].Value.ToString();
+                        pendingRow.Medical_Provider = gvPendingBlueSheet[5, nRow].Value.ToString();
+                        pendingRow.Bill_Amount = gvPendingBlueSheet[6, nRow].Value.ToString();
+                        pendingRow.Balance = gvPendingBlueSheet[7, nRow].Value.ToString();
+                        //pendingRow.Member_Discount = gvPending[7, nRow].Value.ToString();
+                        //pendingRow.CMM_Discount = gvPending[8, nRow].Value.ToString();
+                        //pendingRow.Shared_Amount = gvPending[9, nRow].Value.ToString();
+                        //pendingRow.Balance = gvPending[10, nRow].Value.ToString();
+                        pendingRow.Pending_Reason = gvPendingBlueSheet[8, nRow].Value.ToString();
+
+                        lstPendingTableRowBlueSheet.Add(pendingRow);
+                    }
+
+                    MigraDocDOM.Tables.Table tablePending = new MigraDocDOM.Tables.Table();
+                    tablePending.Borders.Width = 0.1;
+                    tablePending.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(1.3));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(3));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row pending_Row = tablePending.AddRow();
+
+                    nRowHeight += 22;
+
+                    pending_Row.Height = "0.3in";
+                    pending_Row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleINCD = pending_Row.Cells[0];
+                    //cellPendingTitleINCD.AddParagraph("회원 이름");
+                    //cellPendingTitleINCD.Format.Font.Bold = true;
+                    //cellPendingTitleINCD.Format.Font.Size = 7;
+                    //cellPendingTitleINCD.Format.Font.Name = "Malgun Gothic";
+                    //cellPendingTitleINCD.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleMED_BILL = pending_Row.Cells[0];
+                    cellPendingTitleMED_BILL.AddParagraph("MEDBILL");
+                    cellPendingTitleMED_BILL.Format.Font.Bold = true;
+                    cellPendingTitleMED_BILL.Format.Font.Size = 7;
+                    cellPendingTitleMED_BILL.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleMED_BILL.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBill_Date = pending_Row.Cells[1];
+                    cellPendingTitleBill_Date.AddParagraph("서비스 날짜");
+                    cellPendingTitleBill_Date.Format.Font.Bold = true;
+                    cellPendingTitleBill_Date.Format.Font.Size = 7;
+                    cellPendingTitleBill_Date.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleBill_Date.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleDue_Date = pending_Row.Cells[2];
+                    cellPendingTitleDue_Date.AddParagraph("접수 날짜");
+                    cellPendingTitleDue_Date.Format.Font.Bold = true;
+                    cellPendingTitleDue_Date.Format.Font.Size = 7;
+                    cellPendingTitleDue_Date.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleDue_Date.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleMedicalProvider = pending_Row.Cells[3];
+                    cellPendingTitleMedicalProvider.AddParagraph("의료기관명");
+                    cellPendingTitleMedicalProvider.Format.Font.Bold = true;
+                    cellPendingTitleMedicalProvider.Format.Font.Size = 7;
+                    cellPendingTitleMedicalProvider.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBillAmount = pending_Row.Cells[4];
+                    cellPendingTitleBillAmount.AddParagraph("청구 (원금)");
+                    cellPendingTitleBillAmount.Format.Font.Bold = true;
+                    cellPendingTitleBillAmount.Format.Font.Size = 7;
+                    cellPendingTitleBillAmount.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBalance = pending_Row.Cells[5];
+                    cellPendingTitleBalance.AddParagraph("잔액/보류");
+                    cellPendingTitleBalance.Format.Font.Bold = true;
+                    cellPendingTitleBalance.Format.Font.Size = 7;
+                    cellPendingTitleBalance.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleMemberDiscount = pending_Row.Cells[6];
+                    //cellPendingTitleMemberDiscount.AddParagraph("회원 (할인)");
+                    //cellPendingTitleMemberDiscount.Format.Font.Bold = true;
+                    //cellPendingTitleMemberDiscount.Format.Font.Size = 7;
+                    //cellPendingTitleMemberDiscount.Format.Font.Name = "Malgun Gothic";
+                    //cellPendingTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleCMMDiscount = pending_Row.Cells[7];
+                    //cellPendingTitleCMMDiscount.AddParagraph("CMM (할인)");
+                    //cellPendingTitleCMMDiscount.Format.Font.Bold = true;
+                    //cellPendingTitleCMMDiscount.Format.Font.Size = 7;
+                    //cellPendingTitleCMMDiscount.Format.Font.Name = "Malgun Gothic";
+                    //cellPendingTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleSharedAmount = pending_Row.Cells[8];
+                    //cellPendingTitleSharedAmount.AddParagraph("정산 완료");
+                    //cellPendingTitleSharedAmount.Format.Font.Bold = true;
+                    //cellPendingTitleSharedAmount.Format.Font.Size = 7;
+                    //cellPendingTitleSharedAmount.Format.Font.Name = "Malgun Gothic";
+                    //cellPendingTitleSharedAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleBalance = pending_Row.Cells[9];
+                    //cellPendingTitleBalance.AddParagraph("보류");
+                    //cellPendingTitleBalance.Format.Font.Bold = true;
+                    //cellPendingTitleBalance.Format.Font.Size = 7;
+                    //cellPendingTitleBalance.Format.Font.Name = "Malgun Gothic";
+                    //cellPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitlePendingReason = pending_Row.Cells[6];
+                    cellPendingTitlePendingReason.AddParagraph("보류 사유");
+                    cellPendingTitlePendingReason.Format.Font.Bold = true;
+                    cellPendingTitlePendingReason.Format.Font.Size = 7;
+                    cellPendingTitlePendingReason.Format.Font.Name = "Malgun Gothic";
+                    cellPendingTitlePendingReason.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    for (int i = 0; i < lstPendingTableRowBlueSheet.Count; i++)
+                    {
+                        MigraDocDOM.Tables.Row pendingRowData = tablePending.AddRow();
+                        pendingRowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        if (i < lstPendingTableRowBlueSheet.Count - 1)
+                        {
+                            pendingRowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            //if (lstPendingTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[1];
+                            DateTime dtBillDate = DateTime.Parse(lstPendingTableRowBlueSheet[i].Bill_Date);
+                            cell.AddParagraph(dtBillDate.ToString("MM/dd/yy"));
+                            //cell.AddParagraph(lstPendingTableRow[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[2];
+                            DateTime dtDueDate = new DateTime();
+                            if (lstPendingTableRowBlueSheet[i].Due_Date != String.Empty)
+                            {
+                                dtDueDate = DateTime.Parse(lstPendingTableRowBlueSheet[i].Due_Date);
+                                cell.AddParagraph(dtDueDate.ToString("MM/dd/yy"));
+                            }
+                            //cell.AddParagraph(lstPendingTableRow[i].Due_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[3];
+
+                            if (lstPendingTableRowBlueSheet[i].Medical_Provider.Length > 20)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider.Substring(0, 20) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = pendingRowData.Cells[4];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[5];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[6];
+                            //cell.AddParagraph(lstPendingTableRow[i].Member_Discount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[7];
+                            //cell.AddParagraph(lstPendingTableRow[i].CMM_Discount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[8];
+                            //cell.AddParagraph(lstPendingTableRow[i].Shared_Amount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[9];
+                            //cell.AddParagraph(lstPendingTableRow[i].Balance);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[6];
+                            if (lstPendingTableRowBlueSheet[i].Pending_Reason.Length > 40)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason.Substring(0, 40) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        }
+                        if (i == lstPendingTableRowBlueSheet.Count - 1)
+                        {
+                            pendingRowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            //if (lstPendingTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName.Substring(0, 11));
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[1];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[2];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Due_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[3];
+                            if (lstPendingTableRowBlueSheet[i].Medical_Provider.Length > 20)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider.Substring(0, 20) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider);
+                            }
+
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[4];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[5];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[6];
+                            //cell.AddParagraph(lstPendingTableRow[i].Member_Discount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[7];
+                            //cell.AddParagraph(lstPendingTableRow[i].CMM_Discount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[8];
+                            //cell.AddParagraph(lstPendingTableRow[i].Shared_Amount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[9];
+                            //cell.AddParagraph(lstPendingTableRow[i].Balance);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[6];
+                            if (lstPendingTableRowBlueSheet[i].Pending_Reason.Length > 40)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason.Substring(0, 40) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason);
+                            }
+                            //cell.AddParagraph(lstPendingTableRow[i].Pending_Reason);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        }
+
+                    }
+
+                    pdfDoc.LastSection.Add(tablePending);
+                }
+
+                //int nHeightAfterIneligible = 0;
+
+                //if (gvIneligible.RowCount > 0)
+                //{
+                //    nHeightAfterIneligible += 22;
+                //    for (int nRow = 0; nRow < gvIneligible.RowCount; nRow++)
+                //    {
+                //        nHeightAfterIneligible += 15;
+                //    }
+                //}
+
+                //if ((nRowHeight > 645) ||
+                //    (nRowHeight + nHeightAfterIneligible) > 645)
+                //{
+                //    nRowHeight = 0;
+                //    section.AddPageBreak();
+                //}
+
+                lstBillIneligibleTableRowBlueSheet.Clear();
+
+                for (int nRow = 0; nRow < gvIneligibleBlueSheet.RowCount; nRow++)
+                {
+                    //if ((gvIneligible[4, nRow].Value.ToString() != "") &&
+                    //    (DateTime.Parse(gvIneligible[4, nRow].Value.ToString()) > dtDocReceivedDate.Value))
+                    if (gvIneligibleBlueSheet[4, nRow].Value.ToString() != String.Empty)
+                    {
+                        BillIneligibleTableRowBlueSheet ineligibleRow = new BillIneligibleTableRowBlueSheet();
+                        ineligibleRow.PatientName = gvIneligibleBlueSheet[1, nRow].Value.ToString();
+                        ineligibleRow.MED_BILL = gvIneligibleBlueSheet[2, nRow].Value.ToString();
+                        ineligibleRow.Bill_Date = gvIneligibleBlueSheet[3, nRow].Value.ToString();
+                        ineligibleRow.Received_Date = gvIneligibleBlueSheet[4, nRow].Value.ToString();
+                        ineligibleRow.Medical_Provider = gvIneligibleBlueSheet[5, nRow].Value.ToString();
+                        ineligibleRow.Bill_Amount = gvIneligibleBlueSheet[6, nRow].Value.ToString();
+                        ineligibleRow.Amount_Ineligible = gvIneligibleBlueSheet[7, nRow].Value.ToString();
+                        ineligibleRow.Ineligible_Reason = gvIneligibleBlueSheet[8, nRow].Value.ToString();
+
+                        lstBillIneligibleTableRowBlueSheet.Add(ineligibleRow);
+                    }
+                    //if (gvIneligible[4, nRow].Value.ToString() == "")
+                    //{
+                    //    BillIneligibleTableRow ineligibleRow = new BillIneligibleTableRow();
+                    //    ineligibleRow.PatientName = gvIneligible[1, nRow].Value.ToString();
+                    //    ineligibleRow.MED_BILL = gvIneligible[2, nRow].Value.ToString();
+                    //    ineligibleRow.Bill_Date = gvIneligible[3, nRow].Value.ToString();
+                    //    ineligibleRow.Received_Date = gvIneligible[4, nRow].Value.ToString();
+                    //    ineligibleRow.Medical_Provider = gvIneligible[5, nRow].Value.ToString();
+                    //    ineligibleRow.Bill_Amount = gvIneligible[6, nRow].Value.ToString();
+                    //    ineligibleRow.Amount_Ineligible = gvIneligible[7, nRow].Value.ToString();
+                    //    ineligibleRow.Ineligible_Reason = gvIneligible[8, nRow].Value.ToString();
+
+                    //    lstBillIneligibleTableRow.Add(ineligibleRow);
+                    //}
+                }
+
+                if (lstBillIneligibleTableRowBlueSheet.Count > 0)
+                {
+                    double? SumBillAmount = 0;
+                    double? SumAmountIneligible = 0;
+
+                    for (int nRow = 0; nRow < lstBillIneligibleTableRowBlueSheet.Count; nRow++)
+                    {
+                        SumBillAmount += Double.Parse(lstBillIneligibleTableRowBlueSheet[nRow].Bill_Amount.Substring(1));
+                        SumAmountIneligible += Double.Parse(lstBillIneligibleTableRowBlueSheet[nRow].Amount_Ineligible.Substring(1));
+                    }
+                    BillIneligibleTableRowBlueSheet SumIneligibleRow = new BillIneligibleTableRowBlueSheet();
+
+                    SumIneligibleRow.Medical_Provider = "합계";
+                    SumIneligibleRow.Bill_Amount = SumBillAmount.Value.ToString("C");
+                    SumIneligibleRow.Amount_Ineligible = SumAmountIneligible.Value.ToString("C");
+
+                    lstBillIneligibleTableRowBlueSheet.Add(SumIneligibleRow);
+                }
+
+                int nHeightAfterIneligible = 0;
+
+                if (lstBillIneligibleTableRowBlueSheet.Count > 0)
+                {
+                    nHeightAfterIneligible += 22;
+
+                    for (int nRow = 0; nRow < lstBillIneligibleTableRowBlueSheet.Count; nRow++)
+                    {
+                        nHeightAfterIneligible += 15;
+                    }
+
+                    if ((nRowHeight > 645) ||
+                        (nRowHeight + nHeightAfterIneligible) > 645)
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+                if (lstBillIneligibleTableRowBlueSheet.Count > 0)
+                {
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                    paraSpaceBefore.Format.Font.Name = "Malgun Gothic";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("지원 불가한 의료비", MigraDocDOM.TextFormat.Bold);
+
+                    MigraDocDOM.Tables.Table tableIneligible = new MigraDocDOM.Tables.Table();
+                    tableIneligible.Borders.Width = 0.1;
+                    tableIneligible.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(1.5));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.9));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(1.2));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(2.1));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row ineligible_Row = tableIneligible.AddRow();
+
+                    nRowHeight += 22;
+                    ineligible_Row.Height = "0.31in";
+                    ineligible_Row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellIneligibleTitleICND = ineligible_Row.Cells[0];
+                    //cellIneligibleTitleICND.AddParagraph("회원 이름");
+                    //cellIneligibleTitleICND.Format.Font.Bold = true;
+                    //cellIneligibleTitleICND.Format.Font.Size = 7;
+                    //cellIneligibleTitleICND.Format.Font.Name = "Malgun Gothic";
+                    //cellIneligibleTitleICND.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleMedBill = ineligible_Row.Cells[0];
+                    cellIneligibleTitleMedBill.AddParagraph("MEDBILL");
+                    cellIneligibleTitleMedBill.Format.Font.Bold = true;
+                    cellIneligibleTitleMedBill.Format.Font.Size = 7;
+                    cellIneligibleTitleMedBill.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleBillDate = ineligible_Row.Cells[1];
+                    cellIneligibleTitleBillDate.AddParagraph("서비스 날짜");
+                    cellIneligibleTitleBillDate.Format.Font.Bold = true;
+                    cellIneligibleTitleBillDate.Format.Font.Size = 7;
+                    cellIneligibleTitleBillDate.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleMedicalProvider = ineligible_Row.Cells[2];
+                    cellIneligibleTitleMedicalProvider.AddParagraph("의료기관명");
+                    cellIneligibleTitleMedicalProvider.Format.Font.Bold = true;
+                    cellIneligibleTitleMedicalProvider.Format.Font.Size = 7;
+                    cellIneligibleTitleMedicalProvider.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleBillAmount = ineligible_Row.Cells[3];
+                    cellIneligibleTitleBillAmount.AddParagraph("청구 (원금)");
+                    cellIneligibleTitleBillAmount.Format.Font.Bold = true;
+                    cellIneligibleTitleBillAmount.Format.Font.Size = 7;
+                    cellIneligibleTitleBillAmount.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleAmountIneligible = ineligible_Row.Cells[4];
+                    cellIneligibleTitleAmountIneligible.AddParagraph("전액/일부 지원불가 금액");
+                    cellIneligibleTitleAmountIneligible.Format.Font.Bold = true;
+                    cellIneligibleTitleAmountIneligible.Format.Font.Size = 7;
+                    cellIneligibleTitleAmountIneligible.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleAmountIneligible.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleIneligibleReason = ineligible_Row.Cells[5];
+                    cellIneligibleTitleIneligibleReason.AddParagraph("지원되지 않는 사유");
+                    cellIneligibleTitleIneligibleReason.Format.Font.Bold = true;
+                    cellIneligibleTitleIneligibleReason.Format.Font.Size = 7;
+                    cellIneligibleTitleIneligibleReason.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleTitleIneligibleReason.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    List<BillIneligibleRowBlueSheet> lstBillIneligible = new List<BillIneligibleRowBlueSheet>();
+
+                    for (int i = 0; i < lstBillIneligibleTableRowBlueSheet.Count; i++)
+                    {
+                        if (i < lstBillIneligibleTableRowBlueSheet.Count - 1)
+                        {
+
+                            MigraDocDOM.Tables.Row rowData = tableIneligible.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                            rowData.Height = "0.18in";
+
+                            BillIneligibleRowBlueSheet ineligible = new BillIneligibleRowBlueSheet();
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+
+                            //if (lstBillIneligibleTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName);
+                            //}
+
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+
+                            if (lstBillIneligibleTableRowBlueSheet[i].Medical_Provider.Length > 24)
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Medical_Provider.Substring(0, 24) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Medical_Provider);
+                            }
+
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Amount);
+                            ineligible.Bill_Amount = Double.Parse(lstBillIneligibleTableRowBlueSheet[i].Bill_Amount.Substring(1));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Amount_Ineligible);
+                            ineligible.Amount_Ineligible = Double.Parse(lstBillIneligibleTableRowBlueSheet[i].Amount_Ineligible.Substring(1));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+
+
+                            cell = rowData.Cells[5];
+                            if (lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Length > 33)
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Substring(0, 33) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            lstBillIneligible.Add(ineligible);
+
+                            PdfDocument doc = new PdfDocument();
+
+
+                        }
+
+                        if (i == lstBillIneligibleTableRowBlueSheet.Count - 1)
+                        {
+                            MigraDocDOM.Tables.Row rowData = tableIneligible.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //cell.AddParagraph();
+                            //if (lstBillIneligibleTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Malgun Gothic";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //cell.AddParagraph(lstBillIneligibleTableRow[i].MED_BILL);
+                            cell.AddParagraph();
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[1];
+                            //cell.AddParagraph(lstBillIneligibleTableRow[i].Bill_Date);
+                            cell.AddParagraph();
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            //if (lstBillIneligibleTableRow[i].Medical_Provider.Length > 25)
+                            //{
+                                //    cell.AddParagraph(lstBillIneligibleTableRow[i].Medical_Provider.Substring(0, 25) + " ...");
+                                //}
+                                //else
+                                //{
+                                //    cell.AddParagraph(lstBillIneligibleTableRow[i].Medical_Provider);
+                                //}
+                                cell.AddParagraph("합계");
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                                Double? BillAmount = 0;
+                                foreach (BillIneligibleRowBlueSheet row in lstBillIneligible)
+                                {
+                                    BillAmount += row.Bill_Amount;
+                                }
+
+                                cell = rowData.Cells[3];
+                                //cell.AddParagraph(BillAmount.Value.ToString("C"));
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Amount);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                //Double? IneligibleAmount = 0;
+                                //foreach (BillIneligibleRow row in lstBillIneligible)
+                                //{
+                                //    IneligibleAmount += row.Amount_Ineligible;
+                                //}
+
+                                cell = rowData.Cells[4];
+                                //cell.AddParagraph(IneligibleAmount.Value.ToString("C"));
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Amount_Ineligible);
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                                cell = rowData.Cells[5];
+                                //if (lstBillIneligibleTableRow[i].Ineligible_Reason.Length > 33)
+                                //{
+                                //    cell.AddParagraph(lstBillIneligibleTableRow[i].Ineligible_Reason.Substring(0, 33) + " ...");
+                                //}
+                                //{
+                                //    cell.AddParagraph(lstBillIneligibleTableRow[i].Ineligible_Reason);
+                                //}
+                                cell.AddParagraph();
+                                cell.Format.Font.Bold = true;
+                                cell.Format.Font.Name = "Malgun Gothic";
+                                cell.Format.Font.Size = 7;
+                                cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                                cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                            }
+                        }
+
+                        pdfDoc.LastSection.Add(tableIneligible);
+
+                    }
+                    // The end of tables
+
+                const bool unicode = true;
+                const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
+
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding);
+                pdfRenderer.Document = pdfDoc;
+                pdfRenderer.RenderDocument();
+
+
+                if (rbCheckBlueSheet.Checked)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                        //finally
+                        //{
+                        //    ChkInfoEntered = null;
+                        //}
+                    }
+                }
+                if (rbACHBlueSheet.Checked)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                        //finally
+                        //{
+                        //    ACHInfoEntered = null;
+                        //}
+                    }
+                }
+                if (rbCreditCardBlueSheet.Checked)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                        //finally
+                        //{
+                        //    ACHInfoEntered = null;
+                        //}
+                    }
+                }
+                //}
+                //else if (dlgResultDocReceivedDate == DialogResult.Cancel)
+                //{
+                //    return;
+                //}
+                
+            }
+            else if ((gvPersonalResponsibility.RowCount > 0) || (gvIneligibleNoSharing.RowCount > 0))
+            {
+
+                List<PersonalResponsibilityInfoBlueSheet> lstPersonalResponsibilityInfo = new List<PersonalResponsibilityInfoBlueSheet>();
+
+                for (int i = 0; i < gvPersonalResponsibility.Rows.Count; i++)
+                {
+                        PersonalResponsibilityInfoBlueSheet prInfo = new PersonalResponsibilityInfoBlueSheet();
+
+                    prInfo.MedBillName = gvPersonalResponsibility[0, i]?.Value.ToString();
+                    String BillDate = gvPersonalResponsibility[1, i]?.Value.ToString();
+                    if (BillDate != String.Empty) prInfo.BillDate = DateTime.Parse(BillDate);
+                    prInfo.MedicalProvider = gvPersonalResponsibility[2, i]?.Value.ToString();
+                    if (gvPersonalResponsibility[3, i] != null) prInfo.BillAmount = (Double)Decimal.Parse(gvPersonalResponsibility[3, i].Value.ToString().Substring(1));
+                    prInfo.Type = gvPersonalResponsibility[4, i]?.Value.ToString();
+                    if (gvPersonalResponsibility[5, i] != null) prInfo.PersonalResponsibilityTotal = (Double)Decimal.Parse(gvPersonalResponsibility[8, i].Value.ToString().Substring(1));
+
+                    lstPersonalResponsibilityInfo.Add(prInfo);
+                }
+
+                MigraDocDOM.Document pdfPersonalResponsibilityDoc = new MigraDocDOM.Document();
+
+                MigraDocDOM.Section section = pdfPersonalResponsibilityDoc.AddSection();
+
+                section.PageSetup.PageFormat = MigraDocDOM.PageFormat.Letter;
+                section.PageSetup.HeaderDistance = "0.25in";
+                section.PageSetup.TopMargin = "1.5in";
+                section.PageSetup.LeftMargin = "0.8in";
+                section.PageSetup.RightMargin = "0.8in";
+                section.PageSetup.BottomMargin = "0.5in";
+
+                section.PageSetup.DifferentFirstPageHeaderFooter = false;
+                section.Headers.Primary.Format.SpaceBefore = "0.25in";
+
+                //MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("C:\\Program Files (x86)\\RN\\RNManager\\cmmlogo.png");
+                MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("..\\cmmlogo.png");
+
+                image.Height = "0.8in";
+                image.LockAspectRatio = true;
+                image.RelativeVertical = MigraDocDOM.Shapes.RelativeVertical.Line;
+                image.RelativeHorizontal = MigraDocDOM.Shapes.RelativeHorizontal.Margin;
+                image.Top = MigraDocDOM.Shapes.ShapePosition.Top;
+                image.Left = MigraDocDOM.Shapes.ShapePosition.Center;
+                image.WrapFormat.Style = MigraDocDOM.Shapes.WrapStyle.TopBottom;
+
+                MigraDocDOM.Paragraph paraCMMAddress = section.Headers.Primary.AddParagraph();
+                paraCMMAddress.Format.Font.Name = "Arial";
+                paraCMMAddress.Format.Font.Size = 8;
+                paraCMMAddress.Format.SpaceBefore = "0.15in";
+                paraCMMAddress.Format.SpaceAfter = "0.25in";
+                paraCMMAddress.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                String strVerticalBar = " | ";
+                String strStreet = "5235 N. Elston Ave.";
+                String strCityStateZip = "Chicago, IL 60630";
+                String strPhone = "Phone 773.777.8889";
+                String strFax = "Fax 773.777.0004";
+                String strWebsiteAddr = "www.cmmlogos.org";
+
+                paraCMMAddress.AddFormattedText(strStreet, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strCityStateZip, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strPhone, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strFax, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strWebsiteAddr, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraToday = section.AddParagraph();
+                paraToday.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraToday.Format.Font.Name = "Arial";
+                paraToday.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraToday.Format.SpaceBefore = "0.25in";
+                paraToday.Format.SpaceAfter = "0.25in";
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+
+                MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
+
+                paraMembershipInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraMembershipInfo.Format.Font.Name = "Arial";
+                //paraMembershipInfo.Format.SpaceBefore = "0.70in";
+                paraMembershipInfo.Format.SpaceBefore = "0.20in";
+                paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                //paraMembershipInfo.Format.LeftIndent = "0.5in";
+                //paraMembershipInfo.Format.RightIndent = "0.5in";
+                paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraMembershipInfo.AddFormattedText("Primary Name: " + strPrimaryName + "\n");
+                if (strMembershipIdBlueSheet != String.Empty) paraMembershipInfo.AddFormattedText(strMembershipIdBlueSheet + " (" + strIndividualIDBlueSheet + ")\n");
+                else paraMembershipInfo.AddFormattedText(strIndividualIDBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strIndividualNameBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strStreetAddressBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strCityBlueSheet + ", " + strStateBlueSheet + " " + strZipBlueSheet + "\n");
+
+
+                MigraDocDOM.Paragraph paraDearMember = section.AddParagraph();
+                paraDearMember.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraDearMember.Format.Font.Name = "Malgun Gothic";
+                paraDearMember.Format.Font.Size = 8;
+                paraDearMember.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraDearMember.Format.LeftIndent = "0.5in";
+                //paraDearMember.Format.RightIndent = "0.5in";
+                paraDearMember.Format.SpaceBefore = "0.1in";
+                paraDearMember.Format.SpaceAfter = "0.1in";
+                //if (strIndividualMiddleName != String.Empty) paraDearMember.AddFormattedText(strIndividualLastName + ", " + strIndiviaualFirstName + " 회원께,");
+                //else paraDearMember.AddFormattedText(strIndividualLastName + ", " + strIndiviaualFirstName + " " + strIndividualMiddleName + " 회원께,");
+                paraDearMember.AddFormattedText(strIndividualNameBlueSheet + " 회원께,");
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                MigraDocDOM.Paragraph paraPRGreetingMessage1 = section.AddParagraph();
+
+                paraPRGreetingMessage1.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage1.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage1.Format.Font.Size = 8;
+                paraPRGreetingMessage1.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage1.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage.AddFormattedText(strGreetingMessage, TextFormat.NotBold);
+                paraPRGreetingMessage1.AddFormattedText(strPRGreetingMessagePara1, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage2 = section.AddParagraph();
+                paraPRGreetingMessage2.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage2.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage2.Format.Font.Size = 8;
+                paraPRGreetingMessage2.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage2.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage2.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage2.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage2.AddFormattedText(strPRGreetingMessagePara2, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage3 = section.AddParagraph();
+                paraPRGreetingMessage3.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage3.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage3.Format.Font.Size = 8;
+                paraPRGreetingMessage3.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage3.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage3.AddFormattedText(strPRGreetingMessagePara3, MigraDocDOM.TextFormat.NotBold);
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////
+                /// Program personal responsibility table
+                /// 
+
+                MigraDocDOM.Tables.Table tableProgramPRGuide = new MigraDocDOM.Tables.Table();
+                tableProgramPRGuide.Borders.Width = 0.1;
+                tableProgramPRGuide.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Column colProgram = tableProgramPRGuide.AddColumn(MigraDocDOM.Unit.FromInch(2));
+                colProgram.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                MigraDocDOM.Tables.Column colPersonalResponsibility = tableProgramPRGuide.AddColumn(MigraDocDOM.Unit.FromInch(4.8));
+                colPersonalResponsibility.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                MigraDocDOM.Tables.Row rowHeader = tableProgramPRGuide.AddRow();
+                rowHeader.Height = "0.2in";
+                rowHeader.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellProgramHeader = rowHeader.Cells[0];
+                cellProgramHeader.Format.Font.Bold = true;
+                cellProgramHeader.Format.Font.Size = 8;
+                cellProgramHeader.Format.Font.Name = "Malgun Gothic";
+                cellProgramHeader.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellProgramHeader.AddParagraph("프로그램");
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibility = rowHeader.Cells[1];
+                cellPersonalResponsibility.Format.Font.Bold = true;
+                cellPersonalResponsibility.Format.Font.Size = 8;
+                cellPersonalResponsibility.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellPersonalResponsibility.AddParagraph("본인부담금");
+
+                MigraDocDOM.Tables.Row rowBronze = tableProgramPRGuide.AddRow();
+                rowBronze.Height = "0.2in";
+                rowBronze.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellBronze = rowBronze.Cells[0];
+                cellBronze.Format.Font.Bold = false;
+                cellBronze.Format.Font.Size = 8;
+                cellBronze.Format.Font.Name = "Malgun Gothic";
+                cellBronze.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellBronze.AddParagraph("브론즈 Bronze");
+
+                MigraDocDOM.Tables.Cell cellBronzePR = rowBronze.Cells[1];
+                cellBronzePR.Format.Font.Bold = false;
+                cellBronzePR.Format.Font.Size = 8;
+                cellBronzePR.Format.Font.Name = "Malgun Gothic";
+                cellBronzePR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellBronzePR.AddParagraph("Incident당 $5,000");
+
+                MigraDocDOM.Tables.Row rowSilver = tableProgramPRGuide.AddRow();
+                rowSilver.Height = "0.2in";
+                rowSilver.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellSilver = rowSilver.Cells[0];
+                cellSilver.Format.Font.Bold = false;
+                cellSilver.Format.Font.Size = 8;
+                cellSilver.Format.Font.Name = "Malgun Gothic";
+                cellSilver.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellSilver.AddParagraph("실버 Silver");
+
+                MigraDocDOM.Tables.Cell cellSilverPR = rowSilver.Cells[1];
+                cellSilverPR.Format.Font.Bold = false;
+                cellSilverPR.Format.Font.Size = 8;
+                cellSilverPR.Format.Font.Name = "Malgun Gothic";
+                cellSilverPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellSilverPR.AddParagraph("Incident당 $1,000");
+
+                MigraDocDOM.Tables.Row rowGold = tableProgramPRGuide.AddRow();
+                rowGold.Height = "0.2in";
+                rowGold.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellGold = rowGold.Cells[0];
+                cellGold.Format.Font.Bold = false;
+                cellGold.Format.Font.Size = 8;
+                cellGold.Format.Font.Name = "Malgun Gothic";
+                cellGold.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGold.AddParagraph("골드 Gold");
+
+                MigraDocDOM.Tables.Cell cellGoldPR = rowGold.Cells[1];
+                cellGoldPR.Format.Font.Bold = false;
+                cellGoldPR.Format.Font.Size = 8;
+                cellGoldPR.Format.Font.Name = "Malgun Gothic";
+                cellGoldPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPR.AddParagraph("Incident당 $500");
+
+                MigraDocDOM.Tables.Row rowGoldPlus = tableProgramPRGuide.AddRow();
+                rowGoldPlus.Height = "0.2in";
+                rowGoldPlus.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellGoldPlus = rowGoldPlus.Cells[0];
+                cellGoldPlus.Format.Font.Bold = false;
+                cellGoldPlus.Format.Font.Size = 8;
+                cellGoldPlus.Format.Font.Name = "Malgun Gothic";
+                cellGoldPlus.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPlus.AddParagraph("골드플러스 Gold Plus");
+
+                MigraDocDOM.Tables.Cell cellGoldPlusPR = rowGoldPlus.Cells[1];
+                cellGoldPlusPR.Format.Font.Bold = false;
+                cellGoldPlusPR.Format.Font.Size = 8;
+                cellGoldPlusPR.Format.Font.Name = "Malgun Gothic";
+                cellGoldPlusPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPlusPR.AddParagraph("1년 $500");
+
+                pdfPersonalResponsibilityDoc.LastSection.Add(tableProgramPRGuide);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage4 = section.AddParagraph();
+                paraPRGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage4.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage4.Format.Font.Size = 8;
+                //paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage4.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage4.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage4.AddFormattedText(strPRGreetingMessagePara4, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage5 = section.AddParagraph();
+                paraPRGreetingMessage5.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage5.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage5.Format.Font.Size = 8;
+                //paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage4.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage5.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage5.AddFormattedText(strPRGreetingMessagePara5, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage6 = section.AddParagraph();
+                paraPRGreetingMessage6.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage6.Format.Font.Name = "Malgun Gothic";
+                paraPRGreetingMessage6.Format.Font.Size = 8;
+                //paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage4.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage6.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage6.AddFormattedText(strPRGreetingMessagePara6, MigraDocDOM.TextFormat.NotBold);
+
+
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                MigraDocDOM.Paragraph paraNeedsProcessing = section.AddParagraph();
+
+                paraNeedsProcessing.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraNeedsProcessing.Format.Font.Name = "Arial";
+                paraNeedsProcessing.Format.Font.Size = 8;
+                paraNeedsProcessing.Format.Font.Bold = true;
+                paraNeedsProcessing.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraNeedsProcessing.Format.SpaceBefore = "0.2in";
+                //paraNeedsProcessing.Format.LeftIndent = "0.5in";
+                //paraNeedsProcessing.Format.RightIndent = "0.5in";
+                paraNeedsProcessing.AddFormattedText(strCMM_NeedProcessing + "\n");
+
+                MigraDocDOM.Paragraph paraPhoneFaxEmail = section.AddParagraph();
+                paraPhoneFaxEmail.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPhoneFaxEmail.Format.Font.Size = 8;
+                paraPhoneFaxEmail.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraPhoneFaxEmail.Format.LeftIndent = "0.5in";
+                paraPhoneFaxEmail.Format.RightIndent = "0.5in";
+                paraPhoneFaxEmail.AddFormattedText(strNP_Phone_Fax_Email + "\n");
+
+                MigraDocDOM.Paragraph paraHorizontalLine = section.AddParagraph();
+
+                paraHorizontalLine.Format.SpaceBefore = "0.05in";
+                paraHorizontalLine.Format.SpaceAfter = "0.05in";
+                paraHorizontalLine.Format.Borders.Top.Width = 0;
+                paraHorizontalLine.Format.Borders.Left.Width = 0;
+                paraHorizontalLine.Format.Borders.Right.Width = 0;
+                paraHorizontalLine.Format.Borders.Bottom.Width = 1;
+                paraHorizontalLine.Format.Borders.Bottom.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraHorizontalLine.Format.Borders.Style = MigraDocDOM.BorderStyle.DashDot;
+
+                MigraDocDOM.Paragraph paraNPStatement = section.AddParagraph();
+                paraNPStatement.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                paraNPStatement.Format.Font.Name = "Malgun Gothic";
+                paraNPStatement.Format.Font.Size = 12;
+                paraNPStatement.Format.Font.Bold = true;
+                paraNPStatement.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                paraNPStatement.Format.SpaceAfter = "0.1in";
+
+                //paraNPStatement.AddFormattedText("본인 부담금 또는 지원 불가 의료비 내역서\n", TextFormat.Bold);
+                paraNPStatement.AddFormattedText("본인 부담금 내역서\n", MigraDocDOM.TextFormat.Bold);
+
+                MigraDocDOM.Paragraph paraPersonalResponsibilityTotal = section.AddParagraph();
+                paraPersonalResponsibilityTotal.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPersonalResponsibilityTotal.Format.Font.Name = "Arial";
+                paraPersonalResponsibilityTotal.Format.Font.Size = 8;
+                paraPersonalResponsibilityTotal.Format.Font.Bold = true;
+                paraPersonalResponsibilityTotal.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraPersonalResponsibilityTotal.Format.SpaceBefore = "0.2in";
+                //paraPersonalResponsibilityTotal.Format.SpaceAfter = "0.2in";
+
+                paraPersonalResponsibilityTotal.AddFormattedText("Incident Occurrence Date: " + PersonalResponsibilityTotalEnteredBlueSheet.IncidentOccurrenceDate.Value.ToString("MM/dd/yyyy"));
+
+                //paraPersonalResponsibilityTotal.AddFormattedText("Incident Occurrence Date: " + PersonalResponsibilityTotalEntered.IncidentOccurrenceDate.Value.ToString("MM/dd/yyyy") + "\t" +
+                //                                 "Personal Responsibility Total: " + PersonalResponsibilityTotalEntered.PersonalResponsibilityTotal.ToString("C"));
+
+
+                paraPersonalResponsibilityTotal.Format.SpaceAfter = "0.05in";
+
+                MigraDocDOM.Paragraph paraPersonalResponsibilityTitle = section.AddParagraph();
+                paraPersonalResponsibilityTitle.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPersonalResponsibilityTitle.Format.Font.Name = "Malgun Gothic";
+                paraPersonalResponsibilityTitle.Format.Font.Size = 7;
+                paraPersonalResponsibilityTitle.Format.Font.Bold = true;
+                paraPersonalResponsibilityTitle.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraPersonalResponsibilityTitle.Format.SpaceBefore = "0.18in";
+                paraPersonalResponsibilityTitle.Format.SpaceAfter = "0.05in";
+                paraPersonalResponsibilityTitle.AddFormattedText("본인부담금", MigraDocDOM.TextFormat.Bold);
+
+
+                //Paragraph paraIncidentInfo = section.AddParagraph();
+                //paraIncidentInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                //paraIncidentInfo.Format.Font.Name = "Arial";
+                //paraIncidentInfo.Format.Font.Size = 8;
+                //paraIncidentInfo.Format.Font.Bold = true;
+                //paraIncidentInfo.Format.Alignment = ParagraphAlignment.Left;
+                //paraIncidentInfo.Format.SpaceBefore = "0.2in";
+                //paraIncidentInfo.Format.SpaceAfter = "0.2in";
+
+                //if (lstIncidents.Count > 0)
+                //{
+
+                //    // 09/18/18 begin here
+                //    Paragraph paraIncd = section.AddParagraph();
+
+                //    paraIncd.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                //    paraIncd.Format.Font.Name = "Malgun Gothic";
+                //    paraIncd.Format.Font.Size = 8;
+                //    paraIncd.Format.Font.Bold = true;
+                //    paraIncd.Format.SpaceAfter = "1in";
+
+                //    MigraDocDOM.Tables.Table tableIncd = new MigraDocDOM.Tables.Table();
+                //    tableIncd.Borders.Width = 0;
+                //    tableIncd.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                //    tableIncd.Format.SpaceAfter = "0.05in";
+
+                //    MigraDocDOM.Tables.Column colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(0.85));
+                //    colINCD.Format.Alignment = ParagraphAlignment.Left;
+                //    colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(4.5));
+                //    colINCD.Format.Alignment = ParagraphAlignment.Left;
+
+                //    foreach (Incident incd in lstIncidents)
+                //    {
+                //        //nRowHeight += 18;
+
+                //        MigraDocDOM.Tables.Row IncdRow = tableIncd.AddRow();
+                //        IncdRow.Height = "0.1in";
+                //        IncdRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                //        MigraDocDOM.Tables.Cell cellIncdName = IncdRow.Cells[0];
+                //        cellIncdName.Format.Font.Bold = true;
+                //        cellIncdName.Format.Font.Size = 8;
+                //        //cellIncdName.Format.Font.Name = "Malgun Gothic";
+                //        cellIncdName.Format.Font.Name = "Arial";
+                //        cellIncdName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                //        cellIncdName.AddParagraph(incd.Name + ": ");
+
+                //        MigraDocDOM.Tables.Cell cellICD10Code = IncdRow.Cells[1];
+                //        cellICD10Code.Format.Font.Bold = true;
+                //        cellICD10Code.Format.Font.Size = 8;
+                //        //cellICD10Code.Format.Font.Name = "Malgun Gothic";
+                //        cellIncdName.Format.Font.Name = "Arial";
+                //        cellICD10Code.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                //        cellICD10Code.AddParagraph(incd.ICD10_Code);
+                //    }
+
+                //    pdfPersonalResponsibilityDoc.LastSection.Add(tableIncd);
+                //}
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                MigraDocDOM.Tables.Table tablePersonalResponsibility = new MigraDocDOM.Tables.Table();
+                tablePersonalResponsibility.Borders.Width = 0.1;
+                tablePersonalResponsibility.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Column colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.6));  // Med bill
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.7));        // 서비스 날짜
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.8));        // Medical Provider
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.8));        // Bill Amount
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.3));        // Type
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.5));        // Personal Responsibility Total
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                // generate row for personal responsibility table
+                MigraDocDOM.Tables.Row prRow = tablePersonalResponsibility.AddRow();
+                prRow.Height = "0.31in";
+                prRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityMedBill = prRow.Cells[0];
+                cellPersonalResponsibilityMedBill.AddParagraph("MEDBILL");
+                cellPersonalResponsibilityMedBill.Format.Font.Bold = true;
+                cellPersonalResponsibilityMedBill.Format.Font.Size = 7;
+                cellPersonalResponsibilityMedBill.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityBillDate = prRow.Cells[1];
+                cellPersonalResponsibilityBillDate.AddParagraph("서비스 날짜");
+                cellPersonalResponsibilityBillDate.Format.Font.Bold = true;
+                cellPersonalResponsibilityBillDate.Format.Font.Size = 7;
+                cellPersonalResponsibilityBillDate.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityMedicalProvider = prRow.Cells[2];
+                cellPersonalResponsibilityMedicalProvider.AddParagraph("의료기관명");
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Bold = true;
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Size = 7;
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityBillAmount = prRow.Cells[3];
+                cellPersonalResponsibilityBillAmount.AddParagraph("청구액(원금)");
+                cellPersonalResponsibilityBillAmount.Format.Font.Bold = true;
+                cellPersonalResponsibilityBillAmount.Format.Font.Size = 7;
+                cellPersonalResponsibilityBillAmount.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityType = prRow.Cells[4];
+                cellPersonalResponsibilityType.AddParagraph("Type");
+                cellPersonalResponsibilityType.Format.Font.Bold = true;
+                cellPersonalResponsibilityType.Format.Font.Size = 7;
+                cellPersonalResponsibilityType.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityType.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityTotal = prRow.Cells[5];
+                cellPersonalResponsibilityTotal.AddParagraph("Personal Responsibility Total");
+                cellPersonalResponsibilityTotal.Format.Font.Bold = true;
+                cellPersonalResponsibilityTotal.Format.Font.Size = 7;
+                cellPersonalResponsibilityTotal.Format.Font.Name = "Malgun Gothic";
+                cellPersonalResponsibilityTotal.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+
+                for (int i = 0; i < lstPersonalResponsibilityInfo.Count; i++)
+                {
+                    if (i < lstPersonalResponsibilityInfo.Count - 1)
+                    {
+                        MigraDocDOM.Tables.Row rowData = tablePersonalResponsibility.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                        rowData.Height = "0.18in";
+
+                        MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedBillName.Substring(8));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[1];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[2];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedicalProvider);
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[3];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillAmount.ToString("C"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        cell = rowData.Cells[4];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].Type);
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[5];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].PersonalResponsibilityTotal.ToString("C"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                    }
+                    else if (i == lstPersonalResponsibilityInfo.Count - 1)
+                    {
+                        MigraDocDOM.Tables.Row rowData = tablePersonalResponsibility.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                        rowData.Height = "0.2in";
+
+                        MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedBillName);
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[1];
+                        if (lstPersonalResponsibilityInfo[i].BillDate != null) cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[2];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedicalProvider);
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[3];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillAmount.ToString("C"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        cell = rowData.Cells[4];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].Type);
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[5];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].PersonalResponsibilityTotal.ToString("C"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Malgun Gothic";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                    }
+                }
+
+                pdfPersonalResponsibilityDoc.LastSection.Add(tablePersonalResponsibility);
+
+                MigraDocDOM.Paragraph verticalSpace = section.AddParagraph();
+
+                verticalSpace.Format.SpaceBefore = "0.05in";
+                //verticalSpace.Format.SpaceAfter = "0.1in";
+
+                // put No PR, No Sharing code for generating pdf here
+
+                if (gvIneligibleNoSharing.Rows.Count > 0)
+                {
+                    List<SettlementIneligibleInfoBlueSheet> lstMedBillNoPRNoSharing = new List<SettlementIneligibleInfoBlueSheet>();
+
+                    for (int i = 0; i < gvIneligibleNoSharing.Rows.Count; i++)
+                    {
+                        SettlementIneligibleInfoBlueSheet info = new SettlementIneligibleInfoBlueSheet();
+
+                        //String BillDate = gvPersonalResponsibility[1, i]?.Value.ToString();
+                        //if (BillDate != String.Empty) prInfo.BillDate = DateTime.Parse(BillDate);
+
+
+                        info.MedBillName = gvIneligibleNoSharing["MEDBILL", i]?.Value.ToString();
+                        //info.BillDate = DateTime.Parse(gvIneligibleNoSharing["서비스 날짜", i].Value.ToString());
+                        String BillDate = gvIneligibleNoSharing["서비스 날짜", i]?.Value.ToString();
+                        if (BillDate != String.Empty) info.BillDate = DateTime.Parse(BillDate);
+
+                        info.MedicalProvider = gvIneligibleNoSharing["의료기관명", i]?.Value.ToString();
+                        info.BillAmount = Double.Parse(gvIneligibleNoSharing["청구액(원금)", i]?.Value.ToString().Substring(1));
+                        info.Type = gvIneligibleNoSharing["Type", i]?.Value.ToString();
+                        info.IneligibleAmount = Double.Parse(gvIneligibleNoSharing["지원불가 의료비", i]?.Value.ToString().Substring(1));
+                        info.IneligibleReason = gvIneligibleNoSharing["지원불가 사유", i]?.Value.ToString();
+
+                        lstMedBillNoPRNoSharing.Add(info);
+                    }
+
+                    MigraDocDOM.Paragraph paraIneligibleTitle = section.AddParagraph();
+                    paraIneligibleTitle.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                    paraIneligibleTitle.Format.Font.Name = "Malgun Gothic";
+                    paraIneligibleTitle.Format.Font.Size = 7;
+                    paraIneligibleTitle.Format.Font.Bold = true;
+                    paraIneligibleTitle.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                    paraIneligibleTitle.Format.SpaceAfter = "0.05in";
+                    paraIneligibleTitle.AddFormattedText("지원불가 의료비", MigraDocDOM.TextFormat.Bold);
+
+
+                    MigraDocDOM.Tables.Table tableIneligibleNoPR = new MigraDocDOM.Tables.Table();
+                    tableIneligibleNoPR.Borders.Width = 0.1;
+                    tableIneligibleNoPR.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Column colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(1.7));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                    colIneligibleNoPR = tableIneligibleNoPR.AddColumn(MigraDocDOM.Unit.FromInch(1.4));
+                    colIneligibleNoPR.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row ineligibleRow = tableIneligibleNoPR.AddRow();
+                    ineligibleRow.Height = "0.31in";
+                    ineligibleRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRMedBill = ineligibleRow.Cells[0];
+                    cellIneligibleNoPRMedBill.AddParagraph("MEDBILL");
+                    cellIneligibleNoPRMedBill.Format.Font.Bold = true;
+                    cellIneligibleNoPRMedBill.Format.Font.Size = 7;
+                    cellIneligibleNoPRMedBill.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleNoPRMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRBillDate = ineligibleRow.Cells[1];
+                    cellIneligibleNoPRBillDate.AddParagraph("서비스 날짜");
+                    cellIneligibleNoPRBillDate.Format.Font.Bold = true;
+                    cellIneligibleNoPRBillDate.Format.Font.Size = 7;
+                    cellIneligibleNoPRBillDate.Format.Font.Name = "Malgun Gothic";
+                    cellIneligibleNoPRBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRMedicalProvider = ineligibleRow.Cells[2];
+                    cellIneligibleNoPRMedicalProvider.AddParagraph("의료기관명");
+                    cellIneligibleNoPRMedicalProvider.Format.Font.Bold = true;
+                    cellIneligibleNoPRMedicalProvider.Format.Font.Size = 7;
+                    cellIneligibleNoPRMedicalProvider.Format.Font.Name = "Malgun Gothic";
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRBillAmount = ineligibleRow.Cells[3];
+                    cellIneligibleNoPRBillAmount.AddParagraph("청구액(원금)");
+                    cellIneligibleNoPRBillAmount.Format.Font.Bold = true;
+                    cellIneligibleNoPRBillAmount.Format.Font.Size = 7;
+                    cellIneligibleNoPRBillAmount.Format.Font.Name = "Malgun Gothic";
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRType = ineligibleRow.Cells[4];
+                    cellIneligibleNoPRType.AddParagraph("Type");
+                    cellIneligibleNoPRType.Format.Font.Bold = true;
+                    cellIneligibleNoPRType.Format.Font.Size = 7;
+                    cellIneligibleNoPRType.Format.Font.Name = "Malgun Gothic";
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRIneligibleAmount = ineligibleRow.Cells[5];
+                    cellIneligibleNoPRIneligibleAmount.AddParagraph("지원불가 의료비");
+                    cellIneligibleNoPRIneligibleAmount.Format.Font.Bold = true;
+                    cellIneligibleNoPRIneligibleAmount.Format.Font.Size = 7;
+                    cellIneligibleNoPRIneligibleAmount.Format.Font.Name = "Malgun Gothic";
+
+                    MigraDocDOM.Tables.Cell cellIneligibleNoPRIneligibleReason = ineligibleRow.Cells[6];
+                    cellIneligibleNoPRIneligibleReason.AddParagraph("지원불가 사유");
+                    cellIneligibleNoPRIneligibleReason.Format.Font.Bold = true;
+                    cellIneligibleNoPRIneligibleReason.Format.Font.Size = 7;
+                    cellIneligibleNoPRIneligibleReason.Format.Font.Name = "Malgun Gothic";
+
+                    for (int i = 0; i < lstMedBillNoPRNoSharing.Count; i++)
+                    {
+                        if (i < lstMedBillNoPRNoSharing.Count - 1)
+                        {
+                            MigraDocDOM.Tables.Row rowData = tableIneligibleNoPR.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                            rowData.Height = "0.18in";
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].MedBillName.Substring(8));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].MedicalProvider);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].BillAmount.ToString("C"));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].Type);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].IneligibleAmount.Value.ToString("C"));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].IneligibleReason);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                        }
+                        else if (i == lstMedBillNoPRNoSharing.Count - 1)
+                        {
+                            MigraDocDOM.Tables.Row rowData = tableIneligibleNoPR.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                            rowData.Height = "0.18in";
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].MedBillName);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            if (lstMedBillNoPRNoSharing[i].BillDate != null) cell.AddParagraph(lstMedBillNoPRNoSharing[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].MedicalProvider);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].BillAmount.ToString("C"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].Type);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].IneligibleAmount.Value.ToString("C"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstMedBillNoPRNoSharing[i].IneligibleReason);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Malgun Gothic";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                        }
+                    }
+                    pdfPersonalResponsibilityDoc.LastSection.Add(tableIneligibleNoPR);
+
+                }
+
+
+
+                const bool unicode = true;
+                const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
+
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding);
+                pdfRenderer.Document = pdfPersonalResponsibilityDoc;
+                pdfRenderer.RenderDocument();
+
+
+                if (txtIncidentNoBlueSheet.Text.Trim() != String.Empty)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + DateTime.Today.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                        //finally
+                        //{
+                        //    ChkInfoEntered = null;
+                        //}
+                    }
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("No table is populated", "Error");
+            }
+        }
+
+        private void btnGenerateEnglishPDFBlueSheet_Click(object sender, EventArgs e)
+        {
+            if ((gvSharedMedBillBlueSheet.RowCount > 0) || 
+                (gvCMMPendingPaymentBlueSheet.RowCount > 0) || 
+                (gvPendingBlueSheet.RowCount > 0) || 
+                (gvIneligibleBlueSheet.RowCount > 0))
+            {
+
+                //DateTime? dtDocReceivedDate = null;
+
+                //frmDocReceivedDate frmDocumentReceivedDate = new frmDocReceivedDate();
+
+                //frmDocumentReceivedDate.StartPosition = FormStartPosition.CenterParent;
+
+                //var dlgResultDocReceivedDate = frmDocumentReceivedDate.ShowDialog();
+
+                //if (dlgResultDocReceivedDate == DialogResult.OK)
+                //{
+                //dtDocReceivedDate = frmDocumentReceivedDate.ReceivedDate;
+
+                MigraDocDOM.Document pdfDoc = new MigraDocDOM.Document();
+
+                MigraDocDOM.Section section = pdfDoc.AddSection();
+                pdfDoc.UseCmykColor = true;
+
+                section.PageSetup.PageFormat = MigraDocDOM.PageFormat.Letter;
+                section.PageSetup.HeaderDistance = "0.25in";
+                section.PageSetup.TopMargin = "1.5in";
+                //section.PageSetup.LeftMargin = "0.3in";
+                //section.PageSetup.RightMargin = "0.3in";
+                section.PageSetup.LeftMargin = "0.8in";
+                section.PageSetup.RightMargin = "0.8in";
+
+                section.PageSetup.BottomMargin = "0.5in";
+
+                section.PageSetup.DifferentFirstPageHeaderFooter = false;
+                section.Headers.Primary.Format.SpaceBefore = "0.25in";
+
+                MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("C:\\Program Files (x86)\\RN\\RNManager\\cmmlogo.png");
+
+                image.Height = "0.8in";
+                image.LockAspectRatio = true;
+                image.RelativeVertical = MigraDocDOM.Shapes.RelativeVertical.Line;
+                image.RelativeHorizontal = MigraDocDOM.Shapes.RelativeHorizontal.Margin;
+                image.Top = MigraDocDOM.Shapes.ShapePosition.Top;
+                image.Left = MigraDocDOM.Shapes.ShapePosition.Center;
+                image.WrapFormat.Style = MigraDocDOM.Shapes.WrapStyle.TopBottom;
+
+                MigraDocDOM.Paragraph paraCMMAddress = section.Headers.Primary.AddParagraph();
+                paraCMMAddress.Format.Font.Name = "Arial";
+                paraCMMAddress.Format.Font.Size = 8;
+                paraCMMAddress.Format.SpaceBefore = "0.15in";
+                paraCMMAddress.Format.SpaceAfter = "0.25in";
+                //paraCMMAddress.Format.LeftIndent = "0.5in";
+                //paraCMMAddress.Format.RightIndent = "0.5in";
+                paraCMMAddress.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                String strVerticalBar = " | ";
+                String strStreet = "5235 N. Elston Ave.";
+                String strCityStateZip = "Chicago, IL 60630";
+                String strPhone = "Phone 773.777.8889";
+                String strFax = "773.777.0004";
+                String strWebsiteAddr = "www.cmmlogos.org";
+
+                paraCMMAddress.AddFormattedText(strStreet, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strCityStateZip, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strPhone, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strFax, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strWebsiteAddr, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraToday = section.AddParagraph();
+                paraToday.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraToday.Format.Font.Name = "Arial";
+                paraToday.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraToday.Format.SpaceBefore = "0.25in";
+                paraToday.Format.SpaceAfter = "0.25in";
+                //paraToday.Format.LeftIndent = "0.5in";
+                //paraToday.Format.RightIndent = "0.5in";
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+
+                MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
+
+                paraMembershipInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraMembershipInfo.Format.Font.Name = "Arial";
+                //paraMembershipInfo.Format.SpaceBefore = "0.7in";
+                paraMembershipInfo.Format.SpaceBefore = "0.2in";
+                paraMembershipInfo.Format.SpaceAfter = "0.2in";
+                //paraMembershipInfo.Format.LeftIndent = "0.5in";
+                //paraMembershipInfo.Format.RightIndent = "0.5in";
+                paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                if (strMembershipIdBlueSheet != String.Empty) paraMembershipInfo.AddFormattedText(strMembershipIdBlueSheet + " (" + strIndividualIDBlueSheet + ")\n");
+                else paraMembershipInfo.AddFormattedText(strIndividualIDBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strIndividualNameBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strStreetAddressBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strCityBlueSheet + ", " + strStateBlueSheet + " " + strZipBlueSheet + "\n");
+
+
+                MigraDocDOM.Paragraph paraDearMember = section.AddParagraph();
+                paraDearMember.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraDearMember.Format.Font.Name = "Arial";
+                paraDearMember.Format.Font.Size = 9;
+                paraDearMember.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraDearMember.Format.LeftIndent = "0.5in";
+                //paraDearMember.Format.RightIndent = "0.5in";
+                paraDearMember.Format.SpaceBefore = "0.1in";
+                paraDearMember.Format.SpaceAfter = "0.1in";
+                //paraDearMember.AddFormattedText(strPrimaryName + "회원(가족)께,");
+                paraDearMember.AddFormattedText(strDearMember + " " + strIndividualNameBlueSheet.Trim() + ", ");
+
+
+                MigraDocDOM.Paragraph paraGreetingMessage = section.AddParagraph();
+
+                paraGreetingMessage.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage.Format.Font.Name = "Arial";
+                paraGreetingMessage.Format.Font.Size = 9;
+                //paraGreetingMessage.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage.Format.RightIndent = "0.5in";
+                paraGreetingMessage.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage.AddFormattedText(strGreetingMessage, TextFormat.NotBold);
+                //paraGreetingMessage.AddFormattedText(strGreetingMessagePara1, TextFormat.NotBold);
+                paraGreetingMessage.AddFormattedText(strEnglishGreetingMessage1, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage2 = section.AddParagraph();
+                paraGreetingMessage2.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage2.Format.Font.Name = "Arial";
+                paraGreetingMessage2.Format.Font.Size = 9;
+                //paraGreetingMessage2.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage2.Format.RightIndent = "0.5in";
+                paraGreetingMessage2.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage2.AddFormattedText(strGreetingMessagePara2, TextFormat.NotBold);
+                paraGreetingMessage2.AddFormattedText(strEnglishGreetingMessage2, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage3 = section.AddParagraph();
+                paraGreetingMessage3.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage3.Format.Font.Name = "Arial";
+                paraGreetingMessage3.Format.Font.Size = 9;
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraGreetingMessage3.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage3.AddFormattedText(strGreetingMessagePara3, TextFormat.NotBold);
+                paraGreetingMessage3.AddFormattedText(strEnglishGreetingMessage3, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraGreetingMessage4 = section.AddParagraph();
+                paraGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraGreetingMessage4.Format.Font.Name = "Arial";
+                paraGreetingMessage4.Format.Font.Size = 9;
+                //paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage4.Format.RightIndent = "0.5in";
+                paraGreetingMessage4.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage4.AddFormattedText(strGreetingMessagePara4, TextFormat.NotBold);
+                paraGreetingMessage4.AddFormattedText(strEnglishGreetingMessage4, MigraDocDOM.TextFormat.NotBold);
+
+
+
+                MigraDocDOM.Paragraph paraNeedsProcessing = section.AddParagraph();
+
+                paraNeedsProcessing.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraNeedsProcessing.Format.Font.Name = "Arial";
+                paraNeedsProcessing.Format.Font.Size = 9;
+                paraNeedsProcessing.Format.Font.Bold = true;
+                paraNeedsProcessing.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraNeedsProcessing.Format.SpaceBefore = "0.1in";
+                //paraNeedsProcessing.Format.LeftIndent = "0.5in";
+                //paraNeedsProcessing.Format.RightIndent = "0.5in";
+                paraNeedsProcessing.AddFormattedText(strCMM_NeedProcessing + "\n");
+
+                MigraDocDOM.Paragraph paraPhoneFaxEmail = section.AddParagraph();
+                paraPhoneFaxEmail.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPhoneFaxEmail.Format.Font.Size = 9;
+                paraPhoneFaxEmail.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraPhoneFaxEmail.Format.LeftIndent = "0.5in";
+                //paraPhoneFaxEmail.Format.RightIndent = "0.5in";
+                paraPhoneFaxEmail.AddFormattedText(strNP_Phone_Fax_Email + "\n");
+
+                MigraDocDOM.Paragraph paraHorizontalLine = section.AddParagraph();
+
+                paraHorizontalLine.Format.SpaceBefore = "0.05in";
+                paraHorizontalLine.Format.SpaceAfter = "0.05in";
+                paraHorizontalLine.Format.Borders.Top.Width = 0;
+                paraHorizontalLine.Format.Borders.Left.Width = 0;
+                paraHorizontalLine.Format.Borders.Right.Width = 0;
+                paraHorizontalLine.Format.Borders.Bottom.Width = 1;
+                paraHorizontalLine.Format.Borders.Bottom.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraHorizontalLine.Format.Borders.Style = MigraDocDOM.BorderStyle.DashDot;
+
+                MigraDocDOM.Paragraph paraNPStatement = section.AddParagraph();
+                paraNPStatement.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                paraNPStatement.Format.Font.Name = "Arial";
+                paraNPStatement.Format.Font.Size = 9;
+                paraNPStatement.Format.Font.Bold = true;
+                paraNPStatement.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                paraNPStatement.Format.SpaceAfter = "0.1in";
+
+                paraNPStatement.AddFormattedText("Needs Processing Statement\n", MigraDocDOM.TextFormat.Bold);
+
+                MigraDocDOM.Paragraph paraCheckInfo = section.AddParagraph();
+                paraCheckInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraCheckInfo.Format.Font.Name = "Arial";
+                paraCheckInfo.Format.Font.Size = 9;
+                paraCheckInfo.Format.Font.Bold = true;
+                paraCheckInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraCheckInfo.Format.SpaceBefore = "0.1in";
+                //paraCheckInfo.Format.SpaceAfter = "0.1in";
+
+                //if (ChkInfoEntered != null)
+                if (rbCheckBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
+                                                    "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                                                    "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+
+                    //ChkInfoEntered = null;
+                }
+                else if (rbACHBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Issue Date: " + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM/dd/yyyy") +
+                                                    "\tACH No: " + ACHInfoEnteredBlueSheet.ACHNumber +
+                                                    "\tACH Amount: " + ACHInfoEnteredBlueSheet.ACHAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + ACHInfoEnteredBlueSheet.PaidTo);
+                }
+                else if (rbCreditCardBlueSheet.Checked)
+                {
+                    paraCheckInfo.AddFormattedText("Date:" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM/dd/yyyy") +
+                                                    "\tCredit Card Payment Amount: " + CreditCardPaymentEnteredBlueSheet.CCPaymentAmount.Value.ToString("C") +
+                                                    "\tPaid To: " + CreditCardPaymentEnteredBlueSheet.PaidTo);
+                }
+
+                //int nRowHeight = 338;
+                //int nRowHeight = 302;
+                int nRowHeight = 296;
+
+                if (lstIncidentsBlueSheet.Count > 0)
+                {
+                    MigraDocDOM.Paragraph paraIncd = section.AddParagraph();
+
+                    paraIncd.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                    paraIncd.Format.Font.Name = "Arial";
+                    paraIncd.Format.Font.Size = 8;
+                    paraIncd.Format.Font.Bold = true;
+
+                    MigraDocDOM.Tables.Table tableIncd = new MigraDocDOM.Tables.Table();
+                    tableIncd.Borders.Width = 0;
+                    tableIncd.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Column colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(0.85));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                    //colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(1));
+                    //colINCD.Format.Alignment = ParagraphAlignment.Left;
+                    colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(3.5));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                    foreach (IncidentBlueSheet incd in lstIncidentsBlueSheet)
+                    {
+                        nRowHeight += 18;
+
+                        MigraDocDOM.Tables.Row IncdRow = tableIncd.AddRow();
+                        IncdRow.Height = "0.15in";
+                        IncdRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        MigraDocDOM.Tables.Cell cellIncdName = IncdRow.Cells[0];
+                        cellIncdName.Format.Font.Bold = true;
+                        cellIncdName.Format.Font.Size = 8;
+                        cellIncdName.Format.Font.Name = "Arial";
+                        cellIncdName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellIncdName.AddParagraph(incd.Name + ": ");
+
+                        //MigraDocDOM.Tables.Cell cellPatientName = IncdRow.Cells[1];
+                        //cellPatientName.Format.Font.Bold = true;
+                        //cellPatientName.Format.Font.Size = 8;
+                        //cellPatientName.Format.Font.Name = "Arial";
+                        //cellPatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        //if (incd.PatientName.Length > 11)
+                        //{
+                        //    cellPatientName.AddParagraph(incd.PatientName.Substring(0, 11) + " ...");
+                        //}
+                        //else cellPatientName.AddParagraph(incd.PatientName);
+
+                        MigraDocDOM.Tables.Cell cellICD10Code = IncdRow.Cells[1];
+                        cellICD10Code.Format.Font.Bold = true;
+                        cellICD10Code.Format.Font.Size = 8;
+                        cellICD10Code.Format.Font.Name = "Arial";
+                        cellICD10Code.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellICD10Code.AddParagraph(incd.ICD10_Code);
+                    }
+
+                    pdfDoc.LastSection.Add(tableIncd);
+                }
+
+                //section.AddParagraph();
+                //lstPaidMedicalExpenseTableRow.Clear();
+
+                if (gvSharedMedBillBlueSheet.RowCount > 0)
+                {
+
+                    section.AddParagraph();
+                    lstPaidMedicalExpenseTableRowBlueSheet.Clear();
+
+                    //nRowHeight += 30;
+                    nRowHeight += 22;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    //paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceBefore = "0.08in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                    paraSpaceBefore.Format.Font.Name = "Arial";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("Processed Medical Bill(s)", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvSharedMedBillBlueSheet.RowCount; nRow++)
+                    {
+                        PaidMedicalExpenseTableRowBlueSheet expenseRow = new PaidMedicalExpenseTableRowBlueSheet();
+
+                        //if (nRow < gvBillPaid.RowCount - 1)
+                        //{
+                        //    expenseRow.PatientName = gvBillPaid[1, nRow].Value.ToString();
+                        //    expenseRow.MED_BILL = gvBillPaid[2, nRow].Value.ToString();
+                        //    //expenseRow.Bill_Date = gvBillPaid[3, nRow].Value.ToString();
+                        //    expenseRow.Bill_Date = DateTime.Parse(gvBillPaid[3, nRow].Value.ToString());
+                        //    expenseRow.Medical_Provider = gvBillPaid[4, nRow].Value.ToString();
+                        //    expenseRow.Bill_Amount = gvBillPaid[5, nRow].Value.ToString();
+                        //    expenseRow.Personal_Responsibility = gvBillPaid[6, nRow].Value.ToString();
+                        //    expenseRow.Member_Discount = gvBillPaid[7, nRow].Value.ToString();
+                        //    expenseRow.CMM_Discount = gvBillPaid[8, nRow].Value.ToString();
+                        //    expenseRow.CMM_Provider_Payment = gvBillPaid[9, nRow].Value.ToString();
+                        //    expenseRow.PastReimbursement = gvBillPaid[10, nRow].Value.ToString();
+                        //    expenseRow.Reimbursement = gvBillPaid[11, nRow].Value.ToString();
+                        //    expenseRow.Balance = gvBillPaid[12, nRow].Value.ToString();
+
+                        //}
+                        //if (nRow == gvBillPaid.RowCount - 1)
+                        //{
+                        expenseRow.PatientName = gvSharedMedBillBlueSheet[1, nRow].Value.ToString();
+                        expenseRow.MED_BILL = gvSharedMedBillBlueSheet[2, nRow].Value.ToString();
+                        if (gvSharedMedBillBlueSheet[3, nRow].Value.ToString() != String.Empty) expenseRow.Bill_Date = DateTime.Parse(gvSharedMedBillBlueSheet[3, nRow].Value.ToString());
+                        expenseRow.Medical_Provider = gvSharedMedBillBlueSheet[4, nRow].Value.ToString();
+                        expenseRow.Bill_Amount = gvSharedMedBillBlueSheet[5, nRow].Value.ToString();
+                        expenseRow.Personal_Responsibility = gvSharedMedBillBlueSheet[6, nRow].Value.ToString();
+                        expenseRow.Member_Discount = gvSharedMedBillBlueSheet[7, nRow].Value.ToString();
+                        expenseRow.CMM_Discount = gvSharedMedBillBlueSheet[8, nRow].Value.ToString();
+                        expenseRow.CMM_Provider_Payment = gvSharedMedBillBlueSheet[9, nRow].Value.ToString();
+                        if (PaidToBlueSheet == EnumPaidTo.Member)
+                        {
+                            expenseRow.PastReimbursement = gvSharedMedBillBlueSheet[10, nRow].Value.ToString();
+                            expenseRow.Reimbursement = gvSharedMedBillBlueSheet[11, nRow].Value.ToString();
+                        }
+                        if (PaidToBlueSheet == EnumPaidTo.MedicalProvider)
+                        {
+                            expenseRow.PastCMM_Provider_Payment = gvSharedMedBillBlueSheet[10, nRow].Value.ToString();
+                            expenseRow.Reimbursement = gvSharedMedBillBlueSheet[11, nRow].Value.ToString();
+                        }
+                        expenseRow.Balance = gvSharedMedBillBlueSheet[12, nRow].Value.ToString();
+                        //}
+                        lstPaidMedicalExpenseTableRowBlueSheet.Add(expenseRow);
+                    }
+
+
+
+                    MigraDocDOM.Tables.Table table = new MigraDocDOM.Tables.Table();
+                    table.Borders.Width = 0.1;
+                    table.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    //col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(1.0));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    col = table.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    col.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+
+                    MigraDocDOM.Tables.Row row = table.AddRow();
+
+                    nRowHeight += 22;
+                    row.Height = "0.3in";
+                    row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellTitlePatientName = row.Cells[0];
+                    //cellTitlePatientName.AddParagraph("Member Name");
+                    //cellTitlePatientName.Format.Font.Bold = true;
+                    //cellTitlePatientName.Format.Font.Size = 7;
+                    //cellTitlePatientName.Format.Font.Name = "Arial";
+                    //cellTitlePatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleMedBill = row.Cells[0];
+                    cellTitleMedBill.AddParagraph("MEDBILL");
+                    cellTitleMedBill.Format.Font.Bold = true;
+                    cellTitleMedBill.Format.Font.Size = 7;
+                    cellTitleMedBill.Format.Font.Name = "Arial";
+                    cellTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleBillDate = row.Cells[1];
+                    cellTitleBillDate.AddParagraph("Date of Service");
+                    cellTitleBillDate.Format.Font.Bold = true;
+                    cellTitleBillDate.Format.Font.Size = 7;
+                    cellTitleBillDate.Format.Font.Name = "Arial";
+                    cellTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleMedicalProvider = row.Cells[2];
+                    cellTitleMedicalProvider.AddParagraph("Medical Provider");
+                    cellTitleMedicalProvider.Format.Font.Bold = true;
+                    cellTitleMedicalProvider.Format.Font.Size = 7;
+                    cellTitleMedicalProvider.Format.Font.Name = "Arial";
+                    cellTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleBillAmount = row.Cells[3];
+                    cellTitleBillAmount.AddParagraph("Original Amount");
+                    cellTitleBillAmount.Format.Font.Bold = true;
+                    cellTitleBillAmount.Format.Font.Size = 7;
+                    cellTitleBillAmount.Format.Font.Name = "Arial";
+                    cellTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitlePersonalResponsibility = row.Cells[4];
+                    cellTitlePersonalResponsibility.AddParagraph("Personal Responsibility");
+                    cellTitlePersonalResponsibility.Format.Font.Bold = true;
+                    cellTitlePersonalResponsibility.Format.Font.Size = 7;
+                    cellTitlePersonalResponsibility.Format.Font.Name = "Arial";
+                    cellTitlePersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+
+                    MigraDocDOM.Tables.Cell cellTitleMemberDiscount = row.Cells[5];
+                    cellTitleMemberDiscount.AddParagraph("Member Discount");
+                    cellTitleMemberDiscount.Format.Font.Bold = true;
+                    cellTitleMemberDiscount.Format.Font.Size = 7;
+                    cellTitleMemberDiscount.Format.Font.Name = "Arial";
+                    cellTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleCMMDiscount = row.Cells[6];
+                    cellTitleCMMDiscount.AddParagraph("CMM Discount");
+                    cellTitleCMMDiscount.Format.Font.Bold = true;
+                    cellTitleCMMDiscount.Format.Font.Size = 7;
+                    cellTitleCMMDiscount.Format.Font.Name = "Arial";
+                    cellTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellTitleCMMProviderDiscount = row.Cells[7];
+                    //cellTitleCMMProviderDiscount.AddParagraph("CMM Provider Payment");
+                    //AddParagraph("CMM Provider Payment");
+                    cellTitleCMMProviderDiscount.AddParagraph("Paid to Provider");
+                    cellTitleCMMProviderDiscount.Format.Font.Bold = true;
+                    cellTitleCMMProviderDiscount.Format.Font.Size = 7;
+                    cellTitleCMMProviderDiscount.Format.Font.Name = "Arial";
+                    cellTitleCMMProviderDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    if (PaidToBlueSheet == EnumPaidTo.Member)
+                    {
+                        MigraDocDOM.Tables.Cell cellTitleSharedAmount = row.Cells[8];
+                        cellTitleSharedAmount.AddParagraph("Shared Amount");
+                        cellTitleSharedAmount.Format.Font.Bold = true;
+                        cellTitleSharedAmount.Format.Font.Size = 7;
+                        cellTitleSharedAmount.Format.Font.Name = "Arial";
+                        cellTitleSharedAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                        MigraDocDOM.Tables.Cell cellTitleReimbursement = row.Cells[9];
+                        cellTitleReimbursement.AddParagraph("Reimbursement Amount");
+                        cellTitleReimbursement.Format.Font.Bold = true;
+                        cellTitleReimbursement.Format.Font.Size = 7;
+                        cellTitleReimbursement.Format.Font.Name = "Arial";
+                        cellTitleReimbursement.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                    }
+
+
+
+                    MigraDocDOM.Tables.Cell cellTitleBalance = row.Cells[10];
+                    cellTitleBalance.AddParagraph("Balance");
+                    cellTitleBalance.Format.Font.Bold = true;
+                    cellTitleBalance.Format.Font.Size = 7;
+                    cellTitleBalance.Format.Font.Name = "Arial";
+                    cellTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+
+                    for (int i = 0; i < lstPaidMedicalExpenseTableRowBlueSheet.Count; i++)
+                    {
+                        if (nRowHeight > 645) nRowHeight = 0;
+                        nRowHeight += 18;
+                        MigraDocDOM.Tables.Row rowData = table.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        if (i < lstPaidMedicalExpenseTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstPaidMedicalExpenseTableRow[i].PatientName.Length > 9)
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName.Substring(0, 9) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Date.Value.ToString("MM/dd/yy"));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+                            if (lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Length > 14)
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider.Substring(0, 14) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Personal_Responsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Provider_Payment);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[9];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Reimbursement);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[10];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        }
+                        if (i == lstPaidMedicalExpenseTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstPaidMedicalExpenseTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[1];
+                            if (lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Date != null) cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Date.Value.ToString("MM/dd/yy"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            //if (lstPaidMedicalExpenseTableRow[i].Medical_Provider.Length > 25)
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].Medical_Provider.Substring(0, 25) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPaidMedicalExpenseTableRow[i].Medical_Provider);
+                            //}
+                            cell.AddParagraph("Total");
+
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Personal_Responsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].CMM_Provider_Payment);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].PastReimbursement);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[9];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Reimbursement);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[10];
+                            cell.AddParagraph(lstPaidMedicalExpenseTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                    }
+
+                    pdfDoc.LastSection.Add(table);
+                }
+
+                int nHeightAfterCMMPendingPayment = 0;
+
+                if (gvCMMPendingPaymentBlueSheet.RowCount > 0)
+                {
+                    nHeightAfterCMMPendingPayment += 22;
+                    for (int nRow = 0; nRow < gvCMMPendingPaymentBlueSheet.RowCount; nRow++)
+                    {
+                        nHeightAfterCMMPendingPayment += 15;
+                    }
+
+                    if ((nRowHeight > 645) ||
+                        (nRowHeight + nHeightAfterCMMPendingPayment) > 645)
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // The beginning of CMM Pending Payment table
+
+
+                if (gvCMMPendingPaymentBlueSheet.RowCount > 0)
+                {
+                    lstCMMPendingPaymentTableRowBlueSheet.Clear();
+                    nRowHeight += 30;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                    paraSpaceBefore.Format.Font.Name = "Arial";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("Pending Payment(s)", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvCMMPendingPaymentBlueSheet.RowCount; nRow++)
+                    {
+                        CMMPendingPaymentTableRowBlueSheet cmmPendingRow = new CMMPendingPaymentTableRowBlueSheet();
+
+                        cmmPendingRow.PatientName = gvCMMPendingPaymentBlueSheet[1, nRow].Value.ToString();
+                        cmmPendingRow.MED_BILL = gvCMMPendingPaymentBlueSheet[2, nRow].Value.ToString();
+                        cmmPendingRow.Bill_Date = gvCMMPendingPaymentBlueSheet[3, nRow].Value.ToString();
+                        //cmmPendingRow.Due_Date = gvCMMPendingPayment[4, nRow].Value.ToString();
+                        cmmPendingRow.Medical_Provider = gvCMMPendingPaymentBlueSheet[4, nRow].Value.ToString();
+                        cmmPendingRow.Bill_Amount = gvCMMPendingPaymentBlueSheet[5, nRow].Value.ToString();
+                        cmmPendingRow.Member_Discount = gvCMMPendingPaymentBlueSheet[6, nRow].Value.ToString();
+                        cmmPendingRow.CMM_Discount = gvCMMPendingPaymentBlueSheet[7, nRow].Value.ToString();
+                        cmmPendingRow.PersonalResponsibility = gvCMMPendingPaymentBlueSheet[8, nRow].Value.ToString();
+                        cmmPendingRow.Shared_Amount = gvCMMPendingPaymentBlueSheet[9, nRow].Value.ToString();
+                        cmmPendingRow.Balance = gvCMMPendingPaymentBlueSheet[10, nRow].Value.ToString();
+
+                        lstCMMPendingPaymentTableRowBlueSheet.Add(cmmPendingRow);
+                    }
+
+                    MigraDocDOM.Tables.Table tableCMMPendingPayment = new MigraDocDOM.Tables.Table();
+
+                    tableCMMPendingPayment.Borders.Width = 0.1;
+                    tableCMMPendingPayment.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    //colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(1.4));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colCMMPendingPayment = tableCMMPendingPayment.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colCMMPendingPayment.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row cmm_pending_row = tableCMMPendingPayment.AddRow();
+
+                    cmm_pending_row.Height = "0.3in";
+                    cmm_pending_row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    nRowHeight += 22;
+
+                    //MigraDocDOM.Tables.Cell cellCMMPendingTitlePatientName = cmm_pending_row.Cells[0];
+                    //cellCMMPendingTitlePatientName.AddParagraph("Member Name");
+                    //cellCMMPendingTitlePatientName.Format.Font.Bold = true;
+                    //cellCMMPendingTitlePatientName.Format.Font.Size = 7;
+                    //cellCMMPendingTitlePatientName.Format.Font.Name = "Arial";
+                    //cellCMMPendingTitlePatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMedBill = cmm_pending_row.Cells[0];
+                    cellCMMPendingTitleMedBill.AddParagraph("MEDBILL");
+                    cellCMMPendingTitleMedBill.Format.Font.Bold = true;
+                    cellCMMPendingTitleMedBill.Format.Font.Size = 7;
+                    cellCMMPendingTitleMedBill.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBillDate = cmm_pending_row.Cells[1];
+                    cellCMMPendingTitleBillDate.AddParagraph("Date of Service");
+                    cellCMMPendingTitleBillDate.Format.Font.Bold = true;
+                    cellCMMPendingTitleBillDate.Format.Font.Size = 7;
+                    cellCMMPendingTitleBillDate.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellCMMPendingTitleDueDate = cmm_pending_row.Cells[3];
+                    //cellCMMPendingTitleDueDate.AddParagraph("Received Date");
+                    //cellCMMPendingTitleDueDate.Format.Font.Bold = true;
+                    //cellCMMPendingTitleDueDate.Format.Font.Size = 7;
+                    //cellCMMPendingTitleDueDate.Format.Font.Name = "Arial";
+                    //cellCMMPendingTitleDueDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMedicalProvider = cmm_pending_row.Cells[2];
+                    cellCMMPendingTitleMedicalProvider.AddParagraph("Medical Provider");
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Bold = true;
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Size = 7;
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBillAmount = cmm_pending_row.Cells[3];
+                    cellCMMPendingTitleBillAmount.AddParagraph("Original Amount");
+                    cellCMMPendingTitleBillAmount.Format.Font.Bold = true;
+                    cellCMMPendingTitleBillAmount.Format.Font.Size = 7;
+                    cellCMMPendingTitleBillAmount.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleMemberDiscount = cmm_pending_row.Cells[4];
+                    cellCMMPendingTitleMemberDiscount.AddParagraph("Member Discount");
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Bold = true;
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Size = 7;
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleCMMDiscount = cmm_pending_row.Cells[5];
+                    cellCMMPendingTitleCMMDiscount.AddParagraph("CMM Discount");
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Bold = true;
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Size = 7;
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitlePersonalResponsibility = cmm_pending_row.Cells[6];
+                    cellCMMPendingTitlePersonalResponsibility.AddParagraph("Personal Responsibility");
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Bold = true;
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Size = 7;
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Name = "Arial";
+                    cellCMMPendingTitlePersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleSharedAmount = cmm_pending_row.Cells[7];
+                    cellCMMPendingTitleSharedAmount.AddParagraph("Total Shared Amount");
+                    cellCMMPendingTitleSharedAmount.Format.Font.Bold = true;
+                    cellCMMPendingTitleSharedAmount.Format.Font.Size = 7;
+                    cellCMMPendingTitleSharedAmount.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleSharedAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellCMMPendingTitleBalance = cmm_pending_row.Cells[8];
+                    cellCMMPendingTitleBalance.AddParagraph("Balance");
+                    cellCMMPendingTitleBalance.Format.Font.Bold = true;
+                    cellCMMPendingTitleBalance.Format.Font.Size = 7;
+                    cellCMMPendingTitleBalance.Format.Font.Name = "Arial";
+                    cellCMMPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    for (int i = 0; i < lstCMMPendingPaymentTableRowBlueSheet.Count; i++)
+                    {
+                        nRowHeight += 18;
+                        MigraDocDOM.Tables.Row rowData = tableCMMPendingPayment.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        if (i < lstCMMPendingPaymentTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstCMMPendingPaymentTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            //cell = rowData.Cells[3];
+                            //cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Due_Date);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            if (lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Length > 25)
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider.Substring(0, 25) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].PersonalResponsibility);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Shared_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                        if (i == lstCMMPendingPaymentTableRowBlueSheet.Count - 1)
+                        {
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstCMMPendingPaymentTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            //cell = rowData.Cells[3];
+                            //cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Due_Date);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            //if (lstCMMPendingPaymentTableRow[i].Medical_Provider.Length > 25)
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Medical_Provider.Substring(0, 25) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstCMMPendingPaymentTableRow[i].Medical_Provider);
+                            //}
+                            cell.AddParagraph("Total");
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Member_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].CMM_Discount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[6];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].PersonalResponsibility);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[7];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Shared_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[8];
+                            cell.AddParagraph(lstCMMPendingPaymentTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(0, 100, 100, 0);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                        }
+                    }
+
+                    pdfDoc.LastSection.Add(tableCMMPendingPayment);
+                }
+
+                int nHeightAfterPending = 0;
+
+                if (gvPendingBlueSheet.RowCount > 0)
+                {
+                    nHeightAfterPending += 22;
+                    for (int nRow = 0; nRow < gvPendingBlueSheet.RowCount; nRow++)
+                    {
+                        nHeightAfterPending += 15;
+                    }
+
+                    if ((nRowHeight > 645) || ((nRowHeight + nHeightAfterPending) > 645))
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+
+
+
+
+                // Pending table
+
+                if (gvPendingBlueSheet.RowCount > 0)
+                {
+                    lstPendingTableRowBlueSheet.Clear();
+
+                    nRowHeight += 30;
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                    paraSpaceBefore.Format.Font.Name = "Arial";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("Pending Medical Bill(s)", MigraDocDOM.TextFormat.Bold);
+
+                    for (int nRow = 0; nRow < gvPendingBlueSheet.RowCount; nRow++)
+                    {
+                        //nRowHeight += 15;
+
+                        PendingTableRowBlueSheet pendingRow = new PendingTableRowBlueSheet();
+                        pendingRow.PatientName = gvPendingBlueSheet[1, nRow].Value.ToString();
+                        pendingRow.MED_BILL = gvPendingBlueSheet[2, nRow].Value.ToString();
+                        pendingRow.Bill_Date = gvPendingBlueSheet[3, nRow].Value.ToString();
+                        pendingRow.Due_Date = gvPendingBlueSheet[4, nRow].Value.ToString();
+                        pendingRow.Medical_Provider = gvPendingBlueSheet[5, nRow].Value.ToString();
+                        pendingRow.Bill_Amount = gvPendingBlueSheet[6, nRow].Value.ToString();
+                        pendingRow.Balance = gvPendingBlueSheet[7, nRow].Value.ToString();
+                        //pendingRow.Member_Discount = gvPending[7, nRow].Value.ToString();
+                        //pendingRow.CMM_Discount = gvPending[8, nRow].Value.ToString();
+                        //pendingRow.Shared_Amount = gvPending[9, nRow].Value.ToString();
+                        //pendingRow.Balance = gvPending[10, nRow].Value.ToString();
+                        pendingRow.Pending_Reason = gvPendingBlueSheet[8, nRow].Value.ToString();
+
+                        lstPendingTableRowBlueSheet.Add(pendingRow);
+                    }
+
+                    MigraDocDOM.Tables.Table tablePending = new MigraDocDOM.Tables.Table();
+                    tablePending.Borders.Width = 0.1;
+                    tablePending.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(1.2));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.5));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    //colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    //colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colPending = tablePending.AddColumn(MigraDocDOM.Unit.FromInch(2.8));
+                    colPending.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row pending_Row = tablePending.AddRow();
+
+                    nRowHeight += 22;
+
+                    pending_Row.Height = "0.3in";
+                    pending_Row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleINCD = pending_Row.Cells[0];
+                    //cellPendingTitleINCD.AddParagraph("Member Name");
+                    //cellPendingTitleINCD.Format.Font.Bold = true;
+                    //cellPendingTitleINCD.Format.Font.Size = 7;
+                    //cellPendingTitleINCD.Format.Font.Name = "Arial";
+                    //cellPendingTitleINCD.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleMED_BILL = pending_Row.Cells[0];
+                    cellPendingTitleMED_BILL.AddParagraph("MEDBILL");
+                    cellPendingTitleMED_BILL.Format.Font.Bold = true;
+                    cellPendingTitleMED_BILL.Format.Font.Size = 7;
+                    cellPendingTitleMED_BILL.Format.Font.Name = "Arial";
+                    cellPendingTitleMED_BILL.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBill_Date = pending_Row.Cells[1];
+                    cellPendingTitleBill_Date.AddParagraph("Date of Service");
+                    cellPendingTitleBill_Date.Format.Font.Bold = true;
+                    cellPendingTitleBill_Date.Format.Font.Size = 7;
+                    cellPendingTitleBill_Date.Format.Font.Name = "Arial";
+                    cellPendingTitleBill_Date.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleDue_Date = pending_Row.Cells[2];
+                    cellPendingTitleDue_Date.AddParagraph("Received Date");
+                    cellPendingTitleDue_Date.Format.Font.Bold = true;
+                    cellPendingTitleDue_Date.Format.Font.Size = 7;
+                    cellPendingTitleDue_Date.Format.Font.Name = "Arial";
+                    cellPendingTitleDue_Date.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleMedicalProvider = pending_Row.Cells[3];
+                    cellPendingTitleMedicalProvider.AddParagraph("Medical Provider");
+                    cellPendingTitleMedicalProvider.Format.Font.Bold = true;
+                    cellPendingTitleMedicalProvider.Format.Font.Size = 7;
+                    cellPendingTitleMedicalProvider.Format.Font.Name = "Arial";
+                    cellPendingTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBillAmount = pending_Row.Cells[4];
+                    cellPendingTitleBillAmount.AddParagraph("Original Amount");
+                    cellPendingTitleBillAmount.Format.Font.Bold = true;
+                    cellPendingTitleBillAmount.Format.Font.Size = 7;
+                    cellPendingTitleBillAmount.Format.Font.Name = "Arial";
+                    cellPendingTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleMemberDiscount = pending_Row.Cells[6];
+                    //cellPendingTitleMemberDiscount.AddParagraph("회원 (할인)");
+                    //cellPendingTitleMemberDiscount.Format.Font.Bold = true;
+                    //cellPendingTitleMemberDiscount.Format.Font.Size = 7;
+                    //cellPendingTitleMemberDiscount.Format.Font.Name = "Arial";
+                    //cellPendingTitleMemberDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleCMMDiscount = pending_Row.Cells[7];
+                    //cellPendingTitleCMMDiscount.AddParagraph("CMM (할인)");
+                    //cellPendingTitleCMMDiscount.Format.Font.Bold = true;
+                    //cellPendingTitleCMMDiscount.Format.Font.Size = 7;
+                    //cellPendingTitleCMMDiscount.Format.Font.Name = "Arial";
+                    //cellPendingTitleCMMDiscount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleSharedAmount = pending_Row.Cells[8];
+                    //cellPendingTitleSharedAmount.AddParagraph("정산 완료");
+                    //cellPendingTitleSharedAmount.Format.Font.Bold = true;
+                    //cellPendingTitleSharedAmount.Format.Font.Size = 7;
+                    //cellPendingTitleSharedAmount.Format.Font.Name = "Arial";
+                    //cellPendingTitleSharedAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Cell cellPendingTitleBalance = pending_Row.Cells[9];
+                    //cellPendingTitleBalance.AddParagraph("보류");
+                    //cellPendingTitleBalance.Format.Font.Bold = true;
+                    //cellPendingTitleBalance.Format.Font.Size = 7;
+                    //cellPendingTitleBalance.Format.Font.Name = "Arial";
+                    //cellPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitleBalance = pending_Row.Cells[5];
+                    cellPendingTitleBalance.AddParagraph("Balance");
+                    cellPendingTitleBalance.Format.Font.Bold = true;
+                    cellPendingTitleBalance.Format.Font.Size = 7;
+                    cellPendingTitleBalance.Format.Font.Name = "Arial";
+                    cellPendingTitleBalance.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellPendingTitlePendingReason = pending_Row.Cells[6];
+                    cellPendingTitlePendingReason.AddParagraph("Pending Reason");
+                    cellPendingTitlePendingReason.Format.Font.Bold = true;
+                    cellPendingTitlePendingReason.Format.Font.Size = 7;
+                    cellPendingTitlePendingReason.Format.Font.Name = "Arial";
+                    cellPendingTitlePendingReason.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    for (int i = 0; i < lstPendingTableRowBlueSheet.Count; i++)
+                    {
+                        MigraDocDOM.Tables.Row pendingRowData = tablePending.AddRow();
+                        pendingRowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                        nRowHeight += 15;
+
+                        if (i < lstPendingTableRowBlueSheet.Count - 1)
+                        {
+                            pendingRowData.Height = "0.18in";
+
+                            //MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            //if (lstPendingTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName.Substring(0, 11));
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[1];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[2];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Due_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = pendingRowData.Cells[3];
+
+                            if (lstPendingTableRowBlueSheet[i].Medical_Provider.Length > 20)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider.Substring(0, 20) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Medical_Provider);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = pendingRowData.Cells[4];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[5];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[6];
+                            //cell.AddParagraph(lstPendingTableRow[i].Member_Discount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[7];
+                            //cell.AddParagraph(lstPendingTableRow[i].CMM_Discount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[8];
+                            //cell.AddParagraph(lstPendingTableRow[i].Shared_Amount);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[9];
+                            //cell.AddParagraph(lstPendingTableRow[i].Balance);
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[6];
+                            if (lstPendingTableRowBlueSheet[i].Pending_Reason.Length > 40)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason.Substring(0, 40) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        }
+                        if (i == lstPendingTableRowBlueSheet.Count - 1)
+                        {
+                            pendingRowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            //if (lstPendingTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName.Substring(0, 11));
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = pendingRowData.Cells[0];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[1];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[2];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Due_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[3];
+                            //if (lstPendingTableRow[i].Medical_Provider.Length > 20)
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].Medical_Provider.Substring(0, 20) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstPendingTableRow[i].Medical_Provider);
+                            //}
+                            cell.AddParagraph("Total");
+
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = pendingRowData.Cells[4];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Bill_Amount);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[5];
+                            cell.AddParagraph(lstPendingTableRowBlueSheet[i].Balance);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[6];
+                            //cell.AddParagraph(lstPendingTableRow[i].Member_Discount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[7];
+                            //cell.AddParagraph(lstPendingTableRow[i].CMM_Discount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[8];
+                            //cell.AddParagraph(lstPendingTableRow[i].Shared_Amount);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            //cell = pendingRowData.Cells[9];
+                            //cell.AddParagraph(lstPendingTableRow[i].Balance);
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Right;
+
+                            cell = pendingRowData.Cells[6];
+                            if (lstPendingTableRowBlueSheet[i].Pending_Reason.Length > 40)
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason.Substring(0, 40) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstPendingTableRowBlueSheet[i].Pending_Reason);
+                            }
+                            //cell.AddParagraph(lstPendingTableRow[i].Pending_Reason);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        }
+
+                    }
+
+                    pdfDoc.LastSection.Add(tablePending);
+                }
+
+                int nHeightAfterIneligible = 0;
+
+                if (gvIneligibleBlueSheet.RowCount > 0)
+                {
+                    nHeightAfterIneligible += 22;
+                    for (int nRow = 0; nRow < gvIneligibleBlueSheet.RowCount; nRow++)
+                    {
+                        nHeightAfterIneligible += 15;
+                    }
+
+                    if ((nRowHeight > 645) ||
+                        (nRowHeight + nHeightAfterIneligible) > 645)
+                    {
+                        nRowHeight = 0;
+                        section.AddPageBreak();
+                    }
+                }
+
+                lstBillIneligibleTableRowBlueSheet.Clear();
+
+                for (int nRow = 0; nRow < gvIneligibleBlueSheet.RowCount; nRow++)
+                {
+                    if (gvIneligibleBlueSheet[4, nRow].Value.ToString() != "")
+                    //(DateTime.Parse(gvIneligible[4, nRow].Value.ToString()) > dtDocReceivedDate.Value))
+                    {
+                        BillIneligibleTableRowBlueSheet ineligibleRow = new BillIneligibleTableRowBlueSheet();
+                        ineligibleRow.PatientName = gvIneligibleBlueSheet[1, nRow].Value.ToString();
+                        ineligibleRow.MED_BILL = gvIneligibleBlueSheet[2, nRow].Value.ToString();
+                        ineligibleRow.Bill_Date = gvIneligibleBlueSheet[3, nRow].Value.ToString();
+                        ineligibleRow.Received_Date = gvIneligibleBlueSheet[4, nRow].Value.ToString();
+                        ineligibleRow.Medical_Provider = gvIneligibleBlueSheet[5, nRow].Value.ToString();
+                        ineligibleRow.Bill_Amount = gvIneligibleBlueSheet[6, nRow].Value.ToString();
+                        ineligibleRow.Amount_Ineligible = gvIneligibleBlueSheet[7, nRow].Value.ToString();
+                        ineligibleRow.Ineligible_Reason = gvIneligibleBlueSheet[8, nRow].Value.ToString();
+
+                        lstBillIneligibleTableRowBlueSheet.Add(ineligibleRow);
+                    }
+                    if (gvIneligibleBlueSheet[4, nRow].Value.ToString() == "")
+                    {
+                        BillIneligibleTableRowBlueSheet ineligibleRow = new BillIneligibleTableRowBlueSheet();
+                        ineligibleRow.PatientName = gvIneligibleBlueSheet[1, nRow].Value.ToString();
+                        ineligibleRow.MED_BILL = gvIneligibleBlueSheet[2, nRow].Value.ToString();
+                        ineligibleRow.Bill_Date = gvIneligibleBlueSheet[3, nRow].Value.ToString();
+                        ineligibleRow.Received_Date = gvIneligibleBlueSheet[4, nRow].Value.ToString();
+                        ineligibleRow.Medical_Provider = gvIneligibleBlueSheet[5, nRow].Value.ToString();
+                        ineligibleRow.Bill_Amount = gvIneligibleBlueSheet[6, nRow].Value.ToString();
+                        ineligibleRow.Amount_Ineligible = gvIneligibleBlueSheet[7, nRow].Value.ToString();
+                        ineligibleRow.Ineligible_Reason = gvIneligibleBlueSheet[8, nRow].Value.ToString();
+
+                        lstBillIneligibleTableRowBlueSheet.Add(ineligibleRow);
+                    }
+                }
+
+                if (lstBillIneligibleTableRowBlueSheet.Count > 0)
+                {
+
+                    MigraDocDOM.Paragraph paraSpaceBefore = section.AddParagraph();
+                    paraSpaceBefore.Format.SpaceBefore = "0.18in";
+                    paraSpaceBefore.Format.SpaceAfter = "0.05in";
+                    paraSpaceBefore.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(0, 100, 100, 0);
+                    paraSpaceBefore.Format.Font.Name = "Arial";
+                    paraSpaceBefore.Format.Font.Size = 7;
+                    paraSpaceBefore.AddFormattedText("Ineligible Medical Bill(s)", MigraDocDOM.TextFormat.Bold);
+
+                    MigraDocDOM.Tables.Table tableIneligible = new MigraDocDOM.Tables.Table();
+                    tableIneligible.Borders.Width = 0.1;
+                    tableIneligible.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                    //MigraDocDOM.Tables.Column colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.8));
+                    //colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Column colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.6));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(0.7));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(1.4));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(1));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(1.2));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    colIneligible = tableIneligible.AddColumn(MigraDocDOM.Unit.FromInch(2.1));
+                    colIneligible.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                    MigraDocDOM.Tables.Row ineligible_Row = tableIneligible.AddRow();
+
+                    nRowHeight += 22;
+                    ineligible_Row.Height = "0.31in";
+                    ineligible_Row.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                    //MigraDocDOM.Tables.Cell cellIneligibleTitleICND = ineligible_Row.Cells[0];
+                    //cellIneligibleTitleICND.AddParagraph("Member Name");
+                    //cellIneligibleTitleICND.Format.Font.Bold = true;
+                    //cellIneligibleTitleICND.Format.Font.Size = 7;
+                    //cellIneligibleTitleICND.Format.Font.Name = "Arial";
+                    //cellIneligibleTitleICND.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleMedBill = ineligible_Row.Cells[0];
+                    cellIneligibleTitleMedBill.AddParagraph("MEDBILL");
+                    cellIneligibleTitleMedBill.Format.Font.Bold = true;
+                    cellIneligibleTitleMedBill.Format.Font.Size = 7;
+                    cellIneligibleTitleMedBill.Format.Font.Name = "Arial";
+                    cellIneligibleTitleMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleBillDate = ineligible_Row.Cells[1];
+                    cellIneligibleTitleBillDate.AddParagraph("Date of Service");
+                    cellIneligibleTitleBillDate.Format.Font.Bold = true;
+                    cellIneligibleTitleBillDate.Format.Font.Size = 7;
+                    cellIneligibleTitleBillDate.Format.Font.Name = "Arial";
+                    cellIneligibleTitleBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleMedicalProvider = ineligible_Row.Cells[2];
+                    cellIneligibleTitleMedicalProvider.AddParagraph("Medical Provider");
+                    cellIneligibleTitleMedicalProvider.Format.Font.Bold = true;
+                    cellIneligibleTitleMedicalProvider.Format.Font.Size = 7;
+                    cellIneligibleTitleMedicalProvider.Format.Font.Name = "Arial";
+                    cellIneligibleTitleMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleBillAmount = ineligible_Row.Cells[3];
+                    cellIneligibleTitleBillAmount.AddParagraph("Original Amount");
+                    cellIneligibleTitleBillAmount.Format.Font.Bold = true;
+                    cellIneligibleTitleBillAmount.Format.Font.Size = 7;
+                    cellIneligibleTitleBillAmount.Format.Font.Name = "Arial";
+                    cellIneligibleTitleBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleAmountIneligible = ineligible_Row.Cells[4];
+                    cellIneligibleTitleAmountIneligible.AddParagraph("Ineligible");
+                    cellIneligibleTitleAmountIneligible.Format.Font.Bold = true;
+                    cellIneligibleTitleAmountIneligible.Format.Font.Size = 7;
+                    cellIneligibleTitleAmountIneligible.Format.Font.Name = "Arial";
+                    cellIneligibleTitleAmountIneligible.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    MigraDocDOM.Tables.Cell cellIneligibleTitleIneligibleReason = ineligible_Row.Cells[5];
+                    cellIneligibleTitleIneligibleReason.AddParagraph("Ineligible Reason");
+                    cellIneligibleTitleIneligibleReason.Format.Font.Bold = true;
+                    cellIneligibleTitleIneligibleReason.Format.Font.Size = 7;
+                    cellIneligibleTitleIneligibleReason.Format.Font.Name = "Arial";
+                    cellIneligibleTitleIneligibleReason.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                    List<BillIneligibleRowBlueSheet> lstBillIneligible = new List<BillIneligibleRowBlueSheet>();
+
+                    for (int i = 0; i < lstBillIneligibleTableRowBlueSheet.Count; i++)
+                    {
+                        if (i < lstBillIneligibleTableRowBlueSheet.Count - 1)
+                        {
+
+                            MigraDocDOM.Tables.Row rowData = tableIneligible.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                            rowData.Height = "0.18in";
+
+                            BillIneligibleRowBlueSheet ineligible = new BillIneligibleRowBlueSheet();
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+
+                            //if (lstBillIneligibleTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName);
+                            //}
+
+                            //cell.Format.Font.Bold = false;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            //cell.Format.Alignment = ParagraphAlignment.Left;
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                            cell = rowData.Cells[2];
+
+                            if (lstBillIneligibleTableRowBlueSheet[i].Medical_Provider.Length > 24)
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Medical_Provider.Substring(0, 24) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Medical_Provider);
+                            }
+
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Amount);
+                            ineligible.Bill_Amount = Double.Parse(lstBillIneligibleTableRowBlueSheet[i].Bill_Amount.Substring(1));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Amount_Ineligible);
+                            ineligible.Amount_Ineligible = Double.Parse(lstBillIneligibleTableRowBlueSheet[i].Amount_Ineligible.Substring(1));
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+
+                            if (lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Length > 33)
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Substring(0, 33) + " ...");
+                            }
+                            else
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason);
+                            }
+                            cell.Format.Font.Bold = false;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                            lstBillIneligible.Add(ineligible);
+                        }
+
+                        if (i == lstBillIneligibleTableRowBlueSheet.Count - 1)
+                        {
+                            MigraDocDOM.Tables.Row rowData = tableIneligible.AddRow();
+                            rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                            rowData.Height = "0.2in";
+
+                            //MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            //if (lstBillIneligibleTableRow[i].PatientName.Length > 11)
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName.Substring(0, 11) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].PatientName);
+                            //}
+                            //cell.Format.Font.Bold = true;
+                            //cell.Format.Font.Name = "Arial";
+                            //cell.Format.Font.Size = 7;
+                            //cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].MED_BILL);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[1];
+                            cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Bill_Date);
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            cell = rowData.Cells[2];
+                            //if (lstBillIneligibleTableRow[i].Medical_Provider.Length > 25)
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].Medical_Provider.Substring(0, 25) + " ...");
+                            //}
+                            //else
+                            //{
+                            //    cell.AddParagraph(lstBillIneligibleTableRow[i].Medical_Provider);
+                            //}
+                            cell.AddParagraph("Total");
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                            Double? BillAmount = 0;
+                            foreach (BillIneligibleRowBlueSheet row in lstBillIneligible)
+                            {
+                                BillAmount += row.Bill_Amount;
+                            }
+
+                            cell = rowData.Cells[3];
+                            cell.AddParagraph(BillAmount.Value.ToString("C"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            Double? IneligibleAmount = 0;
+                            foreach (BillIneligibleRowBlueSheet row in lstBillIneligible)
+                            {
+                                IneligibleAmount += row.Amount_Ineligible;
+                            }
+
+                            cell = rowData.Cells[4];
+                            cell.AddParagraph(IneligibleAmount.Value.ToString("C"));
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                            cell = rowData.Cells[5];
+                            if (lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Length > 33)
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason.Substring(0, 33) + " ...");
+                            }
+                            {
+                                cell.AddParagraph(lstBillIneligibleTableRowBlueSheet[i].Ineligible_Reason);
+                            }
+                            cell.Format.Font.Bold = true;
+                            cell.Format.Font.Name = "Arial";
+                            cell.Format.Font.Size = 7;
+                            cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                            cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                        }
+                    }
+
+                    pdfDoc.LastSection.Add(tableIneligible);
+
+                }
+                // The end of tables
+
+                const bool unicode = true;
+                const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
+
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding);
+                pdfRenderer.Document = pdfDoc;
+                pdfRenderer.RenderDocument();
+
+                if (rbCheckBlueSheet.Checked)
+                {
+
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                    }
+                }
+
+                if (rbACHBlueSheet.Checked)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                    }
+                }
+                if (rbCreditCardBlueSheet.Checked)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                    }
+                }
+                //}
+                //else if (dlgResultDocReceivedDate == DialogResult.Cancel)
+                //{
+                //    return;
+                //}
+
+            }
+            else if (gvPersonalResponsibility.Rows.Count > 0)
+            {
+
+                List<PersonalResponsibilityInfoBlueSheet> lstPersonalResponsibilityInfo = new List<PersonalResponsibilityInfoBlueSheet>();
+
+                for (int i = 0; i < gvPersonalResponsibility.Rows.Count; i++)
+                {
+                    PersonalResponsibilityInfoBlueSheet prInfo = new PersonalResponsibilityInfoBlueSheet();
+
+                    prInfo.MedBillName = gvPersonalResponsibility[0, i]?.Value.ToString();
+                    String BillDate = gvPersonalResponsibility[1, i]?.Value.ToString();
+                    if (BillDate != String.Empty) prInfo.BillDate = DateTime.Parse(BillDate);
+                    prInfo.MedicalProvider = gvPersonalResponsibility[2, i]?.Value.ToString();
+                    if (gvPersonalResponsibility[3, i] != null) prInfo.BillAmount = (Double)Decimal.Parse(gvPersonalResponsibility[3, i].Value.ToString().Substring(1));
+                    prInfo.Type = gvPersonalResponsibility[4, i]?.Value.ToString();
+                    if (gvPersonalResponsibility[5, i] != null) prInfo.PersonalResponsibilityTotal = (Double)Decimal.Parse(gvPersonalResponsibility[8, i].Value.ToString().Substring(1));
+
+                    lstPersonalResponsibilityInfo.Add(prInfo);
+                }
+
+                MigraDocDOM.Document pdfPersonalResponsibilityDoc = new MigraDocDOM.Document();
+
+                MigraDocDOM.Section section = pdfPersonalResponsibilityDoc.AddSection();
+
+                section.PageSetup.PageFormat = MigraDocDOM.PageFormat.Letter;
+                section.PageSetup.HeaderDistance = "0.25in";
+                section.PageSetup.TopMargin = "1.5in";
+                section.PageSetup.LeftMargin = "0.8in";
+                section.PageSetup.RightMargin = "0.8in";
+                section.PageSetup.BottomMargin = "0.5in";
+
+                section.PageSetup.DifferentFirstPageHeaderFooter = false;
+                section.Headers.Primary.Format.SpaceBefore = "0.25in";
+
+                MigraDocDOM.Shapes.Image image = section.Headers.Primary.AddImage("C:\\Program Files (x86)\\CMM\\BlueSheet\\cmmlogo.png");
+
+                image.Height = "0.8in";
+                image.LockAspectRatio = true;
+                image.RelativeVertical = MigraDocDOM.Shapes.RelativeVertical.Line;
+                image.RelativeHorizontal = MigraDocDOM.Shapes.RelativeHorizontal.Margin;
+                image.Top = MigraDocDOM.Shapes.ShapePosition.Top;
+                image.Left = MigraDocDOM.Shapes.ShapePosition.Center;
+                image.WrapFormat.Style = MigraDocDOM.Shapes.WrapStyle.TopBottom;
+
+                MigraDocDOM.Paragraph paraCMMAddress = section.Headers.Primary.AddParagraph();
+                paraCMMAddress.Format.Font.Name = "Arial";
+                paraCMMAddress.Format.Font.Size = 8;
+                paraCMMAddress.Format.SpaceBefore = "0.15in";
+                paraCMMAddress.Format.SpaceAfter = "0.25in";
+                paraCMMAddress.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                String strVerticalBar = " | ";
+                String strStreet = "5235 N. Elston Ave.";
+                String strCityStateZip = "Chicago, IL 60630";
+                String strPhone = "Phone 773.777.8889";
+                String strFax = "Fax 773.777.0004";
+                String strWebsiteAddr = "www.cmmlogos.org";
+
+                paraCMMAddress.AddFormattedText(strStreet, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strCityStateZip, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strPhone, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strFax, MigraDocDOM.TextFormat.NotBold);
+                paraCMMAddress.AddFormattedText(strVerticalBar, MigraDocDOM.TextFormat.Bold);
+                paraCMMAddress.AddFormattedText(strWebsiteAddr, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraToday = section.AddParagraph();
+                paraToday.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraToday.Format.Font.Name = "Arial";
+                paraToday.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraToday.Format.SpaceBefore = "0.25in";
+                paraToday.Format.SpaceAfter = "0.25in";
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+
+                MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
+
+                paraMembershipInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraMembershipInfo.Format.Font.Name = "Arial";
+                //paraMembershipInfo.Format.SpaceBefore = "0.70in";
+                paraMembershipInfo.Format.SpaceBefore = "0.20in";
+                paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                //paraMembershipInfo.Format.LeftIndent = "0.5in";
+                //paraMembershipInfo.Format.RightIndent = "0.5in";
+                paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraMembershipInfo.AddFormattedText("Primary Name: " + strPrimaryName + "\n");
+                if (strMembershipIdBlueSheet != String.Empty) paraMembershipInfo.AddFormattedText(strMembershipIdBlueSheet + " (" + strIndividualIDBlueSheet + ")\n");
+                else paraMembershipInfo.AddFormattedText(strIndividualIDBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strIndividualNameBlueSheet.Trim() + "\n");
+                paraMembershipInfo.AddFormattedText(strStreetAddressBlueSheet + "\n");
+                paraMembershipInfo.AddFormattedText(strCityBlueSheet + ", " + strStateBlueSheet + " " + strZipBlueSheet + "\n");
+
+
+                MigraDocDOM.Paragraph paraDearMember = section.AddParagraph();
+                paraDearMember.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraDearMember.Format.Font.Name = "Arial";
+                paraDearMember.Format.Font.Size = 8;
+                paraDearMember.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraDearMember.Format.LeftIndent = "0.5in";
+                //paraDearMember.Format.RightIndent = "0.5in";
+                paraDearMember.Format.SpaceBefore = "0.1in";
+                paraDearMember.Format.SpaceAfter = "0.1in";
+                //if (strIndividualMiddleName != String.Empty) paraDearMember.AddFormattedText(strIndividualLastName + ", " + strIndiviaualFirstName + " 회원께,");
+                //else paraDearMember.AddFormattedText(strIndividualLastName + ", " + strIndiviaualFirstName + " " + strIndividualMiddleName + " 회원께,");
+                //paraDearMember.AddFormattedText(strIndividualName + " 회원께,");
+                paraDearMember.AddFormattedText(strDearMember + strIndividualNameBlueSheet.Trim() + ", ");
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                MigraDocDOM.Paragraph paraPRGreetingMessage1 = section.AddParagraph();
+
+                paraPRGreetingMessage1.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage1.Format.Font.Name = "Arial";
+                paraPRGreetingMessage1.Format.Font.Size = 8;
+                paraPRGreetingMessage1.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage1.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                //paraGreetingMessage.AddFormattedText(strGreetingMessage, TextFormat.NotBold);
+                paraPRGreetingMessage1.AddFormattedText(strEnglishPRGreetingMessage1, MigraDocDOM.TextFormat.NotBold);
+
+
+
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////
+                /// Program personal responsibility table
+                /// 
+
+                MigraDocDOM.Tables.Table tableProgramPRGuide = new MigraDocDOM.Tables.Table();
+                tableProgramPRGuide.Borders.Width = 0.1;
+                tableProgramPRGuide.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Column colProgram = tableProgramPRGuide.AddColumn(MigraDocDOM.Unit.FromInch(2));
+                colProgram.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                MigraDocDOM.Tables.Column colPersonalResponsibility = tableProgramPRGuide.AddColumn(MigraDocDOM.Unit.FromInch(4.8));
+                colPersonalResponsibility.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                MigraDocDOM.Tables.Row rowHeader = tableProgramPRGuide.AddRow();
+                rowHeader.Height = "0.2in";
+                rowHeader.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellProgramHeader = rowHeader.Cells[0];
+                cellProgramHeader.Format.Font.Bold = true;
+                cellProgramHeader.Format.Font.Size = 8;
+                cellProgramHeader.Format.Font.Name = "Arial";
+                cellProgramHeader.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellProgramHeader.AddParagraph("Program");
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibility = rowHeader.Cells[1];
+                cellPersonalResponsibility.Format.Font.Bold = true;
+                cellPersonalResponsibility.Format.Font.Size = 8;
+                cellPersonalResponsibility.Format.Font.Name = "Arial";
+                cellPersonalResponsibility.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellPersonalResponsibility.AddParagraph("Personal Responsibility Amount");
+
+                MigraDocDOM.Tables.Row rowBronze = tableProgramPRGuide.AddRow();
+                rowBronze.Height = "0.2in";
+                rowBronze.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellBronze = rowBronze.Cells[0];
+                cellBronze.Format.Font.Bold = false;
+                cellBronze.Format.Font.Size = 8;
+                cellBronze.Format.Font.Name = "Arial";
+                cellBronze.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellBronze.AddParagraph("Bronze");
+
+                MigraDocDOM.Tables.Cell cellBronzePR = rowBronze.Cells[1];
+                cellBronzePR.Format.Font.Bold = false;
+                cellBronzePR.Format.Font.Size = 8;
+                cellBronzePR.Format.Font.Name = "Arial";
+                cellBronzePR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellBronzePR.AddParagraph("$5,000 Per Incident");
+
+                MigraDocDOM.Tables.Row rowSilver = tableProgramPRGuide.AddRow();
+                rowSilver.Height = "0.2in";
+                rowSilver.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellSilver = rowSilver.Cells[0];
+                cellSilver.Format.Font.Bold = false;
+                cellSilver.Format.Font.Size = 8;
+                cellSilver.Format.Font.Name = "Arial";
+                cellSilver.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellSilver.AddParagraph("Silver");
+
+                MigraDocDOM.Tables.Cell cellSilverPR = rowSilver.Cells[1];
+                cellSilverPR.Format.Font.Bold = false;
+                cellSilverPR.Format.Font.Size = 8;
+                cellSilverPR.Format.Font.Name = "Arial";
+                cellSilverPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellSilverPR.AddParagraph("$1,000 Per Incident");
+
+                MigraDocDOM.Tables.Row rowGold = tableProgramPRGuide.AddRow();
+                rowGold.Height = "0.2in";
+                rowGold.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellGold = rowGold.Cells[0];
+                cellGold.Format.Font.Bold = false;
+                cellGold.Format.Font.Size = 8;
+                cellGold.Format.Font.Name = "Arial";
+                cellGold.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGold.AddParagraph("Gold");
+
+                MigraDocDOM.Tables.Cell cellGoldPR = rowGold.Cells[1];
+                cellGoldPR.Format.Font.Bold = false;
+                cellGoldPR.Format.Font.Size = 8;
+                cellGoldPR.Format.Font.Name = "Arial";
+                cellGoldPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPR.AddParagraph("$500 Per Incident");
+
+                MigraDocDOM.Tables.Row rowGoldPlus = tableProgramPRGuide.AddRow();
+                rowGoldPlus.Height = "0.2in";
+                rowGoldPlus.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellGoldPlus = rowGoldPlus.Cells[0];
+                cellGoldPlus.Format.Font.Bold = false;
+                cellGoldPlus.Format.Font.Size = 8;
+                cellGoldPlus.Format.Font.Name = "Arial";
+                cellGoldPlus.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPlus.AddParagraph("Gold Plus");
+
+                MigraDocDOM.Tables.Cell cellGoldPlusPR = rowGoldPlus.Cells[1];
+                cellGoldPlusPR.Format.Font.Bold = false;
+                cellGoldPlusPR.Format.Font.Size = 8;
+                cellGoldPlusPR.Format.Font.Name = "Arial";
+                cellGoldPlusPR.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                cellGoldPlusPR.AddParagraph("$500 Per Calendar year");
+
+                pdfPersonalResponsibilityDoc.LastSection.Add(tableProgramPRGuide);
+
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage2 = section.AddParagraph();
+                paraPRGreetingMessage2.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage2.Format.Font.Name = "Arial";
+                paraPRGreetingMessage2.Format.Font.Size = 8;
+                paraPRGreetingMessage2.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage2.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage2.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage2.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage2.AddFormattedText(strEnglishPRGreetingMessage2, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage3 = section.AddParagraph();
+                paraPRGreetingMessage3.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage3.Format.Font.Name = "Arial";
+                paraPRGreetingMessage3.Format.Font.Size = 8;
+                paraPRGreetingMessage3.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage3.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage3.AddFormattedText(strEnglishPRGreetingMessage3, MigraDocDOM.TextFormat.NotBold);
+
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage4 = section.AddParagraph();
+                paraPRGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage4.Format.Font.Name = "Arial";
+                paraPRGreetingMessage4.Format.Font.Size = 8;
+                paraPRGreetingMessage4.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage4.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage4.AddFormattedText(strEnglishPRGreetingMessage4, MigraDocDOM.TextFormat.NotBold);
+
+                MigraDocDOM.Paragraph paraPRGreetingMessage5 = section.AddParagraph();
+                paraPRGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                paraPRGreetingMessage4.Format.Font.Name = "Arial";
+                paraPRGreetingMessage4.Format.Font.Size = 8;
+                paraPRGreetingMessage4.Format.SpaceAfter = "5pt";
+                //paraGreetingMessage3.Format.LeftIndent = "0.5in";
+                //paraGreetingMessage3.Format.RightIndent = "0.5in";
+                paraPRGreetingMessage4.Format.Alignment = MigraDocDOM.ParagraphAlignment.Justify;
+                paraPRGreetingMessage4.AddFormattedText(strEnglishPRGreetingMessage5, MigraDocDOM.TextFormat.NotBold);
+
+                //Paragraph paraPRGreetingMessage4 = section.AddParagraph();
+                //paraPRGreetingMessage4.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                //paraPRGreetingMessage4.Format.Font.Name = "Arial";
+                //paraPRGreetingMessage4.Format.Font.Size = 8;
+                ////paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                ////paraGreetingMessage4.Format.RightIndent = "0.5in";
+                //paraPRGreetingMessage4.Format.Alignment = ParagraphAlignment.Justify;
+                //paraPRGreetingMessage4.AddFormattedText(strPRGreetingMessagePara4, TextFormat.NotBold);
+
+                //Paragraph paraPRGreetingMessage5 = section.AddParagraph();
+                //paraPRGreetingMessage5.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                //paraPRGreetingMessage5.Format.Font.Name = "Arial";
+                //paraPRGreetingMessage5.Format.Font.Size = 8;
+                ////paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                ////paraGreetingMessage4.Format.RightIndent = "0.5in";
+                //paraPRGreetingMessage5.Format.Alignment = ParagraphAlignment.Justify;
+                //paraPRGreetingMessage5.AddFormattedText(strPRGreetingMessagePara5, TextFormat.NotBold);
+
+                //Paragraph paraPRGreetingMessage6 = section.AddParagraph();
+                //paraPRGreetingMessage6.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                //paraPRGreetingMessage6.Format.Font.Name = "Arial";
+                //paraPRGreetingMessage6.Format.Font.Size = 8;
+                ////paraGreetingMessage4.Format.LeftIndent = "0.5in";
+                ////paraGreetingMessage4.Format.RightIndent = "0.5in";
+                //paraPRGreetingMessage6.Format.Alignment = ParagraphAlignment.Justify;
+                //paraPRGreetingMessage6.AddFormattedText(strPRGreetingMessagePara6, TextFormat.NotBold);
+
+
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+                MigraDocDOM.Paragraph paraNeedsProcessing = section.AddParagraph();
+
+                paraNeedsProcessing.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraNeedsProcessing.Format.Font.Name = "Arial";
+                paraNeedsProcessing.Format.Font.Size = 8;
+                paraNeedsProcessing.Format.Font.Bold = true;
+                paraNeedsProcessing.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraNeedsProcessing.Format.SpaceBefore = "0.1in";
+                //paraNeedsProcessing.Format.LeftIndent = "0.5in";
+                //paraNeedsProcessing.Format.RightIndent = "0.5in";
+                paraNeedsProcessing.AddFormattedText(strCMM_NeedProcessing + "\n");
+
+                MigraDocDOM.Paragraph paraPhoneFaxEmail = section.AddParagraph();
+                paraPhoneFaxEmail.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPhoneFaxEmail.Format.Font.Size = 8;
+                paraPhoneFaxEmail.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                //paraPhoneFaxEmail.Format.LeftIndent = "0.5in";
+                paraPhoneFaxEmail.Format.RightIndent = "0.5in";
+                paraPhoneFaxEmail.AddFormattedText(strNP_Phone_Fax_Email + "\n");
+
+                MigraDocDOM.Paragraph paraHorizontalLine = section.AddParagraph();
+
+                paraHorizontalLine.Format.SpaceBefore = "0.05in";
+                paraHorizontalLine.Format.SpaceAfter = "0.05in";
+                paraHorizontalLine.Format.Borders.Top.Width = 0;
+                paraHorizontalLine.Format.Borders.Left.Width = 0;
+                paraHorizontalLine.Format.Borders.Right.Width = 0;
+                paraHorizontalLine.Format.Borders.Bottom.Width = 1;
+                paraHorizontalLine.Format.Borders.Bottom.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraHorizontalLine.Format.Borders.Style = MigraDocDOM.BorderStyle.DashDot;
+
+                MigraDocDOM.Paragraph paraNPStatement = section.AddParagraph();
+                paraNPStatement.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 0, 0);
+                paraNPStatement.Format.Font.Name = "Arial";
+                paraNPStatement.Format.Font.Size = 12;
+                paraNPStatement.Format.Font.Bold = true;
+                paraNPStatement.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+                paraNPStatement.Format.SpaceAfter = "0.1in";
+
+                paraNPStatement.AddFormattedText("Needs Processing Statement\n", MigraDocDOM.TextFormat.Bold);
+
+                MigraDocDOM.Paragraph paraPersonalResponsibilityTotal = section.AddParagraph();
+                paraPersonalResponsibilityTotal.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                paraPersonalResponsibilityTotal.Format.Font.Name = "Arial";
+                paraPersonalResponsibilityTotal.Format.Font.Size = 8;
+                paraPersonalResponsibilityTotal.Format.Font.Bold = true;
+                paraPersonalResponsibilityTotal.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                paraPersonalResponsibilityTotal.Format.SpaceBefore = "0.2in";
+                //paraPersonalResponsibilityTotal.Format.SpaceAfter = "0.2in";
+
+                paraPersonalResponsibilityTotal.AddFormattedText("Incident Occurrence Date: " + PersonalResponsibilityTotalEnteredBlueSheet.IncidentOccurrenceDate.Value.ToString("MM/dd/yyyy") + "\t" +
+                                                                 "Personal Responsibility Total: " + PersonalResponsibilityTotalEnteredBlueSheet.PersonalResponsibilityTotal.ToString("C"));
+
+                //Paragraph paraIncidentInfo = section.AddParagraph();
+                //paraIncidentInfo.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                //paraIncidentInfo.Format.Font.Name = "Arial";
+                //paraIncidentInfo.Format.Font.Size = 8;
+                //paraIncidentInfo.Format.Font.Bold = true;
+                //paraIncidentInfo.Format.Alignment = ParagraphAlignment.Left;
+                //paraIncidentInfo.Format.SpaceBefore = "0.2in";
+                //paraIncidentInfo.Format.SpaceAfter = "0.2in";
+
+                if (lstIncidentsBlueSheet.Count > 0)
+                {
+                    MigraDocDOM.Paragraph paraIncd = section.AddParagraph();
+
+                    paraIncd.Format.Font.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+                    paraIncd.Format.Font.Name = "Arial";
+                    paraIncd.Format.Font.Size = 8;
+                    paraIncd.Format.Font.Bold = true;
+
+                    MigraDocDOM.Tables.Table tableIncd = new MigraDocDOM.Tables.Table();
+                    tableIncd.Borders.Width = 0;
+                    tableIncd.Borders.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                    tableIncd.Format.SpaceAfter = "0.05in";
+
+                    MigraDocDOM.Tables.Column colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(0.85));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+                    //colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(1.1));
+                    //colINCD.Format.Alignment = ParagraphAlignment.Left;
+                    colINCD = tableIncd.AddColumn(MigraDocDOM.Unit.FromInch(4.5));
+                    colINCD.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                    foreach (IncidentBlueSheet incd in lstIncidentsBlueSheet)
+                    {
+                        //nRowHeight += 18;
+
+                        MigraDocDOM.Tables.Row IncdRow = tableIncd.AddRow();
+                        IncdRow.Height = "0.1in";
+                        IncdRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                        MigraDocDOM.Tables.Cell cellIncdName = IncdRow.Cells[0];
+                        cellIncdName.Format.Font.Bold = true;
+                        cellIncdName.Format.Font.Size = 8;
+                        //cellIncdName.Format.Font.Name = "Malgun Gothic";
+                        cellIncdName.Format.Font.Name = "Arial";
+                        cellIncdName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellIncdName.AddParagraph(incd.Name + ": ");
+
+                        //MigraDocDOM.Tables.Cell cellPatientName = IncdRow.Cells[1];
+                        //cellPatientName.Format.Font.Bold = true;
+                        //cellPatientName.Format.Font.Size = 8;
+                        ////cellPatientName.Format.Font.Name = "Malgun Gothic";
+                        //cellIncdName.Format.Font.Name = "Arial";
+                        //cellPatientName.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        //if (incd.PatientName.Length > 11)
+                        //{
+                        //    cellPatientName.AddParagraph(incd.PatientName.Substring(0, 11) + " ...");
+                        //}
+                        //else cellPatientName.AddParagraph(incd.PatientName);
+
+                        MigraDocDOM.Tables.Cell cellICD10Code = IncdRow.Cells[1];
+                        cellICD10Code.Format.Font.Bold = true;
+                        cellICD10Code.Format.Font.Size = 8;
+                        //cellICD10Code.Format.Font.Name = "Malgun Gothic";
+                        cellIncdName.Format.Font.Name = "Arial";
+                        cellICD10Code.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cellICD10Code.AddParagraph(incd.ICD10_Code);
+                    }
+
+                    pdfPersonalResponsibilityDoc.LastSection.Add(tableIncd);
+                }
+
+
+
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                MigraDocDOM.Tables.Table tablePersonalResponsibility = new MigraDocDOM.Tables.Table();
+                tablePersonalResponsibility.Borders.Width = 0.1;
+                tablePersonalResponsibility.Borders.Color = MigraDoc.DocumentObjectModel.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Column colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.6));  // Med bill
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.7));        // 서비스 날짜
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.8));        // Medical Provider
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(0.8));        // Bill Amount
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.2));        // Type
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                colPersonalResponsibilityColumn = tablePersonalResponsibility.AddColumn(MigraDocDOM.Unit.FromInch(1.5));        // Personal Responsibility Total
+                colPersonalResponsibilityColumn.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                // generate row for personal responsibility table
+                MigraDocDOM.Tables.Row prRow = tablePersonalResponsibility.AddRow();
+                prRow.Height = "0.31in";
+                prRow.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityMedBill = prRow.Cells[0];
+                cellPersonalResponsibilityMedBill.AddParagraph("MEDBILL");
+                cellPersonalResponsibilityMedBill.Format.Font.Bold = true;
+                cellPersonalResponsibilityMedBill.Format.Font.Size = 7;
+                cellPersonalResponsibilityMedBill.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityMedBill.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityBillDate = prRow.Cells[1];
+                cellPersonalResponsibilityBillDate.AddParagraph("Date of Service");
+                cellPersonalResponsibilityBillDate.Format.Font.Bold = true;
+                cellPersonalResponsibilityBillDate.Format.Font.Size = 7;
+                cellPersonalResponsibilityBillDate.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityBillDate.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityMedicalProvider = prRow.Cells[2];
+                cellPersonalResponsibilityMedicalProvider.AddParagraph("Medical Provider");
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Bold = true;
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Size = 7;
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityMedicalProvider.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityBillAmount = prRow.Cells[3];
+                cellPersonalResponsibilityBillAmount.AddParagraph("Original Amount");
+                cellPersonalResponsibilityBillAmount.Format.Font.Bold = true;
+                cellPersonalResponsibilityBillAmount.Format.Font.Size = 7;
+                cellPersonalResponsibilityBillAmount.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityBillAmount.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityType = prRow.Cells[4];
+                cellPersonalResponsibilityType.AddParagraph("Type");
+                cellPersonalResponsibilityType.Format.Font.Bold = true;
+                cellPersonalResponsibilityType.Format.Font.Size = 7;
+                cellPersonalResponsibilityType.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityType.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+                MigraDocDOM.Tables.Cell cellPersonalResponsibilityTotal = prRow.Cells[5];
+                cellPersonalResponsibilityTotal.AddParagraph("Personal Responsibility Total");
+                cellPersonalResponsibilityTotal.Format.Font.Bold = true;
+                cellPersonalResponsibilityTotal.Format.Font.Size = 7;
+                cellPersonalResponsibilityTotal.Format.Font.Name = "Arial";
+                cellPersonalResponsibilityTotal.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+
+
+                for (int i = 0; i < lstPersonalResponsibilityInfo.Count; i++)
+                {
+                    if (i < lstPersonalResponsibilityInfo.Count - 1)
+                    {
+                        MigraDocDOM.Tables.Row rowData = tablePersonalResponsibility.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                        rowData.Height = "0.18in";
+
+                        MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedBillName.Substring(8));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[1];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[2];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedicalProvider);
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[3];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillAmount.ToString("C"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        cell = rowData.Cells[4];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].Type);
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[5];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].PersonalResponsibilityTotal.ToString("C"));
+                        cell.Format.Font.Bold = false;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                    }
+                    else if (i == lstPersonalResponsibilityInfo.Count - 1)
+                    {
+                        MigraDocDOM.Tables.Row rowData = tablePersonalResponsibility.AddRow();
+                        rowData.VerticalAlignment = MigraDocDOM.Tables.VerticalAlignment.Center;
+                        rowData.Height = "0.2in";
+
+                        MigraDocDOM.Tables.Cell cell = rowData.Cells[0];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedBillName);
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[1];
+                        if (lstPersonalResponsibilityInfo[i].BillDate != null) cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillDate.Value.ToString("MM/dd/yyyy"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Center;
+
+                        cell = rowData.Cells[2];
+                        //cell.AddParagraph(lstPersonalResponsibilityInfo[i].MedicalProvider);
+                        cell.AddParagraph("Total");
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[3];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].BillAmount.ToString("C"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+
+                        cell = rowData.Cells[4];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].Type);
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
+
+                        cell = rowData.Cells[5];
+                        cell.AddParagraph(lstPersonalResponsibilityInfo[i].PersonalResponsibilityTotal.ToString("C"));
+                        cell.Format.Font.Bold = true;
+                        cell.Format.Font.Name = "Arial";
+                        cell.Format.Font.Size = 7;
+                        cell.Format.Font.Color = MigraDocDOM.Color.FromCmyk(100, 100, 100, 100);
+                        cell.Format.Alignment = MigraDocDOM.ParagraphAlignment.Right;
+                    }
+                }
+
+                pdfPersonalResponsibilityDoc.LastSection.Add(tablePersonalResponsibility);
+
+                const bool unicode = true;
+                const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
+
+                PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(unicode, embedding);
+                pdfRenderer.Document = pdfPersonalResponsibilityDoc;
+                pdfRenderer.RenderDocument();
+
+
+                if (txtIncidentNoBlueSheet.Text.Trim() != String.Empty)
+                {
+                    SaveFileDialog savefileDlg = new SaveFileDialog();
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + DateTime.Today.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.Filter = "PDF Files | *.pdf";
+                    savefileDlg.DefaultExt = "pdf";
+                    savefileDlg.RestoreDirectory = true;
+
+                    if (savefileDlg.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            pdfRenderer.PdfDocument.Save(savefileDlg.FileName);
+                            System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                            processInfo.FileName = savefileDlg.FileName;
+
+                            System.Diagnostics.Process.Start(processInfo);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }
+                        //finally
+                        //{
+                        //    ChkInfoEntered = null;
+                        //}
+                    }
+                }
+
+
+            }
+            else
+            {
+                MessageBox.Show("No table is populated", "Error");
             }
         }
     }
