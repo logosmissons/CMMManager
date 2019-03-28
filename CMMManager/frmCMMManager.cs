@@ -11561,6 +11561,43 @@ namespace CMMManager
                                 MessageBox.Show("Some of settlments have not been saved.", "Error");
                                 //return;
                             }
+
+                            // update settlement total for medical bill
+                            String MedBillNoForSettlementTotal = txtMedBillNo.Text.Trim();
+                            String strSqlQueryForSettlementTotal = "Select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo";
+
+                            SqlCommand cmdQueryForSettlementTotal = new SqlCommand(strSqlQueryForSettlementTotal, connRN5);
+                            cmdQueryForSettlementTotal.CommandType = CommandType.Text;
+
+                            cmdQueryForSettlementTotal.Parameters.AddWithValue("@MedBillNo", MedBillNoForSettlementTotal);
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            Decimal SettlementTotal = (Decimal)cmdQueryForSettlementTotal.ExecuteScalar();
+                            if (connRN5.State != ConnectionState.Closed) connRN.Close();
+
+                            String strSqlUpdateMedBillForSettlementTotal = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[SettlementTotal] = @SettlementTotal " +
+                                                                           "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                            SqlCommand cmdUpdateMedBillForSettlementTotal = new SqlCommand(strSqlUpdateMedBillForSettlementTotal, connRN5);
+                            cmdUpdateMedBillForSettlementTotal.CommandType = CommandType.Text;
+
+                            cmdUpdateMedBillForSettlementTotal.Parameters.AddWithValue("@SettlementTotal", SettlementTotal);
+                            cmdUpdateMedBillForSettlementTotal.Parameters.AddWithValue("@MedBillNo", MedBillNoForSettlementTotal);
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nMedBillUpdatedForSettlementTotal = cmdUpdateMedBillForSettlementTotal.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN.Close();
                         }
                         // prepare settlement gv
                         //MedBillNo
@@ -13442,6 +13479,45 @@ namespace CMMManager
                                 MessageBox.Show("Some of settlments have not been saved.", "Error");
                                 //return;
                             }
+
+                            // 
+                            // update settlement total for medical bill
+                            String MedBillNoForSettlementTotal = txtMedBillNo.Text.Trim();
+                            String strSqlQueryForSettlementTotal = "Select sum([dbo].[tbl_settlement].[Amount]) from [dbo].[tbl_settlement] " +
+                                                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo";
+
+                            SqlCommand cmdQueryForSettlementTotal = new SqlCommand(strSqlQueryForSettlementTotal, connRN5);
+                            cmdQueryForSettlementTotal.CommandType = CommandType.Text;
+
+                            cmdQueryForSettlementTotal.Parameters.AddWithValue("@MedBillNo", MedBillNoForSettlementTotal);
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            Decimal SettlementTotal = (Decimal)cmdQueryForSettlementTotal.ExecuteScalar();
+                            if (connRN5.State != ConnectionState.Closed) connRN.Close();
+
+                            String strSqlUpdateMedBillForSettlementTotal = "update [dbo].[tbl_medbill] set [dbo].[tbl_medbill].[SettlementTotal] = @SettlementTotal " +
+                                                                           "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                            SqlCommand cmdUpdateMedBillForSettlementTotal = new SqlCommand(strSqlUpdateMedBillForSettlementTotal, connRN5);
+                            cmdUpdateMedBillForSettlementTotal.CommandType = CommandType.Text;
+
+                            cmdUpdateMedBillForSettlementTotal.Parameters.AddWithValue("@SettlementTotal", SettlementTotal);
+                            cmdUpdateMedBillForSettlementTotal.Parameters.AddWithValue("@MedBillNo", MedBillNoForSettlementTotal);
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nMedBillUpdatedForSettlementTotal = cmdUpdateMedBillForSettlementTotal.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN.Close();
+
                         }
 
                         MessageBox.Show("The Medical Bill has been updated.", "Information");
@@ -37879,7 +37955,7 @@ namespace CMMManager
                                                        "[RN_DB].[dbo].[tbl_medbill].[Individual_Id] like '%' + @IndividualId + '%' and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[CheckNo] = @CheckNo and " +
                                                        "[RN_DB].[dbo].[tbl_settlement].[CheckDate] IS NOT NULL and " +
-                                                       "cast([RN_DB].[dbo].[tbl_settlement].[CheckDate] as date) = @CheckDate";
+                                                       "cast([RN_DB].[dbo].[tbl_settlement].[CheckDate] as date) = @CheckDate ";
 
                         SqlCommand cmdQueryForMedBill = new SqlCommand(strSqlQueryForMedBill, connRN6);
                         cmdQueryForMedBill.CommandType = CommandType.Text;
@@ -38016,7 +38092,8 @@ namespace CMMManager
                         {
                             String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
                                                              "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
-                                                             "where [dbo].[tbl_incident].[IncidentNo] = @IncidentName";
+                                                             "where [dbo].[tbl_incident].[IncidentNo] = @IncidentName " +
+                                                             "order by [dbo].[tbl_medbill].[BillDate]";
 
                             SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN6);
                             cmdQueryForMedBillNo.CommandType = CommandType.Text;
@@ -38049,7 +38126,7 @@ namespace CMMManager
                         {
                             lstDistinctMedBillNamesBlueSheet.Add(strMedBillNo);
                         }
-                        lstDistinctMedBillNamesBlueSheet.Sort();
+                        //lstDistinctMedBillNamesBlueSheet.Sort();
                     }
                 }
 
@@ -38226,7 +38303,8 @@ namespace CMMManager
                         {
                             String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
                                                              "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
-                                                             "where [dbo].[tbl_incident].[IncidentNo] = @IncidentName";
+                                                             "where [dbo].[tbl_incident].[IncidentNo] = @IncidentName " +
+                                                             "order by [dbo].[tbl_medbill].[BillDate]";
 
                             SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN6);
                             cmdQueryForMedBillNo.CommandType = CommandType.Text;
@@ -38257,7 +38335,7 @@ namespace CMMManager
                         {
                             lstDistinctMedBillNamesBlueSheet.Add(strMedBillNo);
                         }
-                        lstDistinctMedBillNamesBlueSheet.Sort();
+                        //lstDistinctMedBillNamesBlueSheet.Sort();
                     }
                 }
 
@@ -38415,8 +38493,9 @@ namespace CMMManager
                             String strSqlQueryForMedBills = "select [RN_DB].[dbo].[tbl_medbill].[BillNo] " +
                                                             "from [RN_DB].[dbo].[tbl_medbill] " +
                                                             "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
-                                                            "where [RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
-
+                                                            "where [RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo " +
+                                                            "order by [RN_DB].[dbo].[tbl_medbill].[BillDate]";
+                                                            
                             SqlCommand cmdQueryForMedBills = new SqlCommand(strSqlQueryForMedBills, connRN6);
                             cmdQueryForMedBills.CommandType = CommandType.Text;
 
@@ -38455,7 +38534,7 @@ namespace CMMManager
                             lstDistinctMedBillNamesBlueSheet.Add(strMedBillName);
                         }
                         //lstDistinctIncdNamesBlueSheet.Sort();
-                        lstDistinctMedBillNamesBlueSheet.Sort();
+                        //lstDistinctMedBillNamesBlueSheet.Sort();
                     }
                 }
 
@@ -38551,7 +38630,7 @@ namespace CMMManager
                                                 "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
                                                 "(([dbo].[tbl_settlement].[CheckNo] IS NOT NULL and [dbo].[tbl_settlement].[CheckDate] IS NOT NULL) or " +
                                                 "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0) or " +
-                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0))";
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0)) ";
                     }
                     if (rbACHBlueSheet.Checked)
                     {
@@ -38562,7 +38641,7 @@ namespace CMMManager
                                                 "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
                                                 "(([dbo].[tbl_settlement].[ACH_Number] IS NOT NULL and [dbo].[tbl_settlement].[ACH_Date] IS NOT NULL) or " +
                                                 "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0) or " +
-                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0))";
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0)) ";
                     }
                     if (rbCreditCardBlueSheet.Checked)
                     {
@@ -38573,7 +38652,7 @@ namespace CMMManager
                                                 "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
                                                 "([dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NOT NULL or " +
                                                 "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0) or " +
-                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0))";
+                                                "([dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and [dbo].[tbl_settlement].[PersonalResponsibilityCredit] > 0)) ";
                     }
 
                     SqlCommand cmdQueryForSettlementPaid = new SqlCommand(strSqlSettlementPaid, connRN6);
@@ -39076,6 +39155,10 @@ namespace CMMManager
                     gvSharedMedBillBlueSheet.DataSource = null;
                     gvSharedMedBillBlueSheet.DataSource = dtMedicalBillPaid;
 
+                    paidSortedFieldBlueSheet.Field = "서비스 날짜";
+                    paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    SortBillSharedTable(paidSortedFieldBlueSheet);
+
                     gvSharedMedBillBlueSheet.Columns["INCD"].SortMode = DataGridViewColumnSortMode.Programmatic;
                     gvSharedMedBillBlueSheet.Columns["회원 이름"].SortMode = DataGridViewColumnSortMode.Programmatic;
                     gvSharedMedBillBlueSheet.Columns["MED_BILL"].SortMode = DataGridViewColumnSortMode.Programmatic;
@@ -39163,6 +39246,9 @@ namespace CMMManager
                     DataTable dt = dtMedicalBillPaid.Copy();
                     gvSharedInPaidTab.DataSource = dt;
 
+                    paidInPaidTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                    paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+
                     ///////////////////////////////////////////////////////////////////////////////////
                     ///
                     gvSharedInPaidTab.Columns["INCD"].Width = 80;
@@ -39213,6 +39299,9 @@ namespace CMMManager
                         gvSharedInPaidTab.Columns["기지급액 (회원)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     }
                     gvSharedInPaidTab.Columns["잔액/보류"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+                    SortBillSharedTableInPaidTab(paidInPaidTabSortedFieldBlueSheet);
                 }
 
                 DataTable dtCMMPendingPayment = new DataTable();
@@ -39245,7 +39334,8 @@ namespace CMMManager
                                                                     "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
                                                                     "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
                                                                     "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL and" +
-                                                                    "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+                                                                    "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo " +
+                                                                    "order by [dbo].[tbl_medbill].[BillDate]";
 
                     SqlCommand cmdQueryForMedBillCMMPendingPayment = new SqlCommand(strSqlQueryForMedBillCMMPendingPayment, connRN5);
                     cmdQueryForMedBillCMMPendingPayment.CommandType = CommandType.Text;
@@ -39558,6 +39648,13 @@ namespace CMMManager
                     gvCMMPendingPaymentBlueSheet.DataSource = null;
                     gvCMMPendingPaymentBlueSheet.DataSource = dtCMMPendingPayment;
 
+                    //if (cmmPendingPaymentSortedFieldBlueSheet.Field != "서비스 날짜")
+                    //{
+                    cmmPendingPaymentSortedFieldBlueSheet.Field = "서비스 날짜";
+                    cmmPendingPaymentSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    //}
+                    SortCMMPendingPaymentTable(cmmPendingPaymentSortedFieldBlueSheet);
+
                     gvCMMPendingPaymentBlueSheet.Columns["INCD"].Width = 80;
                     gvCMMPendingPaymentBlueSheet.Columns["회원 이름"].Width = 150;
                     gvCMMPendingPaymentBlueSheet.Columns["MED_BILL"].Width = 80;
@@ -39606,6 +39703,13 @@ namespace CMMManager
                     DataTable dtCMMPendingCopy = dtCMMPendingPayment.Copy();
 
                     gvCMMPendingPaymentInTab.DataSource = dtCMMPendingCopy;
+
+                    //if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    //{
+                    cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                    cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    //}
+                    SortCMMPendingPaymentTableInTab(cmmCMMPendingPaymentInTabSortedFieldBlueSheet);
 
                     foreach (DataGridViewColumn col in gvCMMPendingPaymentInTab.Columns)
                     {
@@ -39677,7 +39781,8 @@ namespace CMMManager
                                                    "inner join [RN_DB].[dbo].[tbl_pending_reason] on [RN_DB].[dbo].[tbl_medbill].[PendingReason] = [RN_DB].[dbo].[tbl_pending_reason].[ID] " +
                                                    "where [RN_DB].[dbo].[tbl_pending_reason].[name] IS NOT NULL and " +
                                                    "[RN_DB].[dbo].[tbl_medbill].[Balance] > 0 and " +
-                                                   "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+                                                   "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo " +
+                                                   "order by [RN_DB].[dbo].[tbl_medbill].[BillDate]";
 
                     SqlCommand cmdQueryForPending = new SqlCommand(strSqlQueryForPending, connRN7);
                     cmdQueryForPending.CommandType = CommandType.Text;
@@ -39748,6 +39853,13 @@ namespace CMMManager
                     gvPendingBlueSheet.DataSource = null;
                     gvPendingBlueSheet.DataSource = dtPending;
 
+                    //if (pendingSortedFieldBlueSheet.Field != "서비스 날짜")
+                    //{
+                    pendingSortedFieldBlueSheet.Field = "서비스 날짜";
+                    pendingSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    //}
+                    SortPendingTable(pendingSortedFieldBlueSheet);
+
                     foreach (DataGridViewColumn col in gvPendingBlueSheet.Columns)
                     {
                         col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -39768,6 +39880,13 @@ namespace CMMManager
 
                     gvPendingInTab.DataSource = null;
                     gvPendingInTab.DataSource = dtPendingInTab;
+
+                    //if (pendingInTabSortedFieldBlueSheet.Field != "서비스 날짜")
+                    //{
+                    pendingInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                    pendingInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    //}
+                    SortPendingTableInTab(pendingInTabSortedFieldBlueSheet);
 
                     foreach (DataGridViewColumn col in gvPendingInTab.Columns)
                     {
@@ -39846,7 +39965,8 @@ namespace CMMManager
                                                      "inner join [RN_DB].[dbo].[tbl_medbill_status_code] on [RN_DB].[dbo].[tbl_medbill].[BillStatus] = [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] " +
                                                      "where [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Ineligible' and " +
                                                      "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
-                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo ";
+                                                     
 
                     SqlCommand cmdQueryForMedBillIneligible = new SqlCommand(strSqlMedBillIneligible, connRN7);
                     cmdQueryForMedBillIneligible.CommandType = CommandType.Text;
@@ -40156,6 +40276,15 @@ namespace CMMManager
 
                 }
 
+                // Sort Ineligible medical bill
+                //DataView dvIneligible = dtMedicalBillIneligible.DefaultView;
+                //dvIneligible.Sort = "[서비스 날짜] DESC";
+                //DataTable dtIneligible = dvIneligible.ToTable();
+
+                //if (ineligibleSortedFieldBlueSheet.Field != "서비스 날짜")
+                //{
+
+
                 if (bIneligibleHasRowBlueSheet)
                 {
                     double sumIneligibleBillAmount = 0;
@@ -40180,6 +40309,10 @@ namespace CMMManager
                     gvIneligibleBlueSheet.DataSource = null;
                     gvIneligibleBlueSheet.DataSource = dtMedicalBillIneligible;
 
+                    ineligibleSortedFieldBlueSheet.Field = "서비스 날짜";
+                    ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    SortIneligibleTable(ineligibleSortedFieldBlueSheet);
+
                     foreach (DataGridViewColumn col in gvIneligibleBlueSheet.Columns)
                     {
                         col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -40199,6 +40332,10 @@ namespace CMMManager
 
                     DataTable dtIneligibleInTab = dtMedicalBillIneligible.Copy();
                     gvIneligibleInTab.DataSource = dtIneligibleInTab;
+
+                    ineligibleInTabSortedFieldBlueSheet.Field = "서비스 날짜";
+                    ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
+                    SortIneligibleTableInTab(ineligibleInTabSortedFieldBlueSheet);
 
                     foreach (DataGridViewColumn col in gvIneligibleInTab.Columns)
                     {
@@ -40241,6 +40378,8 @@ namespace CMMManager
                     gvIneligibleInTab.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     gvIneligibleInTab.Columns["전액/일부 지원불가 금액"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     gvIneligibleInTab.Columns["지원되지않는 사유"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+
 
                 }
             }
