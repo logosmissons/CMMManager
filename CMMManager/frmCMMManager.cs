@@ -440,13 +440,13 @@ namespace CMMManager
             lstICD10CodeInfo = new List<ICD10CodeInfo>();
 
             //rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True";
-            rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str5 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str6 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
-            rn_cnn_str7 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str5 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str6 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str7 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
             rn_cnn_strLimitedSharing = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
 
 
