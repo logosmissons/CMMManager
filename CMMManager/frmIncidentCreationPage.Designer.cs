@@ -252,6 +252,7 @@
             this.chkWellBeing.TabIndex = 48;
             this.chkWellBeing.Text = "Well Being";
             this.chkWellBeing.UseVisualStyleBackColor = true;
+            this.chkWellBeing.CheckedChanged += new System.EventHandler(this.chkWellBeing_CheckedChanged);
             // 
             // frmIncidentCreationPage
             // 

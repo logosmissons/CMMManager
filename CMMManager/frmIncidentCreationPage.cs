@@ -46,12 +46,12 @@ namespace CMMManager
 
         public void SetSqlSetting()
         {
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True";
+            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; Max Pool Size=200";
             connSalesforce = new SqlConnection(connStringSalesforce);
 
             strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
             connRNDB = new SqlConnection(connStringRN);
 
             dicProgram = new Dictionary<int, string>();
@@ -883,6 +883,84 @@ namespace CMMManager
                     DialogResult = DialogResult.OK;
                     Close();
                 }
+            }
+        }
+
+        private void chkWellBeing_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkbox = sender as CheckBox;
+
+            if (chkbox.Checked)
+            {
+                //String ICD10Code = txtICD10Code.Text.Trim();
+
+                //String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
+
+                //SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
+                //cmdQueryForICD10Code.CommandType = CommandType.Text;
+
+                //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessId);
+
+                //if (connRNDB.State != ConnectionState.Closed)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //Object objICD10Code = cmdQueryForICD10Code.ExecuteScalar();
+                //if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                //String ICD10Code = String.Empty;
+                //if (objICD10Code != null) ICD10Code = objICD10Code.ToString();
+
+                //if (ICD10Code == "Z00.00" || ICD10Code == "Z00.012")
+                //{
+                String IncidentProgram = comboProgram.SelectedItem.ToString().Trim();
+
+                if (IncidentProgram == "Gold Plus" || IncidentProgram == "Gold Medi-I" || IncidentProgram == "Gold Medi-II")
+                {
+                    String strSqlQueryForStartDate = "select [dbo].[contact].[Membership_IND_Start_date__c] from [dbo].[contact] " +
+                                                        "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                    SqlCommand cmdQueryForStartDate = new SqlCommand(strSqlQueryForStartDate, connSalesforce);
+                    cmdQueryForStartDate.CommandType = CommandType.Text;
+
+                    cmdQueryForStartDate.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    Object objMembershipStartDate = cmdQueryForStartDate.ExecuteScalar();
+                    if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                    DateTime? MembershipStartDate = null;
+                    if (objMembershipStartDate != null) MembershipStartDate = DateTime.Parse(objMembershipStartDate.ToString());
+
+                    DateTime? WellBeingStartDate = MembershipStartDate.Value.AddMonths(6);
+
+                    if (DateTime.Today < WellBeingStartDate.Value)
+                    {
+                        MessageBox.Show("This incident is not eligible for Well Being Care.", "Alert");
+                        chkbox.Checked = false;
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("The Incident Program is not eligible for Well Being Care.", "Alert");
+                    chkbox.Checked = false;
+                    return;
+                }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("The Illness is not eligible for Well Being Care.", "Alert");
+                //    chkbox.Checked = false;
+                //    return;
+                //}
             }
         }
     }
