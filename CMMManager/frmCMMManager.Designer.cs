@@ -51,6 +51,8 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.tbCMMManager = new System.Windows.Forms.TabControl();
             this.tbpgDashboardRNManager = new System.Windows.Forms.TabPage();
+            this.gvSettlementsForApproval = new System.Windows.Forms.DataGridView();
+            this.label122 = new System.Windows.Forms.Label();
             this.gvRNManagerMedBillPending = new System.Windows.Forms.DataGridView();
             this.RNManagerMedBillPendingBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RNManagerMedBillPendingIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -963,8 +965,16 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.MedBillForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypeForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementAmountForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsWellBeingForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).BeginInit();
@@ -1120,6 +1130,8 @@
             // 
             // tbpgDashboardRNManager
             // 
+            this.tbpgDashboardRNManager.Controls.Add(this.gvSettlementsForApproval);
+            this.tbpgDashboardRNManager.Controls.Add(this.label122);
             this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerMedBillPending);
             this.tbpgDashboardRNManager.Controls.Add(this.label185);
             this.tbpgDashboardRNManager.Controls.Add(this.label158);
@@ -1136,6 +1148,35 @@
             this.tbpgDashboardRNManager.Text = "Dashboard";
             this.tbpgDashboardRNManager.UseVisualStyleBackColor = true;
             // 
+            // gvSettlementsForApproval
+            // 
+            this.gvSettlementsForApproval.AllowUserToAddRows = false;
+            this.gvSettlementsForApproval.AllowUserToDeleteRows = false;
+            this.gvSettlementsForApproval.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvSettlementsForApproval.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MedBillForApproval,
+            this.IndividualIdForApproval,
+            this.IndividualNameForApproval,
+            this.SettlementNoForApproval,
+            this.SettlementTypeForApproval,
+            this.SettlementAmountForApproval,
+            this.IsWellBeingForApproval});
+            this.gvSettlementsForApproval.Location = new System.Drawing.Point(47, 130);
+            this.gvSettlementsForApproval.Name = "gvSettlementsForApproval";
+            this.gvSettlementsForApproval.ReadOnly = true;
+            this.gvSettlementsForApproval.Size = new System.Drawing.Size(806, 248);
+            this.gvSettlementsForApproval.TabIndex = 12;
+            // 
+            // label122
+            // 
+            this.label122.AutoSize = true;
+            this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label122.Location = new System.Drawing.Point(42, 101);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(321, 25);
+            this.label122.TabIndex = 11;
+            this.label122.Text = "Settlement Waiting For Approval";
+            // 
             // gvRNManagerMedBillPending
             // 
             this.gvRNManagerMedBillPending.AllowUserToAddRows = false;
@@ -1149,10 +1190,10 @@
             this.RNManagerMedBillPendingBillAmount,
             this.RNManagerMedBillPendingMedicalProvider,
             this.RNManagerMedBillPendingIPendingReason});
-            this.gvRNManagerMedBillPending.Location = new System.Drawing.Point(47, 382);
+            this.gvRNManagerMedBillPending.Location = new System.Drawing.Point(47, 643);
             this.gvRNManagerMedBillPending.Name = "gvRNManagerMedBillPending";
             this.gvRNManagerMedBillPending.ReadOnly = true;
-            this.gvRNManagerMedBillPending.Size = new System.Drawing.Size(652, 458);
+            this.gvRNManagerMedBillPending.Size = new System.Drawing.Size(806, 197);
             this.gvRNManagerMedBillPending.TabIndex = 10;
             // 
             // RNManagerMedBillPendingBillNo
@@ -1201,7 +1242,7 @@
             // 
             this.label185.AutoSize = true;
             this.label185.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label185.Location = new System.Drawing.Point(42, 354);
+            this.label185.Location = new System.Drawing.Point(42, 615);
             this.label185.Name = "label185";
             this.label185.Size = new System.Drawing.Size(207, 25);
             this.label185.TabIndex = 9;
@@ -1211,7 +1252,7 @@
             // 
             this.label158.AutoSize = true;
             this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label158.Location = new System.Drawing.Point(42, 101);
+            this.label158.Location = new System.Drawing.Point(42, 381);
             this.label158.Name = "label158";
             this.label158.Size = new System.Drawing.Size(172, 25);
             this.label158.TabIndex = 8;
@@ -1230,10 +1271,10 @@
             this.ActivityDateCompleteTaskRNMgr,
             this.CommentCompleteTaskRNMgr,
             this.SolutionCompleteTaskRNMgr});
-            this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(725, 521);
+            this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(885, 521);
             this.gvRNManagerCompleteTask.Name = "gvRNManagerCompleteTask";
             this.gvRNManagerCompleteTask.ReadOnly = true;
-            this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(1062, 319);
+            this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(902, 319);
             this.gvRNManagerCompleteTask.TabIndex = 7;
             // 
             // IndividualIdCompleteTaskRNMgr
@@ -1282,7 +1323,7 @@
             // 
             this.label157.AutoSize = true;
             this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label157.Location = new System.Drawing.Point(720, 493);
+            this.label157.Location = new System.Drawing.Point(880, 493);
             this.label157.Name = "label157";
             this.label157.Size = new System.Drawing.Size(168, 25);
             this.label157.TabIndex = 6;
@@ -1307,10 +1348,10 @@
             this.SolutionRNManager,
             this.StatusRNManager,
             this.PriorityRNManager});
-            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(725, 129);
+            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(885, 129);
             this.gvRNManagerActiveTask.Name = "gvRNManagerActiveTask";
             this.gvRNManagerActiveTask.ReadOnly = true;
-            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(1060, 341);
+            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(900, 341);
             this.gvRNManagerActiveTask.TabIndex = 5;
             // 
             // IndividualIdRNManager
@@ -1395,7 +1436,7 @@
             // 
             this.label156.AutoSize = true;
             this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label156.Location = new System.Drawing.Point(720, 101);
+            this.label156.Location = new System.Drawing.Point(880, 101);
             this.label156.Name = "label156";
             this.label156.Size = new System.Drawing.Size(124, 25);
             this.label156.TabIndex = 4;
@@ -1417,10 +1458,10 @@
             this.RNManagerIncompleteCaseMedRec,
             this.RNManagerIncompleteCaseUnknowForm,
             this.RNManagerIncompleteCaseAddBill});
-            this.gvRNManagerIncompleteCase.Location = new System.Drawing.Point(47, 129);
+            this.gvRNManagerIncompleteCase.Location = new System.Drawing.Point(47, 409);
             this.gvRNManagerIncompleteCase.Name = "gvRNManagerIncompleteCase";
             this.gvRNManagerIncompleteCase.ReadOnly = true;
-            this.gvRNManagerIncompleteCase.Size = new System.Drawing.Size(652, 203);
+            this.gvRNManagerIncompleteCase.Size = new System.Drawing.Size(806, 203);
             this.gvRNManagerIncompleteCase.TabIndex = 3;
             // 
             // RNManagerIncompleteCase_CaseName
@@ -9437,6 +9478,50 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // MedBillForApproval
+            // 
+            this.MedBillForApproval.HeaderText = "MedBill No";
+            this.MedBillForApproval.Name = "MedBillForApproval";
+            this.MedBillForApproval.ReadOnly = true;
+            // 
+            // IndividualIdForApproval
+            // 
+            this.IndividualIdForApproval.HeaderText = "IndividualId";
+            this.IndividualIdForApproval.Name = "IndividualIdForApproval";
+            this.IndividualIdForApproval.ReadOnly = true;
+            // 
+            // IndividualNameForApproval
+            // 
+            this.IndividualNameForApproval.HeaderText = "Individual Name";
+            this.IndividualNameForApproval.Name = "IndividualNameForApproval";
+            this.IndividualNameForApproval.ReadOnly = true;
+            // 
+            // SettlementNoForApproval
+            // 
+            this.SettlementNoForApproval.HeaderText = "Settlement No";
+            this.SettlementNoForApproval.Name = "SettlementNoForApproval";
+            this.SettlementNoForApproval.ReadOnly = true;
+            // 
+            // SettlementTypeForApproval
+            // 
+            this.SettlementTypeForApproval.HeaderText = "Settlement Type";
+            this.SettlementTypeForApproval.Name = "SettlementTypeForApproval";
+            this.SettlementTypeForApproval.ReadOnly = true;
+            this.SettlementTypeForApproval.Width = 160;
+            // 
+            // SettlementAmountForApproval
+            // 
+            this.SettlementAmountForApproval.HeaderText = "Settlement Amount";
+            this.SettlementAmountForApproval.Name = "SettlementAmountForApproval";
+            this.SettlementAmountForApproval.ReadOnly = true;
+            this.SettlementAmountForApproval.Width = 180;
+            // 
+            // IsWellBeingForApproval
+            // 
+            this.IsWellBeingForApproval.HeaderText = "Is Well Being";
+            this.IsWellBeingForApproval.Name = "IsWellBeingForApproval";
+            this.IsWellBeingForApproval.ReadOnly = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -9458,6 +9543,7 @@
             this.tbCMMManager.ResumeLayout(false);
             this.tbpgDashboardRNManager.ResumeLayout(false);
             this.tbpgDashboardRNManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).EndInit();
@@ -10522,6 +10608,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillSettlementTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
+        private System.Windows.Forms.DataGridView gvSettlementsForApproval;
+        private System.Windows.Forms.Label label122;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypeForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementAmountForApproval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IsWellBeingForApproval;
     }
 }
 

@@ -173,6 +173,28 @@ namespace CMMManager
         }
     }
 
+    public class SettlementInfoForApproval
+    {
+        public String MedBillNo;
+        public String IndividualId;
+        public String IndividualName;
+        public String SettlementNo;
+        public String SettlementType;
+        public Decimal SettlementAmount;
+        public Boolean IsWellBeing;
+
+        public SettlementInfoForApproval()
+        {
+            MedBillNo = String.Empty;
+            IndividualId = String.Empty;
+            IndividualName = String.Empty;
+            SettlementNo = String.Empty;
+            SettlementType = String.Empty;
+            SettlementAmount = 0;
+            IsWellBeing = false;
+        }
+    }
+
     public class ApprovedSettlementInfo
     {
         public String IncidentNo;
