@@ -40854,7 +40854,7 @@ namespace CMMManager
                                                                       "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
                                                                       "inner join [dbo].[tbl_ineligible_reason] on [dbo].[tbl_medbill].[IneligibleReason] = [dbo].[tbl_ineligible_reason].[id] " +
                                                                       "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and " +
-                                                                      "[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and" +
+                                                                      "[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
                                                                       "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
                     SqlCommand cmdQueryForMedBillPartiallyIneligible = new SqlCommand(strSqlQueryForMedBillPartiallyIneligible, connRN7);
@@ -41002,7 +41002,7 @@ namespace CMMManager
                                                  "inner join [dbo].[tbl_settlement] on [dbo].[tbl_medbill].[BillNo] = [dbo].[tbl_settlement].[MedicalBillID] " +
                                                  "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
                                                  "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[incident_id] = [dbo].[tbl_incident].[Incident_id] " +
-                                                 "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and " +
+                                                 "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' and " + // or [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible') and " +
                                                  "([dbo].[tbl_settlement].[CheckNo] = @CheckNo or " +
                                                  "[dbo].[tbl_settlement].[ACH_Number] = @ACH_No or " +
                                                  "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] >= @CreditCardPaymentDate) and " +
@@ -41048,14 +41048,15 @@ namespace CMMManager
                                                                        "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue], [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
                                                                        "[RN_DB].[dbo].[tbl_ineligible_reason].[name] " +
                                                                        "from [RN_DB].[dbo].[tbl_medbill] " +
+                                                                       "inner join [RN_DB].[dbo].[tbl_medbill_status_code] on [RN_DB].[dbo].[tbl_medbill].[BillStatus] = [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] " +   // this line may get deleted
                                                                        "inner join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
                                                                        "inner join [RN_DB].[dbo].[tbl_settlement] on [RN_DB].[dbo].[tbl_medbill].[BillNo] = [RN_DB].[dbo].[tbl_settlement].[MedicalBillID] " +
                                                                        "inner join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                                        "inner join [RN_DB].[dbo].[tbl_ineligible_reason] on [RN_DB].[dbo].[tbl_medbill].[IneligibleReason] = [RN_DB].[dbo].[tbl_ineligible_reason].[id] " +
                                                                        "inner join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
                                                                        "inner join [SalesForce].[dbo].[account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[account].[Id] " +
-                                                                       "where ([RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Closed' or " +
-                                                                       "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Partially Ineligible') and " +
+                                                                       "where ([RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Closed' or " +
+                                                                       "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible') and " +
                                                                        "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Ineligible' and " +
                                                                        "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
                                                                        "[RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo";
