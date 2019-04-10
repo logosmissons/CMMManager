@@ -290,6 +290,7 @@ namespace CMMManager
         private String strNPFormFileNameMedBill = String.Empty;
         private String strNPFSourceFilePathMedBill = String.Empty;
         private String strNPFDestinationFilePathMedBill = String.Empty;
+        //private Boolean bNPFMedBill = false;
 
         private String strIBFileNameMedBill = String.Empty;
         private String strIBSourceFilePathMedBill = String.Empty;
@@ -3198,7 +3199,7 @@ namespace CMMManager
                                                         "from [dbo].[tbl_settlement] " +
                                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                                         "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                        "inner join [dbo].[tbl_incident] on [dbo].[tbl_settlement]." +
+                                                        "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
                                                         "where ([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Member Reimbursement' or " +
                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
@@ -3207,7 +3208,6 @@ namespace CMMManager
                     SqlCommand cmdQueryForSettlementsForApproval = new SqlCommand(strSqlQueryForSettlementsForApproval, connRN);
                     cmdQueryForSettlementsForApproval.CommandType = CommandType.Text;
 
-                    gvSettlementsForApproval.Rows.Clear();
                     if (connRN.State != ConnectionState.Closed)
                     {
                         connRN.Close();
@@ -3227,17 +3227,49 @@ namespace CMMManager
                             if (!rdrSettlementForApproval.IsDBNull(4)) info.SettlementAmount = rdrSettlementForApproval.GetDecimal(4);
                             if (!rdrSettlementForApproval.IsDBNull(5)) info.IsWellBeing = rdrSettlementForApproval.GetBoolean(5);
                             lstSettlementInfoForApproval.Add(info);
-                            //DataGridViewRow row = new DataGridViewRow();
-                            //if (!rdrSettlementForApproval.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlementForApproval.GetString(0) });
-                            //if (!rdrSettlementForApproval.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlementForApproval.GetString(1) });
-                            //if (!rdrSettlementForApproval.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlementForApproval.GetString(2) });
-                            //if (!rdrSettlementForApproval.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlementForApproval.GetString(3) });
-                            //if (!rdrSettlementForApproval.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlementForApproval.GetDecimal(4).ToString("C") });
-                            //gvSettlementsForApproval.Rows.Add(row);
                         }
                     }
                     rdrSettlementForApproval.Close();
                     if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    foreach (SettlementInfoForApproval info in lstSettlementInfoForApproval)
+                    {
+                        String strSqlQueryForIndividualName = "select [dbo].[contact].[Name] from [dbo].[contact] where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                        SqlCommand cmdQueryForIndividualName = new SqlCommand(strSqlQueryForIndividualName, connSalesforce);
+                        cmdQueryForIndividualName.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+
+                        if (connSalesforce.State != ConnectionState.Closed)
+                        {
+                            connSalesforce.Close();
+                            connSalesforce.Open();
+                        }
+                        else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                        Object objIndividualName = cmdQueryForIndividualName.ExecuteScalar();
+                        if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                        if (objIndividualName != null) info.IndividualName = objIndividualName.ToString();
+                    }
+
+                    gvSettlementsForApproval.Rows.Clear();
+                    foreach (SettlementInfoForApproval info in lstSettlementInfoForApproval)
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        if (info.MedBillNo != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MedBillNo });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (info.IndividualId != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualId });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (info.IndividualName != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IndividualName });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (info.SettlementNo != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementNo });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (info.SettlementType != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementType });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (info.SettlementAmount >= 0) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementAmount.ToString("C") });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = info.IsWellBeing });
+                        if (info.IsWellBeing == true) row.DefaultCellStyle.BackColor = Color.LightPink;
+                        gvSettlementsForApproval.Rows.Add(row);
+                    }
 
                     String strSqlQueryForIncompleteCases = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case].[Contact_ID], " +
                                                            "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
@@ -3388,6 +3420,10 @@ namespace CMMManager
                     }
                     rdrImcompleteCases.Close();
                     if (connRN.State == ConnectionState.Open) connRN.Close();
+
+                    //gvRNManagerMedBillPending
+
+
 
                     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     ///
@@ -10935,9 +10971,27 @@ namespace CMMManager
                         if ((gvSettlementsInMedBill["SettlementTypeValue", i].Value.ToString() == "CMM Provider Payment") ||
                             (gvSettlementsInMedBill["SettlementTypeValue", i].Value.ToString() == "Member Reimbursement") ||
                             (gvSettlementsInMedBill["SettlementTypeValue", i].Value.ToString() == "PR Reimbursement"))
-                            TotalSharedAmount += Decimal.Parse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"));
+                        {
+                            Decimal SettlementAmount = 0;
+                            if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out SettlementAmount))
+                                TotalSharedAmount += SettlementAmount;
+                            else
+                            {
+                                MessageBox.Show("You have to enter decimal value in Settlement Amount field in Settlement " + gvSettlementsInMedBill[1, i]?.Value?.ToString(), "Alert");
+                                return;
+                            }
+                        }
                         if (gvSettlementsInMedBill["SettlementTypeValue", i].Value.ToString() == "Medical Provider Refund")
-                            TotalSharedAmount -= Decimal.Parse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"));
+                        {
+                            Decimal MedicalProviderRefund = 0;
+                            if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out MedicalProviderRefund))
+                                TotalSharedAmount -= MedicalProviderRefund;
+                            else
+                            {
+                                MessageBox.Show("You have to enter decimal value in Settlement Amount field in Settlement " + gvSettlementsInMedBill[1, i]?.Value?.ToString(), "Alert");
+                                return;
+                            }
+                        }
                     }
 
                     cmdInsertNewMedBill.Parameters.AddWithValue("@TotalSharedAmount", TotalSharedAmount);
@@ -37681,7 +37735,7 @@ namespace CMMManager
                 using (FileStream fs = File.Create(dlg.FileName))
                 {
                     Byte[] heading = new UTF8Encoding(true)
-                        .GetBytes("AccountFullName,Check PayeeEntity,RefNumber,Txndate,Memo,address1,address2,City,State,postal,IsToBePrinted,Expense Account,Expense Amount,Expense Memo" + Environment.NewLine);
+                        .GetBytes("\"AccountFullName\",\"Check PayeeEntity\",\"RefNumber\",\"Txndate\",\"Memo\",\"address1\",\"address2\",\"City\",\"State\",\"postal\",\"IsToBePrinted\",\"Expense Account\",\"Expense Amount\",\"Expense Memo\"" + Environment.NewLine);
                     fs.Write(heading, 0, heading.Length);
                     int nReferenceNo = 1;
 
@@ -37691,11 +37745,11 @@ namespace CMMManager
                         {
                             StringBuilder sbSettlement = new StringBuilder();
 
-                            sbSettlement.Append("Bank of Hope:Bank of Hope [ACH-Med] (4125)" + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + ",");
-                            sbSettlement.Append(nReferenceNo.ToString() + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,");
+                            sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)\"" + ",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
+                            sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED\",");
                             if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
                             {
                                 if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
@@ -37726,17 +37780,26 @@ namespace CMMManager
                                                         lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
                                 }
                             }
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].StreetAddress + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].City + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].State + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].Zip + ",");
-                            sbSettlement.Append("TRUE,");
-                            sbSettlement.Append("CMM Expense:Medical Bill,");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + ",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
-                                                lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                Environment.NewLine);
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+                            sbSettlement.Append("\"TRUE\",");
+                            sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                            if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                            {
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                    lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
+                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                    Environment.NewLine);
+                            }
+                            else
+                            {
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                    lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" +
+                                                    Environment.NewLine);
+                            }
 
                             Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
@@ -37747,10 +37810,10 @@ namespace CMMManager
                                 if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i + 1].IndividualId)
                                 {
                                     StringBuilder sbIncidentInfo = new StringBuilder();
-                                    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                                    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" +
                                                                 lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                 lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -37762,10 +37825,10 @@ namespace CMMManager
                             if (i == lstSortedCheckPaymentCSVExport.Count - 1)
                             {
                                 StringBuilder sbIncidentInfo = new StringBuilder();
-                                sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                                sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" +
                                                             lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                             lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                            lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                            lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                             Environment.NewLine);
 
                                 Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -37780,11 +37843,11 @@ namespace CMMManager
                             {
                                 StringBuilder sbSettlement = new StringBuilder();
 
-                                sbSettlement.Append("Bank of Hope:Bank of Hope [ACH-Med] (4125)" + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + ",");
-                                sbSettlement.Append(nReferenceNo.ToString() + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,");
+                                sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)\"" + ",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
+                                sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED\",");
                                 if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
                                 {
                                     if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
@@ -37815,17 +37878,26 @@ namespace CMMManager
                                                             lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
                                     }
                                 }
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].StreetAddress + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].City + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].State + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].Zip + ",");
-                                sbSettlement.Append("TRUE,");
-                                sbSettlement.Append("CMM Expense:Medical Bill,");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + ",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                    Environment.NewLine);
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+                                sbSettlement.Append("\"TRUE\",");
+                                sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                                {
+                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
+                                else
+                                {
+                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + 
+                                                        Environment.NewLine);
+                                }
 
                                 Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
@@ -37837,9 +37909,9 @@ namespace CMMManager
                                     {
                                         StringBuilder sbIncidentInfo = new StringBuilder();
                                         sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                                    "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                     lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                     Environment.NewLine);
 
                                         Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -37853,9 +37925,9 @@ namespace CMMManager
                                 {
                                     StringBuilder sbIncidentInfo = new StringBuilder();
                                     sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                                "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                 lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -37868,12 +37940,23 @@ namespace CMMManager
                             {
                                 StringBuilder sbSettlement = new StringBuilder();
 
-                                sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
-                                                    lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
-                                                    "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                    Environment.NewLine);
+                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                                {
+                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
+                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
+                                else
+                                {
+                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
+                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
 
                                 Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
@@ -37885,9 +37968,9 @@ namespace CMMManager
                                     {
                                         StringBuilder sbIncidentInfo = new StringBuilder();
                                         sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                                    "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                     lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                     Environment.NewLine);
 
                                         Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -37900,9 +37983,9 @@ namespace CMMManager
                                 {
                                     StringBuilder sbIncidentInfo = new StringBuilder();
                                     sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                                "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                 lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -38060,7 +38143,7 @@ namespace CMMManager
                 using (FileStream fs = File.Create(dlg.FileName))
                 {
                     Byte[] heading = new UTF8Encoding(true)
-                        .GetBytes("AccountFullName,Check PayeeEntity,RefNumber,Txndate,Memo,address1,address2,City,State,postal,IsToBePrinted,Expense Account,Expense Amount,Expense Memo" + Environment.NewLine);
+                        .GetBytes("\"AccountFullName\",\"Check PayeeEntity\",\"RefNumber\",\"Txndate\",\"Memo\",\"address1\",\"address2\",\"City,\"State\",\"postal\",\"IsToBePrinted\",\"Expense Account\",\"Expense Amount\",\"Expense Memo\"" + Environment.NewLine);
                     fs.Write(heading, 0, heading.Length);
                     int nReferenceNo = 1;
 
@@ -38070,11 +38153,11 @@ namespace CMMManager
                         {
                             StringBuilder sbSettlement = new StringBuilder();
 
-                            sbSettlement.Append("Bank of Hope:Bank of Hope [ACH-Med] (4125)" + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + ",");
-                            sbSettlement.Append(nReferenceNo.ToString() + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,");
+                            sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
+                            sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,\"");
                             if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
                             {
                                 if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
@@ -38105,16 +38188,16 @@ namespace CMMManager
                                                         lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
                                 }
                             }
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].StreetAddress + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].City + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].State + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].Zip + ",");
-                            sbSettlement.Append("TRUE,");
-                            sbSettlement.Append("CMM Expense:Medical Bill,");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + ",");
-                            sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                "\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
-                                                lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider +
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+                            sbSettlement.Append("\"TRUE\",");
+                            sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
+                                                lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
                                                 Environment.NewLine);
 
                             Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
@@ -38127,9 +38210,9 @@ namespace CMMManager
                                 {
                                     StringBuilder sbIncidentInfo = new StringBuilder();
                                     sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                                "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                                 lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -38142,9 +38225,9 @@ namespace CMMManager
                             {
                                 StringBuilder sbIncidentInfo = new StringBuilder();
                                 sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                            lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                                                            "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
                                                             lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                            lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                                                            lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
                                                             Environment.NewLine);
 
                                 Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
@@ -38159,11 +38242,11 @@ namespace CMMManager
                             {
                                 StringBuilder sbSettlement = new StringBuilder();
 
-                                sbSettlement.Append("Bank of Hope:Bank of Hope [ACH-Med] (4125)" + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + ",");
-                                sbSettlement.Append(nReferenceNo.ToString() + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,");
+                                sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
+                                sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,\"");
                                 if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
                                 {
                                     if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
@@ -38194,17 +38277,28 @@ namespace CMMManager
                                                             lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
                                     }
                                 }
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].StreetAddress + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].City + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].State + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].Zip + ",");
-                                sbSettlement.Append("TRUE,");
-                                sbSettlement.Append("CMM Expense:Medical Bill,");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + ",");
-                                sbSettlement.Append(lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                    "\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider +
-                                                    Environment.NewLine);
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+                                sbSettlement.Append("\"TRUE\",");
+                                sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+
+                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                                {
+                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
+                                else
+                                {
+                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" +
+                                                        Environment.NewLine);
+                                }
+
 
                                 Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
@@ -38247,12 +38341,23 @@ namespace CMMManager
                             {
                                 StringBuilder sbSettlement = new StringBuilder();
 
-                                sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
-                                                    lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
-                                                    lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                    "\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\"" + " - " +
-                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider +
-                                                    Environment.NewLine);
+                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                                {
+                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
+                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
+                                else
+                                {
+                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
+                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\"" +
+                                                        Environment.NewLine);
+                                }
 
                                 Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
@@ -39879,6 +39984,10 @@ namespace CMMManager
                     gvSharedMedBillBlueSheet.DataSource = null;
                     gvSharedMedBillBlueSheet.DataSource = dtMedicalBillPaid;
 
+                    DataTable dt = dtMedicalBillPaid.Copy();
+                    gvSharedInPaidTab.DataSource = null;
+                    gvSharedInPaidTab.DataSource = dt;
+
                     paidSortedFieldBlueSheet.Field = "서비스 날짜";
                     paidSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
                     SortBillSharedTable(paidSortedFieldBlueSheet);
@@ -39967,8 +40076,6 @@ namespace CMMManager
                     }
                     gvSharedMedBillBlueSheet.Columns["잔액/보류"].Width = 100;
 
-                    DataTable dt = dtMedicalBillPaid.Copy();
-                    gvSharedInPaidTab.DataSource = dt;
 
                     paidInPaidTabSortedFieldBlueSheet.Field = "서비스 날짜";
                     paidInPaidTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
@@ -40003,7 +40110,7 @@ namespace CMMManager
                     gvSharedInPaidTab.Columns["회원 이름"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     gvSharedInPaidTab.Columns["MED_BILL"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     gvSharedInPaidTab.Columns["서비스 날짜"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    gvSharedInPaidTab.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    gvSharedInPaidTab.Columns["의료기관명"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
                     gvSharedInPaidTab.Columns["청구액(원금)"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     gvSharedInPaidTab.Columns["본인 부담금"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -40372,6 +40479,10 @@ namespace CMMManager
                     gvCMMPendingPaymentBlueSheet.DataSource = null;
                     gvCMMPendingPaymentBlueSheet.DataSource = dtCMMPendingPayment;
 
+                    DataTable dtCMMPendingCopy = dtCMMPendingPayment.Copy();
+                    gvCMMPendingPaymentInTab.DataSource = null;
+                    gvCMMPendingPaymentInTab.DataSource = dtCMMPendingCopy;
+
                     //if (cmmPendingPaymentSortedFieldBlueSheet.Field != "서비스 날짜")
                     //{
                     cmmPendingPaymentSortedFieldBlueSheet.Field = "서비스 날짜";
@@ -40424,9 +40535,7 @@ namespace CMMManager
                     gvCMMPendingPaymentBlueSheet.Columns["지원 예정"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
 
-                    DataTable dtCMMPendingCopy = dtCMMPendingPayment.Copy();
 
-                    gvCMMPendingPaymentInTab.DataSource = dtCMMPendingCopy;
 
                     //if (cmmCMMPendingPaymentInTabSortedFieldBlueSheet.Field != "서비스 날짜")
                     //{
@@ -40577,6 +40686,11 @@ namespace CMMManager
                     gvPendingBlueSheet.DataSource = null;
                     gvPendingBlueSheet.DataSource = dtPending;
 
+                    DataTable dtPendingInTab = dtPending.Copy();
+
+                    gvPendingInTab.DataSource = null;
+                    gvPendingInTab.DataSource = dtPendingInTab;
+
                     //if (pendingSortedFieldBlueSheet.Field != "서비스 날짜")
                     //{
                     pendingSortedFieldBlueSheet.Field = "서비스 날짜";
@@ -40600,10 +40714,7 @@ namespace CMMManager
                     gvPendingBlueSheet.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
                     gvPendingBlueSheet.Columns["잔액/보류"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-                    DataTable dtPendingInTab = dtPending.Copy();
 
-                    gvPendingInTab.DataSource = null;
-                    gvPendingInTab.DataSource = dtPendingInTab;
 
                     //if (pendingInTabSortedFieldBlueSheet.Field != "서비스 날짜")
                     //{
@@ -40689,7 +40800,7 @@ namespace CMMManager
                                                      "inner join [RN_DB].[dbo].[tbl_medbill_status_code] on [RN_DB].[dbo].[tbl_medbill].[BillStatus] = [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] " +
                                                      "where [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Ineligible' and " +
                                                      "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
-                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo ";
+                                                     "[RN_DB].[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
                                                      
 
                     SqlCommand cmdQueryForMedBillIneligible = new SqlCommand(strSqlMedBillIneligible, connRN7);
@@ -40743,7 +40854,7 @@ namespace CMMManager
                                                                       "inner join [dbo].[tbl_medbill_status_code] on [dbo].[tbl_medbill].[BillStatus] = [dbo].[tbl_medbill_status_code].[BillStatusCode] " +
                                                                       "inner join [dbo].[tbl_ineligible_reason] on [dbo].[tbl_medbill].[IneligibleReason] = [dbo].[tbl_ineligible_reason].[id] " +
                                                                       "where [dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and " +
-                                                                      "[dbo].[tbl_ineligible_reason].[name] = '' and" +
+                                                                      "[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and" +
                                                                       "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
 
                     SqlCommand cmdQueryForMedBillPartiallyIneligible = new SqlCommand(strSqlQueryForMedBillPartiallyIneligible, connRN7);
@@ -40795,7 +40906,7 @@ namespace CMMManager
                                                                            "inner join [RN_DB].[dbo].[tbl_ineligible_reason] on [RN_DB].[dbo].[tbl_medbill].[IneligibleReason] = [RN_DB].[dbo].[tbl_ineligible_reason].[id] " +
                                                                            "where [RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusValue] = 'Partially Ineligible' and " +
                                                                            "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Ineligible' and " +
-                                                                           "[RN_DB].[dbo].[tbl_ineligible_reason].[name] != '' and " +
+                                                                           "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
                                                                            "[RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo";
 
                                 SqlCommand cmdQueryForPartiallyIneligible = new SqlCommand(strSqlQueryForPartiallyIneligible, connRN6);
@@ -40838,14 +40949,14 @@ namespace CMMManager
                                             expenseIneligible.BillAmount = 0;
                                             medbill.BillAmount = 0;
                                         }
-                                        if (rdrPartiallyIneligible.IsDBNull(7))
+                                        if (!rdrPartiallyIneligible.IsDBNull(7))
                                         {
-                                            medbill.BillAmount = (double?)rdrPartiallyIneligible.GetDecimal(7);
+                                            medbill.IneligibleAmount = (double?)rdrPartiallyIneligible.GetDecimal(7);
                                             expenseIneligible.AmountIneligible = (double?)rdrPartiallyIneligible.GetDecimal(7);
                                         }
                                         else
                                         {
-                                            medbill.BillAmount = 0;
+                                            medbill.IneligibleAmount = 0;
                                             expenseIneligible.AmountIneligible = 0;
                                         }
                                         if (!rdrPartiallyIneligible.IsDBNull(9)) medbill.IneligibleReason = rdrPartiallyIneligible.GetString(9);
@@ -40946,7 +41057,7 @@ namespace CMMManager
                                                                        "where ([RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Closed' or " +
                                                                        "[RN_DB].[dbo].[tbl_medbill_status_code].[BillStatusCode] = 'Partially Ineligible') and " +
                                                                        "[RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'Ineligible' and " +
-                                                                       "[RN_DB].[dbo].[tbl_ineligible_reason].[name] != '' and " +
+                                                                       "[RN_DB].[dbo].[tbl_ineligible_reason].[name] IS NOT NULL and " +
                                                                        "[RN_DB].[dbo].[tbl_medbill].[BillNo] = @MedBillNo";
 
                                 SqlCommand cmdQueryForMedBillClosedIneligible = new SqlCommand(strSqlMedBillClosedIneligible, connRN6);
@@ -41034,6 +41145,10 @@ namespace CMMManager
                     gvIneligibleBlueSheet.DataSource = null;
                     gvIneligibleBlueSheet.DataSource = dtMedicalBillIneligible;
 
+                    DataTable dtIneligibleInTab = dtMedicalBillIneligible.Copy();
+                    gvIneligibleInTab.DataSource = null;
+                    gvIneligibleInTab.DataSource = dtIneligibleInTab;
+
                     ineligibleSortedFieldBlueSheet.Field = "서비스 날짜";
                     ineligibleSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
                     SortIneligibleTable(ineligibleSortedFieldBlueSheet);
@@ -41054,9 +41169,6 @@ namespace CMMManager
                     gvIneligibleBlueSheet.Columns["청구액(원금)"].SortMode = DataGridViewColumnSortMode.NotSortable;
                     gvIneligibleBlueSheet.Columns["전액/일부 지원불가 금액"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
-
-                    DataTable dtIneligibleInTab = dtMedicalBillIneligible.Copy();
-                    gvIneligibleInTab.DataSource = dtIneligibleInTab;
 
                     ineligibleInTabSortedFieldBlueSheet.Field = "서비스 날짜";
                     ineligibleInTabSortedFieldBlueSheet.Sorted = EnumSorted.NotSorted;
@@ -41706,15 +41818,10 @@ namespace CMMManager
             {
                 if (txtNPFMedBillFileName.Text.Trim() != String.Empty)
                 {
-                    strNPFormFileNameMedBill = txtNPFMedBillFileName.Text.Trim();
                     txtNPFMedBillFileName.Text = String.Empty;
-                }
-            }
-            else
-            {
-                if (txtNPFMedBillFileName.Text.Trim() == String.Empty)
-                {
-                    if (strNPFormFileNameMedBill != String.Empty) txtNPFMedBillFileName.Text = strNPFormFileNameMedBill;
+                    strNPFFormFileName = String.Empty;
+                    strNPFSourceFilePathMedBill = String.Empty;
+                    strNPFDestinationFilePathMedBill = String.Empty;
                 }
             }
         }
@@ -49118,6 +49225,62 @@ namespace CMMManager
             else
             {
                 MessageBox.Show("No table is populated", "Error");
+            }
+        }
+
+        private void chkIBMedBill_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkIBMedBill.Checked)
+            {
+                if (txtIBMedBillFileName.Text.Trim() != String.Empty)
+                {
+                    txtIBMedBillFileName.Text = String.Empty;
+                    strIBFileNameMedBill = String.Empty;
+                    strIBSourceFilePathMedBill = String.Empty;
+                    strIBDestinationFilePathMedBill = String.Empty;
+                }
+            }
+        }
+
+        private void chkPoPMedBill_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkPoPMedBill.Checked)
+            {
+                if (txtPoPMedBillFileName.Text.Trim() != String.Empty)
+                {
+                    txtPoPMedBillFileName.Text = String.Empty;
+                    strPoPFileNameMedBill = String.Empty;
+                    strPoPSourceFilePathMedBill = String.Empty;
+                    strPoPDestinationFilePathMedBill = String.Empty;
+                }
+            }
+        }
+
+        private void chkMedRecMedBill_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkMedRecMedBill.Checked)
+            {
+                if (txtMedRecMedBillFileName.Text.Trim() != String.Empty)
+                {
+                    txtMedRecMedBillFileName.Text = String.Empty;
+                    strMedRecFileNameMedBill = String.Empty;
+                    strMedRecSourceFilePathMedBill = String.Empty;
+                    strMedRecDestinationFilePathMedBill = String.Empty;
+                }
+            }
+        }
+
+        private void chkOtherDocMedBill_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!chkOtherDocMedBill.Checked)
+            {
+                if (txtOtherDocMedBillFileName.Text.Trim() != String.Empty)
+                {
+                    txtOtherDocMedBillFileName.Text = String.Empty;
+                    strOtherDocFileNameMedBill = String.Empty;
+                    strOtherDocSourceFilePathMedBill = String.Empty;
+                    strOtherDocDestinationFilePathMedBill = String.Empty;
+                }
             }
         }
     }
