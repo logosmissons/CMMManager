@@ -231,7 +231,7 @@ namespace CMMManager
         String CaseNameSelected = String.Empty;
         String CaseIdForCasePageMedBill = String.Empty;
 
-        private ViewPrevToMedBill PrevViewToMedicalBill;
+        //private ViewPrevToMedBill PrevViewToMedicalBill;
 
 
         public String strCaseIdSelected = String.Empty;
@@ -1115,6 +1115,38 @@ namespace CMMManager
 
             if (dlgClosing == DialogResult.Yes)
             {
+                String strSqlDeleteCaseInUse = "delete from [dbo].[tbl_CaseInUse] where [dbo].[tbl_CaseInUse].[EditingStaff] = @EditingStaff";
+
+                SqlCommand cmdDeleteCaseInUse = new SqlCommand(strSqlDeleteCaseInUse, connRN7);
+                cmdDeleteCaseInUse.CommandType = CommandType.Text;
+
+                cmdDeleteCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                int nCaseInUseDeleted = cmdDeleteCaseInUse.ExecuteNonQuery();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                String strSqlDeleteMedBillInUse = "delete from [dbo].[tbl_MedBillInUse] where [dbo].[tbl_MedBillInUse].[EditingStaff] = @EditingStaff";
+
+                SqlCommand cmdDeleteMedBillInUse = new SqlCommand(strSqlDeleteMedBillInUse, connRN7);
+                cmdDeleteMedBillInUse.CommandType = CommandType.Text;
+
+                cmdDeleteMedBillInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                int nMedBillInUseDelete = cmdDeleteMedBillInUse.ExecuteNonQuery();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
                 Close();
             }
             else if (dlgClosing == DialogResult.No)
@@ -18860,7 +18892,8 @@ namespace CMMManager
 
         private void gvSettlementsInMedBill_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            if (gvSettlementsInMedBill.IsCurrentCellDirty && PrevViewToMedicalBill == ViewPrevToMedBill.CaseView)
+            //if (gvSettlementsInMedBill.IsCurrentCellDirty && PrevViewToMedicalBill == ViewPrevToMedBill.CaseView)
+            if (gvSettlementsInMedBill.IsCurrentCellDirty)
             {
                 gvSettlementsInMedBill.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
@@ -19800,7 +19833,7 @@ namespace CMMManager
             {
                 InitializeMedBillTabOnNewMedBill();
 
-                PrevViewToMedicalBill = ViewPrevToMedBill.CaseView;
+                //PrevViewToMedicalBill = ViewPrevToMedBill.CaseView;
 
                 String IndividualName = String.Empty;
                 String CaseNameInMedBill = txtCaseName.Text.Trim();
@@ -21116,10 +21149,12 @@ namespace CMMManager
                         if (!rdrSettlement.IsDBNull(6))
                         {
                             row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
+                            row.Cells[7].ReadOnly = true;
                         }
                         else
                         {
                             row.Cells.Add(new CalendarCell { Value = null });
+                            row.Cells[7].ReadOnly = true;
                         }
 
                         // Payment information
@@ -33943,7 +33978,7 @@ namespace CMMManager
                     comboIneligibleReason.SelectedIndex = 0;
                 }
 
-                PrevViewToMedicalBill = ViewPrevToMedBill.MedBillView;
+                //PrevViewToMedicalBill = ViewPrevToMedBill.MedBillView;
 
                 String strCaseNameSelected = String.Empty;
                 String strPatientLastName = IndividualForMedBill.strLastName;
@@ -34918,7 +34953,7 @@ namespace CMMManager
                                 LoggedInUserRole == UserRole.NPStaff ||
                                 LoggedInUserRole == UserRole.FDStaff ||
                                 LoggedInUserRole == UserRole.MSStaff)
-                                approvedCell.ReadOnly = true;
+                                row.Cells[6].ReadOnly = true;
                             else if (LoggedInUserRole == UserRole.RNManager ||
                                      LoggedInUserRole == UserRole.NPManager ||
                                      LoggedInUserRole == UserRole.FDManager ||
@@ -34926,7 +34961,7 @@ namespace CMMManager
                                      LoggedInUserRole == UserRole.Administrator ||
                                      LoggedInUserRole == UserRole.SuperAdmin ||
                                      LoggedInUserRole == UserRole.Executive)
-                                approvedCell.ReadOnly = false;
+                                row.Cells[6].ReadOnly = false;
                         }
                         else
                         {
@@ -34938,7 +34973,7 @@ namespace CMMManager
                                 LoggedInUserRole == UserRole.NPStaff ||
                                 LoggedInUserRole == UserRole.FDStaff ||
                                 LoggedInUserRole == UserRole.MSStaff)
-                                approvedCell.ReadOnly = true;
+                                row.Cells[6].ReadOnly = true;
                             else if (LoggedInUserRole == UserRole.RNManager ||
                                      LoggedInUserRole == UserRole.NPManager ||
                                      LoggedInUserRole == UserRole.FDManager ||
@@ -34946,18 +34981,18 @@ namespace CMMManager
                                      LoggedInUserRole == UserRole.Administrator ||
                                      LoggedInUserRole == UserRole.SuperAdmin ||
                                      LoggedInUserRole == UserRole.Executive)
-                                approvedCell.ReadOnly = false;
+                                row.Cells[6].ReadOnly = false;
                         }
 
                         if (!rdrSettlement.IsDBNull(6))
                         {
                             row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
-                            row.Cells[6].ReadOnly = true;
+                            row.Cells[7].ReadOnly = true;
                         }
                         else
                         {
                             row.Cells.Add(new CalendarCell { Value = null });
-                            row.Cells[6].ReadOnly = true;
+                            row.Cells[7].ReadOnly = true;
                         }
 
                         // Payment information
@@ -49492,39 +49527,11 @@ namespace CMMManager
             }
         }
 
-        private void gvSettlementsInMedBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void gvSettlementsForApproval_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 6 && PrevViewToMedicalBill == ViewPrevToMedBill.MedBillView)
-            {
-                DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)gvSettlementsInMedBill.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            DataGridView gvSettlement = sender as DataGridView;
 
-                if (Boolean.Parse(cell?.Value?.ToString()) == false) cell.Value = true;
-                else cell.Value = false;
-            }
-            //{
-                //gvSettlementsInMedBill.CommitEdit(DataGridViewDataErrorContexts.Commit);
-
-                //MessageBox.Show("You clicked Approved.", "Alert");
-
-                //if (gvSettlementsInMedBill.IsCurrentCellDirty) 
-                //gvSettlementsInMedBill.CommitEdit(DataGridViewDataErrorContexts.Commit);
-                //if (Boolean.Parse(gvSettlementsInMedBill["Approved", e.RowIndex]?.Value?.ToString()) == false)
-                //{
-                //    gvSettlementsInMedBill["Approved", e.RowIndex].Value = true;
-                //    CalendarCell approvedDateCell = new CalendarCell();
-                //    approvedDateCell.Value = DateTime.Today.ToString("MM/dd/yyyy");
-                //    gvSettlementsInMedBill["ApprovedDate", e.RowIndex] = approvedDateCell;
-                //    gvSettlementsInMedBill.Refresh();
-                //}
-                //else if (Boolean.Parse(gvSettlementsInMedBill["Approved", e.RowIndex]?.Value?.ToString()) == true)
-                //{
-                //    gvSettlementsInMedBill["Approved", e.RowIndex].Value = false;
-                //    CalendarCell approvedDateCell = new CalendarCell();
-                //    approvedDateCell.Value = null;
-                //    gvSettlementsInMedBill["ApprovedDate", e.RowIndex] = approvedDateCell;
-                //    gvSettlementsInMedBill.Refresh();
-                //}
-            //}
+            String strMedBillNo = gvSettlement["MedBillForApproval", e.RowIndex]?.Value?.ToString();
         }
     }
 }

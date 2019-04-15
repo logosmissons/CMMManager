@@ -24,7 +24,7 @@ namespace CMMManager
     public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive, SuperAdmin = 20 };
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
 
-    public enum ViewPrevToMedBill { CaseView, MedBillView };
+    //public enum ViewPrevToMedBill { CaseView, MedBillView };
 
     // enumeration for BlueSheet
     public enum EnumPaidTo { Member, MedicalProvider };
