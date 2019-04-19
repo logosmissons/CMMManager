@@ -713,6 +713,9 @@ namespace CMMManager
         public Boolean bIsPaid;
         public int nPaidBy;
         public String IndividualName;
+        public String LastName;
+        public String FirstName;
+        public String MiddleName;
         public String IndividualId;
         public String MedicalBillNo;
         public String SettlementNo;
@@ -726,12 +729,16 @@ namespace CMMManager
         public String MembershipStatus;
         public Boolean bIsExported;
         public int nExportedBy;
+        public int nSettlementType;
 
         public ACHPaymentInfo()
         {
             bIsPaid = false;
             nPaidBy = 0;
             IndividualName = String.Empty;
+            LastName = String.Empty;
+            FirstName = String.Empty;
+            MiddleName = String.Empty;
             IndividualId = String.Empty;
             MedicalBillNo = String.Empty;
             SettlementNo = String.Empty;
@@ -745,6 +752,7 @@ namespace CMMManager
             MembershipStatus = String.Empty;
             bIsExported = false;
             nExportedBy = 0;
+            nSettlementType = 0;
         }
     }
 
@@ -758,6 +766,8 @@ namespace CMMManager
         public String RoutingNumber;
         public String AccountNumber;
         public String Description;
+        public Boolean bMemberReimbursement;
+        public String VendorId;
 
         public ACHPaymentExportInfo()
         {
@@ -769,6 +779,8 @@ namespace CMMManager
             RoutingNumber = String.Empty;
             AccountNumber = String.Empty;
             Description = "CMM NEEDS SHARED";
+            bMemberReimbursement = false;
+            VendorId = String.Empty;
         }
     }
 

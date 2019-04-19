@@ -188,6 +188,12 @@
     <Compile Include="frmMedicalProviderInfo.Designer.cs">
       <DependentUpon>frmMedicalProviderInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmMemberReimbursementTransacDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMemberReimbursementTransacDate.Designer.cs">
+      <DependentUpon>frmMemberReimbursementTransacDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSaveChangeOnCase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMedicalProviderInfo.resx">
       <DependentUpon>frmMedicalProviderInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMemberReimbursementTransacDate.resx">
+      <DependentUpon>frmMemberReimbursementTransacDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSaveChangeOnCase.resx">
       <DependentUpon>frmSaveChangeOnCase.cs</DependentUpon>
