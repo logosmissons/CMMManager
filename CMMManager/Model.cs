@@ -616,6 +616,7 @@ namespace CMMManager
         public Decimal SettlementAmount;
         public DateTime ServiceDate;
         public String MedicalProvider;
+        public String MedicalProviderId;
         public String AccountNoAtProvider;
         public String StreetAddress;
         public String City;
@@ -638,6 +639,7 @@ namespace CMMManager
             MembershipNo = String.Empty;
             SettlementAmount = 0;
             MedicalProvider = String.Empty;
+            MedicalProviderId = String.Empty;
             AccountNoAtProvider = String.Empty;
             StreetAddress = String.Empty;
             City = String.Empty;

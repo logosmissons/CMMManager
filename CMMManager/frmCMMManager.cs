@@ -1123,48 +1123,48 @@ namespace CMMManager
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            DialogResult dlgClosing = MessageBox.Show("Do you want to exit?", "Comfirmation", MessageBoxButtons.YesNo);
+            //DialogResult dlgClosing = MessageBox.Show("Do you want to exit?", "Comfirmation", MessageBoxButtons.YesNo);
 
-            if (dlgClosing == DialogResult.Yes)
-            {
-                String strSqlDeleteCaseInUse = "delete from [dbo].[tbl_CaseInUse] where [dbo].[tbl_CaseInUse].[EditingStaff] = @EditingStaff";
+            //if (dlgClosing == DialogResult.Yes)
+            //{
+                //String strSqlDeleteCaseInUse = "delete from [dbo].[tbl_CaseInUse] where [dbo].[tbl_CaseInUse].[EditingStaff] = @EditingStaff";
 
-                SqlCommand cmdDeleteCaseInUse = new SqlCommand(strSqlDeleteCaseInUse, connRN7);
-                cmdDeleteCaseInUse.CommandType = CommandType.Text;
+                //SqlCommand cmdDeleteCaseInUse = new SqlCommand(strSqlDeleteCaseInUse, connRN7);
+                //cmdDeleteCaseInUse.CommandType = CommandType.Text;
 
-                cmdDeleteCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+                //cmdDeleteCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
 
-                if (connRN7.State != ConnectionState.Closed)
-                {
-                    connRN7.Close();
-                    connRN7.Open();
-                }
-                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
-                int nCaseInUseDeleted = cmdDeleteCaseInUse.ExecuteNonQuery();
-                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                //if (connRN7.State != ConnectionState.Closed)
+                //{
+                //    connRN7.Close();
+                //    connRN7.Open();
+                //}
+                //else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                //int nCaseInUseDeleted = cmdDeleteCaseInUse.ExecuteNonQuery();
+                //if (connRN7.State != ConnectionState.Closed) connRN7.Close();
 
-                String strSqlDeleteMedBillInUse = "delete from [dbo].[tbl_MedBillInUse] where [dbo].[tbl_MedBillInUse].[EditingStaff] = @EditingStaff";
+                //String strSqlDeleteMedBillInUse = "delete from [dbo].[tbl_MedBillInUse] where [dbo].[tbl_MedBillInUse].[EditingStaff] = @EditingStaff";
 
-                SqlCommand cmdDeleteMedBillInUse = new SqlCommand(strSqlDeleteMedBillInUse, connRN7);
-                cmdDeleteMedBillInUse.CommandType = CommandType.Text;
+                //SqlCommand cmdDeleteMedBillInUse = new SqlCommand(strSqlDeleteMedBillInUse, connRN7);
+                //cmdDeleteMedBillInUse.CommandType = CommandType.Text;
 
-                cmdDeleteMedBillInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+                //cmdDeleteMedBillInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
 
-                if (connRN7.State != ConnectionState.Closed)
-                {
-                    connRN7.Close();
-                    connRN7.Open();
-                }
-                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
-                int nMedBillInUseDelete = cmdDeleteMedBillInUse.ExecuteNonQuery();
-                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                //if (connRN7.State != ConnectionState.Closed)
+                //{
+                //    connRN7.Close();
+                //    connRN7.Open();
+                //}
+                //else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                //int nMedBillInUseDelete = cmdDeleteMedBillInUse.ExecuteNonQuery();
+                //if (connRN7.State != ConnectionState.Closed) connRN7.Close();
 
                 Close();
-            }
-            else if (dlgClosing == DialogResult.No)
-            {
-                return;
-            }
+            //}
+            //else if (dlgClosing == DialogResult.No)
+            //{
+            //    return;
+            //}
         }
 
 
@@ -4490,8 +4490,8 @@ namespace CMMManager
                                                 "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
                                                 "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
                                                 "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
-                                                "order by [dbo].[tbl_medbill].[Individual_Id]";
+                                                "[dbo].[tbl_settlement].[CheckReconciled] = 0";
+                                                //"order by [dbo].[tbl_medbill].[Individual_Id]";
 
                 SqlCommand cmdQueryForCheckPaymentToProvider = new SqlCommand(strSqlQueryForCheckPaymentToProvider, connRN);
                 cmdQueryForCheckPaymentToProvider.CommandType = CommandType.Text;
@@ -4558,22 +4558,38 @@ namespace CMMManager
                     info.MedicalProviderName = MedicalProviderName;
                 }
 
-                foreach (CheckPaymentInfo info in lstCheckPaymentToProviderInfo)
+                List<CheckPaymentInfo> lstSortedCheckPaymentToProviderInfo = new List<CheckPaymentInfo>();
+
+                lstSortedCheckPaymentToProviderInfo = lstCheckPaymentToProviderInfo.OrderBy(info => info.MedicalProviderName).ThenBy(info => info.IncidentNo).ToList();
+
+                foreach (CheckPaymentInfo info in lstSortedCheckPaymentToProviderInfo)
                 {
-                    String strSqlQueryForIndividualInfoForProviderCheckPayment = "select [dbo].[contact].[Name], [dbo].[contact].[Household_Role__c], " +
-                                                                         "[dbo].[contact].[Primary_Name__c], " +
-                                                                         "[dbo].[account].[SHIPPINGSTREET], [dbo].[account].[SHIPPINGCITY], " +
-                                                                         "[dbo].[account].[SHIPPINGSTATE], [dbo].[account].[SHIPPINGPOSTALCODE], " +
-                                                                         "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
-                                                                         "from [dbo].[contact] " +
-                                                                         "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
-                                                                         "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
-                                                                         "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+                    String strSqlQueryForProviderInfoForProviderCheckPayment = "select [dbo].[contact].[Name], [dbo].[contact].[Household_Role__c], " +
+                                                     "[dbo].[contact].[Primary_Name__c], " +
+                                                     "[dbo].[account].[BillingStreet], [dbo].[account].[BillingCity], " +
+                                                     "[dbo].[account].[BillingState], [dbo].[account].[BillingPostalCode], " +
+                                                     "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                                                     "from [dbo].[contact] " +
+                                                     "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
+                                                     "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
-                    SqlCommand cmdQueryForIndividualInfoForCheckPaymentToProvider = new SqlCommand(strSqlQueryForIndividualInfoForProviderCheckPayment, connSalesforce);
-                    cmdQueryForIndividualInfoForCheckPaymentToProvider.CommandType = CommandType.Text;
+                    //String strSqlQueryForIndividualInfoForProviderCheckPayment = "select [dbo].[contact].[Name], [dbo].[contact].[Household_Role__c], " +
+                    //                                                     "[dbo].[contact].[Primary_Name__c], " +
+                    //                                                     "[dbo].[account].[SHIPPINGSTREET], [dbo].[account].[SHIPPINGCITY], " +
+                    //                                                     "[dbo].[account].[SHIPPINGSTATE], [dbo].[account].[SHIPPINGPOSTALCODE], " +
+                    //                                                     "[dbo].[contact].[c4g_Membership_Status__c], [dbo].[contact].[Membership_Number__c] " +
+                    //                                                     "from [dbo].[contact] " +
+                    //                                                     "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                    //                                                     "inner join [dbo].[account] on [dbo].[contact].[AccountId] = [dbo].[account].[ID] " +
+                    //                                                     "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
 
-                    cmdQueryForIndividualInfoForCheckPaymentToProvider.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+                    SqlCommand cmdQueryForProviderInfoForCheckPaymentToProvider = new SqlCommand(strSqlQueryForProviderInfoForProviderCheckPayment, connSalesforce);
+                    cmdQueryForProviderInfoForCheckPaymentToProvider.CommandType = CommandType.Text;
+
+                    //cmdQueryForProviderInfoForCheckPaymentToProvider.Parameters.AddWithValue("@MedicalProviderId", info.MedicalProviderId);
+                    cmdQueryForProviderInfoForCheckPaymentToProvider.Parameters.AddWithValue("@IndividualId", info.IndividualId);
+                    
+                    //cmdQueryForIndividualInfoForCheckPaymentToProvider.Parameters.AddWithValue("@IndividualId", info.IndividualId);
 
                     if (connSalesforce.State != ConnectionState.Closed)
                     {
@@ -4581,28 +4597,28 @@ namespace CMMManager
                         connSalesforce.Open();
                     }
                     else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
-                    SqlDataReader rdrIndividualInfoForCheckPaymentToProvider = cmdQueryForIndividualInfoForCheckPaymentToProvider.ExecuteReader();
-                    if (rdrIndividualInfoForCheckPaymentToProvider.HasRows)
+                    SqlDataReader rdrProviderInfoForCheckPaymentToProvider = cmdQueryForProviderInfoForCheckPaymentToProvider.ExecuteReader();
+                    if (rdrProviderInfoForCheckPaymentToProvider.HasRows)
                     {
-                        rdrIndividualInfoForCheckPaymentToProvider.Read();
+                        rdrProviderInfoForCheckPaymentToProvider.Read();
 
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(0)) info.IndividualName = rdrIndividualInfoForCheckPaymentToProvider.GetString(0);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(1)) info.HouseholdRole = rdrIndividualInfoForCheckPaymentToProvider.GetString(1);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(2)) info.PrimaryName = rdrIndividualInfoForCheckPaymentToProvider.GetString(2);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(3)) info.ShippingStreet = rdrIndividualInfoForCheckPaymentToProvider.GetString(3);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(4)) info.ShippingCity = rdrIndividualInfoForCheckPaymentToProvider.GetString(4);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(5)) info.ShippingState = rdrIndividualInfoForCheckPaymentToProvider.GetString(5);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(6)) info.ShippingZip = rdrIndividualInfoForCheckPaymentToProvider.GetString(6);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(7)) info.MembershipStatus = rdrIndividualInfoForCheckPaymentToProvider.GetString(7);
-                        if (!rdrIndividualInfoForCheckPaymentToProvider.IsDBNull(8)) info.MemebershipNo = rdrIndividualInfoForCheckPaymentToProvider.GetString(8);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(0)) info.IndividualName = rdrProviderInfoForCheckPaymentToProvider.GetString(0);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(1)) info.HouseholdRole = rdrProviderInfoForCheckPaymentToProvider.GetString(1);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(2)) info.PrimaryName = rdrProviderInfoForCheckPaymentToProvider.GetString(2);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(3)) info.ShippingStreet = rdrProviderInfoForCheckPaymentToProvider.GetString(3);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(4)) info.ShippingCity = rdrProviderInfoForCheckPaymentToProvider.GetString(4);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(5)) info.ShippingState = rdrProviderInfoForCheckPaymentToProvider.GetString(5);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(6)) info.ShippingZip = rdrProviderInfoForCheckPaymentToProvider.GetString(6);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(7)) info.MembershipStatus = rdrProviderInfoForCheckPaymentToProvider.GetString(7);
+                        if (!rdrProviderInfoForCheckPaymentToProvider.IsDBNull(8)) info.MemebershipNo = rdrProviderInfoForCheckPaymentToProvider.GetString(8);
 
                     }
-                    rdrIndividualInfoForCheckPaymentToProvider.Close();
+                    rdrProviderInfoForCheckPaymentToProvider.Close();
                     if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
                 }
 
                 gvPaymentCheckProvider.Rows.Clear();
-                foreach (CheckPaymentInfo info in lstCheckPaymentToProviderInfo)
+                foreach (CheckPaymentInfo info in lstSortedCheckPaymentToProviderInfo)
                 {
                     DataGridViewRow row = new DataGridViewRow();
                     row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
@@ -4628,26 +4644,28 @@ namespace CMMManager
                     row.Cells[9].ReadOnly = true;
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MedicalProviderName });
                     row.Cells[10].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNoAtMedProvider });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MedicalProviderId });
                     row.Cells[11].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingStreet });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.AccountNoAtMedProvider });
                     row.Cells[12].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingCity });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingStreet });
                     row.Cells[13].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingState });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingCity });
                     row.Cells[14].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingZip });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingState });
                     row.Cells[15].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementType });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ShippingZip });
                     row.Cells[16].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreatedBy });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.SettlementType });
                     row.Cells[17].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.LastModifiedBy });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreatedBy });
                     row.Cells[18].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.LastModifiedBy });
                     row.Cells[19].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MembershipStatus });
                     row.Cells[20].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
+                    row.Cells[21].ReadOnly = true;
 
                     gvPaymentCheckProvider.Rows.Add(row);
                 }
@@ -8612,8 +8630,57 @@ namespace CMMManager
 
             //SqlDependency.Stop(connRN_str);
             //SqlDependency.Stop(strConnStringForIllness);
+            //frmCMMManager frm = sender as frmCMMManager;
 
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult dlgClosing = MessageBox.Show("Do you want to exit?", "Comfirmation", MessageBoxButtons.YesNo);
 
+                if (dlgClosing == DialogResult.Yes)
+                {
+                String strSqlDeleteCaseInUse = "delete from [dbo].[tbl_CaseInUse] where [dbo].[tbl_CaseInUse].[EditingStaff] = @EditingStaff";
+
+                    SqlCommand cmdDeleteCaseInUse = new SqlCommand(strSqlDeleteCaseInUse, connRN7);
+                    cmdDeleteCaseInUse.CommandType = CommandType.Text;
+
+                    cmdDeleteCaseInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    int nCaseInUseDeleted = cmdDeleteCaseInUse.ExecuteNonQuery();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                    String strSqlDeleteMedBillInUse = "delete from [dbo].[tbl_MedBillInUse] where [dbo].[tbl_MedBillInUse].[EditingStaff] = @EditingStaff";
+
+                    SqlCommand cmdDeleteMedBillInUse = new SqlCommand(strSqlDeleteMedBillInUse, connRN7);
+                    cmdDeleteMedBillInUse.CommandType = CommandType.Text;
+
+                    cmdDeleteMedBillInUse.Parameters.AddWithValue("@EditingStaff", nLoggedUserId);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    int nMedBillInUseDelete = cmdDeleteMedBillInUse.ExecuteNonQuery();
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
 
 
@@ -38270,8 +38337,14 @@ namespace CMMManager
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                     fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                    StringBuilder sbIndividualId = new StringBuilder();
+                                    sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                    Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                    fs.Write(IndividualId, 0, IndividualId.Length);
+
                                     nReferenceNo++;
                                 }
                             }
@@ -38285,8 +38358,14 @@ namespace CMMManager
                                                             Environment.NewLine);
 
                                 Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                 fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                StringBuilder sbIndividualId = new StringBuilder();
+                                sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                fs.Write(IndividualId, 0, IndividualId.Length);
+
                                 nReferenceNo++;
                             }
                         }
@@ -38368,8 +38447,14 @@ namespace CMMManager
                                                                     Environment.NewLine);
 
                                         Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                         fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                        StringBuilder sbIndividualId = new StringBuilder();
+                                        sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                        Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                        fs.Write(IndividualId, 0, IndividualId.Length);
+
                                         nReferenceNo++;
                                     }
                                 }
@@ -38384,8 +38469,14 @@ namespace CMMManager
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                     fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                    StringBuilder sbIndividualId = new StringBuilder();
+                                    sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                    Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                    fs.Write(IndividualId, 0, IndividualId.Length);
+
                                     nReferenceNo++;
                                 }
                             }
@@ -38427,8 +38518,14 @@ namespace CMMManager
                                                                     Environment.NewLine);
 
                                         Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                         fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                        StringBuilder sbIndividualId = new StringBuilder();
+                                        sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                        Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                        fs.Write(IndividualId, 0, IndividualId.Length);
+
                                         nReferenceNo++;
                                     }
                                 }
@@ -38442,8 +38539,14 @@ namespace CMMManager
                                                                 Environment.NewLine);
 
                                     Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
                                     fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                                    StringBuilder sbIndividualId = new StringBuilder();
+                                    sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                                    Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                                    fs.Write(IndividualId, 0, IndividualId.Length);
+
                                     nReferenceNo++;
                                 }
                             }
@@ -38461,7 +38564,7 @@ namespace CMMManager
 
                 using (FileStream fs = File.Create(VendorIDFileName))
                 {
-                    Byte[] heading = new UTF8Encoding(true).GetBytes("Vendor_id" + Environment.NewLine);
+                    Byte[] heading = new UTF8Encoding(true).GetBytes("Vendor_id," + Environment.NewLine);
                     fs.Write(heading, 0, heading.Length);
 
                     String CurrentIndividualId = String.Empty;
@@ -38481,13 +38584,13 @@ namespace CMMManager
                         }
 
                         if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName != String.Empty)
-                            sbVendorId.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\"" + "," + 
+                            sbVendorId.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + "," + 
                                               "\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName + "," +
                                                      lstSortedCheckPaymentCSVExport[i].PatientFirstName + " " +
                                                      lstSortedCheckPaymentCSVExport[i].PatientMiddleName + "\"" +
                                                      Environment.NewLine);
                         else
-                            sbVendorId.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\"" + "," +
+                            sbVendorId.Append(lstSortedCheckPaymentCSVExport[i].IndividualId + "," +
                                               "\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName + "," +
                                                      lstSortedCheckPaymentCSVExport[i].PatientFirstName + "\"" +
                                                      Environment.NewLine);
@@ -38609,6 +38712,7 @@ namespace CMMManager
                             if (DateTime.TryParse(gvPaymentCheckProvider["DateOfServiceProviderPaymentCheck", i].Value.ToString(), out ServiceDate)) csv_info.ServiceDate = ServiceDate;
                         }
                         if (gvPaymentCheckProvider["MedicalProviderProviderPaymentCheck", i].Value != null) csv_info.MedicalProvider = gvPaymentCheckProvider["MedicalProviderProviderPaymentCheck", i].Value.ToString();
+                        if (gvPaymentCheckProvider["MedicalProviderIdProviderPaymentCheck", i].Value != null) csv_info.MedicalProviderId = gvPaymentCheckProvider["MedicalProviderIdProviderPaymentCheck", i].Value.ToString();
                         if (gvPaymentCheckProvider["AccountNameProviderPaymentCheck", i].Value != null) csv_info.AccountNoAtProvider = gvPaymentCheckProvider["AccountNameProviderPaymentCheck", i].Value.ToString();
                         if (gvPaymentCheckProvider["ShippingStreetProviderPaymentCheck", i].Value != null) csv_info.StreetAddress = gvPaymentCheckProvider["ShippingStreetProviderPaymentCheck", i].Value.ToString();
                         if (gvPaymentCheckProvider["ShippingCityProviderPaymentCheck", i].Value != null) csv_info.City = gvPaymentCheckProvider["ShippingCityProviderPaymentCheck", i].Value.ToString();
@@ -38619,7 +38723,7 @@ namespace CMMManager
                     }
                 }
                 List<CheckPaymentCSVExportInfo> lstSortedCheckPaymentCSVExport = new List<CheckPaymentCSVExportInfo>();
-                lstSortedCheckPaymentCSVExport = lstCheckPayemntCSVExport.OrderBy(o => o.IndividualId).ToList();
+                lstSortedCheckPaymentCSVExport = lstCheckPayemntCSVExport.OrderBy(info => info.MedicalProvider).ToList();
 
                 Cursor.Current = Cursors.WaitCursor;
                 foreach (CheckPaymentCSVExportInfo info in lstSortedCheckPaymentCSVExport)
@@ -38647,265 +38751,347 @@ namespace CMMManager
                         if (!rdrPatientName.IsDBNull(2)) info.PatientMiddleName = rdrPatientName.GetString(2);
                     }
                     rdrPatientName.Close();
-                    if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                    if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
                 }
 
+                // modify this section for Provider Check Payment
                 using (FileStream fs = File.Create(dlg.FileName))
                 {
                     Byte[] heading = new UTF8Encoding(true)
-                        .GetBytes("\"AccountFullName\",\"Check PayeeEntity\",\"RefNumber\",\"Txndate\",\"Memo\",\"address1\",\"address2\",\"City,\"State\",\"postal\",\"IsToBePrinted\",\"Expense Account\",\"Expense Amount\",\"Expense Memo\"" + Environment.NewLine);
+                        .GetBytes("\"AccountFullName\",\"Check PayeeEntity\",\"RefNumber\",\"Txndate\",\"Memo\",\"address1\",\"address2\",\"City\",\"State\",\"postal\",\"IsToBePrinted\",\"Expense Account\",\"Expense Amount\",\"Expense Memo\"" + Environment.NewLine);
                     fs.Write(heading, 0, heading.Length);
                     int nReferenceNo = 1;
 
+                    String CurrentMedicalProviderId = String.Empty;
+                    String CurrentIncidentNo = String.Empty;
+
                     for (int i = 0; i < lstSortedCheckPaymentCSVExport.Count; i++)
                     {
-                        if (i == 0)
+                        CurrentMedicalProviderId = lstSortedCheckPaymentCSVExport[i].MedicalProviderId;
+                        CurrentIncidentNo = lstSortedCheckPaymentCSVExport[i].IncidentNo;
+
+                        StringBuilder sbSettlement = new StringBuilder();
+                        sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+
+                        if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName != String.Empty)
                         {
-                            StringBuilder sbSettlement = new StringBuilder();
+                            sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName +
+                                                                    lstSortedCheckPaymentCSVExport[i].PatientMiddleName.ElementAt(0) + ". " +
+                                                                    lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        }
+                        else
+                        {
+                            sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName + " " +
+                                                                    lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        }
+                        sbSettlement.Append("Acct# " + lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\",");
 
-                            sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
-                            sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,\"");
-                            if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+
+                        sbSettlement.Append("\"TRUE\",");
+                        sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                            lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
+                                            lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider.Trim() + "\"" +
+                                            Environment.NewLine);
+
+                        Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+                        fs.Write(settlement, 0, settlement.Length);
+
+                        for (int j = i + 1; j < lstSortedCheckPaymentCSVExport.Count; j++)
+                        {
+                            if (CurrentMedicalProviderId == lstSortedCheckPaymentCSVExport[j].MedicalProviderId)
                             {
-                                if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
+                                if (CurrentIncidentNo == lstSortedCheckPaymentCSVExport[j].IncidentNo)
                                 {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + "|" +
-                                                        lstSortedCheckPaymentCSVExport[i].PrimaryName.Trim() + "\",");
+                                    StringBuilder sbInnerSettlement = new StringBuilder();
+                                    sbInnerSettlement.Append(",," + nReferenceNo + ",,,,,,,,," + "\"CMM Expense:Medical Bill\"," + 
+                                                             "\"" + lstSortedCheckPaymentCSVExport[j].SettlementAmount + "\"," +
+                                                             "\"" + lstSortedCheckPaymentCSVExport[j].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                             lstSortedCheckPaymentCSVExport[j].MedicalProvider +
+                                                             Environment.NewLine);
+
+                                    Byte[] innerSettlement = new UTF8Encoding(true).GetBytes(sbInnerSettlement.ToString());
+                                    fs.Write(innerSettlement, 0, innerSettlement.Length);
                                 }
-                                else
+                                else if (CurrentIncidentNo != lstSortedCheckPaymentCSVExport[j].IncidentNo)
                                 {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + " " +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "|" +
-                                                        lstSortedCheckPaymentCSVExport[i].PrimaryName.Trim() + "\",");
+                                    StringBuilder sbInnerSettlement = new StringBuilder();
+                                    sbInnerSettlement.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[j].IncidentProgram + " - \"" +
+                                                             lstSortedCheckPaymentCSVExport[j].PatientName +
+                                                             " - " + lstSortedCheckPaymentCSVExport[j].IncidentNo + "\"" +
+                                                             Environment.NewLine);
+
+                                    Byte[] innerSettlement = new UTF8Encoding(true).GetBytes(sbInnerSettlement.ToString());
+                                    fs.Write(innerSettlement, 0, innerSettlement.Length);
                                 }
                             }
-                            else
+                            else if (CurrentMedicalProviderId != lstSortedCheckPaymentCSVExport[j].MedicalProviderId)
                             {
-                                if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
-                                {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + "\",");
-                                }
-                                else
-                                {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + " " +
-                                                        lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
-                                }
-                            }
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
-                            sbSettlement.Append("\"TRUE\",");
-                            sbSettlement.Append("\"CMM Expense:Medical Bill\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
-                            sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
-                                                lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                Environment.NewLine);
+                                StringBuilder sbIndividualInfo = new StringBuilder();
+                                sbIndividualInfo.Append(",," + nReferenceNo + ",,,,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[j].IndividualId + Environment.NewLine);
+                                sbIndividualInfo.Append(",," + nReferenceNo + ",,,,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[j].MembershipNo + "-CMM NEEDS SHARED\"" + Environment.NewLine);
 
-                            Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+                                Byte[] individualInfo = new UTF8Encoding(true).GetBytes(sbIndividualInfo.ToString());
+                                fs.Write(individualInfo, 0, individualInfo.Length);
 
-                            fs.Write(settlement, 0, settlement.Length);
-
-                            if (lstSortedCheckPaymentCSVExport.Count > (i + 1))
-                            {
-                                if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i + 1].IndividualId)
-                                {
-                                    StringBuilder sbIncidentInfo = new StringBuilder();
-                                    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
-                                                                Environment.NewLine);
-
-                                    Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
-                                    fs.Write(incidentInfo, 0, incidentInfo.Length);
-                                    nReferenceNo++;
-                                }
-                            }
-                            if (i == lstSortedCheckPaymentCSVExport.Count - 1)
-                            {
-                                StringBuilder sbIncidentInfo = new StringBuilder();
-                                sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                            "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                            lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
-                                                            Environment.NewLine);
-
-                                Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
-
-                                fs.Write(incidentInfo, 0, incidentInfo.Length);
                                 nReferenceNo++;
+                                break;
                             }
                         }
-                        else if (i > 0)
-                        {
-                            if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i - 1].IndividualId)
-                            {
-                                StringBuilder sbSettlement = new StringBuilder();
-
-                                sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\",");
-                                sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED,\"");
-                                if (lstSortedCheckPaymentCSVExport[i].HouseholdRole.Trim() == "Child")
-                                {
-                                    if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
-                                    {
-                                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + "|" +
-                                                            lstSortedCheckPaymentCSVExport[i].PrimaryName.Trim() + "\",");
-                                    }
-                                    else
-                                    {
-                                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + " " +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "|" +
-                                                            lstSortedCheckPaymentCSVExport[i].PrimaryName.Trim() + "\",");
-                                    }
-                                }
-                                else
-                                {
-                                    if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName == String.Empty)
-                                    {
-                                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + "\",");
-                                    }
-                                    else
-                                    {
-                                        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].PatientLastName.Trim() + "," +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientFirstName.Trim() + " " +
-                                                            lstSortedCheckPaymentCSVExport[i].PatientMiddleName.Trim() + "\",");
-                                    }
-                                }
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
-                                sbSettlement.Append("\"TRUE\",");
-                                sbSettlement.Append("\"CMM Expense:Medical Bill\",");
-                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
-
-                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
-                                {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                        Environment.NewLine);
-                                }
-                                else
-                                {
-                                    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" +
-                                                        Environment.NewLine);
-                                }
 
 
-                                Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+                        //if (i == 0)
+                        //{
+                        //    StringBuilder sbSettlement = new StringBuilder();
 
-                                fs.Write(settlement, 0, settlement.Length);
+                        //    sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        //    sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                        //    if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName != String.Empty)
+                        //    {
+                        //        sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName +
+                        //                                                lstSortedCheckPaymentCSVExport[i].PatientMiddleName.ElementAt(0) + ". " +
+                        //                                                lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        //    }
+                        //    else
+                        //    {
+                        //        sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName + " " +
+                        //                                                lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        //    }
+                        //    sbSettlement.Append("Acct# " + lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
 
-                                if (lstSortedCheckPaymentCSVExport.Count > (i + 1))
-                                {
-                                    if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i + 1].IndividualId)
-                                    {
-                                        StringBuilder sbIncidentInfo = new StringBuilder();
-                                        sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo +
-                                                                    Environment.NewLine);
+                        //    sbSettlement.Append("\"TRUE\",");
+                        //    sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                        //    sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                        //                        lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
+                        //                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider.Trim() + "\"" +
+                        //                        Environment.NewLine);
 
-                                        Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //    Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
 
-                                        fs.Write(incidentInfo, 0, incidentInfo.Length);
-                                        nReferenceNo++;
-                                    }
-                                }
+                        //    fs.Write(settlement, 0, settlement.Length);
 
-                                if (i == lstSortedCheckPaymentCSVExport.Count - 1)
-                                {
-                                    StringBuilder sbIncidentInfo = new StringBuilder();
-                                    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
-                                                                Environment.NewLine);
+                        //    if (lstSortedCheckPaymentCSVExport.Count > (i + 1))
+                        //    {
+                        //        if (lstSortedCheckPaymentCSVExport[i].MedicalProviderId != lstSortedCheckPaymentCSVExport[i + 1].MedicalProviderId)
+                        //        {
+                        //            StringBuilder sbIncidentInfo = new StringBuilder();
+                        //            sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //                                        "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //                                        lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
+                        //                                        lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
+                        //                                        Environment.NewLine);
 
-                                    Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //            Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //            fs.Write(incidentInfo, 0, incidentInfo.Length);
 
-                                    fs.Write(incidentInfo, 0, incidentInfo.Length);
-                                    nReferenceNo++;
-                                }
-                            }
-                            else if (lstSortedCheckPaymentCSVExport[i].IndividualId == lstSortedCheckPaymentCSVExport[i - 1].IndividualId)
-                            {
-                                StringBuilder sbSettlement = new StringBuilder();
+                        //            StringBuilder sbIndividualId = new StringBuilder();
+                        //            sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\"" + Environment.NewLine);
+                        //            Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                        //            fs.Write(IndividualId, 0, IndividualId.Length);
 
-                                if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
-                                {
-                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
-                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
-                                                        Environment.NewLine);
-                                }
-                                else
-                                {
-                                    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,," + "CMM Expense:Medical Bill" + "," +
-                                                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
-                                                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
-                                                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\"" +
-                                                        Environment.NewLine);
-                                }
+                        //            StringBuilder sbMemebershipNo = new StringBuilder();
+                        //            sbMemebershipNo.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED\"" + Environment.NewLine);
+                        //            Byte[] MembershipNo = new UTF8Encoding(true).GetBytes(sbMemebershipNo.ToString());
+                        //            fs.Write(MembershipNo, 0, MembershipNo.Length);
 
-                                Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+                        //            nReferenceNo++;
+                        //        }
+                        //    }
+                        //    if (i == lstSortedCheckPaymentCSVExport.Count - 1)
+                        //    {
+                        //        StringBuilder sbIncidentInfo = new StringBuilder();
+                        //        sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //                                    "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //                                    lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
+                        //                                    lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
+                        //                                    Environment.NewLine);
 
-                                fs.Write(settlement, 0, settlement.Length);
+                        //        Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //        fs.Write(incidentInfo, 0, incidentInfo.Length);
 
-                                if (lstSortedCheckPaymentCSVExport.Count > (i + 1))
-                                {
-                                    if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i + 1].IndividualId)
-                                    {
-                                        StringBuilder sbIncidentInfo = new StringBuilder();
-                                        sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                    lstSortedCheckPaymentCSVExport[i].IncidentNo +
-                                                                    Environment.NewLine);
+                        //        StringBuilder sbIndividualId = new StringBuilder();
+                        //        sbIndividualId.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[i].IndividualId + "\"" + Environment.NewLine);
+                        //        Byte[] IndividualId = new UTF8Encoding(true).GetBytes(sbIndividualId.ToString());
+                        //        fs.Write(IndividualId, 0, IndividualId.Length);
 
-                                        Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //        StringBuilder sbMemebershipNo = new StringBuilder();
+                        //        sbMemebershipNo.Append(",," + nReferenceNo + ",,,,,,,,,,," + "\"" + lstSortedCheckPaymentCSVExport[i].MembershipNo + "-CMM NEEDS SHARED\"" + Environment.NewLine);
+                        //        Byte[] MembershipNo = new UTF8Encoding(true).GetBytes(sbMemebershipNo.ToString());
+                        //        fs.Write(MembershipNo, 0, MembershipNo.Length);
 
-                                        fs.Write(incidentInfo, 0, incidentInfo.Length);
-                                        nReferenceNo++;
-                                    }
-                                }
-                                if (i == lstSortedCheckPaymentCSVExport.Count - 1)
-                                {
-                                    StringBuilder sbIncidentInfo = new StringBuilder();
-                                    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
-                                                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
-                                                                Environment.NewLine);
+                        //        nReferenceNo++;
+                        //    }
+                        //}
+                        //else if (i > 0)
+                        //{
+                        //    //if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i - 1].IndividualId)
+                        //    if (lstSortedCheckPaymentCSVExport[i].MedicalProviderId != lstSortedCheckPaymentCSVExport[i - 1].MedicalProviderId)
+                        //    {
+                        //        StringBuilder sbSettlement = new StringBuilder();
 
-                                    Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //        sbSettlement.Append("\"Bank of Hope:Bank of Hope [ACH-Med] (4125)" + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        //        sbSettlement.Append("\"" + nReferenceNo.ToString() + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].TransactionDate.ToShortDateString() + "\",");
+                        //        if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName != String.Empty)
+                        //        {
+                        //            sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName +
+                        //                                                    lstSortedCheckPaymentCSVExport[i].PatientMiddleName.ElementAt(0) + ". " +
+                        //                                                    lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        //        }
+                        //        else
+                        //        {
+                        //            sbSettlement.Append("\"" + "Pt Name:" + lstSortedCheckPaymentCSVExport[i].PatientFirstName + " " +
+                        //                                                    lstSortedCheckPaymentCSVExport[i].PatientLastName + ",");
+                        //        }
+                        //        sbSettlement.Append("Acct# " + lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
 
-                                    fs.Write(incidentInfo, 0, incidentInfo.Length);
-                                    nReferenceNo++;
-                                }
-                            }
-                        }
+                        //        sbSettlement.Append("\"TRUE\",");
+                        //        sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                        //        sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                        //                            lstSortedCheckPaymentCSVExport[i].MedicalProvider.Trim() + "\"" + " - " +
+                        //                            lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                        //                            Environment.NewLine);
+
+                        //        Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+
+                        //        fs.Write(settlement, 0, settlement.Length);
+
+                        //        if (lstSortedCheckPaymentCSVExport.Count > (i + 1))
+                        //        {
+                        //            if (lstSortedCheckPaymentCSVExport[i].IndividualId != lstSortedCheckPaymentCSVExport[i + 1].IndividualId)
+                        //            {
+                        //                StringBuilder sbIncidentInfo = new StringBuilder();
+                        //                sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //                                            "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //                                            lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
+                        //                                            lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
+                        //                                            Environment.NewLine);
+
+                        //                Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+
+                        //                fs.Write(incidentInfo, 0, incidentInfo.Length);
+                        //                nReferenceNo++;
+                        //            }
+                        //        }
+                        //        if (i == lstSortedCheckPaymentCSVExport.Count - 1)
+                        //        {
+                        //            StringBuilder sbIncidentInfo = new StringBuilder();
+                        //            sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //                                        "\"" + lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //                                        lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
+                        //                                        lstSortedCheckPaymentCSVExport[i].IncidentNo + "\"" +
+                        //                                        Environment.NewLine);
+
+                        //            Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+
+                        //            fs.Write(incidentInfo, 0, incidentInfo.Length);
+                        //            nReferenceNo++;
+                        //        }
+                        //    }
+                        //    else if (lstSortedCheckPaymentCSVExport[i].IndividualId == lstSortedCheckPaymentCSVExport[i - 1].IndividualId)
+                        //    {
+                        //        //StringBuilder sbSettlement = new StringBuilder();
+
+                        //        //if (lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider != String.Empty)
+                        //        //{
+                        //        //    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,,,," + 
+                        //        //                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                        //        //                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                        //        //                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
+                        //        //                        lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                        //        //                        Environment.NewLine);
+                        //        //}
+                        //        //else
+                        //        //{
+                        //        //    sbSettlement.Append(",," + nReferenceNo.ToString() + ",,,,,,,,,,," +
+                        //        //                        lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "," +
+                        //        //                        "\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                        //        //                        lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\"" +
+                        //        //                        Environment.NewLine);
+                        //        //}
+
+                        //        //Byte[] settlement = new UTF8Encoding(true).GetBytes(sbSettlement.ToString());
+
+                        //        //fs.Write(settlement, 0, settlement.Length);
+
+                        //        if (lstSortedCheckPaymentCSVExport.Count > (i + 3))
+                        //        {
+
+                        //            StringBuilder sbIncidentInfo = new StringBuilder();
+
+                        //            if (lstSortedCheckPaymentCSVExport[i].PatientMiddleName != String.Empty)
+                        //            {
+                        //                sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //                                            lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //                                            lstSortedCheckPaymentCSVExport[i].PatientFirstName + " " +
+                        //                                            lstSortedCheckPaymentCSVExport[i].PatientMiddleName[0].ToString().ToUpper() + ". " + 
+                        //                                            lstSortedCheckPaymentCSVExport[i].PatientLastName + " - " +
+                        //                                            lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                        //                                            Environment.NewLine);
+                        //            }
+
+
+
+                        //            Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+                        //            fs.Write(incidentInfo, 0, incidentInfo.Length);
+
+                        //            StringBuilder sbIndividualID = new StringBuilder();
+                        //            sbIndividualID.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].IndividualId + Environment.NewLine);
+
+                        //            Byte[] IndividualID = new UTF8Encoding(true).GetBytes(sbIndividualID.ToString());
+
+                        //            fs.Write(IndividualID, 0, IndividualID.Length);
+
+                        //            StringBuilder sbMembershipNo = new StringBuilder();
+                        //            sbMembershipNo.Append(",," + nReferenceNo + ",,,,,,,,,,," + lstSortedCheckPaymentCSVExport[i].MembershipNo.Trim() + "-CMM NEEDS SHARED");
+                        //            nReferenceNo++;
+
+                        //        }
+                        //        //if (i == lstSortedCheckPaymentCSVExport.Count - 1)
+                        //        //{
+                        //        //    StringBuilder sbIncidentInfo = new StringBuilder();
+                        //        //    sbIncidentInfo.Append(",," + nReferenceNo + ",,,,,,,,,,," +
+                        //        //                                lstSortedCheckPaymentCSVExport[i].IncidentProgram.Trim() + " - " +
+                        //        //                                lstSortedCheckPaymentCSVExport[i].PatientName + " - " +
+                        //        //                                lstSortedCheckPaymentCSVExport[i].IncidentNo +
+                        //        //                                Environment.NewLine);
+
+                        //        //    Byte[] incidentInfo = new UTF8Encoding(true).GetBytes(sbIncidentInfo.ToString());
+
+                        //        //    fs.Write(incidentInfo, 0, incidentInfo.Length);
+                        //        //    nReferenceNo++;
+                        //        //}
+                        //    }
+                        //}
+
+
+
+
+
                     }
                 }
 
@@ -44087,7 +44273,11 @@ namespace CMMManager
                 paraToday.Format.SpaceAfter = "0.25in";
                 //paraToday.Format.LeftIndent = "0.5in";
                 //paraToday.Format.RightIndent = "0.5in";
-                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+                //dtpCheckIssueDateBlueSheet
+                //paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+                if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
 
                 MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
 
@@ -44210,25 +44400,29 @@ namespace CMMManager
                 paraCheckInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
                 paraCheckInfo.Format.SpaceBefore = "0.1in";
                 //paraCheckInfo.Format.SpaceAfter = "0.1in";
-
+ 
                 if (rbCheckBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
-                                                    "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
-                                                    "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
-                                                    "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+                    //paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
+                    //                                "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                    //                                "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                    //                                "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+                    paraCheckInfo.AddFormattedText("Issue Date: " + dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy") +
+                                "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                                "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                                "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
 
                 }
                 else if (rbACHBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Issue Date: " + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM/dd/yyyy") +
+                    paraCheckInfo.AddFormattedText("Issue Date: " + dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy") +
                                                     "\tACH No: " + ACHInfoEnteredBlueSheet.ACHNumber +
                                                     "\tACH Amount: " + ACHInfoEnteredBlueSheet.ACHAmount.Value.ToString("C") +
                                                     "\tPaid To: " + ACHInfoEnteredBlueSheet.PaidTo);
                 }
                 else if (rbCreditCardBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Date: " + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM/dd/yyyy") +
+                    paraCheckInfo.AddFormattedText("Date: " + dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy") +
                                                     "\tCredit Card Payment Amount: " + CreditCardPaymentEnteredBlueSheet.CCPaymentAmount.Value.ToString("C") +
                                                     "\tPaid To: " + CreditCardPaymentEnteredBlueSheet.PaidTo);
                 }
@@ -47137,7 +47331,11 @@ namespace CMMManager
                 paraToday.Format.SpaceAfter = "0.25in";
                 //paraToday.Format.LeftIndent = "0.5in";
                 //paraToday.Format.RightIndent = "0.5in";
-                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+                //paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+
+                if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
 
                 MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
 
@@ -47263,26 +47461,34 @@ namespace CMMManager
                 paraCheckInfo.Format.SpaceBefore = "0.1in";
                 //paraCheckInfo.Format.SpaceAfter = "0.1in";
 
+                //if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+
                 //if (ChkInfoEntered != null)
                 if (rbCheckBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
-                                                    "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
-                                                    "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
-                                                    "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+                    //paraCheckInfo.AddFormattedText("Issue Date: " + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM/dd/yyyy") +
+                    //                                "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                    //                                "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                    //                                "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
+                    paraCheckInfo.AddFormattedText("Issue Date: " + dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy") +
+                                "\tCheck No: " + ChkInfoEnteredBlueSheet.CheckNumber +
+                                "\tCheck Amount: " + ChkInfoEnteredBlueSheet.CheckAmount.Value.ToString("C") +
+                                "\tPaid To: " + ChkInfoEnteredBlueSheet.PaidTo);
 
                     //ChkInfoEntered = null;
                 }
                 else if (rbACHBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Issue Date: " + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM/dd/yyyy") +
+                    paraCheckInfo.AddFormattedText("Issue Date: " + dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy") +
                                                     "\tACH No: " + ACHInfoEnteredBlueSheet.ACHNumber +
                                                     "\tACH Amount: " + ACHInfoEnteredBlueSheet.ACHAmount.Value.ToString("C") +
                                                     "\tPaid To: " + ACHInfoEnteredBlueSheet.PaidTo);
                 }
                 else if (rbCreditCardBlueSheet.Checked)
                 {
-                    paraCheckInfo.AddFormattedText("Date:" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM/dd/yyyy") +
+                    paraCheckInfo.AddFormattedText("Date:" + dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy") +
                                                     "\tCredit Card Payment Amount: " + CreditCardPaymentEnteredBlueSheet.CCPaymentAmount.Value.ToString("C") +
                                                     "\tPaid To: " + CreditCardPaymentEnteredBlueSheet.PaidTo);
                 }

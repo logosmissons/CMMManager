@@ -112,5 +112,10 @@ namespace CMMManager
             DialogResult = DialogResult.OK;
             Close();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
