@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CMMManager
 {
-    public enum Gender { Male, Female };
-    public enum HouseholdRole { HeadOfHousehold, Spouse, Child };
-    public enum Plan { GoldMedi_I, GoldMedi_II, GoldPlus, Gold, Silver, Bronze };
-    public enum MembershipStatus { Pending, Applied, Active, PastDue, Inactive, CancelledReq, CancelledByMember, TerminatedByCMM, Hold, Incomplete };
+    //public enum Gender { Male, Female };
+    //public enum HouseholdRole { HeadOfHousehold, Spouse, Child };
+    //public enum Plan { GoldMedi_I, GoldMedi_II, GoldPlus, Gold, Silver, Bronze };
+    //public enum MembershipStatus { Pending, Applied, Active, PastDue, Inactive, CancelledReq, CancelledByMember, TerminatedByCMM, Hold, Incomplete };
 
     public class IndividualInfo
     {

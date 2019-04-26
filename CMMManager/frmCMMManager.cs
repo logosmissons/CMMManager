@@ -26216,35 +26216,57 @@ namespace CMMManager
 
             String strTextSearched = txtSearch.Text.Trim();
 
+            //String strSqlSearchContact = "select [dbo].[contact].[Individual_ID__C] as [Individual No.], " +
+            //                 "concat([dbo].[contact].[LastName], ', ', [dbo].[contact].[FirstName], ' ', [dbo].[contact].[MiddleName]) as Name, " +
+            //                 "[dbo].[membership].[Name] as Membership, [dbo].[contact].[Social_Security_Number__c] as [SSN], " +
+            //                 "[dbo].[contact].[Legacy_Database_Individual_ID__C] as [CRM No.], " +
+            //                 "[dbo].[contact].[c4g_Membership_Status__C] as [Membership Status], " +
+            //                 "[dbo].[contact].[Membership_Ind_Start_Date__C] As [Membership Start Date], " +
+            //                 "[dbo].[contact].[Membership_Cancelled_Date__C] As [Membership Cancel Date], " +
+            //                 "[dbo].[contact].[BirthDate], [dbo].[contact].[cmm_Gender__C] as [Gender], " +
+            //                 "[dbo].[contact].[Household_Role__C] as [House Type], " +
+            //                 "[dbo].[program].[Name] as [Program Name], " +
+            //                 "[dbo].[contact].[MailingStreet], [dbo].[contact].[MailingCity], [dbo].[contact].[MailingState], [dbo].[contact].[MailingPostalCode], " +
+            //                 "[dbo].[contact].[OtherStreet], [dbo].[contact].[OtherCity], [dbo].[contact].[OtherState], [dbo].[contact].[OtherPostalCode], " +
+            //                 "[dbo].[Church].[Name] as [Church Name], " +
+            //                 "[dbo].[contact].[Email] " +
+            //                 "from contact " +
+            //                 "left join membership on contact.c4g_Membership__C = membership.ID " +
+            //                 "left join account on contact.AccountID = account.ID " +
+            //                 "left join program on contact.c4g_plan__c = program.ID " +
+            //                 "left join Church on contact.c4g_Church__C = Church.ID " +
+            //                 "where contact.LastName like '%' + @LastName + '%' or " +
+            //                 "contact.FirstName like '%' + @FirstName + '%' or " +
+            //                 "contact.MailingStreet like '%' + @MailingStreet + '%' or " +
+            //                 "contact.Birthdate like '%' + @Birthdate + '%' or " +
+            //                 "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
+            //                 "contact.Membership_Number__c like '%' + @MembershipID + '%' or " +
+            //                 "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
+            //                 "contact.Social_Security_Number__C like '%' + @SSN + '%' or " +
+            //                 "contact.Individual_ID__C like '%' + @IndividualID + '%' or " +
+            //                 "contact.Legacy_Database_Individual_ID__C like '%' + @LagacyIndividualID + '%'";
+
+
             String strSqlSearchContact = "select [dbo].[contact].[Individual_ID__C] as [Individual No.], " +
-                             "concat([dbo].[contact].[LastName], ', ', [dbo].[contact].[FirstName], ' ', [dbo].[contact].[MiddleName]) as Name, " +
-                             "[dbo].[membership].[Name] as Membership, [dbo].[contact].[Social_Security_Number__c] as [SSN], " +
-                             "[dbo].[contact].[Legacy_Database_Individual_ID__C] as [CRM No.], " +
-                             "[dbo].[contact].[c4g_Membership_Status__C] as [Membership Status], " +
-                             "[dbo].[contact].[Membership_Ind_Start_Date__C] As [Membership Start Date], " +
-                             "[dbo].[contact].[Membership_Cancelled_Date__C] As [Membership Cancel Date], " +
-                             "[dbo].[contact].[BirthDate], [dbo].[contact].[cmm_Gender__C] as [Gender], " +
-                             "[dbo].[contact].[Household_Role__C] as [House Type], " +
-                             "[dbo].[program].[Name] as [Program Name], " +
-                             "[dbo].[contact].[MailingStreet], [dbo].[contact].[MailingCity], [dbo].[contact].[MailingState], [dbo].[contact].[MailingPostalCode], " +
-                             "[dbo].[contact].[OtherStreet], [dbo].[contact].[OtherCity], [dbo].[contact].[OtherState], [dbo].[contact].[OtherPostalCode], " +
-                             "[dbo].[Church].[Name] as [Church Name], " +
-                             "[dbo].[contact].[Email] " +
-                             "from contact " +
-                             "left join membership on contact.c4g_Membership__C = membership.ID " +
-                             "left join account on contact.AccountID = account.ID " +
-                             "left join program on contact.c4g_plan__c = program.ID " +
-                             "left join Church on contact.c4g_Church__C = Church.ID " +
-                             "where contact.LastName like '%' + @LastName + '%' or " +
-                             "contact.FirstName like '%' + @FirstName + '%' or " +
-                             "contact.MailingStreet like '%' + @MailingStreet + '%' or " +
-                             "contact.Birthdate like '%' + @Birthdate + '%' or " +
-                             "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
-                             "contact.Membership_Number__c like '%' + @MembershipID + '%' or " +
-                             "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
-                             "contact.Social_Security_Number__C like '%' + @SSN + '%' or " +
-                             "contact.Individual_ID__C like '%' + @IndividualID + '%' or " +
-                             "contact.Legacy_Database_Individual_ID__C like '%' + @LagacyIndividualID + '%'";
+                 "concat([dbo].[contact].[LastName], ', ', [dbo].[contact].[FirstName], ' ', [dbo].[contact].[MiddleName]) as Name, " +
+                 "[dbo].[membership].[Name] as Membership, " +
+                 "[dbo].[contact].[c4g_Membership_Status__C] as [Membership Status], " +
+                 "[dbo].[contact].[BirthDate], [dbo].[contact].[cmm_Gender__C] as [Gender], " +
+                 "[dbo].[program].[Name] as [Program Name], " +
+                 "[dbo].[contact].[MailingPostalCode] as [Zip Code] " +
+                 "from contact " +
+                 "left join membership on contact.c4g_Membership__C = membership.ID " +
+                 "left join program on contact.c4g_plan__c = program.ID " +
+                 "where contact.LastName like '%' + @LastName + '%' or " +
+                 "contact.FirstName like '%' + @FirstName + '%' or " +
+                 "contact.MailingStreet like '%' + @MailingStreet + '%' or " +
+                 "contact.Birthdate like '%' + @Birthdate + '%' or " +
+                 "contact.Household_Role__C like '%' + @HouseholdRole + '%' or " +
+                 "contact.Membership_Number__c like '%' + @MembershipID + '%' or " +
+                 "contact.c4g_Membership_Status__C like '%' + @MembershipStatus + '%' or " +
+                 "contact.Social_Security_Number__C like '%' + @SSN + '%' or " +
+                 "contact.Individual_ID__C like '%' + @IndividualID + '%' or " +
+                 "contact.Legacy_Database_Individual_ID__C like '%' + @LagacyIndividualID + '%'";
 
             SqlCommand cmdQueryForIndividual = new SqlCommand(strSqlSearchContact, connSalesforce);
             cmdQueryForIndividual.CommandType = CommandType.Text;
@@ -26265,6 +26287,45 @@ namespace CMMManager
             daIndividual.Fill(dtIndividual);
 
             gvIndividualSearched.DataSource = dtIndividual;
+
+            string strSqlSearchForMedBill = "select [RN_DB].[dbo].[tbl_medbill].[BillNo] as [MedBill No], [RN_DB].[dbo].[tbl_medbill_type].[MedBillTypeName] as [MedBill Type], " +
+                                            "[SalesForce].[dbo].[contact].[Name], " +
+                                            "[RN_DB].[dbo].[tbl_medbill].[BillAmount] as [Bill Amount], [RN_DB].[dbo].[tbl_medbill].[Balance] as [Balance], " +
+                                            "[RN_DB].[dbo].[tbl_medbill].[Case_Id] as [Case No], " +
+                                            "[RN_DB].[dbo].[tbl_illness].[IllnessNo] as [Illness No], " +
+                                            "[RN_DB].[dbo].[tbl_incident].[IncidentNo] as [Incident No], " +
+                                            "[SalesForce].[dbo].[Account].[Name] as [Medical Provider Name] " +
+                                            "from [RN_DB].[dbo].[tbl_medbill] " +
+                                            "left join [RN_DB].[dbo].[tbl_medbill_type] on [RN_DB].[dbo].[tbl_medbill].[MedBillType_Id] = [RN_DB].[dbo].[tbl_medbill_type].[MedBillTypeId] " +
+                                            "left join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
+                                            "left join [RN_DB].[dbo].[tbl_illness] on [RN_DB].[dbo].[tbl_medbill].[Illness_Id] = [RN_DB].[dbo].[tbl_illness].[Illness_Id] " +
+                                            "left join [RN_DB].[dbo].[tbl_incident] on [RN_DB].[dbo].[tbl_medbill].[Incident_Id] = [RN_DB].[dbo].[tbl_incident].[Incident_id] " +
+                                            "left join [SalesForce].[dbo].[Account] on [RN_DB].[dbo].[tbl_medbill].[MedicalProvider_Id] = [SalesForce].[dbo].[Account].[Id] " +
+                                            "where ([RN_DB].[dbo].[tbl_medbill].[BillNo] like '%' + @MedBillNo + '%' or " +
+                                            "[SalesForce].[dbo].[contact].[Name] like '%' + @IndividualName + '%' or " +
+                                            "[RN_DB].[dbo].[tbl_medbill].[Case_Id] like '%' + @CaseNo + '%' or " +
+                                            "[RN_DB].[dbo].[tbl_illness].[IllnessNo] like '%' + @IllnessNo + '%' or " +
+                                            "[RN_DB].[dbo].[tbl_incident].[IncidentNo] like '%' + @IncidentNo + '%' or " +
+                                            "[SalesForce].[dbo].[Account].[Name] like '%' + @MedicalProviderName + '%') and " +
+                                            "([RN_DB].[dbo].[tbl_medbill].[IsDeleted] = 0 or [RN_DB].[dbo].[tbl_medbill].[IsDeleted] IS NULL)";
+
+            SqlCommand cmdQueryForMedbill = new SqlCommand(strSqlSearchForMedBill, connRN7);
+            cmdQueryForMedbill.CommandType = CommandType.Text;
+
+            cmdQueryForMedbill.Parameters.AddWithValue("@MedBillNo", strTextSearched);
+            cmdQueryForMedbill.Parameters.AddWithValue("@IndividualName", strTextSearched);
+            cmdQueryForMedbill.Parameters.AddWithValue("@CaseNo", strTextSearched);
+            cmdQueryForMedbill.Parameters.AddWithValue("@IllnessNo", strTextSearched);
+            cmdQueryForMedbill.Parameters.AddWithValue("@IncidentNo", strTextSearched);
+            cmdQueryForMedbill.Parameters.AddWithValue("@MedicalProviderName", strTextSearched);
+
+            DataTable dtMedBill = new DataTable();
+            SqlDataAdapter daMedBill = new SqlDataAdapter(cmdQueryForMedbill);
+            daMedBill.Fill(dtMedBill);
+
+            gvMedBillSearched.DataSource = dtMedBill;
+
+            
 
             //String strTextSearched = txtSearch.Text.Trim();
 
@@ -26317,211 +26378,444 @@ namespace CMMManager
                 EnableIncidentView();
                 EnableMedBillView();
 
-                //InitializeMedBillTabOnNewMedBill();
-                //if (tbCMMManager.TabPages.Contains(tbpgIndividual))
-                //{
-                //    MessageBox.Show("Individual Page is open. Close Individual page first.", "Alert");
-                //    return;
-                //}
-
-                //int nRowSelected = gvIndividual.CurrentCell.RowIndex;
-
-                //IndividualSearched.strID = gvIndividualSearched["ID", nRowSelected].Value.ToString();
-                //IndividualSearched.strAccountID = gvIndividualSearched["AccountID", nRowSelected].Value.ToString();
-                //IndividualSearched.strLastName = gvIndividualSearched["LASTNAME", nRowSelected].Value.ToString();
-                //IndividualSearched.strFirstName = gvIndividualSearched["FIRSTNAME", nRowSelected].Value.ToString();
-                //IndividualSearched.strSalutation = gvIndividualSearched["SALUTATION", nRowSelected].Value.ToString();
-
                 IndividualSearched.strIndividualID = gvIndividualSearched["Individual No.", nRowSelected]?.Value?.ToString();
                 IndividualForMedBill.strIndividualID = gvIndividualSearched["Individual No.", nRowSelected]?.Value?.ToString();
 
+                String strSqlQueryForIndividualMemberInfo = "select [dbo].[contact].[Individual_ID__C], [dbo].[contact].[LastName], [dbo].[contact].[FirstName], [dbo].[contact].[MiddleName], " +
+                                                      "[dbo].[membership].[Name], [dbo].[contact].[Social_Security_Number__c], [dbo].[contact].[Legacy_Database_Individual_ID__C], " +
+                                                      "[dbo].[contact].[c4g_Membership_Status__C], [dbo].[contact].[Membership_Ind_Start_Date__C], [dbo].[contact].[Membership_Cancelled_Date__C], " +
+                                                      "[dbo].[contact].[BirthDate], [dbo].[contact].[cmm_Gender__C], [dbo].[contact].[Household_Role__C], " +
+                                                      "[dbo].[program].[Name], " +
+                                                      "[dbo].[contact].[MailingStreet], [dbo].[contact].[MailingCity], [dbo].[contact].[MailingState], [dbo].[contact].[MailingPostalCode], " +
+                                                      "[dbo].[contact].[OtherStreet], [dbo].[contact].[OtherCity], [dbo].[contact].[OtherState], [dbo].[contact].[OtherPostalCode], " +
+                                                      "[dbo].[Church].[Name], [dbo].[contact].[Email] " +
+                                                      "from contact " +
+                                                      "left join membership on contact.c4g_Membership__C = membership.ID " +
+                                                      "left join program on contact.c4g_plan__c = program.ID " +
+                                                      "left join Church on contact.c4g_Church__C = Church.ID " +
+                                                      "where [dbo].[contact].[Individual_ID__C] = @IndividualId";
 
-                String IndividualName = gvIndividualSearched["Name", nRowSelected]?.Value?.ToString().Trim();
-                IndividualSearched.strLastName = IndividualName.Substring(0, IndividualName.IndexOf(','));
-                IndividualSearched.strFirstName = IndividualName.Substring(IndividualName.IndexOf(',') + 2);
-                if (IndividualSearched.strFirstName.IndexOf(' ') > 0) IndividualSearched.strFirstName = IndividualSearched.strFirstName.Substring(0, IndividualSearched.strFirstName.IndexOf(' '));
-                String TempIndividualName = IndividualName.Substring(IndividualName.IndexOf(' ') + 1);
-                IndividualSearched.strMiddleName = String.Empty;
-                if (TempIndividualName.IndexOf(' ') > 0)
+                SqlCommand cmdQueryForIndividualMemberInfo = new SqlCommand(strSqlQueryForIndividualMemberInfo, connSalesforce2);
+                cmdQueryForIndividualMemberInfo.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualMemberInfo.Parameters.AddWithValue("@IndividualId", IndividualSearched.strIndividualID);
+
+                if (connSalesforce2.State != ConnectionState.Closed)
                 {
-                    IndividualSearched.strMiddleName = TempIndividualName.Substring(TempIndividualName.IndexOf(' ') + 1);
+                    connSalesforce2.Close();
+                    connSalesforce2.Open();
                 }
-
-                String IndividualNameForMedBill = gvIndividualSearched["Name", nRowSelected]?.Value?.ToString().Trim();
-                IndividualForMedBill.strLastName = IndividualNameForMedBill.Substring(0, IndividualName.IndexOf(','));
-                IndividualForMedBill.strFirstName = IndividualNameForMedBill.Substring(IndividualName.IndexOf(',') + 2);
-                if (IndividualForMedBill.strFirstName.IndexOf(' ') > 0) IndividualForMedBill.strFirstName = IndividualForMedBill.strFirstName.Substring(0, IndividualForMedBill.strFirstName.IndexOf(' '));
-                String TempIndividualNameForMedBill = IndividualNameForMedBill.Substring(IndividualNameForMedBill.IndexOf(' ') + 1);
-                IndividualForMedBill.strMiddleName = String.Empty;
-                if (TempIndividualName.IndexOf(' ') > 0)
+                else if (connSalesforce2.State == ConnectionState.Closed) connSalesforce2.Open();
+                SqlDataReader rdrIndividualMemberInfo = cmdQueryForIndividualMemberInfo.ExecuteReader();
+                if (rdrIndividualMemberInfo.HasRows)
                 {
-                    IndividualForMedBill.strMiddleName = TempIndividualNameForMedBill.Substring(TempIndividualNameForMedBill.IndexOf(' ') + 1);
+                    rdrIndividualMemberInfo.Read();
+                    if (!rdrIndividualMemberInfo.IsDBNull(0))
+                    {
+                        IndividualSearched.strIndividualID = rdrIndividualMemberInfo.GetString(0);
+                        IndividualForMedBill.strIndividualID = rdrIndividualMemberInfo.GetString(0);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(1))
+                    {
+                        IndividualSearched.strLastName = rdrIndividualMemberInfo.GetString(1);
+                        IndividualForMedBill.strLastName = rdrIndividualMemberInfo.GetString(1);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(2))
+                    {
+                        IndividualSearched.strFirstName = rdrIndividualMemberInfo.GetString(2);
+                        IndividualForMedBill.strFirstName = rdrIndividualMemberInfo.GetString(2);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(3))
+                    {
+                        IndividualSearched.strMiddleName = rdrIndividualMemberInfo.GetString(3);
+                        IndividualForMedBill.strMiddleName = rdrIndividualMemberInfo.GetString(3);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(4))
+                    {
+                        IndividualSearched.strMembershipID = rdrIndividualMemberInfo.GetString(4);
+                        IndividualForMedBill.strMembershipID = rdrIndividualMemberInfo.GetString(4);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(5))
+                    {
+                        IndividualSearched.strSSN = rdrIndividualMemberInfo.GetString(5);
+                        IndividualForMedBill.strSSN = rdrIndividualMemberInfo.GetString(5);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(6))
+                    {
+                        IndividualSearched.strLegacyIndividualID = rdrIndividualMemberInfo.GetString(6);
+                        IndividualForMedBill.strLegacyIndividualID = rdrIndividualMemberInfo.GetString(6);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(7))
+                    {
+                        String strMembershipStatus = rdrIndividualMemberInfo.GetString(7).Trim();
+                        switch (strMembershipStatus)
+                        {
+                            case "Pending":
+                                IndividualSearched.membershipStatus = MembershipStatus.Pending;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Pending;
+                                break;
+                            case "Applied":
+                                IndividualSearched.membershipStatus = MembershipStatus.Applied;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Applied;
+                                break;
+                            case "Active":
+                                IndividualSearched.membershipStatus = MembershipStatus.Active;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Active;
+                                break;
+                            case "Past Due":
+                                IndividualSearched.membershipStatus = MembershipStatus.PastDue;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.PastDue;
+                                break;
+                            case "Inactive":
+                                IndividualSearched.membershipStatus = MembershipStatus.Inactive;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Inactive;
+                                break;
+                            case "Cancelled Req.":
+                                IndividualSearched.membershipStatus = MembershipStatus.CancelledReq;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.CancelledReq;
+                                break;
+                            case "Cancelled by Member":
+                                IndividualSearched.membershipStatus = MembershipStatus.CancelledByMember;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.CancelledByMember;
+                                break;
+                            case "Terminated by CMM":
+                                IndividualSearched.membershipStatus = MembershipStatus.TerminatedByCMM;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.TerminatedByCMM;
+                                break;
+                            case "Hold":
+                                IndividualSearched.membershipStatus = MembershipStatus.Hold;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Hold;
+                                break;
+                            case "Incomplete":
+                                IndividualSearched.membershipStatus = MembershipStatus.Incomplete;
+                                IndividualForMedBill.membershipStatus = MembershipStatus.Incomplete;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(8))
+                    {
+                        IndividualSearched.dtMembershipIndStartDate = rdrIndividualMemberInfo.GetDateTime(8);
+                        IndividualForMedBill.dtMembershipIndStartDate = rdrIndividualMemberInfo.GetDateTime(8);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(9))
+                    {
+                        IndividualSearched.dtMembershipCancelledDate = rdrIndividualMemberInfo.GetDateTime(9);
+                        IndividualForMedBill.dtMembershipCancelledDate = rdrIndividualMemberInfo.GetDateTime(9);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(10))
+                    {
+                        IndividualSearched.dtBirthDate = rdrIndividualMemberInfo.GetDateTime(10);
+                        IndividualForMedBill.dtBirthDate = rdrIndividualMemberInfo.GetDateTime(10);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(11))
+                    {
+                        String IndividualGender = rdrIndividualMemberInfo.GetString(11);
+                        switch (IndividualGender)
+                        {
+                            case "Male":
+                                IndividualSearched.IndividualGender = Gender.Male;
+                                IndividualForMedBill.IndividualGender = Gender.Male;
+                                break;
+                            case "Female":
+                                IndividualSearched.IndividualGender = Gender.Female;
+                                IndividualForMedBill.IndividualGender = Gender.Female;
+                                break;
+                        }
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(12))
+                    {
+                        String IndividualHouseholdRole = rdrIndividualMemberInfo.GetString(12);
+                        switch(IndividualHouseholdRole)
+                        {
+                            case "Head of Household":
+                                IndividualSearched.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
+                                IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
+                                break;
+                            case "Spouse":
+                                IndividualSearched.IndividualHouseholdRole = HouseholdRole.Spouse;
+                                IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Spouse;
+                                break;
+                            case "Child":
+                                IndividualSearched.IndividualHouseholdRole = HouseholdRole.Child;
+                                IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Child;
+                                break;
+                        }
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(13))
+                    {
+                        String IndividualProgramName = rdrIndividualMemberInfo.GetString(13);
+                        switch(IndividualProgramName)
+                        {
+                            case "Gold Plus":
+                                IndividualSearched.IndividualPlan = Plan.GoldPlus;
+                                IndividualForMedBill.IndividualPlan = Plan.GoldPlus;
+                                break;
+                            case "Gold":
+                                IndividualSearched.IndividualPlan = Plan.Gold;
+                                IndividualForMedBill.IndividualPlan = Plan.Gold;
+                                break;
+                            case "Silver":
+                                IndividualSearched.IndividualPlan = Plan.Silver;
+                                IndividualForMedBill.IndividualPlan = Plan.Silver;
+                                break;
+                            case "Bronze":
+                                IndividualSearched.IndividualPlan = Plan.Bronze;
+                                IndividualForMedBill.IndividualPlan = Plan.Bronze;
+                                break;
+                            case "Gold Medi-I":
+                                IndividualSearched.IndividualPlan = Plan.GoldMedi_I;
+                                IndividualForMedBill.IndividualPlan = Plan.GoldMedi_I;
+                                break;
+                            case "Gold Medi-II":
+                                IndividualSearched.IndividualPlan = Plan.GoldMedi_II;
+                                IndividualForMedBill.IndividualPlan = Plan.GoldMedi_II;
+                                break;
+                        }
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(14))
+                    {
+                        IndividualSearched.strShippingStreetAddress = rdrIndividualMemberInfo.GetString(14);
+                        IndividualForMedBill.strShippingStreetAddress = rdrIndividualMemberInfo.GetString(14);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(15))
+                    {
+                        IndividualSearched.strShippingCity = rdrIndividualMemberInfo.GetString(15);
+                        IndividualForMedBill.strShippingCity = rdrIndividualMemberInfo.GetString(15);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(16))
+                    {
+                        IndividualSearched.strShippingState = rdrIndividualMemberInfo.GetString(16);
+                        IndividualForMedBill.strShippingState = rdrIndividualMemberInfo.GetString(16);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(17))
+                    {
+                        IndividualSearched.strShippingZip = rdrIndividualMemberInfo.GetString(17);
+                        IndividualForMedBill.strShippingZip = rdrIndividualMemberInfo.GetString(17);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(18))
+                    {
+                        IndividualSearched.strBillingStreetAddress = rdrIndividualMemberInfo.GetString(18);
+                        IndividualForMedBill.strBillingStreetAddress = rdrIndividualMemberInfo.GetString(18);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(19))
+                    {
+                        IndividualSearched.strBillingCity = rdrIndividualMemberInfo.GetString(19);
+                        IndividualForMedBill.strBillingCity = rdrIndividualMemberInfo.GetString(19);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(20))
+                    {
+                        IndividualSearched.strBillingState = rdrIndividualMemberInfo.GetString(20);
+                        IndividualForMedBill.strBillingState = rdrIndividualMemberInfo.GetString(20);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(21))
+                    {
+                        IndividualSearched.strBillingZip = rdrIndividualMemberInfo.GetString(21);
+                        IndividualForMedBill.strBillingZip = rdrIndividualMemberInfo.GetString(21);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(22))
+                    {
+                        IndividualSearched.strChurch = rdrIndividualMemberInfo.GetString(22);
+                        IndividualForMedBill.strChurch = rdrIndividualMemberInfo.GetString(22);
+                    }
+                    if (!rdrIndividualMemberInfo.IsDBNull(23))
+                    {
+                        IndividualSearched.strEmail = rdrIndividualMemberInfo.GetString(23);
+                        IndividualForMedBill.strEmail = rdrIndividualMemberInfo.GetString(23);
+                    }
                 }
+                rdrIndividualMemberInfo.Close();
+                if (connSalesforce2.State != ConnectionState.Closed) connSalesforce2.Close();
 
 
-                IndividualSearched.strMembershipID = gvIndividualSearched["Membership", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strSSN = gvIndividualSearched["SSN", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strLegacyIndividualID = gvIndividualSearched["CRM No.", nRowSelected]?.Value?.ToString();
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //String IndividualName = gvIndividualSearched["Name", nRowSelected]?.Value?.ToString().Trim();
+                //IndividualSearched.strLastName = IndividualName.Substring(0, IndividualName.IndexOf(','));
+                //IndividualSearched.strFirstName = IndividualName.Substring(IndividualName.IndexOf(',') + 2);
+                //if (IndividualSearched.strFirstName.IndexOf(' ') > 0) IndividualSearched.strFirstName = IndividualSearched.strFirstName.Substring(0, IndividualSearched.strFirstName.IndexOf(' '));
+                //String TempIndividualName = IndividualName.Substring(IndividualName.IndexOf(' ') + 1);
+                //IndividualSearched.strMiddleName = String.Empty;
+                //if (TempIndividualName.IndexOf(' ') > 0)
+                //{
+                //    IndividualSearched.strMiddleName = TempIndividualName.Substring(TempIndividualName.IndexOf(' ') + 1);
+                //}
 
-                IndividualForMedBill.strMembershipID = gvIndividualSearched["Membership", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strSSN = gvIndividualSearched["SSN", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strLegacyIndividualID = gvIndividualSearched["CRM No.", nRowSelected]?.Value?.ToString();
-
-                switch (gvIndividualSearched["Membership Status", nRowSelected].Value.ToString())
-                {
-                    case "Pending":
-                        IndividualSearched.membershipStatus = MembershipStatus.Pending;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Pending;
-                        break;
-                    case "Applied":
-                        IndividualSearched.membershipStatus = MembershipStatus.Applied;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Applied;
-                        break;
-                    case "Active":
-                        IndividualSearched.membershipStatus = MembershipStatus.Active;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Active;
-                        break;
-                    case "Past Due":
-                        IndividualSearched.membershipStatus = MembershipStatus.PastDue;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.PastDue;
-                        break;
-                    case "Inactive":
-                        IndividualSearched.membershipStatus = MembershipStatus.Inactive;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Inactive;
-                        break;
-                    case "Cancelled Req.":
-                        IndividualSearched.membershipStatus = MembershipStatus.CancelledReq;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.CancelledReq;
-                        break;
-                    case "Cancelled by Member":
-                        IndividualSearched.membershipStatus = MembershipStatus.CancelledByMember;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.CancelledByMember;
-                        break;
-                    case "Terminated by CMM":
-                        IndividualSearched.membershipStatus = MembershipStatus.TerminatedByCMM;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.TerminatedByCMM;
-                        break;
-                    case "Hold":
-                        IndividualSearched.membershipStatus = MembershipStatus.Hold;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Hold;
-                        break;
-                    case "Incomplete":
-                        IndividualSearched.membershipStatus = MembershipStatus.Incomplete;
-                        IndividualForMedBill.membershipStatus = MembershipStatus.Incomplete;
-                        break;
-                    default:
-                        break;
-                }
-
-                if (gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString() != String.Empty)
-                {
-                    IndividualSearched.dtMembershipIndStartDate = DateTime.Parse(gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString());
-                    IndividualForMedBill.dtMembershipIndStartDate = DateTime.Parse(gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString());
-                }
-
-                if (gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString() != String.Empty)
-                {
-                    IndividualSearched.dtMembershipCancelledDate = DateTime.Parse(gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString());
-                    IndividualForMedBill.dtMembershipCancelledDate = DateTime.Parse(gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString());
-                }
-
-                IndividualSearched.dtBirthDate = DateTime.Parse(gvIndividualSearched["BirthDate", nRowSelected]?.Value?.ToString());
-                IndividualForMedBill.dtBirthDate = DateTime.Parse(gvIndividualSearched["BirthDate", nRowSelected]?.Value?.ToString());
-
-                switch (gvIndividualSearched["Gender", nRowSelected]?.Value?.ToString())
-                {
-                    case "Male":
-                        IndividualSearched.IndividualGender = Gender.Male;
-                        IndividualForMedBill.IndividualGender = Gender.Male;
-                        break;
-                    case "Female":
-                        IndividualSearched.IndividualGender = Gender.Female;
-                        IndividualForMedBill.IndividualGender = Gender.Female;
-                        break;
-                }
+                //String IndividualNameForMedBill = gvIndividualSearched["Name", nRowSelected]?.Value?.ToString().Trim();
+                //IndividualForMedBill.strLastName = IndividualNameForMedBill.Substring(0, IndividualName.IndexOf(','));
+                //IndividualForMedBill.strFirstName = IndividualNameForMedBill.Substring(IndividualName.IndexOf(',') + 2);
+                //if (IndividualForMedBill.strFirstName.IndexOf(' ') > 0) IndividualForMedBill.strFirstName = IndividualForMedBill.strFirstName.Substring(0, IndividualForMedBill.strFirstName.IndexOf(' '));
+                //String TempIndividualNameForMedBill = IndividualNameForMedBill.Substring(IndividualNameForMedBill.IndexOf(' ') + 1);
+                //IndividualForMedBill.strMiddleName = String.Empty;
+                //if (TempIndividualName.IndexOf(' ') > 0)
+                //{
+                //    IndividualForMedBill.strMiddleName = TempIndividualNameForMedBill.Substring(TempIndividualNameForMedBill.IndexOf(' ') + 1);
+                //}
 
 
-                switch (gvIndividualSearched["House Type", nRowSelected]?.Value?.ToString())
-                {
-                    case "Head of Household":
-                        IndividualSearched.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
-                        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
-                        break;
-                    case "Spouse":
-                        IndividualSearched.IndividualHouseholdRole = HouseholdRole.Spouse;
-                        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Spouse;
-                        break;
-                    case "Child":
-                        IndividualSearched.IndividualHouseholdRole = HouseholdRole.Child;
-                        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Child;
-                        break;
-                }
+                //IndividualSearched.strMembershipID = gvIndividualSearched["Membership", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strSSN = gvIndividualSearched["SSN", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strLegacyIndividualID = gvIndividualSearched["CRM No.", nRowSelected]?.Value?.ToString();
 
-                switch (gvIndividualSearched["Program Name", nRowSelected]?.Value?.ToString())
-                {
-                    case "Gold Plus":
-                        IndividualSearched.IndividualPlan = Plan.GoldPlus;
-                        IndividualForMedBill.IndividualPlan = Plan.GoldPlus;
-                        break;
-                    case "Gold":
-                        IndividualSearched.IndividualPlan = Plan.Gold;
-                        IndividualForMedBill.IndividualPlan = Plan.Gold;
-                        break;
-                    case "Silver":
-                        IndividualSearched.IndividualPlan = Plan.Silver;
-                        IndividualForMedBill.IndividualPlan = Plan.Silver;
-                        break;
-                    case "Bronze":
-                        IndividualSearched.IndividualPlan = Plan.Bronze;
-                        IndividualForMedBill.IndividualPlan = Plan.Bronze;
-                        break;
-                    case "Gold Medi-I":
-                        IndividualSearched.IndividualPlan = Plan.GoldMedi_I;
-                        IndividualForMedBill.IndividualPlan = Plan.GoldMedi_I;
-                        break;
-                    case "Gold Medi-II":
-                        IndividualSearched.IndividualPlan = Plan.GoldMedi_II;
-                        IndividualForMedBill.IndividualPlan = Plan.GoldMedi_II;
-                        break;
-                }
+                //IndividualForMedBill.strMembershipID = gvIndividualSearched["Membership", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strSSN = gvIndividualSearched["SSN", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strLegacyIndividualID = gvIndividualSearched["CRM No.", nRowSelected]?.Value?.ToString();
+
+                //switch (gvIndividualSearched["Membership Status", nRowSelected].Value.ToString())
+                //{
+                //    case "Pending":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Pending;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Pending;
+                //        break;
+                //    case "Applied":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Applied;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Applied;
+                //        break;
+                //    case "Active":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Active;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Active;
+                //        break;
+                //    case "Past Due":
+                //        IndividualSearched.membershipStatus = MembershipStatus.PastDue;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.PastDue;
+                //        break;
+                //    case "Inactive":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Inactive;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Inactive;
+                //        break;
+                //    case "Cancelled Req.":
+                //        IndividualSearched.membershipStatus = MembershipStatus.CancelledReq;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.CancelledReq;
+                //        break;
+                //    case "Cancelled by Member":
+                //        IndividualSearched.membershipStatus = MembershipStatus.CancelledByMember;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.CancelledByMember;
+                //        break;
+                //    case "Terminated by CMM":
+                //        IndividualSearched.membershipStatus = MembershipStatus.TerminatedByCMM;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.TerminatedByCMM;
+                //        break;
+                //    case "Hold":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Hold;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Hold;
+                //        break;
+                //    case "Incomplete":
+                //        IndividualSearched.membershipStatus = MembershipStatus.Incomplete;
+                //        IndividualForMedBill.membershipStatus = MembershipStatus.Incomplete;
+                //        break;
+                //    default:
+                //        break;
+                //}
+
+                //if (gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString() != String.Empty)
+                //{
+                //    IndividualSearched.dtMembershipIndStartDate = DateTime.Parse(gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString());
+                //    IndividualForMedBill.dtMembershipIndStartDate = DateTime.Parse(gvIndividualSearched["Membership Start Date", nRowSelected]?.Value?.ToString());
+                //}
+
+                //if (gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString() != String.Empty)
+                //{
+                //    IndividualSearched.dtMembershipCancelledDate = DateTime.Parse(gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString());
+                //    IndividualForMedBill.dtMembershipCancelledDate = DateTime.Parse(gvIndividualSearched["Membership Cancel Date", nRowSelected]?.Value?.ToString());
+                //}
+
+                //IndividualSearched.dtBirthDate = DateTime.Parse(gvIndividualSearched["BirthDate", nRowSelected]?.Value?.ToString());
+                //IndividualForMedBill.dtBirthDate = DateTime.Parse(gvIndividualSearched["BirthDate", nRowSelected]?.Value?.ToString());
+
+                //switch (gvIndividualSearched["Gender", nRowSelected]?.Value?.ToString())
+                //{
+                //    case "Male":
+                //        IndividualSearched.IndividualGender = Gender.Male;
+                //        IndividualForMedBill.IndividualGender = Gender.Male;
+                //        break;
+                //    case "Female":
+                //        IndividualSearched.IndividualGender = Gender.Female;
+                //        IndividualForMedBill.IndividualGender = Gender.Female;
+                //        break;
+                //}
 
 
-                //IndividualSearched.strShippingStreetAddress = gvIndividualSearched["ShippingStreet", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strShippingCity = gvIndividualSearched["ShippingCity", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strShippingState = gvIndividualSearched["ShippingState", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strShippingZip = gvIndividualSearched["ShippingPostalCode", nRowSelected]?.Value?.ToString();
+                //switch (gvIndividualSearched["House Type", nRowSelected]?.Value?.ToString())
+                //{
+                //    case "Head of Household":
+                //        IndividualSearched.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
+                //        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.HeadOfHousehold;
+                //        break;
+                //    case "Spouse":
+                //        IndividualSearched.IndividualHouseholdRole = HouseholdRole.Spouse;
+                //        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Spouse;
+                //        break;
+                //    case "Child":
+                //        IndividualSearched.IndividualHouseholdRole = HouseholdRole.Child;
+                //        IndividualForMedBill.IndividualHouseholdRole = HouseholdRole.Child;
+                //        break;
+                //}
 
-                IndividualSearched.strShippingStreetAddress = gvIndividualSearched["MailingStreet", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strShippingCity = gvIndividualSearched["MailingCity", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strShippingState = gvIndividualSearched["MailingState", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strShippingZip = gvIndividualSearched["MailingPostalCode", nRowSelected]?.Value?.ToString();
+                //switch (gvIndividualSearched["Program Name", nRowSelected]?.Value?.ToString())
+                //{
+                //    case "Gold Plus":
+                //        IndividualSearched.IndividualPlan = Plan.GoldPlus;
+                //        IndividualForMedBill.IndividualPlan = Plan.GoldPlus;
+                //        break;
+                //    case "Gold":
+                //        IndividualSearched.IndividualPlan = Plan.Gold;
+                //        IndividualForMedBill.IndividualPlan = Plan.Gold;
+                //        break;
+                //    case "Silver":
+                //        IndividualSearched.IndividualPlan = Plan.Silver;
+                //        IndividualForMedBill.IndividualPlan = Plan.Silver;
+                //        break;
+                //    case "Bronze":
+                //        IndividualSearched.IndividualPlan = Plan.Bronze;
+                //        IndividualForMedBill.IndividualPlan = Plan.Bronze;
+                //        break;
+                //    case "Gold Medi-I":
+                //        IndividualSearched.IndividualPlan = Plan.GoldMedi_I;
+                //        IndividualForMedBill.IndividualPlan = Plan.GoldMedi_I;
+                //        break;
+                //    case "Gold Medi-II":
+                //        IndividualSearched.IndividualPlan = Plan.GoldMedi_II;
+                //        IndividualForMedBill.IndividualPlan = Plan.GoldMedi_II;
+                //        break;
+                //}
 
-                IndividualForMedBill.strShippingStreetAddress = gvIndividualSearched["MailingStreet", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strShippingCity = gvIndividualSearched["MailingCity", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strShippingState = gvIndividualSearched["MailingState", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strShippingZip = gvIndividualSearched["MailingPostalCode", nRowSelected]?.Value?.ToString();
+
+                ////IndividualSearched.strShippingStreetAddress = gvIndividualSearched["ShippingStreet", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strShippingCity = gvIndividualSearched["ShippingCity", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strShippingState = gvIndividualSearched["ShippingState", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strShippingZip = gvIndividualSearched["ShippingPostalCode", nRowSelected]?.Value?.ToString();
+
+                //IndividualSearched.strShippingStreetAddress = gvIndividualSearched["MailingStreet", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strShippingCity = gvIndividualSearched["MailingCity", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strShippingState = gvIndividualSearched["MailingState", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strShippingZip = gvIndividualSearched["MailingPostalCode", nRowSelected]?.Value?.ToString();
+
+                //IndividualForMedBill.strShippingStreetAddress = gvIndividualSearched["MailingStreet", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strShippingCity = gvIndividualSearched["MailingCity", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strShippingState = gvIndividualSearched["MailingState", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strShippingZip = gvIndividualSearched["MailingPostalCode", nRowSelected]?.Value?.ToString();
 
 
-                //IndividualSearched.strBillingStreetAddress = gvIndividualSearched["BillingStreet", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strBillingCity = gvIndividualSearched["BillingCity", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strBillingState = gvIndividualSearched["BillingState", nRowSelected]?.Value?.ToString();
-                //IndividualSearched.strBillingZip = gvIndividualSearched["BillingPostalCode", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strBillingStreetAddress = gvIndividualSearched["BillingStreet", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strBillingCity = gvIndividualSearched["BillingCity", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strBillingState = gvIndividualSearched["BillingState", nRowSelected]?.Value?.ToString();
+                ////IndividualSearched.strBillingZip = gvIndividualSearched["BillingPostalCode", nRowSelected]?.Value?.ToString();
 
-                IndividualSearched.strBillingStreetAddress = gvIndividualSearched["OtherStreet", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strBillingCity = gvIndividualSearched["OtherCity", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strBillingState = gvIndividualSearched["OtherState", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strBillingZip = gvIndividualSearched["OtherPostalCode", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strBillingStreetAddress = gvIndividualSearched["OtherStreet", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strBillingCity = gvIndividualSearched["OtherCity", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strBillingState = gvIndividualSearched["OtherState", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strBillingZip = gvIndividualSearched["OtherPostalCode", nRowSelected]?.Value?.ToString();
 
-                IndividualForMedBill.strBillingStreetAddress = gvIndividualSearched["OtherStreet", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strBillingCity = gvIndividualSearched["OtherCity", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strBillingState = gvIndividualSearched["OtherState", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strBillingZip = gvIndividualSearched["OtherPostalCode", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strBillingStreetAddress = gvIndividualSearched["OtherStreet", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strBillingCity = gvIndividualSearched["OtherCity", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strBillingState = gvIndividualSearched["OtherState", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strBillingZip = gvIndividualSearched["OtherPostalCode", nRowSelected]?.Value?.ToString();
 
-                IndividualSearched.strChurch = gvIndividualSearched["Church Name", nRowSelected]?.Value?.ToString();
-                IndividualSearched.strEmail = gvIndividualSearched["Email", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strChurch = gvIndividualSearched["Church Name", nRowSelected]?.Value?.ToString();
+                //IndividualSearched.strEmail = gvIndividualSearched["Email", nRowSelected]?.Value?.ToString();
 
-                IndividualForMedBill.strChurch = gvIndividualSearched["Church Name", nRowSelected]?.Value?.ToString();
-                IndividualForMedBill.strEmail = gvIndividualSearched["Email", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strChurch = gvIndividualSearched["Church Name", nRowSelected]?.Value?.ToString();
+                //IndividualForMedBill.strEmail = gvIndividualSearched["Email", nRowSelected]?.Value?.ToString();
 
 
                 //IndividualSearched.dtBirthDate = DateTime.Parse(gvIndividualSearched["BIRTHDATE", nRowSelected].Value.ToString());
@@ -44274,10 +44568,10 @@ namespace CMMManager
                 //paraToday.Format.LeftIndent = "0.5in";
                 //paraToday.Format.RightIndent = "0.5in";
                 //dtpCheckIssueDateBlueSheet
-                //paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
-                if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
-                else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
-                else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
+                //if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
 
                 MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
 
@@ -46278,7 +46572,8 @@ namespace CMMManager
                 if (rbCheckBlueSheet.Checked)
                 {
                     SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM-dd-yyyy") + "_Ko";
+                    //savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpCheckIssueDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_Ko";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;
@@ -46306,8 +46601,9 @@ namespace CMMManager
                 }
                 if (rbACHBlueSheet.Checked)
                 {
-                    SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM-dd-yyyy") + "_Ko";
+                    SaveFileDialog savefileDlg = new SaveFileDialog(); 
+                    //savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpACHTransactionDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_Ko";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;
@@ -46335,8 +46631,9 @@ namespace CMMManager
                 }
                 if (rbCreditCardBlueSheet.Checked)
                 {
-                    SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM-dd-yyyy") + "_Ko";
+                    SaveFileDialog savefileDlg = new SaveFileDialog(); 
+                    //savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM-dd-yyyy") + "_Ko";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_Ko";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;
@@ -47331,11 +47628,11 @@ namespace CMMManager
                 paraToday.Format.SpaceAfter = "0.25in";
                 //paraToday.Format.LeftIndent = "0.5in";
                 //paraToday.Format.RightIndent = "0.5in";
-                //paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                paraToday.AddFormattedText(DateTime.Today.ToString("MM/dd/yyyy"));
 
-                if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
-                else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
-                else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //if (rbCheckBlueSheet.Checked) paraToday.AddFormattedText(dtpCheckIssueDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbACHBlueSheet.Checked) paraToday.AddFormattedText(dtpACHTransactionDateBlueSheet.Value.ToString("MM/dd/yyyy"));
+                //else if (rbCreditCardBlueSheet.Checked) paraToday.AddFormattedText(dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM/dd/yyyy"));
 
                 MigraDocDOM.Paragraph paraMembershipInfo = section.AddParagraph();
 
@@ -49205,7 +49502,7 @@ namespace CMMManager
                 {
 
                     SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ChkInfoEnteredBlueSheet.dtCheckIssueDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpCheckIssueDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_En";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;
@@ -49230,7 +49527,7 @@ namespace CMMManager
                 if (rbACHBlueSheet.Checked)
                 {
                     SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + ACHInfoEnteredBlueSheet.dtACHDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpACHTransactionDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_En";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;
@@ -49255,7 +49552,7 @@ namespace CMMManager
                 if (rbCreditCardBlueSheet.Checked)
                 {
                     SaveFileDialog savefileDlg = new SaveFileDialog();
-                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + CreditCardPaymentEnteredBlueSheet.dtPaymentDate.ToString("MM-dd-yyyy") + "_En";
+                    savefileDlg.FileName = strIndividualIDBlueSheet + "_" + strIndividualNameBlueSheet + "_" + dtpCreditCardPaymentDateBlueSheet.Value.ToString("MM-dd-yyyy") + "_En";
                     savefileDlg.Filter = "PDF Files | *.pdf";
                     savefileDlg.DefaultExt = "pdf";
                     savefileDlg.RestoreDirectory = true;

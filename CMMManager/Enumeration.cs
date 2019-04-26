@@ -30,4 +30,9 @@ namespace CMMManager
     public enum EnumPaidTo { Member, MedicalProvider };
     public enum EnumSorted { NotSorted, SortedAsc, SortedDesc };
 
+    public enum Gender { Male, Female };
+    public enum HouseholdRole { HeadOfHousehold, Spouse, Child };
+    public enum Plan { GoldMedi_I, GoldMedi_II, GoldPlus, Gold, Silver, Bronze };
+    public enum MembershipStatus { Pending, Applied, Active, PastDue, Inactive, CancelledReq, CancelledByMember, TerminatedByCMM, Hold, Incomplete };
+
 }
