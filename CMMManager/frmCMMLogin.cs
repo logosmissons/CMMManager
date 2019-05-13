@@ -22,5 +22,10 @@ namespace CMMManager
             DialogResult = DialogResult.OK;
             return;
         }
+
+        private void frmCMMLogin_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

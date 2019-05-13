@@ -357,7 +357,7 @@ namespace CMMManager
             int? nMaxIncidentId = null;
             int nResultMaxIncidentId = 0;
 
-            String NewIncidentNo = "INCD-";
+            String NewIncidentNo = "RNINCD-";
 
             if (nCountIncidentId > 0)
             {
@@ -386,7 +386,7 @@ namespace CMMManager
 
                     if (objLastIncidentNo != null) strLastIncidentNo = objLastIncidentNo.ToString();
 
-                    int nNewIncidentNo = Int32.Parse(strLastIncidentNo.Substring(5));
+                    int nNewIncidentNo = Int32.Parse(strLastIncidentNo.Substring(7));
                     nNewIncidentNo++;
 
                     NewIncidentNo += nNewIncidentNo.ToString();

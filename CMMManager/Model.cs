@@ -613,6 +613,9 @@ namespace CMMManager
         public String PatientMiddleName;
         public String PatientLastName;
         public String PrimaryName;
+        public String PrimaryLastName;
+        public String PrimaryFirstName;
+        public String PrimaryMiddleName;
         public Decimal SettlementAmount;
         public DateTime ServiceDate;
         public String MedicalProvider;
@@ -755,6 +758,51 @@ namespace CMMManager
             bIsExported = false;
             nExportedBy = 0;
             nSettlementType = 0;
+        }
+    }
+
+    public class ACHPaymentCSVExportInfo
+    {
+        public String IndividualId;
+        public String SettlementNo;
+        public DateTime? TransactionDate;
+        public String MembershipNo;
+        public String IndividualName;
+        public String LastName;
+        public String FirstName;
+        public String MiddleName;
+        public String StreetAddress;
+        public String City;
+        public String State;
+        public String Zip;
+        public Decimal ExpenseAmount;
+        public DateTime? ServiceDate;
+        public String MedicalProviderId;
+        public String MedicalProvider;
+        public String AccountNoAtProvider;
+        public String IncidentProgram;
+        public String IncidentNo;
+        
+        public ACHPaymentCSVExportInfo()
+        {
+            IndividualId = String.Empty;
+            TransactionDate = null;
+            MembershipNo = String.Empty;
+            IndividualName = String.Empty;
+            LastName = String.Empty;
+            FirstName = String.Empty;
+            MiddleName = String.Empty;
+            StreetAddress = String.Empty;
+            City = String.Empty;
+            State = String.Empty;
+            Zip = String.Empty;
+            ExpenseAmount = 0;
+            ServiceDate = null;
+            MedicalProviderId = String.Empty;
+            MedicalProvider = String.Empty;
+            AccountNoAtProvider = String.Empty;
+            IncidentProgram = String.Empty;
+            IncidentNo = String.Empty;
         }
     }
 

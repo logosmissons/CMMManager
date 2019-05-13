@@ -39,6 +39,24 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0A9516E28CF29C6E87C7CC342C169278"
+        "OwnerKey" = "8:_120845BC489AE1E708E685C3DEC74D3F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_120845BC489AE1E708E685C3DEC74D3F"
+        "OwnerKey" = "8:_65E84B0C7F91A1DFBC756A3493AB2228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_120845BC489AE1E708E685C3DEC74D3F"
+        "OwnerKey" = "8:_DE24E6A20C6149D494427556B5F3BD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1E21891B1E0DE9E6A1FE3934DD673209"
         "OwnerKey" = "8:_DE24E6A20C6149D494427556B5F3BD3B"
         "MsmSig" = "8:_UNDEFINED"
@@ -87,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_65E84B0C7F91A1DFBC756A3493AB2228"
+        "OwnerKey" = "8:_DE24E6A20C6149D494427556B5F3BD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A48B5A9446134D2FA8197025AC0E6976"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -101,6 +125,12 @@
         {
         "MsmKey" = "8:_CE62AA7F7D83F40B54B0116600AAEE55"
         "OwnerKey" = "8:_DE24E6A20C6149D494427556B5F3BD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D524842D6ECF46D6B5FE521086BAC528"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -131,6 +161,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_DE24E6A20C6149D494427556B5F3BD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_65E84B0C7F91A1DFBC756A3493AB2228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_120845BC489AE1E708E685C3DEC74D3F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -333,6 +375,57 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0A9516E28CF29C6E87C7CC342C169278"
+            {
+            "SourcePath" = "8:AcroPDF.dll"
+            "TargetName" = "8:AcroPDF.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_193B46440D204554997D7F9A23C97E64"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_120845BC489AE1E708E685C3DEC74D3F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_120845BC489AE1E708E685C3DEC74D3F"
+                    {
+                    "Name" = "8:Interop.AcroPDFLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Interop.AcroPDFLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_193B46440D204554997D7F9A23C97E64"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1E21891B1E0DE9E6A1FE3934DD673209"
             {
             "AssemblyRegister" = "3:1"
@@ -457,6 +550,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_65E84B0C7F91A1DFBC756A3493AB2228"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_65E84B0C7F91A1DFBC756A3493AB2228"
+                    {
+                    "Name" = "8:AxInterop.AcroPDFLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.AcroPDFLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_193B46440D204554997D7F9A23C97E64"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A48B5A9446134D2FA8197025AC0E6976"
             {
             "SourcePath" = "8:..\\CMMManager\\rn_icon.ico"
@@ -537,6 +661,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D524842D6ECF46D6B5FE521086BAC528"
+            {
+            "SourcePath" = "8:..\\CMMManager\\blank.pdf"
+            "TargetName" = "8:blank.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_193B46440D204554997D7F9A23C97E64"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D84828962F859829C783295A72B73F8B"
@@ -658,7 +802,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RNManager"
         "ProductCode" = "8:{E7AABD94-3006-4B3E-BFAB-989B3BDAC8EF}"
-        "PackageCode" = "8:{02A8F590-2EA7-4776-9169-8047368D0636}"
+        "PackageCode" = "8:{1BFD8D19-1214-4AED-9DE4-D7B650A3E541}"
         "UpgradeCode" = "8:{48AEF444-8D16-48E3-9F41-44BF1EEAD5BC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

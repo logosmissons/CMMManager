@@ -147,4 +147,28 @@ namespace CMMManager
         }
 
     }
+
+    public class IndividualInfoBlueSheet
+    {
+        public String IndividualId;
+        public String IndividualName;
+        public String BlueSheetType;
+        public String CheckNo;
+        public String ACH_No;
+        public String CreditCardNo;
+        public String FileName;
+        public DateTime? IssueDate;
+
+        public IndividualInfoBlueSheet()
+        {
+            IndividualId = String.Empty;
+            IndividualName = String.Empty;
+            BlueSheetType = String.Empty;
+            CheckNo = String.Empty;
+            ACH_No = String.Empty;
+            CreditCardNo = String.Empty;
+            FileName = String.Empty;
+            IssueDate = null;
+        }
+    }
 }

@@ -10,7 +10,7 @@ namespace CMMManager
     public enum IllnessOption { Select, Close, Cancel };
     public enum IncidentOption { Select, Close, Cancel };
     public enum CaseStatus { OnGoing, Processing, Closed };
-    public enum SettlementType { SelfPayDiscount = 1, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, MemberReimbursement, Ineligible, MedicalProviderRefund, PRReimbursement, MemberDiscount };
+    public enum SettlementType { SelfPayDiscount = 1, ThirdPartyDiscount, MemberPayment, CMMProviderPayment, CMMDiscount, CMMMemberReimbursement, Ineligible, MedicalProviderRefund, PRReimbursement, MemberDiscount };
     public enum PaymentMethodExport { Check = 1, CreditCard, ACH_Banking };
     public enum ProgramNameExport { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };
     public enum IncidentProgramName { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };

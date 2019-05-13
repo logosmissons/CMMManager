@@ -114,6 +114,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmCMMLogin";
             this.Text = "CMM Login";
+            this.Load += new System.EventHandler(this.frmCMMLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

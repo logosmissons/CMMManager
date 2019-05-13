@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -193,14 +194,13 @@
             this.label165 = new System.Windows.Forms.Label();
             this.tbpgSearchResult = new System.Windows.Forms.TabPage();
             this.label125 = new System.Windows.Forms.Label();
-            this.label124 = new System.Windows.Forms.Label();
-            this.gvCheckNoSearched = new System.Windows.Forms.DataGridView();
             this.gvSettlementSearched = new System.Windows.Forms.DataGridView();
             this.gvMedBillSearched = new System.Windows.Forms.DataGridView();
             this.label123 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.btnBlueSheetList = new System.Windows.Forms.Button();
             this.txtAnivDate = new System.Windows.Forms.TextBox();
             this.label100 = new System.Windows.Forms.Label();
             this.txtAccountNo = new System.Windows.Forms.TextBox();
@@ -338,6 +338,20 @@
             this.txtMembershipID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbpgIndividualBlueSheet = new System.Windows.Forms.TabPage();
+            this.gvBlueSheetList = new System.Windows.Forms.DataGridView();
+            this.BlueSheetType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlueSheetCheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlueSheetACH_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlueSheetCreditCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlueSheetFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BlueSheetIssueDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtIndividualNameListBlueSheet = new System.Windows.Forms.TextBox();
+            this.txtIndividualIDListBlueSheet = new System.Windows.Forms.TextBox();
+            this.label128 = new System.Windows.Forms.Label();
+            this.label127 = new System.Windows.Forms.Label();
+            this.label126 = new System.Windows.Forms.Label();
+            this.pdfBlueSheetViewer = new AxAcroPDFLib.AxAcroPDF();
             this.tbpgCaseView = new System.Windows.Forms.TabPage();
             this.btnCloseCaseView = new System.Windows.Forms.Button();
             this.txtCaseHistoryIndividualName = new System.Windows.Forms.TextBox();
@@ -379,7 +393,6 @@
             this.btnNewMedBill_Case = new System.Windows.Forms.Button();
             this.txtNoteOnCase = new System.Windows.Forms.TextBox();
             this.label177 = new System.Windows.Forms.Label();
-            this.btnBrowseNPF = new System.Windows.Forms.Button();
             this.txtCaseName = new System.Windows.Forms.TextBox();
             this.label172 = new System.Windows.Forms.Label();
             this.btnCaseCreationLowerSave = new System.Windows.Forms.Button();
@@ -391,10 +404,6 @@
             this.label85 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
-            this.btnBrowseUnknownDoc = new System.Windows.Forms.Button();
-            this.btnBrowseMR = new System.Windows.Forms.Button();
-            this.btnBrowsePoP = new System.Windows.Forms.Button();
-            this.btnBrowseIB = new System.Windows.Forms.Button();
             this.label50 = new System.Windows.Forms.Label();
             this.gvNewSupportLog = new System.Windows.Forms.DataGridView();
             this.btnCaseCreationNewSupportLog = new System.Windows.Forms.Button();
@@ -812,6 +821,11 @@
             this.EmailPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PhonePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label95 = new System.Windows.Forms.Label();
+            this.tbpgCheckReconcilation = new System.Windows.Forms.TabPage();
+            this.btnReconcile = new System.Windows.Forms.Button();
+            this.gvCheckReconcilation = new System.Windows.Forms.DataGridView();
+            this.label124 = new System.Windows.Forms.Label();
+            this.CreditCardReconcilation = new System.Windows.Forms.TabPage();
             this.label147 = new System.Windows.Forms.Label();
             this.tbpgTask = new System.Windows.Forms.TabPage();
             this.btnEvent = new System.Windows.Forms.Button();
@@ -984,6 +998,13 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.CheckPaid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CheckPaidSettlementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPaidSettlementType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPaidIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPaidCheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPaidCheckDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1010,7 +1031,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).BeginInit();
             this.tbpgSearchResult.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCheckNoSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).BeginInit();
@@ -1020,6 +1040,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvRecentCommunication)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilyInformation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProcessingCaseNo)).BeginInit();
+            this.tbpgIndividualBlueSheet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvBlueSheetList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).BeginInit();
             this.tbpgCaseView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).BeginInit();
             this.tbpgCreateCase.SuspendLayout();
@@ -1057,6 +1080,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentCreditCard)).BeginInit();
             this.tbpgInactive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).BeginInit();
+            this.tbpgCheckReconcilation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).BeginInit();
             this.tbpgTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTask)).BeginInit();
@@ -1125,6 +1150,7 @@
             this.tbCMMManager.Controls.Add(this.tbpgDashboardFDStaff);
             this.tbCMMManager.Controls.Add(this.tbpgSearchResult);
             this.tbCMMManager.Controls.Add(this.tbpgIndividual);
+            this.tbCMMManager.Controls.Add(this.tbpgIndividualBlueSheet);
             this.tbCMMManager.Controls.Add(this.tbpgCaseView);
             this.tbCMMManager.Controls.Add(this.tbpgCreateCase);
             this.tbCMMManager.Controls.Add(this.tbpgIllnessView);
@@ -2357,8 +2383,6 @@
             // tbpgSearchResult
             // 
             this.tbpgSearchResult.Controls.Add(this.label125);
-            this.tbpgSearchResult.Controls.Add(this.label124);
-            this.tbpgSearchResult.Controls.Add(this.gvCheckNoSearched);
             this.tbpgSearchResult.Controls.Add(this.gvSettlementSearched);
             this.tbpgSearchResult.Controls.Add(this.gvMedBillSearched);
             this.tbpgSearchResult.Controls.Add(this.label123);
@@ -2381,30 +2405,6 @@
             this.label125.TabIndex = 9;
             this.label125.Text = "Settlements";
             // 
-            // label124
-            // 
-            this.label124.AutoSize = true;
-            this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label124.Location = new System.Drawing.Point(913, 447);
-            this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(67, 16);
-            this.label124.TabIndex = 8;
-            this.label124.Text = "Check No";
-            // 
-            // gvCheckNoSearched
-            // 
-            this.gvCheckNoSearched.AllowUserToAddRows = false;
-            this.gvCheckNoSearched.AllowUserToDeleteRows = false;
-            this.gvCheckNoSearched.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gvCheckNoSearched.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvCheckNoSearched.Location = new System.Drawing.Point(916, 466);
-            this.gvCheckNoSearched.Name = "gvCheckNoSearched";
-            this.gvCheckNoSearched.ReadOnly = true;
-            this.gvCheckNoSearched.Size = new System.Drawing.Size(854, 378);
-            this.gvCheckNoSearched.TabIndex = 7;
-            // 
             // gvSettlementSearched
             // 
             this.gvSettlementSearched.AllowUserToAddRows = false;
@@ -2416,8 +2416,9 @@
             this.gvSettlementSearched.Location = new System.Drawing.Point(29, 466);
             this.gvSettlementSearched.Name = "gvSettlementSearched";
             this.gvSettlementSearched.ReadOnly = true;
-            this.gvSettlementSearched.Size = new System.Drawing.Size(854, 378);
+            this.gvSettlementSearched.Size = new System.Drawing.Size(1741, 378);
             this.gvSettlementSearched.TabIndex = 6;
+            this.gvSettlementSearched.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementSearched_CellDoubleClick);
             // 
             // gvMedBillSearched
             // 
@@ -2432,6 +2433,7 @@
             this.gvMedBillSearched.ReadOnly = true;
             this.gvMedBillSearched.Size = new System.Drawing.Size(854, 378);
             this.gvMedBillSearched.TabIndex = 5;
+            this.gvMedBillSearched.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedBillSearched_CellDoubleClick);
             // 
             // label123
             // 
@@ -2470,6 +2472,7 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.btnBlueSheetList);
             this.tbpgIndividual.Controls.Add(this.txtAnivDate);
             this.tbpgIndividual.Controls.Add(this.label100);
             this.tbpgIndividual.Controls.Add(this.txtAccountNo);
@@ -2590,19 +2593,29 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // btnBlueSheetList
+            // 
+            this.btnBlueSheetList.Location = new System.Drawing.Point(434, 88);
+            this.btnBlueSheetList.Name = "btnBlueSheetList";
+            this.btnBlueSheetList.Size = new System.Drawing.Size(129, 23);
+            this.btnBlueSheetList.TabIndex = 235;
+            this.btnBlueSheetList.Text = "BlueSheet List";
+            this.btnBlueSheetList.UseVisualStyleBackColor = true;
+            this.btnBlueSheetList.Click += new System.EventHandler(this.btnBlueSheetList_Click);
+            // 
             // txtAnivDate
             // 
-            this.txtAnivDate.Location = new System.Drawing.Point(482, 641);
+            this.txtAnivDate.Location = new System.Drawing.Point(532, 640);
             this.txtAnivDate.Name = "txtAnivDate";
             this.txtAnivDate.ReadOnly = true;
-            this.txtAnivDate.Size = new System.Drawing.Size(161, 20);
+            this.txtAnivDate.Size = new System.Drawing.Size(209, 20);
             this.txtAnivDate.TabIndex = 234;
             // 
             // label100
             // 
             this.label100.AutoSize = true;
             this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label100.Location = new System.Drawing.Point(404, 642);
+            this.label100.Location = new System.Drawing.Point(454, 641);
             this.label100.Name = "label100";
             this.label100.Size = new System.Drawing.Size(69, 16);
             this.label100.TabIndex = 233;
@@ -2610,16 +2623,16 @@
             // 
             // txtAccountNo
             // 
-            this.txtAccountNo.Location = new System.Drawing.Point(466, 490);
+            this.txtAccountNo.Location = new System.Drawing.Point(548, 490);
             this.txtAccountNo.Name = "txtAccountNo";
-            this.txtAccountNo.Size = new System.Drawing.Size(177, 20);
+            this.txtAccountNo.Size = new System.Drawing.Size(193, 20);
             this.txtAccountNo.TabIndex = 232;
             // 
             // label99
             // 
             this.label99.AutoSize = true;
             this.label99.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label99.Location = new System.Drawing.Point(357, 491);
+            this.label99.Location = new System.Drawing.Point(431, 491);
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(80, 16);
             this.label99.TabIndex = 231;
@@ -2627,16 +2640,16 @@
             // 
             // txtAccountHolder
             // 
-            this.txtAccountHolder.Location = new System.Drawing.Point(466, 456);
+            this.txtAccountHolder.Location = new System.Drawing.Point(548, 456);
             this.txtAccountHolder.Name = "txtAccountHolder";
-            this.txtAccountHolder.Size = new System.Drawing.Size(177, 20);
+            this.txtAccountHolder.Size = new System.Drawing.Size(193, 20);
             this.txtAccountHolder.TabIndex = 230;
             // 
             // label98
             // 
             this.label98.AutoSize = true;
             this.label98.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label98.Location = new System.Drawing.Point(357, 457);
+            this.label98.Location = new System.Drawing.Point(431, 457);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(103, 16);
             this.label98.TabIndex = 229;
@@ -2646,7 +2659,7 @@
             // 
             this.txtBankRoutingNo.Location = new System.Drawing.Point(130, 490);
             this.txtBankRoutingNo.Name = "txtBankRoutingNo";
-            this.txtBankRoutingNo.Size = new System.Drawing.Size(137, 20);
+            this.txtBankRoutingNo.Size = new System.Drawing.Size(211, 20);
             this.txtBankRoutingNo.TabIndex = 228;
             // 
             // label97
@@ -2663,7 +2676,7 @@
             // 
             this.txtBankName.Location = new System.Drawing.Point(130, 456);
             this.txtBankName.Name = "txtBankName";
-            this.txtBankName.Size = new System.Drawing.Size(174, 20);
+            this.txtBankName.Size = new System.Drawing.Size(211, 20);
             this.txtBankName.TabIndex = 226;
             // 
             // label96
@@ -2678,17 +2691,17 @@
             // 
             // txtTotalMedBillAmount
             // 
-            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(517, 789);
+            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(575, 789);
             this.txtTotalMedBillAmount.Name = "txtTotalMedBillAmount";
             this.txtTotalMedBillAmount.ReadOnly = true;
-            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(128, 20);
+            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(166, 20);
             this.txtTotalMedBillAmount.TabIndex = 224;
             // 
             // label174
             // 
             this.label174.AutoSize = true;
             this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label174.Location = new System.Drawing.Point(349, 791);
+            this.label174.Location = new System.Drawing.Point(407, 791);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(162, 16);
             this.label174.TabIndex = 223;
@@ -2697,7 +2710,7 @@
             // rbEnglish
             // 
             this.rbEnglish.AutoSize = true;
-            this.rbEnglish.Location = new System.Drawing.Point(259, 130);
+            this.rbEnglish.Location = new System.Drawing.Point(286, 130);
             this.rbEnglish.Name = "rbEnglish";
             this.rbEnglish.Size = new System.Drawing.Size(59, 17);
             this.rbEnglish.TabIndex = 2;
@@ -2708,7 +2721,7 @@
             // 
             this.rbKorean.AutoSize = true;
             this.rbKorean.Checked = true;
-            this.rbKorean.Location = new System.Drawing.Point(186, 130);
+            this.rbKorean.Location = new System.Drawing.Point(213, 130);
             this.rbKorean.Name = "rbKorean";
             this.rbKorean.Size = new System.Drawing.Size(59, 17);
             this.rbKorean.TabIndex = 1;
@@ -2718,7 +2731,7 @@
             // 
             // txtRelationship
             // 
-            this.txtRelationship.Location = new System.Drawing.Point(447, 378);
+            this.txtRelationship.Location = new System.Drawing.Point(548, 378);
             this.txtRelationship.Name = "txtRelationship";
             this.txtRelationship.Size = new System.Drawing.Size(196, 20);
             this.txtRelationship.TabIndex = 22;
@@ -2728,17 +2741,19 @@
             this.dtpBirthDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpBirthDate.Location = new System.Drawing.Point(130, 204);
             this.dtpBirthDate.Name = "dtpBirthDate";
-            this.dtpBirthDate.Size = new System.Drawing.Size(115, 20);
+            this.dtpBirthDate.Size = new System.Drawing.Size(151, 20);
             this.dtpBirthDate.TabIndex = 7;
             // 
             // btnEditCaseUnderProcess
             // 
-            this.btnEditCaseUnderProcess.Location = new System.Drawing.Point(926, 87);
+            this.btnEditCaseUnderProcess.Enabled = false;
+            this.btnEditCaseUnderProcess.Location = new System.Drawing.Point(1029, 90);
             this.btnEditCaseUnderProcess.Name = "btnEditCaseUnderProcess";
             this.btnEditCaseUnderProcess.Size = new System.Drawing.Size(120, 28);
             this.btnEditCaseUnderProcess.TabIndex = 217;
             this.btnEditCaseUnderProcess.Text = "Edit";
             this.btnEditCaseUnderProcess.UseVisualStyleBackColor = true;
+            this.btnEditCaseUnderProcess.Visible = false;
             this.btnEditCaseUnderProcess.Click += new System.EventHandler(this.btnEditCaseUnderProcess_Click);
             // 
             // btnIndViewCancelUpperRight
@@ -2768,7 +2783,7 @@
             // btnAddHealthHistoryAfterReg
             // 
             this.btnAddHealthHistoryAfterReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddHealthHistoryAfterReg.Location = new System.Drawing.Point(908, 695);
+            this.btnAddHealthHistoryAfterReg.Location = new System.Drawing.Point(1010, 698);
             this.btnAddHealthHistoryAfterReg.Name = "btnAddHealthHistoryAfterReg";
             this.btnAddHealthHistoryAfterReg.Size = new System.Drawing.Size(139, 28);
             this.btnAddHealthHistoryAfterReg.TabIndex = 214;
@@ -2778,7 +2793,7 @@
             // btnAddHealthHistoryBeforeReg
             // 
             this.btnAddHealthHistoryBeforeReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddHealthHistoryBeforeReg.Location = new System.Drawing.Point(907, 577);
+            this.btnAddHealthHistoryBeforeReg.Location = new System.Drawing.Point(1010, 577);
             this.btnAddHealthHistoryBeforeReg.Name = "btnAddHealthHistoryBeforeReg";
             this.btnAddHealthHistoryBeforeReg.Size = new System.Drawing.Size(139, 28);
             this.btnAddHealthHistoryBeforeReg.TabIndex = 213;
@@ -2794,49 +2809,49 @@
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN3);
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN2);
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN1);
-            this.pnlHealthHistoryAfterRegistration.Location = new System.Drawing.Point(678, 732);
+            this.pnlHealthHistoryAfterRegistration.Location = new System.Drawing.Point(782, 732);
             this.pnlHealthHistoryAfterRegistration.Name = "pnlHealthHistoryAfterRegistration";
-            this.pnlHealthHistoryAfterRegistration.Size = new System.Drawing.Size(1120, 71);
+            this.pnlHealthHistoryAfterRegistration.Size = new System.Drawing.Size(1016, 71);
             this.pnlHealthHistoryAfterRegistration.TabIndex = 212;
             // 
             // cbHealthHistoryFromRN5
             // 
             this.cbHealthHistoryFromRN5.FormattingEnabled = true;
-            this.cbHealthHistoryFromRN5.Location = new System.Drawing.Point(839, 15);
+            this.cbHealthHistoryFromRN5.Location = new System.Drawing.Point(762, 14);
             this.cbHealthHistoryFromRN5.Name = "cbHealthHistoryFromRN5";
-            this.cbHealthHistoryFromRN5.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryFromRN5.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryFromRN5.TabIndex = 99;
             // 
             // cbHealthHistoryFromRN4
             // 
             this.cbHealthHistoryFromRN4.FormattingEnabled = true;
-            this.cbHealthHistoryFromRN4.Location = new System.Drawing.Point(634, 15);
+            this.cbHealthHistoryFromRN4.Location = new System.Drawing.Point(576, 15);
             this.cbHealthHistoryFromRN4.Name = "cbHealthHistoryFromRN4";
-            this.cbHealthHistoryFromRN4.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryFromRN4.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryFromRN4.TabIndex = 98;
             // 
             // cbHealthHistoryFromRN3
             // 
             this.cbHealthHistoryFromRN3.FormattingEnabled = true;
-            this.cbHealthHistoryFromRN3.Location = new System.Drawing.Point(427, 15);
+            this.cbHealthHistoryFromRN3.Location = new System.Drawing.Point(390, 15);
             this.cbHealthHistoryFromRN3.Name = "cbHealthHistoryFromRN3";
-            this.cbHealthHistoryFromRN3.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryFromRN3.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryFromRN3.TabIndex = 97;
             // 
             // cbHealthHistoryFromRN2
             // 
             this.cbHealthHistoryFromRN2.FormattingEnabled = true;
-            this.cbHealthHistoryFromRN2.Location = new System.Drawing.Point(218, 15);
+            this.cbHealthHistoryFromRN2.Location = new System.Drawing.Point(204, 15);
             this.cbHealthHistoryFromRN2.Name = "cbHealthHistoryFromRN2";
-            this.cbHealthHistoryFromRN2.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryFromRN2.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryFromRN2.TabIndex = 96;
             // 
             // cbHealthHistoryFromRN1
             // 
             this.cbHealthHistoryFromRN1.FormattingEnabled = true;
-            this.cbHealthHistoryFromRN1.Location = new System.Drawing.Point(7, 15);
+            this.cbHealthHistoryFromRN1.Location = new System.Drawing.Point(18, 15);
             this.cbHealthHistoryFromRN1.Name = "cbHealthHistoryFromRN1";
-            this.cbHealthHistoryFromRN1.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryFromRN1.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryFromRN1.TabIndex = 95;
             // 
             // btnIndViewCancelLowerRight
@@ -2862,6 +2877,7 @@
             this.btnIndViewUpdateLowerRight.TabIndex = 210;
             this.btnIndViewUpdateLowerRight.Text = "Update";
             this.btnIndViewUpdateLowerRight.UseVisualStyleBackColor = true;
+            this.btnIndViewUpdateLowerRight.Visible = false;
             this.btnIndViewUpdateLowerRight.Click += new System.EventHandler(this.btnIndViewUpdateLowerRight_Click);
             // 
             // pnlHealthHistoryPriorRegistration
@@ -2873,56 +2889,56 @@
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior3);
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior2);
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior1);
-            this.pnlHealthHistoryPriorRegistration.Location = new System.Drawing.Point(678, 611);
+            this.pnlHealthHistoryPriorRegistration.Location = new System.Drawing.Point(782, 611);
             this.pnlHealthHistoryPriorRegistration.Name = "pnlHealthHistoryPriorRegistration";
-            this.pnlHealthHistoryPriorRegistration.Size = new System.Drawing.Size(1120, 71);
+            this.pnlHealthHistoryPriorRegistration.Size = new System.Drawing.Size(1016, 71);
             this.pnlHealthHistoryPriorRegistration.TabIndex = 209;
             // 
             // cbHealthHistoryPrior5
             // 
             this.cbHealthHistoryPrior5.FormattingEnabled = true;
-            this.cbHealthHistoryPrior5.Location = new System.Drawing.Point(839, 16);
+            this.cbHealthHistoryPrior5.Location = new System.Drawing.Point(762, 23);
             this.cbHealthHistoryPrior5.Name = "cbHealthHistoryPrior5";
-            this.cbHealthHistoryPrior5.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryPrior5.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryPrior5.TabIndex = 91;
             // 
             // cbHealthHistoryPrior4
             // 
             this.cbHealthHistoryPrior4.FormattingEnabled = true;
-            this.cbHealthHistoryPrior4.Location = new System.Drawing.Point(634, 16);
+            this.cbHealthHistoryPrior4.Location = new System.Drawing.Point(576, 23);
             this.cbHealthHistoryPrior4.Name = "cbHealthHistoryPrior4";
-            this.cbHealthHistoryPrior4.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryPrior4.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryPrior4.TabIndex = 90;
             // 
             // cbHealthHistoryPrior3
             // 
             this.cbHealthHistoryPrior3.FormattingEnabled = true;
-            this.cbHealthHistoryPrior3.Location = new System.Drawing.Point(427, 16);
+            this.cbHealthHistoryPrior3.Location = new System.Drawing.Point(390, 23);
             this.cbHealthHistoryPrior3.Name = "cbHealthHistoryPrior3";
-            this.cbHealthHistoryPrior3.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryPrior3.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryPrior3.TabIndex = 89;
             // 
             // cbHealthHistoryPrior2
             // 
             this.cbHealthHistoryPrior2.FormattingEnabled = true;
-            this.cbHealthHistoryPrior2.Location = new System.Drawing.Point(218, 16);
+            this.cbHealthHistoryPrior2.Location = new System.Drawing.Point(204, 23);
             this.cbHealthHistoryPrior2.Name = "cbHealthHistoryPrior2";
-            this.cbHealthHistoryPrior2.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryPrior2.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryPrior2.TabIndex = 88;
             // 
             // cbHealthHistoryPrior1
             // 
             this.cbHealthHistoryPrior1.FormattingEnabled = true;
-            this.cbHealthHistoryPrior1.Location = new System.Drawing.Point(7, 16);
+            this.cbHealthHistoryPrior1.Location = new System.Drawing.Point(18, 23);
             this.cbHealthHistoryPrior1.Name = "cbHealthHistoryPrior1";
-            this.cbHealthHistoryPrior1.Size = new System.Drawing.Size(190, 21);
+            this.cbHealthHistoryPrior1.Size = new System.Drawing.Size(172, 21);
             this.cbHealthHistoryPrior1.TabIndex = 87;
             // 
             // label39
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(675, 699);
+            this.label39.Location = new System.Drawing.Point(779, 698);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(197, 16);
             this.label39.TabIndex = 208;
@@ -2932,7 +2948,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(675, 583);
+            this.label38.Location = new System.Drawing.Point(779, 583);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(218, 16);
             this.label38.TabIndex = 207;
@@ -2941,16 +2957,16 @@
             // gvRecentCommunication
             // 
             this.gvRecentCommunication.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRecentCommunication.Location = new System.Drawing.Point(678, 448);
+            this.gvRecentCommunication.Location = new System.Drawing.Point(782, 448);
             this.gvRecentCommunication.Name = "gvRecentCommunication";
-            this.gvRecentCommunication.Size = new System.Drawing.Size(1120, 112);
+            this.gvRecentCommunication.Size = new System.Drawing.Size(1016, 112);
             this.gvRecentCommunication.TabIndex = 206;
             // 
             // chkCommunicationEtc
             // 
             this.chkCommunicationEtc.AutoSize = true;
             this.chkCommunicationEtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEtc.Location = new System.Drawing.Point(1118, 422);
+            this.chkCommunicationEtc.Location = new System.Drawing.Point(1222, 428);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationEtc.TabIndex = 31;
@@ -2961,7 +2977,7 @@
             // 
             this.chkCommunicationReq.AutoSize = true;
             this.chkCommunicationReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationReq.Location = new System.Drawing.Point(1041, 422);
+            this.chkCommunicationReq.Location = new System.Drawing.Point(1145, 428);
             this.chkCommunicationReq.Name = "chkCommunicationReq";
             this.chkCommunicationReq.Size = new System.Drawing.Size(53, 20);
             this.chkCommunicationReq.TabIndex = 30;
@@ -2972,7 +2988,7 @@
             // 
             this.chkCommunicationFax.AutoSize = true;
             this.chkCommunicationFax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationFax.Location = new System.Drawing.Point(972, 422);
+            this.chkCommunicationFax.Location = new System.Drawing.Point(1076, 428);
             this.chkCommunicationFax.Name = "chkCommunicationFax";
             this.chkCommunicationFax.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationFax.TabIndex = 29;
@@ -2983,7 +2999,7 @@
             // 
             this.chkCommunicationLetter.AutoSize = true;
             this.chkCommunicationLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationLetter.Location = new System.Drawing.Point(896, 422);
+            this.chkCommunicationLetter.Location = new System.Drawing.Point(1000, 428);
             this.chkCommunicationLetter.Name = "chkCommunicationLetter";
             this.chkCommunicationLetter.Size = new System.Drawing.Size(60, 20);
             this.chkCommunicationLetter.TabIndex = 28;
@@ -2994,7 +3010,7 @@
             // 
             this.chkCommunicationEmail.AutoSize = true;
             this.chkCommunicationEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEmail.Location = new System.Drawing.Point(824, 422);
+            this.chkCommunicationEmail.Location = new System.Drawing.Point(928, 428);
             this.chkCommunicationEmail.Name = "chkCommunicationEmail";
             this.chkCommunicationEmail.Size = new System.Drawing.Size(61, 20);
             this.chkCommunicationEmail.TabIndex = 27;
@@ -3005,7 +3021,7 @@
             // 
             this.chkCommunicationCall.AutoSize = true;
             this.chkCommunicationCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationCall.Location = new System.Drawing.Point(752, 422);
+            this.chkCommunicationCall.Location = new System.Drawing.Point(856, 428);
             this.chkCommunicationCall.Name = "chkCommunicationCall";
             this.chkCommunicationCall.Size = new System.Drawing.Size(50, 20);
             this.chkCommunicationCall.TabIndex = 26;
@@ -3016,7 +3032,7 @@
             // 
             this.chkCommunicationAll.AutoSize = true;
             this.chkCommunicationAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationAll.Location = new System.Drawing.Point(678, 422);
+            this.chkCommunicationAll.Location = new System.Drawing.Point(782, 428);
             this.chkCommunicationAll.Name = "chkCommunicationAll";
             this.chkCommunicationAll.Size = new System.Drawing.Size(42, 20);
             this.chkCommunicationAll.TabIndex = 25;
@@ -3027,7 +3043,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(675, 403);
+            this.label37.Location = new System.Drawing.Point(779, 409);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(188, 16);
             this.label37.TabIndex = 198;
@@ -3036,16 +3052,16 @@
             // gvFamilyInformation
             // 
             this.gvFamilyInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvFamilyInformation.Location = new System.Drawing.Point(678, 285);
+            this.gvFamilyInformation.Location = new System.Drawing.Point(782, 285);
             this.gvFamilyInformation.Name = "gvFamilyInformation";
-            this.gvFamilyInformation.Size = new System.Drawing.Size(1120, 112);
+            this.gvFamilyInformation.Size = new System.Drawing.Size(1016, 112);
             this.gvFamilyInformation.TabIndex = 197;
             // 
             // label36
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(675, 266);
+            this.label36.Location = new System.Drawing.Point(779, 266);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(119, 16);
             this.label36.TabIndex = 196;
@@ -3072,10 +3088,10 @@
             this.MedRecReceivDate,
             this.Unknown_Doc,
             this.Unknown_Doc_Receive_Date});
-            this.gvProcessingCaseNo.Location = new System.Drawing.Point(678, 121);
+            this.gvProcessingCaseNo.Location = new System.Drawing.Point(782, 121);
             this.gvProcessingCaseNo.MultiSelect = false;
             this.gvProcessingCaseNo.Name = "gvProcessingCaseNo";
-            this.gvProcessingCaseNo.Size = new System.Drawing.Size(1120, 112);
+            this.gvProcessingCaseNo.Size = new System.Drawing.Size(1016, 112);
             this.gvProcessingCaseNo.TabIndex = 195;
             this.gvProcessingCaseNo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellDoubleClick);
             // 
@@ -3181,7 +3197,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(675, 91);
+            this.label33.Location = new System.Drawing.Point(779, 94);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(245, 16);
             this.label33.TabIndex = 194;
@@ -3189,17 +3205,17 @@
             // 
             // txtWellBeingAmt
             // 
-            this.txtWellBeingAmt.Location = new System.Drawing.Point(517, 823);
+            this.txtWellBeingAmt.Location = new System.Drawing.Point(575, 823);
             this.txtWellBeingAmt.Name = "txtWellBeingAmt";
             this.txtWellBeingAmt.ReadOnly = true;
-            this.txtWellBeingAmt.Size = new System.Drawing.Size(127, 20);
+            this.txtWellBeingAmt.Size = new System.Drawing.Size(166, 20);
             this.txtWellBeingAmt.TabIndex = 193;
             // 
             // label44
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(349, 824);
+            this.label44.Location = new System.Drawing.Point(407, 824);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(124, 16);
             this.label44.TabIndex = 192;
@@ -3210,7 +3226,7 @@
             this.txtProgramChangeReqDate.Location = new System.Drawing.Point(248, 680);
             this.txtProgramChangeReqDate.Name = "txtProgramChangeReqDate";
             this.txtProgramChangeReqDate.ReadOnly = true;
-            this.txtProgramChangeReqDate.Size = new System.Drawing.Size(106, 20);
+            this.txtProgramChangeReqDate.Size = new System.Drawing.Size(147, 20);
             this.txtProgramChangeReqDate.TabIndex = 191;
             // 
             // label42
@@ -3228,7 +3244,7 @@
             this.txtOver10KAmount.Location = new System.Drawing.Point(185, 823);
             this.txtOver10KAmount.Name = "txtOver10KAmount";
             this.txtOver10KAmount.ReadOnly = true;
-            this.txtOver10KAmount.Size = new System.Drawing.Size(128, 20);
+            this.txtOver10KAmount.Size = new System.Drawing.Size(169, 20);
             this.txtOver10KAmount.TabIndex = 189;
             // 
             // label34
@@ -3246,7 +3262,7 @@
             this.txtMembershipStartDate.Location = new System.Drawing.Point(162, 640);
             this.txtMembershipStartDate.Name = "txtMembershipStartDate";
             this.txtMembershipStartDate.ReadOnly = true;
-            this.txtMembershipStartDate.Size = new System.Drawing.Size(156, 20);
+            this.txtMembershipStartDate.Size = new System.Drawing.Size(217, 20);
             this.txtMembershipStartDate.TabIndex = 187;
             // 
             // label28
@@ -3264,7 +3280,7 @@
             this.txtTotalSharedAmount.Location = new System.Drawing.Point(185, 789);
             this.txtTotalSharedAmount.Name = "txtTotalSharedAmount";
             this.txtTotalSharedAmount.ReadOnly = true;
-            this.txtTotalSharedAmount.Size = new System.Drawing.Size(128, 20);
+            this.txtTotalSharedAmount.Size = new System.Drawing.Size(169, 20);
             this.txtTotalSharedAmount.TabIndex = 185;
             // 
             // label29
@@ -3288,10 +3304,10 @@
             // txtDeceasedDate
             // 
             this.txtDeceasedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeceasedDate.Location = new System.Drawing.Point(545, 681);
+            this.txtDeceasedDate.Location = new System.Drawing.Point(595, 680);
             this.txtDeceasedDate.Name = "txtDeceasedDate";
             this.txtDeceasedDate.ReadOnly = true;
-            this.txtDeceasedDate.Size = new System.Drawing.Size(100, 20);
+            this.txtDeceasedDate.Size = new System.Drawing.Size(146, 20);
             this.txtDeceasedDate.TabIndex = 182;
             // 
             // label27
@@ -3308,7 +3324,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(437, 682);
+            this.label26.Location = new System.Drawing.Point(487, 681);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(107, 16);
             this.label26.TabIndex = 180;
@@ -3316,17 +3332,17 @@
             // 
             // txtMembershipCancelledDate
             // 
-            this.txtMembershipCancelledDate.Location = new System.Drawing.Point(545, 714);
+            this.txtMembershipCancelledDate.Location = new System.Drawing.Point(595, 713);
             this.txtMembershipCancelledDate.Name = "txtMembershipCancelledDate";
             this.txtMembershipCancelledDate.ReadOnly = true;
-            this.txtMembershipCancelledDate.Size = new System.Drawing.Size(100, 20);
+            this.txtMembershipCancelledDate.Size = new System.Drawing.Size(146, 20);
             this.txtMembershipCancelledDate.TabIndex = 179;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(437, 714);
+            this.label25.Location = new System.Drawing.Point(487, 713);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(104, 16);
             this.label25.TabIndex = 178;
@@ -3337,7 +3353,7 @@
             this.txtCancelationRequestDate.Location = new System.Drawing.Point(248, 714);
             this.txtCancelationRequestDate.Name = "txtCancelationRequestDate";
             this.txtCancelationRequestDate.ReadOnly = true;
-            this.txtCancelationRequestDate.Size = new System.Drawing.Size(106, 20);
+            this.txtCancelationRequestDate.Size = new System.Drawing.Size(147, 20);
             this.txtCancelationRequestDate.TabIndex = 177;
             // 
             // label24
@@ -3355,7 +3371,7 @@
             this.txtProgramHistory.Location = new System.Drawing.Point(162, 605);
             this.txtProgramHistory.Name = "txtProgramHistory";
             this.txtProgramHistory.ReadOnly = true;
-            this.txtProgramHistory.Size = new System.Drawing.Size(483, 20);
+            this.txtProgramHistory.Size = new System.Drawing.Size(579, 20);
             this.txtProgramHistory.TabIndex = 175;
             // 
             // label22
@@ -3390,7 +3406,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(355, 379);
+            this.label40.Location = new System.Drawing.Point(456, 379);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(86, 16);
             this.label40.TabIndex = 171;
@@ -3400,7 +3416,7 @@
             // 
             this.txtPowerOfAttorney.Location = new System.Drawing.Point(162, 378);
             this.txtPowerOfAttorney.Name = "txtPowerOfAttorney";
-            this.txtPowerOfAttorney.Size = new System.Drawing.Size(147, 20);
+            this.txtPowerOfAttorney.Size = new System.Drawing.Size(179, 20);
             this.txtPowerOfAttorney.TabIndex = 21;
             // 
             // label32
@@ -3420,9 +3436,9 @@
             this.cbGender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.cbGender.Location = new System.Drawing.Point(357, 204);
+            this.cbGender.Location = new System.Drawing.Point(382, 204);
             this.cbGender.Name = "cbGender";
-            this.cbGender.Size = new System.Drawing.Size(93, 21);
+            this.cbGender.Size = new System.Drawing.Size(116, 21);
             this.cbGender.TabIndex = 8;
             // 
             // cbReimbursementMethod
@@ -3431,7 +3447,7 @@
             this.cbReimbursementMethod.FormattingEnabled = true;
             this.cbReimbursementMethod.Location = new System.Drawing.Point(274, 419);
             this.cbReimbursementMethod.Name = "cbReimbursementMethod";
-            this.cbReimbursementMethod.Size = new System.Drawing.Size(121, 21);
+            this.cbReimbursementMethod.Size = new System.Drawing.Size(141, 21);
             this.cbReimbursementMethod.TabIndex = 23;
             this.cbReimbursementMethod.SelectedIndexChanged += new System.EventHandler(this.cbReimbursementMethod_SelectedIndexChanged);
             // 
@@ -3474,7 +3490,7 @@
             // 
             // txtBusinessPhone
             // 
-            this.txtBusinessPhone.Location = new System.Drawing.Point(447, 344);
+            this.txtBusinessPhone.Location = new System.Drawing.Point(548, 344);
             this.txtBusinessPhone.Name = "txtBusinessPhone";
             this.txtBusinessPhone.Size = new System.Drawing.Size(196, 20);
             this.txtBusinessPhone.TabIndex = 20;
@@ -3483,7 +3499,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(316, 345);
+            this.label23.Location = new System.Drawing.Point(417, 345);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(125, 16);
             this.label23.TabIndex = 158;
@@ -3492,7 +3508,7 @@
             // cbPreferredCommunication
             // 
             this.cbPreferredCommunication.FormattingEnabled = true;
-            this.cbPreferredCommunication.Location = new System.Drawing.Point(551, 130);
+            this.cbPreferredCommunication.Location = new System.Drawing.Point(652, 129);
             this.cbPreferredCommunication.Name = "cbPreferredCommunication";
             this.cbPreferredCommunication.Size = new System.Drawing.Size(92, 21);
             this.cbPreferredCommunication.TabIndex = 3;
@@ -3501,7 +3517,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(385, 130);
+            this.label20.Location = new System.Drawing.Point(486, 129);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(160, 16);
             this.label20.TabIndex = 156;
@@ -3511,7 +3527,7 @@
             // 
             this.txtCellPhone1.Location = new System.Drawing.Point(162, 344);
             this.txtCellPhone1.Name = "txtCellPhone1";
-            this.txtCellPhone1.Size = new System.Drawing.Size(148, 20);
+            this.txtCellPhone1.Size = new System.Drawing.Size(179, 20);
             this.txtCellPhone1.TabIndex = 19;
             // 
             // label19
@@ -3526,9 +3542,9 @@
             // 
             // txtEmail
             // 
-            this.txtEmail.Location = new System.Drawing.Point(96, 310);
+            this.txtEmail.Location = new System.Drawing.Point(197, 310);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(213, 20);
+            this.txtEmail.Size = new System.Drawing.Size(245, 20);
             this.txtEmail.TabIndex = 18;
             // 
             // label18
@@ -3543,42 +3559,42 @@
             // 
             // txtState2
             // 
-            this.txtState2.Location = new System.Drawing.Point(619, 275);
+            this.txtState2.Location = new System.Drawing.Point(693, 275);
             this.txtState2.Name = "txtState2";
-            this.txtState2.Size = new System.Drawing.Size(24, 20);
+            this.txtState2.Size = new System.Drawing.Size(51, 20);
             this.txtState2.TabIndex = 17;
             // 
             // txtState1
             // 
-            this.txtState1.Location = new System.Drawing.Point(619, 240);
+            this.txtState1.Location = new System.Drawing.Point(693, 240);
             this.txtState1.Name = "txtState1";
-            this.txtState1.Size = new System.Drawing.Size(24, 20);
+            this.txtState1.Size = new System.Drawing.Size(51, 20);
             this.txtState1.TabIndex = 13;
             // 
             // txtCity2
             // 
-            this.txtCity2.Location = new System.Drawing.Point(469, 275);
+            this.txtCity2.Location = new System.Drawing.Point(505, 275);
             this.txtCity2.Name = "txtCity2";
-            this.txtCity2.Size = new System.Drawing.Size(107, 20);
+            this.txtCity2.Size = new System.Drawing.Size(121, 20);
             this.txtCity2.TabIndex = 16;
             // 
             // txtCity1
             // 
-            this.txtCity1.Location = new System.Drawing.Point(469, 240);
+            this.txtCity1.Location = new System.Drawing.Point(505, 240);
             this.txtCity1.Name = "txtCity1";
-            this.txtCity1.Size = new System.Drawing.Size(107, 20);
+            this.txtCity1.Size = new System.Drawing.Size(121, 20);
             this.txtCity1.TabIndex = 12;
             // 
             // txtZip2
             // 
-            this.txtZip2.Location = new System.Drawing.Point(350, 275);
+            this.txtZip2.Location = new System.Drawing.Point(382, 275);
             this.txtZip2.Name = "txtZip2";
             this.txtZip2.Size = new System.Drawing.Size(74, 20);
             this.txtZip2.TabIndex = 15;
             // 
             // txtZip1
             // 
-            this.txtZip1.Location = new System.Drawing.Point(350, 240);
+            this.txtZip1.Location = new System.Drawing.Point(382, 240);
             this.txtZip1.Name = "txtZip1";
             this.txtZip1.Size = new System.Drawing.Size(74, 20);
             this.txtZip1.TabIndex = 11;
@@ -3587,21 +3603,21 @@
             // 
             this.txtStreetAddress2.Location = new System.Drawing.Point(162, 275);
             this.txtStreetAddress2.Name = "txtStreetAddress2";
-            this.txtStreetAddress2.Size = new System.Drawing.Size(147, 20);
+            this.txtStreetAddress2.Size = new System.Drawing.Size(179, 20);
             this.txtStreetAddress2.TabIndex = 14;
             // 
             // txtStreetAddress1
             // 
             this.txtStreetAddress1.Location = new System.Drawing.Point(162, 240);
             this.txtStreetAddress1.Name = "txtStreetAddress1";
-            this.txtStreetAddress1.Size = new System.Drawing.Size(148, 20);
+            this.txtStreetAddress1.Size = new System.Drawing.Size(179, 20);
             this.txtStreetAddress1.TabIndex = 10;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(580, 275);
+            this.label17.Location = new System.Drawing.Point(649, 275);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(42, 16);
             this.label17.TabIndex = 143;
@@ -3611,7 +3627,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(433, 275);
+            this.label16.Location = new System.Drawing.Point(469, 275);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(33, 16);
             this.label16.TabIndex = 142;
@@ -3621,7 +3637,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(315, 275);
+            this.label15.Location = new System.Drawing.Point(347, 275);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(30, 16);
             this.label15.TabIndex = 141;
@@ -3641,7 +3657,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(580, 240);
+            this.label13.Location = new System.Drawing.Point(649, 240);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(42, 16);
             this.label13.TabIndex = 139;
@@ -3651,7 +3667,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(433, 240);
+            this.label12.Location = new System.Drawing.Point(469, 240);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 16);
             this.label12.TabIndex = 138;
@@ -3661,7 +3677,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(315, 240);
+            this.label11.Location = new System.Drawing.Point(347, 240);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 16);
             this.label11.TabIndex = 137;
@@ -3679,16 +3695,16 @@
             // 
             // txtIndividualSSN
             // 
-            this.txtIndividualSSN.Location = new System.Drawing.Point(535, 204);
+            this.txtIndividualSSN.Location = new System.Drawing.Point(596, 204);
             this.txtIndividualSSN.Name = "txtIndividualSSN";
-            this.txtIndividualSSN.Size = new System.Drawing.Size(109, 20);
+            this.txtIndividualSSN.Size = new System.Drawing.Size(148, 20);
             this.txtIndividualSSN.TabIndex = 9;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(456, 204);
+            this.label9.Location = new System.Drawing.Point(514, 204);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(39, 16);
             this.label9.TabIndex = 134;
@@ -3698,7 +3714,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(262, 204);
+            this.label8.Location = new System.Drawing.Point(287, 204);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(56, 16);
             this.label8.TabIndex = 133;
@@ -3716,30 +3732,30 @@
             // 
             // txtLastName
             // 
-            this.txtLastName.Location = new System.Drawing.Point(535, 170);
+            this.txtLastName.Location = new System.Drawing.Point(596, 170);
             this.txtLastName.Name = "txtLastName";
-            this.txtLastName.Size = new System.Drawing.Size(109, 20);
+            this.txtLastName.Size = new System.Drawing.Size(148, 20);
             this.txtLastName.TabIndex = 6;
             // 
             // txtMiddleName
             // 
-            this.txtMiddleName.Location = new System.Drawing.Point(357, 170);
+            this.txtMiddleName.Location = new System.Drawing.Point(382, 170);
             this.txtMiddleName.Name = "txtMiddleName";
-            this.txtMiddleName.Size = new System.Drawing.Size(93, 20);
+            this.txtMiddleName.Size = new System.Drawing.Size(116, 20);
             this.txtMiddleName.TabIndex = 5;
             // 
             // txtFirstName
             // 
             this.txtFirstName.Location = new System.Drawing.Point(130, 171);
             this.txtFirstName.Name = "txtFirstName";
-            this.txtFirstName.Size = new System.Drawing.Size(115, 20);
+            this.txtFirstName.Size = new System.Drawing.Size(151, 20);
             this.txtFirstName.TabIndex = 4;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(456, 170);
+            this.label6.Location = new System.Drawing.Point(514, 170);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 16);
             this.label6.TabIndex = 127;
@@ -3749,7 +3765,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(262, 172);
+            this.label5.Location = new System.Drawing.Point(287, 172);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 16);
             this.label5.TabIndex = 126;
@@ -3767,7 +3783,7 @@
             // 
             // txtCRM_ID
             // 
-            this.txtCRM_ID.Location = new System.Drawing.Point(529, 90);
+            this.txtCRM_ID.Location = new System.Drawing.Point(629, 90);
             this.txtCRM_ID.Name = "txtCRM_ID";
             this.txtCRM_ID.ReadOnly = true;
             this.txtCRM_ID.Size = new System.Drawing.Size(115, 20);
@@ -3777,7 +3793,7 @@
             // 
             this.label43.AutoSize = true;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(469, 93);
+            this.label43.Location = new System.Drawing.Point(569, 93);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(57, 16);
             this.label43.TabIndex = 123;
@@ -3785,17 +3801,17 @@
             // 
             // txtIndividualID
             // 
-            this.txtIndividualID.Location = new System.Drawing.Point(326, 90);
+            this.txtIndividualID.Location = new System.Drawing.Point(310, 90);
             this.txtIndividualID.Name = "txtIndividualID";
             this.txtIndividualID.ReadOnly = true;
-            this.txtIndividualID.Size = new System.Drawing.Size(115, 20);
+            this.txtIndividualID.Size = new System.Drawing.Size(114, 20);
             this.txtIndividualID.TabIndex = 122;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(241, 92);
+            this.label3.Location = new System.Drawing.Point(225, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 16);
             this.label3.TabIndex = 121;
@@ -3806,7 +3822,7 @@
             this.txtMembershipID.Location = new System.Drawing.Point(99, 90);
             this.txtMembershipID.Name = "txtMembershipID";
             this.txtMembershipID.ReadOnly = true;
-            this.txtMembershipID.Size = new System.Drawing.Size(115, 20);
+            this.txtMembershipID.Size = new System.Drawing.Size(114, 20);
             this.txtMembershipID.TabIndex = 120;
             // 
             // label2
@@ -3825,9 +3841,135 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(39, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(237, 29);
+            this.label1.Size = new System.Drawing.Size(174, 29);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Individual View Page";
+            this.label1.Text = "Individual View";
+            // 
+            // tbpgIndividualBlueSheet
+            // 
+            this.tbpgIndividualBlueSheet.Controls.Add(this.gvBlueSheetList);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.txtIndividualNameListBlueSheet);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.txtIndividualIDListBlueSheet);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.label128);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.label127);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.label126);
+            this.tbpgIndividualBlueSheet.Controls.Add(this.pdfBlueSheetViewer);
+            this.tbpgIndividualBlueSheet.Location = new System.Drawing.Point(4, 22);
+            this.tbpgIndividualBlueSheet.Name = "tbpgIndividualBlueSheet";
+            this.tbpgIndividualBlueSheet.Size = new System.Drawing.Size(1832, 874);
+            this.tbpgIndividualBlueSheet.TabIndex = 16;
+            this.tbpgIndividualBlueSheet.Text = "Individual BlueSheet";
+            // 
+            // gvBlueSheetList
+            // 
+            this.gvBlueSheetList.AllowUserToAddRows = false;
+            this.gvBlueSheetList.AllowUserToDeleteRows = false;
+            this.gvBlueSheetList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvBlueSheetList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BlueSheetType,
+            this.BlueSheetCheckNo,
+            this.BlueSheetACH_No,
+            this.BlueSheetCreditCardNo,
+            this.BlueSheetFileName,
+            this.BlueSheetIssueDate});
+            this.gvBlueSheetList.Location = new System.Drawing.Point(41, 122);
+            this.gvBlueSheetList.Name = "gvBlueSheetList";
+            this.gvBlueSheetList.ReadOnly = true;
+            this.gvBlueSheetList.Size = new System.Drawing.Size(845, 719);
+            this.gvBlueSheetList.TabIndex = 6;
+            this.gvBlueSheetList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvBlueSheetList_CellDoubleClick);
+            // 
+            // BlueSheetType
+            // 
+            this.BlueSheetType.HeaderText = "BlueSheet Type";
+            this.BlueSheetType.Name = "BlueSheetType";
+            this.BlueSheetType.ReadOnly = true;
+            // 
+            // BlueSheetCheckNo
+            // 
+            this.BlueSheetCheckNo.HeaderText = "Check No";
+            this.BlueSheetCheckNo.Name = "BlueSheetCheckNo";
+            this.BlueSheetCheckNo.ReadOnly = true;
+            // 
+            // BlueSheetACH_No
+            // 
+            this.BlueSheetACH_No.HeaderText = "ACH No";
+            this.BlueSheetACH_No.Name = "BlueSheetACH_No";
+            this.BlueSheetACH_No.ReadOnly = true;
+            // 
+            // BlueSheetCreditCardNo
+            // 
+            this.BlueSheetCreditCardNo.HeaderText = "Credit Card No";
+            this.BlueSheetCreditCardNo.Name = "BlueSheetCreditCardNo";
+            this.BlueSheetCreditCardNo.ReadOnly = true;
+            // 
+            // BlueSheetFileName
+            // 
+            this.BlueSheetFileName.HeaderText = "File Name";
+            this.BlueSheetFileName.Name = "BlueSheetFileName";
+            this.BlueSheetFileName.ReadOnly = true;
+            this.BlueSheetFileName.Width = 300;
+            // 
+            // BlueSheetIssueDate
+            // 
+            this.BlueSheetIssueDate.HeaderText = "Issue Date";
+            this.BlueSheetIssueDate.Name = "BlueSheetIssueDate";
+            this.BlueSheetIssueDate.ReadOnly = true;
+            // 
+            // txtIndividualNameListBlueSheet
+            // 
+            this.txtIndividualNameListBlueSheet.Location = new System.Drawing.Point(403, 85);
+            this.txtIndividualNameListBlueSheet.Name = "txtIndividualNameListBlueSheet";
+            this.txtIndividualNameListBlueSheet.ReadOnly = true;
+            this.txtIndividualNameListBlueSheet.Size = new System.Drawing.Size(241, 20);
+            this.txtIndividualNameListBlueSheet.TabIndex = 5;
+            // 
+            // txtIndividualIDListBlueSheet
+            // 
+            this.txtIndividualIDListBlueSheet.Location = new System.Drawing.Point(126, 85);
+            this.txtIndividualIDListBlueSheet.Name = "txtIndividualIDListBlueSheet";
+            this.txtIndividualIDListBlueSheet.ReadOnly = true;
+            this.txtIndividualIDListBlueSheet.Size = new System.Drawing.Size(137, 20);
+            this.txtIndividualIDListBlueSheet.TabIndex = 4;
+            // 
+            // label128
+            // 
+            this.label128.AutoSize = true;
+            this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label128.Location = new System.Drawing.Point(289, 85);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(108, 16);
+            this.label128.TabIndex = 3;
+            this.label128.Text = "Individual Name:";
+            // 
+            // label127
+            // 
+            this.label127.AutoSize = true;
+            this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label127.Location = new System.Drawing.Point(38, 85);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(84, 16);
+            this.label127.TabIndex = 2;
+            this.label127.Text = "Individual ID:";
+            // 
+            // label126
+            // 
+            this.label126.AutoSize = true;
+            this.label126.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label126.Location = new System.Drawing.Point(36, 31);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(239, 29);
+            this.label126.TabIndex = 1;
+            this.label126.Text = "Individual Blue Sheet";
+            // 
+            // pdfBlueSheetViewer
+            // 
+            this.pdfBlueSheetViewer.Enabled = true;
+            this.pdfBlueSheetViewer.Location = new System.Drawing.Point(931, 31);
+            this.pdfBlueSheetViewer.Name = "pdfBlueSheetViewer";
+            this.pdfBlueSheetViewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("pdfBlueSheetViewer.OcxState")));
+            this.pdfBlueSheetViewer.Size = new System.Drawing.Size(869, 810);
+            this.pdfBlueSheetViewer.TabIndex = 0;
             // 
             // tbpgCaseView
             // 
@@ -4004,7 +4146,6 @@
             this.tbpgCreateCase.Controls.Add(this.btnNewMedBill_Case);
             this.tbpgCreateCase.Controls.Add(this.txtNoteOnCase);
             this.tbpgCreateCase.Controls.Add(this.label177);
-            this.tbpgCreateCase.Controls.Add(this.btnBrowseNPF);
             this.tbpgCreateCase.Controls.Add(this.txtCaseName);
             this.tbpgCreateCase.Controls.Add(this.label172);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationLowerSave);
@@ -4016,10 +4157,6 @@
             this.tbpgCreateCase.Controls.Add(this.label85);
             this.tbpgCreateCase.Controls.Add(this.label84);
             this.tbpgCreateCase.Controls.Add(this.label82);
-            this.tbpgCreateCase.Controls.Add(this.btnBrowseUnknownDoc);
-            this.tbpgCreateCase.Controls.Add(this.btnBrowseMR);
-            this.tbpgCreateCase.Controls.Add(this.btnBrowsePoP);
-            this.tbpgCreateCase.Controls.Add(this.btnBrowseIB);
             this.tbpgCreateCase.Controls.Add(this.label50);
             this.tbpgCreateCase.Controls.Add(this.gvNewSupportLog);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationNewSupportLog);
@@ -4082,7 +4219,7 @@
             this.MedBillSettlementTotal,
             this.MedBillTotalSharedAmount,
             this.MedBillBalance});
-            this.gvCasePageMedBills.Location = new System.Drawing.Point(42, 597);
+            this.gvCasePageMedBills.Location = new System.Drawing.Point(41, 597);
             this.gvCasePageMedBills.Name = "gvCasePageMedBills";
             this.gvCasePageMedBills.Size = new System.Drawing.Size(836, 192);
             this.gvCasePageMedBills.TabIndex = 111;
@@ -4098,6 +4235,7 @@
             // 
             this.MedBillNo.HeaderText = "Med Bill No";
             this.MedBillNo.Name = "MedBillNo";
+            this.MedBillNo.Width = 140;
             // 
             // MedBillTypeInCase
             // 
@@ -4199,7 +4337,7 @@
             // 
             // btnDeleteMedBill
             // 
-            this.btnDeleteMedBill.Location = new System.Drawing.Point(423, 560);
+            this.btnDeleteMedBill.Location = new System.Drawing.Point(281, 560);
             this.btnDeleteMedBill.Name = "btnDeleteMedBill";
             this.btnDeleteMedBill.Size = new System.Drawing.Size(110, 31);
             this.btnDeleteMedBill.TabIndex = 145;
@@ -4209,12 +4347,14 @@
             // 
             // btnEditMedBill
             // 
-            this.btnEditMedBill.Location = new System.Drawing.Point(283, 560);
+            this.btnEditMedBill.Enabled = false;
+            this.btnEditMedBill.Location = new System.Drawing.Point(564, 560);
             this.btnEditMedBill.Name = "btnEditMedBill";
             this.btnEditMedBill.Size = new System.Drawing.Size(110, 31);
             this.btnEditMedBill.TabIndex = 144;
             this.btnEditMedBill.Text = "Edit";
             this.btnEditMedBill.UseVisualStyleBackColor = true;
+            this.btnEditMedBill.Visible = false;
             this.btnEditMedBill.Click += new System.EventHandler(this.btnEditMedBill_Click);
             // 
             // btnNewMedBill_Case
@@ -4246,17 +4386,6 @@
             this.label177.Size = new System.Drawing.Size(40, 16);
             this.label177.TabIndex = 141;
             this.label177.Text = "Note:";
-            // 
-            // btnBrowseNPF
-            // 
-            this.btnBrowseNPF.Enabled = false;
-            this.btnBrowseNPF.Location = new System.Drawing.Point(328, 167);
-            this.btnBrowseNPF.Name = "btnBrowseNPF";
-            this.btnBrowseNPF.Size = new System.Drawing.Size(77, 23);
-            this.btnBrowseNPF.TabIndex = 137;
-            this.btnBrowseNPF.Text = "Browse";
-            this.btnBrowseNPF.UseVisualStyleBackColor = true;
-            this.btnBrowseNPF.Click += new System.EventHandler(this.btnBrowseNPF_Click);
             // 
             // txtCaseName
             // 
@@ -4371,50 +4500,6 @@
             this.label82.Size = new System.Drawing.Size(102, 16);
             this.label82.TabIndex = 117;
             this.label82.Text = "Received Date:";
-            // 
-            // btnBrowseUnknownDoc
-            // 
-            this.btnBrowseUnknownDoc.Enabled = false;
-            this.btnBrowseUnknownDoc.Location = new System.Drawing.Point(328, 301);
-            this.btnBrowseUnknownDoc.Name = "btnBrowseUnknownDoc";
-            this.btnBrowseUnknownDoc.Size = new System.Drawing.Size(77, 23);
-            this.btnBrowseUnknownDoc.TabIndex = 116;
-            this.btnBrowseUnknownDoc.Text = "Browse";
-            this.btnBrowseUnknownDoc.UseVisualStyleBackColor = true;
-            this.btnBrowseUnknownDoc.Click += new System.EventHandler(this.btnBrowseUnknownDoc_Click);
-            // 
-            // btnBrowseMR
-            // 
-            this.btnBrowseMR.Enabled = false;
-            this.btnBrowseMR.Location = new System.Drawing.Point(328, 268);
-            this.btnBrowseMR.Name = "btnBrowseMR";
-            this.btnBrowseMR.Size = new System.Drawing.Size(77, 23);
-            this.btnBrowseMR.TabIndex = 115;
-            this.btnBrowseMR.Text = "Browse";
-            this.btnBrowseMR.UseVisualStyleBackColor = true;
-            this.btnBrowseMR.Click += new System.EventHandler(this.btnBrowseMR_Click);
-            // 
-            // btnBrowsePoP
-            // 
-            this.btnBrowsePoP.Enabled = false;
-            this.btnBrowsePoP.Location = new System.Drawing.Point(328, 235);
-            this.btnBrowsePoP.Name = "btnBrowsePoP";
-            this.btnBrowsePoP.Size = new System.Drawing.Size(77, 23);
-            this.btnBrowsePoP.TabIndex = 114;
-            this.btnBrowsePoP.Text = "Browse";
-            this.btnBrowsePoP.UseVisualStyleBackColor = true;
-            this.btnBrowsePoP.Click += new System.EventHandler(this.btnBrowsePoP_Click);
-            // 
-            // btnBrowseIB
-            // 
-            this.btnBrowseIB.Enabled = false;
-            this.btnBrowseIB.Location = new System.Drawing.Point(328, 201);
-            this.btnBrowseIB.Name = "btnBrowseIB";
-            this.btnBrowseIB.Size = new System.Drawing.Size(77, 23);
-            this.btnBrowseIB.TabIndex = 113;
-            this.btnBrowseIB.Text = "Browse";
-            this.btnBrowseIB.UseVisualStyleBackColor = true;
-            this.btnBrowseIB.Click += new System.EventHandler(this.btnBrowseIB_Click);
             // 
             // label50
             // 
@@ -4635,7 +4720,7 @@
             // btnUnknownDocUpload
             // 
             this.btnUnknownDocUpload.Enabled = false;
-            this.btnUnknownDocUpload.Location = new System.Drawing.Point(412, 301);
+            this.btnUnknownDocUpload.Location = new System.Drawing.Point(184, 301);
             this.btnUnknownDocUpload.Name = "btnUnknownDocUpload";
             this.btnUnknownDocUpload.Size = new System.Drawing.Size(77, 23);
             this.btnUnknownDocUpload.TabIndex = 97;
@@ -4668,7 +4753,7 @@
             // btnMedicalRecordUpload
             // 
             this.btnMedicalRecordUpload.Enabled = false;
-            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(412, 268);
+            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(182, 268);
             this.btnMedicalRecordUpload.Name = "btnMedicalRecordUpload";
             this.btnMedicalRecordUpload.Size = new System.Drawing.Size(77, 23);
             this.btnMedicalRecordUpload.TabIndex = 94;
@@ -4701,7 +4786,7 @@
             // btnPoPUpload
             // 
             this.btnPoPUpload.Enabled = false;
-            this.btnPoPUpload.Location = new System.Drawing.Point(412, 235);
+            this.btnPoPUpload.Location = new System.Drawing.Point(182, 235);
             this.btnPoPUpload.Name = "btnPoPUpload";
             this.btnPoPUpload.Size = new System.Drawing.Size(77, 23);
             this.btnPoPUpload.TabIndex = 91;
@@ -4734,7 +4819,7 @@
             // btnIBUpload
             // 
             this.btnIBUpload.Enabled = false;
-            this.btnIBUpload.Location = new System.Drawing.Point(412, 201);
+            this.btnIBUpload.Location = new System.Drawing.Point(182, 201);
             this.btnIBUpload.Name = "btnIBUpload";
             this.btnIBUpload.Size = new System.Drawing.Size(77, 23);
             this.btnIBUpload.TabIndex = 88;
@@ -4767,7 +4852,7 @@
             // btnNPFFormUpload
             // 
             this.btnNPFFormUpload.Enabled = false;
-            this.btnNPFFormUpload.Location = new System.Drawing.Point(412, 167);
+            this.btnNPFFormUpload.Location = new System.Drawing.Point(182, 167);
             this.btnNPFFormUpload.Name = "btnNPFFormUpload";
             this.btnNPFFormUpload.Size = new System.Drawing.Size(77, 23);
             this.btnNPFFormUpload.TabIndex = 85;
@@ -4778,46 +4863,46 @@
             // txtOtherDocumentFilePath
             // 
             this.txtOtherDocumentFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(182, 302);
+            this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(272, 301);
             this.txtOtherDocumentFilePath.Name = "txtOtherDocumentFilePath";
             this.txtOtherDocumentFilePath.ReadOnly = true;
-            this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(138, 22);
+            this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(221, 22);
             this.txtOtherDocumentFilePath.TabIndex = 84;
             // 
             // txtMedicalRecordFilePath
             // 
             this.txtMedicalRecordFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(182, 269);
+            this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(272, 268);
             this.txtMedicalRecordFilePath.Name = "txtMedicalRecordFilePath";
             this.txtMedicalRecordFilePath.ReadOnly = true;
-            this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(138, 22);
+            this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(221, 22);
             this.txtMedicalRecordFilePath.TabIndex = 83;
             // 
             // txtPopFilePath
             // 
             this.txtPopFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPopFilePath.Location = new System.Drawing.Point(182, 236);
+            this.txtPopFilePath.Location = new System.Drawing.Point(272, 235);
             this.txtPopFilePath.Name = "txtPopFilePath";
             this.txtPopFilePath.ReadOnly = true;
-            this.txtPopFilePath.Size = new System.Drawing.Size(138, 22);
+            this.txtPopFilePath.Size = new System.Drawing.Size(221, 22);
             this.txtPopFilePath.TabIndex = 82;
             // 
             // txtIBFilePath
             // 
             this.txtIBFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIBFilePath.Location = new System.Drawing.Point(182, 202);
+            this.txtIBFilePath.Location = new System.Drawing.Point(272, 201);
             this.txtIBFilePath.Name = "txtIBFilePath";
             this.txtIBFilePath.ReadOnly = true;
-            this.txtIBFilePath.Size = new System.Drawing.Size(138, 22);
+            this.txtIBFilePath.Size = new System.Drawing.Size(221, 22);
             this.txtIBFilePath.TabIndex = 81;
             // 
             // txtNPFFormFilePath
             // 
             this.txtNPFFormFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNPFFormFilePath.Location = new System.Drawing.Point(182, 168);
+            this.txtNPFFormFilePath.Location = new System.Drawing.Point(272, 167);
             this.txtNPFFormFilePath.Name = "txtNPFFormFilePath";
             this.txtNPFFormFilePath.ReadOnly = true;
-            this.txtNPFFormFilePath.Size = new System.Drawing.Size(138, 22);
+            this.txtNPFFormFilePath.Size = new System.Drawing.Size(221, 22);
             this.txtNPFFormFilePath.TabIndex = 80;
             // 
             // chkOtherDocCaseCreationPage
@@ -6980,7 +7065,7 @@
             this.grpDocumentProcessing.Size = new System.Drawing.Size(395, 171);
             this.grpDocumentProcessing.TabIndex = 50;
             this.grpDocumentProcessing.TabStop = false;
-            this.grpDocumentProcessing.Text = "Document Processing";
+            this.grpDocumentProcessing.Text = "Case Documents";
             // 
             // btnViewOtherDoc
             // 
@@ -7313,6 +7398,8 @@
             this.tabPaymentMethod.Controls.Add(this.tbpgACH);
             this.tabPaymentMethod.Controls.Add(this.tbpgCreditCard);
             this.tabPaymentMethod.Controls.Add(this.tbpgInactive);
+            this.tabPaymentMethod.Controls.Add(this.tbpgCheckReconcilation);
+            this.tabPaymentMethod.Controls.Add(this.CreditCardReconcilation);
             this.tabPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPaymentMethod.Location = new System.Drawing.Point(50, 72);
             this.tabPaymentMethod.Name = "tabPaymentMethod";
@@ -8223,6 +8310,64 @@
             this.label95.Size = new System.Drawing.Size(65, 16);
             this.label95.TabIndex = 5;
             this.label95.Text = "Summary";
+            // 
+            // tbpgCheckReconcilation
+            // 
+            this.tbpgCheckReconcilation.Controls.Add(this.btnReconcile);
+            this.tbpgCheckReconcilation.Controls.Add(this.gvCheckReconcilation);
+            this.tbpgCheckReconcilation.Controls.Add(this.label124);
+            this.tbpgCheckReconcilation.Location = new System.Drawing.Point(4, 25);
+            this.tbpgCheckReconcilation.Name = "tbpgCheckReconcilation";
+            this.tbpgCheckReconcilation.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgCheckReconcilation.TabIndex = 5;
+            this.tbpgCheckReconcilation.Text = "Check Reconcilation";
+            this.tbpgCheckReconcilation.UseVisualStyleBackColor = true;
+            // 
+            // btnReconcile
+            // 
+            this.btnReconcile.Location = new System.Drawing.Point(1581, 685);
+            this.btnReconcile.Name = "btnReconcile";
+            this.btnReconcile.Size = new System.Drawing.Size(147, 32);
+            this.btnReconcile.TabIndex = 8;
+            this.btnReconcile.Text = "Reconcile";
+            this.btnReconcile.UseVisualStyleBackColor = true;
+            // 
+            // gvCheckReconcilation
+            // 
+            this.gvCheckReconcilation.AllowUserToAddRows = false;
+            this.gvCheckReconcilation.AllowUserToDeleteRows = false;
+            this.gvCheckReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCheckReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CheckPaid,
+            this.CheckPaidSettlementNo,
+            this.CheckPaidSettlementType,
+            this.CheckPaidIndividualId,
+            this.CheckPaidCheckNo,
+            this.CheckPaidCheckDate,
+            this.CheckPaidNotes});
+            this.gvCheckReconcilation.Location = new System.Drawing.Point(37, 65);
+            this.gvCheckReconcilation.Name = "gvCheckReconcilation";
+            this.gvCheckReconcilation.Size = new System.Drawing.Size(1691, 587);
+            this.gvCheckReconcilation.TabIndex = 7;
+            // 
+            // label124
+            // 
+            this.label124.AutoSize = true;
+            this.label124.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label124.Location = new System.Drawing.Point(34, 35);
+            this.label124.Name = "label124";
+            this.label124.Size = new System.Drawing.Size(77, 16);
+            this.label124.TabIndex = 6;
+            this.label124.Text = "Check Paid";
+            // 
+            // CreditCardReconcilation
+            // 
+            this.CreditCardReconcilation.Location = new System.Drawing.Point(4, 25);
+            this.CreditCardReconcilation.Name = "CreditCardReconcilation";
+            this.CreditCardReconcilation.Size = new System.Drawing.Size(1757, 752);
+            this.CreditCardReconcilation.TabIndex = 6;
+            this.CreditCardReconcilation.Text = "Credit Card Reconcilation";
+            this.CreditCardReconcilation.UseVisualStyleBackColor = true;
             // 
             // label147
             // 
@@ -9654,6 +9799,47 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // CheckPaid
+            // 
+            this.CheckPaid.HeaderText = "Paid";
+            this.CheckPaid.Name = "CheckPaid";
+            this.CheckPaid.Width = 60;
+            // 
+            // CheckPaidSettlementNo
+            // 
+            this.CheckPaidSettlementNo.HeaderText = "Settlement No";
+            this.CheckPaidSettlementNo.Name = "CheckPaidSettlementNo";
+            this.CheckPaidSettlementNo.Width = 120;
+            // 
+            // CheckPaidSettlementType
+            // 
+            this.CheckPaidSettlementType.HeaderText = "Settlement Type";
+            this.CheckPaidSettlementType.Name = "CheckPaidSettlementType";
+            this.CheckPaidSettlementType.Width = 180;
+            // 
+            // CheckPaidIndividualId
+            // 
+            this.CheckPaidIndividualId.HeaderText = "Individual No";
+            this.CheckPaidIndividualId.Name = "CheckPaidIndividualId";
+            // 
+            // CheckPaidCheckNo
+            // 
+            this.CheckPaidCheckNo.HeaderText = "Check No";
+            this.CheckPaidCheckNo.Name = "CheckPaidCheckNo";
+            this.CheckPaidCheckNo.Width = 120;
+            // 
+            // CheckPaidCheckDate
+            // 
+            this.CheckPaidCheckDate.HeaderText = "Check Date";
+            this.CheckPaidCheckDate.Name = "CheckPaidCheckDate";
+            this.CheckPaidCheckDate.Width = 120;
+            // 
+            // CheckPaidNotes
+            // 
+            this.CheckPaidNotes.HeaderText = "Notes";
+            this.CheckPaidNotes.Name = "CheckPaidNotes";
+            this.CheckPaidNotes.Width = 280;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -9704,7 +9890,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).EndInit();
             this.tbpgSearchResult.ResumeLayout(false);
             this.tbpgSearchResult.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCheckNoSearched)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementSearched)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillSearched)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).EndInit();
@@ -9715,6 +9900,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvRecentCommunication)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFamilyInformation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProcessingCaseNo)).EndInit();
+            this.tbpgIndividualBlueSheet.ResumeLayout(false);
+            this.tbpgIndividualBlueSheet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvBlueSheetList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).EndInit();
             this.tbpgCaseView.ResumeLayout(false);
             this.tbpgCaseView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).EndInit();
@@ -9773,6 +9962,9 @@
             this.tbpgInactive.ResumeLayout(false);
             this.tbpgInactive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).EndInit();
+            this.tbpgCheckReconcilation.ResumeLayout(false);
+            this.tbpgCheckReconcilation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).EndInit();
             this.tbpgTask.ResumeLayout(false);
             this.tbpgTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
@@ -9950,10 +10142,6 @@
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label82;
-        private System.Windows.Forms.Button btnBrowseUnknownDoc;
-        private System.Windows.Forms.Button btnBrowseMR;
-        private System.Windows.Forms.Button btnBrowsePoP;
-        private System.Windows.Forms.Button btnBrowseIB;
         private System.Windows.Forms.DataGridView gvCasePageMedBills;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.DataGridView gvNewSupportLog;
@@ -10138,7 +10326,6 @@
         private System.Windows.Forms.CheckBox chkMedBill_IBReceived;
         private System.Windows.Forms.TextBox txtMedBill_Incident;
         private System.Windows.Forms.TextBox txtMedBill_Illness;
-        private System.Windows.Forms.Button btnBrowseNPF;
         private System.Windows.Forms.TextBox txtMedBillAmount;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label55;
@@ -10659,17 +10846,6 @@
         private System.Windows.Forms.TextBox txtPoPMedBillFileName;
         private System.Windows.Forms.TextBox txtIBMedBillFileName;
         private System.Windows.Forms.TextBox txtNPFMedBillFileName;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillSettlementTotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
         private System.Windows.Forms.DataGridView gvSettlementsForApproval;
         private System.Windows.Forms.Label label122;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillForApproval;
@@ -10742,8 +10918,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusProviderPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoProviderPaymentCheck;
         private System.Windows.Forms.Label label125;
-        private System.Windows.Forms.Label label124;
-        private System.Windows.Forms.DataGridView gvCheckNoSearched;
         private System.Windows.Forms.DataGridView gvSettlementSearched;
         private System.Windows.Forms.DataGridView gvMedBillSearched;
         private System.Windows.Forms.Label label123;
@@ -10762,6 +10936,44 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedRecReceivDate;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Unknown_Doc;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unknown_Doc_Receive_Date;
+        private System.Windows.Forms.TabPage tbpgIndividualBlueSheet;
+        private AxAcroPDFLib.AxAcroPDF pdfBlueSheetViewer;
+        private System.Windows.Forms.Button btnBlueSheetList;
+        private System.Windows.Forms.Label label126;
+        private System.Windows.Forms.TextBox txtIndividualNameListBlueSheet;
+        private System.Windows.Forms.TextBox txtIndividualIDListBlueSheet;
+        private System.Windows.Forms.Label label128;
+        private System.Windows.Forms.Label label127;
+        private System.Windows.Forms.DataGridView gvBlueSheetList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetCheckNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetACH_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetCreditCardNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetFileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BlueSheetIssueDate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillSettlementTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
+        private System.Windows.Forms.TabPage tbpgCheckReconcilation;
+        private System.Windows.Forms.DataGridView gvCheckReconcilation;
+        private System.Windows.Forms.Label label124;
+        private System.Windows.Forms.TabPage CreditCardReconcilation;
+        private System.Windows.Forms.Button btnReconcile;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckPaid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidSettlementNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidSettlementType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidIndividualId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidCheckNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidCheckDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidNotes;
     }
 }
 

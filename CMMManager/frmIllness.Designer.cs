@@ -45,8 +45,8 @@
             this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Individual_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ICD10_Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IllnessNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvIllness)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,8 +70,8 @@
             this.Illness_No,
             this.Individual_Id,
             this.ICD10_Code,
-            this.CreateDate,
-            this.IllnessNote});
+            this.IllnessNote,
+            this.CreateDate});
             this.gvIllness.Location = new System.Drawing.Point(27, 77);
             this.gvIllness.MultiSelect = false;
             this.gvIllness.Name = "gvIllness";
@@ -198,18 +198,18 @@
             this.ICD10_Code.Name = "ICD10_Code";
             this.ICD10_Code.ReadOnly = true;
             // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            this.CreateDate.ReadOnly = true;
-            // 
             // IllnessNote
             // 
             this.IllnessNote.HeaderText = "Illness Note";
             this.IllnessNote.Name = "IllnessNote";
             this.IllnessNote.ReadOnly = true;
-            this.IllnessNote.Width = 250;
+            this.IllnessNote.Width = 260;
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            this.CreateDate.ReadOnly = true;
             // 
             // frmIllness
             // 
@@ -252,7 +252,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_No;
         private System.Windows.Forms.DataGridViewTextBoxColumn Individual_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn ICD10_Code;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNote;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
     }
 }

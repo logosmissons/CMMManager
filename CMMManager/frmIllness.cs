@@ -64,8 +64,10 @@ namespace CMMManager
 
        
 
-            strSqlGetIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], " +
-                                        "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
+            strSqlGetIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[Introduction], " +
+                                        "[dbo].[tbl_illness].[CreateDate], " +
+                                        "[dbo].[tbl_illness].[Illness_Id] " +
+                                        "from [dbo].[tbl_illness] " +
                                         "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
                                         //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                         "[dbo].[tbl_illness].[IsDeleted] = 0";
@@ -114,10 +116,10 @@ namespace CMMManager
                     if (!rdrIllnessForCaseId.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(2) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
-                    if (!rdrIllnessForCaseId.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetDateTime(3).ToString("MM/dd/yyyy") });
+                    if (!rdrIllnessForCaseId.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(3) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
-                    if (!rdrIllnessForCaseId.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(4) });
+                    if (!rdrIllnessForCaseId.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetDateTime(4).ToString("MM/dd/yyyy") });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
                     if (!rdrIllnessForCaseId.IsDBNull(5)) IllnessSelected.IllnessId = rdrIllnessForCaseId.GetInt32(5).ToString();
