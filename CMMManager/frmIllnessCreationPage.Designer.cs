@@ -186,11 +186,11 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(342, 167);
+            this.label3.Location = new System.Drawing.Point(281, 167);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 16);
+            this.label3.Size = new System.Drawing.Size(102, 16);
             this.label3.TabIndex = 17;
-            this.label3.Text = "Date:";
+            this.label3.Text = "Received Date:";
             // 
             // label2
             // 
@@ -226,9 +226,9 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(29, 167);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(118, 16);
+            this.label8.Size = new System.Drawing.Size(103, 16);
             this.label8.TabIndex = 28;
-            this.label8.Text = "Date of Diagnosis:";
+            this.label8.Text = "Date of Service:";
             // 
             // dtpDateOfDiagnosis
             // 

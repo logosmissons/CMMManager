@@ -122,6 +122,12 @@
     <Compile Include="frmConfirmCCPaymentDlg.Designer.cs">
       <DependentUpon>frmConfirmCCPaymentDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConfirmCheckReconcile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfirmCheckReconcile.Designer.cs">
+      <DependentUpon>frmConfirmCheckReconcile.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDeleteSuccess.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfirmCCPaymentDlg.resx">
       <DependentUpon>frmConfirmCCPaymentDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirmCheckReconcile.resx">
+      <DependentUpon>frmConfirmCheckReconcile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteSuccess.resx">
       <DependentUpon>frmDeleteSuccess.cs</DependentUpon>
