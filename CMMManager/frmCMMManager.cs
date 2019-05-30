@@ -87,11 +87,6 @@ namespace CMMManager
         // Delegates for Cross thread method call
         delegate void SetTabPages(int nIndex);
 
-
-        //private delegate void RemoveMedicalProviderInMedBill(int nRow);
-        //private delegate void RemoveAllMedicalProviderInMedBill();
-        private delegate void RefreshMedicalProviderInMedBill(AutoCompleteStringCollection srcMedicalProvider);
-
         private delegate void RemoveSettlementForApprovalInDashboard(int nRow);
         private delegate void RemoveAllSettlementForApprovalInDashboard();
         private delegate void AddRowToSettlementForApprovalInDashboard(DataGridViewRow row);
@@ -670,31 +665,31 @@ namespace CMMManager
             rdrMedBillStatus.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            String strSqlQueryForMedBillStatusInfo = "select [dbo].[tbl_medbill_status_code].[IsDeleted], [dbo].[tbl_medbill_status_code].[BillStatusCode], " +
-                                                     "[dbo].[tbl_medbill_status_code].[BillStatusValue] " +
-                                                     "from [dbo].[tbl_medbill_status_code]";
+            //String strSqlQueryForMedBillStatusInfo = "select [dbo].[tbl_medbill_status_code].[IsDeleted], [dbo].[tbl_medbill_status_code].[BillStatusCode], " +
+            //                                         "[dbo].[tbl_medbill_status_code].[BillStatusValue] " +
+            //                                         "from [dbo].[tbl_medbill_status_code]";
 
-            SqlCommand cmdQueryForMedBillStatusInfo = new SqlCommand(strSqlQueryForMedBillStatusInfo, connRN);
-            cmdQueryForMedBillStatusInfo.CommandType = CommandType.Text;
+            //SqlCommand cmdQueryForMedBillStatusInfo = new SqlCommand(strSqlQueryForMedBillStatusInfo, connRN);
+            //cmdQueryForMedBillStatusInfo.CommandType = CommandType.Text;
 
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            SqlDataReader rdrMedBillStatusInfo = cmdQueryForMedBillStatusInfo.ExecuteReader();
-            if (rdrMedBillStatusInfo.HasRows)
-            {
-                while (rdrMedBillStatusInfo.Read())
-                {
-                    lstMedBillStatusInfo.Add(new MedBillStatusInfo { IsDeleted = rdrMedBillStatusInfo.GetBoolean(0),
-                                                                     BillStatusCode = rdrMedBillStatusInfo.GetInt16(1),
-                                                                     BillStatusValue = rdrMedBillStatus.GetString(2) });
-                }
-            }
-            rdrMedBillStatusInfo.Close();
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //if (connRN.State != ConnectionState.Closed)
+            //{
+            //    connRN.Close();
+            //    connRN.Open();
+            //}
+            //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //SqlDataReader rdrMedBillStatusInfo = cmdQueryForMedBillStatusInfo.ExecuteReader();
+            //if (rdrMedBillStatusInfo.HasRows)
+            //{
+            //    while (rdrMedBillStatusInfo.Read())
+            //    {
+            //        lstMedBillStatusInfo.Add(new MedBillStatusInfo { IsDeleted = rdrMedBillStatusInfo.GetBoolean(0),
+            //                                                         BillStatusCode = rdrMedBillStatusInfo.GetInt16(1),
+            //                                                         BillStatusValue = rdrMedBillStatus.GetString(2) });
+            //    }
+            //}
+            //rdrMedBillStatusInfo.Close();
+            //if (connRN.State != ConnectionState.Closed) connRN.Close();
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///
             //String strSqlQueryForMedBillStatusInfo = "select [dbo].[tbl_medbill_status_code].[IsDeleted], [dbo].[tbl_medbill_status_code].[BillStatusCode]"
@@ -734,7 +729,7 @@ namespace CMMManager
             /// Populate Ineligible Reason
             /// 
             String strSqlQueryForIneligibleReason = "select [dbo].[tbl_ineligible_reason].[id], [dbo].[tbl_ineligible_reason].[name] from [dbo].[tbl_ineligible_reason] " +
-                                                    "order by [dbo].[tbl_ineligible_reason].[id]";
+                                                    "order by [dbo].[tbl_ineligible_reason].[name]";
 
             SqlCommand cmdQueryForIneligibleReason = new SqlCommand(strSqlQueryForIneligibleReason, connRN);
             cmdQueryForIneligibleReason.CommandType = CommandType.Text;
@@ -10867,6 +10862,7 @@ namespace CMMManager
                                     {
                                         comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                     }
+                                    comboCellIneligibleReason.Sorted = true;
                                     comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                     row.Cells.Add(comboCellIneligibleReason);
                                 }
@@ -10880,6 +10876,7 @@ namespace CMMManager
                                     {
                                         comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                     }
+                                    comboCellIneligibleReason.Sorted = true;
                                     comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                     row.Cells.Add(comboCellIneligibleReason);
                                 }
@@ -12888,6 +12885,7 @@ namespace CMMManager
                                         {
                                             comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                         }
+                                        comboCellIneligibleReason.Sorted = true;
                                         comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                         row.Cells.Add(comboCellIneligibleReason);
                                     }
@@ -12901,6 +12899,7 @@ namespace CMMManager
                                         {
                                             comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                         }
+                                        comboCellIneligibleReason.Sorted = true;
                                         comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                         row.Cells.Add(comboCellIneligibleReason);
                                     }
@@ -16699,6 +16698,7 @@ namespace CMMManager
                         }
                         comboPendingReason.SelectedIndex = 0;
                     }
+                    comboPendingReason.Sorted = true;
 
                     // Populate Ineligible Reason
                     comboIneligibleReason.Items.Clear();
@@ -16710,6 +16710,7 @@ namespace CMMManager
                         }
                         comboIneligibleReason.SelectedIndex = 0;
                     }
+                    comboIneligibleReason.Sorted = true;
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
@@ -17623,6 +17624,7 @@ namespace CMMManager
                         }
                         comboPendingReason.SelectedIndex = 0;
                     }
+                    comboPendingReason.Sorted = true;
 
                     // Populate Ineligible Reason
                     comboIneligibleReason.Items.Clear();
@@ -17634,6 +17636,7 @@ namespace CMMManager
                         }
                         comboIneligibleReason.SelectedIndex = 0;
                     }
+                    comboIneligibleReason.Sorted = true;
 
                     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
@@ -19607,6 +19610,7 @@ namespace CMMManager
                             {
                                 comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                             }
+                            comboCellIneligibleReason.Sorted = true;
                             comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                             gvSettlementsInMedBill["IneligibleReason", e.RowIndex].ReadOnly = false;
                             gvSettlementsInMedBill["IneligibleReason", e.RowIndex] = comboCellIneligibleReason;
@@ -20767,7 +20771,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
-
+                comboPendingReason.Sorted = true;
                 // Populate Ineligible Reason
                 comboIneligibleReason.Items.Clear();
 
@@ -20779,6 +20783,8 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+
+                comboIneligibleReason.Sorted = true;
 
                 //tbCMMManager.TabPages.Insert(5, tbpgMedicalBill);
                 //tbCMMManager.SelectedTab = tbpgMedicalBill;
@@ -20960,6 +20966,16 @@ namespace CMMManager
                             }
                             comboMedBillStatus.SelectedIndex = rdrMedBillEdit.GetInt16(5);
                         }
+
+                        //if (lstMedBillStatusInfo.Count > 0)
+                        //{
+                        //    comboMedBillStatus.Items.Clear();
+                        //    foreach (MedBillStatusInfo info in lstMedBillStatusInfo)
+                        //    {
+                        //        if (info.IsDeleted == false) comboMedBillStatus.Items.Add(info.BillStatusValue);
+                        //    }
+                        //    if (rdrMedBillEdit.GetInt16(5) == 0 || rdrMedBillEdit.GetInt16(5) == 2)
+                        //}
                     }
                     if (!rdrMedBillEdit.IsDBNull(6))
                     {
@@ -22115,6 +22131,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -22128,6 +22145,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -23245,6 +23263,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
+                comboPendingReason.Sorted = true;
 
                 // Populate Ineligible Reason
                 comboIneligibleReason.Items.Clear();
@@ -23256,6 +23275,7 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+                comboIneligibleReason.Sorted = true;
 
                 // Get the Medical Bill Note Type info
                 //List<MedBillNoteTypeInfo> lstMedBillNoteTypeInfo = new List<MedBillNoteTypeInfo>();
@@ -24703,6 +24723,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -24716,6 +24737,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -25390,6 +25412,7 @@ namespace CMMManager
                             {
                                 comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                             }
+                            comboIneligibleReason.Sorted = true;
                             comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                             row.Cells.Add(comboCellIneligibleReason);
                         }
@@ -25403,6 +25426,7 @@ namespace CMMManager
                             {
                                 comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                             }
+                            comboIneligibleReason.Sorted = true;
                             comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                             row.Cells.Add(comboCellIneligibleReason);
                         }
@@ -31335,6 +31359,7 @@ namespace CMMManager
                                         {
                                             comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                         }
+                                        comboIneligibleReason.Sorted = true;
                                         comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                         row.Cells.Add(comboCellIneligibleReason);
                                     }
@@ -31348,6 +31373,7 @@ namespace CMMManager
                                         {
                                             comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                         }
+                                        comboIneligibleReason.Sorted = true;
                                         comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                         row.Cells.Add(comboCellIneligibleReason);
                                     }
@@ -35308,6 +35334,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
+                comboPendingReason.Sorted = true;
 
                 comboIneligibleReason.Items.Clear();
                 if (dicIneligibleReason.Count > 0)
@@ -35318,6 +35345,7 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+                comboIneligibleReason.Sorted = true;
 
                 DataGridView gvMedBill = (DataGridView)sender;
 
@@ -36581,6 +36609,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -36594,6 +36623,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -52145,6 +52175,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
+                comboPendingReason.Sorted = true;
 
                 // Populate Ineligible Reason
                 comboIneligibleReason.Items.Clear();
@@ -52157,6 +52188,7 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+                comboIneligibleReason.Sorted = true;
 
                 // retrieve medbill for approval
                 String ICD10Code = String.Empty;
@@ -53157,6 +53189,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -53170,6 +53203,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -53683,6 +53717,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
+                comboPendingReason.Sorted = true;
 
                 comboIneligibleReason.Items.Clear();
                 if (dicIneligibleReason.Count > 0)
@@ -53693,6 +53728,7 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+                comboIneligibleReason.Sorted = true;
 
                 DataGridView gvMedBill = (DataGridView)sender;
 
@@ -54971,6 +55007,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -54984,6 +55021,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -55415,6 +55453,7 @@ namespace CMMManager
                     }
                     comboPendingReason.SelectedIndex = 0;
                 }
+                comboPendingReason.Sorted = true;
 
                 comboIneligibleReason.Items.Clear();
                 if (dicIneligibleReason.Count > 0)
@@ -55425,6 +55464,7 @@ namespace CMMManager
                     }
                     comboIneligibleReason.SelectedIndex = 0;
                 }
+                comboIneligibleReason.Sorted = true;
 
                 DataGridView gvSettlement = (DataGridView)sender;
 
@@ -56723,6 +56763,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
@@ -56736,6 +56777,7 @@ namespace CMMManager
                                 {
                                     comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
                                 }
+                                comboCellIneligibleReason.Sorted = true;
                                 comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
                                 row.Cells.Add(comboCellIneligibleReason);
                             }
