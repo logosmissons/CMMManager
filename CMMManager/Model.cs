@@ -303,11 +303,13 @@ namespace CMMManager
 
     public class MedBillStatusInfo
     {
+        public Boolean IsDeleted;
         public int BillStatusCode;
         public String BillStatusValue;
 
         public MedBillStatusInfo()
         {
+            IsDeleted = false;
             BillStatusCode = 0;
             BillStatusValue = String.Empty;
         }

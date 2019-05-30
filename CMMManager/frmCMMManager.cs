@@ -88,6 +88,10 @@ namespace CMMManager
         delegate void SetTabPages(int nIndex);
 
 
+        //private delegate void RemoveMedicalProviderInMedBill(int nRow);
+        //private delegate void RemoveAllMedicalProviderInMedBill();
+        private delegate void RefreshMedicalProviderInMedBill(AutoCompleteStringCollection srcMedicalProvider);
+
         private delegate void RemoveSettlementForApprovalInDashboard(int nRow);
         private delegate void RemoveAllSettlementForApprovalInDashboard();
         private delegate void AddRowToSettlementForApprovalInDashboard(DataGridViewRow row);
@@ -508,6 +512,11 @@ namespace CMMManager
             SqlDependency.Start(rn_cnn_str6);
             SqlDependency.Start(rn_cnn_str7);
 
+            //SqlDependency.Start(connStringSalesforce);
+            //SqlDependency.Start(connStringSalesforce2);
+            //SqlDependency.Start(connStringSalesforce3);
+            //SqlDependency.Start(connStringSalesforce4);
+
 
             IndividualBankInfo = new BankInfo();
 
@@ -593,6 +602,10 @@ namespace CMMManager
             rdrMedBillTypes.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+            
+
+            
+
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //String strSqlQueryForMedicalProvider = "select dbo.tbl_MedicalProvider.ID, dbo.tbl_MedicalProvider.Name, dbo.tbl_MedicalProvider.Type from dbo.tbl_MedicalProvider";
             String strSqlQueryForMedicalProvider = "select [dbo].[account].[Id], [dbo].[account].[Name], [dbo].[account].[Type] from [dbo].[account] " +
@@ -656,6 +669,37 @@ namespace CMMManager
             }
             rdrMedBillStatus.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            String strSqlQueryForMedBillStatusInfo = "select [dbo].[tbl_medbill_status_code].[IsDeleted], [dbo].[tbl_medbill_status_code].[BillStatusCode], " +
+                                                     "[dbo].[tbl_medbill_status_code].[BillStatusValue] " +
+                                                     "from [dbo].[tbl_medbill_status_code]";
+
+            SqlCommand cmdQueryForMedBillStatusInfo = new SqlCommand(strSqlQueryForMedBillStatusInfo, connRN);
+            cmdQueryForMedBillStatusInfo.CommandType = CommandType.Text;
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrMedBillStatusInfo = cmdQueryForMedBillStatusInfo.ExecuteReader();
+            if (rdrMedBillStatusInfo.HasRows)
+            {
+                while (rdrMedBillStatusInfo.Read())
+                {
+                    lstMedBillStatusInfo.Add(new MedBillStatusInfo { IsDeleted = rdrMedBillStatusInfo.GetBoolean(0),
+                                                                     BillStatusCode = rdrMedBillStatusInfo.GetInt16(1),
+                                                                     BillStatusValue = rdrMedBillStatus.GetString(2) });
+                }
+            }
+            rdrMedBillStatusInfo.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///
+            //String strSqlQueryForMedBillStatusInfo = "select [dbo].[tbl_medbill_status_code].[IsDeleted], [dbo].[tbl_medbill_status_code].[BillStatusCode]"
+
+
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /// Populate Pending Reason
@@ -930,6 +974,11 @@ namespace CMMManager
             SqlDependency.Stop(rn_cnn_str5);
             SqlDependency.Stop(rn_cnn_str6);
             SqlDependency.Stop(rn_cnn_str7);
+
+            //SqlDependency.Stop(connStringSalesforce);
+            //SqlDependency.Stop(connStringSalesforce2);
+            //SqlDependency.Stop(connStringSalesforce3);
+            //SqlDependency.Stop(connStringSalesforce4);
 
             //dependency.Stop();
 
@@ -8535,13 +8584,13 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(0) });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(1) });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(2).ToString("MM/dd/yyyy") });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(6).ToString("C") });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(7).ToString("C") });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(8).ToString("C") });
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(9).ToString("C") });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
 
                         gvCasePageMedBills.Rows.Add(row);
                         //AddNewRowToMedBillInCaseSafely(row);
@@ -12158,7 +12207,13 @@ namespace CMMManager
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i]?.Value == true) NewIsApproved = 1;
                                     }
                                     DateTime? NewApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null) NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultDateTime;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultDateTime))
+                                            NewApprovedDate = resultDateTime;
+                                        //NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    }
 
                                     String NewCMMPaymentMethod = String.Empty;
                                     if (gvSettlementsInMedBill["PaymentMethod", i]?.Value != null) NewCMMPaymentMethod = gvSettlementsInMedBill["PaymentMethod", i].Value.ToString();
@@ -12343,7 +12398,13 @@ namespace CMMManager
                                     }
 
                                     DateTime? ApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i].Value != null) ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    //if (gvSettlementsInMedBill["ApprovedDate", i].Value != null) ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultDateTime;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultDateTime))
+                                            ApprovedDate = resultDateTime;
+                                    }
 
 
                                     String CheckNo = String.Empty;
@@ -14127,7 +14188,16 @@ namespace CMMManager
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i]?.Value == true) NewIsApproved = 1;
                                     }
                                     DateTime? NewApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null) NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    //if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null) NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultApprovedDate;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultApprovedDate))
+                                            NewApprovedDate = resultApprovedDate;
+
+                                        //NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    }
+                                    //else if (gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString() != String.Empty) 
 
                                     String NewCMMPaymentMethod = String.Empty;
                                     if (gvSettlementsInMedBill["PaymentMethod", i]?.Value != null) NewCMMPaymentMethod = gvSettlementsInMedBill["PaymentMethod", i].Value.ToString();
@@ -14310,8 +14380,23 @@ namespace CMMManager
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i].Value) nApproved = 1;
                                     }
 
+                                    //if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    //{
+                                    //    DateTime resultApprovedDate;
+                                    //    if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                    //        NewApprovedDate = resultApprovedDate;
+
+                                    //    //NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    //}
+
                                     DateTime? ApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i].Value != null) ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultApprovedDate;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultApprovedDate))
+                                            ApprovedDate = resultApprovedDate;
+                                        //ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    }
 
 
                                     String CheckNo = String.Empty;
@@ -16593,6 +16678,17 @@ namespace CMMManager
                         comboMedBillStatus.SelectedIndex = 0;
                     }
 
+                    //foreach (MedBillStatusInfo info in lstMedBillStatusInfo)
+                    //{
+                    //    if (info.IsDeleted == false)
+                    //    {
+                    //        comboMedBillStatus.Items.Add(info.BillStatusValue);
+                    //    }
+                    //}
+
+
+
+
                     // Populate Pending Reason
                     comboPendingReason.Items.Clear();
                     if (dicPendingReason.Count > 0)
@@ -16654,6 +16750,11 @@ namespace CMMManager
                     {
                         srcMedicalProvider.Add(lstMedicalProvider[i].Name);
                     }
+
+                    // added 05/28/19
+                    txtMedicalProvider.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    txtMedicalProvider.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    txtMedicalProvider.AutoCompleteCustomSource = srcMedicalProvider;
 
                     // Settlement gv
                     //String strSqlQueryForSettlement = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], [dbo].[tbl_settlement].[Amount], " +
@@ -17504,6 +17605,13 @@ namespace CMMManager
                         comboMedBillStatus.SelectedIndex = 0;
                     }
 
+                    //foreach (MedBillStatusInfo info in lstMedBillStatusInfo)
+                    //{
+                    //    if (info.IsDeleted == false)
+                    //    {
+                    //        comboMedBillStatus.Items.Add(info.BillStatusValue);
+                    //    }
+                    //}
 
                     // Populate Pending Reason
                     comboPendingReason.Items.Clear();
@@ -18396,8 +18504,11 @@ namespace CMMManager
                 //         LoggedInUserRole == UserRole.MSStaff)
                 //    chkApprovedCell.ReadOnly = true;
 
+
+                //////////////////////////////////////////////////////////////////////////////////////////////
                 CalendarCell calendarCell = new CalendarCell();
                 gvSettlementsInMedBill["ApprovedDate", 0] = calendarCell;
+                gvSettlementsInMedBill["ApprovedDate", 0].Value = null;
                 gvSettlementsInMedBill["ApprovedDate", 0].ReadOnly = true;
 
                 DataGridViewComboBoxCell comboCellPaymentType = new DataGridViewComboBoxCell();
@@ -18531,6 +18642,7 @@ namespace CMMManager
 
                     CalendarCell calendarCell = new CalendarCell();
                     gvSettlementsInMedBill["ApprovedDate", gvSettlementsInMedBill.Rows.Count - 1] = calendarCell;
+                    gvSettlementsInMedBill["ApprovedDate", gvSettlementsInMedBill.Rows.Count - 1].Value = null;
                     gvSettlementsInMedBill["ApprovedDate", gvSettlementsInMedBill.Rows.Count - 1].ReadOnly = true;
 
                     //if (LoggedInUserRole == UserRole.RNManager) gvSettlementsInMedBill["Approved", gvSettlementsInMedBill.Rows.Count - 1].ReadOnly = false;
@@ -19663,7 +19775,7 @@ namespace CMMManager
                         gvSettlementsInMedBill["CreditCard", e.RowIndex].Value = String.Empty;
                         gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CreditCard"].ReadOnly = true;
 
-                        gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CheckNo"];
+                        //gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CheckNo"];
                     }
                     if (gvSettlementsInMedBill["PaymentMethod", e.RowIndex]?.Value?.ToString() == "ACH/Banking")
                     {
@@ -19678,7 +19790,7 @@ namespace CMMManager
                         gvSettlementsInMedBill["CreditCard", e.RowIndex].Value = String.Empty;
                         gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CreditCard"].ReadOnly = true;
 
-                        gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["ACHNo"];
+                        //gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["ACHNo"];
                     }
                     if (gvSettlementsInMedBill["PaymentMethod", e.RowIndex]?.Value?.ToString() == "Credit Card")
                     {
@@ -19692,7 +19804,7 @@ namespace CMMManager
                         gvSettlementsInMedBill["ACHNo", e.RowIndex].Value = String.Empty;
                         gvSettlementsInMedBill.Rows[e.RowIndex].Cells["ACHNo"].ReadOnly = true;
 
-                        gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CreditCard"];
+                        //gvSettlementsInMedBill.CurrentCell = gvSettlementsInMedBill.Rows[e.RowIndex].Cells["CreditCard"];
                     }
 
                     if (gvSettlementsInMedBill[6, e.RowIndex]?.Value?.ToString() == "None")
@@ -20052,7 +20164,8 @@ namespace CMMManager
                     String strSqlQueryForMedBillInCase = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill_type].[MedBillTypeName], " +
                                         "[dbo].[tbl_medbill].[CreatedDate], [dbo].[tbl_CreateStaff].[Staff_Name], " +
                                         "[dbo].[tbl_medbill].[LastModifiedDate], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                        "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[SettlementTotal], [dbo].[tbl_medbill].[TotalSharedAmount], [dbo].[tbl_medbill].[Balance] " +
+                                        "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[SettlementTotal], " +
+                                        "[dbo].[tbl_medbill].[TotalSharedAmount], [dbo].[tbl_medbill].[Balance] " +
                                         "from [dbo].[tbl_medbill] " +
                                         "inner join [dbo].[tbl_medbill_type] on [dbo].[tbl_medbill].[MedBillType_Id] = [dbo].[tbl_medbill_type].[MedBillTypeId] " +
                                         "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
@@ -20092,13 +20205,13 @@ namespace CMMManager
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(0) });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(1) });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(2).ToString("MM/dd/yyyy") });
-                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
-                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
-                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(6).ToString("C") });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(7).ToString("C") });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(8).ToString("C") });
                             row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(9).ToString("C") });
+                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
+                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
+                            row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
 
                             gvCasePageMedBills.Rows.Add(row);
                         }
@@ -20670,11 +20783,56 @@ namespace CMMManager
                 //tbCMMManager.TabPages.Insert(5, tbpgMedicalBill);
                 //tbCMMManager.SelectedTab = tbpgMedicalBill;
 
+
+
+                //String strSqlQueryForMedicalProvider = "select [dbo].[account].[Id], [dbo].[account].[Name], [dbo].[account].[Type] from [dbo].[account] " +
+                //                       "where [dbo].[account].[RecordTypeId] = '01237000000EVmlAAG'";
+
+                //SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connSalesforce);
+                //cmdQueryForMedicalProvider.CommandType = CommandType.Text;
+
+                ////if (connRN.State == ConnectionState.Closed) connRN.Open();
+                //if (connSalesforce.State != ConnectionState.Closed)
+                //{
+                //    connSalesforce.Close();
+                //    connSalesforce.Open();
+                //}
+                //else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                //SqlDataReader rdrMedicalProvider = cmdQueryForMedicalProvider.ExecuteReader();
+
+                //lstMedicalProvider.Clear();
+                //if (rdrMedicalProvider.HasRows)
+                //{
+                //    while (rdrMedicalProvider.Read())
+                //    {
+                //        MedicalProviderInfo info = new MedicalProviderInfo();
+
+                //        if (!rdrMedicalProvider.IsDBNull(0)) info.ID = rdrMedicalProvider.GetString(0);
+                //        if (!rdrMedicalProvider.IsDBNull(1)) info.Name = rdrMedicalProvider.GetString(1);
+                //        if (!rdrMedicalProvider.IsDBNull(2)) info.Type = rdrMedicalProvider.GetString(2);
+
+                //        lstMedicalProvider.Add(info);
+                //    }
+                //}
+                //rdrMedicalProvider.Close();
+                //if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                //var srcMedicalProvider = new AutoCompleteStringCollection();
+                //for (int i = 0; i < lstMedicalProvider.Count; i++)
+                //{
+                //    srcMedicalProvider.Add(lstMedicalProvider[i].Name);
+                //}
+
+                //txtMedicalProvider.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //txtMedicalProvider.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                //txtMedicalProvider.AutoCompleteCustomSource = srcMedicalProvider;
+            
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Get medical bill info
-
                 String ICD10Code = String.Empty;
-
-
+                
                 //String strSqlQueryForMedBillEdit = "select [dbo].[tbl_medbill].[Case_Id], [dbo].[tbl_medbill].[Illness_Id], [dbo].[tbl_medbill].[Incident_Id], " +
                 //                                   "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[MedBillType_Id], [dbo].[tbl_medbill].[BillStatus], [dbo].[tbl_medbill].[BillClosed], " +
                 //                                   "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_MedicalProvider].[Name], " +
@@ -30527,8 +30685,18 @@ namespace CMMManager
                                     {
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i]?.Value == true) NewIsApproved = 1;
                                     }
+
+                                    //    if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                    //        NewApprovedDate = resultApprovedDate;
+
                                     DateTime? NewApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null) NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        //NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                        DateTime resultApprovedDate;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultApprovedDate))
+                                            NewApprovedDate = resultApprovedDate;
+                                    }
 
                                     String NewCMMPaymentMethod = String.Empty;
                                     if (gvSettlementsInMedBill["PaymentMethod", i]?.Value != null) NewCMMPaymentMethod = gvSettlementsInMedBill["PaymentMethod", i].Value.ToString();
@@ -30710,8 +30878,19 @@ namespace CMMManager
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i].Value) nApproved = 1;
                                     }
 
+                                    //    if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                    //        NewApprovedDate = resultApprovedDate;
+
+
                                     DateTime? ApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i].Value != null) ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        //ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                        DateTime resultApprovedDate;
+
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultApprovedDate))
+                                            ApprovedDate = resultApprovedDate;
+                                    }
 
 
                                     String CheckNo = String.Empty;
@@ -32291,8 +32470,20 @@ namespace CMMManager
                                     {
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i]?.Value == true) NewIsApproved = 1;
                                     }
+
+                                    //    if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                    //        NewApprovedDate = resultApprovedDate;
+
+
                                     DateTime? NewApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null) NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultApprovedDate;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                            NewApprovedDate = resultApprovedDate;
+
+                                        //NewApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    }
 
                                     String NewCMMPaymentMethod = String.Empty;
                                     if (gvSettlementsInMedBill["PaymentMethod", i]?.Value != null) NewCMMPaymentMethod = gvSettlementsInMedBill["PaymentMethod", i].Value.ToString();
@@ -32475,8 +32666,18 @@ namespace CMMManager
                                         if ((Boolean)gvSettlementsInMedBill["Approved", i].Value) nApproved = 1;
                                     }
 
+                                    //    if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value.ToString(), out resultApprovedDate))
+                                    //        NewApprovedDate = resultApprovedDate;
+
+
                                     DateTime? ApprovedDate = null;
-                                    if (gvSettlementsInMedBill["ApprovedDate", i].Value != null) ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    if (gvSettlementsInMedBill["ApprovedDate", i]?.Value != null)
+                                    {
+                                        DateTime resultApprovedDate;
+                                        if (DateTime.TryParse(gvSettlementsInMedBill["ApprovedDate", i]?.Value?.ToString(), out resultApprovedDate))
+                                            ApprovedDate = resultApprovedDate;
+                                            //ApprovedDate = DateTime.Parse(gvSettlementsInMedBill["ApprovedDate", i].Value.ToString());
+                                    }
 
 
                                     String CheckNo = String.Empty;
@@ -40263,6 +40464,17 @@ namespace CMMManager
                                 sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].MedicalProvider + "\",");
                                 sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].StreetAddress + "\",");
                                 sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].City + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].State + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].Zip + "\",");
+                                sbSettlement.Append("\"TRUE\",");
+                                sbSettlement.Append("\"CMM Expense:Medical Bill\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].SettlementAmount.ToString() + "\",");
+                                sbSettlement.Append("\"" + lstSortedCheckPaymentCSVExport[i].ServiceDate.ToString("MM/dd/yyyy") + " - " +
+                                                    lstSortedCheckPaymentCSVExport[i].MedicalProvider + " - " +
+                                                    lstSortedCheckPaymentCSVExport[i].AccountNoAtProvider + "\"" +
+                                                    Environment.NewLine);
+
+
                                 //05/22/19
                                 
                             }
@@ -57108,6 +57320,57 @@ namespace CMMManager
                     return;
                 }
             }
+        }
+
+        private void btnRefreshListMedicalProvider_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            String strSqlQueryForMedicalProvider = "select [dbo].[account].[Id], [dbo].[account].[Name], [dbo].[account].[Type] from [dbo].[account] " +
+                                   "where [dbo].[account].[RecordTypeId] = '01237000000EVmlAAG'";
+
+            SqlCommand cmdQueryForMedicalProvider = new SqlCommand(strSqlQueryForMedicalProvider, connSalesforce);
+            cmdQueryForMedicalProvider.CommandType = CommandType.Text;
+
+            //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            if (connSalesforce.State != ConnectionState.Closed)
+            {
+                connSalesforce.Close();
+                connSalesforce.Open();
+            }
+            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+            SqlDataReader rdrMedicalProvider = cmdQueryForMedicalProvider.ExecuteReader();
+
+            lstMedicalProvider.Clear();
+            if (rdrMedicalProvider.HasRows)
+            {
+                while (rdrMedicalProvider.Read())
+                {
+                    MedicalProviderInfo info = new MedicalProviderInfo();
+
+                    if (!rdrMedicalProvider.IsDBNull(0)) info.ID = rdrMedicalProvider.GetString(0);
+                    if (!rdrMedicalProvider.IsDBNull(1)) info.Name = rdrMedicalProvider.GetString(1);
+                    if (!rdrMedicalProvider.IsDBNull(2)) info.Type = rdrMedicalProvider.GetString(2);
+
+                    lstMedicalProvider.Add(info);
+                }
+            }
+            rdrMedicalProvider.Close();
+            if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+            var srcMedicalProvider = new AutoCompleteStringCollection();
+
+            for (int i = 0; i < lstMedicalProvider.Count; i++)
+            {
+                srcMedicalProvider.Add(lstMedicalProvider[i].Name);
+            }
+
+            txtMedicalProvider.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            txtMedicalProvider.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtMedicalProvider.AutoCompleteCustomSource = srcMedicalProvider;
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }
