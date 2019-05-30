@@ -600,6 +600,24 @@ namespace CMMManager
         }
     }
 
+    public class IneligibleReasonInfo
+    {
+        public int? Id;
+        public String IneligibleReason;
+
+        public IneligibleReasonInfo()
+        {
+            Id = null;
+            IneligibleReason = String.Empty;
+        }
+
+        public IneligibleReasonInfo(int id, string ineligible_reason)
+        {
+            Id = id;
+            IneligibleReason = ineligible_reason;
+        }
+    }
+
     public class CheckPaymentCSVExportInfo
     {
         public String IndividualId;
