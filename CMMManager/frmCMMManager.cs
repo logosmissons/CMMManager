@@ -264,7 +264,7 @@ namespace CMMManager
         public List<StaffInfo> lstModifiStaff;
 
         public List<IneligibleReasonInfo> lstIneligibleReasonInfo;
-        public List<IneligibleReasonInfo> lstSortedIneligibleReasonInfo;
+        //public List<IneligibleReasonInfo> lstSortedIneligibleReasonInfo;
         public List<SettlementInfoForApproval> lstSettlementInfoForApproval;
         public List<PaymentMethod> lstPaymentMethod;
         public List<CreditCardInfo> lstCreditCardInfo;
@@ -793,7 +793,7 @@ namespace CMMManager
                 else if (info2.IneligibleReason == null) return 1;
                 else return info1.IneligibleReason.CompareTo(info2.IneligibleReason);
             });
-
+            ;
             PersonalResponsibilityAmountInMedBill = 0;
 
             // Retrieve payment method
@@ -1525,30 +1525,54 @@ namespace CMMManager
 
         private void UpdateGridViewCheckPaymentToProvider()
         {
+            //String strSqlQueryForCheckPaymentToProvider = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
+            //                                "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+            //                                "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
+            //                                "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+            //                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+            //                                "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+            //                                "from [dbo].[tbl_settlement] " +
+            //                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+            //                                "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+            //                                "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+            //                                "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+            //                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+            //                                "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+            //                                "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+            //                                "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+            //                                "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+            //                                "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+            //                                "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+            //                                "[dbo].[tbl_settlement].[Approved] = 1 and " +
+            //                                "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+            //                                "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+            //                                "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+            //                                "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
+            //                                "order by [dbo].[tbl_medbill].[Individual_Id]";
+
             String strSqlQueryForCheckPaymentToProvider = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
-                                            "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
-                                            "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
-                                            "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
-                                            "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                            "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
-                                            "from [dbo].[tbl_settlement] " +
-                                            "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
-                                            "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
-                                            "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
-                                            "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                            "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                            "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                                            "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
-                                            "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
-                                            "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                            "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
-                                            "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
-                                            "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                            "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                            "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
-                                            "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
-                                            "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
-                                            "order by [dbo].[tbl_medbill].[Individual_Id]";
+                                "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+                                "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
+                                "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+                                "from [dbo].[tbl_settlement] " +
+                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+                                "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+                                "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                                "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                "([dbo].[tbl_settlement].[CheckNo] IS NULL or [dbo].[tbl_settlement].[CheckNo] = '') and " +
+                                "([dbo].[tbl_settlement].[CheckDate] IS NULL or [dbo].[tbl_settlement].[CheckDate] = '') and " +
+                                "[dbo].[tbl_settlement].[CheckReconciled] = 0";
 
             SqlCommand cmdQueryForCheckPaymentToProvider = new SqlCommand(strSqlQueryForCheckPaymentToProvider, connRN);
             cmdQueryForCheckPaymentToProvider.CommandType = CommandType.Text;
@@ -1757,31 +1781,58 @@ namespace CMMManager
         private void UpdateGridViewCheckPayment()
         {
 
+            //String strSqlQueryForCheckPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
+            //                                    "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+            //                                    "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
+            //                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+            //                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+            //                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+            //                                    "from [dbo].[tbl_settlement] " +
+            //                                    "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+            //                                    "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+            //                                    "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+            //                                    "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+            //                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+            //                                    "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+            //                                    "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+            //                                    "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+            //                                    "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+            //                                    "([dbo].[tbl_settlement].[SettlementType] = 6 or " +
+            //                                    "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+            //                                    "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+            //                                    "[dbo].[tbl_settlement].[Approved] = 1 and " +
+            //                                    "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+            //                                    "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
+            //                                    "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+            //                                    "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
+            //                                    "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+
             String strSqlQueryForCheckPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_incident].[IncidentNo], " +
-                                                "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
-                                                "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
-                                                "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
-                                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                                "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
-                                                "from [dbo].[tbl_settlement] " +
-                                                "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
-                                                "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
-                                                "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
-                                                "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                                "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                                                "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
-                                                "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
-                                                "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
-                                                "([dbo].[tbl_settlement].[SettlementType] = 6 or " +
-                                                "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
-                                                "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
-                                                "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
-                                                "order by [dbo].[tbl_medbill].[Individual_Id]";
+                                                    "[dbo].[tbl_program].[ProgramName], [dbo].[tbl_medbill].[BillDate], " +
+                                                    "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
+                                                    "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+                                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+                                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+                                                    "from [dbo].[tbl_settlement] " +
+                                                    "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                                    "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                    "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                    "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_settlement].[CreateByID] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                    "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_settlement].[LastModifiedByID] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+                                                    "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+                                                    "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+                                                    "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) and " +
+                                                    "([dbo].[tbl_settlement].[SettlementType] = 6 or " +
+                                                    "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+                                                    "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
+                                                    "[dbo].[tbl_settlement].[Approved] = 1 and " +
+                                                    "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                                    "([dbo].[tbl_settlement].[CheckNo] IS NULL or [dbo].[tbl_settlement].[CheckNo] = '') and " +
+                                                    "([dbo].[tbl_settlement].[CheckDate] IS NULL or [dbo].[tbl_settlement].[CheckDate] = '') and " +
+                                                    "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
+                                                    "order by [dbo].[tbl_medbill].[Individual_Id]";
 
             SqlCommand cmdQeuryForPaymentCheck = new SqlCommand(strSqlQueryForCheckPayment, connRN);
             cmdQeuryForPaymentCheck.CommandType = CommandType.Text;
@@ -1989,6 +2040,30 @@ namespace CMMManager
 
         private void UpdateGridViewCreditCardPayment()
         {
+            //String strSqlQueryForCreditCardPayment = "select [dbo].[tbl_settlement].[IsPaid], " +
+            //                             "[dbo].[tbl_medbill].[MedicalProvider_Id], " +
+            //                             "[dbo].[tbl_medbill].[Account_At_Provider], " +
+            //                             "[dbo].[tbl_medbill].[BillDate], " +
+            //                             "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[BillAmount], " +
+            //                             "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+            //                             "[dbo].[tbl_settlement].[Notes], " +
+            //                             "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
+            //                             "[dbo].[tbl_medbill].[Individual_Id] " +
+            //                             "from [dbo].[tbl_settlement] " +
+            //                             "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+            //                             "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+            //                             "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+            //                             "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+            //                             "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+            //                             "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+            //                             "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
+            //                             "[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
+            //                             "[dbo].[tbl_settlement].[Approved] = 1 and " +
+            //                             "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+            //                             "([dbo].[tbl_settlement].[CMMCreditCard] = 0 or [dbo].[tbl_settlement].[CMMCreditCard] IS NULL) and " +
+            //                             "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL " +
+            //                             "order by [dbo].[tbl_medbill].[Individual_Id]";
+
             String strSqlQueryForCreditCardPayment = "select [dbo].[tbl_settlement].[IsPaid], " +
                                          "[dbo].[tbl_medbill].[MedicalProvider_Id], " +
                                          "[dbo].[tbl_medbill].[Account_At_Provider], " +
@@ -2008,9 +2083,9 @@ namespace CMMManager
                                          "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
                                          "[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
                                          "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                         "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                         "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
                                          "([dbo].[tbl_settlement].[CMMCreditCard] = 0 or [dbo].[tbl_settlement].[CMMCreditCard] IS NULL) and " +
-                                         "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL " +
+                                         "([dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL or [dbo].[tbl_settlement].[CMMCreditCardPaidDate] = '') " +
                                          "order by [dbo].[tbl_medbill].[Individual_Id]";
 
             SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
@@ -2263,9 +2338,32 @@ namespace CMMManager
         private void UpdateGridViewACHPayment()
         {
 
+            //String strSqlQueryForACHPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], " +
+            //                      "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
+            //                      "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name]," +
+            //                      "[dbo].[tbl_settlement].[IsACHExported], [dbo].[tbl_settlement].[ACHExportedByID], " +
+            //                      "[dbo].[tbl_settlement].[SettlementType] " +
+            //                      "from [dbo].[tbl_settlement] " +
+            //                      "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+            //                      "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+            //                      "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
+            //                      "where ([dbo].[tbl_settlement].[IsPaid] = 0 or [RN_DB].[dbo].[tbl_settlement].[IsPaid] IS NULL) and " +
+            //                      "[dbo].[tbl_settlement].[PaidByID] IS NULL and " +
+            //                      "[dbo].[tbl_settlement].[IsDeleted] = 0 and " +
+            //                      "([dbo].[tbl_settlement].[SettlementType] = 4 or " +
+            //                      "[dbo].[tbl_settlement].[SettlementType] = 6 or " +
+            //                      "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
+            //                      "[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
+            //                      "[dbo].[tbl_settlement].[Approved] = 1 and " +
+            //                      "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+            //                      "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
+            //                      "[dbo].[tbl_settlement].[ACH_Date] IS NULL " +
+            //                      "order by [dbo].[tbl_medbill].[Individual_Id]";
+
+
             String strSqlQueryForACHPayment = "select [dbo].[tbl_settlement].[IsPaid], [dbo].[tbl_medbill].[Individual_Id], " +
                                   "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], " +
-                                  "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name]," +
+                                  "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
                                   "[dbo].[tbl_settlement].[IsACHExported], [dbo].[tbl_settlement].[ACHExportedByID], " +
                                   "[dbo].[tbl_settlement].[SettlementType] " +
                                   "from [dbo].[tbl_settlement] " +
@@ -2280,11 +2378,10 @@ namespace CMMManager
                                   "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
                                   "[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
                                   "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                  "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                  "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
-                                  "[dbo].[tbl_settlement].[ACH_Date] IS NULL " +
+                                  "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                  "([dbo].[tbl_settlement].[ACH_Number] IS NULL or [dbo].[tbl_settlement].[ACH_Number] = '') and " +
+                                  "([dbo].[tbl_settlement].[ACH_Date] IS NULL or [dbo].[tbl_settlement].[ACH_Date] = '') " +
                                   "order by [dbo].[tbl_medbill].[Individual_Id]";
-
 
             SqlCommand cmdPaymentACH = new SqlCommand(strSqlQueryForACHPayment, connRN);
             cmdPaymentACH.CommandType = CommandType.Text;
@@ -4139,9 +4236,9 @@ namespace CMMManager
                                                          "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
                                                          "[dbo].[tbl_settlement].[CMMPaymentMethod] = 2 and " +
                                                          "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                         "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
+                                                         "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
                                                          "([dbo].[tbl_settlement].[CMMCreditCard] = 0 or [dbo].[tbl_settlement].[CMMCreditCard] IS NULL) and " +
-                                                         "[dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL " +
+                                                         "([dbo].[tbl_settlement].[CMMCreditCardPaidDate] IS NULL or [dbo].[tbl_settlement].[CMMCreditCardPaidDate] = '') " +
                                                          "order by [dbo].[tbl_medbill].[Individual_Id]";
 
                 SqlCommand cmdQueryForCreditCardPayment = new SqlCommand(strSqlQueryForCreditCardPayment, connRN);
@@ -4397,9 +4494,9 @@ namespace CMMManager
                                                     "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
                                                     "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
                                                     "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                    "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                                    "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
-                                                    "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+                                                    "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                                    "([dbo].[tbl_settlement].[CheckNo] IS NULL or [dbo].[tbl_settlement].[CheckNo] = '') and " +
+                                                    "([dbo].[tbl_settlement].[CheckDate] IS NULL or [dbo].[tbl_settlement].[CheckDate] = '') and " +
                                                     "[dbo].[tbl_settlement].[CheckReconciled] = 0 " +
                                                     "order by [dbo].[tbl_medbill].[Individual_Id]";
 
@@ -4584,9 +4681,9 @@ namespace CMMManager
                                                 "[dbo].[tbl_settlement].[SettlementType] = 4 and " +
                                                 "[dbo].[tbl_settlement].[CMMPaymentMethod] = 1 and " +
                                                 "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckNo] IS NULL and " +
-                                                "[dbo].[tbl_settlement].[CheckDate] IS NULL and " +
+                                                "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                                "([dbo].[tbl_settlement].[CheckNo] IS NULL or [dbo].[tbl_settlement].[CheckNo] = '') and " +
+                                                "([dbo].[tbl_settlement].[CheckDate] IS NULL or [dbo].[tbl_settlement].[CheckDate] = '') and " +
                                                 "[dbo].[tbl_settlement].[CheckReconciled] = 0";
                                                 //"order by [dbo].[tbl_medbill].[Individual_Id]";
 
@@ -4800,9 +4897,9 @@ namespace CMMManager
                                                   "[dbo].[tbl_settlement].[SettlementType] = 9) and " +
                                                   "[dbo].[tbl_settlement].[CMMPaymentMethod] = 3 and " +
                                                   "[dbo].[tbl_settlement].[Approved] = 1 and " +
-                                                  "[dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL and " +
-                                                  "[dbo].[tbl_settlement].[ACH_Number] IS NULL and " +
-                                                  "[dbo].[tbl_settlement].[ACH_Date] IS NULL " +
+                                                  "([dbo].[tbl_settlement].[ApprovedDate] IS NOT NULL or [dbo].[tbl_settlement].[ApprovedDate] <> '') and " +
+                                                  "([dbo].[tbl_settlement].[ACH_Number] IS NULL or [dbo].[tbl_settlement].[ACH_Number] = '') and " +
+                                                  "([dbo].[tbl_settlement].[ACH_Date] IS NULL or [dbo].[tbl_settlement].[ACH_Date] = '') " +
                                                   "order by [dbo].[tbl_medbill].[Individual_Id]";
 
 
@@ -5050,7 +5147,8 @@ namespace CMMManager
                                                              "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
                                                              "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
                                                              "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
-                                                             "[dbo].[tbl_settlement].[CheckNo] IS NOT NULL and [dbo].[tbl_settlement].[CheckDate] IS NOT NULL and " +
+                                                             "([dbo].[tbl_settlement].[CheckNo] IS NOT NULL or [dbo].[tbl_settlement].[CheckNo] <> '') and " +
+                                                             "([dbo].[tbl_settlement].[CheckDate] IS NOT NULL or [dbo].[tbl_settlement].[CheckDate] <> '') and " +
                                                              "([dbo].[tbl_settlement].[CheckReconciled] = 0 or [dbo].[tbl_settlement].[CheckReconciled] IS NULL) and " +
                                                              "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
                                                              "order by [dbo].[tbl_settlement].[CheckNo]";
@@ -20552,17 +20650,30 @@ namespace CMMManager
                 {
                     DataGridViewRow row = new DataGridViewRow();
 
+                    //row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(0) });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(1) });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(2).ToString("MM/dd/yyyy") });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(6).ToString("C") });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(7).ToString("C") });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(8).ToString("C") });
+                    //row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(9).ToString("C") });
+
                     row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(0) });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(1) });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(2).ToString("MM/dd/yyyy") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(6).ToString("C") });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(7).ToString("C") });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(8).ToString("C") });
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(9).ToString("C") });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
+                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
+
 
                     //gvCasePageMedBills.Rows.Add(row);
                     if (IsHandleCreated) AddNewRowToMedBillInCaseSafely(row);
@@ -53527,20 +53638,37 @@ namespace CMMManager
 
         private void UpdateGridViewPaidCheckReconcile()
         {
+            //String strSqlQueryForPaidCheckForReconcile = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+            //                                             "[dbo].[tbl_settlement].[Amount], " +
+            //                                             "[dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], " +
+            //                                             "[dbo].[tbl_settlement].[Notes] " +
+            //                                             "from [dbo].[tbl_settlement] " +
+            //                                             "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[settlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+            //                                             "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+            //                                             "where [dbo].[tbl_settlement].[IsPaid] = 1 and " +
+            //                                             "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+            //                                             "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
+            //                                             "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
+            //                                             "[dbo].[tbl_settlement].[CheckNo] IS NOT NULL and [dbo].[tbl_settlement].[CheckDate] IS NOT NULL and " +
+            //                                             "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
+            //                                             "order by [dbo].[tbl_settlement].[CheckNo]";
+
             String strSqlQueryForPaidCheckForReconcile = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
-                                                         "[dbo].[tbl_settlement].[Amount], " +
-                                                         "[dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], " +
-                                                         "[dbo].[tbl_settlement].[Notes] " +
-                                                         "from [dbo].[tbl_settlement] " +
-                                                         "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[settlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-                                                         "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
-                                                         "where [dbo].[tbl_settlement].[IsPaid] = 1 and " +
-                                                         "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
-                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
-                                                         "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
-                                                         "[dbo].[tbl_settlement].[CheckNo] IS NOT NULL and [dbo].[tbl_settlement].[CheckDate] IS NOT NULL and " +
-                                                         "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
-                                                         "order by [dbo].[tbl_settlement].[CheckNo]";
+                                             "[dbo].[tbl_settlement].[Amount], " +
+                                             "[dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], " +
+                                             "[dbo].[tbl_settlement].[Notes] " +
+                                             "from [dbo].[tbl_settlement] " +
+                                             "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[settlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                             "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+                                             "where [dbo].[tbl_settlement].[IsPaid] = 1 and " +
+                                             "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+                                             "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
+                                             "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
+                                             "([dbo].[tbl_settlement].[CheckNo] IS NOT NULL or [dbo].[tbl_settlement].[CheckNo] <> '') and " +
+                                             "([dbo].[tbl_settlement].[CheckDate] IS NOT NULL or [dbo].[tbl_settlement].[CheckDate] <> '') and " +
+                                             "([dbo].[tbl_settlement].[CheckReconciled] = 0 or [dbo].[tbl_settlement].[CheckReconciled] IS NULL) and " +
+                                             "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
+                                             "order by [dbo].[tbl_settlement].[CheckNo]";
 
             SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN3);
             cmdQueryForPaidCheckForReconcile.CommandType = CommandType.Text;

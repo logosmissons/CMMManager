@@ -649,7 +649,6 @@
             this.lblIneligibleReason = new System.Windows.Forms.Label();
             this.lblPendingReason = new System.Windows.Forms.Label();
             this.lblPhysicalTherapyRxNote = new System.Windows.Forms.Label();
-            this.lblPrescriptionName = new System.Windows.Forms.Label();
             this.lblPrescriptionNote = new System.Windows.Forms.Label();
             this.txtNumPhysicalTherapy = new System.Windows.Forms.TextBox();
             this.txtNumberOfMedication = new System.Windows.Forms.TextBox();
@@ -675,11 +674,12 @@
             this.rbOutpatient = new System.Windows.Forms.RadioButton();
             this.txtMedicalProvider = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
-            this.lblNumberOfPhysicalTheraph = new System.Windows.Forms.Label();
             this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
             this.txtPhysicalTherapyRxNote = new System.Windows.Forms.TextBox();
             this.txtPrescriptionDescription = new System.Windows.Forms.TextBox();
             this.txtMedBillNote = new System.Windows.Forms.TextBox();
+            this.lblPrescriptionName = new System.Windows.Forms.Label();
+            this.lblNumberOfPhysicalTheraph = new System.Windows.Forms.Label();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
             this.btnViewOtherDoc = new System.Windows.Forms.Button();
             this.btnViewMedRecord = new System.Windows.Forms.Button();
@@ -6778,16 +6778,6 @@
             this.lblPhysicalTherapyRxNote.TabIndex = 153;
             this.lblPhysicalTherapyRxNote.Text = "Physical Therapy Rx Note";
             // 
-            // lblPrescriptionName
-            // 
-            this.lblPrescriptionName.AutoSize = true;
-            this.lblPrescriptionName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionName.Location = new System.Drawing.Point(13, 180);
-            this.lblPrescriptionName.Name = "lblPrescriptionName";
-            this.lblPrescriptionName.Size = new System.Drawing.Size(122, 16);
-            this.lblPrescriptionName.TabIndex = 162;
-            this.lblPrescriptionName.Text = "Prescription Name:";
-            // 
             // lblPrescriptionNote
             // 
             this.lblPrescriptionNote.AutoSize = true;
@@ -7024,16 +7014,6 @@
             this.label57.TabIndex = 39;
             this.label57.Text = "Medical Provider:";
             // 
-            // lblNumberOfPhysicalTheraph
-            // 
-            this.lblNumberOfPhysicalTheraph.AutoSize = true;
-            this.lblNumberOfPhysicalTheraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberOfPhysicalTheraph.Location = new System.Drawing.Point(13, 180);
-            this.lblNumberOfPhysicalTheraph.Name = "lblNumberOfPhysicalTheraph";
-            this.lblNumberOfPhysicalTheraph.Size = new System.Drawing.Size(140, 16);
-            this.lblNumberOfPhysicalTheraph.TabIndex = 151;
-            this.lblNumberOfPhysicalTheraph.Text = "# of Physical Therapy:";
-            // 
             // txtPrescriptionNote
             // 
             this.txtPrescriptionNote.Location = new System.Drawing.Point(274, 286);
@@ -7069,6 +7049,26 @@
             this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMedBillNote.Size = new System.Drawing.Size(225, 132);
             this.txtMedBillNote.TabIndex = 50;
+            // 
+            // lblPrescriptionName
+            // 
+            this.lblPrescriptionName.AutoSize = true;
+            this.lblPrescriptionName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrescriptionName.Location = new System.Drawing.Point(13, 180);
+            this.lblPrescriptionName.Name = "lblPrescriptionName";
+            this.lblPrescriptionName.Size = new System.Drawing.Size(122, 16);
+            this.lblPrescriptionName.TabIndex = 162;
+            this.lblPrescriptionName.Text = "Prescription Name:";
+            // 
+            // lblNumberOfPhysicalTheraph
+            // 
+            this.lblNumberOfPhysicalTheraph.AutoSize = true;
+            this.lblNumberOfPhysicalTheraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumberOfPhysicalTheraph.Location = new System.Drawing.Point(13, 180);
+            this.lblNumberOfPhysicalTheraph.Name = "lblNumberOfPhysicalTheraph";
+            this.lblNumberOfPhysicalTheraph.Size = new System.Drawing.Size(140, 16);
+            this.lblNumberOfPhysicalTheraph.TabIndex = 151;
+            this.lblNumberOfPhysicalTheraph.Text = "# of Physical Therapy:";
             // 
             // grpDocumentProcessing
             // 
