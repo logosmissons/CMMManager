@@ -602,19 +602,26 @@ namespace CMMManager
 
     public class IneligibleReasonInfo
     {
-        public int? SelectdId;
+        public int? SelectedId;
         public int? Id;
         public String IneligibleReason;
 
         public IneligibleReasonInfo()
         {
-
+            SelectedId = null;
             Id = null;
             IneligibleReason = String.Empty;
         }
 
         public IneligibleReasonInfo(int id, string ineligible_reason)
         {
+            Id = id;
+            IneligibleReason = ineligible_reason;
+        }
+
+        public IneligibleReasonInfo(int selected_id, int id, string ineligible_reason)
+        {
+            SelectedId = selected_id;
             Id = id;
             IneligibleReason = ineligible_reason;
         }
