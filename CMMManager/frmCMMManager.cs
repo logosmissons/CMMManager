@@ -793,7 +793,14 @@ namespace CMMManager
                 else if (info2.IneligibleReason == null) return 1;
                 else return info1.IneligibleReason.CompareTo(info2.IneligibleReason);
             });
-            
+
+            for (int i = 0; i < lstIneligibleReasonInfo.Count; i++)
+            {
+                lstIneligibleReasonInfo[i].SelectedId = i;
+            }
+            ;
+
+
             PersonalResponsibilityAmountInMedBill = 0;
 
             // Retrieve payment method
@@ -18317,6 +18324,7 @@ namespace CMMManager
 
         private void InitializeMedBillTabOnNewMedBill()
         {
+            txtMedBill_CaseNo.Text = String.Empty;
             txtMedBill_Illness.Text = String.Empty;
             txtMedBill_Incident.Text = String.Empty;
             txtIncdProgram.Text = String.Empty;

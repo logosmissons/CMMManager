@@ -49,6 +49,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.txtIncidentNo = new System.Windows.Forms.TextBox();
             this.chkWellBeing = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.dtpIncdOccurrenceDate = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btnCloseIncident
@@ -73,26 +75,26 @@
             // 
             // txtIncidentNote
             // 
-            this.txtIncidentNote.Location = new System.Drawing.Point(40, 296);
+            this.txtIncidentNote.Location = new System.Drawing.Point(40, 331);
             this.txtIncidentNote.Multiline = true;
             this.txtIncidentNote.Name = "txtIncidentNote";
-            this.txtIncidentNote.Size = new System.Drawing.Size(484, 246);
+            this.txtIncidentNote.Size = new System.Drawing.Size(484, 211);
             this.txtIncidentNote.TabIndex = 27;
             // 
             // txtICD10Code
             // 
             this.txtICD10Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtICD10Code.Location = new System.Drawing.Point(121, 167);
+            this.txtICD10Code.Location = new System.Drawing.Point(144, 166);
             this.txtICD10Code.Name = "txtICD10Code";
             this.txtICD10Code.ReadOnly = true;
-            this.txtICD10Code.Size = new System.Drawing.Size(105, 22);
+            this.txtICD10Code.Size = new System.Drawing.Size(103, 22);
             this.txtICD10Code.TabIndex = 24;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(37, 277);
+            this.label4.Location = new System.Drawing.Point(37, 312);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 16);
             this.label4.TabIndex = 22;
@@ -102,7 +104,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(37, 239);
+            this.label3.Location = new System.Drawing.Point(37, 270);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 16);
             this.label3.TabIndex = 21;
@@ -112,11 +114,12 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 169);
+            this.label2.Location = new System.Drawing.Point(37, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 20;
             this.label2.Text = "ICD10 Code:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label5
             // 
@@ -131,10 +134,10 @@
             // txtICD10Name
             // 
             this.txtICD10Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtICD10Name.Location = new System.Drawing.Point(233, 167);
+            this.txtICD10Name.Location = new System.Drawing.Point(253, 166);
             this.txtICD10Name.Name = "txtICD10Name";
             this.txtICD10Name.ReadOnly = true;
-            this.txtICD10Name.Size = new System.Drawing.Size(291, 22);
+            this.txtICD10Name.Size = new System.Drawing.Size(271, 22);
             this.txtICD10Name.TabIndex = 31;
             // 
             // dtpCreateDate
@@ -142,26 +145,27 @@
             this.dtpCreateDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreateDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreateDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCreateDate.Location = new System.Drawing.Point(121, 237);
+            this.dtpCreateDate.Location = new System.Drawing.Point(144, 268);
             this.dtpCreateDate.Name = "dtpCreateDate";
-            this.dtpCreateDate.Size = new System.Drawing.Size(130, 22);
+            this.dtpCreateDate.Size = new System.Drawing.Size(128, 22);
             this.dtpCreateDate.TabIndex = 32;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(37, 101);
+            this.label6.Location = new System.Drawing.Point(37, 100);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 16);
             this.label6.TabIndex = 34;
             this.label6.Text = "Case No:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(309, 101);
+            this.label7.Location = new System.Drawing.Point(309, 100);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(70, 16);
             this.label7.TabIndex = 36;
@@ -170,16 +174,16 @@
             // txtCaseNo
             // 
             this.txtCaseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaseNo.Location = new System.Drawing.Point(121, 99);
+            this.txtCaseNo.Location = new System.Drawing.Point(144, 98);
             this.txtCaseNo.Name = "txtCaseNo";
             this.txtCaseNo.ReadOnly = true;
-            this.txtCaseNo.Size = new System.Drawing.Size(130, 22);
+            this.txtCaseNo.Size = new System.Drawing.Size(141, 22);
             this.txtCaseNo.TabIndex = 39;
             // 
             // txtIllnessNo
             // 
             this.txtIllnessNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIllnessNo.Location = new System.Drawing.Point(393, 99);
+            this.txtIllnessNo.Location = new System.Drawing.Point(393, 98);
             this.txtIllnessNo.Name = "txtIllnessNo";
             this.txtIllnessNo.ReadOnly = true;
             this.txtIllnessNo.Size = new System.Drawing.Size(130, 22);
@@ -189,26 +193,27 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(37, 204);
+            this.label8.Location = new System.Drawing.Point(37, 202);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(63, 16);
             this.label8.TabIndex = 42;
             this.label8.Text = "Program:";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // comboProgram
             // 
             this.comboProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboProgram.FormattingEnabled = true;
-            this.comboProgram.Location = new System.Drawing.Point(121, 201);
+            this.comboProgram.Location = new System.Drawing.Point(144, 199);
             this.comboProgram.Name = "comboProgram";
-            this.comboProgram.Size = new System.Drawing.Size(130, 24);
+            this.comboProgram.Size = new System.Drawing.Size(128, 24);
             this.comboProgram.TabIndex = 43;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(280, 239);
+            this.label1.Location = new System.Drawing.Point(284, 270);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 16);
             this.label1.TabIndex = 44;
@@ -218,7 +223,7 @@
             // 
             this.dtpModifiedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpModifiedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpModifiedDate.Location = new System.Drawing.Point(409, 237);
+            this.dtpModifiedDate.Location = new System.Drawing.Point(410, 268);
             this.dtpModifiedDate.Name = "dtpModifiedDate";
             this.dtpModifiedDate.Size = new System.Drawing.Size(114, 22);
             this.dtpModifiedDate.TabIndex = 45;
@@ -227,26 +232,27 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(37, 135);
+            this.label9.Location = new System.Drawing.Point(37, 134);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(78, 16);
             this.label9.TabIndex = 46;
             this.label9.Text = "Incident No:";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // txtIncidentNo
             // 
             this.txtIncidentNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIncidentNo.Location = new System.Drawing.Point(121, 133);
+            this.txtIncidentNo.Location = new System.Drawing.Point(144, 132);
             this.txtIncidentNo.Name = "txtIncidentNo";
             this.txtIncidentNo.ReadOnly = true;
-            this.txtIncidentNo.Size = new System.Drawing.Size(136, 22);
+            this.txtIncidentNo.Size = new System.Drawing.Size(141, 22);
             this.txtIncidentNo.TabIndex = 47;
             // 
             // chkWellBeing
             // 
             this.chkWellBeing.AutoSize = true;
             this.chkWellBeing.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkWellBeing.Location = new System.Drawing.Point(283, 205);
+            this.chkWellBeing.Location = new System.Drawing.Point(301, 200);
             this.chkWellBeing.Name = "chkWellBeing";
             this.chkWellBeing.Size = new System.Drawing.Size(92, 20);
             this.chkWellBeing.TabIndex = 48;
@@ -254,11 +260,33 @@
             this.chkWellBeing.UseVisualStyleBackColor = true;
             this.chkWellBeing.CheckedChanged += new System.EventHandler(this.chkWellBeing_CheckedChanged);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(37, 236);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(105, 16);
+            this.label10.TabIndex = 49;
+            this.label10.Text = "Ocurrence Date:";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
+            // 
+            // dtpIncdOccurrenceDate
+            // 
+            this.dtpIncdOccurrenceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpIncdOccurrenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpIncdOccurrenceDate.Location = new System.Drawing.Point(144, 234);
+            this.dtpIncdOccurrenceDate.Name = "dtpIncdOccurrenceDate";
+            this.dtpIncdOccurrenceDate.Size = new System.Drawing.Size(128, 22);
+            this.dtpIncdOccurrenceDate.TabIndex = 50;
+            // 
             // frmIncidentCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 607);
+            this.Controls.Add(this.dtpIncdOccurrenceDate);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.chkWellBeing);
             this.Controls.Add(this.txtIncidentNo);
             this.Controls.Add(this.label9);
@@ -310,5 +338,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtIncidentNo;
         private System.Windows.Forms.CheckBox chkWellBeing;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker dtpIncdOccurrenceDate;
     }
 }
