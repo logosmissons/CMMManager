@@ -618,9 +618,14 @@ namespace CMMManager
                         cmdDeleteIllness.CommandType = CommandType.Text;
                         cmdDeleteIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
+                        if (connRNDB.State != ConnectionState.Closed)
+                        {
+                            connRNDB.Close();
+                            connRNDB.Open();
+                        }
+                        else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
                         int nRowDeleted = cmdDeleteIllness.ExecuteNonQuery();
-
-                        if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                        if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
                     }
                     else if (dlgResultConfirm == DialogResult.No)
                     {
