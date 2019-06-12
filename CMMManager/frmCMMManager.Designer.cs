@@ -55,6 +55,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -841,7 +851,25 @@
             this.CheckPaidCheckDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label124 = new System.Windows.Forms.Label();
-            this.CreditCardReconcilation = new System.Windows.Forms.TabPage();
+            this.tbpgCreditCardReconcilation = new System.Windows.Forms.TabPage();
+            this.tbpgUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.TabPage();
+            this.label129 = new System.Windows.Forms.Label();
+            this.btnUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.Button();
+            this.btnLoadCheckPaymentMemberReimubursement = new System.Windows.Forms.Button();
+            this.gvUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.DataGridView();
+            this.SelectedUndoCheckMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoSettlementNameMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoCheckPaymentCheckNoMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentDateUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbpgUndoCheckPaymentProviderPayment = new System.Windows.Forms.TabPage();
+            this.btnUndoCheckProviderPayment = new System.Windows.Forms.Button();
+            this.btnLoadCheckProviderPayment = new System.Windows.Forms.Button();
+            this.gvUndoCheckPaymentProviderPayment = new System.Windows.Forms.DataGridView();
+            this.label130 = new System.Windows.Forms.Label();
+            this.tbpgUndoPaymentACH = new System.Windows.Forms.TabPage();
+            this.gvUndoACHPayment = new System.Windows.Forms.DataGridView();
+            this.label131 = new System.Windows.Forms.Label();
             this.label147 = new System.Windows.Forms.Label();
             this.tbpgTask = new System.Windows.Forms.TabPage();
             this.btnEvent = new System.Windows.Forms.Button();
@@ -1014,6 +1042,11 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.SelectedUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoSettlementNameProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoCheckNoProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoCheckPaymentDateProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1091,6 +1124,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).BeginInit();
             this.tbpgCheckReconcilation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).BeginInit();
+            this.tbpgUndoCheckPaymentMemberReimbursement.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).BeginInit();
+            this.tbpgUndoCheckPaymentProviderPayment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentProviderPayment)).BeginInit();
+            this.tbpgUndoPaymentACH.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoACHPayment)).BeginInit();
             this.tbpgTask.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTask)).BeginInit();
@@ -7439,7 +7478,10 @@
             this.tabPaymentMethod.Controls.Add(this.tbpgCreditCard);
             this.tabPaymentMethod.Controls.Add(this.tbpgInactive);
             this.tabPaymentMethod.Controls.Add(this.tbpgCheckReconcilation);
-            this.tabPaymentMethod.Controls.Add(this.CreditCardReconcilation);
+            this.tabPaymentMethod.Controls.Add(this.tbpgCreditCardReconcilation);
+            this.tabPaymentMethod.Controls.Add(this.tbpgUndoCheckPaymentMemberReimbursement);
+            this.tabPaymentMethod.Controls.Add(this.tbpgUndoCheckPaymentProviderPayment);
+            this.tabPaymentMethod.Controls.Add(this.tbpgUndoPaymentACH);
             this.tabPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPaymentMethod.Location = new System.Drawing.Point(50, 72);
             this.tabPaymentMethod.Name = "tabPaymentMethod";
@@ -7486,6 +7528,8 @@
             // 
             this.gvPaymentCheckMemberReimbursement.AllowUserToAddRows = false;
             this.gvPaymentCheckMemberReimbursement.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.LightGray;
+            this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             this.gvPaymentCheckMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedPaymentCheck,
@@ -7574,8 +7618,8 @@
             // 
             // AmountPaymentCheck
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle20;
             this.AmountPaymentCheck.HeaderText = "Amount";
             this.AmountPaymentCheck.Name = "AmountPaymentCheck";
             this.AmountPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -7702,6 +7746,8 @@
             // 
             this.gvPaymentCheckProvider.AllowUserToAddRows = false;
             this.gvPaymentCheckProvider.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.LightGray;
+            this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.gvPaymentCheckProvider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckProvider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedProviderPaymentCheck,
@@ -7737,8 +7783,8 @@
             // 
             // SelectedProviderPaymentCheck
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle22;
             this.SelectedProviderPaymentCheck.HeaderText = "Selected";
             this.SelectedProviderPaymentCheck.Name = "SelectedProviderPaymentCheck";
             this.SelectedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -7746,8 +7792,8 @@
             // 
             // ExportedProviderPaymentCheck
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle23;
             this.ExportedProviderPaymentCheck.HeaderText = "Exported";
             this.ExportedProviderPaymentCheck.Name = "ExportedProviderPaymentCheck";
             this.ExportedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -7797,8 +7843,8 @@
             // 
             // AmountProviderPaymentCheck
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle24;
             this.AmountProviderPaymentCheck.HeaderText = "Amount";
             this.AmountProviderPaymentCheck.Name = "AmountProviderPaymentCheck";
             this.AmountProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -7929,6 +7975,8 @@
             // 
             this.gvPaymentACH.AllowUserToAddRows = false;
             this.gvPaymentACH.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.LightGray;
+            this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.gvPaymentACH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentACH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedACHPayment,
@@ -8087,6 +8135,8 @@
             // 
             this.gvPaymentCreditCard.AllowUserToAddRows = false;
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.LightGray;
+            this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CreditCardPaymentConfirm,
@@ -8294,6 +8344,8 @@
             // 
             this.gvPaymentInactive.AllowUserToAddRows = false;
             this.gvPaymentInactive.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.LightGray;
+            this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle27;
             this.gvPaymentInactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentInactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdPaymentInactive,
@@ -8379,6 +8431,8 @@
             // 
             this.gvCheckReconcilation.AllowUserToAddRows = false;
             this.gvCheckReconcilation.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.LightGray;
+            this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
             this.gvCheckReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvCheckReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CheckCleared,
@@ -8419,8 +8473,8 @@
             // 
             // CheckPaidSettlementAmount
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle29;
             this.CheckPaidSettlementAmount.HeaderText = "Amount";
             this.CheckPaidSettlementAmount.Name = "CheckPaidSettlementAmount";
             this.CheckPaidSettlementAmount.ReadOnly = true;
@@ -8462,14 +8516,207 @@
             this.label124.TabIndex = 6;
             this.label124.Text = "Check Paid";
             // 
-            // CreditCardReconcilation
+            // tbpgCreditCardReconcilation
             // 
-            this.CreditCardReconcilation.Location = new System.Drawing.Point(4, 25);
-            this.CreditCardReconcilation.Name = "CreditCardReconcilation";
-            this.CreditCardReconcilation.Size = new System.Drawing.Size(1757, 752);
-            this.CreditCardReconcilation.TabIndex = 6;
-            this.CreditCardReconcilation.Text = "Credit Card Reconcilation";
-            this.CreditCardReconcilation.UseVisualStyleBackColor = true;
+            this.tbpgCreditCardReconcilation.Location = new System.Drawing.Point(4, 25);
+            this.tbpgCreditCardReconcilation.Name = "tbpgCreditCardReconcilation";
+            this.tbpgCreditCardReconcilation.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgCreditCardReconcilation.TabIndex = 6;
+            this.tbpgCreditCardReconcilation.Text = "Credit Card Reconcilation";
+            this.tbpgCreditCardReconcilation.UseVisualStyleBackColor = true;
+            // 
+            // tbpgUndoCheckPaymentMemberReimbursement
+            // 
+            this.tbpgUndoCheckPaymentMemberReimbursement.Controls.Add(this.label129);
+            this.tbpgUndoCheckPaymentMemberReimbursement.Controls.Add(this.btnUndoCheckPaymentMemberReimbursement);
+            this.tbpgUndoCheckPaymentMemberReimbursement.Controls.Add(this.btnLoadCheckPaymentMemberReimubursement);
+            this.tbpgUndoCheckPaymentMemberReimbursement.Controls.Add(this.gvUndoCheckPaymentMemberReimbursement);
+            this.tbpgUndoCheckPaymentMemberReimbursement.Location = new System.Drawing.Point(4, 25);
+            this.tbpgUndoCheckPaymentMemberReimbursement.Name = "tbpgUndoCheckPaymentMemberReimbursement";
+            this.tbpgUndoCheckPaymentMemberReimbursement.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgUndoCheckPaymentMemberReimbursement.TabIndex = 7;
+            this.tbpgUndoCheckPaymentMemberReimbursement.Text = "Undo Check Payment - Member Reimbursement";
+            this.tbpgUndoCheckPaymentMemberReimbursement.UseVisualStyleBackColor = true;
+            // 
+            // label129
+            // 
+            this.label129.AutoSize = true;
+            this.label129.Location = new System.Drawing.Point(31, 40);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(283, 16);
+            this.label129.TabIndex = 3;
+            this.label129.Text = "Check Payment - Member Reimbursement List";
+            // 
+            // btnUndoCheckPaymentMemberReimbursement
+            // 
+            this.btnUndoCheckPaymentMemberReimbursement.Location = new System.Drawing.Point(1584, 679);
+            this.btnUndoCheckPaymentMemberReimbursement.Name = "btnUndoCheckPaymentMemberReimbursement";
+            this.btnUndoCheckPaymentMemberReimbursement.Size = new System.Drawing.Size(141, 38);
+            this.btnUndoCheckPaymentMemberReimbursement.TabIndex = 2;
+            this.btnUndoCheckPaymentMemberReimbursement.Text = "Undo";
+            this.btnUndoCheckPaymentMemberReimbursement.UseVisualStyleBackColor = true;
+            this.btnUndoCheckPaymentMemberReimbursement.Click += new System.EventHandler(this.btnUndoCheckPaymentMemberReimbursement_Click);
+            // 
+            // btnLoadCheckPaymentMemberReimubursement
+            // 
+            this.btnLoadCheckPaymentMemberReimubursement.Location = new System.Drawing.Point(1395, 679);
+            this.btnLoadCheckPaymentMemberReimubursement.Name = "btnLoadCheckPaymentMemberReimubursement";
+            this.btnLoadCheckPaymentMemberReimubursement.Size = new System.Drawing.Size(141, 38);
+            this.btnLoadCheckPaymentMemberReimubursement.TabIndex = 1;
+            this.btnLoadCheckPaymentMemberReimubursement.Text = "Load";
+            this.btnLoadCheckPaymentMemberReimubursement.UseVisualStyleBackColor = true;
+            this.btnLoadCheckPaymentMemberReimubursement.Click += new System.EventHandler(this.btnLoadCheckPaymentMemberReimubursement_Click);
+            // 
+            // gvUndoCheckPaymentMemberReimbursement
+            // 
+            this.gvUndoCheckPaymentMemberReimbursement.AllowUserToAddRows = false;
+            this.gvUndoCheckPaymentMemberReimbursement.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle30;
+            this.gvUndoCheckPaymentMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvUndoCheckPaymentMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedUndoCheckMemberReimbursement,
+            this.AmountUndoCheckPaymentMemberReimbursement,
+            this.UndoSettlementNameMemberReimbursement,
+            this.UndoCheckPaymentCheckNoMemberReimbursement,
+            this.PaymentDateUndoCheckPaymentMemberReimbursement});
+            this.gvUndoCheckPaymentMemberReimbursement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.gvUndoCheckPaymentMemberReimbursement.Location = new System.Drawing.Point(34, 80);
+            this.gvUndoCheckPaymentMemberReimbursement.Name = "gvUndoCheckPaymentMemberReimbursement";
+            this.gvUndoCheckPaymentMemberReimbursement.ReadOnly = true;
+            this.gvUndoCheckPaymentMemberReimbursement.Size = new System.Drawing.Size(1691, 563);
+            this.gvUndoCheckPaymentMemberReimbursement.TabIndex = 0;
+            this.gvUndoCheckPaymentMemberReimbursement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvUndoCheckPaymentMemberReimbursement_CellContentClick);
+            this.gvUndoCheckPaymentMemberReimbursement.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvUndoCheckPaymentMemberReimbursement_ColumnHeaderMouseDoubleClick);
+            // 
+            // SelectedUndoCheckMemberReimbursement
+            // 
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle31;
+            this.SelectedUndoCheckMemberReimbursement.HeaderText = "Selected";
+            this.SelectedUndoCheckMemberReimbursement.Name = "SelectedUndoCheckMemberReimbursement";
+            this.SelectedUndoCheckMemberReimbursement.ReadOnly = true;
+            this.SelectedUndoCheckMemberReimbursement.Width = 80;
+            // 
+            // AmountUndoCheckPaymentMemberReimbursement
+            // 
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle32;
+            this.AmountUndoCheckPaymentMemberReimbursement.HeaderText = "Amount";
+            this.AmountUndoCheckPaymentMemberReimbursement.Name = "AmountUndoCheckPaymentMemberReimbursement";
+            this.AmountUndoCheckPaymentMemberReimbursement.ReadOnly = true;
+            // 
+            // UndoSettlementNameMemberReimbursement
+            // 
+            this.UndoSettlementNameMemberReimbursement.HeaderText = "Settlement Name";
+            this.UndoSettlementNameMemberReimbursement.Name = "UndoSettlementNameMemberReimbursement";
+            this.UndoSettlementNameMemberReimbursement.ReadOnly = true;
+            this.UndoSettlementNameMemberReimbursement.Width = 180;
+            // 
+            // UndoCheckPaymentCheckNoMemberReimbursement
+            // 
+            this.UndoCheckPaymentCheckNoMemberReimbursement.HeaderText = "Check No";
+            this.UndoCheckPaymentCheckNoMemberReimbursement.Name = "UndoCheckPaymentCheckNoMemberReimbursement";
+            this.UndoCheckPaymentCheckNoMemberReimbursement.ReadOnly = true;
+            // 
+            // PaymentDateUndoCheckPaymentMemberReimbursement
+            // 
+            this.PaymentDateUndoCheckPaymentMemberReimbursement.HeaderText = "Payment Date";
+            this.PaymentDateUndoCheckPaymentMemberReimbursement.Name = "PaymentDateUndoCheckPaymentMemberReimbursement";
+            this.PaymentDateUndoCheckPaymentMemberReimbursement.ReadOnly = true;
+            this.PaymentDateUndoCheckPaymentMemberReimbursement.Width = 140;
+            // 
+            // tbpgUndoCheckPaymentProviderPayment
+            // 
+            this.tbpgUndoCheckPaymentProviderPayment.Controls.Add(this.btnUndoCheckProviderPayment);
+            this.tbpgUndoCheckPaymentProviderPayment.Controls.Add(this.btnLoadCheckProviderPayment);
+            this.tbpgUndoCheckPaymentProviderPayment.Controls.Add(this.gvUndoCheckPaymentProviderPayment);
+            this.tbpgUndoCheckPaymentProviderPayment.Controls.Add(this.label130);
+            this.tbpgUndoCheckPaymentProviderPayment.Location = new System.Drawing.Point(4, 25);
+            this.tbpgUndoCheckPaymentProviderPayment.Name = "tbpgUndoCheckPaymentProviderPayment";
+            this.tbpgUndoCheckPaymentProviderPayment.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgUndoCheckPaymentProviderPayment.TabIndex = 8;
+            this.tbpgUndoCheckPaymentProviderPayment.Text = "Undo Check Payment - Provider Payment";
+            this.tbpgUndoCheckPaymentProviderPayment.UseVisualStyleBackColor = true;
+            // 
+            // btnUndoCheckProviderPayment
+            // 
+            this.btnUndoCheckProviderPayment.Location = new System.Drawing.Point(1578, 674);
+            this.btnUndoCheckProviderPayment.Name = "btnUndoCheckProviderPayment";
+            this.btnUndoCheckProviderPayment.Size = new System.Drawing.Size(141, 38);
+            this.btnUndoCheckProviderPayment.TabIndex = 7;
+            this.btnUndoCheckProviderPayment.Text = "Undo";
+            this.btnUndoCheckProviderPayment.UseVisualStyleBackColor = true;
+            // 
+            // btnLoadCheckProviderPayment
+            // 
+            this.btnLoadCheckProviderPayment.Location = new System.Drawing.Point(1389, 674);
+            this.btnLoadCheckProviderPayment.Name = "btnLoadCheckProviderPayment";
+            this.btnLoadCheckProviderPayment.Size = new System.Drawing.Size(141, 38);
+            this.btnLoadCheckProviderPayment.TabIndex = 6;
+            this.btnLoadCheckProviderPayment.Text = "Load";
+            this.btnLoadCheckProviderPayment.UseVisualStyleBackColor = true;
+            this.btnLoadCheckProviderPayment.Click += new System.EventHandler(this.btnLoadCheckProviderPayment_Click);
+            // 
+            // gvUndoCheckPaymentProviderPayment
+            // 
+            this.gvUndoCheckPaymentProviderPayment.AllowUserToAddRows = false;
+            this.gvUndoCheckPaymentProviderPayment.AllowUserToDeleteRows = false;
+            this.gvUndoCheckPaymentProviderPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvUndoCheckPaymentProviderPayment.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedUndoCheckProviderPayment,
+            this.AmountUndoCheckProviderPayment,
+            this.UndoSettlementNameProviderPayment,
+            this.UndoCheckNoProviderPayment,
+            this.UndoCheckPaymentDateProviderPayment});
+            this.gvUndoCheckPaymentProviderPayment.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.gvUndoCheckPaymentProviderPayment.Location = new System.Drawing.Point(40, 65);
+            this.gvUndoCheckPaymentProviderPayment.Name = "gvUndoCheckPaymentProviderPayment";
+            this.gvUndoCheckPaymentProviderPayment.ReadOnly = true;
+            this.gvUndoCheckPaymentProviderPayment.Size = new System.Drawing.Size(1679, 571);
+            this.gvUndoCheckPaymentProviderPayment.TabIndex = 5;
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Location = new System.Drawing.Point(37, 35);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(239, 16);
+            this.label130.TabIndex = 4;
+            this.label130.Text = "Check Payment - Provder Payment List";
+            // 
+            // tbpgUndoPaymentACH
+            // 
+            this.tbpgUndoPaymentACH.Controls.Add(this.gvUndoACHPayment);
+            this.tbpgUndoPaymentACH.Controls.Add(this.label131);
+            this.tbpgUndoPaymentACH.Location = new System.Drawing.Point(4, 25);
+            this.tbpgUndoPaymentACH.Name = "tbpgUndoPaymentACH";
+            this.tbpgUndoPaymentACH.Size = new System.Drawing.Size(1757, 752);
+            this.tbpgUndoPaymentACH.TabIndex = 9;
+            this.tbpgUndoPaymentACH.Text = "Undo ACH Payment";
+            this.tbpgUndoPaymentACH.UseVisualStyleBackColor = true;
+            // 
+            // gvUndoACHPayment
+            // 
+            this.gvUndoACHPayment.AllowUserToAddRows = false;
+            this.gvUndoACHPayment.AllowUserToDeleteRows = false;
+            this.gvUndoACHPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvUndoACHPayment.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.gvUndoACHPayment.Location = new System.Drawing.Point(38, 75);
+            this.gvUndoACHPayment.Name = "gvUndoACHPayment";
+            this.gvUndoACHPayment.ReadOnly = true;
+            this.gvUndoACHPayment.Size = new System.Drawing.Size(1686, 584);
+            this.gvUndoACHPayment.TabIndex = 5;
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Location = new System.Drawing.Point(35, 42);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(92, 16);
+            this.label131.TabIndex = 4;
+            this.label131.Text = "ACH Payment";
             // 
             // label147
             // 
@@ -9492,15 +9739,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle34;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle35;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -9528,8 +9775,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle36;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -9901,6 +10148,43 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // SelectedUndoCheckProviderPayment
+            // 
+            this.SelectedUndoCheckProviderPayment.HeaderText = "Selected";
+            this.SelectedUndoCheckProviderPayment.Name = "SelectedUndoCheckProviderPayment";
+            this.SelectedUndoCheckProviderPayment.ReadOnly = true;
+            this.SelectedUndoCheckProviderPayment.Width = 80;
+            // 
+            // AmountUndoCheckProviderPayment
+            // 
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle33;
+            this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
+            this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
+            this.AmountUndoCheckProviderPayment.ReadOnly = true;
+            this.AmountUndoCheckProviderPayment.Width = 120;
+            // 
+            // UndoSettlementNameProviderPayment
+            // 
+            this.UndoSettlementNameProviderPayment.HeaderText = "SettlementName";
+            this.UndoSettlementNameProviderPayment.Name = "UndoSettlementNameProviderPayment";
+            this.UndoSettlementNameProviderPayment.ReadOnly = true;
+            this.UndoSettlementNameProviderPayment.Width = 180;
+            // 
+            // UndoCheckNoProviderPayment
+            // 
+            this.UndoCheckNoProviderPayment.HeaderText = "Check No";
+            this.UndoCheckNoProviderPayment.Name = "UndoCheckNoProviderPayment";
+            this.UndoCheckNoProviderPayment.ReadOnly = true;
+            this.UndoCheckNoProviderPayment.Width = 160;
+            // 
+            // UndoCheckPaymentDateProviderPayment
+            // 
+            this.UndoCheckPaymentDateProviderPayment.HeaderText = "Payment Date";
+            this.UndoCheckPaymentDateProviderPayment.Name = "UndoCheckPaymentDateProviderPayment";
+            this.UndoCheckPaymentDateProviderPayment.ReadOnly = true;
+            this.UndoCheckPaymentDateProviderPayment.Width = 120;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10026,6 +10310,15 @@
             this.tbpgCheckReconcilation.ResumeLayout(false);
             this.tbpgCheckReconcilation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).EndInit();
+            this.tbpgUndoCheckPaymentMemberReimbursement.ResumeLayout(false);
+            this.tbpgUndoCheckPaymentMemberReimbursement.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).EndInit();
+            this.tbpgUndoCheckPaymentProviderPayment.ResumeLayout(false);
+            this.tbpgUndoCheckPaymentProviderPayment.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentProviderPayment)).EndInit();
+            this.tbpgUndoPaymentACH.ResumeLayout(false);
+            this.tbpgUndoPaymentACH.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUndoACHPayment)).EndInit();
             this.tbpgTask.ResumeLayout(false);
             this.tbpgTask.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
@@ -10956,7 +11249,7 @@
         private System.Windows.Forms.TabPage tbpgCheckReconcilation;
         private System.Windows.Forms.DataGridView gvCheckReconcilation;
         private System.Windows.Forms.Label label124;
-        private System.Windows.Forms.TabPage CreditCardReconcilation;
+        private System.Windows.Forms.TabPage tbpgCreditCardReconcilation;
         private System.Windows.Forms.Button btnReconcile;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckCleared;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckPaidSettlementNo;
@@ -11038,6 +11331,29 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
         private System.Windows.Forms.Button btnUndoPayment;
+        private System.Windows.Forms.TabPage tbpgUndoCheckPaymentMemberReimbursement;
+        private System.Windows.Forms.Button btnUndoCheckPaymentMemberReimbursement;
+        private System.Windows.Forms.Button btnLoadCheckPaymentMemberReimubursement;
+        private System.Windows.Forms.DataGridView gvUndoCheckPaymentMemberReimbursement;
+        private System.Windows.Forms.TabPage tbpgUndoCheckPaymentProviderPayment;
+        private System.Windows.Forms.Label label129;
+        private System.Windows.Forms.DataGridView gvUndoCheckPaymentProviderPayment;
+        private System.Windows.Forms.Label label130;
+        private System.Windows.Forms.TabPage tbpgUndoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SelectedUndoCheckMemberReimbursement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountUndoCheckPaymentMemberReimbursement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UndoSettlementNameMemberReimbursement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UndoCheckPaymentCheckNoMemberReimbursement;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDateUndoCheckPaymentMemberReimbursement;
+        private System.Windows.Forms.Button btnUndoCheckProviderPayment;
+        private System.Windows.Forms.Button btnLoadCheckProviderPayment;
+        private System.Windows.Forms.DataGridView gvUndoACHPayment;
+        private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SelectedUndoCheckProviderPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountUndoCheckProviderPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UndoSettlementNameProviderPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UndoCheckNoProviderPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UndoCheckPaymentDateProviderPayment;
     }
 }
 

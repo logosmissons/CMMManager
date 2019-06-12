@@ -242,6 +242,18 @@
     <Compile Include="frmTaskCreationPage.Designer.cs">
       <DependentUpon>frmTaskCreationPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUndoCheckPaymentMemberReimbursement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUndoCheckPaymentMemberReimbursement.Designer.cs">
+      <DependentUpon>frmUndoCheckPaymentMemberReimbursement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmUndoCheckProviderPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUndoCheckProviderPayment.Designer.cs">
+      <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Individual.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
@@ -326,6 +338,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskCreationPage.resx">
       <DependentUpon>frmTaskCreationPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUndoCheckPaymentMemberReimbursement.resx">
+      <DependentUpon>frmUndoCheckPaymentMemberReimbursement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUndoCheckProviderPayment.resx">
+      <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

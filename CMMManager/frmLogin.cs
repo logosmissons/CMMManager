@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace CMMManager
 {
@@ -30,6 +31,19 @@ namespace CMMManager
 
             connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
             connRN = new SqlConnection(connStringRN);
+
+            String strUserLoginInfoPath = @"C:\RNManagerUserLoginInfo\UserLoginInfo.txt";
+
+            if (File.Exists(strUserLoginInfoPath))
+            {
+                FileStream fs = File.OpenRead(strUserLoginInfoPath);
+
+                StreamReader sr = new StreamReader(fs);
+
+                txtEmail.Text = sr.ReadLine();
+
+                sr.Close();
+            }
         }
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -61,6 +75,24 @@ namespace CMMManager
                 if (!rdrUserInfo.IsDBNull(1)) LoggedInUserName = rdrUserInfo.GetString(1);
                 if (!rdrUserInfo.IsDBNull(2)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(2);
                 if (!rdrUserInfo.IsDBNull(3)) nLoggedInUserDepartmentId = (Department)rdrUserInfo.GetInt16(3);
+
+                String strUserLoginIdFolderHidden = @"C:\RNManagerUserLoginInfo";
+      
+                if (!Directory.Exists(strUserLoginIdFolderHidden))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(strUserLoginIdFolderHidden);
+                    di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+                }
+
+                String strUserLoginInfoPath = @"C:\RNManagerUserLoginInfo\UserLoginInfo.txt";
+
+                FileStream fs = File.Open(strUserLoginInfoPath, FileMode.Create, FileAccess.Write, FileShare.None);
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine(UserEmail);
+                sw.Close();
+                //fs.Close();
+
                 DialogResult = DialogResult.OK;
             }
             else

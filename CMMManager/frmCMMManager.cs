@@ -20,7 +20,7 @@ using PdfSharp.Charting;
 //using MigraDoc.DocumentObjectModel;
 using MigraDoc.Rendering;
 using MigraDoc.RtfRendering;
-
+//using System.Threading;
 
 //using Windows.Devices.Enumeration;
 //using Windows.Devices.Scanners;
@@ -470,14 +470,25 @@ namespace CMMManager
             lstICD10CodeInfo = new List<ICD10CodeInfo>();
 
             //rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True";
-            rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str5 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str6 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_str7 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
-            rn_cnn_strLimitedSharing = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            //Data Source = 12.230.174.166\cmm; Initial Catalog = RN_DB; Integrated Security = True
+
+            //rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str5 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str6 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_str7 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200";
+            //rn_cnn_strLimitedSharing = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+
+            rn_cnn_str = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str2 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str3 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str4 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str5 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str6 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_str7 = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            rn_cnn_strLimitedSharing = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True";
 
 
             connRN = new SqlConnection(rn_cnn_str);
@@ -490,10 +501,15 @@ namespace CMMManager
             connRNLimitedSharing = new SqlConnection(rn_cnn_strLimitedSharing);
 
 
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
-            connStringSalesforce2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
-            connStringSalesforce3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
-            connStringSalesforce4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+            //connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+            //connStringSalesforce2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+            //connStringSalesforce3 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+            //connStringSalesforce4 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+
+            connStringSalesforce = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
+            connStringSalesforce2 = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
+            connStringSalesforce3 = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
+            connStringSalesforce4 = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
 
 
             connSalesforce = new SqlConnection(connStringSalesforce);
@@ -1153,7 +1169,7 @@ namespace CMMManager
             rbDeclined.Checked = false;
             rbAccepted.Checked = false;
 
-            gvUserModifiedDateHistory.Rows.Clear();
+            gvUserModifiedDateHistory.DataSource = null;
 
             gvMostRecentTasks.Rows.Clear();
 
@@ -3492,6 +3508,13 @@ namespace CMMManager
                     tbCMMManager.TabPages.Remove(tbpgDashboardFDStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardNPStaff);
                     tbCMMManager.TabPages.Remove(tbpgDashboardRNStaff);
+                    EnableIllnessView();
+                    EnableIncidentView();
+                    EnableIndividualView();
+                    EnableCaseView();
+                    EnableCaseForm();
+                    EnableMedicalBillForm();
+                    btnUndoPayment.Enabled = true;
                 }
 
                 if (LoggedInUserRole == UserRole.NPManager)
@@ -5160,26 +5183,26 @@ namespace CMMManager
                                                              "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
                                                              "order by [dbo].[tbl_settlement].[CheckNo]";
 
-                //SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN3);
-                SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN);
+                SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN3);
+                //SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN);
                 cmdQueryForPaidCheckForReconcile.CommandType = CommandType.Text;
 
                 SqlDependency dependencyPaidCheckForReconcile = new SqlDependency(cmdQueryForPaidCheckForReconcile);
                 dependencyPaidCheckForReconcile.OnChange += new OnChangeEventHandler(OnPaidCheckForReconcileChange);
 
                 gvCheckReconcilation.Rows.Clear();
-                //if (connRN3.State != ConnectionState.Closed)
-                //{
-                //    connRN3.Close();
-                //    connRN3.Open();
-                //}
-                //else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-                if (connRN.State != ConnectionState.Closed)
+                if (connRN3.State != ConnectionState.Closed)
                 {
-                    connRN.Close();
-                    connRN.Open();
+                    connRN3.Close();
+                    connRN3.Open();
                 }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
+                //if (connRN.State != ConnectionState.Closed)
+                //{
+                //    connRN.Close();
+                //    connRN.Open();
+                //}
+                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
                 SqlDataReader rdrCheckPaidForReconcile = cmdQueryForPaidCheckForReconcile.ExecuteReader();
                 if (rdrCheckPaidForReconcile.HasRows)
                 {
@@ -5197,8 +5220,8 @@ namespace CMMManager
                         gvCheckReconcilation.Rows.Add(row);
                     }
                 }
-                //if (connRN3.State != ConnectionState.Closed) connRN3.Close();
-                if (connRN3.State != ConnectionState.Closed) connRN.Close();
+                if (connRN3.State != ConnectionState.Closed) connRN3.Close();
+                //if (connRN3.State != ConnectionState.Closed) connRN.Close();
 
 
                 pdfBlueSheetViewer.src = "C:\\Program Files (x86)\\RN\\RNManager\\blank.pdf";
@@ -6108,6 +6131,7 @@ namespace CMMManager
             grpICD10Code.Enabled = false;
             grpPatientInfo.Enabled = false;
             grpMedBillDocuments.Enabled = false;
+            btnUndoPayment.Enabled = false;
 
         }
 
@@ -18803,9 +18827,9 @@ namespace CMMManager
                     gvSettlementsInMedBill["Approved", gvSettlementsInMedBill.Rows.Count - 1].ReadOnly = true;
 
                     if (LoggedInUserRole == UserRole.RNManager ||
-                        LoggedInUserRole == UserRole.NPManager ||
-                        LoggedInUserRole == UserRole.FDManager ||
-                        LoggedInUserRole == UserRole.MSManager ||
+                        //LoggedInUserRole == UserRole.NPManager ||
+                        //LoggedInUserRole == UserRole.FDManager ||
+                        //LoggedInUserRole == UserRole.MSManager ||
                         LoggedInUserRole == UserRole.Administrator ||
                         LoggedInUserRole == UserRole.SuperAdmin ||
                         LoggedInUserRole == UserRole.Executive)
@@ -18826,7 +18850,41 @@ namespace CMMManager
                     else if (LoggedInUserRole == UserRole.RNStaff ||
                              LoggedInUserRole == UserRole.NPStaff ||
                              LoggedInUserRole == UserRole.FDStaff ||
-                             LoggedInUserRole == UserRole.MSStaff) approvedCell.ReadOnly = true;
+                             LoggedInUserRole == UserRole.MSStaff ||
+                             LoggedInUserRole == UserRole.NPManager ||
+                             LoggedInUserRole == UserRole.FDManager ||
+                             LoggedInUserRole == UserRole.MSManager) approvedCell.ReadOnly = true;
+
+                    //if (nLoggedUserId == 37)
+                    //{
+                    //    if (gvSettlementsInMedBill["SettlementTypeValue", gvSettlementsInMedBill.Rows.Count - 1]?.Value?.ToString() == "CMM Member Reimbursement" &&
+                    //       (gvSettlementsInMedBill["PaymentMethod", gvSettlementsInMedBill.Rows.Count - 1]?.Value?.ToString() == "Check" ||
+                    //        gvSettlementsInMedBill["PaymentMethod", gvSettlementsInMedBill.Rows.Count - 1]?.Value?.ToString() == "ACH/Banking"))
+                    //    {
+                    //        String strIncdName = txtMedBill_Incident.Text.Trim();
+
+                    //        String strSqlQueryForWellBeing = "select [dbo].[tbl_incident].[IsWellBeing] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentName";
+
+                    //        SqlCommand cmdQueryForWellBeing = new SqlCommand(strSqlQueryForWellBeing, connRN4);
+                    //        cmdQueryForWellBeing.CommandType = CommandType.Text;
+
+                    //        if (connRN4.State != ConnectionState.Closed)
+                    //        {
+                    //            connRN4.Close();
+                    //            connRN4.Open();
+                    //        }
+                    //        else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                    //        Object objIsWellBeing = cmdQueryForWellBeing.ExecuteScalar();
+                    //        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                    //        Boolean? IsWellBeing = null;
+                    //        if (objIsWellBeing != null) IsWellBeing = Boolean.Parse(objIsWellBeing.ToString());
+
+                    //        if (IsWellBeing == true) approvedCell.ReadOnly = false;
+                    //        else approvedCell.ReadOnly = true;
+                    //    }
+                    //}
+
 
                     CalendarCell calendarCell = new CalendarCell();
                     gvSettlementsInMedBill["ApprovedDate", gvSettlementsInMedBill.Rows.Count - 1] = calendarCell;
@@ -19774,7 +19832,7 @@ namespace CMMManager
         {
             if (gvSettlementsInMedBill.Rows.Count > 0)
             {
-                if (e.ColumnIndex == 2)     // if the settlement is ineligible, change background color to red
+                if (e.ColumnIndex == 2)     
                 {
                     if ((gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "CMM Provider Payment" ||
                          gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "CMM Member Reimbursement" ||
@@ -19786,7 +19844,7 @@ namespace CMMManager
                     else
                         gvSettlementsInMedBill[6, e.RowIndex].ReadOnly = true;
 
-                    if (gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "Ineligible")
+                    if (gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "Ineligible")  // if the settlement is ineligible, change background color to light pink
                     {
                         if (dicIneligibleReason.Count > 0)
                         {
@@ -19831,6 +19889,47 @@ namespace CMMManager
                         gvSettlementsInMedBill["Approved", e.RowIndex].ReadOnly = false;
                         gvSettlementsInMedBill["ApprovedDate", e.RowIndex].ReadOnly = false;
                     }
+                    //return;
+
+                    if (gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "CMM Member Reimbursement" ||
+                         gvSettlementsInMedBill[2, e.RowIndex]?.Value?.ToString() == "PR Reimbursement")
+                    {
+
+                        String IndividualIdForReimbursementMethod = txtIndividualIDMedBill.Text.Trim();
+
+                        String strSqlQueryForReimbursementMethod = "select [dbo].[contact].[ReimbursementMethod__c] from [dbo].[contact] " +
+                                                                   "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                        SqlCommand cmdQueryForReimbursementMethod = new SqlCommand(strSqlQueryForReimbursementMethod, connSalesforce3);
+                        cmdQueryForReimbursementMethod.CommandType = CommandType.Text;
+
+                        cmdQueryForReimbursementMethod.Parameters.AddWithValue("@IndividualId", IndividualIdForReimbursementMethod);
+
+                        if (connSalesforce3.State != ConnectionState.Closed)
+                        {
+                            connSalesforce3.Close();
+                            connSalesforce3.Open();
+                        }
+                        else if (connSalesforce3.State == ConnectionState.Closed) connSalesforce3.Open();
+                        Object objReimbursementMethod = cmdQueryForReimbursementMethod.ExecuteScalar();
+                        if (connSalesforce3.State != ConnectionState.Closed) connSalesforce.Close();
+
+                        String ReimbursementMethod = String.Empty;
+                        if (objReimbursementMethod != null)
+                        {
+                            ReimbursementMethod = objReimbursementMethod.ToString();
+
+                            if (ReimbursementMethod.ToUpper() == "CHECK")
+                            {
+                                gvSettlementsInMedBill["PaymentMethod", e.RowIndex].Value = "Check";
+                            }
+                            else if (ReimbursementMethod.ToUpper() == "ACH/BANKING")
+                            {
+                                gvSettlementsInMedBill["PaymentMethod", e.RowIndex].Value = "ACH/Banking";
+                            }
+                        }
+                    }
+
                     return;
                 }
                 if (e.ColumnIndex == 3)     // show alert if the settlement amount total exceed med bill amount
@@ -22136,6 +22235,34 @@ namespace CMMManager
                             if (LoggedInUserRole == UserRole.SuperAdmin || LoggedInUserRole == UserRole.RNManager) row.Cells[6].ReadOnly = false;
                             else row.Cells[6].ReadOnly = true;
 
+                            //if (nLoggedUserId == 37)
+                            //{
+                            //    String IncidentNoForWellBeing = txtMedBill_Incident.Text.Trim();
+
+                            //    String strSqlQueryForIsWellBeing = "select [dbo].[tbl_incident].[IsWellBeing] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                            //    SqlCommand cmdQueryForIsWellBeing = new SqlCommand(strSqlQueryForIsWellBeing, connRN5);
+                            //    cmdQueryForIsWellBeing.CommandType = CommandType.Text;
+
+                            //    cmdQueryForIsWellBeing.Parameters.AddWithValue("@IncidentNo", IncidentNoForWellBeing);
+
+                            //    if (connRN5.State != ConnectionState.Closed)
+                            //    {
+                            //        connRN5.Close();
+                            //        connRN5.Open();
+                            //    }
+                            //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            //    Object objIsWellBeing = cmdQueryForIsWellBeing.ExecuteScalar();
+                            //    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            //    Boolean? bIsWellBeing = null;
+                            //    if (objIsWellBeing != null) bIsWellBeing = Boolean.Parse(objIsWellBeing.ToString());
+
+                            //    if (bIsWellBeing == true) row.Cells[6].ReadOnly = false;
+                            //    else row.Cells[6].ReadOnly = true;
+                                    
+                            //}
+
                             //if (LoggedInUserRole == UserRole.RNStaff ||
                             //    LoggedInUserRole == UserRole.NPStaff ||
                             //    LoggedInUserRole == UserRole.FDStaff ||
@@ -22159,6 +22286,36 @@ namespace CMMManager
                             row.Cells.Add(approvedCell);
                             if (LoggedInUserRole == UserRole.SuperAdmin || LoggedInUserRole == UserRole.RNManager) row.Cells[6].ReadOnly = false;
                             else row.Cells[6].ReadOnly = true;
+
+                            //if (nLoggedUserId == 37)
+                            //{
+                            //    String IncidentNoForWellBeing = txtMedBill_Incident.Text.Trim();
+
+                            //    String strSqlQueryForIsWellBeing = "select [dbo].[tbl_incident].[IsWellBeing] from [dbo].[tbl_incident] where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo";
+
+                            //    SqlCommand cmdQueryForIsWellBeing = new SqlCommand(strSqlQueryForIsWellBeing, connRN5);
+                            //    cmdQueryForIsWellBeing.CommandType = CommandType.Text;
+
+                            //    cmdQueryForIsWellBeing.Parameters.AddWithValue("@IncidentNo", IncidentNoForWellBeing);
+
+                            //    if (connRN5.State != ConnectionState.Closed)
+                            //    {
+                            //        connRN5.Close();
+                            //        connRN5.Open();
+                            //    }
+                            //    else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            //    Object objIsWellBeing = cmdQueryForIsWellBeing.ExecuteScalar();
+                            //    if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            //    Boolean? bIsWellBeing = null;
+                            //    if (objIsWellBeing != null) bIsWellBeing = Boolean.Parse(objIsWellBeing.ToString());
+
+                            //    if (bIsWellBeing == true) row.Cells[6].ReadOnly = false;
+                            //    else row.Cells[6].ReadOnly = true;
+
+                            //}
+
+
 
                             //if (LoggedInUserRole == UserRole.RNStaff ||
                             //    LoggedInUserRole == UserRole.NPStaff ||
@@ -28144,7 +28301,14 @@ namespace CMMManager
                         if (!rdrIndividualInfo.IsDBNull(4)) txtPowerOfAttorney.Text = rdrIndividualInfo.GetString(4).Trim();
                         if (!rdrIndividualInfo.IsDBNull(5)) txtRelationship.Text = rdrIndividualInfo.GetString(5).Trim();
 
-                        if (!rdrIndividualInfo.IsDBNull(6)) cbReimbursementMethod.SelectedItem = rdrIndividualInfo.GetString(6);
+                        if (!rdrIndividualInfo.IsDBNull(6))
+                        {
+                            //cbReimbursementMethod.SelectedItem = rdrIndividualInfo.GetString(6);
+                            String ReimbursementMethod = rdrIndividualInfo.GetString(6);
+
+                            if (ReimbursementMethod.ToUpper() == "CHECK") cbReimbursementMethod.SelectedIndex = 0;
+                            else if (ReimbursementMethod.ToUpper() == "ACH/BANKING") cbReimbursementMethod.SelectedIndex = 1;
+                        }
 
                         if (!rdrIndividualInfo.IsDBNull(7))
                         {
@@ -53835,62 +53999,6 @@ namespace CMMManager
             }
         }
 
-        //private void UpdateGridViewPaidCheckReconcile()
-        //{
-
-        //    String strSqlQueryForPaidCheckForReconcile = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
-        //                                     "[dbo].[tbl_settlement].[Amount], " +
-        //                                     "[dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], " +
-        //                                     "[dbo].[tbl_settlement].[Notes] " +
-        //                                     "from [dbo].[tbl_settlement] " +
-        //                                     "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[settlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
-        //                                     "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
-        //                                     "where [dbo].[tbl_settlement].[IsPaid] = 1 and " +
-        //                                     "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
-        //                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
-        //                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
-        //                                     "([dbo].[tbl_settlement].[CheckNo] IS NOT NULL or [dbo].[tbl_settlement].[CheckNo] <> '') and " +
-        //                                     "([dbo].[tbl_settlement].[CheckDate] IS NOT NULL or [dbo].[tbl_settlement].[CheckDate] <> '') and " +
-        //                                     "([dbo].[tbl_settlement].[CheckReconciled] = 0 or [dbo].[tbl_settlement].[CheckReconciled] IS NULL) and " +
-        //                                     "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
-        //                                     "order by [dbo].[tbl_settlement].[CheckNo]";
-
-        //    SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN3);
-        //    cmdQueryForPaidCheckForReconcile.CommandType = CommandType.Text;
-
-        //    SqlDependency dependencyPaidCheckForReconcile = new SqlDependency(cmdQueryForPaidCheckForReconcile);
-        //    dependencyPaidCheckForReconcile.OnChange += new OnChangeEventHandler(OnPaidCheckForReconcileChange);
-
-        //    if (IsHandleCreated) RemoveAllPaidCheckReconcileSafely();
-        //    else gvCheckReconcilation.Rows.Clear();
-        //    if (connRN3.State != ConnectionState.Closed)
-        //    {
-        //        connRN3.Close();
-        //        connRN3.Open();
-        //    }
-        //    else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
-        //    SqlDataReader rdrCheckPaidForReconcile = cmdQueryForPaidCheckForReconcile.ExecuteReader();
-        //    if (rdrCheckPaidForReconcile.HasRows)
-        //    {
-        //        while (rdrCheckPaidForReconcile.Read())
-        //        {
-        //            DataGridViewRow row = new DataGridViewRow();
-        //            row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-        //            //if (!rdrCheckPaidForReconcile.IsDBNull(0)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrCheckPaidForReconcile.GetBoolean(0) });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(0) });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(1) });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetDecimal(2).ToString("C") });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(3) });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(4) });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetDateTime(5).ToString("MM/dd/yyyy") });
-        //            if (!rdrCheckPaidForReconcile.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(6) });
-        //            if (IsHandleCreated) AddRowToPaidCheckReconcileSafely(row);
-        //            else gvCheckReconcilation.Rows.Add(row);
-        //        }
-        //    }
-        //    if (connRN3.State != ConnectionState.Closed) connRN3.Close();
-        //}
-
         private void UpdateGridViewPaidCheckReconcile()
         {
 
@@ -53911,7 +54019,7 @@ namespace CMMManager
                                              "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
                                              "order by [dbo].[tbl_settlement].[CheckNo]";
 
-            SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN);
+            SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN3);
             cmdQueryForPaidCheckForReconcile.CommandType = CommandType.Text;
 
             SqlDependency dependencyPaidCheckForReconcile = new SqlDependency(cmdQueryForPaidCheckForReconcile);
@@ -53919,12 +54027,12 @@ namespace CMMManager
 
             if (IsHandleCreated) RemoveAllPaidCheckReconcileSafely();
             else gvCheckReconcilation.Rows.Clear();
-            if (connRN.State != ConnectionState.Closed)
+            if (connRN3.State != ConnectionState.Closed)
             {
-                connRN.Close();
-                connRN.Open();
+                connRN3.Close();
+                connRN3.Open();
             }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            else if (connRN3.State == ConnectionState.Closed) connRN3.Open();
             SqlDataReader rdrCheckPaidForReconcile = cmdQueryForPaidCheckForReconcile.ExecuteReader();
             if (rdrCheckPaidForReconcile.HasRows)
             {
@@ -53944,8 +54052,64 @@ namespace CMMManager
                     else gvCheckReconcilation.Rows.Add(row);
                 }
             }
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+            if (connRN3.State != ConnectionState.Closed) connRN3.Close();
         }
+
+        //private void UpdateGridViewPaidCheckReconcile()
+        //{
+
+        //    String strSqlQueryForPaidCheckForReconcile = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
+        //                                     "[dbo].[tbl_settlement].[Amount], " +
+        //                                     "[dbo].[tbl_medbill].[Individual_Id], [dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], " +
+        //                                     "[dbo].[tbl_settlement].[Notes] " +
+        //                                     "from [dbo].[tbl_settlement] " +
+        //                                     "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[settlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+        //                                     "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
+        //                                     "where [dbo].[tbl_settlement].[IsPaid] = 1 and " +
+        //                                     "([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment' or " +
+        //                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
+        //                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
+        //                                     "([dbo].[tbl_settlement].[CheckNo] IS NOT NULL or [dbo].[tbl_settlement].[CheckNo] <> '') and " +
+        //                                     "([dbo].[tbl_settlement].[CheckDate] IS NOT NULL or [dbo].[tbl_settlement].[CheckDate] <> '') and " +
+        //                                     "([dbo].[tbl_settlement].[CheckReconciled] = 0 or [dbo].[tbl_settlement].[CheckReconciled] IS NULL) and " +
+        //                                     "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
+        //                                     "order by [dbo].[tbl_settlement].[CheckNo]";
+
+        //    SqlCommand cmdQueryForPaidCheckForReconcile = new SqlCommand(strSqlQueryForPaidCheckForReconcile, connRN);
+        //    cmdQueryForPaidCheckForReconcile.CommandType = CommandType.Text;
+
+        //    SqlDependency dependencyPaidCheckForReconcile = new SqlDependency(cmdQueryForPaidCheckForReconcile);
+        //    dependencyPaidCheckForReconcile.OnChange += new OnChangeEventHandler(OnPaidCheckForReconcileChange);
+
+        //    if (IsHandleCreated) RemoveAllPaidCheckReconcileSafely();
+        //    else gvCheckReconcilation.Rows.Clear();
+        //    if (connRN.State != ConnectionState.Closed)
+        //    {
+        //        connRN.Close();
+        //        connRN.Open();
+        //    }
+        //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+        //    SqlDataReader rdrCheckPaidForReconcile = cmdQueryForPaidCheckForReconcile.ExecuteReader();
+        //    if (rdrCheckPaidForReconcile.HasRows)
+        //    {
+        //        while (rdrCheckPaidForReconcile.Read())
+        //        {
+        //            DataGridViewRow row = new DataGridViewRow();
+        //            row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+        //            //if (!rdrCheckPaidForReconcile.IsDBNull(0)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrCheckPaidForReconcile.GetBoolean(0) });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(0) });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(1) });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetDecimal(2).ToString("C") });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(3) });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(4) });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetDateTime(5).ToString("MM/dd/yyyy") });
+        //            if (!rdrCheckPaidForReconcile.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaidForReconcile.GetString(6) });
+        //            if (IsHandleCreated) AddRowToPaidCheckReconcileSafely(row);
+        //            else gvCheckReconcilation.Rows.Add(row);
+        //        }
+        //    }
+        //    if (connRN.State != ConnectionState.Closed) connRN.Close();
+        //}
 
         
         /// <summary>
@@ -57875,11 +58039,265 @@ namespace CMMManager
                         }
                         else
                         {
-                            
+                            SettlementToUndoPayment = gvSettlementsInMedBill["SettlementName", i]?.Value?.ToString();
+
+                            String strSqlUpdateUndoPaymentSettlement = "update [dbo].[tbl_settlement] " +
+                                                                       "set [dbo].[tbl_settlement].[IsPaid] = NULL, [dbo].[tbl_settlement].[PaidByID] = NULL, " +
+                                                                       "[dbo].[tbl_settlement].[CheckNo] = NULL, [dbo].[tbl_settlement].[CheckDate] = NULL, " +
+                                                                       "[dbo].[tbl_settlement].[CheckReconciled] = 0, " +
+                                                                       "[dbo].[tbl_settlement].[ACH_Number] = NULL, [dbo].[tbl_settlement].[ACH_Date] = NULL, " +
+                                                                       "[dbo].[tbl_settlement].[ACH_Reconciled] = 0, " +
+                                                                       "[dbo].[tbl_settlement].[CMMCreditCard] = 0, [dbo].[tbl_settlement].[CMMCreditCardPaidDate] = NULL, " +
+                                                                       "[dbo].[tbl_settlement].[CC_Reconciled] = 0 " +
+                                                                       "where [dbo].[tbl_settlement].[Name] = @SettlementToUndoPayment";
+
+                            SqlCommand cmdUpdateUndoPaymentSettlement = new SqlCommand(strSqlUpdateUndoPaymentSettlement, connRN5);
+                            cmdUpdateUndoPaymentSettlement.CommandType = CommandType.Text;
+
+                            cmdUpdateUndoPaymentSettlement.Parameters.AddWithValue("@SettlementToUndoPayment", SettlementToUndoPayment);
+
+                            if (connRN5.State != ConnectionState.Closed)
+                            {
+                                connRN5.Close();
+                                connRN5.Open();
+                            }
+                            else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                            int nUndoPaymentSettlement = cmdUpdateUndoPaymentSettlement.ExecuteNonQuery();
+                            if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                            if (nUndoPaymentSettlement == 1)
+                            {
+                                MessageBox.Show("The payment settlement: " + SettlementToUndoPayment + " has been undone successfully.", "Info");
+                                return;
+                            }
+                            else if (nUndoPaymentSettlement == 0)
+                            {
+                                MessageBox.Show("The payment settlement: " + SettlementToUndoPayment + " has not been undone.", "Error");
+                            }
+                                                                
                         }
                     }
                 }
             }
+        }
+
+        private void btnLoadCheckPaymentMemberReimubursement_Click(object sender, EventArgs e)
+        {
+            frmUndoCheckPaymentMemberReimbursement frmUndoCheckDate = new frmUndoCheckPaymentMemberReimbursement();
+            frmUndoCheckDate.StartPosition = FormStartPosition.CenterParent;
+
+            if (frmUndoCheckDate.ShowDialog() == DialogResult.OK)
+            {
+                DateTime CheckDate = frmUndoCheckDate.CheckDate;
+
+                String strSqlQueryForCheckPaymentSettlementForCheckDate = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[Name], " +
+                                                                          "[dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate] " +
+                                                                          "from [dbo].[tbl_settlement] " +
+                                                                          "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                          "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                          "inner join [dbo].[tbl_payment_method] " +
+                                                                          "on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_id] " +
+                                                                          "where ([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Member Reimbursement' or " +
+                                                                          "[dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'PR Reimbursement') and " +
+                                                                          "[dbo].[tbl_payment_method].[PaymentMethod_Value] = 'Check' and " +
+                                                                          "[dbo].[tbl_settlement].[IsPaid] IS NOT NULL and " +
+                                                                          "[dbo].[tbl_settlement].[PaidByID] IS NOT NULL and " +
+                                                                          "[dbo].[tbl_settlement].[CheckNo] IS NOT NULL and " +
+                                                                          "cast([dbo].[tbl_settlement].[CheckDate] as date) = @CheckPaymentDate " +
+                                                                          "order by [dbo].[tbl_settlement].[Name]";
+
+                SqlCommand cmdQueryForCheckPaymentSettlementForCheckDate = new SqlCommand(strSqlQueryForCheckPaymentSettlementForCheckDate, connRN7);
+                cmdQueryForCheckPaymentSettlementForCheckDate.CommandType = CommandType.Text;
+
+                cmdQueryForCheckPaymentSettlementForCheckDate.Parameters.AddWithValue("@CheckPaymentDate", CheckDate.ToString("yyyy-MM-dd"));
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrCheckPaymentSettlement = cmdQueryForCheckPaymentSettlementForCheckDate.ExecuteReader();
+                if (rdrCheckPaymentSettlement.HasRows)
+                {
+                    while (rdrCheckPaymentSettlement.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        if (!rdrCheckPaymentSettlement.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaymentSettlement.GetDecimal(0).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCheckPaymentSettlement.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaymentSettlement.GetString(1) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCheckPaymentSettlement.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaymentSettlement.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrCheckPaymentSettlement.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCheckPaymentSettlement.GetDateTime(3).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvUndoCheckPaymentMemberReimbursement.Rows.Add(row);
+                    }
+                }
+                rdrCheckPaymentSettlement.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+            }
+            else return;
+        }
+
+        private void gvUndoCheckPaymentMemberReimbursement_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            {
+                if (Boolean.Parse(gvUndoCheckPaymentMemberReimbursement[e.ColumnIndex, e.RowIndex].Value.ToString()) == true)
+                {
+                    gvUndoCheckPaymentMemberReimbursement[e.ColumnIndex, e.RowIndex].Value = false;
+                    return;
+                }
+                else
+                {
+                    gvUndoCheckPaymentMemberReimbursement[e.ColumnIndex, e.RowIndex].Value = true;
+                    return;
+                }
+            }
+        }
+
+        private void gvUndoCheckPaymentMemberReimbursement_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            Boolean bAllCheckPaymentSelected = true;
+
+            if (e.ColumnIndex == 0)
+            {
+                for (int i = 0; i < gvUndoCheckPaymentMemberReimbursement.Rows.Count; i++)
+                {
+                    if (Boolean.Parse(gvUndoCheckPaymentMemberReimbursement["SelectedUndoCheckMemberReimbursement", i]?.Value?.ToString()) == false) bAllCheckPaymentSelected = false;
+                }
+
+                if (bAllCheckPaymentSelected == false)
+                {
+                    for (int i = 0; i < gvUndoCheckPaymentMemberReimbursement.Rows.Count; i++)
+                    {
+                        gvUndoCheckPaymentMemberReimbursement["SelectedUndoCheckMemberReimbursement", i].Value = true;
+                    }
+                }
+                else if (bAllCheckPaymentSelected == true)
+                {
+                    for (int i = 0; i < gvUndoCheckPaymentMemberReimbursement.Rows.Count; i++)
+                    {
+                        gvUndoCheckPaymentMemberReimbursement["SelectedUndoCheckMemberReimbursement", i].Value = false;
+                    }
+                }
+            }
+        }
+
+        private void btnUndoCheckPaymentMemberReimbursement_Click(object sender, EventArgs e)
+        {
+            List<String> lstCheckPaymentSettlements = new List<string>();
+
+            for (int i = 0; i < gvUndoCheckPaymentMemberReimbursement.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvUndoCheckPaymentMemberReimbursement["SelectedUndoCheckMemberReimbursement", i].Value.ToString()) == true)
+                    lstCheckPaymentSettlements.Add(gvUndoCheckPaymentMemberReimbursement["UndoSettlementNameMemberReimbursement", i]?.Value?.ToString());
+            }
+
+            Boolean bUndoSucceeded = true;
+            foreach (String settlement in lstCheckPaymentSettlements)
+            {
+                String strSqlUpdateUndoSettlementPaymentCheck = "update [dbo].[tbl_settlement] " +
+                                                                "set [dbo].[tbl_settlement].[IsPaid] = NULL, [dbo].[tbl_settlement].[PaidByID] = NULL, " +
+                                                                "[dbo].[tbl_settlement].[CheckNo] = NULL, [dbo].[tbl_settlement].[CheckDate] = NULL, " +
+                                                                "[dbo].[tbl_settlement].[CheckReconciled] = 0, " +
+                                                                "[dbo].[tbl_settlement].[ACH_Number] = NULL, [dbo].[tbl_settlement].[ACH_Date] = NULL, " +
+                                                                "[dbo].[tbl_settlement].[ACH_Reconciled] = 0, " +
+                                                                "[dbo].[tbl_settlement].[CMMCreditCard] = 0, [dbo].[tbl_settlement].[CMMCreditCardPaidDate] = NULL, " +
+                                                                "[dbo].[tbl_settlement].[CC_Reconciled] = 0 " +
+                                                                "where [dbo].[tbl_settlement].[Name] = @SettlementToUndoCheckPayment";
+
+                SqlCommand cmdUpdateUndoSettlementPaymentCheck = new SqlCommand(strSqlUpdateUndoSettlementPaymentCheck, connRN7);
+                cmdUpdateUndoSettlementPaymentCheck.CommandType = CommandType.Text;
+
+                cmdUpdateUndoSettlementPaymentCheck.Parameters.AddWithValue("@SettlementToUndoCheckPayment", settlement);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                int nUndoneRow = cmdUpdateUndoSettlementPaymentCheck.ExecuteNonQuery();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                if (nUndoneRow == 0) bUndoSucceeded = false;
+            }
+            if (bUndoSucceeded == true)
+            {
+                MessageBox.Show("Undoing member reimburse payments have been successful.", "Info");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("At least one of undoing payments failed", "Error");
+                return;
+            }
+        }
+
+        private void btnLoadCheckProviderPayment_Click(object sender, EventArgs e)
+        {
+            frmUndoCheckProviderPayment frmUndoCheckPaymentDate = new frmUndoCheckProviderPayment();
+            frmUndoCheckPaymentDate.StartPosition = FormStartPosition.CenterParent;
+
+            if (frmUndoCheckPaymentDate.ShowDialog() == DialogResult.OK)
+            {
+                DateTime CheckDate = frmUndoCheckPaymentDate.CheckDate;
+
+                String strSqlQueryForCheckPaymentSettlementForCheckDate = "select [dbo].[tbl_settlement].[Amount], [dbo].[tbl_settlement].[Name], " +
+                                                                          "[dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate] " +
+                                                                          "from [dbo].[tbl_settlement] " +
+                                                                          "inner join [dbo].[tbl_settlement_type_code] " +
+                                                                          "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                          "inner join [dbo].[tbl_payment_method] " +
+                                                                          "on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_id] " +
+                                                                          "where ([dbo].[tbl_settlement_type_code].[SettlementTypeValue] = 'CMM Provider Payment') and " +
+                                                                          "[dbo].[tbl_payment_method].[PaymentMethod_Value] = 'Check' and " +
+                                                                          "[dbo].[tbl_settlement].[IsPaid] IS NOT NULL and " +
+                                                                          "[dbo].[tbl_settlement].[PaidByID] IS NOT NULL and " +
+                                                                          "[dbo].[tbl_settlement].[CheckNo] IS NOT NULL and " +
+                                                                          "cast([dbo].[tbl_settlement].[CheckDate] as date) = @CheckPaymentDate " +
+                                                                          "order by [dbo].[tbl_settlement].[Name]";
+
+                SqlCommand cmdQueryForCheckProviderPaymentForCheckDate = new SqlCommand(strSqlQueryForCheckPaymentSettlementForCheckDate, connRN7);
+                cmdQueryForCheckProviderPaymentForCheckDate.CommandType = CommandType.Text;
+
+                cmdQueryForCheckProviderPaymentForCheckDate.Parameters.AddWithValue("@CheckPaymentDate", CheckDate.ToString("yyyy-MM-dd"));
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrProviderCheckPaymentSettlement = cmdQueryForCheckProviderPaymentForCheckDate.ExecuteReader();
+                if (rdrProviderCheckPaymentSettlement.HasRows)
+                {
+                    while (rdrProviderCheckPaymentSettlement.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        if (!rdrProviderCheckPaymentSettlement.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrProviderCheckPaymentSettlement.GetDecimal(0).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrProviderCheckPaymentSettlement.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrProviderCheckPaymentSettlement.GetString(1) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrProviderCheckPaymentSettlement.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrProviderCheckPaymentSettlement.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrProviderCheckPaymentSettlement.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrProviderCheckPaymentSettlement.GetDateTime(3).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvUndoCheckPaymentProviderPayment.Rows.Add(row);
+                    }
+                }
+                rdrProviderCheckPaymentSettlement.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+            }
+            else return;
         }
     }
 }
