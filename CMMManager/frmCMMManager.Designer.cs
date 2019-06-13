@@ -61,10 +61,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -216,6 +216,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.btnReloadCaseInProcess = new System.Windows.Forms.Button();
             this.btnBlueSheetList = new System.Windows.Forms.Button();
             this.txtAnivDate = new System.Windows.Forms.TextBox();
             this.label100 = new System.Windows.Forms.Label();
@@ -355,6 +356,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbpgIndividualBlueSheet = new System.Windows.Forms.TabPage();
+            this.btnReloadIndividualBlueSheet = new System.Windows.Forms.Button();
             this.gvBlueSheetList = new System.Windows.Forms.DataGridView();
             this.BlueSheetType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BlueSheetCheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -386,6 +388,8 @@
             this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
+            this.btnAddChildCase = new System.Windows.Forms.Button();
+            this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
             this.gvCasePageMedBills = new System.Windows.Forms.DataGridView();
             this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -559,6 +563,7 @@
             this.MedBill_HippaSentDate = new CMMManager.CalendarColumn();
             this.MedBill_MedicalRecordDate = new CMMManager.CalendarColumn();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
+            this.btnReloadSettlementInMedBill = new System.Windows.Forms.Button();
             this.btnUndoPayment = new System.Windows.Forms.Button();
             this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
             this.txtOtherDocMedBillFileName = new System.Windows.Forms.TextBox();
@@ -666,7 +671,6 @@
             this.txtNumberOfMedication = new System.Windows.Forms.TextBox();
             this.txtPrescriptionName = new System.Windows.Forms.TextBox();
             this.lblNumberOfMedication = new System.Windows.Forms.Label();
-            this.lblPrescriptionDescription = new System.Windows.Forms.Label();
             this.lblMedBillNote = new System.Windows.Forms.Label();
             this.comboMedBillType = new System.Windows.Forms.ComboBox();
             this.label173 = new System.Windows.Forms.Label();
@@ -692,6 +696,7 @@
             this.txtMedBillNote = new System.Windows.Forms.TextBox();
             this.lblPrescriptionName = new System.Windows.Forms.Label();
             this.lblNumberOfPhysicalTheraph = new System.Windows.Forms.Label();
+            this.lblPrescriptionDescription = new System.Windows.Forms.Label();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
             this.btnViewOtherDoc = new System.Windows.Forms.Button();
             this.btnViewMedRecord = new System.Windows.Forms.Button();
@@ -727,6 +732,7 @@
             this.tbpgPayment = new System.Windows.Forms.TabPage();
             this.tabPaymentMethod = new System.Windows.Forms.TabControl();
             this.tbpgCheckForMemberReimbursement = new System.Windows.Forms.TabPage();
+            this.btnReloadCheckForReimbursement = new System.Windows.Forms.Button();
             this.btnExportCheckPayment = new System.Windows.Forms.Button();
             this.btnConfirmCheckPaymentMemberReimbursement = new System.Windows.Forms.Button();
             this.gvPaymentCheckMemberReimbursement = new System.Windows.Forms.DataGridView();
@@ -754,6 +760,7 @@
             this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label93 = new System.Windows.Forms.Label();
             this.tbpgCheckForProviderPayment = new System.Windows.Forms.TabPage();
+            this.btnReloadProviderCheckPayment = new System.Windows.Forms.Button();
             this.btnConfirmCheckProviderPayment = new System.Windows.Forms.Button();
             this.btnExportCheckProviderPayment = new System.Windows.Forms.Button();
             this.gvPaymentCheckProvider = new System.Windows.Forms.DataGridView();
@@ -782,6 +789,7 @@
             this.MembershipNoProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label121 = new System.Windows.Forms.Label();
             this.tbpgACH = new System.Windows.Forms.TabPage();
+            this.btnReloadACHPayment = new System.Windows.Forms.Button();
             this.btnConfirmACH = new System.Windows.Forms.Button();
             this.btnACHExport = new System.Windows.Forms.Button();
             this.gvPaymentACH = new System.Windows.Forms.DataGridView();
@@ -802,6 +810,7 @@
             this.VendorIdACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label108 = new System.Windows.Forms.Label();
             this.tbpgCreditCard = new System.Windows.Forms.TabPage();
+            this.btnReloadCreditCardPayment = new System.Windows.Forms.Button();
             this.label94 = new System.Windows.Forms.Label();
             this.gvPaymentCreditCard = new System.Windows.Forms.DataGridView();
             this.CreditCardPaymentConfirm = new System.Windows.Forms.DataGridViewButtonColumn();
@@ -830,6 +839,7 @@
             this.IndividualIdInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MembershipNoInPaymentCreditCard = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpgInactive = new System.Windows.Forms.TabPage();
+            this.btnReloadInactive = new System.Windows.Forms.Button();
             this.gvPaymentInactive = new System.Windows.Forms.DataGridView();
             this.IndividualIdPaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNamePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -866,6 +876,11 @@
             this.btnUndoCheckProviderPayment = new System.Windows.Forms.Button();
             this.btnLoadCheckProviderPayment = new System.Windows.Forms.Button();
             this.gvUndoCheckPaymentProviderPayment = new System.Windows.Forms.DataGridView();
+            this.SelectedUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoSettlementNameProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoCheckNoProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UndoCheckPaymentDateProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label130 = new System.Windows.Forms.Label();
             this.tbpgUndoPaymentACH = new System.Windows.Forms.TabPage();
             this.gvUndoACHPayment = new System.Windows.Forms.DataGridView();
@@ -1042,11 +1057,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountUndoCheckProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UndoSettlementNameProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UndoCheckNoProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UndoCheckPaymentDateProviderPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -2520,6 +2530,7 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.btnReloadCaseInProcess);
             this.tbpgIndividual.Controls.Add(this.btnBlueSheetList);
             this.tbpgIndividual.Controls.Add(this.txtAnivDate);
             this.tbpgIndividual.Controls.Add(this.label100);
@@ -2640,6 +2651,16 @@
             this.tbpgIndividual.Text = "Individual";
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
+            // 
+            // btnReloadCaseInProcess
+            // 
+            this.btnReloadCaseInProcess.Location = new System.Drawing.Point(1040, 90);
+            this.btnReloadCaseInProcess.Name = "btnReloadCaseInProcess";
+            this.btnReloadCaseInProcess.Size = new System.Drawing.Size(120, 28);
+            this.btnReloadCaseInProcess.TabIndex = 236;
+            this.btnReloadCaseInProcess.Text = "Reload";
+            this.btnReloadCaseInProcess.UseVisualStyleBackColor = true;
+            this.btnReloadCaseInProcess.Click += new System.EventHandler(this.btnReloadCaseInProcess_Click);
             // 
             // btnBlueSheetList
             // 
@@ -2795,7 +2816,7 @@
             // btnEditCaseUnderProcess
             // 
             this.btnEditCaseUnderProcess.Enabled = false;
-            this.btnEditCaseUnderProcess.Location = new System.Drawing.Point(1029, 90);
+            this.btnEditCaseUnderProcess.Location = new System.Drawing.Point(1192, 90);
             this.btnEditCaseUnderProcess.Name = "btnEditCaseUnderProcess";
             this.btnEditCaseUnderProcess.Size = new System.Drawing.Size(120, 28);
             this.btnEditCaseUnderProcess.TabIndex = 217;
@@ -3895,6 +3916,7 @@
             // 
             // tbpgIndividualBlueSheet
             // 
+            this.tbpgIndividualBlueSheet.Controls.Add(this.btnReloadIndividualBlueSheet);
             this.tbpgIndividualBlueSheet.Controls.Add(this.gvBlueSheetList);
             this.tbpgIndividualBlueSheet.Controls.Add(this.txtIndividualNameListBlueSheet);
             this.tbpgIndividualBlueSheet.Controls.Add(this.txtIndividualIDListBlueSheet);
@@ -3907,6 +3929,16 @@
             this.tbpgIndividualBlueSheet.Size = new System.Drawing.Size(1832, 874);
             this.tbpgIndividualBlueSheet.TabIndex = 16;
             this.tbpgIndividualBlueSheet.Text = "Individual BlueSheet";
+            // 
+            // btnReloadIndividualBlueSheet
+            // 
+            this.btnReloadIndividualBlueSheet.Location = new System.Drawing.Point(755, 75);
+            this.btnReloadIndividualBlueSheet.Name = "btnReloadIndividualBlueSheet";
+            this.btnReloadIndividualBlueSheet.Size = new System.Drawing.Size(131, 33);
+            this.btnReloadIndividualBlueSheet.TabIndex = 7;
+            this.btnReloadIndividualBlueSheet.Text = "Reload";
+            this.btnReloadIndividualBlueSheet.UseVisualStyleBackColor = true;
+            this.btnReloadIndividualBlueSheet.Click += new System.EventHandler(this.btnReloadIndividualBlueSheet_Click);
             // 
             // gvBlueSheetList
             // 
@@ -3966,7 +3998,7 @@
             // 
             // txtIndividualNameListBlueSheet
             // 
-            this.txtIndividualNameListBlueSheet.Location = new System.Drawing.Point(403, 85);
+            this.txtIndividualNameListBlueSheet.Location = new System.Drawing.Point(403, 75);
             this.txtIndividualNameListBlueSheet.Name = "txtIndividualNameListBlueSheet";
             this.txtIndividualNameListBlueSheet.ReadOnly = true;
             this.txtIndividualNameListBlueSheet.Size = new System.Drawing.Size(241, 20);
@@ -3974,7 +4006,7 @@
             // 
             // txtIndividualIDListBlueSheet
             // 
-            this.txtIndividualIDListBlueSheet.Location = new System.Drawing.Point(126, 85);
+            this.txtIndividualIDListBlueSheet.Location = new System.Drawing.Point(126, 75);
             this.txtIndividualIDListBlueSheet.Name = "txtIndividualIDListBlueSheet";
             this.txtIndividualIDListBlueSheet.ReadOnly = true;
             this.txtIndividualIDListBlueSheet.Size = new System.Drawing.Size(137, 20);
@@ -3984,7 +4016,7 @@
             // 
             this.label128.AutoSize = true;
             this.label128.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label128.Location = new System.Drawing.Point(289, 85);
+            this.label128.Location = new System.Drawing.Point(289, 75);
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(108, 16);
             this.label128.TabIndex = 3;
@@ -3994,7 +4026,7 @@
             // 
             this.label127.AutoSize = true;
             this.label127.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label127.Location = new System.Drawing.Point(38, 85);
+            this.label127.Location = new System.Drawing.Point(38, 75);
             this.label127.Name = "label127";
             this.label127.Size = new System.Drawing.Size(84, 16);
             this.label127.TabIndex = 2;
@@ -4182,6 +4214,8 @@
             // 
             // tbpgCreateCase
             // 
+            this.tbpgCreateCase.Controls.Add(this.btnAddChildCase);
+            this.tbpgCreateCase.Controls.Add(this.btnReloadMedBillsInCaseForm);
             this.tbpgCreateCase.Controls.Add(this.gvCasePageMedBills);
             this.tbpgCreateCase.Controls.Add(this.dtpIBReceivedDate);
             this.tbpgCreateCase.Controls.Add(this.dtpPoPReceivedDate);
@@ -4249,6 +4283,26 @@
             this.tbpgCreateCase.TabIndex = 8;
             this.tbpgCreateCase.Text = "Case";
             this.tbpgCreateCase.UseVisualStyleBackColor = true;
+            // 
+            // btnAddChildCase
+            // 
+            this.btnAddChildCase.Location = new System.Drawing.Point(738, 91);
+            this.btnAddChildCase.Name = "btnAddChildCase";
+            this.btnAddChildCase.Size = new System.Drawing.Size(138, 33);
+            this.btnAddChildCase.TabIndex = 152;
+            this.btnAddChildCase.Text = "Create Child Case";
+            this.btnAddChildCase.UseVisualStyleBackColor = true;
+            this.btnAddChildCase.Click += new System.EventHandler(this.btnAddChildCase_Click);
+            // 
+            // btnReloadMedBillsInCaseForm
+            // 
+            this.btnReloadMedBillsInCaseForm.Location = new System.Drawing.Point(285, 560);
+            this.btnReloadMedBillsInCaseForm.Name = "btnReloadMedBillsInCaseForm";
+            this.btnReloadMedBillsInCaseForm.Size = new System.Drawing.Size(110, 31);
+            this.btnReloadMedBillsInCaseForm.TabIndex = 151;
+            this.btnReloadMedBillsInCaseForm.Text = "Reload";
+            this.btnReloadMedBillsInCaseForm.UseVisualStyleBackColor = true;
+            this.btnReloadMedBillsInCaseForm.Click += new System.EventHandler(this.btnReloadMedBillsInCaseForm_Click);
             // 
             // gvCasePageMedBills
             // 
@@ -4342,7 +4396,7 @@
             // 
             this.dtpIBReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpIBReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpIBReceivedDate.Location = new System.Drawing.Point(605, 202);
+            this.dtpIBReceivedDate.Location = new System.Drawing.Point(605, 211);
             this.dtpIBReceivedDate.Name = "dtpIBReceivedDate";
             this.dtpIBReceivedDate.Size = new System.Drawing.Size(100, 22);
             this.dtpIBReceivedDate.TabIndex = 150;
@@ -4351,7 +4405,7 @@
             // 
             this.dtpPoPReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpPoPReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpPoPReceivedDate.Location = new System.Drawing.Point(605, 236);
+            this.dtpPoPReceivedDate.Location = new System.Drawing.Point(605, 245);
             this.dtpPoPReceivedDate.Name = "dtpPoPReceivedDate";
             this.dtpPoPReceivedDate.Size = new System.Drawing.Size(100, 22);
             this.dtpPoPReceivedDate.TabIndex = 149;
@@ -4360,7 +4414,7 @@
             // 
             this.dtpMRReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMRReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMRReceivedDate.Location = new System.Drawing.Point(605, 269);
+            this.dtpMRReceivedDate.Location = new System.Drawing.Point(605, 278);
             this.dtpMRReceivedDate.Name = "dtpMRReceivedDate";
             this.dtpMRReceivedDate.Size = new System.Drawing.Size(100, 22);
             this.dtpMRReceivedDate.TabIndex = 148;
@@ -4369,7 +4423,7 @@
             // 
             this.dtpOtherDocReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpOtherDocReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpOtherDocReceivedDate.Location = new System.Drawing.Point(605, 302);
+            this.dtpOtherDocReceivedDate.Location = new System.Drawing.Point(605, 311);
             this.dtpOtherDocReceivedDate.Name = "dtpOtherDocReceivedDate";
             this.dtpOtherDocReceivedDate.Size = new System.Drawing.Size(100, 22);
             this.dtpOtherDocReceivedDate.TabIndex = 147;
@@ -4378,7 +4432,7 @@
             // 
             this.dtpNPFReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpNPFReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNPFReceivedDate.Location = new System.Drawing.Point(605, 168);
+            this.dtpNPFReceivedDate.Location = new System.Drawing.Point(605, 177);
             this.dtpNPFReceivedDate.Name = "dtpNPFReceivedDate";
             this.dtpNPFReceivedDate.Size = new System.Drawing.Size(100, 22);
             this.dtpNPFReceivedDate.TabIndex = 146;
@@ -4386,14 +4440,14 @@
             // cbCaseStatus
             // 
             this.cbCaseStatus.FormattingEnabled = true;
-            this.cbCaseStatus.Location = new System.Drawing.Point(126, 342);
+            this.cbCaseStatus.Location = new System.Drawing.Point(126, 351);
             this.cbCaseStatus.Name = "cbCaseStatus";
             this.cbCaseStatus.Size = new System.Drawing.Size(152, 21);
             this.cbCaseStatus.TabIndex = 37;
             // 
             // btnDeleteMedBill
             // 
-            this.btnDeleteMedBill.Location = new System.Drawing.Point(281, 560);
+            this.btnDeleteMedBill.Location = new System.Drawing.Point(427, 560);
             this.btnDeleteMedBill.Name = "btnDeleteMedBill";
             this.btnDeleteMedBill.Size = new System.Drawing.Size(110, 31);
             this.btnDeleteMedBill.TabIndex = 145;
@@ -4404,7 +4458,7 @@
             // btnEditMedBill
             // 
             this.btnEditMedBill.Enabled = false;
-            this.btnEditMedBill.Location = new System.Drawing.Point(564, 560);
+            this.btnEditMedBill.Location = new System.Drawing.Point(657, 560);
             this.btnEditMedBill.Name = "btnEditMedBill";
             this.btnEditMedBill.Size = new System.Drawing.Size(110, 31);
             this.btnEditMedBill.TabIndex = 144;
@@ -4426,18 +4480,18 @@
             // txtNoteOnCase
             // 
             this.txtNoteOnCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoteOnCase.Location = new System.Drawing.Point(42, 387);
+            this.txtNoteOnCase.Location = new System.Drawing.Point(42, 402);
             this.txtNoteOnCase.Multiline = true;
             this.txtNoteOnCase.Name = "txtNoteOnCase";
             this.txtNoteOnCase.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 101);
+            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 98);
             this.txtNoteOnCase.TabIndex = 38;
             // 
             // label177
             // 
             this.label177.AutoSize = true;
             this.label177.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label177.Location = new System.Drawing.Point(43, 368);
+            this.label177.Location = new System.Drawing.Point(43, 380);
             this.label177.Name = "label177";
             this.label177.Size = new System.Drawing.Size(40, 16);
             this.label177.TabIndex = 141;
@@ -4511,7 +4565,7 @@
             // 
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(499, 206);
+            this.label87.Location = new System.Drawing.Point(499, 215);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(102, 16);
             this.label87.TabIndex = 121;
@@ -4521,7 +4575,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(499, 240);
+            this.label86.Location = new System.Drawing.Point(499, 249);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(102, 16);
             this.label86.TabIndex = 120;
@@ -4531,7 +4585,7 @@
             // 
             this.label85.AutoSize = true;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(499, 273);
+            this.label85.Location = new System.Drawing.Point(499, 282);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(102, 16);
             this.label85.TabIndex = 119;
@@ -4541,7 +4595,7 @@
             // 
             this.label84.AutoSize = true;
             this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label84.Location = new System.Drawing.Point(499, 304);
+            this.label84.Location = new System.Drawing.Point(499, 313);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(102, 16);
             this.label84.TabIndex = 118;
@@ -4551,7 +4605,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(499, 172);
+            this.label82.Location = new System.Drawing.Point(499, 181);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(102, 16);
             this.label82.TabIndex = 117;
@@ -4572,10 +4626,10 @@
             this.gvNewSupportLog.AllowUserToAddRows = false;
             this.gvNewSupportLog.AllowUserToDeleteRows = false;
             this.gvNewSupportLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvNewSupportLog.Location = new System.Drawing.Point(918, 387);
+            this.gvNewSupportLog.Location = new System.Drawing.Point(918, 380);
             this.gvNewSupportLog.Name = "gvNewSupportLog";
             this.gvNewSupportLog.ReadOnly = true;
-            this.gvNewSupportLog.Size = new System.Drawing.Size(870, 153);
+            this.gvNewSupportLog.Size = new System.Drawing.Size(870, 164);
             this.gvNewSupportLog.TabIndex = 109;
             // 
             // btnCaseCreationNewSupportLog
@@ -4727,7 +4781,7 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(43, 343);
+            this.label49.Location = new System.Drawing.Point(43, 352);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(83, 16);
             this.label49.TabIndex = 102;
@@ -4735,7 +4789,7 @@
             // 
             // btnIncomplete
             // 
-            this.btnIncomplete.Location = new System.Drawing.Point(472, 503);
+            this.btnIncomplete.Location = new System.Drawing.Point(471, 507);
             this.btnIncomplete.Name = "btnIncomplete";
             this.btnIncomplete.Size = new System.Drawing.Size(407, 37);
             this.btnIncomplete.TabIndex = 101;
@@ -4744,7 +4798,7 @@
             // 
             // btnApprovedSendToRN
             // 
-            this.btnApprovedSendToRN.Location = new System.Drawing.Point(42, 503);
+            this.btnApprovedSendToRN.Location = new System.Drawing.Point(41, 507);
             this.btnApprovedSendToRN.Name = "btnApprovedSendToRN";
             this.btnApprovedSendToRN.Size = new System.Drawing.Size(407, 37);
             this.btnApprovedSendToRN.TabIndex = 100;
@@ -4754,7 +4808,7 @@
             // btnOtherDocView
             // 
             this.btnOtherDocView.Enabled = false;
-            this.btnOtherDocView.Location = new System.Drawing.Point(714, 301);
+            this.btnOtherDocView.Location = new System.Drawing.Point(714, 310);
             this.btnOtherDocView.Name = "btnOtherDocView";
             this.btnOtherDocView.Size = new System.Drawing.Size(77, 23);
             this.btnOtherDocView.TabIndex = 99;
@@ -4765,7 +4819,7 @@
             // btnDeleteUnknownDoc
             // 
             this.btnDeleteUnknownDoc.Enabled = false;
-            this.btnDeleteUnknownDoc.Location = new System.Drawing.Point(800, 301);
+            this.btnDeleteUnknownDoc.Location = new System.Drawing.Point(800, 310);
             this.btnDeleteUnknownDoc.Name = "btnDeleteUnknownDoc";
             this.btnDeleteUnknownDoc.Size = new System.Drawing.Size(77, 23);
             this.btnDeleteUnknownDoc.TabIndex = 98;
@@ -4776,7 +4830,7 @@
             // btnUnknownDocUpload
             // 
             this.btnUnknownDocUpload.Enabled = false;
-            this.btnUnknownDocUpload.Location = new System.Drawing.Point(184, 301);
+            this.btnUnknownDocUpload.Location = new System.Drawing.Point(182, 310);
             this.btnUnknownDocUpload.Name = "btnUnknownDocUpload";
             this.btnUnknownDocUpload.Size = new System.Drawing.Size(77, 23);
             this.btnUnknownDocUpload.TabIndex = 97;
@@ -4787,7 +4841,7 @@
             // btnMedicalRecordView
             // 
             this.btnMedicalRecordView.Enabled = false;
-            this.btnMedicalRecordView.Location = new System.Drawing.Point(714, 268);
+            this.btnMedicalRecordView.Location = new System.Drawing.Point(714, 277);
             this.btnMedicalRecordView.Name = "btnMedicalRecordView";
             this.btnMedicalRecordView.Size = new System.Drawing.Size(77, 23);
             this.btnMedicalRecordView.TabIndex = 96;
@@ -4798,7 +4852,7 @@
             // btnDeleteMedicalRecord
             // 
             this.btnDeleteMedicalRecord.Enabled = false;
-            this.btnDeleteMedicalRecord.Location = new System.Drawing.Point(800, 268);
+            this.btnDeleteMedicalRecord.Location = new System.Drawing.Point(800, 277);
             this.btnDeleteMedicalRecord.Name = "btnDeleteMedicalRecord";
             this.btnDeleteMedicalRecord.Size = new System.Drawing.Size(77, 23);
             this.btnDeleteMedicalRecord.TabIndex = 95;
@@ -4809,7 +4863,7 @@
             // btnMedicalRecordUpload
             // 
             this.btnMedicalRecordUpload.Enabled = false;
-            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(182, 268);
+            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(182, 277);
             this.btnMedicalRecordUpload.Name = "btnMedicalRecordUpload";
             this.btnMedicalRecordUpload.Size = new System.Drawing.Size(77, 23);
             this.btnMedicalRecordUpload.TabIndex = 94;
@@ -4820,7 +4874,7 @@
             // btnPoPView
             // 
             this.btnPoPView.Enabled = false;
-            this.btnPoPView.Location = new System.Drawing.Point(714, 235);
+            this.btnPoPView.Location = new System.Drawing.Point(714, 244);
             this.btnPoPView.Name = "btnPoPView";
             this.btnPoPView.Size = new System.Drawing.Size(77, 23);
             this.btnPoPView.TabIndex = 93;
@@ -4831,7 +4885,7 @@
             // btnDeletePoP
             // 
             this.btnDeletePoP.Enabled = false;
-            this.btnDeletePoP.Location = new System.Drawing.Point(800, 235);
+            this.btnDeletePoP.Location = new System.Drawing.Point(800, 244);
             this.btnDeletePoP.Name = "btnDeletePoP";
             this.btnDeletePoP.Size = new System.Drawing.Size(77, 23);
             this.btnDeletePoP.TabIndex = 92;
@@ -4842,7 +4896,7 @@
             // btnPoPUpload
             // 
             this.btnPoPUpload.Enabled = false;
-            this.btnPoPUpload.Location = new System.Drawing.Point(182, 235);
+            this.btnPoPUpload.Location = new System.Drawing.Point(182, 244);
             this.btnPoPUpload.Name = "btnPoPUpload";
             this.btnPoPUpload.Size = new System.Drawing.Size(77, 23);
             this.btnPoPUpload.TabIndex = 91;
@@ -4853,7 +4907,7 @@
             // btnIBView
             // 
             this.btnIBView.Enabled = false;
-            this.btnIBView.Location = new System.Drawing.Point(714, 201);
+            this.btnIBView.Location = new System.Drawing.Point(714, 210);
             this.btnIBView.Name = "btnIBView";
             this.btnIBView.Size = new System.Drawing.Size(77, 23);
             this.btnIBView.TabIndex = 90;
@@ -4864,7 +4918,7 @@
             // btnDeleteIB
             // 
             this.btnDeleteIB.Enabled = false;
-            this.btnDeleteIB.Location = new System.Drawing.Point(800, 201);
+            this.btnDeleteIB.Location = new System.Drawing.Point(800, 210);
             this.btnDeleteIB.Name = "btnDeleteIB";
             this.btnDeleteIB.Size = new System.Drawing.Size(77, 23);
             this.btnDeleteIB.TabIndex = 89;
@@ -4875,7 +4929,7 @@
             // btnIBUpload
             // 
             this.btnIBUpload.Enabled = false;
-            this.btnIBUpload.Location = new System.Drawing.Point(182, 201);
+            this.btnIBUpload.Location = new System.Drawing.Point(182, 210);
             this.btnIBUpload.Name = "btnIBUpload";
             this.btnIBUpload.Size = new System.Drawing.Size(77, 23);
             this.btnIBUpload.TabIndex = 88;
@@ -4886,7 +4940,7 @@
             // btnNPFFormView
             // 
             this.btnNPFFormView.Enabled = false;
-            this.btnNPFFormView.Location = new System.Drawing.Point(714, 167);
+            this.btnNPFFormView.Location = new System.Drawing.Point(714, 176);
             this.btnNPFFormView.Name = "btnNPFFormView";
             this.btnNPFFormView.Size = new System.Drawing.Size(77, 23);
             this.btnNPFFormView.TabIndex = 87;
@@ -4897,7 +4951,7 @@
             // btnNPFFormDelete
             // 
             this.btnNPFFormDelete.Enabled = false;
-            this.btnNPFFormDelete.Location = new System.Drawing.Point(799, 167);
+            this.btnNPFFormDelete.Location = new System.Drawing.Point(799, 176);
             this.btnNPFFormDelete.Name = "btnNPFFormDelete";
             this.btnNPFFormDelete.Size = new System.Drawing.Size(77, 23);
             this.btnNPFFormDelete.TabIndex = 86;
@@ -4908,7 +4962,7 @@
             // btnNPFFormUpload
             // 
             this.btnNPFFormUpload.Enabled = false;
-            this.btnNPFFormUpload.Location = new System.Drawing.Point(182, 167);
+            this.btnNPFFormUpload.Location = new System.Drawing.Point(182, 176);
             this.btnNPFFormUpload.Name = "btnNPFFormUpload";
             this.btnNPFFormUpload.Size = new System.Drawing.Size(77, 23);
             this.btnNPFFormUpload.TabIndex = 85;
@@ -4919,7 +4973,7 @@
             // txtOtherDocumentFilePath
             // 
             this.txtOtherDocumentFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(272, 301);
+            this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(272, 310);
             this.txtOtherDocumentFilePath.Name = "txtOtherDocumentFilePath";
             this.txtOtherDocumentFilePath.ReadOnly = true;
             this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(221, 22);
@@ -4928,7 +4982,7 @@
             // txtMedicalRecordFilePath
             // 
             this.txtMedicalRecordFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(272, 268);
+            this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(272, 277);
             this.txtMedicalRecordFilePath.Name = "txtMedicalRecordFilePath";
             this.txtMedicalRecordFilePath.ReadOnly = true;
             this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(221, 22);
@@ -4937,7 +4991,7 @@
             // txtPopFilePath
             // 
             this.txtPopFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPopFilePath.Location = new System.Drawing.Point(272, 235);
+            this.txtPopFilePath.Location = new System.Drawing.Point(272, 244);
             this.txtPopFilePath.Name = "txtPopFilePath";
             this.txtPopFilePath.ReadOnly = true;
             this.txtPopFilePath.Size = new System.Drawing.Size(221, 22);
@@ -4946,7 +5000,7 @@
             // txtIBFilePath
             // 
             this.txtIBFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIBFilePath.Location = new System.Drawing.Point(272, 201);
+            this.txtIBFilePath.Location = new System.Drawing.Point(272, 210);
             this.txtIBFilePath.Name = "txtIBFilePath";
             this.txtIBFilePath.ReadOnly = true;
             this.txtIBFilePath.Size = new System.Drawing.Size(221, 22);
@@ -4955,7 +5009,7 @@
             // txtNPFFormFilePath
             // 
             this.txtNPFFormFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNPFFormFilePath.Location = new System.Drawing.Point(272, 167);
+            this.txtNPFFormFilePath.Location = new System.Drawing.Point(272, 176);
             this.txtNPFFormFilePath.Name = "txtNPFFormFilePath";
             this.txtNPFFormFilePath.ReadOnly = true;
             this.txtNPFFormFilePath.Size = new System.Drawing.Size(221, 22);
@@ -4965,7 +5019,7 @@
             // 
             this.chkOtherDocCaseCreationPage.AutoSize = true;
             this.chkOtherDocCaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkOtherDocCaseCreationPage.Location = new System.Drawing.Point(45, 302);
+            this.chkOtherDocCaseCreationPage.Location = new System.Drawing.Point(45, 311);
             this.chkOtherDocCaseCreationPage.Name = "chkOtherDocCaseCreationPage";
             this.chkOtherDocCaseCreationPage.Size = new System.Drawing.Size(133, 20);
             this.chkOtherDocCaseCreationPage.TabIndex = 36;
@@ -4977,7 +5031,7 @@
             // 
             this.chkMedicalRecordCaseCreationPage.AutoSize = true;
             this.chkMedicalRecordCaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedicalRecordCaseCreationPage.Location = new System.Drawing.Point(45, 269);
+            this.chkMedicalRecordCaseCreationPage.Location = new System.Drawing.Point(45, 278);
             this.chkMedicalRecordCaseCreationPage.Name = "chkMedicalRecordCaseCreationPage";
             this.chkMedicalRecordCaseCreationPage.Size = new System.Drawing.Size(126, 20);
             this.chkMedicalRecordCaseCreationPage.TabIndex = 35;
@@ -4989,7 +5043,7 @@
             // 
             this.chkPoP_CaseCreationPage.AutoSize = true;
             this.chkPoP_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPoP_CaseCreationPage.Location = new System.Drawing.Point(45, 236);
+            this.chkPoP_CaseCreationPage.Location = new System.Drawing.Point(45, 245);
             this.chkPoP_CaseCreationPage.Name = "chkPoP_CaseCreationPage";
             this.chkPoP_CaseCreationPage.Size = new System.Drawing.Size(56, 20);
             this.chkPoP_CaseCreationPage.TabIndex = 34;
@@ -5001,7 +5055,7 @@
             // 
             this.chkIB_CaseCreationPage.AutoSize = true;
             this.chkIB_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkIB_CaseCreationPage.Location = new System.Drawing.Point(45, 203);
+            this.chkIB_CaseCreationPage.Location = new System.Drawing.Point(45, 212);
             this.chkIB_CaseCreationPage.Name = "chkIB_CaseCreationPage";
             this.chkIB_CaseCreationPage.Size = new System.Drawing.Size(42, 20);
             this.chkIB_CaseCreationPage.TabIndex = 33;
@@ -5013,7 +5067,7 @@
             // 
             this.chkNPF_CaseCreationPage.AutoSize = true;
             this.chkNPF_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkNPF_CaseCreationPage.Location = new System.Drawing.Point(45, 170);
+            this.chkNPF_CaseCreationPage.Location = new System.Drawing.Point(45, 179);
             this.chkNPF_CaseCreationPage.Name = "chkNPF_CaseCreationPage";
             this.chkNPF_CaseCreationPage.Size = new System.Drawing.Size(91, 20);
             this.chkNPF_CaseCreationPage.TabIndex = 32;
@@ -5023,7 +5077,7 @@
             // 
             // txtCreateCaseIndividualName
             // 
-            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(508, 124);
+            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(508, 135);
             this.txtCreateCaseIndividualName.Name = "txtCreateCaseIndividualName";
             this.txtCreateCaseIndividualName.ReadOnly = true;
             this.txtCreateCaseIndividualName.Size = new System.Drawing.Size(368, 20);
@@ -5031,7 +5085,7 @@
             // 
             // txtCaseIndividualID
             // 
-            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 124);
+            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 135);
             this.txtCaseIndividualID.Name = "txtCaseIndividualID";
             this.txtCaseIndividualID.ReadOnly = true;
             this.txtCaseIndividualID.Size = new System.Drawing.Size(220, 20);
@@ -5041,7 +5095,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.Location = new System.Drawing.Point(396, 126);
+            this.label47.Location = new System.Drawing.Point(396, 137);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(108, 16);
             this.label47.TabIndex = 70;
@@ -5051,7 +5105,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(42, 126);
+            this.label46.Location = new System.Drawing.Point(42, 137);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(84, 16);
             this.label46.TabIndex = 69;
@@ -5774,6 +5828,7 @@
             // 
             // tbpgMedicalBill
             // 
+            this.tbpgMedicalBill.Controls.Add(this.btnReloadSettlementInMedBill);
             this.tbpgMedicalBill.Controls.Add(this.btnUndoPayment);
             this.tbpgMedicalBill.Controls.Add(this.grpMedBillDocuments);
             this.tbpgMedicalBill.Controls.Add(this.txtTotalSharedAmtMedBill);
@@ -5806,9 +5861,19 @@
             this.tbpgMedicalBill.Text = "Medical Bill";
             this.tbpgMedicalBill.UseVisualStyleBackColor = true;
             // 
+            // btnReloadSettlementInMedBill
+            // 
+            this.btnReloadSettlementInMedBill.Location = new System.Drawing.Point(272, 447);
+            this.btnReloadSettlementInMedBill.Name = "btnReloadSettlementInMedBill";
+            this.btnReloadSettlementInMedBill.Size = new System.Drawing.Size(116, 23);
+            this.btnReloadSettlementInMedBill.TabIndex = 154;
+            this.btnReloadSettlementInMedBill.Text = "Reload";
+            this.btnReloadSettlementInMedBill.UseVisualStyleBackColor = true;
+            this.btnReloadSettlementInMedBill.Click += new System.EventHandler(this.btnReloadSettlementInMedBill_Click);
+            // 
             // btnUndoPayment
             // 
-            this.btnUndoPayment.Location = new System.Drawing.Point(420, 448);
+            this.btnUndoPayment.Location = new System.Drawing.Point(557, 447);
             this.btnUndoPayment.Name = "btnUndoPayment";
             this.btnUndoPayment.Size = new System.Drawing.Size(116, 23);
             this.btnUndoPayment.TabIndex = 153;
@@ -6048,7 +6113,7 @@
             // txtTotalSharedAmtMedBill
             // 
             this.txtTotalSharedAmtMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(933, 448);
+            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1146, 448);
             this.txtTotalSharedAmtMedBill.Name = "txtTotalSharedAmtMedBill";
             this.txtTotalSharedAmtMedBill.ReadOnly = true;
             this.txtTotalSharedAmtMedBill.Size = new System.Drawing.Size(100, 22);
@@ -6058,7 +6123,7 @@
             // 
             this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(796, 451);
+            this.label63.Location = new System.Drawing.Point(1009, 451);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(137, 16);
             this.label63.TabIndex = 151;
@@ -6066,7 +6131,7 @@
             // 
             // txtPersonalResponsibility
             // 
-            this.txtPersonalResponsibility.Location = new System.Drawing.Point(676, 449);
+            this.txtPersonalResponsibility.Location = new System.Drawing.Point(889, 449);
             this.txtPersonalResponsibility.Name = "txtPersonalResponsibility";
             this.txtPersonalResponsibility.ReadOnly = true;
             this.txtPersonalResponsibility.Size = new System.Drawing.Size(100, 20);
@@ -6076,7 +6141,7 @@
             // 
             this.label83.AutoSize = true;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(593, 451);
+            this.label83.Location = new System.Drawing.Point(806, 451);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(83, 16);
             this.label83.TabIndex = 149;
@@ -6567,7 +6632,7 @@
             // 
             // btnDeleteSettlement
             // 
-            this.btnDeleteSettlement.Location = new System.Drawing.Point(275, 448);
+            this.btnDeleteSettlement.Location = new System.Drawing.Point(412, 447);
             this.btnDeleteSettlement.Name = "btnDeleteSettlement";
             this.btnDeleteSettlement.Size = new System.Drawing.Size(116, 23);
             this.btnDeleteSettlement.TabIndex = 125;
@@ -6711,7 +6776,6 @@
             this.grpMedicalBillInformation.Controls.Add(this.txtNumberOfMedication);
             this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionName);
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfMedication);
-            this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
             this.grpMedicalBillInformation.Controls.Add(this.lblMedBillNote);
             this.grpMedicalBillInformation.Controls.Add(this.comboMedBillType);
             this.grpMedicalBillInformation.Controls.Add(this.label173);
@@ -6737,6 +6801,7 @@
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNote);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionName);
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfPhysicalTheraph);
+            this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
             this.grpMedicalBillInformation.Location = new System.Drawing.Point(886, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
             this.grpMedicalBillInformation.Size = new System.Drawing.Size(514, 356);
@@ -6871,16 +6936,6 @@
             this.lblNumberOfMedication.Size = new System.Drawing.Size(101, 16);
             this.lblNumberOfMedication.TabIndex = 164;
             this.lblNumberOfMedication.Text = "# of Medication:";
-            // 
-            // lblPrescriptionDescription
-            // 
-            this.lblPrescriptionDescription.AutoSize = true;
-            this.lblPrescriptionDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionDescription.Location = new System.Drawing.Point(272, 188);
-            this.lblPrescriptionDescription.Name = "lblPrescriptionDescription";
-            this.lblPrescriptionDescription.Size = new System.Drawing.Size(150, 16);
-            this.lblPrescriptionDescription.TabIndex = 165;
-            this.lblPrescriptionDescription.Text = "Prescription Description";
             // 
             // lblMedBillNote
             // 
@@ -7121,6 +7176,16 @@
             this.lblNumberOfPhysicalTheraph.Size = new System.Drawing.Size(140, 16);
             this.lblNumberOfPhysicalTheraph.TabIndex = 151;
             this.lblNumberOfPhysicalTheraph.Text = "# of Physical Therapy:";
+            // 
+            // lblPrescriptionDescription
+            // 
+            this.lblPrescriptionDescription.AutoSize = true;
+            this.lblPrescriptionDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrescriptionDescription.Location = new System.Drawing.Point(272, 188);
+            this.lblPrescriptionDescription.Name = "lblPrescriptionDescription";
+            this.lblPrescriptionDescription.Size = new System.Drawing.Size(150, 16);
+            this.lblPrescriptionDescription.TabIndex = 165;
+            this.lblPrescriptionDescription.Text = "Prescription Description";
             // 
             // grpDocumentProcessing
             // 
@@ -7491,6 +7556,7 @@
             // 
             // tbpgCheckForMemberReimbursement
             // 
+            this.tbpgCheckForMemberReimbursement.Controls.Add(this.btnReloadCheckForReimbursement);
             this.tbpgCheckForMemberReimbursement.Controls.Add(this.btnExportCheckPayment);
             this.tbpgCheckForMemberReimbursement.Controls.Add(this.btnConfirmCheckPaymentMemberReimbursement);
             this.tbpgCheckForMemberReimbursement.Controls.Add(this.gvPaymentCheckMemberReimbursement);
@@ -7504,11 +7570,21 @@
             this.tbpgCheckForMemberReimbursement.Text = "Check For Member Reimbursement";
             this.tbpgCheckForMemberReimbursement.UseVisualStyleBackColor = true;
             // 
+            // btnReloadCheckForReimbursement
+            // 
+            this.btnReloadCheckForReimbursement.Location = new System.Drawing.Point(1605, 673);
+            this.btnReloadCheckForReimbursement.Name = "btnReloadCheckForReimbursement";
+            this.btnReloadCheckForReimbursement.Size = new System.Drawing.Size(121, 32);
+            this.btnReloadCheckForReimbursement.TabIndex = 4;
+            this.btnReloadCheckForReimbursement.Text = "Reload";
+            this.btnReloadCheckForReimbursement.UseVisualStyleBackColor = true;
+            this.btnReloadCheckForReimbursement.Click += new System.EventHandler(this.btnReloadCheckForReimbursement_Click);
+            // 
             // btnExportCheckPayment
             // 
-            this.btnExportCheckPayment.Location = new System.Drawing.Point(1406, 674);
+            this.btnExportCheckPayment.Location = new System.Drawing.Point(1281, 673);
             this.btnExportCheckPayment.Name = "btnExportCheckPayment";
-            this.btnExportCheckPayment.Size = new System.Drawing.Size(147, 32);
+            this.btnExportCheckPayment.Size = new System.Drawing.Size(121, 32);
             this.btnExportCheckPayment.TabIndex = 3;
             this.btnExportCheckPayment.Text = "Export";
             this.btnExportCheckPayment.UseVisualStyleBackColor = true;
@@ -7516,9 +7592,9 @@
             // 
             // btnConfirmCheckPaymentMemberReimbursement
             // 
-            this.btnConfirmCheckPaymentMemberReimbursement.Location = new System.Drawing.Point(1579, 674);
+            this.btnConfirmCheckPaymentMemberReimbursement.Location = new System.Drawing.Point(1443, 673);
             this.btnConfirmCheckPaymentMemberReimbursement.Name = "btnConfirmCheckPaymentMemberReimbursement";
-            this.btnConfirmCheckPaymentMemberReimbursement.Size = new System.Drawing.Size(147, 32);
+            this.btnConfirmCheckPaymentMemberReimbursement.Size = new System.Drawing.Size(121, 32);
             this.btnConfirmCheckPaymentMemberReimbursement.TabIndex = 2;
             this.btnConfirmCheckPaymentMemberReimbursement.Text = "Confirm Payment";
             this.btnConfirmCheckPaymentMemberReimbursement.UseVisualStyleBackColor = true;
@@ -7528,7 +7604,7 @@
             // 
             this.gvPaymentCheckMemberReimbursement.AllowUserToAddRows = false;
             this.gvPaymentCheckMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
             this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle19;
             this.gvPaymentCheckMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -7560,6 +7636,7 @@
             this.gvPaymentCheckMemberReimbursement.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentCheckMemberReimbursement.TabIndex = 1;
             this.gvPaymentCheckMemberReimbursement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheckMemberReimbursement_CellContentClick);
+            this.gvPaymentCheckMemberReimbursement.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheckMemberReimbursement_CellDoubleClick);
             this.gvPaymentCheckMemberReimbursement.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheckMemberReimbursement_ColumnHeaderMouseDoubleClick);
             // 
             // SelectedPaymentCheck
@@ -7711,6 +7788,7 @@
             // 
             // tbpgCheckForProviderPayment
             // 
+            this.tbpgCheckForProviderPayment.Controls.Add(this.btnReloadProviderCheckPayment);
             this.tbpgCheckForProviderPayment.Controls.Add(this.btnConfirmCheckProviderPayment);
             this.tbpgCheckForProviderPayment.Controls.Add(this.btnExportCheckProviderPayment);
             this.tbpgCheckForProviderPayment.Controls.Add(this.gvPaymentCheckProvider);
@@ -7722,9 +7800,18 @@
             this.tbpgCheckForProviderPayment.Text = "Check For Provider Payment";
             this.tbpgCheckForProviderPayment.UseVisualStyleBackColor = true;
             // 
+            // btnReloadProviderCheckPayment
+            // 
+            this.btnReloadProviderCheckPayment.Location = new System.Drawing.Point(1581, 675);
+            this.btnReloadProviderCheckPayment.Name = "btnReloadProviderCheckPayment";
+            this.btnReloadProviderCheckPayment.Size = new System.Drawing.Size(147, 32);
+            this.btnReloadProviderCheckPayment.TabIndex = 6;
+            this.btnReloadProviderCheckPayment.Text = "Reload";
+            this.btnReloadProviderCheckPayment.UseVisualStyleBackColor = true;
+            // 
             // btnConfirmCheckProviderPayment
             // 
-            this.btnConfirmCheckProviderPayment.Location = new System.Drawing.Point(1581, 672);
+            this.btnConfirmCheckProviderPayment.Location = new System.Drawing.Point(1401, 675);
             this.btnConfirmCheckProviderPayment.Name = "btnConfirmCheckProviderPayment";
             this.btnConfirmCheckProviderPayment.Size = new System.Drawing.Size(147, 32);
             this.btnConfirmCheckProviderPayment.TabIndex = 5;
@@ -7734,7 +7821,7 @@
             // 
             // btnExportCheckProviderPayment
             // 
-            this.btnExportCheckProviderPayment.Location = new System.Drawing.Point(1401, 672);
+            this.btnExportCheckProviderPayment.Location = new System.Drawing.Point(1221, 675);
             this.btnExportCheckProviderPayment.Name = "btnExportCheckProviderPayment";
             this.btnExportCheckProviderPayment.Size = new System.Drawing.Size(147, 32);
             this.btnExportCheckProviderPayment.TabIndex = 4;
@@ -7746,7 +7833,7 @@
             // 
             this.gvPaymentCheckProvider.AllowUserToAddRows = false;
             this.gvPaymentCheckProvider.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
             this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.gvPaymentCheckProvider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckProvider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -7939,6 +8026,7 @@
             // 
             // tbpgACH
             // 
+            this.tbpgACH.Controls.Add(this.btnReloadACHPayment);
             this.tbpgACH.Controls.Add(this.btnConfirmACH);
             this.tbpgACH.Controls.Add(this.btnACHExport);
             this.tbpgACH.Controls.Add(this.gvPaymentACH);
@@ -7951,9 +8039,19 @@
             this.tbpgACH.Text = "ACH";
             this.tbpgACH.UseVisualStyleBackColor = true;
             // 
+            // btnReloadACHPayment
+            // 
+            this.btnReloadACHPayment.Location = new System.Drawing.Point(1608, 682);
+            this.btnReloadACHPayment.Name = "btnReloadACHPayment";
+            this.btnReloadACHPayment.Size = new System.Drawing.Size(118, 32);
+            this.btnReloadACHPayment.TabIndex = 5;
+            this.btnReloadACHPayment.Text = "Reload";
+            this.btnReloadACHPayment.UseVisualStyleBackColor = true;
+            this.btnReloadACHPayment.Click += new System.EventHandler(this.btnReloadACHPayment_Click);
+            // 
             // btnConfirmACH
             // 
-            this.btnConfirmACH.Location = new System.Drawing.Point(1608, 674);
+            this.btnConfirmACH.Location = new System.Drawing.Point(1450, 682);
             this.btnConfirmACH.Name = "btnConfirmACH";
             this.btnConfirmACH.Size = new System.Drawing.Size(118, 32);
             this.btnConfirmACH.TabIndex = 4;
@@ -7963,7 +8061,7 @@
             // 
             // btnACHExport
             // 
-            this.btnACHExport.Location = new System.Drawing.Point(1472, 674);
+            this.btnACHExport.Location = new System.Drawing.Point(1287, 682);
             this.btnACHExport.Name = "btnACHExport";
             this.btnACHExport.Size = new System.Drawing.Size(118, 32);
             this.btnACHExport.TabIndex = 3;
@@ -7975,7 +8073,7 @@
             // 
             this.gvPaymentACH.AllowUserToAddRows = false;
             this.gvPaymentACH.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
             this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.gvPaymentACH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentACH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -8000,6 +8098,7 @@
             this.gvPaymentACH.Size = new System.Drawing.Size(1691, 587);
             this.gvPaymentACH.TabIndex = 2;
             this.gvPaymentACH.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellContentClick);
+            this.gvPaymentACH.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellDoubleClick);
             this.gvPaymentACH.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentACH_ColumnHeaderMouseDoubleClick);
             // 
             // SelectedACHPayment
@@ -8112,6 +8211,7 @@
             // 
             // tbpgCreditCard
             // 
+            this.tbpgCreditCard.Controls.Add(this.btnReloadCreditCardPayment);
             this.tbpgCreditCard.Controls.Add(this.label94);
             this.tbpgCreditCard.Controls.Add(this.gvPaymentCreditCard);
             this.tbpgCreditCard.Location = new System.Drawing.Point(4, 25);
@@ -8120,6 +8220,16 @@
             this.tbpgCreditCard.TabIndex = 2;
             this.tbpgCreditCard.Text = "Credit Card";
             this.tbpgCreditCard.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadCreditCardPayment
+            // 
+            this.btnReloadCreditCardPayment.Location = new System.Drawing.Point(1604, 682);
+            this.btnReloadCreditCardPayment.Name = "btnReloadCreditCardPayment";
+            this.btnReloadCreditCardPayment.Size = new System.Drawing.Size(122, 34);
+            this.btnReloadCreditCardPayment.TabIndex = 5;
+            this.btnReloadCreditCardPayment.Text = "Reload";
+            this.btnReloadCreditCardPayment.UseVisualStyleBackColor = true;
+            this.btnReloadCreditCardPayment.Click += new System.EventHandler(this.btnReloadCreditCardPayment_Click);
             // 
             // label94
             // 
@@ -8135,7 +8245,7 @@
             // 
             this.gvPaymentCreditCard.AllowUserToAddRows = false;
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.White;
             this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -8166,7 +8276,7 @@
             this.MembershipNoInPaymentCreditCard});
             this.gvPaymentCreditCard.Location = new System.Drawing.Point(35, 60);
             this.gvPaymentCreditCard.Name = "gvPaymentCreditCard";
-            this.gvPaymentCreditCard.Size = new System.Drawing.Size(1691, 664);
+            this.gvPaymentCreditCard.Size = new System.Drawing.Size(1691, 590);
             this.gvPaymentCreditCard.TabIndex = 3;
             this.gvPaymentCreditCard.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCreditCard_CellContentClick);
             this.gvPaymentCreditCard.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCreditCard_CellDoubleClick);
@@ -8331,6 +8441,7 @@
             // 
             // tbpgInactive
             // 
+            this.tbpgInactive.Controls.Add(this.btnReloadInactive);
             this.tbpgInactive.Controls.Add(this.gvPaymentInactive);
             this.tbpgInactive.Controls.Add(this.label95);
             this.tbpgInactive.Location = new System.Drawing.Point(4, 25);
@@ -8340,11 +8451,21 @@
             this.tbpgInactive.Text = "Inactive";
             this.tbpgInactive.UseVisualStyleBackColor = true;
             // 
+            // btnReloadInactive
+            // 
+            this.btnReloadInactive.Location = new System.Drawing.Point(1600, 685);
+            this.btnReloadInactive.Name = "btnReloadInactive";
+            this.btnReloadInactive.Size = new System.Drawing.Size(126, 35);
+            this.btnReloadInactive.TabIndex = 7;
+            this.btnReloadInactive.Text = "Reload";
+            this.btnReloadInactive.UseVisualStyleBackColor = true;
+            this.btnReloadInactive.Click += new System.EventHandler(this.btnReloadInactive_Click);
+            // 
             // gvPaymentInactive
             // 
             this.gvPaymentInactive.AllowUserToAddRows = false;
             this.gvPaymentInactive.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
             this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle27;
             this.gvPaymentInactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentInactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -8364,21 +8485,25 @@
             // 
             this.IndividualIdPaymentInactive.HeaderText = "Individual Id";
             this.IndividualIdPaymentInactive.Name = "IndividualIdPaymentInactive";
+            this.IndividualIdPaymentInactive.Width = 120;
             // 
             // IndividualNamePaymentInactive
             // 
             this.IndividualNamePaymentInactive.HeaderText = "Individual Name";
             this.IndividualNamePaymentInactive.Name = "IndividualNamePaymentInactive";
+            this.IndividualNamePaymentInactive.Width = 160;
             // 
             // MembershipNoPaymentInactive
             // 
             this.MembershipNoPaymentInactive.HeaderText = "Membership No";
             this.MembershipNoPaymentInactive.Name = "MembershipNoPaymentInactive";
+            this.MembershipNoPaymentInactive.Width = 140;
             // 
             // MembershipStatusPaymentInactive
             // 
             this.MembershipStatusPaymentInactive.HeaderText = "Membership Status";
             this.MembershipStatusPaymentInactive.Name = "MembershipStatusPaymentInactive";
+            this.MembershipStatusPaymentInactive.Width = 180;
             // 
             // StateNamePaymentInactive
             // 
@@ -8431,7 +8556,7 @@
             // 
             this.gvCheckReconcilation.AllowUserToAddRows = false;
             this.gvCheckReconcilation.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
             this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
             this.gvCheckReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvCheckReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -8571,7 +8696,7 @@
             // 
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToAddRows = false;
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle30.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle30;
             this.gvUndoCheckPaymentMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -8676,6 +8801,43 @@
             this.gvUndoCheckPaymentProviderPayment.ReadOnly = true;
             this.gvUndoCheckPaymentProviderPayment.Size = new System.Drawing.Size(1679, 571);
             this.gvUndoCheckPaymentProviderPayment.TabIndex = 5;
+            // 
+            // SelectedUndoCheckProviderPayment
+            // 
+            this.SelectedUndoCheckProviderPayment.HeaderText = "Selected";
+            this.SelectedUndoCheckProviderPayment.Name = "SelectedUndoCheckProviderPayment";
+            this.SelectedUndoCheckProviderPayment.ReadOnly = true;
+            this.SelectedUndoCheckProviderPayment.Width = 80;
+            // 
+            // AmountUndoCheckProviderPayment
+            // 
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle33;
+            this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
+            this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
+            this.AmountUndoCheckProviderPayment.ReadOnly = true;
+            this.AmountUndoCheckProviderPayment.Width = 120;
+            // 
+            // UndoSettlementNameProviderPayment
+            // 
+            this.UndoSettlementNameProviderPayment.HeaderText = "SettlementName";
+            this.UndoSettlementNameProviderPayment.Name = "UndoSettlementNameProviderPayment";
+            this.UndoSettlementNameProviderPayment.ReadOnly = true;
+            this.UndoSettlementNameProviderPayment.Width = 180;
+            // 
+            // UndoCheckNoProviderPayment
+            // 
+            this.UndoCheckNoProviderPayment.HeaderText = "Check No";
+            this.UndoCheckNoProviderPayment.Name = "UndoCheckNoProviderPayment";
+            this.UndoCheckNoProviderPayment.ReadOnly = true;
+            this.UndoCheckNoProviderPayment.Width = 160;
+            // 
+            // UndoCheckPaymentDateProviderPayment
+            // 
+            this.UndoCheckPaymentDateProviderPayment.HeaderText = "Payment Date";
+            this.UndoCheckPaymentDateProviderPayment.Name = "UndoCheckPaymentDateProviderPayment";
+            this.UndoCheckPaymentDateProviderPayment.ReadOnly = true;
+            this.UndoCheckPaymentDateProviderPayment.Width = 120;
             // 
             // label130
             // 
@@ -10148,43 +10310,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // SelectedUndoCheckProviderPayment
-            // 
-            this.SelectedUndoCheckProviderPayment.HeaderText = "Selected";
-            this.SelectedUndoCheckProviderPayment.Name = "SelectedUndoCheckProviderPayment";
-            this.SelectedUndoCheckProviderPayment.ReadOnly = true;
-            this.SelectedUndoCheckProviderPayment.Width = 80;
-            // 
-            // AmountUndoCheckProviderPayment
-            // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle33;
-            this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
-            this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
-            this.AmountUndoCheckProviderPayment.ReadOnly = true;
-            this.AmountUndoCheckProviderPayment.Width = 120;
-            // 
-            // UndoSettlementNameProviderPayment
-            // 
-            this.UndoSettlementNameProviderPayment.HeaderText = "SettlementName";
-            this.UndoSettlementNameProviderPayment.Name = "UndoSettlementNameProviderPayment";
-            this.UndoSettlementNameProviderPayment.ReadOnly = true;
-            this.UndoSettlementNameProviderPayment.Width = 180;
-            // 
-            // UndoCheckNoProviderPayment
-            // 
-            this.UndoCheckNoProviderPayment.HeaderText = "Check No";
-            this.UndoCheckNoProviderPayment.Name = "UndoCheckNoProviderPayment";
-            this.UndoCheckNoProviderPayment.ReadOnly = true;
-            this.UndoCheckNoProviderPayment.Width = 160;
-            // 
-            // UndoCheckPaymentDateProviderPayment
-            // 
-            this.UndoCheckPaymentDateProviderPayment.HeaderText = "Payment Date";
-            this.UndoCheckPaymentDateProviderPayment.Name = "UndoCheckPaymentDateProviderPayment";
-            this.UndoCheckPaymentDateProviderPayment.ReadOnly = true;
-            this.UndoCheckPaymentDateProviderPayment.Width = 120;
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10994,13 +11119,6 @@
         private System.Windows.Forms.Button btnConfirmCheckPaymentMemberReimbursement;
         private System.Windows.Forms.TabPage tbpgInactive;
         private System.Windows.Forms.DataGridView gvPaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StateNamePaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
         private System.Windows.Forms.Label label95;
         private System.Windows.Forms.TextBox txtAccountNo;
         private System.Windows.Forms.Label label99;
@@ -11354,6 +11472,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn UndoSettlementNameProviderPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn UndoCheckNoProviderPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn UndoCheckPaymentDateProviderPayment;
+        private System.Windows.Forms.Button btnReloadCaseInProcess;
+        private System.Windows.Forms.Button btnReloadIndividualBlueSheet;
+        private System.Windows.Forms.Button btnReloadMedBillsInCaseForm;
+        private System.Windows.Forms.Button btnReloadSettlementInMedBill;
+        private System.Windows.Forms.Button btnReloadCheckForReimbursement;
+        private System.Windows.Forms.Button btnReloadProviderCheckPayment;
+        private System.Windows.Forms.Button btnReloadACHPayment;
+        private System.Windows.Forms.Button btnReloadCreditCardPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StateNamePaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
+        private System.Windows.Forms.Button btnReloadInactive;
+        private System.Windows.Forms.Button btnAddChildCase;
     }
 }
 

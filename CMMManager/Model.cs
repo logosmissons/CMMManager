@@ -157,6 +157,31 @@ namespace CMMManager
         }
     }
 
+
+    public class MedicalBillStatusCode
+    {
+        public int BillStatusCode;
+        public int NewIndexCode;
+        public String BillStatusValue;
+        public String BillStatusDescription;
+
+        public MedicalBillStatusCode()
+        {
+            BillStatusCode = -1;
+            NewIndexCode = -1;
+            BillStatusValue = String.Empty;
+            BillStatusDescription = String.Empty;
+        }
+
+        public MedicalBillStatusCode(int status_code, int index_code, String status_value, String status_description)
+        {
+            BillStatusCode = status_code;
+            NewIndexCode = index_code;
+            BillStatusValue = status_value;
+            BillStatusDescription = status_description;
+        }
+    }
+
     public class BankInfo
     {
         public String BankName;

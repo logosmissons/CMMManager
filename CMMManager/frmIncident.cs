@@ -52,12 +52,19 @@ namespace CMMManager
             strRNDBConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
             connRNDB = new SqlConnection(strRNDBConnString);
 
+            SqlDependency.Start(strRNDBConnString);
+
             IncidentSelected = new SelectedIncident();
             IllnessSelected = new SelectedIllness();
 
             //dicProgram = new Dictionary<int, string>();
             dicProgramId = new Dictionary<string, int>();
 
+        }
+
+        ~frmIncident()
+        {
+            SqlDependency.Stop(strRNDBConnString);
         }
 
         private void frmIncident_Load(object sender, EventArgs e)
