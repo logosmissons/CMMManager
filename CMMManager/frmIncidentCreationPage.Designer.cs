@@ -84,7 +84,7 @@
             // txtICD10Code
             // 
             this.txtICD10Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtICD10Code.Location = new System.Drawing.Point(144, 166);
+            this.txtICD10Code.Location = new System.Drawing.Point(152, 166);
             this.txtICD10Code.Name = "txtICD10Code";
             this.txtICD10Code.ReadOnly = true;
             this.txtICD10Code.Size = new System.Drawing.Size(103, 22);
@@ -134,10 +134,10 @@
             // txtICD10Name
             // 
             this.txtICD10Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtICD10Name.Location = new System.Drawing.Point(253, 166);
+            this.txtICD10Name.Location = new System.Drawing.Point(264, 166);
             this.txtICD10Name.Name = "txtICD10Name";
             this.txtICD10Name.ReadOnly = true;
-            this.txtICD10Name.Size = new System.Drawing.Size(271, 22);
+            this.txtICD10Name.Size = new System.Drawing.Size(260, 22);
             this.txtICD10Name.TabIndex = 31;
             // 
             // dtpCreateDate
@@ -145,7 +145,7 @@
             this.dtpCreateDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreateDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreateDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCreateDate.Location = new System.Drawing.Point(144, 268);
+            this.dtpCreateDate.Location = new System.Drawing.Point(152, 268);
             this.dtpCreateDate.Name = "dtpCreateDate";
             this.dtpCreateDate.Size = new System.Drawing.Size(128, 22);
             this.dtpCreateDate.TabIndex = 32;
@@ -174,7 +174,7 @@
             // txtCaseNo
             // 
             this.txtCaseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaseNo.Location = new System.Drawing.Point(144, 98);
+            this.txtCaseNo.Location = new System.Drawing.Point(152, 98);
             this.txtCaseNo.Name = "txtCaseNo";
             this.txtCaseNo.ReadOnly = true;
             this.txtCaseNo.Size = new System.Drawing.Size(141, 22);
@@ -204,7 +204,7 @@
             // 
             this.comboProgram.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboProgram.FormattingEnabled = true;
-            this.comboProgram.Location = new System.Drawing.Point(144, 199);
+            this.comboProgram.Location = new System.Drawing.Point(152, 199);
             this.comboProgram.Name = "comboProgram";
             this.comboProgram.Size = new System.Drawing.Size(128, 24);
             this.comboProgram.TabIndex = 43;
@@ -242,7 +242,7 @@
             // txtIncidentNo
             // 
             this.txtIncidentNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIncidentNo.Location = new System.Drawing.Point(144, 132);
+            this.txtIncidentNo.Location = new System.Drawing.Point(152, 132);
             this.txtIncidentNo.Name = "txtIncidentNo";
             this.txtIncidentNo.ReadOnly = true;
             this.txtIncidentNo.Size = new System.Drawing.Size(141, 22);
@@ -266,16 +266,16 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(37, 236);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(105, 16);
+            this.label10.Size = new System.Drawing.Size(112, 16);
             this.label10.TabIndex = 49;
-            this.label10.Text = "Ocurrence Date:";
+            this.label10.Text = "Occurrence Date:";
             this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // dtpIncdOccurrenceDate
             // 
             this.dtpIncdOccurrenceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpIncdOccurrenceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpIncdOccurrenceDate.Location = new System.Drawing.Point(144, 234);
+            this.dtpIncdOccurrenceDate.Location = new System.Drawing.Point(152, 234);
             this.dtpIncdOccurrenceDate.Name = "dtpIncdOccurrenceDate";
             this.dtpIncdOccurrenceDate.Size = new System.Drawing.Size(128, 22);
             this.dtpIncdOccurrenceDate.TabIndex = 50;

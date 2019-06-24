@@ -393,7 +393,11 @@ namespace CMMManager
                     if (!rdrIncident.IsDBNull(5)) dtpCreateDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
                     if (!rdrIncident.IsDBNull(6)) dtpModifiedDate.Text = rdrIncident.GetDateTime(6).ToString("MM/dd/yyyy");
                     if (!rdrIncident.IsDBNull(7)) txtIncidentNote.Text = rdrIncident.GetString(7);
-                    if (!rdrIncident.IsDBNull(8)) dtpIncdOccurrenceDate.Text = rdrIncident.GetDateTime(8).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(8))
+                    {
+                        dtpIncdOccurrenceDate.Checked = true;
+                        dtpIncdOccurrenceDate.Text = rdrIncident.GetDateTime(8).ToString("MM/dd/yyyy");
+                    }
                 }
                 rdrIncident.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();

@@ -157,6 +157,18 @@ namespace CMMManager
         }
     }
 
+    public class MedBillStatusInfoCMMPendingPayment
+    {
+        public String MedBillNo;
+        public int? MedBillStatus;
+
+        public MedBillStatusInfoCMMPendingPayment()
+        {
+            MedBillNo = String.Empty;
+            MedBillStatus = null;
+        }
+    }
+
 
     public class MedicalBillStatusCode
     {
@@ -543,6 +555,7 @@ namespace CMMManager
     public class CasedInfoDetailed
     {
         public String CaseId;
+        public String ParentCaseId;
         public String ContactId;
         public DateTime CreateDate;
         public DateTime ModificationDate;
@@ -585,6 +598,7 @@ namespace CMMManager
         public CasedInfoDetailed()
         {
             CaseId = String.Empty;
+            ParentCaseId = String.Empty;
             ContactId = String.Empty;
             CreateDate = DateTime.Today;
             ModificationDate = DateTime.Today;
@@ -709,6 +723,7 @@ namespace CMMManager
     {
         public Boolean bIsPaid;
         public Boolean bIsExported;
+        public Boolean bIsReviewed;
         public int? nExportedByID;
         public String IndividualName;
         public String IndividualId;
@@ -739,6 +754,7 @@ namespace CMMManager
         {
             bIsPaid = false;
             bIsExported = false;
+            bIsReviewed = false;
             nExportedByID = null;
             IndividualName = String.Empty;
             IndividualId = String.Empty;

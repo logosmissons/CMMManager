@@ -222,6 +222,8 @@ namespace CMMManager
         //private SqlConnection connIllness;
 
 
+        private MedBillStatusInfoCMMPendingPayment MedBillStatusCMMPendingPayment;
+
         //private String strNewMedBillNo;
         private String MedBillNoForTask = String.Empty;    // user for tasks datagridview
         private String MedicalBillNo = String.Empty;
@@ -534,6 +536,8 @@ namespace CMMManager
 
 
             IndividualBankInfo = new BankInfo();
+
+            MedBillStatusCMMPendingPayment = new MedBillStatusInfoCMMPendingPayment();
 
             dicMedBillTypes = new Dictionary<int, String>();
             dicMedBillStatus = new Dictionary<int, String>();
@@ -4519,7 +4523,8 @@ namespace CMMManager
                                                     "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
                                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
                                                     "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+                                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID], " +
+                                                    "[dbo].[tbl_settlement].[IsReviewed] " +
                                                     "from [dbo].[tbl_settlement] " +
                                                     "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                                     "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
@@ -4574,6 +4579,7 @@ namespace CMMManager
                         if (!rdrCheckPayment.IsDBNull(11)) infoCheckPayment.AccountNoAtMedProvider = rdrCheckPayment.GetString(11);
                         if (!rdrCheckPayment.IsDBNull(12)) infoCheckPayment.bIsExported = rdrCheckPayment.GetBoolean(12);
                         if (!rdrCheckPayment.IsDBNull(13)) infoCheckPayment.nExportedByID = rdrCheckPayment.GetInt16(13);
+                        if (!rdrCheckPayment.IsDBNull(14)) infoCheckPayment.bIsReviewed = rdrCheckPayment.GetBoolean(14);
 
                         lstCheckPaymentInfo.Add(infoCheckPayment);
                     }
@@ -4695,6 +4701,8 @@ namespace CMMManager
                     row.Cells[19].ReadOnly = true;
                     row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
                     row.Cells[20].ReadOnly = true;
+
+                    if (info.bIsReviewed == true) row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
 
                     gvPaymentCheckMemberReimbursement.Rows.Add(row);
                 }
@@ -6881,11 +6889,27 @@ namespace CMMManager
 
         private void ResetMedDocumentsReceivedDate()
         {
-            dtpNPFReceivedDate.Value = DateTime.Today;
-            dtpIBReceivedDate.Value = DateTime.Today;
-            dtpPoPReceivedDate.Value = DateTime.Today;
-            dtpMRReceivedDate.Value = DateTime.Today;
-            dtpOtherDocReceivedDate.Value = DateTime.Today;
+            //dtpNPFReceivedDate.Value = DateTime.Today;
+            //dtpIBReceivedDate.Value = DateTime.Today;
+            //dtpPoPReceivedDate.Value = DateTime.Today;
+            //dtpMRReceivedDate.Value = DateTime.Today;
+            //dtpOtherDocReceivedDate.Value = DateTime.Today;
+
+            dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+            dtpNPFReceivedDate.CustomFormat = " ";
+
+            dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+            dtpIBReceivedDate.CustomFormat = " ";
+
+            dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+            dtpPoPReceivedDate.CustomFormat = " ";
+
+            dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+            dtpMRReceivedDate.CustomFormat = " ";
+
+            dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+            dtpOtherDocReceivedDate.CustomFormat = " ";
+
         }
 
         private void btnCreateNewCase_Click(object sender, EventArgs e)
@@ -7279,6 +7303,7 @@ namespace CMMManager
                 {
 
                     String strCaseId = String.Empty;
+                    //String strParentCaseId = String.Empty;
                     String strIndividualID = String.Empty;
                     String strNPFormFilePath = String.Empty;
                     String strNPFUploadDate = String.Empty;
@@ -7295,6 +7320,7 @@ namespace CMMManager
                     CasedInfoDetailed caseDetail = new CasedInfoDetailed();
 
                     caseDetail.CaseId = String.Empty;
+                    caseDetail.ParentCaseId = String.Empty;
                     caseDetail.ContactId = String.Empty;
                     caseDetail.Individual_Id = String.Empty;
                     caseDetail.CreateDate = DateTime.Today;
@@ -7341,6 +7367,7 @@ namespace CMMManager
                     caseDetail.Remove_Log = String.Empty;
 
                     if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
+                    //if (txtParentCaseName.Text.Trim() != String.Empty) caseDetail.ParentCaseId = txtParentCaseName.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
                     if (chkNPF_CaseCreationPage.Checked)
@@ -11761,10 +11788,19 @@ namespace CMMManager
                     cmdInsertNewMedBill.Parameters.AddWithValue("@MedBillType_Id", comboMedBillType.SelectedIndex + 1);
                     //cmdInsertNewMedBill.Parameters.AddWithValue("@MedBillStatus", comboMedBillStatus.SelectedIndex);
 
+                    Boolean bMedBillStatusPendingClosed = false;
                     for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                     {
                         if (comboMedBillStatus.SelectedIndex == lstMedicalBillStatusCodes[i].NewIndexCode)
+                        {
                             cmdInsertNewMedBill.Parameters.AddWithValue("@MedBillStatus", lstMedicalBillStatusCodes[i].BillStatusCode);
+                            bMedBillStatusPendingClosed = true;
+                        }
+                    }
+
+                    if (bMedBillStatusPendingClosed == false && MedBillStatusCMMPendingPayment.MedBillNo == strNewMedBillNo)
+                    {
+                        cmdInsertNewMedBill.Parameters.AddWithValue("@MedBillStatus", MedBillStatusCMMPendingPayment.MedBillStatus);
                     }
 
                     if (cbMedBillClosed.SelectedIndex == 0) cmdInsertNewMedBill.Parameters.AddWithValue("@MedBillClosed", 0);
@@ -12387,12 +12423,12 @@ namespace CMMManager
                                                                         "LastActivityDate, LastViewedDate, MedicalBillID, " +
                                                                         "SettlementType, Amount, PersonalResponsibilityCredit, CMMPaymentMethod, " +
                                                                         "CheckNo, CheckDate, CheckReconciled, ACH_Number, ACH_Date, ACH_Reconciled, CMMCreditCard, CMMCreditCardPaidDate, CC_Reconciled, " +
-                                                                        "AllowedAmount, Notes, Approved, ApprovedDate, IneligibleReason) " +
+                                                                        "AllowedAmount, Notes, Approved, ApprovedDate, IneligibleReason, IsReviewed) " +
                                                                         "values (0, @SettlementName, @CreateDate, @CreateByID, @LastModifiedDate, @LastModifiedByID, @SystemModifiedStamp, " +
                                                                         "@LastActivityDate, @LastViewedDate, @MedBillID, " +
                                                                         "@SettlementType, @SettlementAmount, @PersonalResponsibilityCredit, @CMMPaymentMethod, " +
                                                                         "@CheckNo, @CheckDate, @IsCheckReconciled, @ACH_Number, @ACH_Date, @IsACH_Reconciled, @CMMCreditCard, @CMMCreditCardPaidDate, @IsCC_Reconciled, " +
-                                                                        "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason)";
+                                                                        "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason, @IsReviewed)";
 
                                     SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN5);
                                     cmdInsertNewSettlement.CommandType = CommandType.Text;
@@ -12535,6 +12571,20 @@ namespace CMMManager
                                     }
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
+                                    if (gvSettlementsInMedBill["SettlementViewed", i]?.Value != null)
+                                    {
+                                        Boolean bSettlementReviewed = false;
+                                        Boolean bResultReviewed = false;
+                                        if (Boolean.TryParse(gvSettlementsInMedBill["SettlementViewed", i]?.Value?.ToString(), out bResultReviewed))
+                                        {
+                                            bSettlementReviewed = bResultReviewed;
+                                            if (bSettlementReviewed == true) cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 1);
+                                            else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                        }
+                                        else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                    }
+                                    else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+
                                     if (connRN5.State != ConnectionState.Closed)
                                     {
                                         connRN5.Close();
@@ -12574,7 +12624,8 @@ namespace CMMManager
                                                                     "[dbo].[tbl_settlement].[CC_Reconciled] = @CC_Reconciled, " +
                                                                     "[dbo].[tbl_settlement].[AllowedAmount] = @AllowedAmount, " +
                                                                     "[dbo].[tbl_settlement].[Notes] = @Note, " +
-                                                                    "[dbo].[tbl_settlement].[IneligibleReason] = @IneligibleReason " +
+                                                                    "[dbo].[tbl_settlement].[IneligibleReason] = @IneligibleReason, " +
+                                                                    "[dbo].[tbl_settlement].[IsReviewed] = @IsReviewed " +
                                                                     "where [dbo].[tbl_settlement].[Name] = @SettlementName and [dbo].[tbl_settlement].[MedicalBillID] = @MedBillName";
 
                                     int nSettlementType = 0;
@@ -12756,6 +12807,20 @@ namespace CMMManager
                                     }
                                     cmdUpdateSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
+                                    if (gvSettlementsInMedBill["SettlementViewed", i]?.Value != null)
+                                    {
+                                        Boolean bSettlementReviewed = false;
+                                        Boolean bResultReviewed = false;
+                                        if (Boolean.TryParse(gvSettlementsInMedBill["SettlementViewed", i]?.Value?.ToString(), out bResultReviewed))
+                                        {
+                                            bSettlementReviewed = bResultReviewed;
+                                            if (bSettlementReviewed == true) cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 1);
+                                            else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                        }
+                                        else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                    }
+                                    else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+
                                     if (connRN5.State != ConnectionState.Closed)
                                     {
                                         connRN5.Close();
@@ -12840,7 +12905,7 @@ namespace CMMManager
                                   "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                   "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                   "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
-                                  "[dbo].[tbl_settlement].[Notes] " +
+                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -13129,11 +13194,16 @@ namespace CMMManager
                                 if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                                 else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
 
+                                if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                                else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+
                                 gvSettlementsInMedBill.Rows.Add(row);
                             }
                         }
                         rdrSettlement.Close();
                         if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
+                        /////////////////////////////////////////////////////////////////////////////////////////////////
 
                         String strIllnessIdForIncidentSharedTotal = String.Empty;
 
@@ -13758,10 +13828,20 @@ namespace CMMManager
                     }
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillType_Id", comboMedBillType.SelectedIndex + 1);
                     //cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillStatus", comboMedBillStatus.SelectedIndex);
+
+                    Boolean bMedBillStatusPendingClosed = false;
                     for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                     {
                         if (comboMedBillStatus.SelectedIndex == lstMedicalBillStatusCodes[i].NewIndexCode)
+                        {
                             cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillStatus", lstMedicalBillStatusCodes[i].BillStatusCode);
+                            bMedBillStatusPendingClosed = true;
+                        }
+                    }
+
+                    if (bMedBillStatusPendingClosed == false && MedBillNo == MedBillStatusCMMPendingPayment.MedBillNo)
+                    {
+                        cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillStatus", MedBillStatusCMMPendingPayment.MedBillStatus);
                     }
 
                     if (cbMedBillClosed.SelectedIndex == 0) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedBillClosed", 0);
@@ -14377,12 +14457,12 @@ namespace CMMManager
                                                                         "LastActivityDate, LastViewedDate, MedicalBillID, " +
                                                                         "SettlementType, Amount, PersonalResponsibilityCredit, CMMPaymentMethod, " +
                                                                         "CheckNo, CheckDate, CheckReconciled, ACH_Number, ACH_Date, ACH_Reconciled, CMMCreditCard, CMMCreditCardPaidDate, CC_Reconciled, " +
-                                                                        "AllowedAmount, Notes, Approved, ApprovedDate, IneligibleReason) " +
+                                                                        "AllowedAmount, Notes, Approved, ApprovedDate, IneligibleReason, IsReviewed) " +
                                                                         "values (0, @SettlementName, @CreateDate, @CreateByID, @LastModifiedDate, @LastModifiedByID, @SystemModifiedStamp, " +
                                                                         "@LastActivityDate, @LastViewedDate, @MedBillID, " +
                                                                         "@SettlementType, @SettlementAmount, @PersonalResponsibilityCredit, @CMMPaymentMethod, " +
                                                                         "@CheckNo, @CheckDate, @IsCheckReconciled, @ACH_Number, @ACH_Date, @IsACH_Reconciled, @CMMCreditCard, @CMMCreditCardPaidDate, @IsCC_Reconciled, " +
-                                                                        "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason)";
+                                                                        "@AllowedAmount, @Notes, @IsApproved, @ApprovedDate, @IneligibleReason, @IsReviewed)";
 
                                     SqlCommand cmdInsertNewSettlement = new SqlCommand(strSqlCreateNewSettlement, connRN5);
                                     cmdInsertNewSettlement.CommandType = CommandType.Text;
@@ -14529,6 +14609,20 @@ namespace CMMManager
                                     }
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
+                                    if (gvSettlementsInMedBill["SettlementViewed", i]?.Value != null)
+                                    {
+                                        Boolean bSettlementReviewed = false;
+                                        Boolean bResultReviewed = false;
+                                        if (Boolean.TryParse(gvSettlementsInMedBill["SettlementViewed", i]?.Value?.ToString(), out bResultReviewed))
+                                        {
+                                            bSettlementReviewed = bResultReviewed;
+                                            if (bSettlementReviewed == true) cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 1);
+                                            else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                        }
+                                        else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                    }
+                                    else cmdInsertNewSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+
                                     if (connRN5.State != ConnectionState.Closed)
                                     {
                                         connRN5.Close();
@@ -14566,7 +14660,8 @@ namespace CMMManager
                                                                     "[dbo].[tbl_settlement].[CC_Reconciled] = @CC_Reconciled, " +
                                                                     "[dbo].[tbl_settlement].[AllowedAmount] = @AllowedAmount, " +
                                                                     "[dbo].[tbl_settlement].[Notes] = @Note, " +
-                                                                    "[dbo].[tbl_settlement].[IneligibleReason] = @IneligibleReason " +
+                                                                    "[dbo].[tbl_settlement].[IneligibleReason] = @IneligibleReason, " +
+                                                                    "[dbo].[tbl_settlement].[IsReviewed] = @IsReviewed " +
                                                                     "where [dbo].[tbl_settlement].[Name] = @SettlementName and [dbo].[tbl_settlement].[MedicalBillID] = @MedBillName";
 
                                     int nSettlementType = 0;
@@ -14757,6 +14852,20 @@ namespace CMMManager
                                     }
                                     cmdUpdateSettlement.Parameters.AddWithValue("@IneligibleReason", nIneligibleReason);
 
+                                    if (gvSettlementsInMedBill["SettlementViewed", i]?.Value != null)
+                                    {
+                                        Boolean bSettlementReviewed = false;
+                                        Boolean bResultReviewed = false;
+                                        if (Boolean.TryParse(gvSettlementsInMedBill["SettlementViewed", i]?.Value?.ToString(), out bResultReviewed))
+                                        {
+                                            bSettlementReviewed = bResultReviewed;
+                                            if (bSettlementReviewed == true) cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 1);
+                                            else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                        }
+                                        else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+                                    }
+                                    else cmdUpdateSettlement.Parameters.AddWithValue("@IsReviewed", 0);
+
                                     if (connRN5.State != ConnectionState.Closed)
                                     {
                                         connRN5.Close();
@@ -14768,6 +14877,7 @@ namespace CMMManager
                                     if (connRN5.State != ConnectionState.Closed) connRN5.Close();
 
                                     if (nRowUpdated == 0) bError = true;
+                                    
                                 }
                             }
 
@@ -14785,6 +14895,316 @@ namespace CMMManager
                             if (bError == false)
                             {
                                 MessageBox.Show("Settlements have been saved.", "Info");
+
+                                //////////////////////////////////////////////////////////
+                                ///
+                                // add code to reload updated settlement
+
+                                String strSqlQueryForSettlement = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], [dbo].[tbl_settlement].[Amount], " +
+                                                                  "[dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_payment_method].[PaymentMethod_Value], " +
+                                                                  "[dbo].[tbl_settlement].[Approved], [dbo].[tbl_settlement].[ApprovedDate], " +
+                                                                  "[dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], [dbo].[tbl_settlement].[CheckReconciled], " +
+                                                                  "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
+                                                                  "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
+                                                                  "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
+                                                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
+                                                                  "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
+                                                                  "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                                  "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
+                                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                                  "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
+                                                                  "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
+                                                                  "order by [dbo].[tbl_settlement].[Name]";
+
+                                SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN5);
+                                cmdQueryForSettlement.CommandType = CommandType.Text;
+
+                                cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", strNewMedBillNo);
+
+                                SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
+                                dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
+
+                                if (connRN5.State != ConnectionState.Closed)
+                                {
+                                    connRN5.Close();
+                                    connRN5.Open();
+                                }
+                                else if (connRN5.State == ConnectionState.Closed) connRN5.Open();
+                                SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
+                                gvSettlementsInMedBill.Rows.Clear();
+                                if (rdrSettlement.HasRows)
+                                {
+                                    while (rdrSettlement.Read())
+                                    {
+                                        DataGridViewRow row = new DataGridViewRow();
+                                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                                        if (!rdrSettlement.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(0) });
+                                        if (!rdrSettlement.IsDBNull(1))
+                                        {
+                                            DataGridViewComboBoxCell comboCellSettlementType = new DataGridViewComboBoxCell();
+
+                                            for (int i = 0; i < lstSettlementType.Count; i++)
+                                            {
+                                                comboCellSettlementType.Items.Add(lstSettlementType[i].SettlementTypeValue);
+                                            }
+                                            for (int i = 0; i < comboCellSettlementType.Items.Count; i++)
+                                            {
+                                                if (rdrSettlement.GetString(1) == comboCellSettlementType.Items[i].ToString())
+                                                    comboCellSettlementType.Value = comboCellSettlementType.Items[i];
+                                            }
+
+                                            row.Cells.Add(comboCellSettlementType);
+                                        }
+                                        else
+                                        {
+                                            DataGridViewComboBoxCell comboCellSettlementType = new DataGridViewComboBoxCell();
+                                            for (int i = 0; i < lstSettlementType.Count; i++)
+                                            {
+                                                comboCellSettlementType.Items.Add(lstSettlementType[i].SettlementTypeValue);
+                                            }
+
+                                            for (int i = 0; i < comboCellSettlementType.Items.Count; i++)
+                                            {
+                                                if (rdrSettlement.GetString(1) == comboCellSettlementType.Items[i].ToString())
+                                                    comboCellSettlementType.Value = comboCellSettlementType.Items[i];
+                                            }
+
+                                            row.Cells.Add(comboCellSettlementType);
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(2).ToString("C") });
+                                        else
+                                        {
+                                            Decimal Zero = 0;
+                                            row.Cells.Add(new DataGridViewTextBoxCell { Value = Zero.ToString("C") });
+                                        }
+
+
+                                        if (!rdrSettlement.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(3).ToString("C") });
+                                        else
+                                        {
+                                            Decimal Zero = 0;
+                                            row.Cells.Add(new DataGridViewTextBoxCell { Value = Zero.ToString("C") });
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(4))
+                                        {
+                                            DataGridViewComboBoxCell comboCellPaymentMethod = new DataGridViewComboBoxCell();
+
+                                            for (int i = 0; i < lstPaymentMethod.Count; i++)
+                                            {
+                                                if (lstPaymentMethod[i].PaymentMethodValue != null) comboCellPaymentMethod.Items.Add(lstPaymentMethod[i].PaymentMethodValue);
+                                                else comboCellPaymentMethod.Items.Add(String.Empty);
+                                            }
+
+                                            for (int i = 0; i < comboCellPaymentMethod.Items.Count; i++)
+                                            {
+                                                if (rdrSettlement.GetString(4) == comboCellPaymentMethod.Items[i].ToString())
+                                                    comboCellPaymentMethod.Value = comboCellPaymentMethod.Items[i];
+                                            }
+
+                                            row.Cells.Add(comboCellPaymentMethod);
+                                        }
+                                        else
+                                        {
+                                            DataGridViewComboBoxCell comboCellPaymentMethod = new DataGridViewComboBoxCell();
+
+                                            for (int i = 0; i < lstPaymentMethod.Count; i++)
+                                            {
+                                                if (lstPaymentMethod[i].PaymentMethodValue != null) comboCellPaymentMethod.Items.Add(lstPaymentMethod[i].PaymentMethodValue);
+                                                else comboCellPaymentMethod.Items.Add(String.Empty);
+                                            }
+
+                                            for (int i = 0; i < comboCellPaymentMethod.Items.Count; i++)
+                                            {
+                                                if ((!rdrSettlement.IsDBNull(4)) && comboCellPaymentMethod.Items[i] != null)
+                                                {
+                                                    if (rdrSettlement.GetString(4) == comboCellPaymentMethod.Items[i].ToString())
+                                                        comboCellPaymentMethod.Value = comboCellPaymentMethod.Items[i];
+                                                }
+                                                else comboCellPaymentMethod.Value = null;
+                                            }
+
+                                            row.Cells.Add(comboCellPaymentMethod);
+
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(5))
+                                        {
+
+                                            DataGridViewCheckBoxCell approvedCell = new DataGridViewCheckBoxCell();
+                                            approvedCell.Value = rdrSettlement.GetBoolean(5);
+                                            approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                            row.Cells.Add(approvedCell);
+                                        }
+                                        else
+                                        {
+                                            DataGridViewCheckBoxCell approvedCell = new DataGridViewCheckBoxCell();
+                                            approvedCell.Value = false;
+                                            approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                                            row.Cells.Add(approvedCell);
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(6))
+                                            row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy HH:mm:ss")) });
+                                        else row.Cells.Add(new CalendarCell { Value = null });
+
+                                        // Payment information
+                                        if (!rdrSettlement.IsDBNull(4))
+                                        {
+                                            String strPaymentMethod = rdrSettlement.GetString(4);
+
+                                            switch (strPaymentMethod)
+                                            {
+                                                case "Check":
+                                                    if (!rdrSettlement.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(7) });
+                                                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    DataGridViewComboBoxCell comboCellCreditCardNoneForCheck = new DataGridViewComboBoxCell();
+                                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                                    {
+                                                        if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCardNoneForCheck.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                        else comboCellCreditCardNoneForCheck.Items.Add(String.Empty);
+                                                    }
+                                                    row.Cells.Add(comboCellCreditCardNoneForCheck);
+                                                    if (!rdrSettlement.IsDBNull(8)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(8).ToString("MM/dd/yyyy")) });
+                                                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                                    if (!rdrSettlement.IsDBNull(9)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(9) });
+                                                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                                                    break;
+                                                case "ACH/Banking":
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    if (!rdrSettlement.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(10) });
+                                                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    DataGridViewComboBoxCell comboCellCreditCardNoneForACH = new DataGridViewComboBoxCell();
+                                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                                    {
+                                                        if (lstCreditCardInfo[i].CreditCardNo != null)
+                                                            comboCellCreditCardNoneForACH.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                        else comboCellCreditCardNoneForACH.Items.Add(String.Empty);
+                                                    }
+                                                    row.Cells.Add(comboCellCreditCardNoneForACH);
+                                                    if (!rdrSettlement.IsDBNull(11)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(11).ToString("MM/dd/yyyy")) });
+                                                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                                    if (!rdrSettlement.IsDBNull(12)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(12) });
+                                                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                                                    break;
+                                                case "Credit Card":
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    DataGridViewComboBoxCell comboCellCreditCard = new DataGridViewComboBoxCell();
+                                                    if (!rdrSettlement.IsDBNull(13))
+                                                    {
+                                                        for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                                        {
+                                                            if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCard.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                            else comboCellCreditCard.Items.Add(String.Empty);
+                                                        }
+                                                        for (int i = 0; i < comboCellCreditCard.Items.Count; i++)
+                                                        {
+                                                            if (rdrSettlement.GetString(13) == comboCellCreditCard.Items[i].ToString())
+                                                                comboCellCreditCard.Value = comboCellCreditCard.Items[i];
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                                        {
+                                                            if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCard.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                            else comboCellCreditCard.Items.Add(String.Empty);
+                                                        }
+                                                        comboCellCreditCard.Value = String.Empty;
+                                                    }
+                                                    row.Cells.Add(comboCellCreditCard);
+                                                    if (!rdrSettlement.IsDBNull(14)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(14).ToString("MM/dd/yyyy")) });
+                                                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                                    if (!rdrSettlement.IsDBNull(15)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(15) });
+                                                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                                                    break;
+                                                default:
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                                    DataGridViewComboBoxCell comboCellCreditCardNone = new DataGridViewComboBoxCell();
+                                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                                    {
+                                                        if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCardNone.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                        else comboCellCreditCardNone.Items.Add(String.Empty);
+                                                    }
+                                                    row.Cells.Add(comboCellCreditCardNone);
+                                                    row.Cells.Add(new CalendarCell { Value = null });
+                                                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                                    break;
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                            DataGridViewTextBoxCell txtCheckNoCell = new DataGridViewTextBoxCell();
+                                            txtCheckNoCell.Value = null;
+                                            row.Cells.Add(txtCheckNoCell);
+                                            DataGridViewTextBoxCell txtACHNoCell = new DataGridViewTextBoxCell();
+                                            txtACHNoCell.Value = null;
+                                            row.Cells.Add(txtACHNoCell);
+                                            DataGridViewComboBoxCell comboCreditCardCell = new DataGridViewComboBoxCell();
+                                            for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                            {
+                                                if (lstCreditCardInfo[i].CreditCardNo != null) comboCreditCardCell.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                                else comboCreditCardCell.Items.Add(String.Empty);
+                                            }
+                                            row.Cells.Add(comboCreditCardCell);
+                                            comboCreditCardCell.ReadOnly = true;
+                                            CalendarCell calPaymentDate = new CalendarCell();
+                                            calPaymentDate.Value = null;
+                                            row.Cells.Add(calPaymentDate);
+                                            DataGridViewCheckBoxCell chkReconciledCell = new DataGridViewCheckBoxCell();
+                                            chkReconciledCell.Value = false;
+                                            row.Cells.Add(chkReconciledCell);
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(16).ToString("C") });
+                                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                                        if (!rdrSettlement.IsDBNull(17))
+                                        {
+                                            if (dicIneligibleReason.Count > 0)
+                                            {
+                                                DataGridViewComboBoxCell comboCellIneligibleReason = new DataGridViewComboBoxCell();
+                                                for (int i = 0; i < dicIneligibleReason.Count; i++)
+                                                {
+                                                    comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
+                                                }
+                                                //comboCellIneligibleReason.Sorted = true;
+                                                comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
+                                                row.Cells.Add(comboCellIneligibleReason);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (dicIneligibleReason.Count > 0)
+                                            {
+                                                DataGridViewComboBoxCell comboCellIneligibleReason = new DataGridViewComboBoxCell();
+                                                for (int i = 0; i < dicIneligibleReason.Count; i++)
+                                                {
+                                                    comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
+                                                }
+                                                //comboCellIneligibleReason.Sorted = true;
+                                                comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
+                                                row.Cells.Add(comboCellIneligibleReason);
+                                            }
+                                        }
+
+                                        if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
+                                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+
+                                        gvSettlementsInMedBill.Rows.Add(row);
+                                    }
+                                }
+                                rdrSettlement.Close();
+                                if (connRN5.State != ConnectionState.Closed) connRN5.Close();
+
                             }
                             else if (bError == true)
                             {
@@ -21309,7 +21729,11 @@ namespace CMMManager
                         txtMedBill_Incident.Text = rdrMedBillEdit.GetString(2).Trim();
                     }
 
-                    if (!rdrMedBillEdit.IsDBNull(3)) txtMedBillNo.Text = rdrMedBillEdit.GetString(3).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(3))
+                    {
+                        txtMedBillNo.Text = rdrMedBillEdit.GetString(3).Trim();
+                        MedBillStatusCMMPendingPayment.MedBillNo = txtMedBillNo.Text.Trim();
+                    }
 
                     if (!rdrMedBillEdit.IsDBNull(4))
                     {
@@ -21340,11 +21764,17 @@ namespace CMMManager
                             }
 
                             //comboMedBillStatus.SelectedIndex = rdrMedBillEdit.GetInt16(5);
+                            Boolean bMedBillStatusPendingClosed = false;
                             for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                             {
                                 if (rdrMedBillEdit.GetInt16(5) == lstMedicalBillStatusCodes[i].BillStatusCode)
+                                {
                                     comboMedBillStatus.SelectedIndex = lstMedicalBillStatusCodes[i].NewIndexCode;
+                                    bMedBillStatusPendingClosed = true;
+                                }
                             }
+
+                            if (bMedBillStatusPendingClosed == false) MedBillStatusCMMPendingPayment.MedBillStatus = rdrMedBillEdit.GetInt16(5);
 
                         }
 
@@ -22174,7 +22604,7 @@ namespace CMMManager
                                                     "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                                     "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                                     "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
-                                                    "[dbo].[tbl_settlement].[Notes] " +
+                                                    "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                                     "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                     "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                     "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -22594,6 +23024,9 @@ namespace CMMManager
 
                         if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
 
                         gvSettlementsInMedBill.Rows.Add(row);
                         //AddNewRowToGVSettlementSafely(row);
@@ -25701,7 +26134,7 @@ namespace CMMManager
                                   "[dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], [dbo].[tbl_settlement].[CheckReconciled], " +
                                   "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                   "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
-                                  "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], [dbo].[tbl_settlement].[Notes] " +
+                                  "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], [dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -26006,6 +26439,9 @@ namespace CMMManager
 
                     if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                    if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
 
                     if (IsHandleCreated) AddNewRowToGVSettlementSafely(row);
                     else gvSettlementsInMedBill.Rows.Add(row);
@@ -36342,7 +36778,11 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(1)) MedBillForEdit.IllnessNo = rdrMedBillEdit.GetString(1).Trim();
                     if (!rdrMedBillEdit.IsDBNull(2)) MedBillForEdit.IncidentNo = rdrMedBillEdit.GetString(2).Trim();
                     if (!rdrMedBillEdit.IsDBNull(3)) MedBillForEdit.ProgramName = rdrMedBillEdit.GetString(3).Trim();
-                    if (!rdrMedBillEdit.IsDBNull(4)) MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(4))
+                    {
+                        MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                        MedBillStatusCMMPendingPayment.MedBillNo = MedBillForEdit.MedBillNo;
+                    }
                     if (!rdrMedBillEdit.IsDBNull(5)) MedBillForEdit.MedBillTypeId = rdrMedBillEdit.GetInt16(5);
                     if (!rdrMedBillEdit.IsDBNull(6)) MedBillForEdit.MedBillStatusId = rdrMedBillEdit.GetInt16(6);
                     if (!rdrMedBillEdit.IsDBNull(7)) MedBillForEdit.bBillClosed = rdrMedBillEdit.GetBoolean(7);
@@ -36477,7 +36917,7 @@ namespace CMMManager
                     //    }
                     //    comboMedBillStatus.SelectedIndex = MedBillForEdit.MedBillStatusId;
                     //}
-
+                    Boolean bMedBillStatusPendingClosed = false;
                     if (lstMedicalBillStatusCodes.Count > 0)
                     {
                         comboMedBillStatus.Items.Clear();
@@ -36488,10 +36928,14 @@ namespace CMMManager
                         for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                         {
                             if (MedBillForEdit.MedBillStatusId == lstMedicalBillStatusCodes[i].BillStatusCode)
+                            {
                                 comboMedBillStatus.SelectedIndex = lstMedicalBillStatusCodes[i].NewIndexCode;
+                                bMedBillStatusPendingClosed = true;
+                            }
                         }
                     }
 
+                    if (bMedBillStatusPendingClosed == false) MedBillStatusCMMPendingPayment.MedBillStatus = MedBillForEdit.MedBillStatusId;
                 }
 
                 if (MedBillForEdit.bBillClosed) cbMedBillClosed.SelectedIndex = 1;
@@ -36892,7 +37336,7 @@ namespace CMMManager
                                                   "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                                   "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                                   "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
-                                                  "[dbo].[tbl_settlement].[Notes] " +
+                                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -37245,6 +37689,9 @@ namespace CMMManager
 
                         if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
 
                         gvSettlementsInMedBill.Rows.Add(row);
                         //AddNewRowToGVSettlementSafely(row);
@@ -54876,7 +55323,11 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(1)) MedBillForEdit.IllnessNo = rdrMedBillEdit.GetString(1).Trim();
                     if (!rdrMedBillEdit.IsDBNull(2)) MedBillForEdit.IncidentNo = rdrMedBillEdit.GetString(2).Trim();
                     if (!rdrMedBillEdit.IsDBNull(3)) MedBillForEdit.ProgramName = rdrMedBillEdit.GetString(3).Trim();
-                    if (!rdrMedBillEdit.IsDBNull(4)) MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(4))
+                    {
+                        MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                        MedBillStatusCMMPendingPayment.MedBillNo = MedBillForEdit.MedBillNo;
+                    }
                     if (!rdrMedBillEdit.IsDBNull(5)) MedBillForEdit.MedBillTypeId = rdrMedBillEdit.GetInt16(5);
                     if (!rdrMedBillEdit.IsDBNull(6)) MedBillForEdit.MedBillStatusId = rdrMedBillEdit.GetInt16(6);
                     if (!rdrMedBillEdit.IsDBNull(7)) MedBillForEdit.bBillClosed = rdrMedBillEdit.GetBoolean(7);
@@ -55013,6 +55464,8 @@ namespace CMMManager
 
                 if (MedBillForEdit.MedBillStatusId != -1)
                 {
+                    Boolean bMedBillStatusPendingClosed = false;
+
                     if (lstMedicalBillStatusCodes.Count > 0)
                     {
                         comboMedBillStatus.Items.Clear();
@@ -55024,9 +55477,14 @@ namespace CMMManager
                         for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                         {
                             if (MedBillForEdit.MedBillStatusId == lstMedicalBillStatusCodes[i].BillStatusCode)
+                            {
                                 comboMedBillStatus.SelectedIndex = lstMedicalBillStatusCodes[i].NewIndexCode;
+                                bMedBillStatusPendingClosed = true;
+                            }
                         }
                     }
+
+                    if (bMedBillStatusPendingClosed == false) MedBillStatusCMMPendingPayment.MedBillStatus = MedBillForEdit.MedBillStatusId;
                 }
 
                 
@@ -55427,7 +55885,7 @@ namespace CMMManager
                                                   "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                                   "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                                   "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
-                                                  "[dbo].[tbl_settlement].[Notes] " +
+                                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -55780,6 +56238,9 @@ namespace CMMManager
 
                         if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
 
                         gvSettlementsInMedBill.Rows.Add(row);
                         //AddNewRowToGVSettlementSafely(row);
@@ -56324,7 +56785,7 @@ namespace CMMManager
                 if (connRN2.State != ConnectionState.Closed) connRN2.Close();
 
                 String IndividualId = objIndividualId?.ToString();
-                String strCaseNameSelected = CaseId;
+                String CaseNameSelected = CaseId;
 
                 String strPatientLastName = String.Empty;
                 String strPatientFirstName = String.Empty;
@@ -56651,7 +57112,11 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(1)) MedBillForEdit.IllnessNo = rdrMedBillEdit.GetString(1).Trim();
                     if (!rdrMedBillEdit.IsDBNull(2)) MedBillForEdit.IncidentNo = rdrMedBillEdit.GetString(2).Trim();
                     if (!rdrMedBillEdit.IsDBNull(3)) MedBillForEdit.ProgramName = rdrMedBillEdit.GetString(3).Trim();
-                    if (!rdrMedBillEdit.IsDBNull(4)) MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(4))
+                    {
+                        MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                        MedBillStatusCMMPendingPayment.MedBillNo = MedBillForEdit.MedBillNo;
+                    }
                     if (!rdrMedBillEdit.IsDBNull(5)) MedBillForEdit.MedBillTypeId = rdrMedBillEdit.GetInt16(5);
                     if (!rdrMedBillEdit.IsDBNull(6)) MedBillForEdit.MedBillStatusId = rdrMedBillEdit.GetInt16(6);
                     if (!rdrMedBillEdit.IsDBNull(7)) MedBillForEdit.bBillClosed = rdrMedBillEdit.GetBoolean(7);
@@ -56698,6 +57163,9 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(43)) MedBillForEdit.OtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(43);
 
                 }
+                rdrMedBillEdit.Close();
+                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
 
                 String strSqlQueryForMedicalProviderName = "select [dbo].[account].[Name] from [dbo].[account] where [dbo].[account].[Id] = @MedicalProviderId";
 
@@ -56785,7 +57253,7 @@ namespace CMMManager
                     //    }
                     //    comboMedBillStatus.SelectedIndex = MedBillForEdit.MedBillStatusId;
                     //}
-
+                    Boolean bMedBillStatusPendingClosed = false;
                     if (lstMedicalBillStatusCodes.Count > 0)
                     {
                         comboMedBillStatus.Items.Clear();
@@ -56796,9 +57264,14 @@ namespace CMMManager
                         for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
                         {
                             if (MedBillForEdit.MedBillStatusId == lstMedicalBillStatusCodes[i].BillStatusCode)
+                            {
                                 comboMedBillStatus.SelectedIndex = lstMedicalBillStatusCodes[i].NewIndexCode;
+                                bMedBillStatusPendingClosed = true;
+                            }
                         }
                     }
+
+                    if (bMedBillStatusPendingClosed == false) MedBillStatusCMMPendingPayment.MedBillStatus = MedBillForEdit.MedBillStatusId;
                 }
 
                 if (MedBillForEdit.bBillClosed) cbMedBillClosed.SelectedIndex = 1;
@@ -57197,7 +57670,7 @@ namespace CMMManager
                                                   "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
                                                   "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                                   "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
-                                                  "[dbo].[tbl_settlement].[Notes] " +
+                                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
@@ -57550,6 +58023,9 @@ namespace CMMManager
 
                         if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
 
                         gvSettlementsInMedBill.Rows.Add(row);
                         //AddNewRowToGVSettlementSafely(row);
@@ -59191,7 +59667,8 @@ namespace CMMManager
                                     "[dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement].[Amount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
                                     "[dbo].[tbl_settlement_type_code].[SettlementTypeValue], " +
                                     "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID] " +
+                                    "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_settlement].[IsCheckExported], [dbo].[tbl_settlement].[CheckExportedByID], " +
+                                    "[dbo].[tbl_settlement].[IsReviewed] " +
                                     "from [dbo].[tbl_settlement] " +
                                     "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                     "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
@@ -59246,6 +59723,7 @@ namespace CMMManager
                     if (!rdrCheckPayment.IsDBNull(11)) infoCheckPayment.AccountNoAtMedProvider = rdrCheckPayment.GetString(11);
                     if (!rdrCheckPayment.IsDBNull(12)) infoCheckPayment.bIsExported = rdrCheckPayment.GetBoolean(12);
                     if (!rdrCheckPayment.IsDBNull(13)) infoCheckPayment.nExportedByID = rdrCheckPayment.GetInt16(13);
+                    if (!rdrCheckPayment.IsDBNull(14)) infoCheckPayment.bIsReviewed = rdrCheckPayment.GetBoolean(14);
 
                     lstCheckPaymentInfo.Add(infoCheckPayment);
                 }
@@ -59367,6 +59845,8 @@ namespace CMMManager
                 row.Cells[19].ReadOnly = true;
                 row.Cells.Add(new DataGridViewTextBoxCell { Value = info.MemebershipNo });
                 row.Cells[20].ReadOnly = true;
+
+                if (info.bIsReviewed == true) row.DefaultCellStyle.BackColor = Color.LightSkyBlue;
 
                 gvPaymentCheckMemberReimbursement.Rows.Add(row);
             }
@@ -59870,13 +60350,6 @@ namespace CMMManager
             Cursor.Current = Cursors.Default;
         }
 
-        private void btnAddChildCase_Click(object sender, EventArgs e)
-        {
-            String ParentCaseName = txtCaseName.Text.Trim();
-
-
-        }
-
         private void gvPaymentACH_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex <= -1) return;
@@ -59940,9 +60413,1930 @@ namespace CMMManager
 
             if (gvCheckPayment.Rows.Count > 0)
             {
+                InitializeMedBillTabOnNewMedBill();
+
+                comboPendingReason.Items.Clear();
+                if (dicPendingReason.Count > 0)
+                {
+                    for (int i = 0; i < dicPendingReason.Count; i++)
+                    {
+                        comboPendingReason.Items.Add(dicPendingReason[i]);
+                    }
+                    comboPendingReason.SelectedIndex = 0;
+                }
+
+                comboIneligibleReason.Items.Clear();
+                if (dicIneligibleReason.Count > 0)
+                {
+                    for (int i = 0; i < dicIneligibleReason.Count; i++)
+                    {
+                        comboIneligibleReason.Items.Add(dicIneligibleReason[i]);
+                    }
+                    comboIneligibleReason.SelectedIndex = 0;
+                }
+
+                String SettlementNo = String.Empty;
+                if (gvCheckPayment["SettlementNoPaymentCheck", e.RowIndex]?.Value != null) SettlementNo = gvCheckPayment["SettlementNoPaymentCheck", e.RowIndex]?.Value?.ToString();
+
+                String strSqlQueryForMedBillNo = "select [dbo].[tbl_settlement].[MedicalBillID] from [dbo].[tbl_settlement] where [dbo].[tbl_settlement].[Name] = @SettlementNo";
+
+                SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN7);
+                cmdQueryForMedBillNo.CommandType = CommandType.Text;
+
+                cmdQueryForMedBillNo.Parameters.AddWithValue("@SettlementNo", SettlementNo);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                Object objMedBillNo = cmdQueryForMedBillNo.ExecuteScalar();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                String MedBillNo = String.Empty;
+                if (objMedBillNo != null) MedBillNo = objMedBillNo.ToString();
+
+                String strSqlQueryForCaseIdForMedBill = "select [dbo].[tbl_medbill].[Case_Id] from [dbo].[tbl_medbill] where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                SqlCommand cmdQueryForCaseIdForMedBill = new SqlCommand(strSqlQueryForCaseIdForMedBill, connRN7);
+                cmdQueryForCaseIdForMedBill.CommandType = CommandType.Text;
+
+                cmdQueryForCaseIdForMedBill.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                Object objCaseId = cmdQueryForCaseIdForMedBill.ExecuteScalar();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                String CaseId = objCaseId?.ToString();
+
+                Boolean bMedBillInUse = false;
+
+                String strSqlQueryForMedBillInUse = "select [dbo].[tbl_MedBillInUse].[BillNo], [dbo].[tbl_MedBillInUse].[EditingStaff] from [dbo].[tbl_MedBillInUse] " +
+                    "where [dbo].[tbl_MedBillInUse].[BillNo] = @MedBillInUse";
+
+                SqlCommand cmdQueryForMedBillInUse = new SqlCommand(strSqlQueryForMedBillInUse, connRN7);
+                cmdQueryForMedBillInUse.CommandType = CommandType.Text;
+
+                cmdQueryForMedBillInUse.Parameters.AddWithValue("@MedBillInUse", MedBillNo);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrMedBillInUse = cmdQueryForMedBillInUse.ExecuteReader();
+                if (rdrMedBillInUse.HasRows)
+                {
+                    rdrMedBillInUse.Read();
+                    if (MedBillNo == rdrMedBillInUse.GetString(0).Trim() &&
+                        nLoggedUserId != rdrMedBillInUse.GetInt16(1))
+                    {
+                        MessageBox.Show("The Medical Bill: " + MedBillNo + " is in use.", "Alert");
+                        rdrMedBillInUse.Close();
+                        if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                        bMedBillInUse = true;
+                        //return;
+                    }
+                }
+                else
+                {
+                    rdrMedBillInUse.Close();
+                    if (connRN4.State != ConnectionState.Closed) connRN.Close();
+
+                    String strSqlInsertMedBillInUse = "insert into [dbo].[tbl_MedBillInUse] (BillNo, EditingStaff) values (@MedBillNo, @ModifyingStaff)";
+
+                    SqlCommand cmdInsertMedBillInUse = new SqlCommand(strSqlInsertMedBillInUse, connRN7);
+                    cmdInsertMedBillInUse.CommandType = CommandType.Text;
+
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+                    cmdInsertMedBillInUse.Parameters.AddWithValue("@ModifyingStaff", nLoggedUserId);
+
+                    if (connRN7.State != ConnectionState.Closed)
+                    {
+                        connRN7.Close();
+                        connRN7.Open();
+                    }
+                    else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                    int nMedBillInUseInserted = cmdInsertMedBillInUse.ExecuteNonQuery();
+                    if (nMedBillInUseInserted != 1)
+                    {
+                        MessageBox.Show("Medical Bill in use: " + MedBillNo + " has not been inserted.", "Error");
+                        if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                        return;
+                    }
+                    if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+                }
+
+                String strSqlQueryForIndividualId = "select [dbo].[tbl_medbill].[Individual_Id] from [dbo].[tbl_medbill] where [dbo].[tbl_medbill].[BillNo] = @MedBillNo";
+
+                SqlCommand cmdQueryForIndividualId = new SqlCommand(strSqlQueryForIndividualId, connRN7);
+                cmdQueryForIndividualId.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualId.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                Object objIndividualId = cmdQueryForIndividualId.ExecuteScalar();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                String IndividualId = objIndividualId?.ToString();
+                String CaseNameSelected = CaseId;
+
+                String strPatientLastName = String.Empty;
+                String strPatientFirstName = String.Empty;
+                String strPatientMiddleName = String.Empty;
+                String strDateOfBirth = String.Empty;
+                String strSSN = String.Empty;
+                String strStreetAddr = String.Empty;
+                String strCity = String.Empty;
+                String strState = String.Empty;
+                String strZip = String.Empty;
+
+                String strSqlQueryForPatientInfo = "select [dbo].[contact].[LastName], [dbo].[contact].[FirstName], [dbo].[contact].[MiddleName], " +
+                                                   "[dbo].[contact].[Birthdate], [dbo].[contact].[Social_Security_Number__c], " +
+                                                   "[dbo].[Account].[ShippingStreet], [dbo].[Account].[ShippingCity], [dbo].[Account].[ShippingState], [dbo].[Account].[ShippingPostalCode] " +
+                                                   "from [dbo].[contact] " +
+                                                   "inner join [dbo].[Account] on [dbo].[contact].[AccountId] = [dbo].[Account].[Id] " +
+                                                   "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForPatientInfo = new SqlCommand(strSqlQueryForPatientInfo, connSalesforce2);
+                cmdQueryForPatientInfo.CommandType = CommandType.Text;
+
+                cmdQueryForPatientInfo.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                if (connSalesforce2.State != ConnectionState.Closed)
+                {
+                    connSalesforce2.Close();
+                    connSalesforce2.Open();
+                }
+                else if (connSalesforce2.State == ConnectionState.Closed) connSalesforce2.Open();
+                SqlDataReader rdrPatientInfo = cmdQueryForPatientInfo.ExecuteReader();
+                if (rdrPatientInfo.HasRows)
+                {
+                    rdrPatientInfo.Read();
+                    if (!rdrPatientInfo.IsDBNull(0)) strPatientLastName = rdrPatientInfo.GetString(0);
+                    if (!rdrPatientInfo.IsDBNull(1)) strPatientFirstName = rdrPatientInfo.GetString(1);
+                    if (!rdrPatientInfo.IsDBNull(2)) strPatientMiddleName = rdrPatientInfo.GetString(2);
+                    if (!rdrPatientInfo.IsDBNull(3)) strDateOfBirth = rdrPatientInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                    if (!rdrPatientInfo.IsDBNull(4)) strSSN = rdrPatientInfo.GetString(4);
+                    if (!rdrPatientInfo.IsDBNull(5)) strStreetAddr = rdrPatientInfo.GetString(5);
+                    if (!rdrPatientInfo.IsDBNull(6)) strCity = rdrPatientInfo.GetString(6);
+                    if (!rdrPatientInfo.IsDBNull(7)) strState = rdrPatientInfo.GetString(7);
+                    if (!rdrPatientInfo.IsDBNull(8)) strZip = rdrPatientInfo.GetString(8);
+                }
+                if (connSalesforce2.State != ConnectionState.Closed) connSalesforce2.Close();
+
+                InitializeMedBillTabOnNewMedBill();
+
+                //nRowSelected = gvProcessingCaseNo.CurrentCell.RowIndex;
+                //String IndividualId = txtMedBillViewIndId.Text.Trim();
+
+                txtIndividualIDMedBill.Text = IndividualId;
+
+                if (strPatientMiddleName != String.Empty) txtPatientNameMedBill.Text = strPatientLastName + ", " + strPatientFirstName + " " + strPatientMiddleName;
+                else txtPatientNameMedBill.Text = strPatientLastName + ", " + strPatientFirstName;
+
+                txtMedBillDOB.Text = strDateOfBirth;
+                txtMedBillSSN.Text = strSSN;
+                txtMedBillAddress.Text = strStreetAddr + ", " + strCity + ", " + strState + " " + strZip;
+
+                String strSqlQueryForIndividualPlan = "select [dbo].[program].[Name] from [dbo].[contact] " +
+                                      "inner join [dbo].[program] on [dbo].[contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                      "where [dbo].[contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualPlan = new SqlCommand(strSqlQueryForIndividualPlan, connSalesforce3);
+                cmdQueryForIndividualPlan.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualPlan.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                if (connSalesforce3.State != ConnectionState.Closed)
+                {
+                    connSalesforce3.Close();
+                    connSalesforce3.Open();
+                }
+                else if (connSalesforce3.State == ConnectionState.Closed) connSalesforce3.Open();
+                Object objIndividualPlan = cmdQueryForIndividualPlan.ExecuteScalar();
+                if (connSalesforce3.State != ConnectionState.Closed) connSalesforce3.Close();
+
+                txtMemberProgram.Text = objIndividualPlan?.ToString();
+
+                String strSqlQueryForCaseStatus = "select [dbo].[tbl_case_status_code].[CaseStatusValue] from [dbo].[tbl_case_status_code]";
+                SqlCommand cmdQueryForCaseStatus = new SqlCommand(strSqlQueryForCaseStatus, connRN7);
+                cmdQueryForCaseStatus.CommandType = CommandType.Text;
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+
+                SqlDataReader rdrCaseStatus = cmdQueryForCaseStatus.ExecuteReader();
+                cbCaseStatus.Items.Clear();
+                if (rdrCaseStatus.HasRows)
+                {
+                    while (rdrCaseStatus.Read())
+                    {
+                        cbCaseStatus.Items.Add(rdrCaseStatus.GetString(0));
+                    }
+                }
+                rdrCaseStatus.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+
+
+                String strSqlQueryForDocumentsInfo = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Receiv_Date], " +
+                                         "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Receiv_Date], " +
+                                         "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Receiv_Date], " +
+                                         "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
+                                         "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Receiv_Date] " +
+                                         "from [dbo].[tbl_case] " +
+                                         "where [dbo].[tbl_case].[Case_Name] = @CaseId and " +
+                                         "[dbo].[tbl_case].[Contact_ID] = @IndividualId and " +
+                                         "[dbo].[tbl_case].[IsDeleted] = 0";
+
+                SqlCommand cmdQueryForDocInfo = new SqlCommand(strSqlQueryForDocumentsInfo, connRN7);
+                cmdQueryForDocInfo.CommandType = CommandType.Text;
+
+                cmdQueryForDocInfo.Parameters.AddWithValue("@CaseId", CaseId);
+                cmdQueryForDocInfo.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrDocInfo = cmdQueryForDocInfo.ExecuteReader();
+                if (rdrDocInfo.HasRows)
+                {
+                    rdrDocInfo.Read();
+
+                    if (!rdrDocInfo.IsDBNull(0))
+                    {
+                        if (rdrDocInfo.GetBoolean(0))
+                        {
+                            chkMedBillNPFReceived.Checked = true;
+                            chkMedBillNPFReceived.Enabled = false;
+                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            dtpMedBillNPF.Enabled = false;
+                            btnViewNPF.Enabled = true;
+                        }
+                        else
+                        {
+                            chkMedBillNPFReceived.Checked = false;
+                            chkMedBillNPFReceived.Enabled = false;
+                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            dtpMedBillNPF.CustomFormat = " ";
+                            dtpMedBillNPF.Enabled = false;
+                            btnViewNPF.Enabled = false;
+                        }
+                    }
+                    if (!rdrDocInfo.IsDBNull(2))
+                    {
+                        if (rdrDocInfo.GetBoolean(2))
+                        {
+                            chkMedBill_IBReceived.Checked = true;
+                            chkMedBill_IBReceived.Enabled = false;
+                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            dtpMedBill_IB.Enabled = false;
+                            btnViewIB.Enabled = true;
+                        }
+                        else
+                        {
+                            chkMedBill_IBReceived.Checked = false;
+                            chkMedBill_IBReceived.Enabled = false;
+                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            dtpMedBill_IB.CustomFormat = " ";
+                            dtpMedBill_IB.Enabled = false;
+                            btnViewIB.Enabled = false;
+                        }
+                    }
+                    if (!rdrDocInfo.IsDBNull(4))
+                    {
+                        if (rdrDocInfo.GetBoolean(4))
+                        {
+                            chkMedBillPOPReceived.Checked = true;
+                            chkMedBillPOPReceived.Enabled = false;
+                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            dtpMedBillPOP.Enabled = false;
+                            btnViewPoP.Enabled = true;
+                        }
+                        else
+                        {
+                            chkMedBillPOPReceived.Checked = false;
+                            chkMedBillPOPReceived.Enabled = false;
+                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            dtpMedBillPOP.CustomFormat = " ";
+                            dtpMedBillPOP.Enabled = false;
+                            btnViewPoP.Enabled = false;
+                        }
+                    }
+                    if (!rdrDocInfo.IsDBNull(6))
+                    {
+                        if (rdrDocInfo.GetBoolean(6))
+                        {
+                            chkMedRecordReceived.Checked = true;
+                            chkMedRecordReceived.Enabled = false;
+                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            dtpMedBillMedRecord.Enabled = false;
+                            btnViewMedRecord.Enabled = true;
+                        }
+                        else
+                        {
+                            chkMedRecordReceived.Checked = false;
+                            chkMedRecordReceived.Enabled = false;
+                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            dtpMedBillMedRecord.CustomFormat = " ";
+                            dtpMedBillMedRecord.Enabled = false;
+                            btnViewMedRecord.Enabled = false;
+                        }
+                    }
+
+                    if (!rdrDocInfo.IsDBNull(8))
+                    {
+                        if (rdrDocInfo.GetBoolean(8))
+                        {
+                            chkOtherDocReceived.Checked = true;
+                            chkOtherDocReceived.Enabled = false;
+                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            dtpMedBillOtherDoc.Enabled = false;
+                            btnViewOtherDoc.Enabled = true;
+                        }
+                        else
+                        {
+                            chkOtherDocReceived.Checked = false;
+                            chkOtherDocReceived.Enabled = false;
+                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            dtpMedBillOtherDoc.CustomFormat = " ";
+                            dtpMedBillOtherDoc.Enabled = false;
+                            btnViewOtherDoc.Enabled = false;
+                        }
+                    }
+
+                    //strCaseIdSelected = CaseNameInMedBill;
+                    //strContactIdSelected = IndividualIdInMedBill;
+
+                    strCaseIdSelected = CaseId;
+                    strContactIdSelected = IndividualId;
+
+                }
+                rdrDocInfo.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                //String CaseId = gvMedBill["MedBill_CaseId", e.RowIndex]?.Value?.ToString();
+
+                //String strSqlQueryForMedBillEdit = "select [dbo].[tbl_medbill].[Case_Id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
+                //               "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[MedBillType_Id], [dbo].[tbl_medbill].[BillStatus], [dbo].[tbl_medbill].[BillClosed], " +
+                //               "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_MedicalProvider].[Name], " +
+                //               "[dbo].[tbl_medbill].[PrescriptionDrugName], [dbo].[tbl_medbill].[PrescriptionNo], [dbo].[tbl_medbill].[PrescriptionDescription], " +
+                //               "[dbo].[tbl_medbill].[TotalNumberOfPhysicalTherapy], [dbo].[tbl_medbill].[PatientTypeId], " +
+                //               "[dbo].[tbl_medbill].[BillDate], [dbo].[tbl_medbill].[DueDate], " +
+                //               "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_medbill].[ProviderContactPerson], " +
+                //               "[dbo].[tbl_medbill].[Note], " +
+                //               "[dbo].[tbl_illness].[ICD_10_Id], " +
+                //               "[dbo].[tbl_medbill].[PendingReason], [dbo].[tbl_medbill].[IneligibleReason], " +
+                //               "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_medbill].[ProviderPhoneNumber], [dbo].[tbl_medbill].[ProviderContactPerson], " +
+                //               "[dbo].[tbl_medbill].[ProposalLetterSentDate], [dbo].[tbl_medbill].[HIPPASentDate], [dbo].[tbl_medbill].[MedicalRecordDate], " +
+                //               "[dbo].[tbl_medbill].[Illness_Id], [dbo].[tbl_medbill].[Incident_Id] " +
+                //               "from [dbo].[tbl_medbill] " +
+                //               "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                //               "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                //               "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                //               "inner join [dbo].[tbl_MedicalProvider] on [dbo].[tbl_medbill].[MedicalProvider_Id] = [dbo].[tbl_MedicalProvider].[ID] " +
+                //               "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                //               "[dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
+                //               "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
+                //               "[dbo].[tbl_medbill].[IsDeleted] = 0";
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                String strSqlQueryForMedBillEdit = "select [dbo].[tbl_medbill].[Case_Id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
+                                                   "[dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill].[MedBillType_Id], [dbo].[tbl_medbill].[BillStatus], [dbo].[tbl_medbill].[BillClosed], " +
+                                                   "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[MedicalProvider_Id], " +
+                                                   "[dbo].[tbl_medbill].[PrescriptionDrugName], [dbo].[tbl_medbill].[PrescriptionNo], [dbo].[tbl_medbill].[PrescriptionDescription], " +
+                                                   "[dbo].[tbl_medbill].[TotalNumberOfPhysicalTherapy], [dbo].[tbl_medbill].[PatientTypeId], " +
+                                                   "[dbo].[tbl_medbill].[BillDate], [dbo].[tbl_medbill].[DueDate], " +
+                                                   "[dbo].[tbl_medbill].[Account_At_Provider], [dbo].[tbl_medbill].[ProviderContactPerson], [dbo].[tbl_medbill].[ProviderPhoneNumber], " +
+                                                   "[dbo].[tbl_medbill].[Note], " +
+                                                   "[dbo].[tbl_illness].[ICD_10_Id], " +
+                                                   "[dbo].[tbl_medbill].[PendingReason], [dbo].[tbl_medbill].[IneligibleReason], " +
+                                                   "[dbo].[tbl_medbill].[ProposalLetterSentDate], [dbo].[tbl_medbill].[HIPPASentDate], [dbo].[tbl_medbill].[MedicalRecordDate], " +
+                                                   "[dbo].[tbl_medbill].[Illness_Id], [dbo].[tbl_medbill].[Incident_Id], " +
+                                                   "[dbo].[tbl_medbill].[NPF_Form], [dbo].[tbl_medbill].[NPF_SourceFileName], [dbo].[tbl_medbill].[NPF_DestinationFileName], " +
+                                                   "[dbo].[tbl_medbill].[IB_Form], [dbo].[tbl_medbill].[IB_SourceFileName], [dbo].[tbl_medbill].[IB_DestinationFileName], " +
+                                                   "[dbo].[tbl_medbill].[POP_Form], [dbo].[tbl_medbill].[POP_SourceFileName], [dbo].[tbl_medbill].[POP_DestinationFileName], " +
+                                                   "[dbo].[tbl_medbill].[MedRec_Form], [dbo].[tbl_medbill].[MedRec_SourceFileName], [dbo].[tbl_medbill].[MedRec_DestinationFileName], " +
+                                                   "[dbo].[tbl_medbill].[Unknown_Form], [dbo].[tbl_medbill].[Unknown_SourceFileName], [dbo].[tbl_medbill].[Unknown_DestinationFileName] " +
+                                                   "from [dbo].[tbl_medbill] " +
+                                                   "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                   "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                                   "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                   "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
+                                                   "[dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
+                                                   "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
+                                                   "[dbo].[tbl_medbill].[IsDeleted] = 0";
+
+                SqlCommand cmdQueryForMedBillEdit = new SqlCommand(strSqlQueryForMedBillEdit, connRN7);
+                cmdQueryForMedBillEdit.CommandType = CommandType.Text;
+
+                cmdQueryForMedBillEdit.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+                cmdQueryForMedBillEdit.Parameters.AddWithValue("@CaseName", CaseId);
+                cmdQueryForMedBillEdit.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+
+                SqlDataReader rdrMedBillEdit = cmdQueryForMedBillEdit.ExecuteReader();
+
+                MedicalBillInfoForList MedBillForEdit = new MedicalBillInfoForList();
+
+                if (rdrMedBillEdit.HasRows)
+                {
+                    rdrMedBillEdit.Read();
+                    if (!rdrMedBillEdit.IsDBNull(0)) MedBillForEdit.CaseId = rdrMedBillEdit.GetString(0).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(1)) MedBillForEdit.IllnessNo = rdrMedBillEdit.GetString(1).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(2)) MedBillForEdit.IncidentNo = rdrMedBillEdit.GetString(2).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(3)) MedBillForEdit.ProgramName = rdrMedBillEdit.GetString(3).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(4)) MedBillForEdit.MedBillNo = rdrMedBillEdit.GetString(4).Trim();
+                    if (!rdrMedBillEdit.IsDBNull(5)) MedBillForEdit.MedBillTypeId = rdrMedBillEdit.GetInt16(5);
+                    if (!rdrMedBillEdit.IsDBNull(6)) MedBillForEdit.MedBillStatusId = rdrMedBillEdit.GetInt16(6);
+                    if (!rdrMedBillEdit.IsDBNull(7)) MedBillForEdit.bBillClosed = rdrMedBillEdit.GetBoolean(7);
+                    if (!rdrMedBillEdit.IsDBNull(8)) MedBillForEdit.BillAmount = rdrMedBillEdit.GetDecimal(8);
+                    if (!rdrMedBillEdit.IsDBNull(9)) MedBillForEdit.MedicalProviderId = rdrMedBillEdit.GetString(9);
+                    if (!rdrMedBillEdit.IsDBNull(10)) MedBillForEdit.PrescriptionDrugName = rdrMedBillEdit.GetString(10);
+                    if (!rdrMedBillEdit.IsDBNull(11)) MedBillForEdit.PrescriptionNo = rdrMedBillEdit.GetString(11);
+                    if (!rdrMedBillEdit.IsDBNull(12)) MedBillForEdit.PrescriptionDescription = rdrMedBillEdit.GetString(12);
+                    if (!rdrMedBillEdit.IsDBNull(13)) MedBillForEdit.TotalNumberOfPhysicalTherapy = rdrMedBillEdit.GetInt16(13);
+                    if (!rdrMedBillEdit.IsDBNull(14)) MedBillForEdit.nPatientTypeId = rdrMedBillEdit.GetInt16(14);
+                    if (!rdrMedBillEdit.IsDBNull(15)) MedBillForEdit.BillDate = rdrMedBillEdit.GetDateTime(15);
+                    if (!rdrMedBillEdit.IsDBNull(16)) MedBillForEdit.ReceivedDate = rdrMedBillEdit.GetDateTime(16);
+                    if (!rdrMedBillEdit.IsDBNull(17)) MedBillForEdit.AccountNoAtProvider = rdrMedBillEdit.GetString(17);
+                    if (!rdrMedBillEdit.IsDBNull(18)) MedBillForEdit.ProviderContactPerson = rdrMedBillEdit.GetString(18);
+                    if (!rdrMedBillEdit.IsDBNull(19)) MedBillForEdit.ProviderPhoneNumber = rdrMedBillEdit.GetString(19);
+                    if (!rdrMedBillEdit.IsDBNull(20)) MedBillForEdit.Note = rdrMedBillEdit.GetString(20);
+                    if (!rdrMedBillEdit.IsDBNull(21)) MedBillForEdit.ICD_10_Id = rdrMedBillEdit.GetString(21);
+                    if (!rdrMedBillEdit.IsDBNull(22)) MedBillForEdit.nPendingReasonIndex = rdrMedBillEdit.GetInt32(22);
+                    if (!rdrMedBillEdit.IsDBNull(23)) MedBillForEdit.nIneligibleReasonIndex = rdrMedBillEdit.GetInt32(23);
+                    if (!rdrMedBillEdit.IsDBNull(24)) MedBillForEdit.ProposalLetterSentDate = rdrMedBillEdit.GetDateTime(24);
+                    if (!rdrMedBillEdit.IsDBNull(25)) MedBillForEdit.HIPPASentDate = rdrMedBillEdit.GetDateTime(25);
+                    if (!rdrMedBillEdit.IsDBNull(26)) MedBillForEdit.MedicalRecordDate = rdrMedBillEdit.GetDateTime(26);
+                    if (!rdrMedBillEdit.IsDBNull(27)) MedBillForEdit.IllnessId = Int32.Parse(rdrMedBillEdit.GetString(27).Trim());
+                    if (!rdrMedBillEdit.IsDBNull(28)) MedBillForEdit.IncidentId = Int32.Parse(rdrMedBillEdit.GetString(28).Trim());
+                    if (!rdrMedBillEdit.IsDBNull(29)) MedBillForEdit.NPF_Form = rdrMedBillEdit.GetBoolean(29);
+                    //if (!rdrMedBillEdit.IsDBNull(30)) MedBillForEdit.NPFormFileNameMedBill = rdrMedBillEdit.GetString(30);
+                    if (!rdrMedBillEdit.IsDBNull(30)) MedBillForEdit.NPFSourceFilePathMedBill = rdrMedBillEdit.GetString(30);
+                    if (!rdrMedBillEdit.IsDBNull(31)) MedBillForEdit.NPFDestinationFilePathMedbill = rdrMedBillEdit.GetString(31);
+                    if (!rdrMedBillEdit.IsDBNull(32)) MedBillForEdit.IB_Form = rdrMedBillEdit.GetBoolean(32);
+                    //if (!rdrMedBillEdit.IsDBNull(34)) MedBillForEdit.IBFileNameMedBill = rdrMedBillEdit.GetString(34);
+                    if (!rdrMedBillEdit.IsDBNull(33)) MedBillForEdit.IBSourceFilePathMedBill = rdrMedBillEdit.GetString(33);
+                    if (!rdrMedBillEdit.IsDBNull(34)) MedBillForEdit.IBDestinationFilePathMedBill = rdrMedBillEdit.GetString(34);
+                    if (!rdrMedBillEdit.IsDBNull(35)) MedBillForEdit.PoP_Form = rdrMedBillEdit.GetBoolean(35);
+                    //if (!rdrMedBillEdit.IsDBNull(38)) MedBillForEdit.PoPFileNameMedBill = rdrMedBillEdit.GetString(38);
+                    if (!rdrMedBillEdit.IsDBNull(36)) MedBillForEdit.PoPSourceFilePathMedBill = rdrMedBillEdit.GetString(36);
+                    if (!rdrMedBillEdit.IsDBNull(37)) MedBillForEdit.PoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(37);
+                    if (!rdrMedBillEdit.IsDBNull(38)) MedBillForEdit.MedRec_Form = rdrMedBillEdit.GetBoolean(38);
+                    //if (!rdrMedBillEdit.IsDBNull(42)) MedBillForEdit.MedRecFileNameMedBill = rdrMedBillEdit.GetString(42);
+                    if (!rdrMedBillEdit.IsDBNull(39)) MedBillForEdit.MedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(39);
+                    if (!rdrMedBillEdit.IsDBNull(40)) MedBillForEdit.MedRecDestiantionFilePathMedbill = rdrMedBillEdit.GetString(40);
+                    if (!rdrMedBillEdit.IsDBNull(41)) MedBillForEdit.OtherDoc_Form = rdrMedBillEdit.GetBoolean(41);
+                    //if (!rdrMedBillEdit.IsDBNull(46)) MedBillForEdit.OtherDocFileNameMedBill = rdrMedBillEdit.GetString(46);
+                    if (!rdrMedBillEdit.IsDBNull(42)) MedBillForEdit.OtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(42);
+                    if (!rdrMedBillEdit.IsDBNull(43)) MedBillForEdit.OtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(43);
+
+                }
+                rdrMedBillEdit.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                String strSqlQueryForMedicalProviderName = "select [dbo].[account].[Name] from [dbo].[account] where [dbo].[account].[Id] = @MedicalProviderId";
+
+                SqlCommand cmdQueryForMedicalProviderName = new SqlCommand(strSqlQueryForMedicalProviderName, connSalesforce2);
+                cmdQueryForMedicalProviderName.CommandType = CommandType.Text;
+
+                cmdQueryForMedicalProviderName.Parameters.AddWithValue("@MedicalProviderId", MedBillForEdit.MedicalProviderId);
+
+                if (connSalesforce2.State != ConnectionState.Closed)
+                {
+                    connSalesforce2.Close();
+                    connSalesforce2.Open();
+                }
+                else if (connSalesforce2.State == ConnectionState.Closed) connSalesforce2.Open();
+                Object objMedicalProviderName = cmdQueryForMedicalProviderName.ExecuteScalar();
+                if (connSalesforce2.State == ConnectionState.Open) connSalesforce2.Close();
+
+                if (objMedicalProviderName != null) MedBillForEdit.MedicalProviderName = objMedicalProviderName.ToString();
+
+                //////////////////////////////////////////////////////////////////////////////////
+                txtMedBill_CaseNo.Text = MedBillForEdit.CaseId;
+                Illness.IllnessNo = MedBillForEdit.IllnessNo;
+                txtMedBill_Illness.Text = MedBillForEdit.IllnessNo;
+                Incident.IncidentNo = MedBillForEdit.IncidentNo;
+                txtMedBill_Incident.Text = MedBillForEdit.IncidentNo;
+                txtIncdProgram.Text = MedBillForEdit.ProgramName;
+
+                chkNPFMedBill.Checked = MedBillForEdit.NPF_Form;
+                chkIBMedBill.Checked = MedBillForEdit.IB_Form;
+                chkPoPMedBill.Checked = MedBillForEdit.PoP_Form;
+                chkMedRecMedBill.Checked = MedBillForEdit.MedRec_Form;
+                chkOtherDocMedBill.Checked = MedBillForEdit.OtherDoc_Form;
+
+                MedBillForEdit.NPFormFileNameMedBill = Path.GetFileName(MedBillForEdit.NPFSourceFilePathMedBill);
+                MedBillForEdit.IBFileNameMedBill = Path.GetFileName(MedBillForEdit.IBSourceFilePathMedBill);
+                MedBillForEdit.PoPFileNameMedBill = Path.GetFileName(MedBillForEdit.PoPSourceFilePathMedBill);
+                MedBillForEdit.MedRecFileNameMedBill = Path.GetFileName(MedBillForEdit.MedRecSourceFilePathMedBill);
+                MedBillForEdit.OtherDocFileNameMedBill = Path.GetFileName(MedBillForEdit.OtherDocSourceFilePathMedBill);
+
+                txtNPFMedBillFileName.Text = MedBillForEdit.NPFormFileNameMedBill;
+                txtIBMedBillFileName.Text = MedBillForEdit.IBFileNameMedBill;
+                txtPoPMedBillFileName.Text = MedBillForEdit.PoPFileNameMedBill;
+                txtMedRecMedBillFileName.Text = MedBillForEdit.MedRecFileNameMedBill;
+                txtOtherDocMedBillFileName.Text = MedBillForEdit.OtherDocFileNameMedBill;
+
+                strNPFormFileNameMedBill = MedBillForEdit.NPFormFileNameMedBill;
+                strNPFSourceFilePathMedBill = MedBillForEdit.NPFSourceFilePathMedBill;
+                strNPFDestinationFilePathMedBill = MedBillForEdit.NPFDestinationFilePathMedbill;
+
+                strIBFileNameMedBill = MedBillForEdit.IBFileNameMedBill;
+                strIBSourceFilePathMedBill = MedBillForEdit.IBSourceFilePathMedBill;
+                strIBDestinationFilePathMedBill = MedBillForEdit.IBDestinationFilePathMedBill;
+
+                strPoPFileNameMedBill = MedBillForEdit.PoPFileNameMedBill;
+                strPoPSourceFilePathMedBill = MedBillForEdit.PoPSourceFilePathMedBill;
+                strPoPDestinationFilePathMedBill = MedBillForEdit.PoPDestinationFilePathMedBill;
+
+                strMedRecFileNameMedBill = MedBillForEdit.MedRecFileNameMedBill;
+                strMedRecSourceFilePathMedBill = MedBillForEdit.MedRecSourceFilePathMedBill;
+                strMedRecDestinationFilePathMedBill = MedBillForEdit.MedRecDestiantionFilePathMedbill;
+
+                strOtherDocFileNameMedBill = MedBillForEdit.OtherDocFileNameMedBill;
+                strOtherDocSourceFilePathMedBill = MedBillForEdit.OtherDocSourceFilePathMedBill;
+                strOtherDocDestinationFilePathMedBill = MedBillForEdit.OtherDocDestinationFilePathMedBill;
+
+
+                txtMedBillNo.Text = MedBillForEdit.MedBillNo;
+                if (MedBillForEdit.MedBillTypeId != -1)
+                {
+                    comboMedBillType.Items.Clear();
+                    for (int i = 1; i <= dicMedBillTypes.Count; i++)
+                    {
+                        comboMedBillType.Items.Add(dicMedBillTypes[i]);
+                    }
+                    comboMedBillType.SelectedIndex = MedBillForEdit.MedBillTypeId - 1;
+                }
+                if (MedBillForEdit.MedBillStatusId != -1)
+                {
+                    //if (dicMedBillStatus.Count > 0)
+                    //{
+                    //    comboMedBillStatus.Items.Clear();
+                    //    for (int i = 0; i < dicMedBillStatus.Count; i++)
+                    //    {
+                    //        comboMedBillStatus.Items.Add(dicMedBillStatus[i]);
+                    //    }
+                    //    comboMedBillStatus.SelectedIndex = MedBillForEdit.MedBillStatusId;
+                    //}
+
+                    if (lstMedicalBillStatusCodes.Count > 0)
+                    {
+                        comboMedBillStatus.Items.Clear();
+                        for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
+                        {
+                            comboMedBillStatus.Items.Add(lstMedicalBillStatusCodes[i].BillStatusValue);
+                        }
+                        for (int i = 0; i < lstMedicalBillStatusCodes.Count; i++)
+                        {
+                            if (MedBillForEdit.MedBillStatusId == lstMedicalBillStatusCodes[i].BillStatusCode)
+                                comboMedBillStatus.SelectedIndex = lstMedicalBillStatusCodes[i].NewIndexCode;
+                        }
+                    }
+                }
+
+                if (MedBillForEdit.bBillClosed) cbMedBillClosed.SelectedIndex = 1;
+                else cbMedBillClosed.SelectedIndex = 0;
+
+                //comboMedBillStatus.SelectedIndex = MedBillForEdit.MedBillStatusId;
+                txtMedBillAmount.Text = MedBillForEdit.BillAmount.ToString("C");
+                txtBalance.Text = MedBillForEdit.Balance.ToString("C");
+                txtMedicalProvider.Text = MedBillForEdit.MedicalProviderName.Trim();
+
+                txtNumberOfMedication.Text = MedBillForEdit.PrescriptionNo.Trim();
+                txtPrescriptionName.Text = MedBillForEdit.PrescriptionDrugName.Trim();
+                txtPrescriptionDescription.Text = MedBillForEdit.PrescriptionDescription;
+
+                txtNumPhysicalTherapy.Text = MedBillForEdit.TotalNumberOfPhysicalTherapy.ToString();
+                if (MedBillForEdit.nPatientTypeId == 0) rbOutpatient.Checked = true;
+                else if (MedBillForEdit.nPatientTypeId == 1) rbInpatient.Checked = true;
+
+                if (MedBillForEdit.BillDate.Value != null)
+                {
+                    dtpBillDate.Checked = true;
+                    dtpBillDate.Text = MedBillForEdit.BillDate.Value.ToString("MM/dd/yyyy");
+                }
+                else
+                {
+                    dtpBillDate.Format = DateTimePickerFormat.Custom;
+                    dtpBillDate.CustomFormat = " ";
+                }
+
+                if (MedBillForEdit.ReceivedDate.Value != null)
+                {
+                    dtpDueDate.Checked = true;
+                    dtpDueDate.Text = MedBillForEdit.ReceivedDate.Value.ToString("MM/dd/yyyy");
+                }
+                else
+                {
+                    dtpDueDate.Format = DateTimePickerFormat.Custom;
+                    dtpDueDate.Text = " ";
+                }
+
+                txtMedBillAccountNoAtProvider.Text = MedBillForEdit.AccountNoAtProvider;
+                txtProviderContactPerson.Text = MedBillForEdit.ProviderContactPerson;
+                txtMedProviderPhoneNo.Text = MedBillForEdit.ProviderPhoneNumber;
+
+
+                if (MedBillForEdit.Note != String.Empty)
+                {
+                    if (comboMedBillType.SelectedIndex == 0) txtMedBillNote.Text = MedBillForEdit.Note;
+                    if (comboMedBillType.SelectedIndex == 1) txtPrescriptionNote.Text = MedBillForEdit.Note;
+                    if (comboMedBillType.SelectedIndex == 2) txtPhysicalTherapyRxNote.Text = MedBillForEdit.Note;
+                }
+
+                if (MedBillForEdit.ICD_10_Id != String.Empty) txtMedBill_ICD10Code.Text = MedBillForEdit.ICD_10_Id;
+                //if ((comboMedBillType.SelectedIndex == 0) && (MedBillForEdit.nPendingReasonIndex != -1)) comboPendingReason.SelectedIndex = MedBillForEdit.nPendingReasonIndex;
+                if (MedBillForEdit.nPendingReasonIndex != -1) comboPendingReason.SelectedIndex = MedBillForEdit.nPendingReasonIndex;
+                //if ((comboMedBillType.SelectedIndex == 0) && (MedBillForEdit.nIneligibleReasonIndex != -1)) comboIneligibleReason.SelectedIndex = MedBillForEdit.nIneligibleReasonIndex;
+                if (MedBillForEdit.nIneligibleReasonIndex != -1) comboIneligibleReason.SelectedIndex = MedBillForEdit.nIneligibleReasonIndex;
+
+                if (comboMedBillType.SelectedIndex == 0 || comboMedBillType.SelectedIndex == 3)
+                {
+                    txtPrescriptionName.Text = String.Empty;
+                    txtPrescriptionDescription.Text = String.Empty;
+                    txtPrescriptionNote.Text = String.Empty;
+                    txtNumberOfMedication.Text = String.Empty;
+
+                    txtNumPhysicalTherapy.Text = String.Empty;
+                    txtPhysicalTherapyRxNote.Text = String.Empty;
+                }
+                else if (comboMedBillType.SelectedIndex == 1)       // Medical Bill Type - Prescription
+                {
+                    txtNumPhysicalTherapy.Text = String.Empty;
+                    txtPhysicalTherapyRxNote.Text = String.Empty;
+
+                    rbInpatient.Checked = false;
+                    rbOutpatient.Checked = false;
+
+                    //comboPendingReason.SelectedIndex = 0;
+                    //comboIneligibleReason.SelectedIndex = 0;
+
+                    txtMedBillNote.Text = String.Empty;
+                }
+                else if (comboMedBillType.SelectedIndex == 2)       // Medical Bill Type - Physical Therapy
+                {
+                    txtPrescriptionName.Text = String.Empty;
+                    txtPrescriptionDescription.Text = String.Empty;
+                    txtPrescriptionNote.Text = String.Empty;
+                    txtNumberOfMedication.Text = String.Empty;
+
+                    rbInpatient.Checked = false;
+                    rbOutpatient.Checked = false;
+
+                    //comboPendingReason.SelectedIndex = 0;
+                    //comboIneligibleReason.SelectedIndex = 0;
+
+                    txtMedBillNote.Text = String.Empty;
+                }
+
+                if (MedBillForEdit.ProposalLetterSentDate != null)
+                {
+                    dtpProposalLetterSentDate.Checked = true;
+                    dtpProposalLetterSentDate.Value = MedBillForEdit.ProposalLetterSentDate.Value;
+                    dtpProposalLetterSentDate.Format = DateTimePickerFormat.Short;
+                }
+                if (MedBillForEdit.HIPPASentDate != null)
+                {
+                    dtpHippaSentDate.Checked = true;
+                    dtpHippaSentDate.Value = MedBillForEdit.HIPPASentDate.Value;
+                    dtpHippaSentDate.Format = DateTimePickerFormat.Short;
+                }
+                if (MedBillForEdit.MedicalRecordDate != null)
+                {
+                    dtpMedicalRecordDate.Checked = true;
+                    dtpMedicalRecordDate.Value = MedBillForEdit.MedicalRecordDate.Value;
+                    dtpMedicalRecordDate.Format = DateTimePickerFormat.Short;
+                }
+
+                if (MedBillForEdit.IllnessId != -1) Illness.IllnessId = MedBillForEdit.IllnessId.ToString();
+                else Illness.IllnessId = String.Empty;
+                if (MedBillForEdit.IncidentId != -1) Incident.IncidentId = MedBillForEdit.IncidentId.ToString();
+                else Incident.IncidentId = String.Empty;
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                String ICD10Code = txtMedBill_ICD10Code.Text.Trim();
+
+                String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_CODE__C] = @ICD10Code";
+
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+                cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", ICD10Code);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+
+                Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+                txtMedBillDiseaseName.Text = objDiseaseName?.ToString();
+                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+
+                var srcMedicalProvider = new AutoCompleteStringCollection();
+
+                for (int i = 0; i < lstMedicalProvider.Count; i++)
+                {
+                    srcMedicalProvider.Add(lstMedicalProvider[i].Name);
+                }
+
+                txtMedicalProvider.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtMedicalProvider.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtMedicalProvider.AutoCompleteCustomSource = srcMedicalProvider;
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // Settlement
+
+                lstPaymentMethod.Clear();
+                String strSqlQueryForPaymentMethod = "select [dbo].[tbl_payment_method].[PaymentMethod_Id], [dbo].[tbl_payment_method].[PaymentMethod_Value] from [dbo].[tbl_payment_method] " +
+                                                     "order by [dbo].[tbl_payment_method].[PaymentMethod_Value]";
+
+                SqlCommand cmdQueryForPaymentMethod = new SqlCommand(strSqlQueryForPaymentMethod, connRN7);
+                cmdQueryForPaymentMethod.CommandType = CommandType.Text;
+
+                //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrPaymentMethod = cmdQueryForPaymentMethod.ExecuteReader();
+                if (rdrPaymentMethod.HasRows)
+                {
+                    while (rdrPaymentMethod.Read())
+                    {
+                        if (!rdrPaymentMethod.IsDBNull(1)) lstPaymentMethod.Add(new PaymentMethod { PaymentMethodId = rdrPaymentMethod.GetInt16(0), PaymentMethodValue = rdrPaymentMethod.GetString(1) });
+                        else lstPaymentMethod.Add(new PaymentMethod { PaymentMethodId = rdrPaymentMethod.GetInt16(0), PaymentMethodValue = null });
+                    }
+                }
+                rdrPaymentMethod.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                // Retrieve credit card info
+                lstCreditCardInfo.Clear();
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+
+                SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN7);
+                cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+
+                SqlDataReader rdrCreditCardInfo = cmdQueryForCreditCardInfo.ExecuteReader();
+                if (rdrCreditCardInfo.HasRows)
+                {
+                    while (rdrCreditCardInfo.Read())
+                    {
+                        if (!rdrCreditCardInfo.IsDBNull(1))
+                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        else
+                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                    }
+                }
+                rdrCreditCardInfo.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                String IncidentNo = txtMedBill_Incident.Text.Trim();
+                String IndividualIdMedBill = txtCaseIndividualID.Text.Trim();
+
+                String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Program_id], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IsDeleted] " +
+                                "from [dbo].[tbl_incident] " +
+                                "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
+                                "[dbo].[tbl_incident].[IncidentNo] = @IncidentNo " +
+                                "order by [dbo].[tbl_incident].[Program_id]";
+
+                SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRN7);
+                cmdQueryForIncident.CommandType = CommandType.Text;
+
+                cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", IndividualIdMedBill);
+                cmdQueryForIncident.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+
+                SqlDataReader rdrIncident = cmdQueryForIncident.ExecuteReader();
+                lstIncidentProgramInfo.Clear();
+                if (rdrIncident.HasRows)
+                {
+                    while (rdrIncident.Read())
+                    {
+                        if (!rdrIncident.IsDBNull(0) && !rdrIncident.IsDBNull(1))
+                        {
+                            IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncident.GetBoolean(2), rdrIncident.GetInt16(0), rdrIncident.GetString(1).Trim());
+                            lstIncidentProgramInfo.Add(incidentProgram);
+                        }
+                    }
+                }
+                rdrIncident.Close();
+                if (connRN7.State == ConnectionState.Open) connRN7.Close();
+
+                //String strSqlQueryForIncidentChange = "select [dbo].[tbl_incident_history].[Program_id], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident_history].[IsDeleted] " +
+                //                        "from [dbo].[tbl_incident_history] " +
+                //                        "inner join [dbo].[tbl_program] on [dbo].[tbl_incident_history].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                //                        "where ([dbo].[tbl_incident_history].[Operation] = 2 or " +
+                //                        "[dbo].[tbl_incident_history].[Operation] = 3 or " +
+                //                        "[dbo].[tbl_incident_history].[Operation] = 4) and " +
+                //                        "[dbo].[tbl_incident_history].[Individual_id] = @IndividualId and" +
+                //                        "[dbo].[tbl_incident_history].[IncidentNo] = @IncidentNo " +
+                //                        "order by [dbo].[tbl_incident_history].[Program_id]";
+
+                //SqlCommand cmdQueryForIncidentChange = new SqlCommand(strSqlQueryForIncidentChange, connRN4);
+                //cmdQueryForIncidentChange.CommandType = CommandType.Text;
+
+                //cmdQueryForIncidentChange.Parameters.AddWithValue("@IndividualId", IndividualIdMedBill);
+                //cmdQueryForIncidentChange.Parameters.AddWithValue("@IncidentNo", IncidentNo);
+
+                //if (connRN4.State != ConnectionState.Closed)
+                //{
+                //    connRN4.Close();
+                //    connRN4.Open();
+                //}
+                //else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                //SqlDataReader rdrIncidentChange = cmdQueryForIncidentChange.ExecuteReader();
+                ////lstIncidentProgramInfo.Clear();
+                //if (rdrIncidentChange.HasRows)
+                //{
+                //    while (rdrIncidentChange.Read())
+                //    {
+                //        if (!rdrIncidentChange.IsDBNull(0) && !rdrIncidentChange.IsDBNull(1))
+                //        {
+                //            IncidentProgramInfo incidentProgram = new IncidentProgramInfo(rdrIncidentChange.GetBoolean(2), rdrIncidentChange.GetInt16(0), rdrIncidentChange.GetString(1).Trim());
+                //            lstIncidentProgramInfo.Add(incidentProgram);
+                //        }
+                //    }
+                //}
+                //rdrIncidentChange.Close();
+                //if (connRN4.State == ConnectionState.Open) connRN4.Close();
+
+                //foreach (IncidentProgramInfo incdInfo in lstIncidentProgramInfo)
+                //{
+                //    if (incdInfo.bIsDeleted == true)
+                //    {
+                //        MessageBox.Show("The Incident has been deleted. Personal Responsibility cannot be calculated.", "Error");
+                //        lstIncidentProgramInfo.Clear();
+                //    }
+                //}
+
+                //Boolean bBronze = false;
+                //Boolean bSilver = false;
+                //Boolean bGold = false;
+                //Boolean bGoldPlus = false;
+                //Boolean bGoldMed1 = false;
+                //Boolean bGoldMed2 = false;
+
+                //if (lstIncidentProgramInfo.Count > 0)
+                //{
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 3) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            bBronze = true;
+                //            break;
+                //        }
+                //    }
+
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 2) &&
+                //            (bBronze == false) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            bSilver = true;
+                //            break;
+                //        }
+                //    }
+
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 1) &&
+                //            (bBronze == false) &&
+                //            (bSilver == false) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            break;
+                //        }
+                //    }
+
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 0) &&
+                //            (bBronze == false) &&
+                //            (bSilver == false) &&
+                //            (bGold == false) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            break;
+                //        }
+                //    }
+
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 4) &&
+                //            (bBronze == false) &&
+                //            (bSilver == false) &&
+                //            (bGold == false) &&
+                //            (bGoldPlus == false) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            break;
+                //        }
+                //    }
+
+                //    foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //    {
+                //        if ((incidentInfo.IncidentProgramId == 5) &&
+                //            (bBronze == false) &&
+                //            (bSilver == false) &&
+                //            (bGold == false) &&
+                //            (bGoldPlus == false) &&
+                //            (bGoldMed1 == false) &&
+                //            (incidentInfo.bIsDeleted == false))
+                //        {
+                //            incidentInfo.bPersonalResponsibilityProgram = true;
+                //            break;
+                //        }
+                //    }
+                //}
+
+                //foreach (IncidentProgramInfo incidentInfo in lstIncidentProgramInfo)
+                //{
+                //    if (incidentInfo.bPersonalResponsibilityProgram == true)
+                //        PersonalResponsibilityAmountInMedBill = incidentInfo.PersonalResponsibilityAmount;
+                //}
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                String strSqlQueryForSettlement = "select [dbo].[tbl_settlement].[Name], [dbo].[tbl_settlement_type_code].[SettlementTypeValue], [dbo].[tbl_settlement].[Amount], " +
+                                                  "[dbo].[tbl_settlement].[PersonalResponsibilityCredit], [dbo].[tbl_payment_method].[PaymentMethod_Value], " +
+                                                  "[dbo].[tbl_settlement].[Approved], [dbo].[tbl_settlement].[ApprovedDate], " +
+                                                  "[dbo].[tbl_settlement].[CheckNo], [dbo].[tbl_settlement].[CheckDate], [dbo].[tbl_settlement].[CheckReconciled], " +
+                                                  "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled], " +
+                                                  "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDate], [dbo].[tbl_settlement].[CC_Reconciled], " +
+                                                  "[dbo].[tbl_settlement].[AllowedAmount], [dbo].[tbl_settlement].[IneligibleReason], " +
+                                                  "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[IsReviewed] " +
+                                                  "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
+                                                  "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
+                                                  "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
+                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                  "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
+                                                  "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
+                                                  "order by [dbo].[tbl_settlement].[Name]";
+
+                SqlCommand cmdQueryForSettlement = new SqlCommand(strSqlQueryForSettlement, connRN7);
+                cmdQueryForSettlement.CommandType = CommandType.Text;
+
+                cmdQueryForSettlement.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+
+                SqlDependency dependencySettlementInMedBill = new SqlDependency(cmdQueryForSettlement);
+                dependencySettlementInMedBill.OnChange += new OnChangeEventHandler(OnSettlementsInMedBillEditChange);
+
+                //if (connRN.State == ConnectionState.Closed) connRN.Open();
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+                SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
+                gvSettlementsInMedBill.Rows.Clear();
+                if (rdrSettlement.HasRows)
+                {
+                    while (rdrSettlement.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        if (!rdrSettlement.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(0) });
+                        if (!rdrSettlement.IsDBNull(1))
+                        {
+                            DataGridViewComboBoxCell comboCellSettlementType = new DataGridViewComboBoxCell();
+
+                            for (int i = 0; i < lstSettlementType.Count; i++)
+                            {
+                                comboCellSettlementType.Items.Add(lstSettlementType[i].SettlementTypeValue);
+                            }
+                            for (int i = 0; i < comboCellSettlementType.Items.Count; i++)
+                            {
+                                if (rdrSettlement.GetString(1) == comboCellSettlementType.Items[i].ToString())
+                                    comboCellSettlementType.Value = comboCellSettlementType.Items[i];
+                            }
+
+                            row.Cells.Add(comboCellSettlementType);
+                        }
+                        else
+                        {
+                            DataGridViewComboBoxCell comboCellSettlementType = new DataGridViewComboBoxCell();
+                            for (int i = 0; i < lstSettlementType.Count; i++)
+                            {
+                                comboCellSettlementType.Items.Add(lstSettlementType[i].SettlementTypeValue);
+                            }
+
+                            for (int i = 0; i < comboCellSettlementType.Items.Count; i++)
+                            {
+                                if (rdrSettlement.GetString(1) == comboCellSettlementType.Items[i].ToString())
+                                    comboCellSettlementType.Value = comboCellSettlementType.Items[i];
+                            }
+
+                            row.Cells.Add(comboCellSettlementType);
+                        }
+
+                        if (!rdrSettlement.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(2).ToString("C") });
+                        else
+                        {
+                            Decimal Zero = 0;
+                            row.Cells.Add(new DataGridViewTextBoxCell { Value = Zero.ToString("C") });
+                        }
+
+
+                        if (!rdrSettlement.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(3).ToString("C") });
+                        else
+                        {
+                            Decimal Zero = 0;
+                            row.Cells.Add(new DataGridViewTextBoxCell { Value = Zero.ToString("C") });
+                        }
+
+                        /////////////////////////////////////////////////////////////////////
+                        if (!rdrSettlement.IsDBNull(4))
+                        {
+                            DataGridViewComboBoxCell comboCellPaymentMethod = new DataGridViewComboBoxCell();
+
+                            for (int i = 0; i < lstPaymentMethod.Count; i++)
+                            {
+                                if (lstPaymentMethod[i].PaymentMethodValue != null) comboCellPaymentMethod.Items.Add(lstPaymentMethod[i].PaymentMethodValue);
+                                else comboCellPaymentMethod.Items.Add(String.Empty);
+                            }
+
+                            for (int i = 0; i < comboCellPaymentMethod.Items.Count; i++)
+                            {
+                                if (rdrSettlement.GetString(4) == comboCellPaymentMethod.Items[i].ToString())
+                                    comboCellPaymentMethod.Value = comboCellPaymentMethod.Items[i];
+                            }
+
+                            row.Cells.Add(comboCellPaymentMethod);
+                        }
+                        else
+                        {
+                            DataGridViewComboBoxCell comboCellPaymentMethod = new DataGridViewComboBoxCell();
+
+                            for (int i = 0; i < lstPaymentMethod.Count; i++)
+                            {
+                                if (lstPaymentMethod[i].PaymentMethodValue != null) comboCellPaymentMethod.Items.Add(lstPaymentMethod[i].PaymentMethodValue);
+                                else comboCellPaymentMethod.Items.Add(String.Empty);
+                                //comboCellPaymentMethod.Items.Add(lstPaymentMethod[i].PaymentMethodValue);
+                            }
+
+                            for (int i = 0; i < comboCellPaymentMethod.Items.Count; i++)
+                            {
+                                if ((!rdrSettlement.IsDBNull(4)) && comboCellPaymentMethod.Items[i] != null)
+                                {
+                                    if (rdrSettlement.GetString(4) == comboCellPaymentMethod.Items[i].ToString())
+                                        comboCellPaymentMethod.Value = comboCellPaymentMethod.Items[i];
+                                }
+                                else comboCellPaymentMethod.Value = null;
+                            }
+
+                            row.Cells.Add(comboCellPaymentMethod);
+
+                        }
+
+                        /////////////////////////////////////////////////////////////////////
+                        ///
+                        if (!rdrSettlement.IsDBNull(5))
+                        {
+                            DataGridViewCheckBoxCell approvedCell = new DataGridViewCheckBoxCell();
+                            approvedCell.Value = rdrSettlement.GetBoolean(5);
+                            approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            row.Cells.Add(approvedCell);
+                            if (LoggedInUserRole == UserRole.RNStaff ||
+                                LoggedInUserRole == UserRole.NPStaff ||
+                                LoggedInUserRole == UserRole.FDStaff ||
+                                LoggedInUserRole == UserRole.MSStaff)
+                                row.Cells[6].ReadOnly = true;
+                            else if (LoggedInUserRole == UserRole.RNManager ||
+                                     LoggedInUserRole == UserRole.NPManager ||
+                                     LoggedInUserRole == UserRole.FDManager ||
+                                     LoggedInUserRole == UserRole.MSManager ||
+                                     LoggedInUserRole == UserRole.Administrator ||
+                                     LoggedInUserRole == UserRole.SuperAdmin ||
+                                     LoggedInUserRole == UserRole.Executive)
+                                row.Cells[6].ReadOnly = false;
+                        }
+                        else
+                        {
+                            DataGridViewCheckBoxCell approvedCell = new DataGridViewCheckBoxCell();
+                            approvedCell.Value = false;
+                            approvedCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                            row.Cells.Add(approvedCell);
+                            if (LoggedInUserRole == UserRole.RNStaff ||
+                                LoggedInUserRole == UserRole.NPStaff ||
+                                LoggedInUserRole == UserRole.FDStaff ||
+                                LoggedInUserRole == UserRole.MSStaff)
+                                row.Cells[6].ReadOnly = true;
+                            else if (LoggedInUserRole == UserRole.RNManager ||
+                                     LoggedInUserRole == UserRole.NPManager ||
+                                     LoggedInUserRole == UserRole.FDManager ||
+                                     LoggedInUserRole == UserRole.MSManager ||
+                                     LoggedInUserRole == UserRole.Administrator ||
+                                     LoggedInUserRole == UserRole.SuperAdmin ||
+                                     LoggedInUserRole == UserRole.Executive)
+                                row.Cells[6].ReadOnly = false;
+                        }
+
+                        if (!rdrSettlement.IsDBNull(6))
+                        {
+                            row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(6).ToString("MM/dd/yyyy")) });
+                            row.Cells[7].ReadOnly = true;
+                        }
+                        else
+                        {
+                            row.Cells.Add(new CalendarCell { Value = null });
+                            row.Cells[7].ReadOnly = true;
+                        }
+
+                        // Payment information
+                        if (!rdrSettlement.IsDBNull(4))
+                        {
+                            String strPaymentMethod = rdrSettlement.GetString(4);
+
+                            switch (strPaymentMethod)
+                            {
+                                case "Check":
+                                    if (!rdrSettlement.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(7) });
+                                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    DataGridViewComboBoxCell comboCellCreditCardNoneForCheck = new DataGridViewComboBoxCell();
+                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                    {
+                                        if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCardNoneForCheck.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                        else comboCellCreditCardNoneForCheck.Items.Add(String.Empty);
+                                    }
+                                    row.Cells.Add(comboCellCreditCardNoneForCheck);
+                                    if (!rdrSettlement.IsDBNull(8))
+                                    {
+                                        row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(8).ToString("MM/dd/yyyy")) });
+                                    }
+                                    else
+                                    {
+                                        row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                    }
+                                    if (!rdrSettlement.IsDBNull(9))
+                                    {
+                                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(9) });
+                                    }
+                                    else
+                                    {
+                                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                    }
+                                    break;
+                                case "ACH/Banking":
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    if (!rdrSettlement.IsDBNull(10)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(10) });
+                                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    DataGridViewComboBoxCell comboCellCreditCardNoneForACH = new DataGridViewComboBoxCell();
+                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                    {
+                                        if (lstCreditCardInfo[i].CreditCardNo != null)
+                                            comboCellCreditCardNoneForACH.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                        else comboCellCreditCardNoneForACH.Items.Add(String.Empty);
+                                    }
+                                    row.Cells.Add(comboCellCreditCardNoneForACH);
+                                    if (!rdrSettlement.IsDBNull(11))
+                                    {
+                                        row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(11).ToString("MM/dd/yyyy")) });
+                                    }
+                                    else
+                                    {
+                                        row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                    }
+                                    if (!rdrSettlement.IsDBNull(12))
+                                    {
+                                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(12) });
+                                    }
+                                    else
+                                    {
+                                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                    }
+                                    break;
+                                case "Credit Card":
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    DataGridViewComboBoxCell comboCellCreditCard = new DataGridViewComboBoxCell();
+                                    if (!rdrSettlement.IsDBNull(13))
+                                    {
+                                        for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                        {
+                                            if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCard.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                            else comboCellCreditCard.Items.Add(String.Empty);
+                                        }
+                                        for (int i = 0; i < comboCellCreditCard.Items.Count; i++)
+                                        {
+                                            if (rdrSettlement.GetString(13) == comboCellCreditCard.Items[i].ToString())
+                                                comboCellCreditCard.Value = comboCellCreditCard.Items[i];
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //DataGridViewComboBoxCell comboCellCreditCard = new DataGridViewComboBoxCell();
+                                        for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                        {
+                                            if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCard.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                            else comboCellCreditCard.Items.Add(String.Empty);
+                                        }
+                                        comboCellCreditCard.Value = String.Empty;
+                                        //row.Cells.Add(comboCellCreditCard);
+                                    }
+                                    row.Cells.Add(comboCellCreditCard);
+                                    if (!rdrSettlement.IsDBNull(14)) row.Cells.Add(new CalendarCell { Value = DateTime.Parse(rdrSettlement.GetDateTime(14).ToString("MM/dd/yyyy")) });
+                                    else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                                    if (!rdrSettlement.IsDBNull(15)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(15) });
+                                    else row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                                    break;
+                                default:
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+                                    DataGridViewComboBoxCell comboCellCreditCardNone = new DataGridViewComboBoxCell();
+                                    for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                                    {
+                                        if (lstCreditCardInfo[i].CreditCardNo != null) comboCellCreditCardNone.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                        else comboCellCreditCardNone.Items.Add(String.Empty);
+                                    }
+                                    row.Cells.Add(comboCellCreditCardNone);
+                                    row.Cells.Add(new CalendarCell { Value = null });
+                                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+                                    break;
+                            }
+                        }
+                        else
+                        {
+
+                            DataGridViewTextBoxCell txtCheckNoCell = new DataGridViewTextBoxCell();
+                            txtCheckNoCell.Value = null;
+                            row.Cells.Add(txtCheckNoCell);
+                            DataGridViewTextBoxCell txtACHNoCell = new DataGridViewTextBoxCell();
+                            txtACHNoCell.Value = null;
+                            row.Cells.Add(txtACHNoCell);
+                            DataGridViewComboBoxCell comboCreditCardCell = new DataGridViewComboBoxCell();
+                            for (int i = 0; i < lstCreditCardInfo.Count; i++)
+                            {
+                                if (lstCreditCardInfo[i].CreditCardNo != null) comboCreditCardCell.Items.Add(lstCreditCardInfo[i].CreditCardNo);
+                                else comboCreditCardCell.Items.Add(String.Empty);
+                            }
+                            row.Cells.Add(comboCreditCardCell);
+                            comboCreditCardCell.ReadOnly = true;
+                            CalendarCell calPaymentDate = new CalendarCell();
+                            calPaymentDate.Value = null;
+                            row.Cells.Add(calPaymentDate);
+                            DataGridViewCheckBoxCell chkReconciledCell = new DataGridViewCheckBoxCell();
+                            chkReconciledCell.Value = false;
+                            row.Cells.Add(chkReconciledCell);
+
+                        }
+
+
+                        if (!rdrSettlement.IsDBNull(16)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetDecimal(16).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(17))
+                        {
+                            if (dicIneligibleReason.Count > 0)
+                            {
+                                DataGridViewComboBoxCell comboCellIneligibleReason = new DataGridViewComboBoxCell();
+                                for (int i = 0; i < dicIneligibleReason.Count; i++)
+                                {
+                                    comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
+                                }
+                                //comboCellIneligibleReason.Sorted = true;
+                                comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[rdrSettlement.GetInt32(17)];
+                                row.Cells.Add(comboCellIneligibleReason);
+                            }
+                        }
+                        else
+                        {
+                            if (dicIneligibleReason.Count > 0)
+                            {
+                                DataGridViewComboBoxCell comboCellIneligibleReason = new DataGridViewComboBoxCell();
+                                for (int i = 0; i < dicIneligibleReason.Count; i++)
+                                {
+                                    comboCellIneligibleReason.Items.Add(dicIneligibleReason[i]);
+                                }
+                                //comboCellIneligibleReason.Sorted = true;
+                                comboCellIneligibleReason.Value = comboCellIneligibleReason.Items[0];
+                                row.Cells.Add(comboCellIneligibleReason);
+                            }
+                        }
+
+                        if (!rdrSettlement.IsDBNull(18)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrSettlement.GetString(18) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = null });
+
+                        if (!rdrSettlement.IsDBNull(19)) row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrSettlement.GetBoolean(19) });
+                        else row.Cells.Add(new DataGridViewCheckBoxCell { Value = null });
+
+                        gvSettlementsInMedBill.Rows.Add(row);
+                        //AddNewRowToGVSettlementSafely(row);
+                    }
+                }
+                rdrSettlement.Close();
+                if (connRN7.State != ConnectionState.Closed) connRN7.Close();
+
+                for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                {
+                    if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "CMM Discount" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Ineligible" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Medical Provider Refund" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Discount")
+                    {
+                        gvSettlementsInMedBill["Approved", i].Value = false;
+                        gvSettlementsInMedBill["Approved", i].ReadOnly = true;
+                    }
+
+                    gvSettlementsInMedBill["ApprovedDate", i].ReadOnly = true;
+                }
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///
+
+                for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                {
+                    if (gvSettlementsInMedBill["PaymentMethod", i]?.Value?.ToString() == "Check")
+                    {
+                        gvSettlementsInMedBill.Rows[i].Cells["CheckNo"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["PaymentDate"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["Reconciled"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["ACHNo"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["CreditCard"].ReadOnly = true;
+                    }
+
+                    if (gvSettlementsInMedBill["PaymentMethod", i]?.Value?.ToString() == "ACH/Banking")
+                    {
+                        gvSettlementsInMedBill.Rows[i].Cells["ACHNo"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["PaymentDate"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["Reconciled"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["CheckNo"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["CreditCard"].ReadOnly = true;
+                    }
+
+                    if (gvSettlementsInMedBill["PaymentMethod", i]?.Value?.ToString() == "Credit Card")
+                    {
+                        gvSettlementsInMedBill.Rows[i].Cells["CreditCard"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["PaymentDate"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["Reconciled"].ReadOnly = false;
+                        gvSettlementsInMedBill.Rows[i].Cells["CheckNo"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["ACHNo"].ReadOnly = true;
+                    }
+                    if (gvSettlementsInMedBill["PaymentMethod", i]?.Value == null)
+                    {
+                        gvSettlementsInMedBill.Rows[i].Cells["CheckNo"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["ACHNo"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["CreditCard"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["PaymentDate"].ReadOnly = true;
+                        gvSettlementsInMedBill.Rows[i].Cells["Reconciled"].ReadOnly = true;
+                    }
+                }
+
+                for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                {
+                    if (gvSettlementsInMedBill[2, i]?.Value?.ToString() == "Ineligible") gvSettlementsInMedBill.Rows[i].DefaultCellStyle.BackColor = Color.Salmon;
+                    else
+                    {
+                        gvSettlementsInMedBill["IneligibleReason", i].Value = null;
+                        gvSettlementsInMedBill["IneligibleReason", i].ReadOnly = true;
+                    }
+                }
+
+                if (txtMedBillAmount.Text.Trim() != String.Empty)
+                {
+                    Decimal SettlementTotal = 0;
+                    Decimal Balance = 0;
+                    Decimal Result = 0;
+                    Decimal BillAmount = 0;
+                    if (Decimal.TryParse(txtMedBillAmount.Text.Trim(), NumberStyles.Currency, new CultureInfo("en-US"), out Result))
+                    {
+                        BillAmount = Result;
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() != "PR Reimbursement" &&
+                                gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() != "Medical Provider Refund")
+                            {
+                                Decimal Settlement = Decimal.Parse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"));
+                                SettlementTotal += Settlement;
+                            }
+                        }
+                        if (SettlementTotal > BillAmount) MessageBox.Show("Settlement Total exceeds the Medical Bill Amount.", "Alert");
+                        else
+                        {
+                            Balance = BillAmount - SettlementTotal;
+                            txtBalance.Text = Balance.ToString("C");
+                        }
+                    }
+                }
+
+                Decimal TotalSharedAmount = 0;
+                //if (gvSettlementsInMedBill.Rows.Count == 0) txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+                txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+
+                for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                {
+                    Decimal SharedAmount = 0;
+                    Decimal MedicalProviderRefund = 0;
+                    Decimal result = 0;
+
+                    if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "CMM Provider Payment" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "CMM Member Reimbursement" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "PR Reimbursement")
+                    {
+                        if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i].Value.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
+                        {
+                            SharedAmount = result;
+                            TotalSharedAmount += SharedAmount;
+                            txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+                        }
+                    }
+                    else if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Medical Provider Refund")
+                    {
+                        if (Decimal.TryParse(gvSettlementsInMedBill["SettlementAmount", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
+                        {
+                            MedicalProviderRefund = result;
+                            TotalSharedAmount -= MedicalProviderRefund;
+                            txtTotalSharedAmtMedBill.Text = TotalSharedAmount.ToString("C");
+                        }
+                    }
+                }
+
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///
+
+                Decimal PersonResponsibilityAmt = PersonalResponsibilityAmountInMedBill;
+                Decimal PersonalResponsibilityBalance = PersonalResponsibilityAmountInMedBill;
+                Decimal TotalPersonalResponsibilityShared = 0;
+
+                for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                {
+                    Decimal PersonalResponsibilityShared = 0;
+                    Decimal result = 0;
+
+                    if (gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Self Pay Discount" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "3rd Party Discount" ||
+                        gvSettlementsInMedBill["SettlementTypeValue", i]?.Value?.ToString() == "Member Payment")
+                    {
+                        if (Decimal.TryParse(gvSettlementsInMedBill["PersonalResponsibility", i]?.Value?.ToString(), NumberStyles.Currency, new CultureInfo("en-US"), out result))
+                        {
+                            PersonalResponsibilityShared = result;
+                            TotalPersonalResponsibilityShared += PersonalResponsibilityShared;
+                            PersonalResponsibilityBalance -= TotalPersonalResponsibilityShared;
+                        }
+                    }
+                }
+
+                txtPersonalResponsibility.Text = PersonalResponsibilityBalance.ToString("C");
+
+                // Populate Task GridView
+
+                //MedBillNoForTask = gvSettlementSearched[1, e.RowIndex].Value.ToString();
+                String strSqlQueryForTaskInMedBill = "select [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_user].[User_Name], [dbo].[tbl_task_status_code].[TaskStatusValue], " +
+                                                     "[dbo].[tbl_task].[id] " +
+                                                     "from [dbo].[tbl_task] " +
+                                                     "inner join [dbo].[tbl_user] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_user].[User_Id] " +
+                                                     "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                                                     "where [dbo].[tbl_task].[whatid] = @MedBillNo " +
+                                                     "order by [dbo].[tbl_task].[CreateDate] desc";
+
+                SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTaskInMedBill, connRN7);
+                cmdQueryForTask.CommandType = CommandType.Text;
+
+                cmdQueryForTask.Parameters.AddWithValue("@MedBillNo", MedBillNo);
+
+                SqlDependency dependencyTask = new SqlDependency(cmdQueryForTask);
+                dependencyTask.OnChange += new OnChangeEventHandler(OnTaskInMedBillChange);
+
+                if (connRN7.State != ConnectionState.Closed)
+                {
+                    connRN7.Close();
+                    connRN7.Open();
+                }
+                else if (connRN7.State == ConnectionState.Closed) connRN7.Open();
+
+                SqlDataReader rdrTaskForMedBill = cmdQueryForTask.ExecuteReader();
+                gvMostRecentTasks.Rows.Clear();
+                if (rdrTaskForMedBill.HasRows)
+                {
+                    while (rdrTaskForMedBill.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        if (!rdrTaskForMedBill.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(0) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(1)) row.Cells.Add(new CalendarCell { Value = rdrTaskForMedBill.GetDateTime(1).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new CalendarCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(2) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetString(3) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrTaskForMedBill.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrTaskForMedBill.GetInt32(4).ToString() });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvMostRecentTasks.Rows.Add(row);
+                    }
+                }
+                rdrTaskForMedBill.Close();
+
+                if (connRN7.State == ConnectionState.Open) connRN7.Close();
+
+                //EnableMedicalBillForm();
+                //btnMedBillCreatePgUpperSave.Enabled = true;
+                ////btnMedBillCreationPgLowerSave.Enabled = true;
+
+                //if (bMedBillInUse)
+                //{
+                //    DisableMedicalBillForm();
+
+                //    EnableGroupDocumentProcessingForViewing();
+                //    EnableGroupMedBillDocumentsForViewing();
+
+                //}
+
+                tbCMMManager.SelectedTab = tbpgMedicalBill;
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //if (!tbCMMManager.TabPages.Contains(tbpgMedicalBill))
+                //{
+                //    tbCMMManager.TabPages.Add(tbpgMedicalBill);
+                //    tbCMMManager.SelectedTab = tbpgMedicalBill;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Medical Bill page is already open. Close Medical Bill page first.", "Alert");
+                //    return;
+                //}
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///
+
+                if (LoggedInUserRole == UserRole.Administrator || LoggedInUserRole == UserRole.SuperAdmin)
+                {
+                    EnableMedicalBillForm();
+                }
+
+                if (LoggedInUserRole == UserRole.NPManager || LoggedInUserRole == UserRole.NPStaff)
+                {
+                    DisableMedicalBillForm();
+
+                    EnableGroupDocumentProcessingForViewing();
+                    EnableGroupMedBillDocumentsForViewing();
+                }
+
+                if (LoggedInUserRole == UserRole.FDManager || LoggedInUserRole == UserRole.FDStaff)
+                {
+                    DisableMedicalBillForm();
+
+                    EnableGroupDocumentProcessingForViewing();
+                    EnableGroupMedBillDocumentsForViewing();
+
+                    if (bMedBillInUse == false)
+                    {
+                        gvSettlementsInMedBill.Enabled = true;
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                        }
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            gvSettlementsInMedBill[8, i].ReadOnly = false;
+                            gvSettlementsInMedBill[9, i].ReadOnly = false;
+                            gvSettlementsInMedBill[10, i].ReadOnly = false;
+                            gvSettlementsInMedBill[12, i].ReadOnly = false;
+                            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                        }
+                    }
+                }
+
+                if (LoggedInUserRole == UserRole.RNManager)
+                {
+                    if (bMedBillInUse)
+                    {
+                        DisableMedicalBillForm();
+
+                        EnableGroupDocumentProcessingForViewing();
+                        EnableGroupMedBillDocumentsForViewing();
+                    }
+                    else
+                    {
+                        EnableMedicalBillForm();
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                        }
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            gvSettlementsInMedBill[0, i].ReadOnly = false;
+                            gvSettlementsInMedBill[2, i].ReadOnly = false;
+                            gvSettlementsInMedBill[3, i].ReadOnly = false;
+                            gvSettlementsInMedBill[4, i].ReadOnly = false;
+                            gvSettlementsInMedBill[5, i].ReadOnly = false;
+                            gvSettlementsInMedBill[6, i].ReadOnly = false;
+                            gvSettlementsInMedBill[14, i].ReadOnly = false;
+                            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                        }
+
+                    }
+                }
+
+                if (LoggedInUserRole == UserRole.RNStaff)
+                {
+                    if (bMedBillInUse)
+                    {
+                        DisableMedicalBillForm();
+
+                        EnableGroupDocumentProcessingForViewing();
+                        EnableGroupMedBillDocumentsForViewing();
+                    }
+                    else
+                    {
+                        EnableMedicalBillForm();
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                        }
+
+                        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                        {
+                            gvSettlementsInMedBill[0, i].ReadOnly = false;
+                            gvSettlementsInMedBill[2, i].ReadOnly = false;
+                            gvSettlementsInMedBill[3, i].ReadOnly = false;
+                            gvSettlementsInMedBill[4, i].ReadOnly = false;
+                            gvSettlementsInMedBill[5, i].ReadOnly = false;
+                            gvSettlementsInMedBill[14, i].ReadOnly = false;
+                            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                        }
+                    }
+                }
+
+
+
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //if (LoggedInUserRole == UserRole.NPManager || LoggedInUserRole == UserRole.NPStaff)
+                //{
+                //    DisableMedicalBillForm();
+
+                //    EnableGroupDocumentProcessingForViewing();
+                //    EnableGroupMedBillDocumentsForViewing();
+                //}
+
+                //if (LoggedInUserRole == UserRole.FDManager || LoggedInUserRole == UserRole.FDStaff)
+                //{
+                //    DisableMedicalBillForm();
+
+                //    EnableGroupDocumentProcessingForViewing();
+                //    EnableGroupMedBillDocumentsForViewing();
+
+                //    if (bMedBillInUse == false)
+                //    {
+                //        gvSettlementsInMedBill.Enabled = true;
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                //        }
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            gvSettlementsInMedBill[8, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[9, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[10, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[12, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                //        }
+                //    }
+                //}
+
+                //if (LoggedInUserRole == UserRole.RNManager)
+                //{
+                //    if (bMedBillInUse)
+                //    {
+                //        DisableMedicalBillForm();
+
+                //        EnableGroupDocumentProcessingForViewing();
+                //        EnableGroupMedBillDocumentsForViewing();
+                //    }
+                //    else
+                //    {
+                //        EnableMedicalBillForm();
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                //        }
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            gvSettlementsInMedBill[0, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[2, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[3, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[4, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[5, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[6, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[14, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                //        }
+
+                //    }
+                //}
+
+                //if (LoggedInUserRole == UserRole.RNStaff)
+                //{
+                //    if (bMedBillInUse)
+                //    {
+                //        DisableMedicalBillForm();
+
+                //        EnableGroupDocumentProcessingForViewing();
+                //        EnableGroupMedBillDocumentsForViewing();
+                //    }
+                //    else
+                //    {
+                //        EnableMedicalBillForm();
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            for (int j = 0; j < gvSettlementsInMedBill.Columns.Count; j++) gvSettlementsInMedBill[j, i].ReadOnly = true;
+                //        }
+
+                //        for (int i = 0; i < gvSettlementsInMedBill.Rows.Count; i++)
+                //        {
+                //            gvSettlementsInMedBill[0, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[2, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[3, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[4, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[5, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[14, i].ReadOnly = false;
+                //            gvSettlementsInMedBill[15, i].ReadOnly = false;
+                //        }
+                //    }
+                //}
+            
 
             }
-           
+        }
+
+        private void btnCreateAddOnCase_Click(object sender, EventArgs e)
+        {
+            txtParentCaseName.Text = txtCaseName.Text;
+            string strNewCaseName = String.Empty;
+
+            if (connRN4.State != ConnectionState.Closed)
+            {
+                connRN4.Close();
+                connRN4.Open();
+            }
+            else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+
+            SqlCommand cmdCaseId = connRN4.CreateCommand();
+            SqlTransaction tranCaseId = connRN4.BeginTransaction(IsolationLevel.Serializable);
+            cmdCaseId.Connection = connRN4;
+            cmdCaseId.Transaction = tranCaseId;
+
+            try
+            {
+                String strSqlQueryForLastCaseId = "select [dbo].[tbl_LastId].[CaseId] from [dbo].[tbl_LastId] where [dbo].[tbl_LastID].[Id] = 1";
+
+                cmdCaseId.CommandText = strSqlQueryForLastCaseId;
+                cmdCaseId.CommandType = CommandType.Text;
+
+                Object objLastCaseId = cmdCaseId.ExecuteScalar();
+
+                String strMaxCaseName = String.Empty;
+                if (objLastCaseId != null) strMaxCaseName = objLastCaseId.ToString();
+
+                Int32 nNewCaseNo = Int32.Parse(strMaxCaseName.Substring(5));
+                nNewCaseNo++;
+                strNewCaseName = "Case-" + nNewCaseNo.ToString();
+
+                String strSqlUpdateLastCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
+
+                cmdCaseId.CommandText = strSqlUpdateLastCaseId;
+                cmdCaseId.CommandType = CommandType.Text;
+
+                cmdCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
+
+                int nCaseIdUpdated = cmdCaseId.ExecuteNonQuery();
+
+                tranCaseId.Commit();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    tranCaseId.Rollback();
+                }
+                catch (SqlException se)
+                {
+                    MessageBox.Show(se.Message, "Error");
+                }
+                MessageBox.Show(ex.Message, "Error");
+            }
+            if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+            string strCaseName = strNewCaseName;
+            String NewChildCaseName = strNewCaseName;
+
+            txtCaseName.Text = NewChildCaseName;
+
+            ResetMedDocumentsReceivedDate();
+
+            //txtCaseName.Text = strNewCaseName;
+
+            txtCaseIndividualID.Text = txtIndividualID.Text;
+
+            if (txtMiddleName.Text == String.Empty) txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text;
+            else txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
+
+            chkNPF_CaseCreationPage.Checked = false;
+            chkIB_CaseCreationPage.Checked = false;
+            chkPoP_CaseCreationPage.Checked = false;
+            chkMedicalRecordCaseCreationPage.Checked = false;
+            chkOtherDocCaseCreationPage.Checked = false;
+
+            txtNPFFormFilePath.Text = String.Empty;
+            txtIBFilePath.Text = String.Empty;
+            txtPopFilePath.Text = String.Empty;
+            txtMedicalRecordFilePath.Text = String.Empty;
+            txtOtherDocumentFilePath.Text = String.Empty;
+
+            //txtNPFUploadDate.Text = String.Empty;
+            //txtIBUploadDate.Text = String.Empty;
+            //txtPoPUploadDate.Text = String.Empty;
+            //txtMRUploadDate.Text = String.Empty;
+            //txtOtherDocUploadDate.Text = String.Empty;
+
+            tbCMMManager.SelectedTab = tbpgCreateCase;
+
+            btnNewMedBill_Case.Enabled = false;
+            btnEditMedBill.Enabled = false;
+            btnDeleteMedBill.Enabled = false;
+
+            EnableCaseForm();
+
+            btnCaseCreationSaveUpper.Enabled = true;
+
+            gvCasePageMedBills.Rows.Clear();
+
         }
     }
 }
