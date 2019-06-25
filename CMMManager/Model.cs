@@ -639,6 +639,18 @@ namespace CMMManager
         }
     }
 
+    public class MedicalBillDocType
+    {
+        public int? MedBillDocTypeCode;
+        public String MedBillDocTypeValue;
+
+        public MedicalBillDocType()
+        {
+            MedBillDocTypeCode = null;
+            MedBillDocTypeValue = String.Empty;
+        }
+    }
+
     public class IneligibleReasonInfo
     {
         public int? SelectedId;

@@ -267,6 +267,7 @@ namespace CMMManager
         public List<StaffInfo> lstCreateStaff;
         public List<StaffInfo> lstModifiStaff;
 
+        public List<MedicalBillDocType> lstMedicalBillDocType;
         public List<IneligibleReasonInfo> lstIneligibleReasonInfo;
         //public List<IneligibleReasonInfo> lstSortedIneligibleReasonInfo;
         public List<SettlementInfoForApproval> lstSettlementInfoForApproval;
@@ -542,6 +543,7 @@ namespace CMMManager
             dicMedBillTypes = new Dictionary<int, String>();
             dicMedBillStatus = new Dictionary<int, String>();
             lstMedicalBillStatusCodes = new List<MedicalBillStatusCode>();
+            lstMedicalBillDocType = new List<MedicalBillDocType>();
 
             dicPendingReason = new Dictionary<int, String>();
             dicIneligibleReason = new Dictionary<int, String>();
@@ -624,7 +626,31 @@ namespace CMMManager
             rdrMedBillTypes.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            
+            String strSqlQueryForMedBillDocTypes = "select [dbo].[tbl_medbill_doc_type_code].[MedBillDocTypeCode], [dbo].[tbl_medbill_doc_type_code].[MedBillDocTypeValue] " +
+                                                   "from [dbo].[tbl_medbill_doc_type_code]";
+
+            SqlCommand cmdQueryForMedBillDocTypes = new SqlCommand(strSqlQueryForMedBillDocTypes, connRN);
+            cmdQueryForMedBillDocTypes.CommandType = CommandType.Text;
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrMedBillDocTypes = cmdQueryForMedBillDocTypes.ExecuteReader();
+            if (rdrMedBillDocTypes.HasRows)
+            {
+                while (rdrMedBillDocTypes.Read())
+                {
+                    if (!rdrMedBillDocTypes.IsDBNull(0) && !rdrMedBillDocTypes.IsDBNull(1))
+                    {
+                        lstMedicalBillDocType.Add(new MedicalBillDocType { MedBillDocTypeCode = rdrMedBillDocTypes.GetInt16(0), MedBillDocTypeValue = rdrMedBillDocTypes.GetString(1) });
+                    }
+                }
+            }
+            rdrMedBillDocTypes.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
 
             
 
@@ -22001,89 +22027,188 @@ namespace CMMManager
                     //if (!rdrMedBillEdit.IsDBNull(30)) chkNPFMedBill.Checked = rdrMedBillEdit.GetBoolean(30);
                     //else chkNPFMedBill.Checked = false;
 
-                    DataGridViewRow row = null;
+                    
 
-                    if (!rdrMedBillEdit.IsDBNull(30))
+                    if (!rdrMedBillEdit.IsDBNull(30) && !rdrMedBillEdit.IsDBNull(31) && !rdrMedBillEdit.IsDBNull(32))
                     {
-                        row = new DataGridViewRow();
+                        DataGridViewRow row = new DataGridViewRow();
                         row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(30) });
+                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
+                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
+                        {
+                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
+                        }
+                        MedBillDocTypeCell.Value = lstMedicalBillDocType[0].MedBillDocTypeValue;
+                        row.Cells.Add(MedBillDocTypeCell);
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
-                    }
-                    else
-                    {
-                        row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
-                    }
-
-                    if (!rdrMedBillEdit.IsDBNull(31))
-                    {
                         strNPFSourceFilePathMedBill = rdrMedBillEdit.GetString(31);
                         strNPFormFileNameMedBill = Path.GetFileName(strNPFSourceFilePathMedBill);
-
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFormFileNameMedBill });
-                        //txtNPFMedBillFileName.Text = strNPFormFileNameMedBill;
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
+                        gvMedicalBillDocuments.Rows.Add(row);
                     }
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //else
+                    //{
+                    //    DataGridViewRow row = new DataGridViewRow();
+                    //    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    //    row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //    strNPFDestinationFilePathMedBill = String.Empty;
+                    //}
 
-                    if (!rdrMedBillEdit.IsDBNull(32)) strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
-                    else strNPFDestinationFilePathMedBill = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(31))
+                    //{
+                    //    strNPFSourceFilePathMedBill = rdrMedBillEdit.GetString(31);
+                    //    strNPFormFileNameMedBill = Path.GetFileName(strNPFSourceFilePathMedBill);
+
+                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFormFileNameMedBill });
+                    //    //txtNPFMedBillFileName.Text = strNPFormFileNameMedBill;
+                    //}
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    //if (!rdrMedBillEdit.IsDBNull(32)) strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
+                    //else strNPFDestinationFilePathMedBill = String.Empty;
+
+                    if (!rdrMedBillEdit.IsDBNull(33) && !rdrMedBillEdit.IsDBNull(34) && !rdrMedBillEdit.IsDBNull(35))
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(33) });
+                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
+                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
+                        {
+                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
+                        }
+                        MedBillDocTypeCell.Value = lstMedicalBillDocType[1].MedBillDocTypeValue;
+                        row.Cells.Add(MedBillDocTypeCell);
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        strIBSourceFilePathMedBill = rdrMedBillEdit.GetString(34);
+                        strIBFileNameMedBill = Path.GetFileName(strIBSourceFilePathMedBill);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strIBFileNameMedBill });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        strIBDestinationFilePathMedBill = rdrMedBillEdit.GetString(35);
+                        gvMedicalBillDocuments.Rows.Add(row);
+                    }
+
 
                     //if (!rdrMedBillEdit.IsDBNull(33)) chkIBMedBill.Checked = rdrMedBillEdit.GetBoolean(33);
                     //else chkIBMedBill.Checked = false;
 
-                    if (!rdrMedBillEdit.IsDBNull(34))
+                    //if (!rdrMedBillEdit.IsDBNull(34))
+                    //{
+                    //    strIBSourceFilePathMedBill = rdrMedBillEdit.GetString(34);
+                    //    strIBFileNameMedBill = Path.GetFileName(strIBSourceFilePathMedBill);
+                    //    //txtIBMedBillFileName.Text = strIBFileNameMedBill;
+
+                    //}
+                    ////else txtIBMedBillFileName.Text = String.Empty;
+
+                    //if (!rdrMedBillEdit.IsDBNull(35)) strIBDestinationFilePathMedBill = rdrMedBillEdit.GetString(35);
+                    //else strIBDestinationFilePathMedBill = String.Empty;
+
+                    if (!rdrMedBillEdit.IsDBNull(36) && !rdrMedBillEdit.IsDBNull(37) && !rdrMedBillEdit.IsDBNull(38))
                     {
-                        strIBSourceFilePathMedBill = rdrMedBillEdit.GetString(34);
-                        strIBFileNameMedBill = Path.GetFileName(strIBSourceFilePathMedBill);
-                        //txtIBMedBillFileName.Text = strIBFileNameMedBill;
-
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(36) });
+                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
+                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
+                        {
+                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
+                        }
+                        MedBillDocTypeCell.Value = lstMedicalBillDocType[2].MedBillDocTypeValue;
+                        row.Cells.Add(MedBillDocTypeCell);
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        strPoPSourceFilePathMedBill = rdrMedBillEdit.GetString(37);
+                        strPoPFileNameMedBill = Path.GetFileName(strPoPSourceFilePathMedBill);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strPoPFileNameMedBill });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        strPoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(38);
+                        gvMedicalBillDocuments.Rows.Add(row);
                     }
-                    //else txtIBMedBillFileName.Text = String.Empty;
 
-                    if (!rdrMedBillEdit.IsDBNull(35)) strIBDestinationFilePathMedBill = rdrMedBillEdit.GetString(35);
-                    else strIBDestinationFilePathMedBill = String.Empty;
 
                     //if (!rdrMedBillEdit.IsDBNull(36)) chkPoPMedBill.Checked = rdrMedBillEdit.GetBoolean(36);
                     //else chkPoPMedBill.Checked = false;
 
-                    if (!rdrMedBillEdit.IsDBNull(37))
-                    {
-                        strPoPSourceFilePathMedBill = rdrMedBillEdit.GetString(37);
-                        strPoPFileNameMedBill = Path.GetFileName(strPoPSourceFilePathMedBill);
-                        //txtPoPMedBillFileName.Text = strPoPFileNameMedBill;
-                    }
-                    ///else txtPoPMedBillFileName.Text = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(37))
+                    //{
+                    //    strPoPSourceFilePathMedBill = rdrMedBillEdit.GetString(37);
+                    //    strPoPFileNameMedBill = Path.GetFileName(strPoPSourceFilePathMedBill);
+                    //    //txtPoPMedBillFileName.Text = strPoPFileNameMedBill;
+                    //}
+                    /////else txtPoPMedBillFileName.Text = String.Empty;
 
-                    if (!rdrMedBillEdit.IsDBNull(38)) strPoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(38);
-                    else strPoPDestinationFilePathMedBill = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(38)) strPoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(38);
+                    //else strPoPDestinationFilePathMedBill = String.Empty;
+
+                    if (!rdrMedBillEdit.IsDBNull(39) && !rdrMedBillEdit.IsDBNull(40) && !rdrMedBillEdit.IsDBNull(41))
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(39) });
+                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
+                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
+                        {
+                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
+                        }
+                        MedBillDocTypeCell.Value = lstMedicalBillDocType[3].MedBillDocTypeValue;
+                        row.Cells.Add(MedBillDocTypeCell);
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        strMedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(40);
+                        strMedRecFileNameMedBill = Path.GetFileName(strMedRecSourceFilePathMedBill);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strMedRecFileNameMedBill });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        strMedRecDestinationFilePathMedBill = rdrMedBillEdit.GetString(41);
+                        gvMedicalBillDocuments.Rows.Add(row);
+                    }
+
 
                     //if (!rdrMedBillEdit.IsDBNull(39)) chkMedRecMedBill.Checked = rdrMedBillEdit.GetBoolean(39);
                     //else chkMedRecMedBill.Checked = false;
 
-                    if (!rdrMedBillEdit.IsDBNull(40))
-                    {
-                        strMedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(40);
-                        strMedRecFileNameMedBill = Path.GetFileName(strMedRecSourceFilePathMedBill);
-                        //txtMedRecMedBillFileName.Text = strMedRecFileNameMedBill;
-                    }
-                    //else txtMedRecMedBillFileName.Text = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(40))
+                    //{
+                    //    strMedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(40);
+                    //    strMedRecFileNameMedBill = Path.GetFileName(strMedRecSourceFilePathMedBill);
+                    //    //txtMedRecMedBillFileName.Text = strMedRecFileNameMedBill;
+                    //}
+                    ////else txtMedRecMedBillFileName.Text = String.Empty;
 
-                    if (!rdrMedBillEdit.IsDBNull(41)) strMedRecDestinationFilePathMedBill = rdrMedBillEdit.GetString(41);
-                    else strMedRecDestinationFilePathMedBill = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(41)) strMedRecDestinationFilePathMedBill = rdrMedBillEdit.GetString(41);
+                    //else strMedRecDestinationFilePathMedBill = String.Empty;
+
+                    if (!rdrMedBillEdit.IsDBNull(42) && !rdrMedBillEdit.IsDBNull(43) && !rdrMedBillEdit.IsDBNull(44))
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(42) });
+                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
+                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
+                        {
+                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
+                        }
+                        MedBillDocTypeCell.Value = lstMedicalBillDocType[4].MedBillDocTypeValue;
+                        row.Cells.Add(MedBillDocTypeCell);
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        strOtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(43);
+                        strOtherDocFileNameMedBill = Path.GetFileName(strOtherDocSourceFilePathMedBill);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strOtherDocFileNameMedBill });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        strOtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(44);
+                        gvMedicalBillDocuments.Rows.Add(row);
+                    }
+
 
                     //if (!rdrMedBillEdit.IsDBNull(42)) chkOtherDocMedBill.Checked = rdrMedBillEdit.GetBoolean(42);
                     //else chkOtherDocMedBill.Checked = false;
 
-                    if (!rdrMedBillEdit.IsDBNull(43))
-                    {
-                        strOtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(43);
-                        strOtherDocFileNameMedBill = Path.GetFileName(strOtherDocSourceFilePathMedBill);
-                        //txtOtherDocMedBillFileName.Text = strOtherDocFileNameMedBill;
-                    }
+                    //if (!rdrMedBillEdit.IsDBNull(43))
+                    //{
+                    //    strOtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(43);
+                    //    strOtherDocFileNameMedBill = Path.GetFileName(strOtherDocSourceFilePathMedBill);
+                    //    //txtOtherDocMedBillFileName.Text = strOtherDocFileNameMedBill;
+                    //}
 
-                    if (!rdrMedBillEdit.IsDBNull(44)) strOtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(44);
-                    else strOtherDocDestinationFilePathMedBill = String.Empty;
+                    //if (!rdrMedBillEdit.IsDBNull(44)) strOtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(44);
+                    //else strOtherDocDestinationFilePathMedBill = String.Empty;
 
                 }
                 rdrMedBillEdit.Close();
