@@ -569,6 +569,11 @@
             this.btnUndoPayment = new System.Windows.Forms.Button();
             this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
             this.gvMedicalBillDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedMedBillDocuments = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocTypeMedBillDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.UploadMedBillDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.FilePathMedBillDocuments = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ViewMedBillDocuments = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnDeleteMedBillDocument = new System.Windows.Forms.Button();
             this.btnAddNewDocument = new System.Windows.Forms.Button();
             this.txtTotalSharedAmtMedBill = new System.Windows.Forms.TextBox();
@@ -1043,11 +1048,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedMedBillDocuments = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DocTypeMedBillDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.UploadMedBillDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.FilePathMedBillDocuments = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ViewMedBillDocuments = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5915,6 +5915,7 @@
             this.gvMedicalBillDocuments.AllowUserToAddRows = false;
             this.gvMedicalBillDocuments.AllowUserToDeleteRows = false;
             this.gvMedicalBillDocuments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvMedicalBillDocuments.ColumnHeadersVisible = false;
             this.gvMedicalBillDocuments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedMedBillDocuments,
             this.DocTypeMedBillDocument,
@@ -5925,6 +5926,35 @@
             this.gvMedicalBillDocuments.Name = "gvMedicalBillDocuments";
             this.gvMedicalBillDocuments.Size = new System.Drawing.Size(378, 136);
             this.gvMedicalBillDocuments.TabIndex = 2;
+            // 
+            // SelectedMedBillDocuments
+            // 
+            this.SelectedMedBillDocuments.HeaderText = "";
+            this.SelectedMedBillDocuments.Name = "SelectedMedBillDocuments";
+            this.SelectedMedBillDocuments.Width = 25;
+            // 
+            // DocTypeMedBillDocument
+            // 
+            this.DocTypeMedBillDocument.HeaderText = "Type";
+            this.DocTypeMedBillDocument.Name = "DocTypeMedBillDocument";
+            this.DocTypeMedBillDocument.Width = 80;
+            // 
+            // UploadMedBillDocument
+            // 
+            this.UploadMedBillDocument.HeaderText = "Upload";
+            this.UploadMedBillDocument.Name = "UploadMedBillDocument";
+            this.UploadMedBillDocument.Width = 50;
+            // 
+            // FilePathMedBillDocuments
+            // 
+            this.FilePathMedBillDocuments.HeaderText = "File Path";
+            this.FilePathMedBillDocuments.Name = "FilePathMedBillDocuments";
+            // 
+            // ViewMedBillDocuments
+            // 
+            this.ViewMedBillDocuments.HeaderText = "View";
+            this.ViewMedBillDocuments.Name = "ViewMedBillDocuments";
+            this.ViewMedBillDocuments.Width = 50;
             // 
             // btnDeleteMedBillDocument
             // 
@@ -10153,35 +10183,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // SelectedMedBillDocuments
-            // 
-            this.SelectedMedBillDocuments.HeaderText = "";
-            this.SelectedMedBillDocuments.Name = "SelectedMedBillDocuments";
-            this.SelectedMedBillDocuments.Width = 25;
-            // 
-            // DocTypeMedBillDocument
-            // 
-            this.DocTypeMedBillDocument.HeaderText = "Type";
-            this.DocTypeMedBillDocument.Name = "DocTypeMedBillDocument";
-            this.DocTypeMedBillDocument.Width = 80;
-            // 
-            // UploadMedBillDocument
-            // 
-            this.UploadMedBillDocument.HeaderText = "Upload";
-            this.UploadMedBillDocument.Name = "UploadMedBillDocument";
-            this.UploadMedBillDocument.Width = 50;
-            // 
-            // FilePathMedBillDocuments
-            // 
-            this.FilePathMedBillDocuments.HeaderText = "File Path";
-            this.FilePathMedBillDocuments.Name = "FilePathMedBillDocuments";
-            // 
-            // ViewMedBillDocuments
-            // 
-            this.ViewMedBillDocuments.HeaderText = "View";
-            this.ViewMedBillDocuments.Name = "ViewMedBillDocuments";
-            this.ViewMedBillDocuments.Width = 50;
             // 
             // frmCMMManager
             // 
