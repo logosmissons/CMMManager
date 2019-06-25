@@ -22001,13 +22001,30 @@ namespace CMMManager
                     //if (!rdrMedBillEdit.IsDBNull(30)) chkNPFMedBill.Checked = rdrMedBillEdit.GetBoolean(30);
                     //else chkNPFMedBill.Checked = false;
 
+                    DataGridViewRow row = null;
+
+                    if (!rdrMedBillEdit.IsDBNull(30))
+                    {
+                        row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(30) });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                    }
+                    else
+                    {
+                        row = new DataGridViewRow();
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                    }
+
                     if (!rdrMedBillEdit.IsDBNull(31))
                     {
                         strNPFSourceFilePathMedBill = rdrMedBillEdit.GetString(31);
                         strNPFormFileNameMedBill = Path.GetFileName(strNPFSourceFilePathMedBill);
+
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFormFileNameMedBill });
                         //txtNPFMedBillFileName.Text = strNPFormFileNameMedBill;
                     }
-                    //else txtNPFMedBillFileName.Text = String.Empty;
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
                     if (!rdrMedBillEdit.IsDBNull(32)) strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
                     else strNPFDestinationFilePathMedBill = String.Empty;
