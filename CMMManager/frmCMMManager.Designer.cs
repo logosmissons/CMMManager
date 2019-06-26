@@ -4280,7 +4280,7 @@
             // 
             // txtParentCaseName
             // 
-            this.txtParentCaseName.Location = new System.Drawing.Point(132, 125);
+            this.txtParentCaseName.Location = new System.Drawing.Point(508, 92);
             this.txtParentCaseName.Name = "txtParentCaseName";
             this.txtParentCaseName.ReadOnly = true;
             this.txtParentCaseName.Size = new System.Drawing.Size(220, 20);
@@ -4290,7 +4290,7 @@
             // 
             this.label132.AutoSize = true;
             this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label132.Location = new System.Drawing.Point(42, 126);
+            this.label132.Location = new System.Drawing.Point(396, 93);
             this.label132.Name = "label132";
             this.label132.Size = new System.Drawing.Size(85, 16);
             this.label132.TabIndex = 153;
@@ -4298,9 +4298,9 @@
             // 
             // btnCreateAddOnCase
             // 
-            this.btnCreateAddOnCase.Location = new System.Drawing.Point(399, 91);
+            this.btnCreateAddOnCase.Location = new System.Drawing.Point(736, 91);
             this.btnCreateAddOnCase.Name = "btnCreateAddOnCase";
-            this.btnCreateAddOnCase.Size = new System.Drawing.Size(202, 33);
+            this.btnCreateAddOnCase.Size = new System.Drawing.Size(140, 20);
             this.btnCreateAddOnCase.TabIndex = 152;
             this.btnCreateAddOnCase.Text = "Create Add On Case";
             this.btnCreateAddOnCase.UseVisualStyleBackColor = true;
@@ -5094,7 +5094,7 @@
             // 
             // txtCreateCaseIndividualName
             // 
-            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(508, 159);
+            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(508, 131);
             this.txtCreateCaseIndividualName.Name = "txtCreateCaseIndividualName";
             this.txtCreateCaseIndividualName.ReadOnly = true;
             this.txtCreateCaseIndividualName.Size = new System.Drawing.Size(368, 20);
@@ -5102,7 +5102,7 @@
             // 
             // txtCaseIndividualID
             // 
-            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 159);
+            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 131);
             this.txtCaseIndividualID.Name = "txtCaseIndividualID";
             this.txtCaseIndividualID.ReadOnly = true;
             this.txtCaseIndividualID.Size = new System.Drawing.Size(220, 20);
@@ -5112,7 +5112,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.Location = new System.Drawing.Point(396, 161);
+            this.label47.Location = new System.Drawing.Point(396, 133);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(108, 16);
             this.label47.TabIndex = 70;
@@ -5122,7 +5122,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(42, 161);
+            this.label46.Location = new System.Drawing.Point(42, 133);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(84, 16);
             this.label46.TabIndex = 69;
