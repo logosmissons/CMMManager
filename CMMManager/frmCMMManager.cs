@@ -62731,7 +62731,7 @@ namespace CMMManager
         {
             for (int i = 0; i < gvCaseDocuments.Rows.Count; i++)
             {
-                if (Boolean.Parse(gvCaseDocuments[0, i]?.Value?.ToString()) == true) gvCaseDocuments.Rows.RemoveAt(i);
+                if (Boolean.Parse(gvCaseDocuments[0, i]?.Value?.ToString())) gvCaseDocuments.Rows.RemoveAt(i);
             }
         }
     }
