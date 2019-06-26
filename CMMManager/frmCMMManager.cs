@@ -1162,17 +1162,17 @@ namespace CMMManager
             gvNewSupportLog.Rows.Clear();
             gvTaskInCase.Rows.Clear();
 
-            txtOtherDocumentFilePath.Text = String.Empty;
-            txtMedicalRecordFilePath.Text = String.Empty;
-            txtPopFilePath.Text = String.Empty;
-            txtIBFilePath.Text = String.Empty;
-            txtNPFFormFilePath.Text = String.Empty;
+            //txtOtherDocumentFilePath.Text = String.Empty;
+            //txtMedicalRecordFilePath.Text = String.Empty;
+            //txtPopFilePath.Text = String.Empty;
+            //txtIBFilePath.Text = String.Empty;
+            //txtNPFFormFilePath.Text = String.Empty;
 
-            chkOtherDocCaseCreationPage.Checked = false;
-            chkMedicalRecordCaseCreationPage.Checked = false;
-            chkPoP_CaseCreationPage.Checked = false;
-            chkIB_CaseCreationPage.Checked = false;
-            chkNPF_CaseCreationPage.Checked = false;
+            //chkOtherDocCaseCreationPage.Checked = false;
+            //chkMedicalRecordCaseCreationPage.Checked = false;
+            //chkPoP_CaseCreationPage.Checked = false;
+            //chkIB_CaseCreationPage.Checked = false;
+            //chkNPF_CaseCreationPage.Checked = false;
 
             txtCreateCaseIndividualName.Text = String.Empty;
             txtCaseIndividualID.Text = String.Empty;
@@ -5272,53 +5272,53 @@ namespace CMMManager
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                 // Upload buttons for Case Creation tab
-                ToolTip tipUploadNPF = new ToolTip();
-                tipUploadNPF.SetToolTip(btnNPFFormUpload, "Upload the Needs Processing Form to the server");
+                //ToolTip tipUploadNPF = new ToolTip();
+                //tipUploadNPF.SetToolTip(btnNPFFormUpload, "Upload the Needs Processing Form to the server");
 
-                ToolTip tipUploadIB = new ToolTip();
-                tipUploadIB.SetToolTip(btnIBUpload, "Upload the Itemized Bill to the server");
+                //ToolTip tipUploadIB = new ToolTip();
+                //tipUploadIB.SetToolTip(btnIBUpload, "Upload the Itemized Bill to the server");
 
-                ToolTip tipUploadPoP = new ToolTip();
-                tipUploadPoP.SetToolTip(btnPoPUpload, "Upload the Proof of Payment to the server");
+                //ToolTip tipUploadPoP = new ToolTip();
+                //tipUploadPoP.SetToolTip(btnPoPUpload, "Upload the Proof of Payment to the server");
 
-                ToolTip tipUploadMedRec = new ToolTip();
-                tipUploadMedRec.SetToolTip(btnMedicalRecordUpload, "Upload the Medical Record to the server");
+                //ToolTip tipUploadMedRec = new ToolTip();
+                //tipUploadMedRec.SetToolTip(btnMedicalRecordUpload, "Upload the Medical Record to the server");
 
-                ToolTip tipUploadUnknownDoc = new ToolTip();
-                tipUploadUnknownDoc.SetToolTip(btnUnknownDocUpload, "Upload the Unknown Document to the server");
+                //ToolTip tipUploadUnknownDoc = new ToolTip();
+                //tipUploadUnknownDoc.SetToolTip(btnUnknownDocUpload, "Upload the Unknown Document to the server");
 
-                // View buttons for Case Creation tab
-                ToolTip tipViewNPFCreateCase = new ToolTip();
-                tipViewNPFCreateCase.SetToolTip(btnNPFFormView, "View the NPF Form on the server");
+                //// View buttons for Case Creation tab
+                //ToolTip tipViewNPFCreateCase = new ToolTip();
+                //tipViewNPFCreateCase.SetToolTip(btnNPFFormView, "View the NPF Form on the server");
 
-                ToolTip tipViewIBCreateCase = new ToolTip();
-                tipViewIBCreateCase.SetToolTip(btnIBView, "View the Itemized Bill on the server");
+                //ToolTip tipViewIBCreateCase = new ToolTip();
+                //tipViewIBCreateCase.SetToolTip(btnIBView, "View the Itemized Bill on the server");
 
-                ToolTip tipViewPoPCreateCase = new ToolTip();
-                tipViewPoPCreateCase.SetToolTip(btnPoPView, "View the Proof of Payment on the server");
+                //ToolTip tipViewPoPCreateCase = new ToolTip();
+                //tipViewPoPCreateCase.SetToolTip(btnPoPView, "View the Proof of Payment on the server");
 
-                ToolTip tipViewMedRecCreateCase = new ToolTip();
-                tipViewMedRecCreateCase.SetToolTip(btnMedicalRecordView, "View the Medical Record Document on the server");
+                //ToolTip tipViewMedRecCreateCase = new ToolTip();
+                //tipViewMedRecCreateCase.SetToolTip(btnMedicalRecordView, "View the Medical Record Document on the server");
 
-                ToolTip tipViewUnknownDocCreateCase = new ToolTip();
-                tipViewUnknownDocCreateCase.SetToolTip(btnOtherDocView, "View the Unknown Document on the server");
+                //ToolTip tipViewUnknownDocCreateCase = new ToolTip();
+                //tipViewUnknownDocCreateCase.SetToolTip(btnOtherDocView, "View the Unknown Document on the server");
 
 
-                // Delete buttons for Case Creation tab
-                ToolTip tipDeleteNPF = new ToolTip();
-                tipDeleteNPF.SetToolTip(btnNPFFormDelete, "Delete the uploaded Needs Processing Form on the server");
+                //// Delete buttons for Case Creation tab
+                //ToolTip tipDeleteNPF = new ToolTip();
+                //tipDeleteNPF.SetToolTip(btnNPFFormDelete, "Delete the uploaded Needs Processing Form on the server");
 
-                ToolTip tipDeleteIB = new ToolTip();
-                tipDeleteIB.SetToolTip(btnDeleteIB, "Delete the uploaded Itemized Bill on the server");
+                //ToolTip tipDeleteIB = new ToolTip();
+                //tipDeleteIB.SetToolTip(btnDeleteIB, "Delete the uploaded Itemized Bill on the server");
 
-                ToolTip tipDeletePoP = new ToolTip();
-                tipDeletePoP.SetToolTip(btnDeletePoP, "Delete the uploaded Proof of Payment on the server");
+                //ToolTip tipDeletePoP = new ToolTip();
+                //tipDeletePoP.SetToolTip(btnDeletePoP, "Delete the uploaded Proof of Payment on the server");
 
-                ToolTip tipDeleteMedRec = new ToolTip();
-                tipDeleteMedRec.SetToolTip(btnDeleteMedicalRecord, "Delete the uploaded Medical Record on the server");
+                //ToolTip tipDeleteMedRec = new ToolTip();
+                //tipDeleteMedRec.SetToolTip(btnDeleteMedicalRecord, "Delete the uploaded Medical Record on the server");
 
-                ToolTip tipDeleteUnknownDoc = new ToolTip();
-                tipDeleteUnknownDoc.SetToolTip(btnDeleteUnknownDoc, "Delete the uploaded Unknown Document on the server");
+                //ToolTip tipDeleteUnknownDoc = new ToolTip();
+                //tipDeleteUnknownDoc.SetToolTip(btnDeleteUnknownDoc, "Delete the uploaded Unknown Document on the server");
 
                 // Tooltips for Medical Bill tab
 
@@ -5988,11 +5988,11 @@ namespace CMMManager
             //txtOtherDocUploadDate.Enabled = true;
             //txtIBUploadDate.Enabled = true;
             //txtNPFUploadDate.Enabled = true;
-            dtpNPFReceivedDate.Enabled = true;
-            dtpIBReceivedDate.Enabled = true;
-            dtpPoPReceivedDate.Enabled = true;
-            dtpMRReceivedDate.Enabled = true;
-            dtpOtherDocReceivedDate.Enabled = true;
+            //dtpNPFReceivedDate.Enabled = true;
+            //dtpIBReceivedDate.Enabled = true;
+            //dtpPoPReceivedDate.Enabled = true;
+            //dtpMRReceivedDate.Enabled = true;
+            //dtpOtherDocReceivedDate.Enabled = true;
             gvCasePageMedBills.Enabled = true;
             gvNewSupportLog.Enabled = true;
             btnCaseCreationNewSupportLog.Enabled = true;
@@ -6000,31 +6000,31 @@ namespace CMMManager
             btnNewTaskCaseForm.Enabled = true;
             btnIncomplete.Enabled = true;
             btnApprovedSendToRN.Enabled = true;
-            btnOtherDocView.Enabled = true;
-            btnDeleteUnknownDoc.Enabled = true;
-            btnUnknownDocUpload.Enabled = true;
-            btnMedicalRecordView.Enabled = true;
-            btnDeleteMedicalRecord.Enabled = true;
-            btnMedicalRecordUpload.Enabled = true;
-            btnPoPView.Enabled = true;
-            btnDeletePoP.Enabled = true;
-            btnPoPUpload.Enabled = true;
-            btnIBView.Enabled = true;
-            btnDeleteIB.Enabled = true;
-            btnNPFFormView.Enabled = true;
-            btnNPFFormDelete.Enabled = true;
-            btnNPFFormUpload.Enabled = true;
-            btnIBUpload.Enabled = true;
-            txtOtherDocumentFilePath.Enabled = true;
-            txtMedicalRecordFilePath.Enabled = true;
-            txtPopFilePath.Enabled = true;
-            txtIBFilePath.Enabled = true;
-            txtNPFFormFilePath.Enabled = true;
-            chkOtherDocCaseCreationPage.Enabled = true;
-            chkMedicalRecordCaseCreationPage.Enabled = true;
-            chkPoP_CaseCreationPage.Enabled = true;
-            chkIB_CaseCreationPage.Enabled = true;
-            chkNPF_CaseCreationPage.Enabled = true;
+            //btnOtherDocView.Enabled = true;
+            //btnDeleteUnknownDoc.Enabled = true;
+            //btnUnknownDocUpload.Enabled = true;
+            //btnMedicalRecordView.Enabled = true;
+            //btnDeleteMedicalRecord.Enabled = true;
+            //btnMedicalRecordUpload.Enabled = true;
+            //btnPoPView.Enabled = true;
+            //btnDeletePoP.Enabled = true;
+            //btnPoPUpload.Enabled = true;
+            //btnIBView.Enabled = true;
+            //btnDeleteIB.Enabled = true;
+            //btnNPFFormView.Enabled = true;
+            //btnNPFFormDelete.Enabled = true;
+            //btnNPFFormUpload.Enabled = true;
+            //btnIBUpload.Enabled = true;
+            //txtOtherDocumentFilePath.Enabled = true;
+            //txtMedicalRecordFilePath.Enabled = true;
+            //txtPopFilePath.Enabled = true;
+            //txtIBFilePath.Enabled = true;
+            //txtNPFFormFilePath.Enabled = true;
+            //chkOtherDocCaseCreationPage.Enabled = true;
+            //chkMedicalRecordCaseCreationPage.Enabled = true;
+            //chkPoP_CaseCreationPage.Enabled = true;
+            //chkIB_CaseCreationPage.Enabled = true;
+            //chkNPF_CaseCreationPage.Enabled = true;
             txtCreateCaseIndividualName.Enabled = true;
             txtCaseIndividualID.Enabled = true;
         }
@@ -6046,11 +6046,11 @@ namespace CMMManager
             //txtOtherDocUploadDate.Enabled = false;
             //txtIBUploadDate.Enabled = false;
             //txtNPFUploadDate.Enabled = false;
-            dtpNPFReceivedDate.Enabled = false;
-            dtpIBReceivedDate.Enabled = false;
-            dtpPoPReceivedDate.Enabled = false;
-            dtpMRReceivedDate.Enabled = false;
-            dtpOtherDocReceivedDate.Enabled = false;
+            //dtpNPFReceivedDate.Enabled = false;
+            //dtpIBReceivedDate.Enabled = false;
+            //dtpPoPReceivedDate.Enabled = false;
+            //dtpMRReceivedDate.Enabled = false;
+            //dtpOtherDocReceivedDate.Enabled = false;
             gvCasePageMedBills.Enabled = false;
             gvNewSupportLog.Enabled = false;
             btnCaseCreationNewSupportLog.Enabled = false;
@@ -6058,31 +6058,31 @@ namespace CMMManager
             btnNewTaskCaseForm.Enabled = false;
             btnIncomplete.Enabled = false;
             btnApprovedSendToRN.Enabled = false;
-            btnOtherDocView.Enabled = false;
-            btnDeleteUnknownDoc.Enabled = false;
-            btnUnknownDocUpload.Enabled = false;
-            btnMedicalRecordView.Enabled = false;
-            btnDeleteMedicalRecord.Enabled = false;
-            btnMedicalRecordUpload.Enabled = false;
-            btnPoPView.Enabled = false;
-            btnDeletePoP.Enabled = false;
-            btnPoPUpload.Enabled = false;
-            btnIBUpload.Enabled = false;
-            btnIBView.Enabled = false;
-            btnDeleteIB.Enabled = false;
-            btnNPFFormView.Enabled = false;
-            btnNPFFormDelete.Enabled = false;
-            btnNPFFormUpload.Enabled = false;
-            txtOtherDocumentFilePath.Enabled = false;
-            txtMedicalRecordFilePath.Enabled = false;
-            txtPopFilePath.Enabled = false;
-            txtIBFilePath.Enabled = false;
-            txtNPFFormFilePath.Enabled = false;
-            chkOtherDocCaseCreationPage.Enabled = false;
-            chkMedicalRecordCaseCreationPage.Enabled = false;
-            chkPoP_CaseCreationPage.Enabled = false;
-            chkIB_CaseCreationPage.Enabled = false;
-            chkNPF_CaseCreationPage.Enabled = false;
+            //btnOtherDocView.Enabled = false;
+            //btnDeleteUnknownDoc.Enabled = false;
+            //btnUnknownDocUpload.Enabled = false;
+            //btnMedicalRecordView.Enabled = false;
+            //btnDeleteMedicalRecord.Enabled = false;
+            //btnMedicalRecordUpload.Enabled = false;
+            //btnPoPView.Enabled = false;
+            //btnDeletePoP.Enabled = false;
+            //btnPoPUpload.Enabled = false;
+            //btnIBUpload.Enabled = false;
+            //btnIBView.Enabled = false;
+            //btnDeleteIB.Enabled = false;
+            //btnNPFFormView.Enabled = false;
+            //btnNPFFormDelete.Enabled = false;
+            //btnNPFFormUpload.Enabled = false;
+            //txtOtherDocumentFilePath.Enabled = false;
+            //txtMedicalRecordFilePath.Enabled = false;
+            //txtPopFilePath.Enabled = false;
+            //txtIBFilePath.Enabled = false;
+            //txtNPFFormFilePath.Enabled = false;
+            //chkOtherDocCaseCreationPage.Enabled = false;
+            //chkMedicalRecordCaseCreationPage.Enabled = false;
+            //chkPoP_CaseCreationPage.Enabled = false;
+            //chkIB_CaseCreationPage.Enabled = false;
+            //chkNPF_CaseCreationPage.Enabled = false;
             txtCreateCaseIndividualName.Enabled = false;
             txtCaseIndividualID.Enabled = false;
             //btnCaseCreationLowerSave.Enabled = false;
@@ -6921,20 +6921,20 @@ namespace CMMManager
             //dtpMRReceivedDate.Value = DateTime.Today;
             //dtpOtherDocReceivedDate.Value = DateTime.Today;
 
-            dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpNPFReceivedDate.CustomFormat = " ";
+            //dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpNPFReceivedDate.CustomFormat = " ";
 
-            dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpIBReceivedDate.CustomFormat = " ";
+            //dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpIBReceivedDate.CustomFormat = " ";
 
-            dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpPoPReceivedDate.CustomFormat = " ";
+            //dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpPoPReceivedDate.CustomFormat = " ";
 
-            dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpMRReceivedDate.CustomFormat = " ";
+            //dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpMRReceivedDate.CustomFormat = " ";
 
-            dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpOtherDocReceivedDate.CustomFormat = " ";
+            //dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpOtherDocReceivedDate.CustomFormat = " ";
 
         }
 
@@ -7255,17 +7255,17 @@ namespace CMMManager
             if (txtMiddleName.Text == String.Empty) txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text;
             else txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
 
-            chkNPF_CaseCreationPage.Checked = false;
-            chkIB_CaseCreationPage.Checked = false;
-            chkPoP_CaseCreationPage.Checked = false;
-            chkMedicalRecordCaseCreationPage.Checked = false;
-            chkOtherDocCaseCreationPage.Checked = false;
+            //chkNPF_CaseCreationPage.Checked = false;
+            //chkIB_CaseCreationPage.Checked = false;
+            //chkPoP_CaseCreationPage.Checked = false;
+            //chkMedicalRecordCaseCreationPage.Checked = false;
+            //chkOtherDocCaseCreationPage.Checked = false;
 
-            txtNPFFormFilePath.Text = String.Empty;
-            txtIBFilePath.Text = String.Empty;
-            txtPopFilePath.Text = String.Empty;
-            txtMedicalRecordFilePath.Text = String.Empty;
-            txtOtherDocumentFilePath.Text = String.Empty;
+            //txtNPFFormFilePath.Text = String.Empty;
+            //txtIBFilePath.Text = String.Empty;
+            //txtPopFilePath.Text = String.Empty;
+            //txtMedicalRecordFilePath.Text = String.Empty;
+            //txtOtherDocumentFilePath.Text = String.Empty;
 
             //txtNPFUploadDate.Text = String.Empty;
             //txtIBUploadDate.Text = String.Empty;
@@ -7397,91 +7397,91 @@ namespace CMMManager
                     //if (txtParentCaseName.Text.Trim() != String.Empty) caseDetail.ParentCaseId = txtParentCaseName.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
-                    if (chkNPF_CaseCreationPage.Checked)
-                    {
-                        caseDetail.NPF_Form = 1;
-                        if (txtNPFFormFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            caseDetail.NPF_Form_File_Name = strNPFormFilePathSource;
-                        }
-                        //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                        caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                    }
-                    if (chkIB_CaseCreationPage.Checked)
-                    {
-                        caseDetail.IB_Form = 1;
-                        if (txtIBFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            caseDetail.IB_Form_File_Name = strIBFilePathSource;
-                        }
-                        //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                        caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                    }
-                    if (chkPoP_CaseCreationPage.Checked)
-                    {
-                        caseDetail.POP_Form = 1;
-                        if (txtPopFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            caseDetail.POP_Form_File_Name = strPoPFilePathSource;
-                        }
-                        //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                        caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                    }
-                    if (chkMedicalRecordCaseCreationPage.Checked)
-                    {
-                        caseDetail.MedicalRecord_Form = 1;
-                        if (txtMedicalRecordFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            caseDetail.MedRec_Form_File_Name = strMedRecordFilePathSource;
-                        }
-                        //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                        caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                    }
-                    if (chkOtherDocCaseCreationPage.Checked)
-                    {
-                        caseDetail.Unknown_Form = 1;
-                        if (txtOtherDocumentFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            caseDetail.Unknown_Form_File_Name = strUnknownDocFilePathSource;
-                        }
-                        //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                        caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                    }
+                    //if (chkNPF_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.NPF_Form = 1;
+                    //    if (txtNPFFormFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                    //        caseDetail.NPF_Form_File_Name = strNPFormFilePathSource;
+                    //    }
+                    //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                    //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                    //}
+                    //if (chkIB_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.IB_Form = 1;
+                    //    if (txtIBFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                    //        caseDetail.IB_Form_File_Name = strIBFilePathSource;
+                    //    }
+                    //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                    //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                    //}
+                    //if (chkPoP_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.POP_Form = 1;
+                    //    if (txtPopFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                    //        caseDetail.POP_Form_File_Name = strPoPFilePathSource;
+                    //    }
+                    //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                    //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                    //}
+                    //if (chkMedicalRecordCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.MedicalRecord_Form = 1;
+                    //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                    //        caseDetail.MedRec_Form_File_Name = strMedRecordFilePathSource;
+                    //    }
+                    //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                    //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                    //}
+                    //if (chkOtherDocCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.Unknown_Form = 1;
+                    //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                    //        caseDetail.Unknown_Form_File_Name = strUnknownDocFilePathSource;
+                    //    }
+                    //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                    //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                    //}
 
                     caseDetail.Log_Id = "Log: " + txtCaseName.Text;
                     caseDetail.AddBill_Form = false;
@@ -7640,91 +7640,91 @@ namespace CMMManager
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
 
-                    if (chkNPF_CaseCreationPage.Checked)
-                    {
-                        caseDetail.NPF_Form = 1;
-                        if (txtNPFFormFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            caseDetail.NPF_Form_File_Name = strNPFormFilePathSource;
-                        }
-                        //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                        caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                    }
-                    if (chkIB_CaseCreationPage.Checked)
-                    {
-                        caseDetail.IB_Form = 1;
-                        if (txtIBFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            caseDetail.IB_Form_File_Name = strIBFilePathSource;
-                        }
-                        //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                        caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                    }
-                    if (chkPoP_CaseCreationPage.Checked)
-                    {
-                        caseDetail.POP_Form = 1;
-                        if (txtPopFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            caseDetail.POP_Form_File_Name = strPoPFilePathSource;
-                        }
-                        //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                        caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                    }
-                    if (chkMedicalRecordCaseCreationPage.Checked)
-                    {
-                        caseDetail.MedicalRecord_Form = 1;
-                        if (txtMedicalRecordFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            caseDetail.MedRec_Form_File_Name = strMedRecordFilePathSource;
-                        }
-                        //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                        caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                    }
-                    if (chkOtherDocCaseCreationPage.Checked)
-                    {
-                        caseDetail.Unknown_Form = 1;
-                        if (txtOtherDocumentFilePath.Text.Trim() != String.Empty)
-                        {
-                            //caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            caseDetail.Unknown_Form_File_Name = strUnknownDocFilePathSource;
-                        }
-                        //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                        caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                    }
+                    //if (chkNPF_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.NPF_Form = 1;
+                    //    if (txtNPFFormFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                    //        caseDetail.NPF_Form_File_Name = strNPFormFilePathSource;
+                    //    }
+                    //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                    //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                    //}
+                    //if (chkIB_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.IB_Form = 1;
+                    //    if (txtIBFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                    //        caseDetail.IB_Form_File_Name = strIBFilePathSource;
+                    //    }
+                    //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                    //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                    //}
+                    //if (chkPoP_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.POP_Form = 1;
+                    //    if (txtPopFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                    //        caseDetail.POP_Form_File_Name = strPoPFilePathSource;
+                    //    }
+                    //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                    //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                    //}
+                    //if (chkMedicalRecordCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.MedicalRecord_Form = 1;
+                    //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                    //        caseDetail.MedRec_Form_File_Name = strMedRecordFilePathSource;
+                    //    }
+                    //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                    //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                    //}
+                    //if (chkOtherDocCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.Unknown_Form = 1;
+                    //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty)
+                    //    {
+                    //        //caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                    //        caseDetail.Unknown_Form_File_Name = strUnknownDocFilePathSource;
+                    //    }
+                    //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                    //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                    //}
 
                     caseDetail.Note = txtNoteOnCase.Text.Trim();
                     caseDetail.Log_Id = "Log: " + txtCaseName.Text;
@@ -7861,7 +7861,7 @@ namespace CMMManager
             {
                 strNPFormFilePathSource = OpenSourceFileDlg.FileName;
                 strNPFormFilePathDestination = strDestinationPath + "_NPF_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtNPFFormFilePath.Text = strNPFormFilePathDestination;
+                //txtNPFFormFilePath.Text = strNPFormFilePathDestination;
                 //btnNPFFormUpload.Enabled = true;
                 //return;
             }
@@ -7871,7 +7871,7 @@ namespace CMMManager
             {
                 //File.Copy(txtNPFFormFilePath.Text.Trim(), strNPFormFilePathDestination);
                 File.Copy(strNPFormFilePathSource, strNPFormFilePathDestination);
-                chkNPF_CaseCreationPage.Checked = true;
+                //chkNPF_CaseCreationPage.Checked = true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -7889,8 +7889,8 @@ namespace CMMManager
                 return;
             }
 
-            btnNPFFormView.Enabled = true;
-            btnNPFFormDelete.Enabled = true;
+            //btnNPFFormView.Enabled = true;
+            //btnNPFFormDelete.Enabled = true;
         }
 
         //private void btnBrowseNPTForm_Click(object sender, EventArgs e)
@@ -7949,13 +7949,13 @@ namespace CMMManager
                     MessageBox.Show(ex.Message, "Error");
                     return;
                 }
-                chkNPF_CaseCreationPage.Checked = false;
-                txtNPFFormFilePath.Text = String.Empty;
-                //btnBrowseNPF.Enabled = false;
-                btnNPFFormUpload.Enabled = false;
-                //txtNPFUploadDate.Text = String.Empty;
-                btnNPFFormView.Enabled = false;
-                btnNPFFormDelete.Enabled = false;
+                //chkNPF_CaseCreationPage.Checked = false;
+                //txtNPFFormFilePath.Text = String.Empty;
+                ////btnBrowseNPF.Enabled = false;
+                //btnNPFFormUpload.Enabled = false;
+                ////txtNPFUploadDate.Text = String.Empty;
+                //btnNPFFormView.Enabled = false;
+                //btnNPFFormDelete.Enabled = false;
 
                 MessageBox.Show("The NPF form has been deleted.", "Information");
             }
@@ -7973,8 +7973,8 @@ namespace CMMManager
             {
                 strIBFilePathSource = OpenSourceFileDlg.FileName;
                 strIBFilePathDestination = strDestinationPath + "_IB_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtIBFilePath.Text = strIBFilePathSource;
-                btnIBUpload.Enabled = true;
+                //txtIBFilePath.Text = strIBFilePathSource;
+                //btnIBUpload.Enabled = true;
                 return;
             }
             else return;
@@ -7992,7 +7992,7 @@ namespace CMMManager
             {
                 strIBFilePathSource = OpenSourceFileDlg.FileName;
                 strIBFilePathDestination = strDestinationPath + "_IB_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtIBFilePath.Text = strIBFilePathDestination;
+                //txtIBFilePath.Text = strIBFilePathDestination;
                 //btnIBUpload.Enabled = true;
                 //return;
             }
@@ -8003,7 +8003,7 @@ namespace CMMManager
                 //File.Copy(txtIBFilePath.Text.Trim(), strIBFilePathDestination);
                 File.Copy(strIBFilePathSource, strIBFilePathDestination);
                 //txtIBUploadDate.Text = DateTime.Today.ToString("MM/dd/yyyy");
-                chkIB_CaseCreationPage.Checked = true;
+                //chkIB_CaseCreationPage.Checked = true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -8021,8 +8021,8 @@ namespace CMMManager
                 return;
             }
 
-            btnIBView.Enabled = true;
-            btnDeleteIB.Enabled = true;
+            //btnIBView.Enabled = true;
+            //btnDeleteIB.Enabled = true;
         }
 
         private void IBDateView_Click(object sender, EventArgs e)
@@ -8064,13 +8064,13 @@ namespace CMMManager
                     return;
                 }
 
-                chkIB_CaseCreationPage.Checked = false;
-                txtIBFilePath.Text = String.Empty;
-                //btnBrowseIB.Enabled = false;
-                btnIBUpload.Enabled = false;
-                //txtIBUploadDate.Text = String.Empty;
-                btnIBView.Enabled = false;
-                btnDeleteIB.Enabled = false;
+                //chkIB_CaseCreationPage.Checked = false;
+                //txtIBFilePath.Text = String.Empty;
+                ////btnBrowseIB.Enabled = false;
+                //btnIBUpload.Enabled = false;
+                ////txtIBUploadDate.Text = String.Empty;
+                //btnIBView.Enabled = false;
+                //btnDeleteIB.Enabled = false;
 
                 MessageBox.Show("The IB has been deleted.", "Information");
             }
@@ -8088,8 +8088,8 @@ namespace CMMManager
             {
                 strPoPFilePathSource = OpenSourceFileDlg.FileName;
                 strPopFilePathDestination = strDestinationPath + "_PoP_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtPopFilePath.Text = strPoPFilePathSource;
-                btnPoPUpload.Enabled = true;
+                //txtPopFilePath.Text = strPoPFilePathSource;
+                //btnPoPUpload.Enabled = true;
                 return;
             }
             else return;
@@ -8107,7 +8107,7 @@ namespace CMMManager
             {
                 strPoPFilePathSource = OpenSourceFileDlg.FileName;
                 strPopFilePathDestination = strDestinationPath + "_PoP_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtPopFilePath.Text = strPopFilePathDestination;
+                //txtPopFilePath.Text = strPopFilePathDestination;
                 //btnPoPUpload.Enabled = true;
                 //return;
             }
@@ -8118,7 +8118,7 @@ namespace CMMManager
                 //File.Copy(txtPopFilePath.Text.Trim(), strPopFilePathDestination);
                 File.Copy(strPoPFilePathSource, strPopFilePathDestination);
                 //txtPoPUploadDate.Text = DateTime.Today.ToString("MM/dd/yyyy");
-                chkPoP_CaseCreationPage.Checked = true;
+                //chkPoP_CaseCreationPage.Checked = true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -8136,8 +8136,8 @@ namespace CMMManager
                 return;
             }
 
-            btnPoPView.Enabled = true;
-            btnDeletePoP.Enabled = true;
+            //btnPoPView.Enabled = true;
+            //btnDeletePoP.Enabled = true;
         }
 
         private void btnPoPDateView_Click(object sender, EventArgs e)
@@ -8180,13 +8180,13 @@ namespace CMMManager
                     return;
                 }
 
-                chkPoP_CaseCreationPage.Checked = false;
-                txtPopFilePath.Text = String.Empty;
-                //btnBrowsePoP.Enabled = false;
-                btnPoPUpload.Enabled = false;
-                //txtPoPUploadDate.Text = String.Empty;
-                btnPoPView.Enabled = false;
-                btnDeletePoP.Enabled = false;
+                //chkPoP_CaseCreationPage.Checked = false;
+                //txtPopFilePath.Text = String.Empty;
+                ////btnBrowsePoP.Enabled = false;
+                //btnPoPUpload.Enabled = false;
+                ////txtPoPUploadDate.Text = String.Empty;
+                //btnPoPView.Enabled = false;
+                //btnDeletePoP.Enabled = false;
 
                 MessageBox.Show("The PoP form has been deleted.", "Information");
             }
@@ -8204,8 +8204,8 @@ namespace CMMManager
             {
                 strMedRecordFilePathSource = OpenSourceFileDlg.FileName;
                 strMedRecordFilePathDestination = strDestinationPath + "_MR_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtMedicalRecordFilePath.Text = strMedRecordFilePathSource;
-                btnMedicalRecordUpload.Enabled = true;
+                //txtMedicalRecordFilePath.Text = strMedRecordFilePathSource;
+                //btnMedicalRecordUpload.Enabled = true;
                 return;
             }
             else return;
@@ -8223,7 +8223,7 @@ namespace CMMManager
             {
                 strMedRecordFilePathSource = OpenSourceFileDlg.FileName;
                 strMedRecordFilePathDestination = strDestinationPath + "_MR_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
+                //txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
                 //btnMedicalRecordUpload.Enabled = true;
                 //return;
             }
@@ -8234,7 +8234,7 @@ namespace CMMManager
                 //File.Copy(txtMedicalRecordFilePath.Text.Trim(), strMedRecordFilePathDestination);
                 File.Copy(strMedRecordFilePathSource, strMedRecordFilePathDestination);
                 //txtMRUploadDate.Text = DateTime.Today.ToString("MM/dd/yyyy");
-                chkMedicalRecordCaseCreationPage.Checked = true;
+                //chkMedicalRecordCaseCreationPage.Checked = true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -8252,8 +8252,8 @@ namespace CMMManager
                 return;
             }
 
-            btnMedicalRecordView.Enabled = true;
-            btnDeleteMedicalRecord.Enabled = true;
+            //btnMedicalRecordView.Enabled = true;
+            //btnDeleteMedicalRecord.Enabled = true;
 
         }
 
@@ -8297,13 +8297,13 @@ namespace CMMManager
                     return;
                 }
 
-                chkMedicalRecordCaseCreationPage.Checked = false;
-                txtMedicalRecordFilePath.Text = String.Empty;
-                //btnBrowseMR.Enabled = false;
-                btnMedicalRecordUpload.Enabled = false;
-                //txtMRUploadDate.Text = String.Empty;
-                btnMedicalRecordView.Enabled = false;
-                btnDeleteMedicalRecord.Enabled = false;
+                //chkMedicalRecordCaseCreationPage.Checked = false;
+                //txtMedicalRecordFilePath.Text = String.Empty;
+                ////btnBrowseMR.Enabled = false;
+                //btnMedicalRecordUpload.Enabled = false;
+                ////txtMRUploadDate.Text = String.Empty;
+                //btnMedicalRecordView.Enabled = false;
+                //btnDeleteMedicalRecord.Enabled = false;
 
                 MessageBox.Show("The Medical Record form has been deleted.", "Information");
             }
@@ -8321,8 +8321,8 @@ namespace CMMManager
             {
                 strUnknownDocFilePathSource = OpenSourceFileDlg.FileName;
                 strUnknownDocFilePathDestination = strDestinationPath + "_Unknown_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtOtherDocumentFilePath.Text = strUnknownDocFilePathSource;
-                btnUnknownDocUpload.Enabled = true;
+                //txtOtherDocumentFilePath.Text = strUnknownDocFilePathSource;
+                //btnUnknownDocUpload.Enabled = true;
                 return;
             }
             else return;
@@ -8340,7 +8340,7 @@ namespace CMMManager
             {
                 strUnknownDocFilePathSource = OpenSourceFileDlg.FileName;
                 strUnknownDocFilePathDestination = strDestinationPath + "_Unknown_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
+                //txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
                 //btnUnknownDocUpload.Enabled = true;
                 //return;
             }
@@ -8351,7 +8351,7 @@ namespace CMMManager
                 //File.Copy(txtOtherDocumentFilePath.Text.Trim(), strUnknownDocFilePathDestination);
                 File.Copy(strUnknownDocFilePathSource, strUnknownDocFilePathDestination);
                 //txtOtherDocUploadDate.Text = DateTime.Today.ToString("MM/dd/yyyy");
-                chkOtherDocCaseCreationPage.Checked = true;
+                //chkOtherDocCaseCreationPage.Checked = true;
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -8369,8 +8369,8 @@ namespace CMMManager
                 return;
             }
 
-            btnOtherDocView.Enabled = true;
-            btnDeleteUnknownDoc.Enabled = true;
+            //btnOtherDocView.Enabled = true;
+            //btnDeleteUnknownDoc.Enabled = true;
         }
 
         private void btnUnknownView_Click(object sender, EventArgs e)
@@ -8413,13 +8413,13 @@ namespace CMMManager
                     return;
                 }
 
-                chkOtherDocCaseCreationPage.Checked = false;
-                txtOtherDocumentFilePath.Text = String.Empty;
+                //chkOtherDocCaseCreationPage.Checked = false;
+                //txtOtherDocumentFilePath.Text = String.Empty;
                 //btnBrowseUnknownDoc.Enabled = false;
-                btnUnknownDocUpload.Enabled = false;
+                //btnUnknownDocUpload.Enabled = false;
                 //txtOtherDocUploadDate.Text = String.Empty;
-                btnOtherDocView.Enabled = false;
-                btnDeleteUnknownDoc.Enabled = false;
+                //btnOtherDocView.Enabled = false;
+                //btnDeleteUnknownDoc.Enabled = false;
 
                 MessageBox.Show("The Unknown form has been deleted.", "Information");
             }
@@ -8674,124 +8674,124 @@ namespace CMMManager
 
                     if (rdrCase.Read())
                     {
-                        if (rdrCase.GetBoolean(0) == true) chkNPF_CaseCreationPage.Checked = true;
-                        if (!rdrCase.IsDBNull(1)) strNPFormFilePathSource = rdrCase.GetString(1);
-                        if (!rdrCase.IsDBNull(2))
-                        {
-                            strNPFormFilePathDestination = rdrCase.GetString(2);
-                            txtNPFFormFilePath.Text = strNPFormFilePathDestination;
-                            if (strNPFormFilePathDestination != String.Empty)
-                            {
-                                btnNPFFormView.Enabled = true;
-                                btnNPFFormDelete.Enabled = true;
-                            }
-                        }
-                        if (!rdrCase.IsDBNull(3))
-                        {
-                            dtpNPFReceivedDate.Checked = true;
-                            dtpNPFReceivedDate.Value = rdrCase.GetDateTime(3);
-                            dtpNPFReceivedDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpNPFReceivedDate.CustomFormat = " ";
-                        }
-                        //txtNPFUploadDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
-                        if (rdrCase.GetBoolean(4) == true) chkIB_CaseCreationPage.Checked = true;
-                        if (!rdrCase.IsDBNull(5)) strIBFilePathSource = rdrCase.GetString(5);
-                        if (!rdrCase.IsDBNull(6))
-                        {
-                            strIBFilePathDestination = rdrCase.GetString(6);
-                            txtIBFilePath.Text = strIBFilePathDestination;
-                            if (strIBFilePathDestination != String.Empty)
-                            {
-                                btnIBView.Enabled = true;
-                                btnDeleteIB.Enabled = true;
-                            }
-                        }
-                        if (!rdrCase.IsDBNull(7))
-                        {
-                            dtpIBReceivedDate.Checked = true;
-                            dtpIBReceivedDate.Value = rdrCase.GetDateTime(7);
-                            dtpIBReceivedDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpIBReceivedDate.CustomFormat = " ";
-                        }
-                        //txtIBUploadDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
-                        if (rdrCase.GetBoolean(8) == true) chkPoP_CaseCreationPage.Checked = true;
-                        if (!rdrCase.IsDBNull(9)) strPoPFilePathSource = rdrCase.GetString(9);
-                        if (!rdrCase.IsDBNull(10))
-                        {
-                            strPopFilePathDestination = rdrCase.GetString(10);
-                            txtPopFilePath.Text = strPopFilePathDestination;
-                            if (strPopFilePathDestination != String.Empty)
-                            {
-                                btnPoPView.Enabled = true;
-                                btnDeletePoP.Enabled = true;
-                            }
-                        }
-                        if (!rdrCase.IsDBNull(11))
-                        {
-                            dtpPoPReceivedDate.Checked = true;
-                            dtpPoPReceivedDate.Value = rdrCase.GetDateTime(11);
-                            dtpPoPReceivedDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpPoPReceivedDate.CustomFormat = " ";
-                        }
-                        //txtPoPUploadDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
-                        if (rdrCase.GetBoolean(12) == true) chkMedicalRecordCaseCreationPage.Checked = true;
-                        if (!rdrCase.IsDBNull(13)) strMedRecordFilePathSource = rdrCase.GetString(13);
-                        if (!rdrCase.IsDBNull(14))
-                        {
-                            strMedRecordFilePathDestination = rdrCase.GetString(14);
-                            txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
-                            if (strMedicalRecordFileName != String.Empty)
-                            {
-                                btnMedicalRecordView.Enabled = true;
-                                btnDeleteMedicalRecord.Enabled = true;
-                            }
-                        }
-                        if (!rdrCase.IsDBNull(15))
-                        {
-                            dtpMRReceivedDate.Checked = true;
-                            dtpMRReceivedDate.Value = rdrCase.GetDateTime(15);
-                            dtpMRReceivedDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpMRReceivedDate.CustomFormat = " ";
-                        }
-                        //txtMRUploadDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
-                        if (rdrCase.GetBoolean(16) == true) chkOtherDocCaseCreationPage.Checked = true;
-                        if (!rdrCase.IsDBNull(17)) txtOtherDocumentFilePath.Text = rdrCase.GetString(17);
-                        if (!rdrCase.IsDBNull(18))
-                        {
-                            strUnknownDocFilePathDestination = rdrCase.GetString(18);
-                            if (strUnknownDocFilePathDestination != String.Empty)
-                            {
-                                btnOtherDocView.Enabled = true;
-                                btnDeleteUnknownDoc.Enabled = true;
-                            }
-                        }
-                        if (!rdrCase.IsDBNull(19))
-                        {
-                            dtpOtherDocReceivedDate.Checked = true;
-                            dtpOtherDocReceivedDate.Value = rdrCase.GetDateTime(19);
-                            dtpOtherDocReceivedDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpOtherDocReceivedDate.CustomFormat = " ";
-                        }
+                        //if (rdrCase.GetBoolean(0) == true) chkNPF_CaseCreationPage.Checked = true;
+                        //if (!rdrCase.IsDBNull(1)) strNPFormFilePathSource = rdrCase.GetString(1);
+                        //if (!rdrCase.IsDBNull(2))
+                        //{
+                        //    strNPFormFilePathDestination = rdrCase.GetString(2);
+                        //    txtNPFFormFilePath.Text = strNPFormFilePathDestination;
+                        //    if (strNPFormFilePathDestination != String.Empty)
+                        //    {
+                        //        btnNPFFormView.Enabled = true;
+                        //        btnNPFFormDelete.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCase.IsDBNull(3))
+                        //{
+                        //    dtpNPFReceivedDate.Checked = true;
+                        //    dtpNPFReceivedDate.Value = rdrCase.GetDateTime(3);
+                        //    dtpNPFReceivedDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpNPFReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtNPFUploadDate.Text = rdrCase.GetDateTime(3).ToString("MM/dd/yyyy");
+                        //if (rdrCase.GetBoolean(4) == true) chkIB_CaseCreationPage.Checked = true;
+                        //if (!rdrCase.IsDBNull(5)) strIBFilePathSource = rdrCase.GetString(5);
+                        //if (!rdrCase.IsDBNull(6))
+                        //{
+                        //    strIBFilePathDestination = rdrCase.GetString(6);
+                        //    txtIBFilePath.Text = strIBFilePathDestination;
+                        //    if (strIBFilePathDestination != String.Empty)
+                        //    {
+                        //        btnIBView.Enabled = true;
+                        //        btnDeleteIB.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCase.IsDBNull(7))
+                        //{
+                        //    dtpIBReceivedDate.Checked = true;
+                        //    dtpIBReceivedDate.Value = rdrCase.GetDateTime(7);
+                        //    dtpIBReceivedDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpIBReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtIBUploadDate.Text = rdrCase.GetDateTime(7).ToString("MM/dd/yyyy");
+                        //if (rdrCase.GetBoolean(8) == true) chkPoP_CaseCreationPage.Checked = true;
+                        //if (!rdrCase.IsDBNull(9)) strPoPFilePathSource = rdrCase.GetString(9);
+                        //if (!rdrCase.IsDBNull(10))
+                        //{
+                        //    strPopFilePathDestination = rdrCase.GetString(10);
+                        //    txtPopFilePath.Text = strPopFilePathDestination;
+                        //    if (strPopFilePathDestination != String.Empty)
+                        //    {
+                        //        btnPoPView.Enabled = true;
+                        //        btnDeletePoP.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCase.IsDBNull(11))
+                        //{
+                        //    dtpPoPReceivedDate.Checked = true;
+                        //    dtpPoPReceivedDate.Value = rdrCase.GetDateTime(11);
+                        //    dtpPoPReceivedDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpPoPReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtPoPUploadDate.Text = rdrCase.GetDateTime(11).ToString("MM/dd/yyyy");
+                        //if (rdrCase.GetBoolean(12) == true) chkMedicalRecordCaseCreationPage.Checked = true;
+                        //if (!rdrCase.IsDBNull(13)) strMedRecordFilePathSource = rdrCase.GetString(13);
+                        //if (!rdrCase.IsDBNull(14))
+                        //{
+                        //    strMedRecordFilePathDestination = rdrCase.GetString(14);
+                        //    txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
+                        //    if (strMedicalRecordFileName != String.Empty)
+                        //    {
+                        //        btnMedicalRecordView.Enabled = true;
+                        //        btnDeleteMedicalRecord.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCase.IsDBNull(15))
+                        //{
+                        //    dtpMRReceivedDate.Checked = true;
+                        //    dtpMRReceivedDate.Value = rdrCase.GetDateTime(15);
+                        //    dtpMRReceivedDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpMRReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtMRUploadDate.Text = rdrCase.GetDateTime(15).ToString("MM/dd/yyyy");
+                        //if (rdrCase.GetBoolean(16) == true) chkOtherDocCaseCreationPage.Checked = true;
+                        //if (!rdrCase.IsDBNull(17)) txtOtherDocumentFilePath.Text = rdrCase.GetString(17);
+                        //if (!rdrCase.IsDBNull(18))
+                        //{
+                        //    strUnknownDocFilePathDestination = rdrCase.GetString(18);
+                        //    if (strUnknownDocFilePathDestination != String.Empty)
+                        //    {
+                        //        btnOtherDocView.Enabled = true;
+                        //        btnDeleteUnknownDoc.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCase.IsDBNull(19))
+                        //{
+                        //    dtpOtherDocReceivedDate.Checked = true;
+                        //    dtpOtherDocReceivedDate.Value = rdrCase.GetDateTime(19);
+                        //    dtpOtherDocReceivedDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpOtherDocReceivedDate.CustomFormat = " ";
+                        //}
                         //txtOtherDocUploadDate.Text = rdrCase.GetDateTime(19).ToString("MM/dd/yyyy");
                         //if (rdrCase.GetBoolean(20) == true) txtCaseStatus.Text = "Complete and Ready";
                         //else txtCaseStatus.Text = "Pending - Additional Documents required";
@@ -8972,11 +8972,11 @@ namespace CMMManager
                 {
                     DisableCaseForm();
 
-                    btnNPFFormView.Enabled = true;
-                    btnIBView.Enabled = true;
-                    btnPoPView.Enabled = true;
-                    btnMedicalRecordView.Enabled = true;
-                    btnOtherDocView.Enabled = true;
+                    //btnNPFFormView.Enabled = true;
+                    //btnIBView.Enabled = true;
+                    //btnPoPView.Enabled = true;
+                    //btnMedicalRecordView.Enabled = true;
+                    //btnOtherDocView.Enabled = true;
 
                     gvCasePageMedBills.Enabled = true;
                 }
@@ -9636,71 +9636,71 @@ namespace CMMManager
                         if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
-                        if (chkNPF_CaseCreationPage.Checked)
-                        {
-                            caseDetail.NPF_Form = 1;
-                            if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                            caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                        }
-                        if (chkIB_CaseCreationPage.Checked)
-                        {
-                            caseDetail.IB_Form = 1;
-                            if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                            caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                        }
-                        if (chkPoP_CaseCreationPage.Checked)
-                        {
-                            caseDetail.POP_Form = 1;
-                            if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                            caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                        }
-                        if (chkMedicalRecordCaseCreationPage.Checked)
-                        {
-                            caseDetail.MedicalRecord_Form = 1;
-                            if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                            caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                        }
-                        if (chkOtherDocCaseCreationPage.Checked)
-                        {
-                            caseDetail.Unknown_Form = 1;
-                            if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                            caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                        }
+                        //if (chkNPF_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.NPF_Form = 1;
+                        //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                        //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                        //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                        //}
+                        //if (chkIB_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.IB_Form = 1;
+                        //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                        //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                        //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                        //}
+                        //if (chkPoP_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.POP_Form = 1;
+                        //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                        //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                        //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                        //}
+                        //if (chkMedicalRecordCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.MedicalRecord_Form = 1;
+                        //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                        //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                        //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                        //}
+                        //if (chkOtherDocCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.Unknown_Form = 1;
+                        //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                        //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                        //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                        //}
 
                         caseDetail.Log_Id = "Log: " + txtCaseName.Text;
                         caseDetail.AddBill_Form = false;
@@ -9869,71 +9869,71 @@ namespace CMMManager
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
 
-                        if (chkNPF_CaseCreationPage.Checked)
-                        {
-                            caseDetail.NPF_Form = 1;
-                            if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                            caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                        }
-                        if (chkIB_CaseCreationPage.Checked)
-                        {
-                            caseDetail.IB_Form = 1;
-                            if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                            caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                        }
-                        if (chkPoP_CaseCreationPage.Checked)
-                        {
-                            caseDetail.POP_Form = 1;
-                            if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                            caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                        }
-                        if (chkMedicalRecordCaseCreationPage.Checked)
-                        {
-                            caseDetail.MedicalRecord_Form = 1;
-                            if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                            caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                        }
-                        if (chkOtherDocCaseCreationPage.Checked)
-                        {
-                            caseDetail.Unknown_Form = 1;
-                            if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                            caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                        }
+                        //if (chkNPF_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.NPF_Form = 1;
+                        //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                        //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                        //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                        //}
+                        //if (chkIB_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.IB_Form = 1;
+                        //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                        //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                        //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                        //}
+                        //if (chkPoP_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.POP_Form = 1;
+                        //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                        //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                        //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                        //}
+                        //if (chkMedicalRecordCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.MedicalRecord_Form = 1;
+                        //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                        //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                        //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                        //}
+                        //if (chkOtherDocCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.Unknown_Form = 1;
+                        //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                        //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                        //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                        //}
 
                         caseDetail.Note = txtNoteOnCase.Text.Trim();
                         caseDetail.Log_Id = "Log: " + txtCaseName.Text;
@@ -15811,8 +15811,8 @@ namespace CMMManager
             {
                 strNPFormFilePathSource = OpenSourceFileDlg.FileName;
                 strNPFormFilePathDestination = strDestinationPath + "_NPF_" + DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" + OpenSourceFileDlg.SafeFileName;
-                txtNPFFormFilePath.Text = strNPFormFilePathSource;
-                btnNPFFormUpload.Enabled = true;
+                //txtNPFFormFilePath.Text = strNPFormFilePathSource;
+                //btnNPFFormUpload.Enabled = true;
                 return;
             }
             else return;
@@ -20824,133 +20824,133 @@ namespace CMMManager
                         txtCaseIndividualID.Text = rdrCaseForIndividual.GetString(1);
 
                         // NPF Form
-                        if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(8)) strNPFormFilePathSource = rdrCaseForIndividual.GetString(8);
-                        if (!rdrCaseForIndividual.IsDBNull(9))
-                        {
-                            strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
-                            txtNPFFormFilePath.Text = strNPFormFilePathDestination;
-                            if (strNPFormFilePathDestination != String.Empty)
-                            {
-                                btnNPFFormView.Enabled = true;
-                                btnNPFFormDelete.Enabled = true;
-                            }
-                        }
-                        if (!rdrCaseForIndividual.IsDBNull(10))
-                        {
-                            dtpNPFReceivedDate.Checked = true;
-                            dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
-                            dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpNPFReceivedDate.CustomFormat = " ";
-                        }
-                        //txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                        //if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(8)) strNPFormFilePathSource = rdrCaseForIndividual.GetString(8);
+                        //if (!rdrCaseForIndividual.IsDBNull(9))
+                        //{
+                        //    strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
+                        //    txtNPFFormFilePath.Text = strNPFormFilePathDestination;
+                        //    if (strNPFormFilePathDestination != String.Empty)
+                        //    {
+                        //        btnNPFFormView.Enabled = true;
+                        //        btnNPFFormDelete.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCaseForIndividual.IsDBNull(10))
+                        //{
+                        //    dtpNPFReceivedDate.Checked = true;
+                        //    dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
+                        //    dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpNPFReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
 
-                        // IB Form
-                        if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(12)) strIBFilePathSource = rdrCaseForIndividual.GetString(12);
-                        if (!rdrCaseForIndividual.IsDBNull(13))
-                        {
-                            strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
-                            txtIBFilePath.Text = strIBFilePathDestination;
-                            if (strIBFilePathDestination != String.Empty)
-                            {
-                                btnIBView.Enabled = true;
-                                btnDeleteIB.Enabled = true;
-                            }
-                        }
-                        if (!rdrCaseForIndividual.IsDBNull(14))
-                        {
-                            dtpIBReceivedDate.Checked = true;
-                            dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
-                            dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpIBReceivedDate.CustomFormat = " ";
-                        }
-                        //txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                        //// IB Form
+                        //if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(12)) strIBFilePathSource = rdrCaseForIndividual.GetString(12);
+                        //if (!rdrCaseForIndividual.IsDBNull(13))
+                        //{
+                        //    strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
+                        //    txtIBFilePath.Text = strIBFilePathDestination;
+                        //    if (strIBFilePathDestination != String.Empty)
+                        //    {
+                        //        btnIBView.Enabled = true;
+                        //        btnDeleteIB.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCaseForIndividual.IsDBNull(14))
+                        //{
+                        //    dtpIBReceivedDate.Checked = true;
+                        //    dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
+                        //    dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpIBReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
 
-                        // POP Form
-                        if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(16)) strPoPFilePathSource = rdrCaseForIndividual.GetString(16);
-                        if (!rdrCaseForIndividual.IsDBNull(17))
-                        {
-                            strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
-                            txtPopFilePath.Text = strPopFilePathDestination;
-                            if (strPopFilePathDestination != String.Empty)
-                            {
-                                btnPoPView.Enabled = true;
-                                btnDeletePoP.Enabled = true;
-                            }
-                        }
-                        if (!rdrCaseForIndividual.IsDBNull(18))
-                        {
-                            dtpPoPReceivedDate.Checked = true;
-                            dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
-                            dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpPoPReceivedDate.CustomFormat = " ";
-                        }
-                        //txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                        //// POP Form
+                        //if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(16)) strPoPFilePathSource = rdrCaseForIndividual.GetString(16);
+                        //if (!rdrCaseForIndividual.IsDBNull(17))
+                        //{
+                        //    strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
+                        //    txtPopFilePath.Text = strPopFilePathDestination;
+                        //    if (strPopFilePathDestination != String.Empty)
+                        //    {
+                        //        btnPoPView.Enabled = true;
+                        //        btnDeletePoP.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCaseForIndividual.IsDBNull(18))
+                        //{
+                        //    dtpPoPReceivedDate.Checked = true;
+                        //    dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
+                        //    dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpPoPReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
 
-                        // Med Rec Form
-                        if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
-                        if (!rdrCaseForIndividual.IsDBNull(21))
-                        {
-                            strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
-                            txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
-                            if (strMedRecordFilePathDestination != String.Empty)
-                            {
-                                btnMedicalRecordView.Enabled = true;
-                                btnDeleteMedicalRecord.Enabled = true;
-                            }
-                        }
-                        if (!rdrCaseForIndividual.IsDBNull(22))
-                        {
-                            dtpMRReceivedDate.Checked = true;
-                            dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
-                            dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpMRReceivedDate.CustomFormat = " ";
-                        }
-                        //txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                        //// Med Rec Form
+                        //if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
+                        //if (!rdrCaseForIndividual.IsDBNull(21))
+                        //{
+                        //    strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
+                        //    txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
+                        //    if (strMedRecordFilePathDestination != String.Empty)
+                        //    {
+                        //        btnMedicalRecordView.Enabled = true;
+                        //        btnDeleteMedicalRecord.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCaseForIndividual.IsDBNull(22))
+                        //{
+                        //    dtpMRReceivedDate.Checked = true;
+                        //    dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
+                        //    dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpMRReceivedDate.CustomFormat = " ";
+                        //}
+                        ////txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
 
-                        // Unknown Doc Form
-                        if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(24)) strUnknownDocFilePathSource = rdrCaseForIndividual.GetString(24);
-                        if (!rdrCaseForIndividual.IsDBNull(25))
-                        {
-                            strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
-                            txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
-                            if (strUnknownDocFilePathDestination != String.Empty)
-                            {
-                                btnOtherDocView.Enabled = true;
-                                btnDeleteMedicalRecord.Enabled = true;
-                            }
-                        }
-                        if (!rdrCaseForIndividual.IsDBNull(26))
-                        {
-                            dtpOtherDocReceivedDate.Checked = true;
-                            dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
-                            dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
-                        }
-                        else
-                        {
-                            dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-                            dtpOtherDocReceivedDate.CustomFormat = " ";
-                        }
+                        //// Unknown Doc Form
+                        //if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(24)) strUnknownDocFilePathSource = rdrCaseForIndividual.GetString(24);
+                        //if (!rdrCaseForIndividual.IsDBNull(25))
+                        //{
+                        //    strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
+                        //    txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
+                        //    if (strUnknownDocFilePathDestination != String.Empty)
+                        //    {
+                        //        btnOtherDocView.Enabled = true;
+                        //        btnDeleteMedicalRecord.Enabled = true;
+                        //    }
+                        //}
+                        //if (!rdrCaseForIndividual.IsDBNull(26))
+                        //{
+                        //    dtpOtherDocReceivedDate.Checked = true;
+                        //    dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
+                        //    dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
+                        //}
+                        //else
+                        //{
+                        //    dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+                        //    dtpOtherDocReceivedDate.CustomFormat = " ";
+                        //}
                         //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
 
                         // Case status
@@ -21165,11 +21165,11 @@ namespace CMMManager
                     {
                         DisableCaseForm();
 
-                        btnNPFFormView.Enabled = true;
-                        btnIBView.Enabled = true;
-                        btnPoPView.Enabled = true;
-                        btnMedicalRecordView.Enabled = true;
-                        btnOtherDocView.Enabled = true;
+                        //btnNPFFormView.Enabled = true;
+                        //btnIBView.Enabled = true;
+                        //btnPoPView.Enabled = true;
+                        //btnMedicalRecordView.Enabled = true;
+                        //btnOtherDocView.Enabled = true;
 
                         gvCasePageMedBills.Enabled = true;
 
@@ -23967,73 +23967,73 @@ namespace CMMManager
                     if (txtMiddleName.Text == String.Empty) txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text;
                     else txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
 
-                    if (!rdrCaseInfo.IsDBNull(2))
-                    {
-                        chkNPF_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(2);
-                    }
-                    if (!rdrCaseInfo.IsDBNull(3)) txtNPFFormFilePath.Text = rdrCaseInfo.GetString(3);
-                    if (!rdrCaseInfo.IsDBNull(4))
-                    {
-                        dtpNPFReceivedDate.Checked = true;
-                        dtpNPFReceivedDate.Value = rdrCaseInfo.GetDateTime(4);
-                        dtpNPFReceivedDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
-                    }
-                    //txtNPFUploadDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                    //if (!rdrCaseInfo.IsDBNull(2))
+                    //{
+                    //    chkNPF_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(2);
+                    //}
+                    //if (!rdrCaseInfo.IsDBNull(3)) txtNPFFormFilePath.Text = rdrCaseInfo.GetString(3);
+                    //if (!rdrCaseInfo.IsDBNull(4))
+                    //{
+                    //    dtpNPFReceivedDate.Checked = true;
+                    //    dtpNPFReceivedDate.Value = rdrCaseInfo.GetDateTime(4);
+                    //    dtpNPFReceivedDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                    //}
+                    ////txtNPFUploadDate.Text = rdrCaseInfo.GetDateTime(4).ToString("MM/dd/yyyy");
 
-                    // Populate IB Form Info
-                    if (!rdrCaseInfo.IsDBNull(5))
-                    {
-                        chkIB_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(5);
-                    }
-                    if (!rdrCaseInfo.IsDBNull(6)) txtIBFilePath.Text = rdrCaseInfo.GetString(6);
-                    if (!rdrCaseInfo.IsDBNull(7))
-                    {
-                        dtpIBReceivedDate.Checked = true;
-                        dtpIBReceivedDate.Value = rdrCaseInfo.GetDateTime(7);
-                        dtpIBReceivedDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                    }
-                    //txtIBUploadDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                    //// Populate IB Form Info
+                    //if (!rdrCaseInfo.IsDBNull(5))
+                    //{
+                    //    chkIB_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(5);
+                    //}
+                    //if (!rdrCaseInfo.IsDBNull(6)) txtIBFilePath.Text = rdrCaseInfo.GetString(6);
+                    //if (!rdrCaseInfo.IsDBNull(7))
+                    //{
+                    //    dtpIBReceivedDate.Checked = true;
+                    //    dtpIBReceivedDate.Value = rdrCaseInfo.GetDateTime(7);
+                    //    dtpIBReceivedDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                    //}
+                    ////txtIBUploadDate.Text = rdrCaseInfo.GetDateTime(7).ToString("MM/dd/yyyy");
 
-                    // Populate POP Form Info
-                    if (!rdrCaseInfo.IsDBNull(8))
-                    {
-                        chkPoP_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(8);
-                    }
-                    if (!rdrCaseInfo.IsDBNull(9)) txtPopFilePath.Text = rdrCaseInfo.GetString(9);
-                    if (!rdrCaseInfo.IsDBNull(10))
-                    {
-                        dtpPoPReceivedDate.Checked = true;
-                        dtpPoPReceivedDate.Value = rdrCaseInfo.GetDateTime(10);
-                        dtpPoPReceivedDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
-                    }
-                    //txtPoPUploadDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
+                    //// Populate POP Form Info
+                    //if (!rdrCaseInfo.IsDBNull(8))
+                    //{
+                    //    chkPoP_CaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(8);
+                    //}
+                    //if (!rdrCaseInfo.IsDBNull(9)) txtPopFilePath.Text = rdrCaseInfo.GetString(9);
+                    //if (!rdrCaseInfo.IsDBNull(10))
+                    //{
+                    //    dtpPoPReceivedDate.Checked = true;
+                    //    dtpPoPReceivedDate.Value = rdrCaseInfo.GetDateTime(10);
+                    //    dtpPoPReceivedDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
+                    //}
+                    ////txtPoPUploadDate.Text = rdrCaseInfo.GetDateTime(10).ToString("MM/dd/yyyy");
 
-                    // Populate Med Rec Form Info
-                    if (!rdrCaseInfo.IsDBNull(11))
-                    {
-                        chkMedicalRecordCaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(11);
-                    }
-                    if (!rdrCaseInfo.IsDBNull(12)) txtMedicalRecordFilePath.Text = rdrCaseInfo.GetString(12);
-                    if (!rdrCaseInfo.IsDBNull(13))
-                    {
-                        dtpMRReceivedDate.Checked = true;
-                        dtpMRReceivedDate.Value = rdrCaseInfo.GetDateTime(13);
-                        dtpMRReceivedDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
-                    }
-                    //txtMRUploadDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                    //// Populate Med Rec Form Info
+                    //if (!rdrCaseInfo.IsDBNull(11))
+                    //{
+                    //    chkMedicalRecordCaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(11);
+                    //}
+                    //if (!rdrCaseInfo.IsDBNull(12)) txtMedicalRecordFilePath.Text = rdrCaseInfo.GetString(12);
+                    //if (!rdrCaseInfo.IsDBNull(13))
+                    //{
+                    //    dtpMRReceivedDate.Checked = true;
+                    //    dtpMRReceivedDate.Value = rdrCaseInfo.GetDateTime(13);
+                    //    dtpMRReceivedDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                    //}
+                    ////txtMRUploadDate.Text = rdrCaseInfo.GetDateTime(13).ToString("MM/dd/yyyy");
 
-                    // Populate Unknown Doc Info
-                    if (!rdrCaseInfo.IsDBNull(14))
-                    {
-                        chkOtherDocCaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(14);
-                    }
-                    if (!rdrCaseInfo.IsDBNull(15)) txtOtherDocumentFilePath.Text = rdrCaseInfo.GetString(15);
-                    if (!rdrCaseInfo.IsDBNull(16))
-                    {
-                        dtpOtherDocReceivedDate.Checked = true;
-                        dtpOtherDocReceivedDate.Value = rdrCaseInfo.GetDateTime(16);
-                        dtpOtherDocReceivedDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
-                    }
+                    //// Populate Unknown Doc Info
+                    //if (!rdrCaseInfo.IsDBNull(14))
+                    //{
+                    //    chkOtherDocCaseCreationPage.Checked = (Boolean)rdrCaseInfo.GetBoolean(14);
+                    //}
+                    //if (!rdrCaseInfo.IsDBNull(15)) txtOtherDocumentFilePath.Text = rdrCaseInfo.GetString(15);
+                    //if (!rdrCaseInfo.IsDBNull(16))
+                    //{
+                    //    dtpOtherDocReceivedDate.Checked = true;
+                    //    dtpOtherDocReceivedDate.Value = rdrCaseInfo.GetDateTime(16);
+                    //    dtpOtherDocReceivedDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
+                    //}
                     //txtOtherDocUploadDate.Text = rdrCaseInfo.GetDateTime(16).ToString("MM/dd/yyyy");
 
                     // Populate case status
@@ -24218,12 +24218,12 @@ namespace CMMManager
                 {
                     DisableCaseForm();
 
-                    btnNPFFormView.Enabled = true;
                     //btnNPFFormView.Enabled = true;
-                    btnIBView.Enabled = true;
-                    btnPoPView.Enabled = true;
-                    btnMedicalRecordView.Enabled = true;
-                    btnOtherDocView.Enabled = true;
+                    ////btnNPFFormView.Enabled = true;
+                    //btnIBView.Enabled = true;
+                    //btnPoPView.Enabled = true;
+                    //btnMedicalRecordView.Enabled = true;
+                    //btnOtherDocView.Enabled = true;
 
                     gvCasePageMedBills.Enabled = true;
                 }
@@ -27802,63 +27802,63 @@ namespace CMMManager
                         txtCaseIndividualID.Text = rdrCaseForIndividual.GetString(1);
 
                         // NPF Form
-                        if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(8)) txtNPFFormFilePath.Text = rdrCaseForIndividual.GetString(8);
-                        if (!rdrCaseForIndividual.IsDBNull(9)) strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
-                        if (!rdrCaseForIndividual.IsDBNull(10))
-                        {
-                            dtpNPFReceivedDate.Checked = true;
-                            dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
-                            dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
-                        }
-                        //txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                        //if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(8)) txtNPFFormFilePath.Text = rdrCaseForIndividual.GetString(8);
+                        //if (!rdrCaseForIndividual.IsDBNull(9)) strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
+                        //if (!rdrCaseForIndividual.IsDBNull(10))
+                        //{
+                        //    dtpNPFReceivedDate.Checked = true;
+                        //    dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
+                        //    dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                        //}
+                        ////txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
 
-                        // IB Form
-                        if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(12)) txtIBFilePath.Text = rdrCaseForIndividual.GetString(12);
-                        if (!rdrCaseForIndividual.IsDBNull(13)) strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
-                        if (!rdrCaseForIndividual.IsDBNull(14))
-                        {
-                            dtpIBReceivedDate.Checked = true;
-                            dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
-                            dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
-                        }
-                        //txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                        //// IB Form
+                        //if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(12)) txtIBFilePath.Text = rdrCaseForIndividual.GetString(12);
+                        //if (!rdrCaseForIndividual.IsDBNull(13)) strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
+                        //if (!rdrCaseForIndividual.IsDBNull(14))
+                        //{
+                        //    dtpIBReceivedDate.Checked = true;
+                        //    dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
+                        //    dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                        //}
+                        ////txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
 
-                        // POP Form
-                        if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(16)) txtPopFilePath.Text = rdrCaseForIndividual.GetString(16);
-                        if (!rdrCaseForIndividual.IsDBNull(17)) strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
-                        if (!rdrCaseForIndividual.IsDBNull(18))
-                        {
-                            dtpPoPReceivedDate.Checked = true;
-                            dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
-                            dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
-                        }
-                        //txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                        //// POP Form
+                        //if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(16)) txtPopFilePath.Text = rdrCaseForIndividual.GetString(16);
+                        //if (!rdrCaseForIndividual.IsDBNull(17)) strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
+                        //if (!rdrCaseForIndividual.IsDBNull(18))
+                        //{
+                        //    dtpPoPReceivedDate.Checked = true;
+                        //    dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
+                        //    dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                        //}
+                        ////txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
 
-                        // Med Rec Form
-                        if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
-                        if (!rdrCaseForIndividual.IsDBNull(21)) strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
-                        if (!rdrCaseForIndividual.IsDBNull(22))
-                        {
-                            dtpMRReceivedDate.Checked = true;
-                            dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
-                            dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
-                        }
-                        //txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                        //// Med Rec Form
+                        //if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
+                        //if (!rdrCaseForIndividual.IsDBNull(21)) strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
+                        //if (!rdrCaseForIndividual.IsDBNull(22))
+                        //{
+                        //    dtpMRReceivedDate.Checked = true;
+                        //    dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
+                        //    dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                        //}
+                        ////txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
 
-                        // Unknown Doc Form
-                        if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
-                        if (!rdrCaseForIndividual.IsDBNull(24)) txtOtherDocumentFilePath.Text = rdrCaseForIndividual.GetString(24);
-                        if (!rdrCaseForIndividual.IsDBNull(25)) strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
-                        if (!rdrCaseForIndividual.IsDBNull(26))
-                        {
-                            dtpOtherDocReceivedDate.Checked = true;
-                            dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
-                            dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
-                        }
+                        //// Unknown Doc Form
+                        //if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
+                        //if (!rdrCaseForIndividual.IsDBNull(24)) txtOtherDocumentFilePath.Text = rdrCaseForIndividual.GetString(24);
+                        //if (!rdrCaseForIndividual.IsDBNull(25)) strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
+                        //if (!rdrCaseForIndividual.IsDBNull(26))
+                        //{
+                        //    dtpOtherDocReceivedDate.Checked = true;
+                        //    dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
+                        //    dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
+                        //}
                         //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
 
                         // Case status
@@ -30233,71 +30233,71 @@ namespace CMMManager
                     if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
-                    if (chkNPF_CaseCreationPage.Checked)
-                    {
-                        caseDetail.NPF_Form = 1;
-                        if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                        //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                        caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                    }
-                    if (chkIB_CaseCreationPage.Checked)
-                    {
-                        caseDetail.IB_Form = 1;
-                        if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                        //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                        caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                    }
-                    if (chkPoP_CaseCreationPage.Checked)
-                    {
-                        caseDetail.POP_Form = 1;
-                        if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                        //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                        caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                    }
-                    if (chkMedicalRecordCaseCreationPage.Checked)
-                    {
-                        caseDetail.MedicalRecord_Form = 1;
-                        if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                        //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                        caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                    }
-                    if (chkOtherDocCaseCreationPage.Checked)
-                    {
-                        caseDetail.Unknown_Form = 1;
-                        if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                        //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                        caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                    }
+                    //if (chkNPF_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.NPF_Form = 1;
+                    //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                    //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                    //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                    //}
+                    //if (chkIB_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.IB_Form = 1;
+                    //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                    //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                    //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                    //}
+                    //if (chkPoP_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.POP_Form = 1;
+                    //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                    //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                    //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                    //}
+                    //if (chkMedicalRecordCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.MedicalRecord_Form = 1;
+                    //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                    //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                    //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                    //}
+                    //if (chkOtherDocCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.Unknown_Form = 1;
+                    //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                    //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                    //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                    //}
 
                     caseDetail.Log_Id = "Log: " + txtCaseName.Text;
                     caseDetail.AddBill_Form = false;
@@ -30452,71 +30452,71 @@ namespace CMMManager
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
 
-                    if (chkNPF_CaseCreationPage.Checked)
-                    {
-                        caseDetail.NPF_Form = 1;
-                        if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                        //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                        caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                    }
-                    if (chkIB_CaseCreationPage.Checked)
-                    {
-                        caseDetail.IB_Form = 1;
-                        if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                        //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                        caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                    }
-                    if (chkPoP_CaseCreationPage.Checked)
-                    {
-                        caseDetail.POP_Form = 1;
-                        if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                        //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                        caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                    }
-                    if (chkMedicalRecordCaseCreationPage.Checked)
-                    {
-                        caseDetail.MedicalRecord_Form = 1;
-                        if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                        //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                        caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                    }
-                    if (chkOtherDocCaseCreationPage.Checked)
-                    {
-                        caseDetail.Unknown_Form = 1;
-                        if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                        //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)
-                        //{
-                        //    DateTime result;
-                        //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                        //    else MessageBox.Show("Invalid DateTime value", "Error");
-                        //}
-                        caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                        caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                    }
+                    //if (chkNPF_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.NPF_Form = 1;
+                    //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                    //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                    //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                    //}
+                    //if (chkIB_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.IB_Form = 1;
+                    //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                    //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                    //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                    //}
+                    //if (chkPoP_CaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.POP_Form = 1;
+                    //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                    //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                    //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                    //}
+                    //if (chkMedicalRecordCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.MedicalRecord_Form = 1;
+                    //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                    //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                    //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                    //}
+                    //if (chkOtherDocCaseCreationPage.Checked)
+                    //{
+                    //    caseDetail.Unknown_Form = 1;
+                    //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                    //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)
+                    //    //{
+                    //    //    DateTime result;
+                    //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                    //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                    //    //}
+                    //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                    //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                    //}
 
                     caseDetail.Note = txtNoteOnCase.Text.Trim();
                     caseDetail.Log_Id = "Log: " + txtCaseName.Text;
@@ -30721,71 +30721,71 @@ namespace CMMManager
                         if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
-                        if (chkNPF_CaseCreationPage.Checked)
-                        {
-                            caseDetail.NPF_Form = 1;
-                            if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                            caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                        }
-                        if (chkIB_CaseCreationPage.Checked)
-                        {
-                            caseDetail.IB_Form = 1;
-                            if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                            caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                        }
-                        if (chkPoP_CaseCreationPage.Checked)
-                        {
-                            caseDetail.POP_Form = 1;
-                            if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                            caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                        }
-                        if (chkMedicalRecordCaseCreationPage.Checked)
-                        {
-                            caseDetail.MedicalRecord_Form = 1;
-                            if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                            caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                        }
-                        if (chkOtherDocCaseCreationPage.Checked)
-                        {
-                            caseDetail.Unknown_Form = 1;
-                            if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                            caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                        }
+                        //if (chkNPF_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.NPF_Form = 1;
+                        //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                        //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                        //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                        //}
+                        //if (chkIB_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.IB_Form = 1;
+                        //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                        //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                        //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                        //}
+                        //if (chkPoP_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.POP_Form = 1;
+                        //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                        //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                        //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                        //}
+                        //if (chkMedicalRecordCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.MedicalRecord_Form = 1;
+                        //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                        //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                        //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                        //}
+                        //if (chkOtherDocCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.Unknown_Form = 1;
+                        //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                        //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                        //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                        //}
 
                         caseDetail.Log_Id = "Log: " + txtCaseName.Text;
                         caseDetail.AddBill_Form = false;
@@ -30942,71 +30942,71 @@ namespace CMMManager
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                         if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
 
-                        if (chkNPF_CaseCreationPage.Checked)
-                        {
-                            caseDetail.NPF_Form = 1;
-                            if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
-                            //if (txtNPFUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
-                            caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
-                        }
-                        if (chkIB_CaseCreationPage.Checked)
-                        {
-                            caseDetail.IB_Form = 1;
-                            if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
-                            //if (txtIBUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
-                            caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
-                        }
-                        if (chkPoP_CaseCreationPage.Checked)
-                        {
-                            caseDetail.POP_Form = 1;
-                            if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
-                            //if (txtPoPUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
-                            caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
-                        }
-                        if (chkMedicalRecordCaseCreationPage.Checked)
-                        {
-                            caseDetail.MedicalRecord_Form = 1;
-                            if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
-                            //if (txtMRUploadDate.Text.Trim() != String.Empty)
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
-                            caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
-                        }
-                        if (chkOtherDocCaseCreationPage.Checked)
-                        {
-                            caseDetail.Unknown_Form = 1;
-                            if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
-                            //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
-                            //{
-                            //    DateTime result;
-                            //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
-                            //    else MessageBox.Show("Invalid DateTime value", "Error");
-                            //}
-                            caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
-                            caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
-                        }
+                        //if (chkNPF_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.NPF_Form = 1;
+                        //    if (txtNPFFormFilePath.Text.Trim() != String.Empty) caseDetail.NPF_Form_File_Name = txtNPFFormFilePath.Text.Trim();
+                        //    //if (txtNPFUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtNPFUploadDate.Text.Trim(), out result)) caseDetail.NPF_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.NPF_ReceivedDate = dtpNPFReceivedDate.Value;
+                        //    caseDetail.NPF_Form_Destination_File_Name = strNPFormFilePathDestination;
+                        //}
+                        //if (chkIB_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.IB_Form = 1;
+                        //    if (txtIBFilePath.Text.Trim() != String.Empty) caseDetail.IB_Form_File_Name = txtIBFilePath.Text.Trim();
+                        //    //if (txtIBUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtIBUploadDate.Text.Trim(), out result)) caseDetail.IB_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.IB_ReceivedDate = dtpIBReceivedDate.Value;
+                        //    caseDetail.IB_Form_Destination_File_Name = strIBFilePathDestination;
+                        //}
+                        //if (chkPoP_CaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.POP_Form = 1;
+                        //    if (txtPopFilePath.Text.Trim() != String.Empty) caseDetail.POP_Form_File_Name = txtPopFilePath.Text.Trim();
+                        //    //if (txtPoPUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtPoPUploadDate.Text.Trim(), out result)) caseDetail.POP_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.POP_ReceivedDate = dtpPoPReceivedDate.Value;
+                        //    caseDetail.POP_Form_Destionation_File_Name = strPopFilePathDestination;
+                        //}
+                        //if (chkMedicalRecordCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.MedicalRecord_Form = 1;
+                        //    if (txtMedicalRecordFilePath.Text.Trim() != String.Empty) caseDetail.MedRec_Form_File_Name = txtMedicalRecordFilePath.Text.Trim();
+                        //    //if (txtMRUploadDate.Text.Trim() != String.Empty)
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtMRUploadDate.Text.Trim(), out result)) caseDetail.MedRec_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.MedRec_ReceivedDate = dtpMRReceivedDate.Value;
+                        //    caseDetail.MedRec_Form_Destination_File_Name = strMedRecordFilePathDestination;
+                        //}
+                        //if (chkOtherDocCaseCreationPage.Checked)
+                        //{
+                        //    caseDetail.Unknown_Form = 1;
+                        //    if (txtOtherDocumentFilePath.Text.Trim() != String.Empty) caseDetail.Unknown_Form_File_Name = txtOtherDocumentFilePath.Text.Trim();
+                        //    //if (txtOtherDocUploadDate.Text.Trim() != String.Empty)      //caseDetail.Unknown_ReceivedDate = DateTime.Parse(txtOtherDocUploadDate.Text.Trim());
+                        //    //{
+                        //    //    DateTime result;
+                        //    //    if (DateTime.TryParse(txtOtherDocUploadDate.Text.Trim(), out result)) caseDetail.Unknown_ReceivedDate = result;
+                        //    //    else MessageBox.Show("Invalid DateTime value", "Error");
+                        //    //}
+                        //    caseDetail.Unknown_ReceivedDate = dtpOtherDocReceivedDate.Value;
+                        //    caseDetail.Unknown_Form_Destination_File_Name = strUnknownDocFilePathDestination;
+                        //}
 
                         caseDetail.Note = txtNoteOnCase.Text.Trim();
                         caseDetail.Log_Id = "Log: " + txtCaseName.Text;
@@ -36419,8 +36419,8 @@ namespace CMMManager
 
             if (!chk.Checked)
             {
-                dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-                dtpNPFReceivedDate.CustomFormat = " ";
+                //dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+                //dtpNPFReceivedDate.CustomFormat = " ";
             }
 
             //if (chk.Checked) btnBrowseNPF.Enabled = true;
@@ -36433,8 +36433,8 @@ namespace CMMManager
 
             if (!chk.Checked)
             {
-                dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-                dtpIBReceivedDate.CustomFormat = " ";
+                //dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+                //dtpIBReceivedDate.CustomFormat = " ";
             }
 
             //if (chk.Checked) btnBrowseIB.Enabled = true;
@@ -36447,8 +36447,8 @@ namespace CMMManager
 
             if (!chk.Checked)
             {
-                dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-                dtpPoPReceivedDate.CustomFormat = " ";
+                //dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+                //dtpPoPReceivedDate.CustomFormat = " ";
             }
 
             //if (chk.Checked) btnBrowsePoP.Enabled = true;
@@ -36461,8 +36461,8 @@ namespace CMMManager
 
             if (!chk.Checked)
             {
-                dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-                dtpMRReceivedDate.CustomFormat = " ";
+                //dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+                //dtpMRReceivedDate.CustomFormat = " ";
             }
             //if (chk.Checked) btnBrowseMR.Enabled = true;
             //else btnBrowseMR.Enabled = false;
@@ -36474,8 +36474,8 @@ namespace CMMManager
 
             if (!chk.Checked)
             {
-                dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-                dtpOtherDocReceivedDate.CustomFormat = " ";
+                //dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+                //dtpOtherDocReceivedDate.CustomFormat = " ";
             }
 
             //if (chk.Checked) btnBrowseUnknownDoc.Enabled = true;
@@ -62552,17 +62552,17 @@ namespace CMMManager
             if (txtMiddleName.Text == String.Empty) txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text;
             else txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
 
-            chkNPF_CaseCreationPage.Checked = false;
-            chkIB_CaseCreationPage.Checked = false;
-            chkPoP_CaseCreationPage.Checked = false;
-            chkMedicalRecordCaseCreationPage.Checked = false;
-            chkOtherDocCaseCreationPage.Checked = false;
+            //chkNPF_CaseCreationPage.Checked = false;
+            //chkIB_CaseCreationPage.Checked = false;
+            //chkPoP_CaseCreationPage.Checked = false;
+            //chkMedicalRecordCaseCreationPage.Checked = false;
+            //chkOtherDocCaseCreationPage.Checked = false;
 
-            txtNPFFormFilePath.Text = String.Empty;
-            txtIBFilePath.Text = String.Empty;
-            txtPopFilePath.Text = String.Empty;
-            txtMedicalRecordFilePath.Text = String.Empty;
-            txtOtherDocumentFilePath.Text = String.Empty;
+            //txtNPFFormFilePath.Text = String.Empty;
+            //txtIBFilePath.Text = String.Empty;
+            //txtPopFilePath.Text = String.Empty;
+            //txtMedicalRecordFilePath.Text = String.Empty;
+            //txtOtherDocumentFilePath.Text = String.Empty;
 
             //txtNPFUploadDate.Text = String.Empty;
             //txtIBUploadDate.Text = String.Empty;
