@@ -6126,6 +6126,12 @@ namespace CMMManager
             btnPoPMedBillView.Enabled = true;
             btnIBMedBillView.Enabled = true;
             btnNPFMedBillView.Enabled = true;
+
+            if (LoggedInUserRole == UserRole.SuperAdmin || LoggedInUserRole == UserRole.Administrator)
+            {
+                btnUndoPayment.Enabled = true;
+            }
+            
         }
 
         private void DisableMedicalBillForm()
@@ -23030,6 +23036,11 @@ namespace CMMManager
 
                         gvSettlementsInMedBill.Rows.Add(row);
                         //AddNewRowToGVSettlementSafely(row);
+                    }
+
+                    if (LoggedInUserRole == UserRole.Administrator || LoggedInUserRole == UserRole.SuperAdmin)
+                    {
+                        EnableMedicalBillForm();
                     }
                 }
                 rdrSettlement.Close();
