@@ -5998,8 +5998,8 @@ namespace CMMManager
             btnCaseCreationNewSupportLog.Enabled = true;
             gvTaskInCase.Enabled = true;
             btnNewTaskCaseForm.Enabled = true;
-            btnIncomplete.Enabled = true;
-            btnApprovedSendToRN.Enabled = true;
+            //btnIncomplete.Enabled = true;
+            //btnApprovedSendToRN.Enabled = true;
             //btnOtherDocView.Enabled = true;
             //btnDeleteUnknownDoc.Enabled = true;
             //btnUnknownDocUpload.Enabled = true;
@@ -6056,8 +6056,8 @@ namespace CMMManager
             btnCaseCreationNewSupportLog.Enabled = false;
             gvTaskInCase.Enabled = false;
             btnNewTaskCaseForm.Enabled = false;
-            btnIncomplete.Enabled = false;
-            btnApprovedSendToRN.Enabled = false;
+            //btnIncomplete.Enabled = false;
+            //btnApprovedSendToRN.Enabled = false;
             //btnOtherDocView.Enabled = false;
             //btnDeleteUnknownDoc.Enabled = false;
             //btnUnknownDocUpload.Enabled = false;
@@ -62680,6 +62680,59 @@ namespace CMMManager
             DateTimePicker dtpOther = sender as DateTimePicker;
 
             dtpOther.Format = DateTimePickerFormat.Short;
+        }
+
+        private void btnAddNewCaseDocument_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow row = new DataGridViewRow();
+
+            row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+            DataGridViewComboBoxCell docTypeCell = new DataGridViewComboBoxCell();
+            docTypeCell.Items.Add("NPF");
+            docTypeCell.Items.Add("IB");
+            docTypeCell.Items.Add("PoP");
+            docTypeCell.Items.Add("Med Rec");
+            docTypeCell.Items.Add("Other Doc");
+            row.Cells.Add(docTypeCell);
+            row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+            row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+
+            gvCaseDocuments.Rows.Add(row);
+        }
+
+        private void gvCaseDocuments_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                OpenFileDialog dlg = new OpenFileDialog();
+                dlg.Filter = "pdf files (*.pdf)|*.pdf";
+                dlg.FilterIndex = 2;
+                dlg.RestoreDirectory = true;
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    String filePath = dlg.FileName;
+
+                    gvCaseDocuments[3, e.RowIndex].Value = filePath;
+                }
+            }
+            if (e.ColumnIndex == 4)
+            {
+                String PathName = String.Empty;
+
+                if (gvCaseDocuments[3, e.RowIndex]?.Value != null) PathName = gvCaseDocuments[3, e.RowIndex]?.Value?.ToString();
+
+                if (PathName != String.Empty) Process.Start(PathName);
+            }
+        }
+
+        private void btnDeleteCaseDocument_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < gvCaseDocuments.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvCaseDocuments[0, i]?.Value?.ToString()) == true) gvCaseDocuments.Rows.RemoveAt(i);
+            }
         }
     }
 }

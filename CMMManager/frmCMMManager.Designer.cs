@@ -388,6 +388,14 @@
             this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
+            this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.UploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DocumentPathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnDeleteCaseDocument = new System.Windows.Forms.Button();
+            this.btnAddNewCaseDocument = new System.Windows.Forms.Button();
             this.txtParentCaseName = new System.Windows.Forms.TextBox();
             this.label132 = new System.Windows.Forms.Label();
             this.btnCreateAddOnCase = new System.Windows.Forms.Button();
@@ -438,8 +446,6 @@
             this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewTaskCaseForm = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
-            this.btnIncomplete = new System.Windows.Forms.Button();
-            this.btnApprovedSendToRN = new System.Windows.Forms.Button();
             this.txtCreateCaseIndividualName = new System.Windows.Forms.TextBox();
             this.txtCaseIndividualID = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
@@ -1054,6 +1060,7 @@
             this.tbpgCaseView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).BeginInit();
             this.tbpgCreateCase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocuments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCasePageMedBills)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTaskInCase)).BeginInit();
@@ -4171,6 +4178,9 @@
             // 
             // tbpgCreateCase
             // 
+            this.tbpgCreateCase.Controls.Add(this.gvCaseDocuments);
+            this.tbpgCreateCase.Controls.Add(this.btnDeleteCaseDocument);
+            this.tbpgCreateCase.Controls.Add(this.btnAddNewCaseDocument);
             this.tbpgCreateCase.Controls.Add(this.txtParentCaseName);
             this.tbpgCreateCase.Controls.Add(this.label132);
             this.tbpgCreateCase.Controls.Add(this.btnCreateAddOnCase);
@@ -4194,8 +4204,6 @@
             this.tbpgCreateCase.Controls.Add(this.gvTaskInCase);
             this.tbpgCreateCase.Controls.Add(this.btnNewTaskCaseForm);
             this.tbpgCreateCase.Controls.Add(this.label49);
-            this.tbpgCreateCase.Controls.Add(this.btnIncomplete);
-            this.tbpgCreateCase.Controls.Add(this.btnApprovedSendToRN);
             this.tbpgCreateCase.Controls.Add(this.txtCreateCaseIndividualName);
             this.tbpgCreateCase.Controls.Add(this.txtCaseIndividualID);
             this.tbpgCreateCase.Controls.Add(this.label47);
@@ -4207,6 +4215,72 @@
             this.tbpgCreateCase.TabIndex = 8;
             this.tbpgCreateCase.Text = "Case";
             this.tbpgCreateCase.UseVisualStyleBackColor = true;
+            // 
+            // gvCaseDocuments
+            // 
+            this.gvCaseDocuments.AllowUserToAddRows = false;
+            this.gvCaseDocuments.AllowUserToDeleteRows = false;
+            this.gvCaseDocuments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCaseDocuments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedCaseDocument,
+            this.DocumentTypeCaseDocument,
+            this.UploadCaseDocument,
+            this.DocumentPathCaseDocument,
+            this.ViewCaseDocument});
+            this.gvCaseDocuments.Location = new System.Drawing.Point(46, 202);
+            this.gvCaseDocuments.Name = "gvCaseDocuments";
+            this.gvCaseDocuments.Size = new System.Drawing.Size(830, 179);
+            this.gvCaseDocuments.TabIndex = 157;
+            this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
+            // 
+            // SelectedCaseDocument
+            // 
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
+            // 
+            // DocumentTypeCaseDocument
+            // 
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            // 
+            // UploadCaseDocument
+            // 
+            this.UploadCaseDocument.HeaderText = "";
+            this.UploadCaseDocument.Name = "UploadCaseDocument";
+            this.UploadCaseDocument.Width = 80;
+            // 
+            // DocumentPathCaseDocument
+            // 
+            this.DocumentPathCaseDocument.HeaderText = "Destination Path";
+            this.DocumentPathCaseDocument.Name = "DocumentPathCaseDocument";
+            this.DocumentPathCaseDocument.Width = 440;
+            // 
+            // ViewCaseDocument
+            // 
+            this.ViewCaseDocument.HeaderText = "";
+            this.ViewCaseDocument.Name = "ViewCaseDocument";
+            this.ViewCaseDocument.Width = 80;
+            // 
+            // btnDeleteCaseDocument
+            // 
+            this.btnDeleteCaseDocument.Location = new System.Drawing.Point(188, 170);
+            this.btnDeleteCaseDocument.Name = "btnDeleteCaseDocument";
+            this.btnDeleteCaseDocument.Size = new System.Drawing.Size(109, 25);
+            this.btnDeleteCaseDocument.TabIndex = 156;
+            this.btnDeleteCaseDocument.Text = "Delete";
+            this.btnDeleteCaseDocument.UseVisualStyleBackColor = true;
+            this.btnDeleteCaseDocument.Click += new System.EventHandler(this.btnDeleteCaseDocument_Click);
+            // 
+            // btnAddNewCaseDocument
+            // 
+            this.btnAddNewCaseDocument.Location = new System.Drawing.Point(46, 170);
+            this.btnAddNewCaseDocument.Name = "btnAddNewCaseDocument";
+            this.btnAddNewCaseDocument.Size = new System.Drawing.Size(109, 25);
+            this.btnAddNewCaseDocument.TabIndex = 155;
+            this.btnAddNewCaseDocument.Text = "Add New";
+            this.btnAddNewCaseDocument.UseVisualStyleBackColor = true;
+            this.btnAddNewCaseDocument.Click += new System.EventHandler(this.btnAddNewCaseDocument_Click);
             // 
             // txtParentCaseName
             // 
@@ -4337,7 +4411,7 @@
             // cbCaseStatus
             // 
             this.cbCaseStatus.FormattingEnabled = true;
-            this.cbCaseStatus.Location = new System.Drawing.Point(132, 370);
+            this.cbCaseStatus.Location = new System.Drawing.Point(132, 399);
             this.cbCaseStatus.Name = "cbCaseStatus";
             this.cbCaseStatus.Size = new System.Drawing.Size(150, 21);
             this.cbCaseStatus.TabIndex = 37;
@@ -4377,18 +4451,18 @@
             // txtNoteOnCase
             // 
             this.txtNoteOnCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoteOnCase.Location = new System.Drawing.Point(42, 420);
+            this.txtNoteOnCase.Location = new System.Drawing.Point(42, 447);
             this.txtNoteOnCase.Multiline = true;
             this.txtNoteOnCase.Name = "txtNoteOnCase";
             this.txtNoteOnCase.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 80);
+            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 97);
             this.txtNoteOnCase.TabIndex = 38;
             // 
             // label177
             // 
             this.label177.AutoSize = true;
             this.label177.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label177.Location = new System.Drawing.Point(43, 400);
+            this.label177.Location = new System.Drawing.Point(39, 428);
             this.label177.Name = "label177";
             this.label177.Size = new System.Drawing.Size(40, 16);
             this.label177.TabIndex = 141;
@@ -4628,29 +4702,11 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(43, 371);
+            this.label49.Location = new System.Drawing.Point(39, 400);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(83, 16);
             this.label49.TabIndex = 102;
             this.label49.Text = "Case Status:";
-            // 
-            // btnIncomplete
-            // 
-            this.btnIncomplete.Location = new System.Drawing.Point(471, 507);
-            this.btnIncomplete.Name = "btnIncomplete";
-            this.btnIncomplete.Size = new System.Drawing.Size(407, 37);
-            this.btnIncomplete.TabIndex = 101;
-            this.btnIncomplete.Text = "Incomplete";
-            this.btnIncomplete.UseVisualStyleBackColor = true;
-            // 
-            // btnApprovedSendToRN
-            // 
-            this.btnApprovedSendToRN.Location = new System.Drawing.Point(41, 507);
-            this.btnApprovedSendToRN.Name = "btnApprovedSendToRN";
-            this.btnApprovedSendToRN.Size = new System.Drawing.Size(407, 37);
-            this.btnApprovedSendToRN.TabIndex = 100;
-            this.btnApprovedSendToRN.Text = "Approved / Send to RN";
-            this.btnApprovedSendToRN.UseVisualStyleBackColor = true;
             // 
             // txtCreateCaseIndividualName
             // 
@@ -9813,6 +9869,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).EndInit();
             this.tbpgCreateCase.ResumeLayout(false);
             this.tbpgCreateCase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocuments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCasePageMedBills)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTaskInCase)).EndInit();
@@ -10057,8 +10114,6 @@
         private System.Windows.Forms.DataGridView gvTaskInCase;
         private System.Windows.Forms.Button btnNewTaskCaseForm;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Button btnIncomplete;
-        private System.Windows.Forms.Button btnApprovedSendToRN;
         private System.Windows.Forms.TextBox txtCreateCaseIndividualName;
         private System.Windows.Forms.TextBox txtCaseIndividualID;
         private System.Windows.Forms.Label label47;
@@ -10879,6 +10934,14 @@
         private System.Windows.Forms.DataGridViewButtonColumn UploadMedBillDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathMedBillDocuments;
         private System.Windows.Forms.DataGridViewButtonColumn ViewMedBillDocuments;
+        private System.Windows.Forms.Button btnAddNewCaseDocument;
+        private System.Windows.Forms.DataGridView gvCaseDocuments;
+        private System.Windows.Forms.Button btnDeleteCaseDocument;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
+        private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn UploadCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DocumentPathCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn ViewCaseDocument;
     }
 }
 
