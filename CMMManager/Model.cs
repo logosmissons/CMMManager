@@ -1046,6 +1046,24 @@ namespace CMMManager
         }
     }
 
+    public class CaseDocTypeInfo
+    {
+        public int? CaseDocTypeCode;
+        public String CaseDocTypeValue;
+
+        public CaseDocTypeInfo()
+        {
+            CaseDocTypeCode = null;
+            CaseDocTypeValue = String.Empty;
+        }
+
+        public CaseDocTypeInfo (int doc_type_code, String doc_type_value)
+        {
+            CaseDocTypeCode = doc_type_code;
+            CaseDocTypeValue = doc_type_value;
+        }
+    }
+
     /// <summary>
     /// classes for BlueSheet
     /// </summary>

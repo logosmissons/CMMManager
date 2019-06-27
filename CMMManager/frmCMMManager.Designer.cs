@@ -388,6 +388,17 @@
             this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
+            this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
+            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDeleteCaseDoc = new System.Windows.Forms.Button();
+            this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
             this.gvCasePageMedBills = new System.Windows.Forms.DataGridView();
             this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -401,11 +412,6 @@
             this.MedBillCreatedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dtpIBReceivedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpPoPReceivedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpMRReceivedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpOtherDocReceivedDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpNPFReceivedDate = new System.Windows.Forms.DateTimePicker();
             this.cbCaseStatus = new System.Windows.Forms.ComboBox();
             this.btnDeleteMedBill = new System.Windows.Forms.Button();
             this.btnEditMedBill = new System.Windows.Forms.Button();
@@ -418,11 +424,6 @@
             this.btnCaseCreationLowerCancel = new System.Windows.Forms.Button();
             this.btnCaseCreationSaveUpper = new System.Windows.Forms.Button();
             this.btnCaseCreationCancelUpper = new System.Windows.Forms.Button();
-            this.label87 = new System.Windows.Forms.Label();
-            this.label86 = new System.Windows.Forms.Label();
-            this.label85 = new System.Windows.Forms.Label();
-            this.label84 = new System.Windows.Forms.Label();
-            this.label82 = new System.Windows.Forms.Label();
             this.label50 = new System.Windows.Forms.Label();
             this.gvNewSupportLog = new System.Windows.Forms.DataGridView();
             this.btnCaseCreationNewSupportLog = new System.Windows.Forms.Button();
@@ -445,31 +446,6 @@
             this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewTaskCaseForm = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
-            this.btnOtherDocView = new System.Windows.Forms.Button();
-            this.btnDeleteUnknownDoc = new System.Windows.Forms.Button();
-            this.btnUnknownDocUpload = new System.Windows.Forms.Button();
-            this.btnMedicalRecordView = new System.Windows.Forms.Button();
-            this.btnDeleteMedicalRecord = new System.Windows.Forms.Button();
-            this.btnMedicalRecordUpload = new System.Windows.Forms.Button();
-            this.btnPoPView = new System.Windows.Forms.Button();
-            this.btnDeletePoP = new System.Windows.Forms.Button();
-            this.btnPoPUpload = new System.Windows.Forms.Button();
-            this.btnIBView = new System.Windows.Forms.Button();
-            this.btnDeleteIB = new System.Windows.Forms.Button();
-            this.btnIBUpload = new System.Windows.Forms.Button();
-            this.btnNPFFormView = new System.Windows.Forms.Button();
-            this.btnNPFFormDelete = new System.Windows.Forms.Button();
-            this.btnNPFFormUpload = new System.Windows.Forms.Button();
-            this.txtOtherDocumentFilePath = new System.Windows.Forms.TextBox();
-            this.txtMedicalRecordFilePath = new System.Windows.Forms.TextBox();
-            this.txtPopFilePath = new System.Windows.Forms.TextBox();
-            this.txtIBFilePath = new System.Windows.Forms.TextBox();
-            this.txtNPFFormFilePath = new System.Windows.Forms.TextBox();
-            this.chkOtherDocCaseCreationPage = new System.Windows.Forms.CheckBox();
-            this.chkMedicalRecordCaseCreationPage = new System.Windows.Forms.CheckBox();
-            this.chkPoP_CaseCreationPage = new System.Windows.Forms.CheckBox();
-            this.chkIB_CaseCreationPage = new System.Windows.Forms.CheckBox();
-            this.chkNPF_CaseCreationPage = new System.Windows.Forms.CheckBox();
             this.txtCreateCaseIndividualName = new System.Windows.Forms.TextBox();
             this.txtCaseIndividualID = new System.Windows.Forms.TextBox();
             this.label47 = new System.Windows.Forms.Label();
@@ -1084,6 +1060,7 @@
             this.tbpgCaseView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).BeginInit();
             this.tbpgCreateCase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocuments)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCasePageMedBills)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTaskInCase)).BeginInit();
@@ -4201,13 +4178,11 @@
             // 
             // tbpgCreateCase
             // 
+            this.tbpgCreateCase.Controls.Add(this.gvCaseDocuments);
+            this.tbpgCreateCase.Controls.Add(this.btnDeleteCaseDoc);
+            this.tbpgCreateCase.Controls.Add(this.btnAddNewCaseDoc);
             this.tbpgCreateCase.Controls.Add(this.btnReloadMedBillsInCaseForm);
             this.tbpgCreateCase.Controls.Add(this.gvCasePageMedBills);
-            this.tbpgCreateCase.Controls.Add(this.dtpIBReceivedDate);
-            this.tbpgCreateCase.Controls.Add(this.dtpPoPReceivedDate);
-            this.tbpgCreateCase.Controls.Add(this.dtpMRReceivedDate);
-            this.tbpgCreateCase.Controls.Add(this.dtpOtherDocReceivedDate);
-            this.tbpgCreateCase.Controls.Add(this.dtpNPFReceivedDate);
             this.tbpgCreateCase.Controls.Add(this.cbCaseStatus);
             this.tbpgCreateCase.Controls.Add(this.btnDeleteMedBill);
             this.tbpgCreateCase.Controls.Add(this.btnEditMedBill);
@@ -4220,42 +4195,12 @@
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationLowerCancel);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationSaveUpper);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationCancelUpper);
-            this.tbpgCreateCase.Controls.Add(this.label87);
-            this.tbpgCreateCase.Controls.Add(this.label86);
-            this.tbpgCreateCase.Controls.Add(this.label85);
-            this.tbpgCreateCase.Controls.Add(this.label84);
-            this.tbpgCreateCase.Controls.Add(this.label82);
             this.tbpgCreateCase.Controls.Add(this.label50);
             this.tbpgCreateCase.Controls.Add(this.gvNewSupportLog);
             this.tbpgCreateCase.Controls.Add(this.btnCaseCreationNewSupportLog);
             this.tbpgCreateCase.Controls.Add(this.gvTaskInCase);
             this.tbpgCreateCase.Controls.Add(this.btnNewTaskCaseForm);
             this.tbpgCreateCase.Controls.Add(this.label49);
-            this.tbpgCreateCase.Controls.Add(this.btnOtherDocView);
-            this.tbpgCreateCase.Controls.Add(this.btnDeleteUnknownDoc);
-            this.tbpgCreateCase.Controls.Add(this.btnUnknownDocUpload);
-            this.tbpgCreateCase.Controls.Add(this.btnMedicalRecordView);
-            this.tbpgCreateCase.Controls.Add(this.btnDeleteMedicalRecord);
-            this.tbpgCreateCase.Controls.Add(this.btnMedicalRecordUpload);
-            this.tbpgCreateCase.Controls.Add(this.btnPoPView);
-            this.tbpgCreateCase.Controls.Add(this.btnDeletePoP);
-            this.tbpgCreateCase.Controls.Add(this.btnPoPUpload);
-            this.tbpgCreateCase.Controls.Add(this.btnIBView);
-            this.tbpgCreateCase.Controls.Add(this.btnDeleteIB);
-            this.tbpgCreateCase.Controls.Add(this.btnIBUpload);
-            this.tbpgCreateCase.Controls.Add(this.btnNPFFormView);
-            this.tbpgCreateCase.Controls.Add(this.btnNPFFormDelete);
-            this.tbpgCreateCase.Controls.Add(this.btnNPFFormUpload);
-            this.tbpgCreateCase.Controls.Add(this.txtOtherDocumentFilePath);
-            this.tbpgCreateCase.Controls.Add(this.txtMedicalRecordFilePath);
-            this.tbpgCreateCase.Controls.Add(this.txtPopFilePath);
-            this.tbpgCreateCase.Controls.Add(this.txtIBFilePath);
-            this.tbpgCreateCase.Controls.Add(this.txtNPFFormFilePath);
-            this.tbpgCreateCase.Controls.Add(this.chkOtherDocCaseCreationPage);
-            this.tbpgCreateCase.Controls.Add(this.chkMedicalRecordCaseCreationPage);
-            this.tbpgCreateCase.Controls.Add(this.chkPoP_CaseCreationPage);
-            this.tbpgCreateCase.Controls.Add(this.chkIB_CaseCreationPage);
-            this.tbpgCreateCase.Controls.Add(this.chkNPF_CaseCreationPage);
             this.tbpgCreateCase.Controls.Add(this.txtCreateCaseIndividualName);
             this.tbpgCreateCase.Controls.Add(this.txtCaseIndividualID);
             this.tbpgCreateCase.Controls.Add(this.label47);
@@ -4267,6 +4212,88 @@
             this.tbpgCreateCase.TabIndex = 8;
             this.tbpgCreateCase.Text = "Case";
             this.tbpgCreateCase.UseVisualStyleBackColor = true;
+            // 
+            // gvCaseDocuments
+            // 
+            this.gvCaseDocuments.AllowUserToAddRows = false;
+            this.gvCaseDocuments.AllowUserToDeleteRows = false;
+            this.gvCaseDocuments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCaseDocuments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedCaseDocument,
+            this.DocumentTypeCaseDocument,
+            this.BtnUploadCaseDocument,
+            this.ReceivedDateCaseDocument,
+            this.BtnViewCaseDocument,
+            this.NoteCaseDocument,
+            this.CreatedByCaseDocument,
+            this.CreatedDateCaseDocument});
+            this.gvCaseDocuments.Location = new System.Drawing.Point(44, 207);
+            this.gvCaseDocuments.Name = "gvCaseDocuments";
+            this.gvCaseDocuments.Size = new System.Drawing.Size(833, 169);
+            this.gvCaseDocuments.TabIndex = 154;
+            // 
+            // SelectedCaseDocument
+            // 
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
+            // 
+            // DocumentTypeCaseDocument
+            // 
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            // 
+            // BtnUploadCaseDocument
+            // 
+            this.BtnUploadCaseDocument.HeaderText = "Upload";
+            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
+            this.BtnUploadCaseDocument.Width = 80;
+            // 
+            // ReceivedDateCaseDocument
+            // 
+            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
+            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
+            // 
+            // BtnViewCaseDocument
+            // 
+            this.BtnViewCaseDocument.HeaderText = "View";
+            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
+            this.BtnViewCaseDocument.Width = 80;
+            // 
+            // NoteCaseDocument
+            // 
+            this.NoteCaseDocument.HeaderText = "Note";
+            this.NoteCaseDocument.Name = "NoteCaseDocument";
+            this.NoteCaseDocument.Width = 512;
+            // 
+            // CreatedByCaseDocument
+            // 
+            this.CreatedByCaseDocument.HeaderText = "Created By";
+            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
+            // 
+            // CreatedDateCaseDocument
+            // 
+            this.CreatedDateCaseDocument.HeaderText = "Created Date";
+            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
+            // 
+            // btnDeleteCaseDoc
+            // 
+            this.btnDeleteCaseDoc.Location = new System.Drawing.Point(177, 174);
+            this.btnDeleteCaseDoc.Name = "btnDeleteCaseDoc";
+            this.btnDeleteCaseDoc.Size = new System.Drawing.Size(99, 27);
+            this.btnDeleteCaseDoc.TabIndex = 153;
+            this.btnDeleteCaseDoc.Text = "Delete";
+            this.btnDeleteCaseDoc.UseVisualStyleBackColor = true;
+            // 
+            // btnAddNewCaseDoc
+            // 
+            this.btnAddNewCaseDoc.Location = new System.Drawing.Point(44, 174);
+            this.btnAddNewCaseDoc.Name = "btnAddNewCaseDoc";
+            this.btnAddNewCaseDoc.Size = new System.Drawing.Size(99, 27);
+            this.btnAddNewCaseDoc.TabIndex = 152;
+            this.btnAddNewCaseDoc.Text = "Add New";
+            this.btnAddNewCaseDoc.UseVisualStyleBackColor = true;
+            this.btnAddNewCaseDoc.Click += new System.EventHandler(this.btnAddNewCaseDoc_Click);
             // 
             // btnReloadMedBillsInCaseForm
             // 
@@ -4365,56 +4392,6 @@
             // 
             this.MedBillModifiedById.HeaderText = "Modified By";
             this.MedBillModifiedById.Name = "MedBillModifiedById";
-            // 
-            // dtpIBReceivedDate
-            // 
-            this.dtpIBReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpIBReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpIBReceivedDate.Location = new System.Drawing.Point(605, 233);
-            this.dtpIBReceivedDate.Name = "dtpIBReceivedDate";
-            this.dtpIBReceivedDate.Size = new System.Drawing.Size(100, 22);
-            this.dtpIBReceivedDate.TabIndex = 150;
-            this.dtpIBReceivedDate.ValueChanged += new System.EventHandler(this.dtpIBReceivedDate_ValueChanged);
-            // 
-            // dtpPoPReceivedDate
-            // 
-            this.dtpPoPReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpPoPReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpPoPReceivedDate.Location = new System.Drawing.Point(605, 267);
-            this.dtpPoPReceivedDate.Name = "dtpPoPReceivedDate";
-            this.dtpPoPReceivedDate.Size = new System.Drawing.Size(100, 22);
-            this.dtpPoPReceivedDate.TabIndex = 149;
-            this.dtpPoPReceivedDate.ValueChanged += new System.EventHandler(this.dtpPoPReceivedDate_ValueChanged);
-            // 
-            // dtpMRReceivedDate
-            // 
-            this.dtpMRReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMRReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMRReceivedDate.Location = new System.Drawing.Point(605, 300);
-            this.dtpMRReceivedDate.Name = "dtpMRReceivedDate";
-            this.dtpMRReceivedDate.Size = new System.Drawing.Size(100, 22);
-            this.dtpMRReceivedDate.TabIndex = 148;
-            this.dtpMRReceivedDate.ValueChanged += new System.EventHandler(this.dtpMRReceivedDate_ValueChanged);
-            // 
-            // dtpOtherDocReceivedDate
-            // 
-            this.dtpOtherDocReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpOtherDocReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpOtherDocReceivedDate.Location = new System.Drawing.Point(605, 333);
-            this.dtpOtherDocReceivedDate.Name = "dtpOtherDocReceivedDate";
-            this.dtpOtherDocReceivedDate.Size = new System.Drawing.Size(100, 22);
-            this.dtpOtherDocReceivedDate.TabIndex = 147;
-            this.dtpOtherDocReceivedDate.ValueChanged += new System.EventHandler(this.dtpOtherDocReceivedDate_ValueChanged);
-            // 
-            // dtpNPFReceivedDate
-            // 
-            this.dtpNPFReceivedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpNPFReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNPFReceivedDate.Location = new System.Drawing.Point(605, 199);
-            this.dtpNPFReceivedDate.Name = "dtpNPFReceivedDate";
-            this.dtpNPFReceivedDate.Size = new System.Drawing.Size(100, 22);
-            this.dtpNPFReceivedDate.TabIndex = 146;
-            this.dtpNPFReceivedDate.ValueChanged += new System.EventHandler(this.dtpNPFReceivedDate_ValueChanged);
             // 
             // cbCaseStatus
             // 
@@ -4539,56 +4516,6 @@
             this.btnCaseCreationCancelUpper.UseVisualStyleBackColor = true;
             this.btnCaseCreationCancelUpper.Visible = false;
             this.btnCaseCreationCancelUpper.Click += new System.EventHandler(this.btnCaseCreationCancelUpper_Click);
-            // 
-            // label87
-            // 
-            this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(499, 237);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(102, 16);
-            this.label87.TabIndex = 121;
-            this.label87.Text = "Received Date:";
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(499, 271);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(102, 16);
-            this.label86.TabIndex = 120;
-            this.label86.Text = "Received Date:";
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(499, 304);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(102, 16);
-            this.label85.TabIndex = 119;
-            this.label85.Text = "Received Date:";
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label84.Location = new System.Drawing.Point(499, 335);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(102, 16);
-            this.label84.TabIndex = 118;
-            this.label84.Text = "Received Date:";
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(499, 203);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(102, 16);
-            this.label82.TabIndex = 117;
-            this.label82.Text = "Received Date:";
             // 
             // label50
             // 
@@ -4765,276 +4692,6 @@
             this.label49.Size = new System.Drawing.Size(83, 16);
             this.label49.TabIndex = 102;
             this.label49.Text = "Case Status:";
-            // 
-            // btnOtherDocView
-            // 
-            this.btnOtherDocView.Enabled = false;
-            this.btnOtherDocView.Location = new System.Drawing.Point(714, 332);
-            this.btnOtherDocView.Name = "btnOtherDocView";
-            this.btnOtherDocView.Size = new System.Drawing.Size(77, 23);
-            this.btnOtherDocView.TabIndex = 99;
-            this.btnOtherDocView.Text = "View";
-            this.btnOtherDocView.UseVisualStyleBackColor = true;
-            this.btnOtherDocView.Click += new System.EventHandler(this.btnUnknownView_Click);
-            // 
-            // btnDeleteUnknownDoc
-            // 
-            this.btnDeleteUnknownDoc.Enabled = false;
-            this.btnDeleteUnknownDoc.Location = new System.Drawing.Point(800, 332);
-            this.btnDeleteUnknownDoc.Name = "btnDeleteUnknownDoc";
-            this.btnDeleteUnknownDoc.Size = new System.Drawing.Size(77, 23);
-            this.btnDeleteUnknownDoc.TabIndex = 98;
-            this.btnDeleteUnknownDoc.Text = "Delete";
-            this.btnDeleteUnknownDoc.UseVisualStyleBackColor = true;
-            this.btnDeleteUnknownDoc.Click += new System.EventHandler(this.btnUnknownDelete_Click);
-            // 
-            // btnUnknownDocUpload
-            // 
-            this.btnUnknownDocUpload.Enabled = false;
-            this.btnUnknownDocUpload.Location = new System.Drawing.Point(182, 332);
-            this.btnUnknownDocUpload.Name = "btnUnknownDocUpload";
-            this.btnUnknownDocUpload.Size = new System.Drawing.Size(77, 23);
-            this.btnUnknownDocUpload.TabIndex = 97;
-            this.btnUnknownDocUpload.Text = "Upload";
-            this.btnUnknownDocUpload.UseVisualStyleBackColor = true;
-            this.btnUnknownDocUpload.Click += new System.EventHandler(this.btnUnknownUpload_Click);
-            // 
-            // btnMedicalRecordView
-            // 
-            this.btnMedicalRecordView.Enabled = false;
-            this.btnMedicalRecordView.Location = new System.Drawing.Point(714, 299);
-            this.btnMedicalRecordView.Name = "btnMedicalRecordView";
-            this.btnMedicalRecordView.Size = new System.Drawing.Size(77, 23);
-            this.btnMedicalRecordView.TabIndex = 96;
-            this.btnMedicalRecordView.Text = "View";
-            this.btnMedicalRecordView.UseVisualStyleBackColor = true;
-            this.btnMedicalRecordView.Click += new System.EventHandler(this.btnMedicalRecordView_Click);
-            // 
-            // btnDeleteMedicalRecord
-            // 
-            this.btnDeleteMedicalRecord.Enabled = false;
-            this.btnDeleteMedicalRecord.Location = new System.Drawing.Point(800, 299);
-            this.btnDeleteMedicalRecord.Name = "btnDeleteMedicalRecord";
-            this.btnDeleteMedicalRecord.Size = new System.Drawing.Size(77, 23);
-            this.btnDeleteMedicalRecord.TabIndex = 95;
-            this.btnDeleteMedicalRecord.Text = "Delete";
-            this.btnDeleteMedicalRecord.UseVisualStyleBackColor = true;
-            this.btnDeleteMedicalRecord.Click += new System.EventHandler(this.btnMedicalRecordDelete_Click);
-            // 
-            // btnMedicalRecordUpload
-            // 
-            this.btnMedicalRecordUpload.Enabled = false;
-            this.btnMedicalRecordUpload.Location = new System.Drawing.Point(182, 299);
-            this.btnMedicalRecordUpload.Name = "btnMedicalRecordUpload";
-            this.btnMedicalRecordUpload.Size = new System.Drawing.Size(77, 23);
-            this.btnMedicalRecordUpload.TabIndex = 94;
-            this.btnMedicalRecordUpload.Text = "Upload";
-            this.btnMedicalRecordUpload.UseVisualStyleBackColor = true;
-            this.btnMedicalRecordUpload.Click += new System.EventHandler(this.btnMedicalRecordUpload_Click);
-            // 
-            // btnPoPView
-            // 
-            this.btnPoPView.Enabled = false;
-            this.btnPoPView.Location = new System.Drawing.Point(714, 266);
-            this.btnPoPView.Name = "btnPoPView";
-            this.btnPoPView.Size = new System.Drawing.Size(77, 23);
-            this.btnPoPView.TabIndex = 93;
-            this.btnPoPView.Text = "View";
-            this.btnPoPView.UseVisualStyleBackColor = true;
-            this.btnPoPView.Click += new System.EventHandler(this.btnPoPDateView_Click);
-            // 
-            // btnDeletePoP
-            // 
-            this.btnDeletePoP.Enabled = false;
-            this.btnDeletePoP.Location = new System.Drawing.Point(800, 266);
-            this.btnDeletePoP.Name = "btnDeletePoP";
-            this.btnDeletePoP.Size = new System.Drawing.Size(77, 23);
-            this.btnDeletePoP.TabIndex = 92;
-            this.btnDeletePoP.Text = "Delete";
-            this.btnDeletePoP.UseVisualStyleBackColor = true;
-            this.btnDeletePoP.Click += new System.EventHandler(this.btnPoPDateDelete_Click);
-            // 
-            // btnPoPUpload
-            // 
-            this.btnPoPUpload.Enabled = false;
-            this.btnPoPUpload.Location = new System.Drawing.Point(182, 266);
-            this.btnPoPUpload.Name = "btnPoPUpload";
-            this.btnPoPUpload.Size = new System.Drawing.Size(77, 23);
-            this.btnPoPUpload.TabIndex = 91;
-            this.btnPoPUpload.Text = "Upload";
-            this.btnPoPUpload.UseVisualStyleBackColor = true;
-            this.btnPoPUpload.Click += new System.EventHandler(this.btnPoPDateUpload_Click);
-            // 
-            // btnIBView
-            // 
-            this.btnIBView.Enabled = false;
-            this.btnIBView.Location = new System.Drawing.Point(714, 232);
-            this.btnIBView.Name = "btnIBView";
-            this.btnIBView.Size = new System.Drawing.Size(77, 23);
-            this.btnIBView.TabIndex = 90;
-            this.btnIBView.Text = "View";
-            this.btnIBView.UseVisualStyleBackColor = true;
-            this.btnIBView.Click += new System.EventHandler(this.IBDateView_Click);
-            // 
-            // btnDeleteIB
-            // 
-            this.btnDeleteIB.Enabled = false;
-            this.btnDeleteIB.Location = new System.Drawing.Point(800, 232);
-            this.btnDeleteIB.Name = "btnDeleteIB";
-            this.btnDeleteIB.Size = new System.Drawing.Size(77, 23);
-            this.btnDeleteIB.TabIndex = 89;
-            this.btnDeleteIB.Text = "Delete";
-            this.btnDeleteIB.UseVisualStyleBackColor = true;
-            this.btnDeleteIB.Click += new System.EventHandler(this.btnIBDateDelete_Click);
-            // 
-            // btnIBUpload
-            // 
-            this.btnIBUpload.Enabled = false;
-            this.btnIBUpload.Location = new System.Drawing.Point(182, 232);
-            this.btnIBUpload.Name = "btnIBUpload";
-            this.btnIBUpload.Size = new System.Drawing.Size(77, 23);
-            this.btnIBUpload.TabIndex = 88;
-            this.btnIBUpload.Text = "Upload";
-            this.btnIBUpload.UseVisualStyleBackColor = true;
-            this.btnIBUpload.Click += new System.EventHandler(this.btnIBDateUpload_Click);
-            // 
-            // btnNPFFormView
-            // 
-            this.btnNPFFormView.Enabled = false;
-            this.btnNPFFormView.Location = new System.Drawing.Point(714, 198);
-            this.btnNPFFormView.Name = "btnNPFFormView";
-            this.btnNPFFormView.Size = new System.Drawing.Size(77, 23);
-            this.btnNPFFormView.TabIndex = 87;
-            this.btnNPFFormView.Text = "View";
-            this.btnNPFFormView.UseVisualStyleBackColor = true;
-            this.btnNPFFormView.Click += new System.EventHandler(this.btnNPFFormView_Click);
-            // 
-            // btnNPFFormDelete
-            // 
-            this.btnNPFFormDelete.Enabled = false;
-            this.btnNPFFormDelete.Location = new System.Drawing.Point(799, 198);
-            this.btnNPFFormDelete.Name = "btnNPFFormDelete";
-            this.btnNPFFormDelete.Size = new System.Drawing.Size(77, 23);
-            this.btnNPFFormDelete.TabIndex = 86;
-            this.btnNPFFormDelete.Text = "Delete";
-            this.btnNPFFormDelete.UseVisualStyleBackColor = true;
-            this.btnNPFFormDelete.Click += new System.EventHandler(this.btnNPFFormDelete_Click);
-            // 
-            // btnNPFFormUpload
-            // 
-            this.btnNPFFormUpload.Enabled = false;
-            this.btnNPFFormUpload.Location = new System.Drawing.Point(182, 198);
-            this.btnNPFFormUpload.Name = "btnNPFFormUpload";
-            this.btnNPFFormUpload.Size = new System.Drawing.Size(77, 23);
-            this.btnNPFFormUpload.TabIndex = 85;
-            this.btnNPFFormUpload.Text = "Upload";
-            this.btnNPFFormUpload.UseVisualStyleBackColor = true;
-            this.btnNPFFormUpload.Click += new System.EventHandler(this.btnNPFFormUpload_Click);
-            // 
-            // txtOtherDocumentFilePath
-            // 
-            this.txtOtherDocumentFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherDocumentFilePath.Location = new System.Drawing.Point(272, 332);
-            this.txtOtherDocumentFilePath.Name = "txtOtherDocumentFilePath";
-            this.txtOtherDocumentFilePath.ReadOnly = true;
-            this.txtOtherDocumentFilePath.Size = new System.Drawing.Size(221, 22);
-            this.txtOtherDocumentFilePath.TabIndex = 84;
-            // 
-            // txtMedicalRecordFilePath
-            // 
-            this.txtMedicalRecordFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedicalRecordFilePath.Location = new System.Drawing.Point(272, 299);
-            this.txtMedicalRecordFilePath.Name = "txtMedicalRecordFilePath";
-            this.txtMedicalRecordFilePath.ReadOnly = true;
-            this.txtMedicalRecordFilePath.Size = new System.Drawing.Size(221, 22);
-            this.txtMedicalRecordFilePath.TabIndex = 83;
-            // 
-            // txtPopFilePath
-            // 
-            this.txtPopFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPopFilePath.Location = new System.Drawing.Point(272, 266);
-            this.txtPopFilePath.Name = "txtPopFilePath";
-            this.txtPopFilePath.ReadOnly = true;
-            this.txtPopFilePath.Size = new System.Drawing.Size(221, 22);
-            this.txtPopFilePath.TabIndex = 82;
-            // 
-            // txtIBFilePath
-            // 
-            this.txtIBFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIBFilePath.Location = new System.Drawing.Point(272, 232);
-            this.txtIBFilePath.Name = "txtIBFilePath";
-            this.txtIBFilePath.ReadOnly = true;
-            this.txtIBFilePath.Size = new System.Drawing.Size(221, 22);
-            this.txtIBFilePath.TabIndex = 81;
-            // 
-            // txtNPFFormFilePath
-            // 
-            this.txtNPFFormFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNPFFormFilePath.Location = new System.Drawing.Point(272, 198);
-            this.txtNPFFormFilePath.Name = "txtNPFFormFilePath";
-            this.txtNPFFormFilePath.ReadOnly = true;
-            this.txtNPFFormFilePath.Size = new System.Drawing.Size(221, 22);
-            this.txtNPFFormFilePath.TabIndex = 80;
-            // 
-            // chkOtherDocCaseCreationPage
-            // 
-            this.chkOtherDocCaseCreationPage.AutoSize = true;
-            this.chkOtherDocCaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkOtherDocCaseCreationPage.Location = new System.Drawing.Point(45, 333);
-            this.chkOtherDocCaseCreationPage.Name = "chkOtherDocCaseCreationPage";
-            this.chkOtherDocCaseCreationPage.Size = new System.Drawing.Size(133, 20);
-            this.chkOtherDocCaseCreationPage.TabIndex = 36;
-            this.chkOtherDocCaseCreationPage.Text = "Other Documents:";
-            this.chkOtherDocCaseCreationPage.UseVisualStyleBackColor = true;
-            this.chkOtherDocCaseCreationPage.CheckedChanged += new System.EventHandler(this.chkOtherDocCaseCreationPage_CheckedChanged);
-            // 
-            // chkMedicalRecordCaseCreationPage
-            // 
-            this.chkMedicalRecordCaseCreationPage.AutoSize = true;
-            this.chkMedicalRecordCaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedicalRecordCaseCreationPage.Location = new System.Drawing.Point(45, 300);
-            this.chkMedicalRecordCaseCreationPage.Name = "chkMedicalRecordCaseCreationPage";
-            this.chkMedicalRecordCaseCreationPage.Size = new System.Drawing.Size(126, 20);
-            this.chkMedicalRecordCaseCreationPage.TabIndex = 35;
-            this.chkMedicalRecordCaseCreationPage.Text = "Medical Record:";
-            this.chkMedicalRecordCaseCreationPage.UseVisualStyleBackColor = true;
-            this.chkMedicalRecordCaseCreationPage.CheckedChanged += new System.EventHandler(this.chkMedicalRecordCaseCreationPage_CheckedChanged);
-            // 
-            // chkPoP_CaseCreationPage
-            // 
-            this.chkPoP_CaseCreationPage.AutoSize = true;
-            this.chkPoP_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPoP_CaseCreationPage.Location = new System.Drawing.Point(45, 267);
-            this.chkPoP_CaseCreationPage.Name = "chkPoP_CaseCreationPage";
-            this.chkPoP_CaseCreationPage.Size = new System.Drawing.Size(56, 20);
-            this.chkPoP_CaseCreationPage.TabIndex = 34;
-            this.chkPoP_CaseCreationPage.Text = "PoP:";
-            this.chkPoP_CaseCreationPage.UseVisualStyleBackColor = true;
-            this.chkPoP_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkPoP_CaseCreationPage_CheckedChanged);
-            // 
-            // chkIB_CaseCreationPage
-            // 
-            this.chkIB_CaseCreationPage.AutoSize = true;
-            this.chkIB_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkIB_CaseCreationPage.Location = new System.Drawing.Point(45, 234);
-            this.chkIB_CaseCreationPage.Name = "chkIB_CaseCreationPage";
-            this.chkIB_CaseCreationPage.Size = new System.Drawing.Size(42, 20);
-            this.chkIB_CaseCreationPage.TabIndex = 33;
-            this.chkIB_CaseCreationPage.Text = "IB:";
-            this.chkIB_CaseCreationPage.UseVisualStyleBackColor = true;
-            this.chkIB_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkIB_CaseCreationPage_CheckedChanged);
-            // 
-            // chkNPF_CaseCreationPage
-            // 
-            this.chkNPF_CaseCreationPage.AutoSize = true;
-            this.chkNPF_CaseCreationPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkNPF_CaseCreationPage.Location = new System.Drawing.Point(45, 201);
-            this.chkNPF_CaseCreationPage.Name = "chkNPF_CaseCreationPage";
-            this.chkNPF_CaseCreationPage.Size = new System.Drawing.Size(91, 20);
-            this.chkNPF_CaseCreationPage.TabIndex = 32;
-            this.chkNPF_CaseCreationPage.Text = "NPF Form:";
-            this.chkNPF_CaseCreationPage.UseVisualStyleBackColor = true;
-            this.chkNPF_CaseCreationPage.CheckedChanged += new System.EventHandler(this.chkNPF_CaseCreationPage_CheckedChanged);
             // 
             // txtCreateCaseIndividualName
             // 
@@ -10197,6 +9854,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).EndInit();
             this.tbpgCreateCase.ResumeLayout(false);
             this.tbpgCreateCase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocuments)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCasePageMedBills)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNewSupportLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTaskInCase)).EndInit();
@@ -10434,11 +10092,6 @@
         private System.Windows.Forms.Button btnCreateNewCase;
         private System.Windows.Forms.DataGridView gvCaseViewCaseHistory;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label87;
-        private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.Label label85;
-        private System.Windows.Forms.Label label84;
-        private System.Windows.Forms.Label label82;
         private System.Windows.Forms.DataGridView gvCasePageMedBills;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.DataGridView gvNewSupportLog;
@@ -10446,31 +10099,6 @@
         private System.Windows.Forms.DataGridView gvTaskInCase;
         private System.Windows.Forms.Button btnNewTaskCaseForm;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Button btnOtherDocView;
-        private System.Windows.Forms.Button btnDeleteUnknownDoc;
-        private System.Windows.Forms.Button btnUnknownDocUpload;
-        private System.Windows.Forms.Button btnMedicalRecordView;
-        private System.Windows.Forms.Button btnDeleteMedicalRecord;
-        private System.Windows.Forms.Button btnMedicalRecordUpload;
-        private System.Windows.Forms.Button btnPoPView;
-        private System.Windows.Forms.Button btnDeletePoP;
-        private System.Windows.Forms.Button btnPoPUpload;
-        private System.Windows.Forms.Button btnIBView;
-        private System.Windows.Forms.Button btnDeleteIB;
-        private System.Windows.Forms.Button btnIBUpload;
-        private System.Windows.Forms.Button btnNPFFormView;
-        private System.Windows.Forms.Button btnNPFFormDelete;
-        private System.Windows.Forms.Button btnNPFFormUpload;
-        private System.Windows.Forms.TextBox txtOtherDocumentFilePath;
-        private System.Windows.Forms.TextBox txtMedicalRecordFilePath;
-        private System.Windows.Forms.TextBox txtPopFilePath;
-        private System.Windows.Forms.TextBox txtIBFilePath;
-        private System.Windows.Forms.TextBox txtNPFFormFilePath;
-        private System.Windows.Forms.CheckBox chkOtherDocCaseCreationPage;
-        private System.Windows.Forms.CheckBox chkMedicalRecordCaseCreationPage;
-        private System.Windows.Forms.CheckBox chkPoP_CaseCreationPage;
-        private System.Windows.Forms.CheckBox chkIB_CaseCreationPage;
-        private System.Windows.Forms.CheckBox chkNPF_CaseCreationPage;
         private System.Windows.Forms.TextBox txtCreateCaseIndividualName;
         private System.Windows.Forms.TextBox txtCaseIndividualID;
         private System.Windows.Forms.Label label47;
@@ -10947,11 +10575,6 @@
         private System.Windows.Forms.Button btnConfirmACH;
         private System.Windows.Forms.Label label100;
         private System.Windows.Forms.TextBox txtAnivDate;
-        private System.Windows.Forms.DateTimePicker dtpIBReceivedDate;
-        private System.Windows.Forms.DateTimePicker dtpPoPReceivedDate;
-        private System.Windows.Forms.DateTimePicker dtpMRReceivedDate;
-        private System.Windows.Forms.DateTimePicker dtpOtherDocReceivedDate;
-        private System.Windows.Forms.DateTimePicker dtpNPFReceivedDate;
         private System.Windows.Forms.TabPage tbpgBlueSheet;
         private System.Windows.Forms.GroupBox grpPaymentMethodBlueSheet;
         private System.Windows.Forms.TextBox txtIncidentNoBlueSheet;
@@ -11293,6 +10916,17 @@
         private System.Windows.Forms.DataGridViewButtonColumn UploadMedBillDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathMedBillDocuments;
         private System.Windows.Forms.DataGridViewButtonColumn ViewMedBillDocuments;
+        private System.Windows.Forms.DataGridView gvCaseDocuments;
+        private System.Windows.Forms.Button btnDeleteCaseDoc;
+        private System.Windows.Forms.Button btnAddNewCaseDoc;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
+        private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn BtnUploadCaseDocument;
+        private CalendarColumn ReceivedDateCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn BtnViewCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDateCaseDocument;
     }
 }
 
