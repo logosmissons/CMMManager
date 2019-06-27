@@ -5998,8 +5998,8 @@ namespace CMMManager
             btnCaseCreationNewSupportLog.Enabled = true;
             gvTaskInCase.Enabled = true;
             btnNewTaskCaseForm.Enabled = true;
-            btnIncomplete.Enabled = true;
-            btnApprovedSendToRN.Enabled = true;
+            //btnIncomplete.Enabled = true;
+            //btnApprovedSendToRN.Enabled = true;
             btnOtherDocView.Enabled = true;
             btnDeleteUnknownDoc.Enabled = true;
             btnUnknownDocUpload.Enabled = true;
@@ -6056,8 +6056,8 @@ namespace CMMManager
             btnCaseCreationNewSupportLog.Enabled = false;
             gvTaskInCase.Enabled = false;
             btnNewTaskCaseForm.Enabled = false;
-            btnIncomplete.Enabled = false;
-            btnApprovedSendToRN.Enabled = false;
+            //btnIncomplete.Enabled = false;
+            //btnApprovedSendToRN.Enabled = false;
             btnOtherDocView.Enabled = false;
             btnDeleteUnknownDoc.Enabled = false;
             btnUnknownDocUpload.Enabled = false;
@@ -7393,7 +7393,6 @@ namespace CMMManager
                     caseDetail.Remove_Log = String.Empty;
 
                     if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
-                    if (txtParentCaseName.Text.Trim() != String.Empty) caseDetail.ParentCaseId = txtParentCaseName.Text.Trim();
                     //if (txtParentCaseName.Text.Trim() != String.Empty) caseDetail.ParentCaseId = txtParentCaseName.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
@@ -7636,7 +7635,6 @@ namespace CMMManager
                     caseDetail.Remove_Log = String.Empty;
 
                     if (txtCaseName.Text.Trim() != String.Empty) caseDetail.CaseId = txtCaseName.Text.Trim();
-                    if (txtParentCaseName.Text.Trim() != String.Empty) caseDetail.ParentCaseId = txtParentCaseName.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.ContactId = txtCaseIndividualID.Text.Trim();
                     if (txtCaseIndividualID.Text.Trim() != String.Empty) caseDetail.Individual_Id = txtCaseIndividualID.Text.Trim();
 
@@ -8814,7 +8812,6 @@ namespace CMMManager
                             }
                         }
                         if (!rdrCase.IsDBNull(21)) txtNoteOnCase.Text = rdrCase.GetString(21);
-                        if (!rdrCase.IsDBNull(22)) txtParentCaseName.Text = rdrCase.GetString(22);
                     }
 
                 }
@@ -20974,9 +20971,6 @@ namespace CMMManager
 
                         // Note
                         if (!rdrCaseForIndividual.IsDBNull(28)) txtNoteOnCase.Text = rdrCaseForIndividual.GetString(28);
-
-                        if (!rdrCaseForIndividual.IsDBNull(29)) txtParentCaseName.Text = rdrCaseForIndividual.GetString(29);
-
 
                         // Individual Name
 
@@ -62472,179 +62466,6 @@ namespace CMMManager
             
 
             }
-        }
-
-        private void btnCreateAddOnCase_Click(object sender, EventArgs e)
-        {
-            txtParentCaseName.Text = txtCaseName.Text;
-            string strNewCaseName = String.Empty;
-
-            String IndividualIdChildCase = txtCaseIndividualID.Text.Trim();
-
-            if (connRN4.State != ConnectionState.Closed)
-            {
-                connRN4.Close();
-                connRN4.Open();
-            }
-            else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
-
-            SqlCommand cmdCaseId = connRN4.CreateCommand();
-            SqlTransaction tranCaseId = connRN4.BeginTransaction(IsolationLevel.Serializable);
-            cmdCaseId.Connection = connRN4;
-            cmdCaseId.Transaction = tranCaseId;
-
-            try
-            {
-                String strSqlQueryForLastCaseId = "select [dbo].[tbl_LastId].[CaseId] from [dbo].[tbl_LastId] where [dbo].[tbl_LastID].[Id] = 1";
-
-                cmdCaseId.CommandText = strSqlQueryForLastCaseId;
-                cmdCaseId.CommandType = CommandType.Text;
-
-                Object objLastCaseId = cmdCaseId.ExecuteScalar();
-
-                String strMaxCaseName = String.Empty;
-                if (objLastCaseId != null) strMaxCaseName = objLastCaseId.ToString();
-
-                Int32 nNewCaseNo = Int32.Parse(strMaxCaseName.Substring(5));
-                nNewCaseNo++;
-                strNewCaseName = "Case-" + nNewCaseNo.ToString();
-
-                String strSqlUpdateLastCaseId = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CaseId] = @NewCaseId where [dbo].[tbl_LastID].[Id] = 1";
-
-                cmdCaseId.CommandText = strSqlUpdateLastCaseId;
-                cmdCaseId.CommandType = CommandType.Text;
-
-                cmdCaseId.Parameters.AddWithValue("@NewCaseId", strNewCaseName);
-
-                int nCaseIdUpdated = cmdCaseId.ExecuteNonQuery();
-
-                tranCaseId.Commit();
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    tranCaseId.Rollback();
-                }
-                catch (SqlException se)
-                {
-                    MessageBox.Show(se.Message, "Error");
-                }
-                MessageBox.Show(ex.Message, "Error");
-            }
-            if (connRN4.State != ConnectionState.Closed) connRN4.Close();
-
-            string strCaseName = strNewCaseName;
-            String NewChildCaseName = strNewCaseName;
-
-            txtCaseName.Text = NewChildCaseName;
-
-
-
-
-
-            ResetMedDocumentsReceivedDate();
-
-            //txtCaseName.Text = strNewCaseName;
-
-            txtCaseIndividualID.Text = txtIndividualID.Text;
-
-            if (txtMiddleName.Text == String.Empty) txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text;
-            else txtCreateCaseIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
-
-            chkNPF_CaseCreationPage.Checked = false;
-            chkIB_CaseCreationPage.Checked = false;
-            chkPoP_CaseCreationPage.Checked = false;
-            chkMedicalRecordCaseCreationPage.Checked = false;
-            chkOtherDocCaseCreationPage.Checked = false;
-
-            txtNPFFormFilePath.Text = String.Empty;
-            txtIBFilePath.Text = String.Empty;
-            txtPopFilePath.Text = String.Empty;
-            txtMedicalRecordFilePath.Text = String.Empty;
-            txtOtherDocumentFilePath.Text = String.Empty;
-
-            //txtNPFUploadDate.Text = String.Empty;
-            //txtIBUploadDate.Text = String.Empty;
-            //txtPoPUploadDate.Text = String.Empty;
-            //txtMRUploadDate.Text = String.Empty;
-            //txtOtherDocUploadDate.Text = String.Empty;
-
-            tbCMMManager.SelectedTab = tbpgCreateCase;
-
-            btnNewMedBill_Case.Enabled = false;
-            btnEditMedBill.Enabled = false;
-            btnDeleteMedBill.Enabled = false;
-
-            EnableCaseForm();
-
-            btnCaseCreationSaveUpper.Enabled = true;
-
-            //gvCasePageMedBills.Rows.Clear();
-
-            String strSqlQueryForMedBillInCase = "select [dbo].[tbl_medbill].[BillNo], [dbo].[tbl_medbill_type].[MedBillTypeName], " +
-                    "[dbo].[tbl_medbill].[CreatedDate], [dbo].[tbl_CreateStaff].[Staff_Name], " +
-                    "[dbo].[tbl_medbill].[LastModifiedDate], [dbo].[tbl_ModifiStaff].[Staff_Name], " +
-                    "[dbo].[tbl_medbill].[BillAmount], [dbo].[tbl_medbill].[SettlementTotal], " +
-                    "[dbo].[tbl_medbill].[TotalSharedAmount], [dbo].[tbl_medbill].[Balance] " +
-                    "from [dbo].[tbl_medbill] " +
-                    "inner join [dbo].[tbl_medbill_type] on [dbo].[tbl_medbill].[MedBillType_Id] = [dbo].[tbl_medbill_type].[MedBillTypeId] " +
-                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                    "inner join [dbo].[tbl_ModifiStaff] on [dbo].[tbl_medbill].[LastModifiedById] = [dbo].[tbl_ModifiStaff].[ModifiStaff_Id] " +
-                    "where [dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
-                    "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and " +
-                    "([dbo].[tbl_medbill].[IsDeleted] = 0 or [dbo].[tbl_medbill].[IsDeleted] IS NULL)";
-
-            SqlCommand cmdQueryForMedBillsInCase = new SqlCommand(strSqlQueryForMedBillInCase, connRN2);
-            cmdQueryForMedBillsInCase.CommandType = CommandType.Text;
-
-            cmdQueryForMedBillsInCase.Parameters.AddWithValue("@CaseName", NewChildCaseName);
-            cmdQueryForMedBillsInCase.Parameters.AddWithValue("@IndividualId", IndividualIdChildCase);
-
-            SqlDependency dependencyMedBillInCase = new SqlDependency(cmdQueryForMedBillsInCase);
-            dependencyMedBillInCase.OnChange += new OnChangeEventHandler(OnMedBillsInCaseChange);
-
-
-
-            //if (connRN.State == ConnectionState.Closed) connRN.Open();
-            if (connRN2.State != ConnectionState.Closed)
-            {
-                connRN2.Close();
-                connRN2.Open();
-            }
-            else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
-
-            SqlDataReader rdrMedBillInCase = cmdQueryForMedBillsInCase.ExecuteReader();
-            gvCasePageMedBills.Rows.Clear();
-            if (rdrMedBillInCase.HasRows)
-            {
-                while (rdrMedBillInCase.Read())
-                {
-                    DataGridViewRow row = new DataGridViewRow();
-
-                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(0) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(1) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(2).ToString("MM/dd/yyyy") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(6).ToString("C") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(7).ToString("C") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(8).ToString("C") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDecimal(9).ToString("C") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(3) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetDateTime(4).ToString("MM/dd/yyyy") });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillInCase.GetString(5) });
-
-                    gvCasePageMedBills.Rows.Add(row);
-                }
-                btnEditMedBill.Enabled = true;
-                btnDeleteMedBill.Enabled = true;
-            }
-            rdrMedBillInCase.Close();
-            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
-            gvCasePageMedBills.Enabled = true;
-            gvCasePageMedBills.Controls[0].Enabled = true;
-            gvCasePageMedBills.Controls[1].Enabled = true;
-
         }
 
         private void dtpNPFReceivedDate_ValueChanged(object sender, EventArgs e)

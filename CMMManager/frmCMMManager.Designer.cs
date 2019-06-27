@@ -388,9 +388,6 @@
             this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
-            this.txtParentCaseName = new System.Windows.Forms.TextBox();
-            this.label132 = new System.Windows.Forms.Label();
-            this.btnCreateAddOnCase = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
             this.gvCasePageMedBills = new System.Windows.Forms.DataGridView();
             this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -448,8 +445,6 @@
             this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewTaskCaseForm = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
-            this.btnIncomplete = new System.Windows.Forms.Button();
-            this.btnApprovedSendToRN = new System.Windows.Forms.Button();
             this.btnOtherDocView = new System.Windows.Forms.Button();
             this.btnDeleteUnknownDoc = new System.Windows.Forms.Button();
             this.btnUnknownDocUpload = new System.Windows.Forms.Button();
@@ -4206,9 +4201,6 @@
             // 
             // tbpgCreateCase
             // 
-            this.tbpgCreateCase.Controls.Add(this.txtParentCaseName);
-            this.tbpgCreateCase.Controls.Add(this.label132);
-            this.tbpgCreateCase.Controls.Add(this.btnCreateAddOnCase);
             this.tbpgCreateCase.Controls.Add(this.btnReloadMedBillsInCaseForm);
             this.tbpgCreateCase.Controls.Add(this.gvCasePageMedBills);
             this.tbpgCreateCase.Controls.Add(this.dtpIBReceivedDate);
@@ -4239,8 +4231,6 @@
             this.tbpgCreateCase.Controls.Add(this.gvTaskInCase);
             this.tbpgCreateCase.Controls.Add(this.btnNewTaskCaseForm);
             this.tbpgCreateCase.Controls.Add(this.label49);
-            this.tbpgCreateCase.Controls.Add(this.btnIncomplete);
-            this.tbpgCreateCase.Controls.Add(this.btnApprovedSendToRN);
             this.tbpgCreateCase.Controls.Add(this.btnOtherDocView);
             this.tbpgCreateCase.Controls.Add(this.btnDeleteUnknownDoc);
             this.tbpgCreateCase.Controls.Add(this.btnUnknownDocUpload);
@@ -4277,34 +4267,6 @@
             this.tbpgCreateCase.TabIndex = 8;
             this.tbpgCreateCase.Text = "Case";
             this.tbpgCreateCase.UseVisualStyleBackColor = true;
-            // 
-            // txtParentCaseName
-            // 
-            this.txtParentCaseName.Location = new System.Drawing.Point(132, 125);
-            this.txtParentCaseName.Name = "txtParentCaseName";
-            this.txtParentCaseName.ReadOnly = true;
-            this.txtParentCaseName.Size = new System.Drawing.Size(220, 20);
-            this.txtParentCaseName.TabIndex = 154;
-            // 
-            // label132
-            // 
-            this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label132.Location = new System.Drawing.Point(42, 126);
-            this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(85, 16);
-            this.label132.TabIndex = 153;
-            this.label132.Text = "Parent Case:";
-            // 
-            // btnCreateAddOnCase
-            // 
-            this.btnCreateAddOnCase.Location = new System.Drawing.Point(399, 91);
-            this.btnCreateAddOnCase.Name = "btnCreateAddOnCase";
-            this.btnCreateAddOnCase.Size = new System.Drawing.Size(202, 33);
-            this.btnCreateAddOnCase.TabIndex = 152;
-            this.btnCreateAddOnCase.Text = "Create Add On Case";
-            this.btnCreateAddOnCase.UseVisualStyleBackColor = true;
-            this.btnCreateAddOnCase.Click += new System.EventHandler(this.btnCreateAddOnCase_Click);
             // 
             // btnReloadMedBillsInCaseForm
             // 
@@ -4457,7 +4419,7 @@
             // cbCaseStatus
             // 
             this.cbCaseStatus.FormattingEnabled = true;
-            this.cbCaseStatus.Location = new System.Drawing.Point(132, 370);
+            this.cbCaseStatus.Location = new System.Drawing.Point(126, 392);
             this.cbCaseStatus.Name = "cbCaseStatus";
             this.cbCaseStatus.Size = new System.Drawing.Size(150, 21);
             this.cbCaseStatus.TabIndex = 37;
@@ -4497,18 +4459,18 @@
             // txtNoteOnCase
             // 
             this.txtNoteOnCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoteOnCase.Location = new System.Drawing.Point(42, 420);
+            this.txtNoteOnCase.Location = new System.Drawing.Point(41, 447);
             this.txtNoteOnCase.Multiline = true;
             this.txtNoteOnCase.Name = "txtNoteOnCase";
             this.txtNoteOnCase.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 80);
+            this.txtNoteOnCase.Size = new System.Drawing.Size(836, 97);
             this.txtNoteOnCase.TabIndex = 38;
             // 
             // label177
             // 
             this.label177.AutoSize = true;
             this.label177.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label177.Location = new System.Drawing.Point(43, 400);
+            this.label177.Location = new System.Drawing.Point(38, 428);
             this.label177.Name = "label177";
             this.label177.Size = new System.Drawing.Size(40, 16);
             this.label177.TabIndex = 141;
@@ -4798,29 +4760,11 @@
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(43, 371);
+            this.label49.Location = new System.Drawing.Point(38, 393);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(83, 16);
             this.label49.TabIndex = 102;
             this.label49.Text = "Case Status:";
-            // 
-            // btnIncomplete
-            // 
-            this.btnIncomplete.Location = new System.Drawing.Point(471, 507);
-            this.btnIncomplete.Name = "btnIncomplete";
-            this.btnIncomplete.Size = new System.Drawing.Size(407, 37);
-            this.btnIncomplete.TabIndex = 101;
-            this.btnIncomplete.Text = "Incomplete";
-            this.btnIncomplete.UseVisualStyleBackColor = true;
-            // 
-            // btnApprovedSendToRN
-            // 
-            this.btnApprovedSendToRN.Location = new System.Drawing.Point(41, 507);
-            this.btnApprovedSendToRN.Name = "btnApprovedSendToRN";
-            this.btnApprovedSendToRN.Size = new System.Drawing.Size(407, 37);
-            this.btnApprovedSendToRN.TabIndex = 100;
-            this.btnApprovedSendToRN.Text = "Approved / Send to RN";
-            this.btnApprovedSendToRN.UseVisualStyleBackColor = true;
             // 
             // btnOtherDocView
             // 
@@ -5094,7 +5038,7 @@
             // 
             // txtCreateCaseIndividualName
             // 
-            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(508, 159);
+            this.txtCreateCaseIndividualName.Location = new System.Drawing.Point(510, 131);
             this.txtCreateCaseIndividualName.Name = "txtCreateCaseIndividualName";
             this.txtCreateCaseIndividualName.ReadOnly = true;
             this.txtCreateCaseIndividualName.Size = new System.Drawing.Size(368, 20);
@@ -5102,7 +5046,7 @@
             // 
             // txtCaseIndividualID
             // 
-            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 159);
+            this.txtCaseIndividualID.Location = new System.Drawing.Point(132, 131);
             this.txtCaseIndividualID.Name = "txtCaseIndividualID";
             this.txtCaseIndividualID.ReadOnly = true;
             this.txtCaseIndividualID.Size = new System.Drawing.Size(220, 20);
@@ -5112,7 +5056,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.Location = new System.Drawing.Point(396, 161);
+            this.label47.Location = new System.Drawing.Point(398, 133);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(108, 16);
             this.label47.TabIndex = 70;
@@ -5122,7 +5066,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(42, 161);
+            this.label46.Location = new System.Drawing.Point(42, 131);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(84, 16);
             this.label46.TabIndex = 69;
@@ -10502,8 +10446,6 @@
         private System.Windows.Forms.DataGridView gvTaskInCase;
         private System.Windows.Forms.Button btnNewTaskCaseForm;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Button btnIncomplete;
-        private System.Windows.Forms.Button btnApprovedSendToRN;
         private System.Windows.Forms.Button btnOtherDocView;
         private System.Windows.Forms.Button btnDeleteUnknownDoc;
         private System.Windows.Forms.Button btnUnknownDocUpload;
@@ -11326,7 +11268,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
         private System.Windows.Forms.Button btnReloadInactive;
-        private System.Windows.Forms.Button btnCreateAddOnCase;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
         private System.Windows.Forms.DataGridViewTextBoxColumn SettlementName;
         private System.Windows.Forms.DataGridViewComboBoxColumn SettlementTypeValue;
@@ -11344,8 +11285,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn IneligibleReason;
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SettlementViewed;
-        private System.Windows.Forms.TextBox txtParentCaseName;
-        private System.Windows.Forms.Label label132;
         private System.Windows.Forms.Button btnDeleteMedBillDocument;
         private System.Windows.Forms.Button btnAddNewDocument;
         private System.Windows.Forms.DataGridView gvMedicalBillDocuments;
