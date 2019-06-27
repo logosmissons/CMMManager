@@ -859,7 +859,8 @@ namespace CMMManager
 
             // Retrieve credit card info
             lstCreditCardInfo.Clear();
-            String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+            //String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+            String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
             SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN);
             cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -876,8 +877,12 @@ namespace CMMManager
             {
                 while (rdrCreditCardInfo.Read())
                 {
-                    if (!rdrCreditCardInfo.IsDBNull(1)) lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
-                    else lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                    //if (!rdrCreditCardInfo.IsDBNull(1)) lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                    //else lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+
+                    if (!rdrCreditCardInfo.IsDBNull(0)) lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                    else lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
+                    
                 }
             }
             rdrCreditCardInfo.Close();
@@ -10142,7 +10147,7 @@ namespace CMMManager
                 //                  "from [dbo].[tbl_settlement] " +
                 //                  "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                 //                  "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                //                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id] " +
+                //                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id] " +
                 //                  "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                 //                  "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
                 //                  "where[dbo].[tbl_illness].[Illness_Id] = @IllnessId and [dbo].[tbl_settlement].[IsDeleted] = 0 " +
@@ -10799,7 +10804,7 @@ namespace CMMManager
                                               "from [dbo].[tbl_settlement] " +
                                               "inner join [dbo].[tbl_settlement_type_code] on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                               "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                              "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id] " +
+                                              "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id] " +
                                               "inner join [dbo].[tbl_medbill] on [dbo].[tbl_settlement].[MedicalBillID] = [dbo].[tbl_medbill].[BillNo] " +
                                               "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
                                               "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_Id] " +
@@ -12460,7 +12465,8 @@ namespace CMMManager
                                         if (gvSettlementsInMedBill["Reconciled", i].Value != null) NewACH_Reconciled = 1;
                                     }
 
-                                    int nCMMCreditCard = 0;
+                                    //int nCMMCreditCard = 0;
+                                    String strCMMCreditCardId = String.Empty;
                                     DateTime? NewCreditCardPaidDate = null;
                                     int NewIsCCReconciled = 0;
 
@@ -12471,7 +12477,8 @@ namespace CMMManager
                                         {
                                             if (CreditCard == lstCreditCardInfo[j].CreditCardNo)
                                             {
-                                                nCMMCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                //nCMMCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                strCMMCreditCardId = lstCreditCardInfo[j].Id;
                                             }
                                         }
                                         if (gvSettlementsInMedBill["PaymentDate", i].Value != null)
@@ -12517,7 +12524,7 @@ namespace CMMManager
                                     else cmdInsertNewSettlement.Parameters.AddWithValue("@ACH_Date", DBNull.Value);
 
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IsACH_Reconciled", NewACH_Reconciled);
-                                    cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCard", nCMMCreditCard);
+                                    cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCard", strCMMCreditCardId);
 
                                     if (NewCreditCardPaidDate != null) cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", NewCreditCardPaidDate);
                                     else cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", DBNull.Value);
@@ -12633,7 +12640,8 @@ namespace CMMManager
                                     int nACHReconciled = 0;
 
                                     String CreditCard = String.Empty;
-                                    int nCreditCard = 0;
+                                    //int nCreditCard = 0;
+                                    String strCreditCardId = String.Empty;
                                     DateTime? CreditCardPaidDate = null;
                                     int nCCReconciled = 0;
 
@@ -12673,7 +12681,8 @@ namespace CMMManager
                                             if (gvSettlementsInMedBill["CreditCard", i].Value != null) CreditCard = gvSettlementsInMedBill["CreditCard", i].Value.ToString();
                                             for (int j = 0; j < lstCreditCardInfo.Count; j++)
                                             {
-                                                if (CreditCard == lstCreditCardInfo[j].CreditCardNo) nCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                //if (CreditCard == lstCreditCardInfo[j].CreditCardNo) nCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                if (CreditCard == lstCreditCardInfo[j].CreditCardNo) strCreditCardId = lstCreditCardInfo[j].Id;
                                             }
                                             if (gvSettlementsInMedBill["PaymentDate", i].Value != null)
                                             {
@@ -12737,7 +12746,8 @@ namespace CMMManager
                                     else cmdUpdateSettlement.Parameters.AddWithValue("@ACH_Date", DBNull.Value);
 
                                     cmdUpdateSettlement.Parameters.AddWithValue("@ACH_Reconciled", nACHReconciled);
-                                    cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCard", nCreditCard);
+                                    //cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCard", nCreditCard);
+                                    cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCard", strCreditCardId);
 
                                     if (CreditCardPaidDate != null) cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", CreditCardPaidDate);
                                     else cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", DBNull.Value);
@@ -12844,7 +12854,7 @@ namespace CMMManager
                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                   "([dbo].[tbl_settlement].[IsDeleted] = 0 or [dbo].[tbl_settlement].[IsDeleted] IS NULL) " +
                                   "order by [dbo].[tbl_settlement].[Name]";
@@ -14453,7 +14463,8 @@ namespace CMMManager
                                         if (gvSettlementsInMedBill["Reconciled", i].Value != null) NewACH_Reconciled = 1;
                                     }
 
-                                    int nCMMCreditCard = 0;
+                                    //int nCMMCreditCard = 0;
+                                    String strCMMCreditCard = String.Empty;
                                     DateTime? NewCreditCardPaidDate = null;
                                     int NewIsCCReconciled = 0;
 
@@ -14464,7 +14475,8 @@ namespace CMMManager
                                         {
                                             if (CreditCard == lstCreditCardInfo[j].CreditCardNo)
                                             {
-                                                nCMMCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                //nCMMCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                strCMMCreditCard = lstCreditCardInfo[j].Id;
                                             }
                                         }
                                         if (gvSettlementsInMedBill["PaymentDate", i].Value != null)
@@ -14511,7 +14523,7 @@ namespace CMMManager
                                     else cmdInsertNewSettlement.Parameters.AddWithValue("@ACH_Date", DBNull.Value);
 
                                     cmdInsertNewSettlement.Parameters.AddWithValue("@IsACH_Reconciled", NewACH_Reconciled);
-                                    cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCard", nCMMCreditCard);
+                                    cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCard", strCMMCreditCard);
 
                                     if (NewCreditCardPaidDate != null) cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", NewCreditCardPaidDate);
                                     else cmdInsertNewSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", DBNull.Value);
@@ -14634,7 +14646,8 @@ namespace CMMManager
                                     int nACHReconciled = 0;
 
                                     String CreditCard = String.Empty;
-                                    int nCreditCard = 0;
+                                    //int nCreditCard = 0;
+                                    String strCreditCardId = String.Empty;
                                     DateTime? CreditCardPaidDate = null;
                                     int nCCReconciled = 0;
 
@@ -14674,7 +14687,8 @@ namespace CMMManager
                                             if (gvSettlementsInMedBill["CreditCard", i].Value != null) CreditCard = gvSettlementsInMedBill["CreditCard", i].Value.ToString();
                                             for (int j = 0; j < lstCreditCardInfo.Count; j++)
                                             {
-                                                if (CreditCard == lstCreditCardInfo[j].CreditCardNo) nCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                //if (CreditCard == lstCreditCardInfo[j].CreditCardNo) nCreditCard = lstCreditCardInfo[j].CreditCardId;
+                                                if (CreditCard == lstCreditCardInfo[j].CreditCardNo) strCreditCardId = lstCreditCardInfo[j].Id;
                                             }
                                             if (gvSettlementsInMedBill["PaymentDate", i].Value != null)
                                             {
@@ -14738,7 +14752,7 @@ namespace CMMManager
                                     else cmdUpdateSettlement.Parameters.AddWithValue("@ACH_Date", DBNull.Value);
 
                                     cmdUpdateSettlement.Parameters.AddWithValue("@ACH_Reconciled", nACHReconciled);
-                                    cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCard", nCreditCard);
+                                    cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCard", strCreditCardId);
 
                                     if (CreditCardPaidDate != null) cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", CreditCardPaidDate);
                                     else cmdUpdateSettlement.Parameters.AddWithValue("@CMMCreditCardPaidDate", DBNull.Value);
@@ -17015,7 +17029,7 @@ namespace CMMManager
                     //          "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                     //          "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                     //          "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                    //          "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                    //          "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                     //          "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                     //          "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                     //          "order by [dbo].[tbl_settlement].[Name]";
@@ -17951,7 +17965,7 @@ namespace CMMManager
                     //          "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                     //          "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                     //          "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                    //          "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                    //          "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                     //          "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                     //          "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                     //          "order by [dbo].[tbl_settlement].[Name]";
@@ -19637,7 +19651,7 @@ namespace CMMManager
                                             "[dbo].[tbl_Credit_Card__c].[Name], [dbo].[tbl_settlement].[CMMCreditCardPaidDay], [dbo].[tbl_settlement].[CC_Reconciled], " +
                                             "[dbo].[tbl_settlement].[ACH_Number], [dbo].[tbl_settlement].[ACH_Date], [dbo].[tbl_settlement].[ACH_Reconciled],  " +
                                             "[dbo].[tbl_settlement].[Notes], [dbo].[tbl_settlement].[Approved], [dbo].[tbl_settlement].[ApprovedDate] " +
-                                            "from (([dbo].[tbl_settlement] inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]) " +
+                                            "from (([dbo].[tbl_settlement] inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]) " +
                                             "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id]) " +
                                             "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo";
 
@@ -22141,7 +22155,8 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                //String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -22158,10 +22173,14 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -22178,7 +22197,7 @@ namespace CMMManager
                                                     "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                     "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                     "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                                     "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                                     "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                                     "order by [dbo].[tbl_settlement].[Name]";
@@ -24960,7 +24979,7 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -24978,10 +24997,15 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
+
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -24998,7 +25022,7 @@ namespace CMMManager
                                 "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                 "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                 "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                 "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                 "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                 "order by [dbo].[tbl_settlement].[Name]";
@@ -25705,7 +25729,7 @@ namespace CMMManager
                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and [dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                   "order by [dbo].[tbl_settlement].[Name]";
 
@@ -27634,7 +27658,7 @@ namespace CMMManager
                                                "left join [SalesForce].[dbo].[contact] on [RN_DB].[dbo].[tbl_medbill].[Individual_Id] = [SalesForce].[dbo].[contact].[Individual_ID__c] " +
                                                "left join [RN_DB].[dbo].[tbl_settlement_type_code] on [RN_DB].[dbo].[tbl_settlement].[SettlementType] = [RN_DB].[dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                "left join [RN_DB].[dbo].[tbl_payment_method] on [RN_DB].[dbo].[tbl_settlement].[CMMPaymentMethod] = [RN_DB].[dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                               "left join [RN_DB].[dbo].[tbl_Credit_Card__c] on [RN_DB].[dbo].[tbl_settlement].[CMMCreditCard] = [RN_DB].[dbo].[tbl_Credit_Card__c].[CreditCard_Id] " +
+                                               "left join [RN_DB].[dbo].[tbl_Credit_Card__c] on [RN_DB].[dbo].[tbl_settlement].[CMMCreditCard] = [RN_DB].[dbo].[tbl_Credit_Card__c].[Id] " +
                                                "where ([RN_DB].[dbo].[tbl_settlement].[Name] like '%' + @SettlementNo + '%' or " +
                                                "[RN_DB].[dbo].[tbl_settlement].[MedicalBillID] like '%' + @MedicalBillNo + '%' or " +
                                                "[SalesForce].[dbo].[contact].[Individual_ID__c] like '%' + @IndividualId + '%' or " +
@@ -31683,7 +31707,7 @@ namespace CMMManager
                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                   "order by [dbo].[tbl_settlement].[Name]";
@@ -36678,7 +36702,7 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -36695,10 +36719,14 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = rdrCreditCardInfo.GetString(1) });
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -36896,7 +36924,7 @@ namespace CMMManager
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                                   "order by [dbo].[tbl_settlement].[Name]";
@@ -53496,7 +53524,7 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -53513,10 +53541,14 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -53534,7 +53566,7 @@ namespace CMMManager
                                     "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                     "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                     "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                     "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                     "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                     "order by [dbo].[tbl_settlement].[Name]";
@@ -55213,7 +55245,7 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -55230,10 +55262,14 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -55431,7 +55467,7 @@ namespace CMMManager
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                                   "order by [dbo].[tbl_settlement].[Name]";
@@ -56983,7 +57019,8 @@ namespace CMMManager
 
                 // Retrieve credit card info
                 lstCreditCardInfo.Clear();
-                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                //String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[CreditCard_Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
+                String strSqlQueryForCreditCardInfo = "select [dbo].[tbl_Credit_Card__c].[Id], [dbo].[tbl_Credit_Card__c].[Name] from [dbo].[tbl_Credit_Card__c]";
 
                 SqlCommand cmdQueryForCreditCardInfo = new SqlCommand(strSqlQueryForCreditCardInfo, connRN4);
                 cmdQueryForCreditCardInfo.CommandType = CommandType.Text;
@@ -57000,10 +57037,14 @@ namespace CMMManager
                 {
                     while (rdrCreditCardInfo.Read())
                     {
-                        if (!rdrCreditCardInfo.IsDBNull(1))
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //if (!rdrCreditCardInfo.IsDBNull(1))
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
+                        //else
+                        //    lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                        if (!rdrCreditCardInfo.IsDBNull(0))
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = rdrCreditCardInfo.GetString(0), CreditCardNo = rdrCreditCardInfo.GetString(1) });
                         else
-                            lstCreditCardInfo.Add(new CreditCardInfo { CreditCardId = rdrCreditCardInfo.GetInt16(0), CreditCardNo = null });
+                            lstCreditCardInfo.Add(new CreditCardInfo { Id = String.Empty, CreditCardNo = String.Empty });
                     }
                 }
                 rdrCreditCardInfo.Close();
@@ -57201,7 +57242,7 @@ namespace CMMManager
                                                   "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                                   "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                                   "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                                  "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                                   "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                                   "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                                   "order by [dbo].[tbl_settlement].[Name]";
@@ -58737,7 +58778,7 @@ namespace CMMManager
                                     "from [dbo].[tbl_settlement] inner join [dbo].[tbl_settlement_type_code] " +
                                     "on [dbo].[tbl_settlement].[SettlementType] = [dbo].[tbl_settlement_type_code].[SettlementTypeCode] " +
                                     "inner join [dbo].[tbl_payment_method] on [dbo].[tbl_settlement].[CMMPaymentMethod] = [dbo].[tbl_payment_method].[PaymentMethod_Id] " +
-                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[CreditCard_Id]" +
+                                    "inner join [dbo].[tbl_Credit_Card__c] on [dbo].[tbl_settlement].[CMMCreditCard] = [dbo].[tbl_Credit_Card__c].[Id]" +
                                     "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo and " +
                                     "[dbo].[tbl_settlement].[IsDeleted] = 0 " +
                                     "order by [dbo].[tbl_settlement].[Name]";
@@ -59872,7 +59913,7 @@ namespace CMMManager
 
         private void btnAddChildCase_Click(object sender, EventArgs e)
         {
-            String ParentCaseName = txtCaseName.Text.Trim();
+            //String ParentCaseName = txtCaseName.Text.Trim();
 
 
         }

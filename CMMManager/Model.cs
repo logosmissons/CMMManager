@@ -480,18 +480,27 @@ namespace CMMManager
 
     public class CreditCardInfo
     {
+        public String Id;
         public int CreditCardId;
         public String CreditCardNo;
 
         public CreditCardInfo()
         {
+            Id = String.Empty;
             CreditCardId = 0;
             CreditCardNo = String.Empty;
         }
 
-        public CreditCardInfo(int id, String card_no)
+        public CreditCardInfo(String credit_card_id, int id, String card_no)
         {
+            Id = credit_card_id;
             CreditCardId = id;
+            CreditCardNo = card_no;
+        }
+
+        public CreditCardInfo(String id, String card_no)
+        {
+            Id = id;
             CreditCardNo = card_no;
         }
     }
