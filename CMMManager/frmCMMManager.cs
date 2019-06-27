@@ -62696,6 +62696,8 @@ namespace CMMManager
             row.Cells.Add(docTypeCell);
             row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
             row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+            CalendarCell receivedDateCell = new CalendarCell();
+            row.Cells.Add(receivedDateCell);
             row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
 
             gvCaseDocuments.Rows.Add(row);
@@ -62717,7 +62719,7 @@ namespace CMMManager
                     gvCaseDocuments[3, e.RowIndex].Value = filePath;
                 }
             }
-            if (e.ColumnIndex == 4)
+            if (e.ColumnIndex == 5)
             {
                 String PathName = String.Empty;
 

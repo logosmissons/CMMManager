@@ -389,11 +389,6 @@
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
-            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.UploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DocumentPathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnDeleteCaseDocument = new System.Windows.Forms.Button();
             this.btnAddNewCaseDocument = new System.Windows.Forms.Button();
             this.txtParentCaseName = new System.Windows.Forms.TextBox();
@@ -1019,6 +1014,12 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.UploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DocumentPathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
+            this.ViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -4226,41 +4227,13 @@
             this.DocumentTypeCaseDocument,
             this.UploadCaseDocument,
             this.DocumentPathCaseDocument,
+            this.ReceivedDateCaseDocument,
             this.ViewCaseDocument});
             this.gvCaseDocuments.Location = new System.Drawing.Point(46, 202);
             this.gvCaseDocuments.Name = "gvCaseDocuments";
             this.gvCaseDocuments.Size = new System.Drawing.Size(830, 179);
             this.gvCaseDocuments.TabIndex = 157;
             this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
-            // 
-            // SelectedCaseDocument
-            // 
-            this.SelectedCaseDocument.HeaderText = "";
-            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
-            this.SelectedCaseDocument.Width = 40;
-            // 
-            // DocumentTypeCaseDocument
-            // 
-            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
-            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
-            // 
-            // UploadCaseDocument
-            // 
-            this.UploadCaseDocument.HeaderText = "";
-            this.UploadCaseDocument.Name = "UploadCaseDocument";
-            this.UploadCaseDocument.Width = 80;
-            // 
-            // DocumentPathCaseDocument
-            // 
-            this.DocumentPathCaseDocument.HeaderText = "Destination Path";
-            this.DocumentPathCaseDocument.Name = "DocumentPathCaseDocument";
-            this.DocumentPathCaseDocument.Width = 440;
-            // 
-            // ViewCaseDocument
-            // 
-            this.ViewCaseDocument.HeaderText = "";
-            this.ViewCaseDocument.Name = "ViewCaseDocument";
-            this.ViewCaseDocument.Width = 80;
             // 
             // btnDeleteCaseDocument
             // 
@@ -9800,6 +9773,40 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // SelectedCaseDocument
+            // 
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
+            // 
+            // DocumentTypeCaseDocument
+            // 
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            // 
+            // UploadCaseDocument
+            // 
+            this.UploadCaseDocument.HeaderText = "";
+            this.UploadCaseDocument.Name = "UploadCaseDocument";
+            this.UploadCaseDocument.Width = 80;
+            // 
+            // DocumentPathCaseDocument
+            // 
+            this.DocumentPathCaseDocument.HeaderText = "Destination Path";
+            this.DocumentPathCaseDocument.Name = "DocumentPathCaseDocument";
+            this.DocumentPathCaseDocument.Width = 360;
+            // 
+            // ReceivedDateCaseDocument
+            // 
+            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
+            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
+            // 
+            // ViewCaseDocument
+            // 
+            this.ViewCaseDocument.HeaderText = "";
+            this.ViewCaseDocument.Name = "ViewCaseDocument";
+            this.ViewCaseDocument.Width = 80;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10941,6 +10948,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
         private System.Windows.Forms.DataGridViewButtonColumn UploadCaseDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocumentPathCaseDocument;
+        private CalendarColumn ReceivedDateCaseDocument;
         private System.Windows.Forms.DataGridViewButtonColumn ViewCaseDocument;
     }
 }
