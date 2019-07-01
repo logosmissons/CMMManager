@@ -397,6 +397,9 @@
             this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DocIdCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteCaseDoc = new System.Windows.Forms.Button();
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
@@ -4226,11 +4229,15 @@
             this.BtnViewCaseDocument,
             this.NoteCaseDocument,
             this.CreatedByCaseDocument,
-            this.CreatedDateCaseDocument});
+            this.CreatedDateCaseDocument,
+            this.TypeCaseDocument,
+            this.DocIdCaseDocument,
+            this.FilePathCaseDocument});
             this.gvCaseDocuments.Location = new System.Drawing.Point(44, 207);
             this.gvCaseDocuments.Name = "gvCaseDocuments";
             this.gvCaseDocuments.Size = new System.Drawing.Size(833, 169);
             this.gvCaseDocuments.TabIndex = 154;
+            this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
             // 
             // SelectedCaseDocument
             // 
@@ -4275,6 +4282,21 @@
             // 
             this.CreatedDateCaseDocument.HeaderText = "Created Date";
             this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
+            // 
+            // TypeCaseDocument
+            // 
+            this.TypeCaseDocument.HeaderText = "Type";
+            this.TypeCaseDocument.Name = "TypeCaseDocument";
+            // 
+            // DocIdCaseDocument
+            // 
+            this.DocIdCaseDocument.HeaderText = "Id";
+            this.DocIdCaseDocument.Name = "DocIdCaseDocument";
+            // 
+            // FilePathCaseDocument
+            // 
+            this.FilePathCaseDocument.HeaderText = "Destination";
+            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // btnDeleteCaseDoc
             // 
@@ -10927,6 +10949,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDateCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DocIdCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseDocument;
     }
 }
 

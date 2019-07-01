@@ -20933,6 +20933,487 @@ namespace CMMManager
                     }
                     rdrCaseForIndividual.Close();
                     if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    // Populate the gvCaseDocument DataGridView from Case table
+                    String strSqlQueryForCaseDocFromCaseTable = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
+                                                                "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
+                                                                "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Form_Destination_File_Name], [dbo].[tbl_case].[POP_Receiv_Date], " +
+                                                                "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Form_Destination_File_Name], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
+                                                                "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Form_Destination_File_Name], [dbo].[tbl_case].[Unknown_Receiv_Date], " +
+                                                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case].[CreateDate] " +
+                                                                "from [dbo].[tbl_case] " +
+                                                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_case].[CreateStaff] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                                "where [dbo].[tbl_case].[Case_Name] = @CaseNo"; // CaseIdForCasePageMedBill
+
+                    SqlCommand cmdQueryForCaseDocFromCaseTable = new SqlCommand(strSqlQueryForCaseDocFromCaseTable, connRN2);
+                    cmdQueryForCaseDocFromCaseTable.CommandType = CommandType.Text;
+
+                    cmdQueryForCaseDocFromCaseTable.Parameters.AddWithValue("@CaseNo", CaseIdForCasePageMedBill);
+
+                    if (connRN2.State != ConnectionState.Closed)
+                    {
+                        connRN2.Close();
+                        connRN2.Open();
+                    }
+                    else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                    SqlDataReader rdrCaseDocFromCaseTable = cmdQueryForCaseDocFromCaseTable.ExecuteReader();
+                    if (rdrCaseDocFromCaseTable.HasRows)
+                    {
+                        rdrCaseDocFromCaseTable.Read();
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(0) && !rdrCaseDocFromCaseTable.IsDBNull(1) && !rdrCaseDocFromCaseTable.IsDBNull(2))
+                        {
+                            if (rdrCaseDocFromCaseTable.GetBoolean(0))
+                            {
+                                DataGridViewRow row = new DataGridViewRow();
+
+                                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                                DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                                comboDocTypeCell.Items.Add("NPF");
+                                row.Cells.Add(comboDocTypeCell);
+                                comboDocTypeCell.Value = "NPF";
+                                comboDocTypeCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                                btnUploadCell.Value = "Upload";
+                                row.Cells.Add(btnUploadCell);
+                                btnUploadCell.ReadOnly = true;
+
+                                strNPFormFilePathDestination = rdrCaseDocFromCaseTable.GetString(1);
+
+                                CalendarCell calReceivedDateCell = new CalendarCell();
+                                calReceivedDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(2);
+                                row.Cells.Add(calReceivedDateCell);
+                                calReceivedDateCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                                btnViewCell.Value = "View";
+                                row.Cells.Add(btnViewCell);
+
+                                DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                                txtNoteCell.Value = String.Empty;
+                                row.Cells.Add(txtNoteCell);
+                                txtNoteCell.ReadOnly = true;
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(15))
+                                {
+                                    DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                                    txtCreatedByCell.Value = rdrCaseDocFromCaseTable.GetString(15);
+                                    row.Cells.Add(txtCreatedByCell);
+                                    txtCreatedByCell.ReadOnly = true;
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(16))
+                                {
+                                    DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                                    txtCreateDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(16).ToString("MM/dd/yyyy HH:mm:ss");
+                                    row.Cells.Add(txtCreateDateCell);
+                                    txtCreateDateCell.ReadOnly = true;
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+                                txtTypeCell.Value = "Case";
+                                row.Cells.Add(txtTypeCell);
+                                txtTypeCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtIdCell = new DataGridViewTextBoxCell();
+                                txtIdCell.Value = String.Empty;
+                                row.Cells.Add(txtIdCell);
+                                txtIdCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                                txtDestinationFilePathCell.Value = strNPFormFilePathDestination;
+                                row.Cells.Add(txtDestinationFilePathCell);
+                                txtDestinationFilePathCell.ReadOnly = true;
+
+                                gvCaseDocuments.Rows.Add(row);
+                            }
+                        }
+
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(3) && !rdrCaseDocFromCaseTable.IsDBNull(4) && !rdrCaseDocFromCaseTable.IsDBNull(5))
+                        {
+                            if (rdrCaseDocFromCaseTable.GetBoolean(3))
+                            {
+                                DataGridViewRow row = new DataGridViewRow();
+                                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                                DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                                comboDocTypeCell.Items.Add("IB");
+                                row.Cells.Add(comboDocTypeCell);
+                                comboDocTypeCell.Value = "IB";
+                                comboDocTypeCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                                btnUploadCell.Value = "Upload";
+                                row.Cells.Add(btnUploadCell);
+                                btnUploadCell.ReadOnly = true;
+
+                                //strNPFormFilePathDestination = rdrCaseDocFromCaseTable.GetString(1);
+                                strIBFilePathDestination = rdrCaseDocFromCaseTable.GetString(4);
+
+                                CalendarCell calReceivedDateCell = new CalendarCell();
+                                calReceivedDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(5);
+                                row.Cells.Add(calReceivedDateCell);
+                                calReceivedDateCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                                btnViewCell.Value = "View";
+                                row.Cells.Add(btnViewCell);
+
+                                DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                                txtNoteCell.Value = String.Empty;
+                                row.Cells.Add(txtNoteCell);
+                                txtNoteCell.ReadOnly = true;
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(15))
+                                {
+                                    DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                                    txtCreatedByCell.Value = rdrCaseDocFromCaseTable.GetString(15);
+
+                                    row.Cells.Add(txtCreatedByCell);
+                                    txtCreatedByCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(16))
+                                {
+                                    DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                                    txtCreateDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(16).ToString("MM/dd/yyyy HH:mm:ss");
+
+                                    row.Cells.Add(txtCreateDateCell);
+                                    txtCreateDateCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+                                txtTypeCell.Value = "Case";
+                                row.Cells.Add(txtTypeCell);
+                                txtTypeCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtIdCell = new DataGridViewTextBoxCell();
+                                txtIdCell.Value = String.Empty;
+                                row.Cells.Add(txtIdCell);
+                                txtIdCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                                txtDestinationFilePathCell.Value = strIBFilePathDestination;
+                                row.Cells.Add(txtDestinationFilePathCell);
+                                txtDestinationFilePathCell.ReadOnly = true;
+
+                                gvCaseDocuments.Rows.Add(row);
+                            }
+                        }
+
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(6) && !rdrCaseDocFromCaseTable.IsDBNull(7) && !rdrCaseDocFromCaseTable.IsDBNull(8))
+                        {
+                            if (rdrCaseDocFromCaseTable.GetBoolean(6))
+                            {
+                                DataGridViewRow row = new DataGridViewRow();
+
+                                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                                DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                                comboDocTypeCell.Items.Add("PoP");
+                                row.Cells.Add(comboDocTypeCell);
+                                comboDocTypeCell.Value = "PoP";
+                                comboDocTypeCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                                btnUploadCell.Value = "Upload";
+                                row.Cells.Add(btnUploadCell);
+                                btnUploadCell.ReadOnly = true;
+
+                                //strNPFormFilePathDestination = rdrCaseDocFromCaseTable.GetString(1);
+                                strPoPDestinationFilePathMedBill = rdrCaseDocFromCaseTable.GetString(7);
+
+                                CalendarCell calReceivedDateCell = new CalendarCell();
+                                calReceivedDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(8);
+                                row.Cells.Add(calReceivedDateCell);
+                                calReceivedDateCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                                btnViewCell.Value = "View";
+                                row.Cells.Add(btnViewCell);
+
+                                DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                                txtNoteCell.Value = String.Empty;
+                                row.Cells.Add(txtNoteCell);
+                                txtNoteCell.ReadOnly = true;
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(15))
+                                {
+                                    DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                                    txtCreatedByCell.Value = rdrCaseDocFromCaseTable.GetString(15);
+                                    row.Cells.Add(txtCreatedByCell);
+                                    txtCreatedByCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(16))
+                                {
+                                    DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                                    txtCreateDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(16).ToString("MM/dd/yyyy HH:mm:ss");
+                                    row.Cells.Add(txtCreateDateCell);
+                                    txtCreateDateCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+                                txtTypeCell.Value = "Case";
+                                row.Cells.Add(txtTypeCell);
+                                txtTypeCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtIdCell = new DataGridViewTextBoxCell();
+                                txtIdCell.Value = String.Empty;
+                                row.Cells.Add(txtIdCell);
+                                txtIdCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                                txtDestinationFilePathCell.Value = strPoPDestinationFilePathMedBill;
+                                row.Cells.Add(txtDestinationFilePathCell);
+                                txtDestinationFilePathCell.ReadOnly = true;
+
+                                gvCaseDocuments.Rows.Add(row);
+                            }
+                        }
+
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(9) && !rdrCaseDocFromCaseTable.IsDBNull(10) && !rdrCaseDocFromCaseTable.IsDBNull(11))
+                        {
+                            if (rdrCaseDocFromCaseTable.GetBoolean(9))
+                            {
+                                DataGridViewRow row = new DataGridViewRow();
+
+                                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                                DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                                comboDocTypeCell.Items.Add("Med Rec");
+                                row.Cells.Add(comboDocTypeCell);
+                                comboDocTypeCell.Value = "Med Rec";
+                                comboDocTypeCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                                btnUploadCell.Value = "Upload";
+                                row.Cells.Add(btnUploadCell);
+                                btnUploadCell.ReadOnly = true;
+
+                                strMedRecDestinationFilePathMedBill = rdrCaseDocFromCaseTable.GetString(10);
+
+                                CalendarCell calReceivedDateCell = new CalendarCell();
+                                calReceivedDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(11);
+                                row.Cells.Add(calReceivedDateCell);
+                                calReceivedDateCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                                btnViewCell.Value = "View";
+                                row.Cells.Add(btnViewCell);
+
+                                DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                                txtNoteCell.Value = String.Empty;
+                                row.Cells.Add(txtNoteCell);
+                                txtNoteCell.ReadOnly = true;
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(15))
+                                {
+                                    DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                                    txtCreatedByCell.Value = rdrCaseDocFromCaseTable.GetString(15);
+                                    row.Cells.Add(txtCreatedByCell);
+                                    txtCreatedByCell.ReadOnly = true;
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(16))
+                                {
+                                    DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                                    txtCreateDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(16).ToString("MM/dd/yyyy HH:mm:ss");
+
+                                    row.Cells.Add(txtCreateDateCell);
+                                    txtCreateDateCell.ReadOnly = true;
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+                                txtTypeCell.Value = "Case";
+                                row.Cells.Add(txtTypeCell);
+                                txtTypeCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtIdCell = new DataGridViewTextBoxCell();
+                                txtIdCell.Value = String.Empty;
+                                row.Cells.Add(txtIdCell);
+                                txtIdCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                                txtDestinationFilePathCell.Value = strMedRecDestinationFilePathMedBill;
+                                row.Cells.Add(txtDestinationFilePathCell);
+                                txtDestinationFilePathCell.ReadOnly = true;
+
+                                gvCaseDocuments.Rows.Add(row);
+                            }
+                        }
+
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(12) && !rdrCaseDocFromCaseTable.IsDBNull(13) && !rdrCaseDocFromCaseTable.IsDBNull(14))
+                        {
+                            if (rdrCaseDocFromCaseTable.GetBoolean(12))
+                            {
+                                DataGridViewRow row = new DataGridViewRow();
+
+                                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                                DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                                comboDocTypeCell.Items.Add("Other Doc");
+                                row.Cells.Add(comboDocTypeCell);
+                                comboDocTypeCell.Value = "Other Doc";
+                                comboDocTypeCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                                btnUploadCell.Value = "Upload";
+                                row.Cells.Add(btnUploadCell);
+                                btnUploadCell.ReadOnly = true;
+
+                                strOtherDocDestinationFilePathMedBill = rdrCaseDocFromCaseTable.GetString(13);
+
+                                CalendarCell calReceivedDateCell = new CalendarCell();
+                                calReceivedDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(14);
+                                row.Cells.Add(calReceivedDateCell);
+                                calReceivedDateCell.ReadOnly = true;
+
+                                DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                                btnViewCell.Value = "View";
+                                row.Cells.Add(btnViewCell);
+
+                                DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                                txtNoteCell.Value = String.Empty;
+                                row.Cells.Add(txtNoteCell);
+                                txtNoteCell.ReadOnly = true;
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(15))
+                                {
+                                    DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                                    txtCreatedByCell.Value = rdrCaseDocFromCaseTable.GetString(15);
+
+                                    row.Cells.Add(txtCreatedByCell);
+                                    txtCreatedByCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                if (!rdrCaseDocFromCaseTable.IsDBNull(16))
+                                {
+                                    DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                                    txtCreateDateCell.Value = rdrCaseDocFromCaseTable.GetDateTime(16).ToString("MM/dd/yyyy HH:mm:ss");
+
+                                    row.Cells.Add(txtCreateDateCell);
+                                    txtCreateDateCell.ReadOnly = true;
+
+                                }
+                                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty, ReadOnly = true });
+
+                                DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+                                txtTypeCell.Value = "Case";
+                                row.Cells.Add(txtTypeCell);
+                                txtTypeCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtIdCell = new DataGridViewTextBoxCell();
+                                txtIdCell.Value = String.Empty;
+                                row.Cells.Add(txtIdCell);
+                                txtIdCell.ReadOnly = true;
+
+                                DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                                txtDestinationFilePathCell.Value = strOtherDocDestinationFilePathMedBill;
+                                row.Cells.Add(txtDestinationFilePathCell);
+                                txtDestinationFilePathCell.ReadOnly = true;
+
+
+                                gvCaseDocuments.Rows.Add(row);
+                            }
+                        }
+                    }
+                    rdrCaseDocFromCaseTable.Close();
+                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                    // Populate the gvCaseDocuments DataGridView, CaseIdForCasePageMedBill
+                    String strSqlQueryForCaseDoc = "select [dbo].[tbl_case_doc_type_code].[CaseDocTypeValue], [dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[Note], " +
+                                                   "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case_doc].[CreateDate], [dbo].[tbl_case_doc].[Id] " +
+                                                   "from [dbo].[tbl_case_doc] " +
+                                                   "inner join [dbo].[tbl_case_doc_type_code] on [dbo].[tbl_case_doc].[DocumentTypeId] = [dbo].[tbl_case_doc_type_code].[CaseDocTypeCode] " +
+                                                   "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_case_doc].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                   "where [dbo].[tbl_case_doc].[Case_Name] = @CaseName " +
+                                                   "order by [dbo].[tbl_case_doc].[CreateDate]";
+
+                    SqlCommand cmdQueryForCaseDoc = new SqlCommand(strSqlQueryForCaseDoc, connRN2);
+                    cmdQueryForCaseDoc.CommandType = CommandType.Text;
+
+                    cmdQueryForCaseDoc.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
+
+                    if (connRN2.State != ConnectionState.Closed)
+                    {
+                        connRN2.Close();
+                        connRN2.Open();
+                    }
+                    else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                    SqlDataReader rdrCaseDoc = cmdQueryForCaseDoc.ExecuteReader();
+                    if (rdrCaseDoc.HasRows)
+                    {
+                        while (rdrCaseDoc.Read())
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo)
+                            {
+                                comboDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                            }
+                            for (int i = 0; i < comboDocTypeCell.Items.Count; i++)
+                            {
+                                if (rdrCaseDoc.GetInt16(0) == Int16.Parse(comboDocTypeCell.Items[i].ToString()))
+                                {
+                                    comboDocTypeCell.Value = comboDocTypeCell.Items[i];
+                                    row.Cells.Add(comboDocTypeCell);
+                                }
+                            }
+
+                            DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+                            btnUploadCell.Value = "Upload";
+                            row.Cells.Add(btnUploadCell);
+
+                            CalendarCell calReceivedDateCell = new CalendarCell();
+                            calReceivedDateCell.Value = rdrCaseDoc.GetDateTime(1).ToString("MM/dd/yyyy");
+                            row.Cells.Add(calReceivedDateCell);
+
+                            DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+                            btnViewCell.Value = "View";
+                            row.Cells.Add(btnViewCell);
+
+                            DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+                            txtNoteCell.Value = rdrCaseDoc.GetString(2);
+                            row.Cells.Add(txtNoteCell);
+
+                            DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+                            txtCreatedByCell.Value = rdrCaseDoc.GetString(3);
+                            txtCreatedByCell.ReadOnly = true;
+                            row.Cells.Add(txtCreatedByCell);
+
+                            DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+                            txtCreateDateCell.Value = rdrCaseDoc.GetDateTime(4).ToString("MM/dd/yyyy HH:mm:ss");
+                            txtCreateDateCell.ReadOnly = true;
+                            row.Cells.Add(txtCreateDateCell);
+
+                            DataGridViewTextBoxCell txtDocIdCell = new DataGridViewTextBoxCell();
+                            txtDocIdCell.Value = rdrCaseDoc.GetString(5);
+                            txtDocIdCell.ReadOnly = true;
+
+                            gvCaseDocuments.Rows.Add(row);
+                        }
+                    }
+                    rdrCaseDoc.Close();
+                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
 
                     //String strSqlQueryForTaskInCase = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[whatid], [dbo].[tbl_task_assigned_to].[User_Name], " +
                     //                                  "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task_related_to_code].[TaskRelatedToValue], " +
@@ -22779,7 +23260,6 @@ namespace CMMManager
                 }
                 else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
                 SqlDataReader rdrSettlement = cmdQueryForSettlement.ExecuteReader();
-                gvSettlementsInMedBill.Rows.Clear();
                 if (rdrSettlement.HasRows)
                 {
                     while (rdrSettlement.Read())
@@ -62461,8 +62941,104 @@ namespace CMMManager
             DataGridViewRow row = new DataGridViewRow();
 
             row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-            DataGridViewComboBoxCell docTypeCell = new DataGridViewComboBoxCell();
-            
+            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+            for (int i = 0; i < lstCaseDocTypeInfo.Count; i++)
+            {
+                comboDocTypeCell.Items.Add(lstCaseDocTypeInfo[i].CaseDocTypeValue);
+            }
+            row.Cells.Add(comboDocTypeCell);
+
+            DataGridViewButtonCell btnUploadCell = new DataGridViewButtonCell();
+            btnUploadCell.Value = "Upload";
+            row.Cells.Add(btnUploadCell);
+
+            CalendarCell calReceivedDate = new CalendarCell();
+            row.Cells.Add(calReceivedDate);
+
+            DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
+            btnViewCell.Value = "View";
+            row.Cells.Add(btnViewCell);
+
+            DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
+            txtNoteCell.Value = String.Empty;
+            row.Cells.Add(txtNoteCell);
+
+            DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
+            txtCreatedByCell.Value = LoggedInUserName;
+            row.Cells.Add(txtCreatedByCell);
+
+            DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
+            txtCreateDateCell.Value = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+            row.Cells.Add(txtCreateDateCell);
+            txtCreateDateCell.ReadOnly = true;
+
+            DataGridViewTextBoxCell txtTypeCell = new DataGridViewTextBoxCell();
+            txtTypeCell.Value = "Doc";
+            row.Cells.Add(txtTypeCell);
+            txtTypeCell.ReadOnly = true;
+
+            DataGridViewTextBoxCell txtDocIdCell = new DataGridViewTextBoxCell();
+            txtDocIdCell.Value = String.Empty;
+            row.Cells.Add(txtDocIdCell);
+            txtDocIdCell.ReadOnly = true;
+
+            DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+            txtDestinationFilePathCell.Value = String.Empty;
+            row.Cells.Add(txtDestinationFilePathCell);
+            txtDestinationFilePathCell.ReadOnly = true;
+
+            gvCaseDocuments.Rows.Add(row);            
+        }
+
+        private void gvCaseDocuments_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 2 && gvCaseDocuments["TypeCaseDocument", e.RowIndex]?.Value?.ToString() == "Case")
+                {
+                    MessageBox.Show("This Document is read only.", "Alert");
+                }
+                if (e.ColumnIndex == 2 && gvCaseDocuments["TypeCaseDocument", e.RowIndex]?.Value?.ToString() == "Doc")
+                {
+                    OpenFileDialog dlg = new OpenFileDialog();
+
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        String strCaseDocSourcePathName = String.Empty;
+                        String strCaseDocDestinationPathName = String.Empty;
+
+                        strCaseDocSourcePathName = dlg.FileName;
+                        String strCaseDocSourceFileName = Path.GetFileName(strCaseDocSourcePathName);
+
+                        String strCaseDocCaseName = txtCaseName.Text;
+
+                        strCaseDocDestinationPathName = strCaseDocDestinationPath + "_" + strCaseDocCaseName + "_" + DateTime.Now.ToString("MM-dd-yyyy_HH-mm-ss") + "_Doc_" + strCaseDocSourceFileName;
+
+                        try
+                        {
+                            File.Copy(strCaseDocSourcePathName, strCaseDocDestinationPathName, true);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return;
+                        }
+
+                        gvCaseDocuments["FilePathCaseDocument", e.RowIndex].Value = strCaseDocDestinationPathName;
+                    }
+                    else return;
+                }
+
+                if (e.ColumnIndex == 4)
+                {
+                    String strUploadFilePath = gvCaseDocuments["FilePathCaseDocument", e.RowIndex]?.Value?.ToString();
+
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.FileName = strUploadFilePath;
+
+                    Process.Start(info);
+                }
+            }
         }
     }
 }
