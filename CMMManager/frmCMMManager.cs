@@ -9100,6 +9100,10 @@ namespace CMMManager
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///
 
+                txtCaseName.Text = strCaseNameSelected;
+                txtCaseIndividualID.Text = strIndividualId;
+                txtCreateCaseIndividualName.Text = strPatientLastName + ", " + strPatientFirstName + " " + strPatientMiddleName;
+
                 gvCaseDocuments.Rows.Clear();
                 String strSqlQueryForCaseDocFromCaseTable = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
                                             "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
@@ -21568,206 +21572,214 @@ namespace CMMManager
                     rdrCaseStatus.Close();
                     if (connRN2.State != ConnectionState.Closed) connRN2.Close();
 
-                    gvCaseDocuments.Rows.Clear();
-                    String strSqlQueryForCase = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case].[Contact_ID], [dbo].[tbl_case].[CreateDate], [dbo].[tbl_case].[ModifiDate], " +
-                                                "[dbo].[tbl_case].[CreateStaff], [dbo].[tbl_case].[ModifiStaff], [dbo].[tbl_case].[Case_status], " +
-                                                "[dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_File_Name], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
-                                                "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_File_Name], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
-                                                "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Form_File_Name], [dbo].[tbl_case].[POP_Form_Destination_File_Name], [dbo].[tbl_case].[POP_Receiv_Date], " +
-                                                "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Form_File_Name], [dbo].[tbl_case].[MedRec_Form_Destination_File_Name], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
-                                                "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Form_File_Name], [dbo].[tbl_case].[Unknown_Form_Destination_File_Name], [dbo].[tbl_case].[Unknown_Receiv_Date], " +
-                                                "[dbo].[tbl_case].[Case_status], [dbo].[tbl_case].[Note], [dbo].[tbl_case].[ParentCaseName] " +
-                                                "from [dbo].[tbl_case] where [dbo].[tbl_case].[Case_Name] = @CaseName and [dbo].[tbl_case].[Contact_ID] = @IndividualID";
+                    txtCaseName.Text = CaseIdForCasePageMedBill;
+                    txtCaseIndividualID.Text = IndividualId;
 
-                    SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN2);
-                    cmdQueryForCase.CommandType = CommandType.Text;
 
-                    cmdQueryForCase.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
-                    cmdQueryForCase.Parameters.AddWithValue("@IndividualID", IndividualId);
 
-                    //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    if (connRN2.State != ConnectionState.Closed)
-                    {
-                        connRN2.Close();
-                        connRN2.Open();
-                    }
-                    else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                    //String strSqlQueryForCase = "select [dbo].[tbl_case].[Case_Name], [dbo].[tbl_case].[Contact_ID], [dbo].[tbl_case].[CreateDate], [dbo].[tbl_case].[ModifiDate], " +
+                    //                            "[dbo].[tbl_case].[CreateStaff], [dbo].[tbl_case].[ModifiStaff], [dbo].[tbl_case].[Case_status], " +
+                    //                            "[dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_File_Name], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
+                    //                            "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_File_Name], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
+                    //                            "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Form_File_Name], [dbo].[tbl_case].[POP_Form_Destination_File_Name], [dbo].[tbl_case].[POP_Receiv_Date], " +
+                    //                            "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Form_File_Name], [dbo].[tbl_case].[MedRec_Form_Destination_File_Name], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
+                    //                            "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Form_File_Name], [dbo].[tbl_case].[Unknown_Form_Destination_File_Name], [dbo].[tbl_case].[Unknown_Receiv_Date], " +
+                    //                            "[dbo].[tbl_case].[Case_status], [dbo].[tbl_case].[Note], [dbo].[tbl_case].[ParentCaseName] " +
+                    //                            "from [dbo].[tbl_case] where [dbo].[tbl_case].[Case_Name] = @CaseName and [dbo].[tbl_case].[Contact_ID] = @IndividualID";
 
-                    SqlDataReader rdrCaseForIndividual = cmdQueryForCase.ExecuteReader();
-                    if (rdrCaseForIndividual.HasRows)
-                    {
-                        rdrCaseForIndividual.Read();
+                    //SqlCommand cmdQueryForCase = new SqlCommand(strSqlQueryForCase, connRN2);
+                    //cmdQueryForCase.CommandType = CommandType.Text;
 
-                        txtCaseName.Text = rdrCaseForIndividual.GetString(0);
-                        txtCaseIndividualID.Text = rdrCaseForIndividual.GetString(1);
+                    //cmdQueryForCase.Parameters.AddWithValue("@CaseName", CaseIdForCasePageMedBill);
+                    //cmdQueryForCase.Parameters.AddWithValue("@IndividualID", IndividualId);
 
-                        // NPF Form
-                        //if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
-                        //if (!rdrCaseForIndividual.IsDBNull(8)) strNPFormFilePathSource = rdrCaseForIndividual.GetString(8);
-                        //if (!rdrCaseForIndividual.IsDBNull(9))
-                        //{
-                        //    strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
-                        //    txtNPFFormFilePath.Text = strNPFormFilePathDestination;
-                        //    if (strNPFormFilePathDestination != String.Empty)
-                        //    {
-                        //        btnNPFFormView.Enabled = true;
-                        //        btnNPFFormDelete.Enabled = true;
-                        //    }
-                        //}
-                        //if (!rdrCaseForIndividual.IsDBNull(10))
-                        //{
-                        //    dtpNPFReceivedDate.Checked = true;
-                        //    dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
-                        //    dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-                        //    dtpNPFReceivedDate.CustomFormat = " ";
-                        //}
-                        ////txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                    ////if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    //if (connRN2.State != ConnectionState.Closed)
+                    //{
+                    //    connRN2.Close();
+                    //    connRN2.Open();
+                    //}
+                    //else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
 
-                        //// IB Form
-                        //if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
-                        //if (!rdrCaseForIndividual.IsDBNull(12)) strIBFilePathSource = rdrCaseForIndividual.GetString(12);
-                        //if (!rdrCaseForIndividual.IsDBNull(13))
-                        //{
-                        //    strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
-                        //    txtIBFilePath.Text = strIBFilePathDestination;
-                        //    if (strIBFilePathDestination != String.Empty)
-                        //    {
-                        //        btnIBView.Enabled = true;
-                        //        btnDeleteIB.Enabled = true;
-                        //    }
-                        //}
-                        //if (!rdrCaseForIndividual.IsDBNull(14))
-                        //{
-                        //    dtpIBReceivedDate.Checked = true;
-                        //    dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
-                        //    dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-                        //    dtpIBReceivedDate.CustomFormat = " ";
-                        //}
-                        ////txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                    //SqlDataReader rdrCaseForIndividual = cmdQueryForCase.ExecuteReader();
+                    //if (rdrCaseForIndividual.HasRows)
+                    //{
+                    //    rdrCaseForIndividual.Read();
 
-                        //// POP Form
-                        //if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
-                        //if (!rdrCaseForIndividual.IsDBNull(16)) strPoPFilePathSource = rdrCaseForIndividual.GetString(16);
-                        //if (!rdrCaseForIndividual.IsDBNull(17))
-                        //{
-                        //    strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
-                        //    txtPopFilePath.Text = strPopFilePathDestination;
-                        //    if (strPopFilePathDestination != String.Empty)
-                        //    {
-                        //        btnPoPView.Enabled = true;
-                        //        btnDeletePoP.Enabled = true;
-                        //    }
-                        //}
-                        //if (!rdrCaseForIndividual.IsDBNull(18))
-                        //{
-                        //    dtpPoPReceivedDate.Checked = true;
-                        //    dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
-                        //    dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-                        //    dtpPoPReceivedDate.CustomFormat = " ";
-                        //}
-                        ////txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                    //txtCaseName.Text = rdrCaseForIndividual.GetString(0);
+                    //txtCaseIndividualID.Text = rdrCaseForIndividual.GetString(1);
 
-                        //// Med Rec Form
-                        //if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
-                        //if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
-                        //if (!rdrCaseForIndividual.IsDBNull(21))
-                        //{
-                        //    strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
-                        //    txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
-                        //    if (strMedRecordFilePathDestination != String.Empty)
-                        //    {
-                        //        btnMedicalRecordView.Enabled = true;
-                        //        btnDeleteMedicalRecord.Enabled = true;
-                        //    }
-                        //}
-                        //if (!rdrCaseForIndividual.IsDBNull(22))
-                        //{
-                        //    dtpMRReceivedDate.Checked = true;
-                        //    dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
-                        //    dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-                        //    dtpMRReceivedDate.CustomFormat = " ";
-                        //}
-                        ////txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                    // NPF Form
+                    //if (rdrCaseForIndividual.GetBoolean(7) == true) chkNPF_CaseCreationPage.Checked = true;
+                    //if (!rdrCaseForIndividual.IsDBNull(8)) strNPFormFilePathSource = rdrCaseForIndividual.GetString(8);
+                    //if (!rdrCaseForIndividual.IsDBNull(9))
+                    //{
+                    //    strNPFormFilePathDestination = rdrCaseForIndividual.GetString(9);
+                    //    txtNPFFormFilePath.Text = strNPFormFilePathDestination;
+                    //    if (strNPFormFilePathDestination != String.Empty)
+                    //    {
+                    //        btnNPFFormView.Enabled = true;
+                    //        btnNPFFormDelete.Enabled = true;
+                    //    }
+                    //}
+                    //if (!rdrCaseForIndividual.IsDBNull(10))
+                    //{
+                    //    dtpNPFReceivedDate.Checked = true;
+                    //    dtpNPFReceivedDate.Value = rdrCaseForIndividual.GetDateTime(10);
+                    //    dtpNPFReceivedDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+                    //    dtpNPFReceivedDate.CustomFormat = " ";
+                    //}
+                    ////txtNPFUploadDate.Text = rdrCaseForIndividual.GetDateTime(10).ToString("MM/dd/yyyy");
 
-                        //// Unknown Doc Form
-                        //if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
-                        //if (!rdrCaseForIndividual.IsDBNull(24)) strUnknownDocFilePathSource = rdrCaseForIndividual.GetString(24);
-                        //if (!rdrCaseForIndividual.IsDBNull(25))
-                        //{
-                        //    strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
-                        //    txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
-                        //    if (strUnknownDocFilePathDestination != String.Empty)
-                        //    {
-                        //        btnOtherDocView.Enabled = true;
-                        //        btnDeleteMedicalRecord.Enabled = true;
-                        //    }
-                        //}
-                        //if (!rdrCaseForIndividual.IsDBNull(26))
-                        //{
-                        //    dtpOtherDocReceivedDate.Checked = true;
-                        //    dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
-                        //    dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
-                        //}
-                        //else
-                        //{
-                        //    dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-                        //    dtpOtherDocReceivedDate.CustomFormat = " ";
-                        //}
-                        //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
+                    //// IB Form
+                    //if (rdrCaseForIndividual.GetBoolean(11) == true) chkIB_CaseCreationPage.Checked = true;
+                    //if (!rdrCaseForIndividual.IsDBNull(12)) strIBFilePathSource = rdrCaseForIndividual.GetString(12);
+                    //if (!rdrCaseForIndividual.IsDBNull(13))
+                    //{
+                    //    strIBFilePathDestination = rdrCaseForIndividual.GetString(13);
+                    //    txtIBFilePath.Text = strIBFilePathDestination;
+                    //    if (strIBFilePathDestination != String.Empty)
+                    //    {
+                    //        btnIBView.Enabled = true;
+                    //        btnDeleteIB.Enabled = true;
+                    //    }
+                    //}
+                    //if (!rdrCaseForIndividual.IsDBNull(14))
+                    //{
+                    //    dtpIBReceivedDate.Checked = true;
+                    //    dtpIBReceivedDate.Value = rdrCaseForIndividual.GetDateTime(14);
+                    //    dtpIBReceivedDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+                    //    dtpIBReceivedDate.CustomFormat = " ";
+                    //}
+                    ////txtIBUploadDate.Text = rdrCaseForIndividual.GetDateTime(14).ToString("MM/dd/yyyy");
 
-                        // Case status
-                        //if (rdrCaseForIndividual.GetBoolean(27) == true) txtCaseStatus.Text = "Complete and Ready";
-                        //else txtCaseStatus.Text = "Pending - Additional Documents required";
-                        if (!rdrCaseForIndividual.IsDBNull(27))
-                        {
-                            switch (rdrCaseForIndividual.GetInt16(27))
-                            {
-                                case (int)CaseStatus.OnGoing:
-                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.OnGoing;
-                                    break;
-                                case (int)CaseStatus.Processing:
-                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.Processing;
-                                    break;
-                                case (int)CaseStatus.Closed:
-                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.Closed;
-                                    break;
-                            }
-                        }
+                    //// POP Form
+                    //if (rdrCaseForIndividual.GetBoolean(15) == true) chkPoP_CaseCreationPage.Checked = true;
+                    //if (!rdrCaseForIndividual.IsDBNull(16)) strPoPFilePathSource = rdrCaseForIndividual.GetString(16);
+                    //if (!rdrCaseForIndividual.IsDBNull(17))
+                    //{
+                    //    strPopFilePathDestination = rdrCaseForIndividual.GetString(17);
+                    //    txtPopFilePath.Text = strPopFilePathDestination;
+                    //    if (strPopFilePathDestination != String.Empty)
+                    //    {
+                    //        btnPoPView.Enabled = true;
+                    //        btnDeletePoP.Enabled = true;
+                    //    }
+                    //}
+                    //if (!rdrCaseForIndividual.IsDBNull(18))
+                    //{
+                    //    dtpPoPReceivedDate.Checked = true;
+                    //    dtpPoPReceivedDate.Value = rdrCaseForIndividual.GetDateTime(18);
+                    //    dtpPoPReceivedDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+                    //    dtpPoPReceivedDate.CustomFormat = " ";
+                    //}
+                    ////txtPoPUploadDate.Text = rdrCaseForIndividual.GetDateTime(18).ToString("MM/dd/yyyy");
 
-                        // Note
-                        if (!rdrCaseForIndividual.IsDBNull(28)) txtNoteOnCase.Text = rdrCaseForIndividual.GetString(28);
+                    //// Med Rec Form
+                    //if (rdrCaseForIndividual.GetBoolean(19) == true) chkMedicalRecordCaseCreationPage.Checked = true;
+                    //if (!rdrCaseForIndividual.IsDBNull(20)) txtMedicalRecordFilePath.Text = rdrCaseForIndividual.GetString(20);
+                    //if (!rdrCaseForIndividual.IsDBNull(21))
+                    //{
+                    //    strMedRecordFilePathDestination = rdrCaseForIndividual.GetString(21);
+                    //    txtMedicalRecordFilePath.Text = strMedRecordFilePathDestination;
+                    //    if (strMedRecordFilePathDestination != String.Empty)
+                    //    {
+                    //        btnMedicalRecordView.Enabled = true;
+                    //        btnDeleteMedicalRecord.Enabled = true;
+                    //    }
+                    //}
+                    //if (!rdrCaseForIndividual.IsDBNull(22))
+                    //{
+                    //    dtpMRReceivedDate.Checked = true;
+                    //    dtpMRReceivedDate.Value = rdrCaseForIndividual.GetDateTime(22);
+                    //    dtpMRReceivedDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+                    //    dtpMRReceivedDate.CustomFormat = " ";
+                    //}
+                    ////txtMRUploadDate.Text = rdrCaseForIndividual.GetDateTime(22).ToString("MM/dd/yyyy");
 
-                        // Individual Name
+                    //// Unknown Doc Form
+                    //if (rdrCaseForIndividual.GetBoolean(23) == true) chkOtherDocCaseCreationPage.Checked = true;
+                    //if (!rdrCaseForIndividual.IsDBNull(24)) strUnknownDocFilePathSource = rdrCaseForIndividual.GetString(24);
+                    //if (!rdrCaseForIndividual.IsDBNull(25))
+                    //{
+                    //    strUnknownDocFilePathDestination = rdrCaseForIndividual.GetString(25);
+                    //    txtOtherDocumentFilePath.Text = strUnknownDocFilePathDestination;
+                    //    if (strUnknownDocFilePathDestination != String.Empty)
+                    //    {
+                    //        btnOtherDocView.Enabled = true;
+                    //        btnDeleteMedicalRecord.Enabled = true;
+                    //    }
+                    //}
+                    //if (!rdrCaseForIndividual.IsDBNull(26))
+                    //{
+                    //    dtpOtherDocReceivedDate.Checked = true;
+                    //    dtpOtherDocReceivedDate.Value = rdrCaseForIndividual.GetDateTime(26);
+                    //    dtpOtherDocReceivedDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
+                    //}
+                    //else
+                    //{
+                    //    dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+                    //    dtpOtherDocReceivedDate.CustomFormat = " ";
+                    //}
+                    //txtOtherDocUploadDate.Text = rdrCaseForIndividual.GetDateTime(26).ToString("MM/dd/yyyy");
 
-                        //tbCMMManager.TabPages.Insert(3, tbpgCaseView);
-                        //tbCMMManager.TabPages.Insert(4, tbpgCreateCase);
-                        //tbCMMManager.SelectedIndex = 4;
-                    }
-                    rdrCaseForIndividual.Close();
-                    if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+                    // Case status
+                    //if (rdrCaseForIndividual.GetBoolean(27) == true) txtCaseStatus.Text = "Complete and Ready";
+                    //else txtCaseStatus.Text = "Pending - Additional Documents required";
+                    //if (!rdrCaseForIndividual.IsDBNull(27))
+                    //{
+                    //    switch (rdrCaseForIndividual.GetInt16(27))
+                    //    {
+                    //        case (int)CaseStatus.OnGoing:
+                    //            cbCaseStatus.SelectedIndex = (int)CaseStatus.OnGoing;
+                    //            break;
+                    //        case (int)CaseStatus.Processing:
+                    //            cbCaseStatus.SelectedIndex = (int)CaseStatus.Processing;
+                    //            break;
+                    //        case (int)CaseStatus.Closed:
+                    //            cbCaseStatus.SelectedIndex = (int)CaseStatus.Closed;
+                    //            break;
+                    //    }
+                    //}
+
+                    //// Note
+                    //if (!rdrCaseForIndividual.IsDBNull(28)) txtNoteOnCase.Text = rdrCaseForIndividual.GetString(28);
+
+                    // Individual Name
+
+                    //tbCMMManager.TabPages.Insert(3, tbpgCaseView);
+                    //tbCMMManager.TabPages.Insert(4, tbpgCreateCase);
+                    //tbCMMManager.SelectedIndex = 4;
+                    //}
+                    //rdrCaseForIndividual.Close();
+                    //if (connRN2.State != ConnectionState.Closed) connRN2.Close();
                     // Populate the gvCaseDocument DataGridView from Case table
+
+                    gvCaseDocuments.Rows.Clear();
+
                     String strSqlQueryForCaseDocFromCaseTable = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], [dbo].[tbl_case].[NPF_Receiv_Date], " +
                                                                 "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Form_Destination_File_Name], [dbo].[tbl_case].[IB_Receiv_Date], " +
                                                                 "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Form_Destination_File_Name], [dbo].[tbl_case].[POP_Receiv_Date], " +
                                                                 "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Form_Destination_File_Name], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
                                                                 "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Form_Destination_File_Name], [dbo].[tbl_case].[Unknown_Receiv_Date], " +
-                                                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case].[CreateDate] " +
+                                                                "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case].[CreateDate], " +
+                                                                "[dbo].[tbl_case].[Case_status], [dbo].[tbl_case].[Note] " +
                                                                 "from [dbo].[tbl_case] " +
                                                                 "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_case].[CreateStaff] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
                                                                 "where [dbo].[tbl_case].[Case_Name] = @CaseNo"; // CaseIdForCasePageMedBill
@@ -22159,6 +22171,25 @@ namespace CMMManager
                                 gvCaseDocuments.Rows.Add(row);
                             }
                         }
+
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(17))
+                        {
+                            switch (rdrCaseDocFromCaseTable.GetInt16(17))
+                            {
+                                case (int)CaseStatus.OnGoing:
+                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.OnGoing;
+                                    break;
+                                case (int)CaseStatus.Processing:
+                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.Processing;
+                                    break;
+                                case (int)CaseStatus.Closed:
+                                    cbCaseStatus.SelectedIndex = (int)CaseStatus.Closed;
+                                    break;
+                            }
+                        }
+
+                        // Note
+                        if (!rdrCaseDocFromCaseTable.IsDBNull(18)) txtNoteOnCase.Text = rdrCaseDocFromCaseTable.GetString(18);
                     }
                     rdrCaseDocFromCaseTable.Close();
                     if (connRN2.State != ConnectionState.Closed) connRN2.Close();
@@ -23027,6 +23058,8 @@ namespace CMMManager
                 //                "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
                 //                "[dbo].[tbl_medbill].[IsDeleted] = 0";
 
+                gvMedicalBillDocuments.Rows.Clear();
+
                 String MedicalProviderId = String.Empty;
 
                 String strSqlQueryForMedBillEdit = "select [dbo].[tbl_medbill].[Case_Id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], " +
@@ -23314,7 +23347,8 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
                         strNPFSourceFilePathMedBill = rdrMedBillEdit.GetString(31);
                         strNPFormFileNameMedBill = Path.GetFileName(strNPFSourceFilePathMedBill);
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFormFileNameMedBill });
+                        strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFDestinationFilePathMedBill });
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
                         gvMedicalBillDocuments.Rows.Add(row);
@@ -23355,7 +23389,8 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
                         strIBSourceFilePathMedBill = rdrMedBillEdit.GetString(34);
                         strIBFileNameMedBill = Path.GetFileName(strIBSourceFilePathMedBill);
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strIBFileNameMedBill });
+                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strIBFileNameMedBill });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(35) });
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strIBDestinationFilePathMedBill = rdrMedBillEdit.GetString(35);
                         gvMedicalBillDocuments.Rows.Add(row);
@@ -23391,7 +23426,8 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
                         strPoPSourceFilePathMedBill = rdrMedBillEdit.GetString(37);
                         strPoPFileNameMedBill = Path.GetFileName(strPoPSourceFilePathMedBill);
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strPoPFileNameMedBill });
+                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strPoPFileNameMedBill });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(38) });
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strPoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(38);
                         gvMedicalBillDocuments.Rows.Add(row);
@@ -23426,7 +23462,8 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
                         strMedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(40);
                         strMedRecFileNameMedBill = Path.GetFileName(strMedRecSourceFilePathMedBill);
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strMedRecFileNameMedBill });
+                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strMedRecFileNameMedBill });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(41) });
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strMedRecDestinationFilePathMedBill = rdrMedBillEdit.GetString(41);
                         gvMedicalBillDocuments.Rows.Add(row);
@@ -23461,7 +23498,8 @@ namespace CMMManager
                         row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
                         strOtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(43);
                         strOtherDocFileNameMedBill = Path.GetFileName(strOtherDocSourceFilePathMedBill);
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strOtherDocFileNameMedBill });
+                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strOtherDocFileNameMedBill });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(44) });
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strOtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(44);
                         gvMedicalBillDocuments.Rows.Add(row);
@@ -23784,11 +23822,21 @@ namespace CMMManager
                     txtMedBillDiseaseName.Text = String.Empty;
                 }
                 // Get documents info
-                String strSqlQueryForDocumentsInfo = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Receiv_Date], " +
-                                                        "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Receiv_Date], " +
-                                                        "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Receiv_Date], " +
-                                                        "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
-                                                        "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Receiv_Date] " +
+                //String strSqlQueryForDocumentsInfo = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Receiv_Date], " +
+                //                                        "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Receiv_Date], " +
+                //                                        "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Receiv_Date], " +
+                //                                        "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Receiv_Date], " +
+                //                                        "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Receiv_Date] " +
+                //                                        "from [dbo].[tbl_case] where [dbo].[tbl_case].[Case_Name] = @CaseId and " +
+                //                                        "[dbo].[tbl_case].[Contact_ID] = @IndividualId and " +
+                //                                        "[dbo].[tbl_case].[IsDeleted] = 0";
+
+                gvCaseDocumentInMedBill.Rows.Clear();
+                String strSqlQueryForDocumentsInfo = "select [dbo].[tbl_case].[NPF_Form], [dbo].[tbl_case].[NPF_Receiv_Date], [dbo].[tbl_case].[NPF_Form_Destination_File_Name], " +
+                                                        "[dbo].[tbl_case].[IB_Form], [dbo].[tbl_case].[IB_Receiv_Date], [dbo].[tbl_case].[IB_Form_Destination_File_Name], " +
+                                                        "[dbo].[tbl_case].[POP_Form], [dbo].[tbl_case].[POP_Receiv_Date], [dbo].[tbl_case].[POP_Form_Destination_File_Name], " +
+                                                        "[dbo].[tbl_case].[MedRec_Form], [dbo].[tbl_case].[MedRec_Receiv_Date], [dbo].[tbl_case].[MedRec_Form_Destination_File_Name], " +
+                                                        "[dbo].[tbl_case].[Unknown_Form], [dbo].[tbl_case].[Unknown_Receiv_Date], [dbo].[tbl_case].[Unknown_Form_Destination_File_Name] " +
                                                         "from [dbo].[tbl_case] where [dbo].[tbl_case].[Case_Name] = @CaseId and " +
                                                         "[dbo].[tbl_case].[Contact_ID] = @IndividualId and " +
                                                         "[dbo].[tbl_case].[IsDeleted] = 0";
@@ -23811,118 +23859,210 @@ namespace CMMManager
                 {
                     rdrDocInfo.Read();
 
-                    if (!rdrDocInfo.IsDBNull(0))
+                    if (!rdrDocInfo.IsDBNull(0) && !rdrDocInfo.IsDBNull(1) && !rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            //chkMedBillNPFReceived.Checked = true;
-                            //chkMedBillNPFReceived.Enabled = false;
-                            //dtpMedBillNPF.Checked = true;
-                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            //dtpMedBillNPF.Enabled = false;
-                            //btnViewNPF.Enabled = true;
-                        }
-                        else
-                        {
-                            //chkMedBillNPFReceived.Checked = false;
-                            //chkMedBillNPFReceived.Enabled = false;
-                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            //dtpMedBillNPF.CustomFormat = " ";
-                            //dtpMedBillNPF.Enabled = false;
-                            //btnViewNPF.Enabled = false;
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboDocTypeCell.Items.Add(info.CaseDocTypeValue);                            
+                            comboDocTypeCell.Value = "NPF";
+                            row.Cells.Add(comboDocTypeCell);
+                            comboDocTypeCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtNPFReceivedDateCell = new DataGridViewTextBoxCell();
+                            txtNPFReceivedDateCell.Value = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            row.Cells.Add(txtNPFReceivedDateCell);
+                            txtNPFReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtNPFDestinationFilePath = new DataGridViewTextBoxCell();
+                            txtNPFDestinationFilePath.Value = rdrDocInfo.GetString(2);
+                            row.Cells.Add(txtNPFDestinationFilePath);
+                            txtNPFDestinationFilePath.ReadOnly = true;
+
+                            DataGridViewButtonCell btnViewNPFFormCell = new DataGridViewButtonCell();
+                            btnViewNPFFormCell.Value = "View";
+                            row.Cells.Add(btnViewNPFFormCell);
+
+                            gvCaseDocumentInMedBill.Rows.Add(row);
                         }
                     }
-                    if (!rdrDocInfo.IsDBNull(2))
+                    if (!rdrDocInfo.IsDBNull(3) && !rdrDocInfo.IsDBNull(4) && !rdrDocInfo.IsDBNull(5))
                     {
-                        if (rdrDocInfo.GetBoolean(2))
+                        if (rdrDocInfo.GetBoolean(3))
                         {
-                            //chkMedBill_IBReceived.Checked = true;
-                            //chkMedBill_IBReceived.Enabled = false;
-                            //dtpMedBill_IB.Checked = true;
-                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            //dtpMedBill_IB.Enabled = false;
-                            //btnViewIB.Enabled = true;
-                        }
-                        else
-                        {
-                            //chkMedBill_IBReceived.Checked = false;
-                            //chkMedBill_IBReceived.Enabled = false;
-                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            //dtpMedBill_IB.CustomFormat = " ";
-                            //dtpMedBill_IB.Enabled = false;
-                            //btnViewIB.Enabled = false;
-                        }
-                    }
-                    if (!rdrDocInfo.IsDBNull(4))
-                    {
-                        if (rdrDocInfo.GetBoolean(4))
-                        {
-                            //chkMedBillPOPReceived.Checked = true;
-                            //chkMedBillPOPReceived.Enabled = false;
-                            //dtpMedBillPOP.Checked = true;
-                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            //dtpMedBillPOP.Enabled = false;
-                            //btnViewPoP.Enabled = true;
-                        }
-                        else
-                        {
-                            //chkMedBillPOPReceived.Checked = false;
-                            //chkMedBillPOPReceived.Enabled = false;
-                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            //dtpMedBillPOP.CustomFormat = " ";
-                            //dtpMedBillPOP.Enabled = false;
-                            //btnViewPoP.Enabled = false;
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                            comboDocTypeCell.Value = "IB";
+                            row.Cells.Add(comboDocTypeCell);
+                            comboDocTypeCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtIBReceivedDateCell = new DataGridViewTextBoxCell();
+                            txtIBReceivedDateCell.Value = rdrDocInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                            row.Cells.Add(txtIBReceivedDateCell);
+                            txtIBReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtIBDestinationFilePath = new DataGridViewTextBoxCell();
+                            txtIBDestinationFilePath.Value = rdrDocInfo.GetString(5);
+                            row.Cells.Add(txtIBDestinationFilePath);
+                            txtIBDestinationFilePath.ReadOnly = true;
+
+                            DataGridViewButtonCell btnViewIBFormCell = new DataGridViewButtonCell();
+                            btnViewIBFormCell.Value = "View";
+                            row.Cells.Add(btnViewIBFormCell);
+
+                            gvCaseDocumentInMedBill.Rows.Add(row);                           
                         }
                     }
-                    if (!rdrDocInfo.IsDBNull(6))
+                    if (!rdrDocInfo.IsDBNull(6) && !rdrDocInfo.IsDBNull(7) && !rdrDocInfo.IsDBNull(8))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            //chkMedRecordReceived.Checked = true;
-                            //chkMedRecordReceived.Enabled = false;
-                            //dtpMedBillMedRecord.Checked = true;
-                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            //dtpMedBillMedRecord.Enabled = false;
-                            //btnViewMedRecord.Enabled = true;
-                        }
-                        else
-                        {
-                            //chkMedRecordReceived.Checked = false;
-                            //chkMedRecordReceived.Enabled = false;
-                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            //dtpMedBillMedRecord.CustomFormat = " ";
-                            //dtpMedBillMedRecord.Enabled = false;
-                            //btnViewMedRecord.Enabled = false;
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                            comboDocTypeCell.Value = "PoP";
+                            row.Cells.Add(comboDocTypeCell);
+                            comboDocTypeCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtPoPReceivedDateCell = new DataGridViewTextBoxCell();
+                            txtPoPReceivedDateCell.Value = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            row.Cells.Add(txtPoPReceivedDateCell);
+                            txtPoPReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtPoPDestinationFilePath = new DataGridViewTextBoxCell();
+                            txtPoPDestinationFilePath.Value = rdrDocInfo.GetString(8);
+                            row.Cells.Add(txtPoPDestinationFilePath);
+                            txtPoPDestinationFilePath.ReadOnly = true;
+
+                            DataGridViewButtonCell btnViewPoPFormCell = new DataGridViewButtonCell();
+                            btnViewPoPFormCell.Value = "View";
+                            row.Cells.Add(btnViewPoPFormCell);
+
+                            gvCaseDocumentInMedBill.Rows.Add(row);
+
                         }
                     }
-
-                    if (!rdrDocInfo.IsDBNull(8))
+                    if (!rdrDocInfo.IsDBNull(9) && !rdrDocInfo.IsDBNull(10) && !rdrDocInfo.IsDBNull(11))
                     {
-                        if (rdrDocInfo.GetBoolean(8))
+                        if (rdrDocInfo.GetBoolean(9))
                         {
-                            //chkOtherDocReceived.Checked = true;
-                            //chkOtherDocReceived.Enabled = false;
-                            //dtpMedBillOtherDoc.Checked = true;
-                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            //dtpMedBillOtherDoc.Enabled = false;
-                            //btnViewOtherDoc.Enabled = true;
-                        }
-                        else
-                        {
-                            //chkOtherDocReceived.Checked = false;
-                            //chkOtherDocReceived.Enabled = false;
-                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            //dtpMedBillOtherDoc.CustomFormat = " ";
-                            //dtpMedBillOtherDoc.Enabled = false;
-                            //btnViewOtherDoc.Enabled = false;
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                            comboDocTypeCell.Value = "Med Rec";
+                            row.Cells.Add(comboDocTypeCell);
+                            comboDocTypeCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtMedRecReceivedDateCell = new DataGridViewTextBoxCell();
+                            txtMedRecReceivedDateCell.Value = rdrDocInfo.GetDateTime(10).ToString("MM/dd/yyyy");
+                            row.Cells.Add(txtMedRecReceivedDateCell);
+                            txtMedRecReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtMedRecDestinationFilePath = new DataGridViewTextBoxCell();
+                            txtMedRecReceivedDateCell.Value = rdrDocInfo.GetString(11);
+                            row.Cells.Add(txtMedRecReceivedDateCell);
+                            txtMedRecReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewButtonCell btnViewMedRecFormCell = new DataGridViewButtonCell();
+                            btnViewMedRecFormCell.Value = "View";
+                            row.Cells.Add(btnViewMedRecFormCell);
+
+                            gvCaseDocumentInMedBill.Rows.Add(row);
                         }
                     }
 
-                    strCaseIdSelected = CaseNameInMedBill;
-                    strContactIdSelected = IndividualIdInMedBill;
+                    if (!rdrDocInfo.IsDBNull(12) && !rdrDocInfo.IsDBNull(13) && !rdrDocInfo.IsDBNull(14))
+                    {
+                        if (rdrDocInfo.GetBoolean(12))
+                        {
+                            DataGridViewRow row = new DataGridViewRow();
+
+                            DataGridViewComboBoxCell comboDocTypeCell = new DataGridViewComboBoxCell();
+                            foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                            comboDocTypeCell.Value = "Other Doc";
+                            row.Cells.Add(comboDocTypeCell);
+                            comboDocTypeCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtOtherDocReceivedDateCell = new DataGridViewTextBoxCell();
+                            txtOtherDocReceivedDateCell.Value = rdrDocInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                            row.Cells.Add(txtOtherDocReceivedDateCell);
+                            txtOtherDocReceivedDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtOtherDocDestinationFilePath = new DataGridViewTextBoxCell();
+                            txtOtherDocDestinationFilePath.Value = rdrDocInfo.GetString(14);
+                            row.Cells.Add(txtOtherDocDestinationFilePath);
+                            txtOtherDocDestinationFilePath.ReadOnly = true;
+
+                            DataGridViewButtonCell btnViewOtherDocFormCell = new DataGridViewButtonCell();
+                            btnViewOtherDocFormCell.Value = "View";
+                            row.Cells.Add(btnViewOtherDocFormCell);
+
+                            gvCaseDocumentInMedBill.Rows.Add(row);
+
+                        }
+                    }
                 }
                 rdrDocInfo.Close();
                 if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                String strSqlQueryForCaseDocInfo = "select [dbo].[tbl_case_doc_type_code].[CaseDocTypeValue], [dbo].[tbl_case_doc].[ReceivedDate], " +
+                                                   "[dbo].[tbl_case_doc].[DestinationFilePath] " +
+                                                   "from [dbo].[tbl_case_doc] " +
+                                                   "inner join [dbo].[tbl_case_doc_type_code] on [dbo].[tbl_case_doc].[DocumentTypeId] = [dbo].[tbl_case_doc_type_code].[CaseDocTypeCode] " +
+                                                   "where [dbo].[tbl_case_doc].[Case_Name] = @CaseName";
+
+                SqlCommand cmdQueryForCaseDocInfo = new SqlCommand(strSqlQueryForCaseDocInfo, connRN4);
+                cmdQueryForCaseDocInfo.CommandType = CommandType.Text;
+
+                cmdQueryForCaseDocInfo.Parameters.AddWithValue("@CaseName", CaseNameInMedBill);
+
+                if (connRN4.State != ConnectionState.Closed)
+                {
+                    connRN4.Close();
+                    connRN4.Open();
+                }
+                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                SqlDataReader rdrCaseDocInfo = cmdQueryForCaseDocInfo.ExecuteReader();
+                if (rdrCaseDocInfo.HasRows)
+                {
+                    while (rdrCaseDocInfo.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+
+                        DataGridViewComboBoxCell comboCaseDocTypeCell = new DataGridViewComboBoxCell();
+                        foreach (CaseDocTypeInfo info in lstCaseDocTypeInfo) comboCaseDocTypeCell.Items.Add(info.CaseDocTypeValue);
+                        comboCaseDocTypeCell.Value = rdrCaseDocInfo.GetString(0);
+                        row.Cells.Add(comboCaseDocTypeCell);
+                        comboCaseDocTypeCell.ReadOnly = true;
+
+                        DataGridViewTextBoxCell txtReceivedDateCell = new DataGridViewTextBoxCell();
+                        txtReceivedDateCell.Value = rdrCaseDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                        row.Cells.Add(txtReceivedDateCell);
+                        txtReceivedDateCell.ReadOnly = true;
+
+                        DataGridViewTextBoxCell txtDestinationFilePathCell = new DataGridViewTextBoxCell();
+                        txtDestinationFilePathCell.Value = rdrCaseDocInfo.GetString(2);
+                        row.Cells.Add(txtDestinationFilePathCell);
+                        txtDestinationFilePathCell.ReadOnly = true;
+
+                        DataGridViewButtonCell btnViewCaseDocCell = new DataGridViewButtonCell();
+                        btnViewCaseDocCell.Value = "View";
+                        row.Cells.Add(btnViewCaseDocCell);
+
+                        gvCaseDocumentInMedBill.Rows.Add(row);
+                    }
+                }
+                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+
+                strCaseIdSelected = CaseNameInMedBill;
+                strContactIdSelected = IndividualIdInMedBill;
 
                 String strSqlQueryForIncidentProgram = "select [dbo].[tbl_program].[ProgramName] from [dbo].[tbl_program] " +
                                                         "inner join [dbo].[tbl_incident] on [dbo].[tbl_program].[Program_id] = [dbo].[tbl_incident].[Program_id] " +
@@ -63889,6 +64029,52 @@ namespace CMMManager
                     info.FileName = strUploadFilePath;
 
                     Process.Start(info);
+                }
+            }
+        }
+
+        private void gvCaseDocumentInMedBill_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (e.RowIndex >= 0)
+            {
+                DataGridView gvCaseDoc = sender as DataGridView;
+
+                if (e.ColumnIndex == 3)
+                {
+                    String FullPathName = gvCaseDoc["FilePathCaseInMedBill", e.RowIndex]?.Value?.ToString();
+
+                    if (FullPathName != String.Empty)
+                    {
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = FullPathName;
+
+                        Process.Start(info);
+                    }
+                }
+            }
+        }
+
+        private void gvMedicalBillDocuments_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (e.RowIndex >= 0)
+            {
+                DataGridView gvMedBillDoc = sender as DataGridView;
+
+                if (e.ColumnIndex == 4)
+                {
+                    String MedBillDocDestinationPath = gvMedBillDoc["FilePathMedBillDocuments", e.RowIndex]?.Value?.ToString();
+
+                    if (MedBillDocDestinationPath != String.Empty)
+                    {
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = MedBillDocDestinationPath;
+
+                        Process.Start(info);
+                    }
                 }
             }
         }
