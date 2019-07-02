@@ -663,21 +663,6 @@
             this.lblNumberOfPhysicalTheraph = new System.Windows.Forms.Label();
             this.lblPrescriptionDescription = new System.Windows.Forms.Label();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
-            this.btnViewOtherDoc = new System.Windows.Forms.Button();
-            this.btnViewMedRecord = new System.Windows.Forms.Button();
-            this.btnViewPoP = new System.Windows.Forms.Button();
-            this.btnViewIB = new System.Windows.Forms.Button();
-            this.btnViewNPF = new System.Windows.Forms.Button();
-            this.chkOtherDocReceived = new System.Windows.Forms.CheckBox();
-            this.chkMedRecordReceived = new System.Windows.Forms.CheckBox();
-            this.chkMedBillPOPReceived = new System.Windows.Forms.CheckBox();
-            this.chkMedBill_IBReceived = new System.Windows.Forms.CheckBox();
-            this.chkMedBillNPFReceived = new System.Windows.Forms.CheckBox();
-            this.dtpMedBillOtherDoc = new System.Windows.Forms.DateTimePicker();
-            this.dtpMedBillMedRecord = new System.Windows.Forms.DateTimePicker();
-            this.dtpMedBillPOP = new System.Windows.Forms.DateTimePicker();
-            this.dtpMedBill_IB = new System.Windows.Forms.DateTimePicker();
-            this.dtpMedBillNPF = new System.Windows.Forms.DateTimePicker();
             this.grpPatientInfo = new System.Windows.Forms.GroupBox();
             this.txtMemberProgram = new System.Windows.Forms.TextBox();
             this.label72 = new System.Windows.Forms.Label();
@@ -1085,7 +1070,6 @@
             this.grpTasks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvMostRecentTasks)).BeginInit();
             this.grpMedicalBillInformation.SuspendLayout();
-            this.grpDocumentProcessing.SuspendLayout();
             this.grpPatientInfo.SuspendLayout();
             this.tbpgPayment.SuspendLayout();
             this.tabPaymentMethod.SuspendLayout();
@@ -6686,182 +6670,12 @@
             // 
             // grpDocumentProcessing
             // 
-            this.grpDocumentProcessing.Controls.Add(this.btnViewOtherDoc);
-            this.grpDocumentProcessing.Controls.Add(this.btnViewMedRecord);
-            this.grpDocumentProcessing.Controls.Add(this.btnViewPoP);
-            this.grpDocumentProcessing.Controls.Add(this.btnViewIB);
-            this.grpDocumentProcessing.Controls.Add(this.btnViewNPF);
-            this.grpDocumentProcessing.Controls.Add(this.chkOtherDocReceived);
-            this.grpDocumentProcessing.Controls.Add(this.chkMedRecordReceived);
-            this.grpDocumentProcessing.Controls.Add(this.chkMedBillPOPReceived);
-            this.grpDocumentProcessing.Controls.Add(this.chkMedBill_IBReceived);
-            this.grpDocumentProcessing.Controls.Add(this.chkMedBillNPFReceived);
-            this.grpDocumentProcessing.Controls.Add(this.dtpMedBillOtherDoc);
-            this.grpDocumentProcessing.Controls.Add(this.dtpMedBillMedRecord);
-            this.grpDocumentProcessing.Controls.Add(this.dtpMedBillPOP);
-            this.grpDocumentProcessing.Controls.Add(this.dtpMedBill_IB);
-            this.grpDocumentProcessing.Controls.Add(this.dtpMedBillNPF);
             this.grpDocumentProcessing.Location = new System.Drawing.Point(480, 69);
             this.grpDocumentProcessing.Name = "grpDocumentProcessing";
             this.grpDocumentProcessing.Size = new System.Drawing.Size(395, 159);
             this.grpDocumentProcessing.TabIndex = 50;
             this.grpDocumentProcessing.TabStop = false;
             this.grpDocumentProcessing.Text = "Case Documents";
-            // 
-            // btnViewOtherDoc
-            // 
-            this.btnViewOtherDoc.Location = new System.Drawing.Point(321, 128);
-            this.btnViewOtherDoc.Name = "btnViewOtherDoc";
-            this.btnViewOtherDoc.Size = new System.Drawing.Size(66, 23);
-            this.btnViewOtherDoc.TabIndex = 22;
-            this.btnViewOtherDoc.Text = "View";
-            this.btnViewOtherDoc.UseVisualStyleBackColor = true;
-            this.btnViewOtherDoc.Click += new System.EventHandler(this.btnViewOtherDoc_Click);
-            // 
-            // btnViewMedRecord
-            // 
-            this.btnViewMedRecord.Location = new System.Drawing.Point(321, 101);
-            this.btnViewMedRecord.Name = "btnViewMedRecord";
-            this.btnViewMedRecord.Size = new System.Drawing.Size(66, 23);
-            this.btnViewMedRecord.TabIndex = 21;
-            this.btnViewMedRecord.Text = "View";
-            this.btnViewMedRecord.UseVisualStyleBackColor = true;
-            this.btnViewMedRecord.Click += new System.EventHandler(this.btnViewMedRecord_Click);
-            // 
-            // btnViewPoP
-            // 
-            this.btnViewPoP.Location = new System.Drawing.Point(321, 74);
-            this.btnViewPoP.Name = "btnViewPoP";
-            this.btnViewPoP.Size = new System.Drawing.Size(66, 23);
-            this.btnViewPoP.TabIndex = 20;
-            this.btnViewPoP.Text = "View";
-            this.btnViewPoP.UseVisualStyleBackColor = true;
-            this.btnViewPoP.Click += new System.EventHandler(this.btnViewPoP_Click);
-            // 
-            // btnViewIB
-            // 
-            this.btnViewIB.Location = new System.Drawing.Point(321, 47);
-            this.btnViewIB.Name = "btnViewIB";
-            this.btnViewIB.Size = new System.Drawing.Size(66, 23);
-            this.btnViewIB.TabIndex = 19;
-            this.btnViewIB.Text = "View";
-            this.btnViewIB.UseVisualStyleBackColor = true;
-            this.btnViewIB.Click += new System.EventHandler(this.btnViewIB_Click);
-            // 
-            // btnViewNPF
-            // 
-            this.btnViewNPF.Location = new System.Drawing.Point(321, 20);
-            this.btnViewNPF.Name = "btnViewNPF";
-            this.btnViewNPF.Size = new System.Drawing.Size(66, 23);
-            this.btnViewNPF.TabIndex = 18;
-            this.btnViewNPF.Text = "View";
-            this.btnViewNPF.UseVisualStyleBackColor = true;
-            this.btnViewNPF.Click += new System.EventHandler(this.btnViewNPF_Click);
-            // 
-            // chkOtherDocReceived
-            // 
-            this.chkOtherDocReceived.AutoSize = true;
-            this.chkOtherDocReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkOtherDocReceived.Location = new System.Drawing.Point(10, 130);
-            this.chkOtherDocReceived.Name = "chkOtherDocReceived";
-            this.chkOtherDocReceived.Size = new System.Drawing.Size(152, 20);
-            this.chkOtherDocReceived.TabIndex = 17;
-            this.chkOtherDocReceived.Text = "Other Doc Received:";
-            this.chkOtherDocReceived.UseVisualStyleBackColor = true;
-            this.chkOtherDocReceived.CheckedChanged += new System.EventHandler(this.chkOtherDocReceived_CheckedChanged);
-            // 
-            // chkMedRecordReceived
-            // 
-            this.chkMedRecordReceived.AutoSize = true;
-            this.chkMedRecordReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedRecordReceived.Location = new System.Drawing.Point(10, 103);
-            this.chkMedRecordReceived.Name = "chkMedRecordReceived";
-            this.chkMedRecordReceived.Size = new System.Drawing.Size(199, 20);
-            this.chkMedRecordReceived.TabIndex = 16;
-            this.chkMedRecordReceived.Text = "Med Record Received Date:";
-            this.chkMedRecordReceived.UseVisualStyleBackColor = true;
-            this.chkMedRecordReceived.CheckedChanged += new System.EventHandler(this.chkMedRecordReceived_CheckedChanged);
-            // 
-            // chkMedBillPOPReceived
-            // 
-            this.chkMedBillPOPReceived.AutoSize = true;
-            this.chkMedBillPOPReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBillPOPReceived.Location = new System.Drawing.Point(10, 76);
-            this.chkMedBillPOPReceived.Name = "chkMedBillPOPReceived";
-            this.chkMedBillPOPReceived.Size = new System.Drawing.Size(150, 20);
-            this.chkMedBillPOPReceived.TabIndex = 15;
-            this.chkMedBillPOPReceived.Text = "PoP Received Date:";
-            this.chkMedBillPOPReceived.UseVisualStyleBackColor = true;
-            this.chkMedBillPOPReceived.CheckedChanged += new System.EventHandler(this.chkMedBillPOPReceived_CheckedChanged);
-            // 
-            // chkMedBill_IBReceived
-            // 
-            this.chkMedBill_IBReceived.AutoSize = true;
-            this.chkMedBill_IBReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBill_IBReceived.Location = new System.Drawing.Point(10, 49);
-            this.chkMedBill_IBReceived.Name = "chkMedBill_IBReceived";
-            this.chkMedBill_IBReceived.Size = new System.Drawing.Size(136, 20);
-            this.chkMedBill_IBReceived.TabIndex = 14;
-            this.chkMedBill_IBReceived.Text = "IB Received Date:";
-            this.chkMedBill_IBReceived.UseVisualStyleBackColor = true;
-            this.chkMedBill_IBReceived.CheckedChanged += new System.EventHandler(this.chkMedBill_IBReceived_CheckedChanged);
-            // 
-            // chkMedBillNPFReceived
-            // 
-            this.chkMedBillNPFReceived.AutoSize = true;
-            this.chkMedBillNPFReceived.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMedBillNPFReceived.Location = new System.Drawing.Point(10, 22);
-            this.chkMedBillNPFReceived.Name = "chkMedBillNPFReceived";
-            this.chkMedBillNPFReceived.Size = new System.Drawing.Size(151, 20);
-            this.chkMedBillNPFReceived.TabIndex = 13;
-            this.chkMedBillNPFReceived.Text = "NPF Received Date:";
-            this.chkMedBillNPFReceived.UseVisualStyleBackColor = true;
-            this.chkMedBillNPFReceived.CheckedChanged += new System.EventHandler(this.chkMedBillNPFReceived_CheckedChanged);
-            // 
-            // dtpMedBillOtherDoc
-            // 
-            this.dtpMedBillOtherDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMedBillOtherDoc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillOtherDoc.Location = new System.Drawing.Point(212, 128);
-            this.dtpMedBillOtherDoc.Name = "dtpMedBillOtherDoc";
-            this.dtpMedBillOtherDoc.Size = new System.Drawing.Size(101, 22);
-            this.dtpMedBillOtherDoc.TabIndex = 12;
-            // 
-            // dtpMedBillMedRecord
-            // 
-            this.dtpMedBillMedRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMedBillMedRecord.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillMedRecord.Location = new System.Drawing.Point(212, 101);
-            this.dtpMedBillMedRecord.Name = "dtpMedBillMedRecord";
-            this.dtpMedBillMedRecord.Size = new System.Drawing.Size(101, 22);
-            this.dtpMedBillMedRecord.TabIndex = 11;
-            // 
-            // dtpMedBillPOP
-            // 
-            this.dtpMedBillPOP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMedBillPOP.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillPOP.Location = new System.Drawing.Point(212, 74);
-            this.dtpMedBillPOP.Name = "dtpMedBillPOP";
-            this.dtpMedBillPOP.Size = new System.Drawing.Size(101, 22);
-            this.dtpMedBillPOP.TabIndex = 10;
-            // 
-            // dtpMedBill_IB
-            // 
-            this.dtpMedBill_IB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMedBill_IB.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBill_IB.Location = new System.Drawing.Point(212, 47);
-            this.dtpMedBill_IB.Name = "dtpMedBill_IB";
-            this.dtpMedBill_IB.Size = new System.Drawing.Size(101, 22);
-            this.dtpMedBill_IB.TabIndex = 9;
-            // 
-            // dtpMedBillNPF
-            // 
-            this.dtpMedBillNPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpMedBillNPF.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpMedBillNPF.Location = new System.Drawing.Point(212, 20);
-            this.dtpMedBillNPF.Name = "dtpMedBillNPF";
-            this.dtpMedBillNPF.Size = new System.Drawing.Size(101, 22);
-            this.dtpMedBillNPF.TabIndex = 8;
             // 
             // grpPatientInfo
             // 
@@ -9908,8 +9722,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvMostRecentTasks)).EndInit();
             this.grpMedicalBillInformation.ResumeLayout(false);
             this.grpMedicalBillInformation.PerformLayout();
-            this.grpDocumentProcessing.ResumeLayout(false);
-            this.grpDocumentProcessing.PerformLayout();
             this.grpPatientInfo.ResumeLayout(false);
             this.grpPatientInfo.PerformLayout();
             this.tbpgPayment.ResumeLayout(false);
@@ -10259,26 +10071,11 @@
         private System.Windows.Forms.TextBox txtMedBill_CaseNo;
         private System.Windows.Forms.Button btnMedBill_Incident;
         private System.Windows.Forms.Button btnMedBill_lllness;
-        private System.Windows.Forms.DateTimePicker dtpMedBillOtherDoc;
-        private System.Windows.Forms.DateTimePicker dtpMedBillMedRecord;
-        private System.Windows.Forms.DateTimePicker dtpMedBillPOP;
-        private System.Windows.Forms.DateTimePicker dtpMedBill_IB;
-        private System.Windows.Forms.DateTimePicker dtpMedBillNPF;
-        private System.Windows.Forms.CheckBox chkMedBillNPFReceived;
-        private System.Windows.Forms.CheckBox chkOtherDocReceived;
-        private System.Windows.Forms.CheckBox chkMedRecordReceived;
-        private System.Windows.Forms.CheckBox chkMedBillPOPReceived;
-        private System.Windows.Forms.CheckBox chkMedBill_IBReceived;
         private System.Windows.Forms.TextBox txtMedBill_Incident;
         private System.Windows.Forms.TextBox txtMedBill_Illness;
         private System.Windows.Forms.TextBox txtMedBillAmount;
         private System.Windows.Forms.Label label64;
         private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Button btnViewOtherDoc;
-        private System.Windows.Forms.Button btnViewMedRecord;
-        private System.Windows.Forms.Button btnViewPoP;
-        private System.Windows.Forms.Button btnViewIB;
-        private System.Windows.Forms.Button btnViewNPF;
         private System.Windows.Forms.Button btnEditCaseUnderProcess;
         private System.Windows.Forms.Button btnDeleteCase;
         private System.Windows.Forms.TextBox txtCaseHistoryIndividualName;

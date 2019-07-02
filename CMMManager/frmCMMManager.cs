@@ -1256,11 +1256,11 @@ namespace CMMManager
             txtPrescriptionNote.Text = String.Empty;
             txtMedBillNote.Text = String.Empty;
 
-            chkOtherDocReceived.Checked = false;
-            chkMedRecordReceived.Checked = false;
-            chkMedBillPOPReceived.Checked = false;
-            chkMedBill_IBReceived.Checked = false;
-            chkMedBillNPFReceived.Checked = false;
+            //chkOtherDocReceived.Checked = false;
+            //chkMedRecordReceived.Checked = false;
+            //chkMedBillPOPReceived.Checked = false;
+            //chkMedBill_IBReceived.Checked = false;
+            //chkMedBillNPFReceived.Checked = false;
 
             //txtNPFMedBillFileName.Text = String.Empty;
             //txtIBMedBillFileName.Text = String.Empty;
@@ -5340,20 +5340,20 @@ namespace CMMManager
                 // Tooltips for Medical Bill tab
 
                 // View buttons for Medical Bill tab
-                ToolTip tipViewNPF = new ToolTip();
-                tipViewNPF.SetToolTip(btnViewNPF, "View the Needs Processing Form on the server");
+                //ToolTip tipViewNPF = new ToolTip();
+                //tipViewNPF.SetToolTip(btnViewNPF, "View the Needs Processing Form on the server");
 
-                ToolTip tipViewIB = new ToolTip();
-                tipViewIB.SetToolTip(btnViewIB, "View the Itemized Bill on the server");
+                //ToolTip tipViewIB = new ToolTip();
+                //tipViewIB.SetToolTip(btnViewIB, "View the Itemized Bill on the server");
 
-                ToolTip tipViewPoP = new ToolTip();
-                tipViewPoP.SetToolTip(btnViewPoP, "View the Proof of Payment on the server");
+                //ToolTip tipViewPoP = new ToolTip();
+                //tipViewPoP.SetToolTip(btnViewPoP, "View the Proof of Payment on the server");
 
-                ToolTip tipViewMedRec = new ToolTip();
-                tipViewMedRec.SetToolTip(btnViewMedRecord, "View the Medical Record on the server");
+                //ToolTip tipViewMedRec = new ToolTip();
+                //tipViewMedRec.SetToolTip(btnViewMedRecord, "View the Medical Record on the server");
 
-                ToolTip tipViewUnknownDoc = new ToolTip();
-                tipViewUnknownDoc.SetToolTip(btnViewOtherDoc, "View the Unknown Documents on the server");
+                //ToolTip tipViewUnknownDoc = new ToolTip();
+                //tipViewUnknownDoc.SetToolTip(btnViewOtherDoc, "View the Unknown Documents on the server");
 
                 // ToolTips for Illness button and Incident button
                 ToolTip tipIllness = new ToolTip();
@@ -6072,21 +6072,21 @@ namespace CMMManager
             grpTasks.Enabled = true;
             grpMedicalBillInformation.Enabled = true;
             grpDocumentProcessing.Enabled = true;
-            chkMedBillNPFReceived.Enabled = false;
-            chkMedBillPOPReceived.Enabled = false;
-            chkMedBill_IBReceived.Enabled = false;
-            chkOtherDocReceived.Enabled = false;
-            chkMedRecordReceived.Enabled = false;
-            dtpMedBillNPF.Enabled = false;
-            dtpMedBill_IB.Enabled = false;
-            dtpMedBillPOP.Enabled = false;
-            dtpMedBillOtherDoc.Enabled = false;
-            dtpMedBillMedRecord.Enabled = false;
-            btnViewNPF.Enabled = true;
-            btnViewIB.Enabled = true;
-            btnViewPoP.Enabled = true;
-            btnViewOtherDoc.Enabled = true;
-            btnViewMedRecord.Enabled = true;
+            //chkMedBillNPFReceived.Enabled = false;
+            //chkMedBillPOPReceived.Enabled = false;
+            //chkMedBill_IBReceived.Enabled = false;
+            //chkOtherDocReceived.Enabled = false;
+            //chkMedRecordReceived.Enabled = false;
+            //dtpMedBillNPF.Enabled = false;
+            //dtpMedBill_IB.Enabled = false;
+            //dtpMedBillPOP.Enabled = false;
+            //dtpMedBillOtherDoc.Enabled = false;
+            //dtpMedBillMedRecord.Enabled = false;
+            //btnViewNPF.Enabled = true;
+            //btnViewIB.Enabled = true;
+            //btnViewPoP.Enabled = true;
+            //btnViewOtherDoc.Enabled = true;
+            //btnViewMedRecord.Enabled = true;
             grpICD10Code.Enabled = true;
             grpPatientInfo.Enabled = true;
             grpMedBillDocuments.Enabled = true;
@@ -10331,30 +10331,30 @@ namespace CMMManager
         {
             CheckBox chkMedRecord = sender as CheckBox;
 
-            if (chkMedRecord.Checked)
-            {
-                dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
-            }
-            else
-            {
-                dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                dtpMedBillMedRecord.CustomFormat = " ";
-            }
+            //if (chkMedRecord.Checked)
+            //{
+            //    dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
+            //}
+            //else
+            //{
+            //    dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+            //    dtpMedBillMedRecord.CustomFormat = " ";
+            //}
         }
 
         private void chkMedBillNPFReceived_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkNPF = sender as CheckBox;
 
-            if (chkNPF.Checked)
-            {
-                dtpMedBillNPF.Format = DateTimePickerFormat.Short;
-            }
-            else
-            {
-                dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                dtpMedBillNPF.CustomFormat = " ";
-            }
+            //if (chkNPF.Checked)
+            //{
+            //    dtpMedBillNPF.Format = DateTimePickerFormat.Short;
+            //}
+            //else
+            //{
+            //    dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+            //    dtpMedBillNPF.CustomFormat = " ";
+            //}
 
         }
 
@@ -10362,39 +10362,39 @@ namespace CMMManager
         {
             CheckBox chkIB = sender as CheckBox;
 
-            if (chkIB.Checked)
-            {
-                dtpMedBill_IB.Format = DateTimePickerFormat.Short;
-            }
-            else
-            {
-                dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                dtpMedBill_IB.CustomFormat = " ";
-            }
+            //if (chkIB.Checked)
+            //{
+            //    dtpMedBill_IB.Format = DateTimePickerFormat.Short;
+            //}
+            //else
+            //{
+            //    dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+            //    dtpMedBill_IB.CustomFormat = " ";
+            //}
         }
 
         private void chkMedBillPOPReceived_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkPOP = sender as CheckBox;
 
-            if (chkPOP.Checked) dtpMedBillPOP.Format = DateTimePickerFormat.Short;
-            else
-            {
-                dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                dtpMedBillPOP.CustomFormat = " ";
-            }
+            //if (chkPOP.Checked) dtpMedBillPOP.Format = DateTimePickerFormat.Short;
+            //else
+            //{
+            //    dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+            //    dtpMedBillPOP.CustomFormat = " ";
+            //}
         }
 
         private void chkOtherDocReceived_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chkOtherDoc = sender as CheckBox;
 
-            if (chkOtherDoc.Checked) dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
-            else
-            {
-                dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                dtpMedBillOtherDoc.CustomFormat = " ";
-            }
+            //if (chkOtherDoc.Checked) dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
+            //else
+            //{
+            //    dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+            //    dtpMedBillOtherDoc.CustomFormat = " ";
+            //}
         }
 
         private void btnMedBill_Illness_Click(object sender, EventArgs e)
@@ -16093,223 +16093,223 @@ namespace CMMManager
 
         private void btnViewNPF_Click(object sender, EventArgs e)
         {
-            if (chkMedBillNPFReceived.Checked)
-            {
-                String CaseName = strCaseIdSelected;
-                String ContactId = strContactIdSelected;
+            //if (chkMedBillNPFReceived.Checked)
+            //{
+            //    String CaseName = strCaseIdSelected;
+            //    String ContactId = strContactIdSelected;
 
-                String strSqlQueryForNPFForm = "select dbo.tbl_case.NPF_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
+            //    String strSqlQueryForNPFForm = "select dbo.tbl_case.NPF_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
 
-                SqlCommand cmdQueryForNPFForm = new SqlCommand(strSqlQueryForNPFForm, connRN);
-                cmdQueryForNPFForm.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForNPFForm = new SqlCommand(strSqlQueryForNPFForm, connRN);
+            //    cmdQueryForNPFForm.CommandType = CommandType.Text;
 
-                cmdQueryForNPFForm.Parameters.AddWithValue("@Case_Name", CaseName);
-                cmdQueryForNPFForm.Parameters.AddWithValue("@ContactId", ContactId);
+            //    cmdQueryForNPFForm.Parameters.AddWithValue("@Case_Name", CaseName);
+            //    cmdQueryForNPFForm.Parameters.AddWithValue("@ContactId", ContactId);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //String NPF_FileName = cmdQueryForNPFForm.ExecuteScalar() as String;
-                Object objNPF_FileName = cmdQueryForNPFForm.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    if (connRN.State != ConnectionState.Closed)
+            //    {
+            //        connRN.Close();
+            //        connRN.Open();
+            //    }
+            //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    //String NPF_FileName = cmdQueryForNPFForm.ExecuteScalar() as String;
+            //    Object objNPF_FileName = cmdQueryForNPFForm.ExecuteScalar();
+            //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String NPF_FileName = String.Empty;
+            //    String NPF_FileName = String.Empty;
 
-                if (objNPF_FileName != null) NPF_FileName = objNPF_FileName.ToString();
-                else
-                {
-                    MessageBox.Show("No NPF Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
-                    return;
-                }
+            //    if (objNPF_FileName != null) NPF_FileName = objNPF_FileName.ToString();
+            //    else
+            //    {
+            //        MessageBox.Show("No NPF Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
+            //        return;
+            //    }
 
-                if (NPF_FileName != String.Empty)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = NPF_FileName;
+            //    if (NPF_FileName != String.Empty)
+            //    {
+            //        ProcessStartInfo psi = new ProcessStartInfo();
+            //        psi.FileName = NPF_FileName;
 
-                    Process.Start(psi);
-                }
-            }
+            //        Process.Start(psi);
+            //    }
+            //}
         }
 
         private void btnViewIB_Click(object sender, EventArgs e)
         {
-            if (chkMedBill_IBReceived.Checked)
-            {
-                String CaseName = strCaseIdSelected;
-                String ContactId = strContactIdSelected;
+            //if (chkMedBill_IBReceived.Checked)
+            //{
+            //    String CaseName = strCaseIdSelected;
+            //    String ContactId = strContactIdSelected;
 
-                String strSqlQueryForIBForm = "select dbo.tbl_case.IB_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
+            //    String strSqlQueryForIBForm = "select dbo.tbl_case.IB_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
 
-                SqlCommand cmdQueryForIBForm = new SqlCommand(strSqlQueryForIBForm, connRN);
-                cmdQueryForIBForm.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForIBForm = new SqlCommand(strSqlQueryForIBForm, connRN);
+            //    cmdQueryForIBForm.CommandType = CommandType.Text;
 
-                cmdQueryForIBForm.Parameters.AddWithValue("@Case_Name", CaseName);
-                cmdQueryForIBForm.Parameters.AddWithValue("@ContactId", ContactId);
+            //    cmdQueryForIBForm.Parameters.AddWithValue("@Case_Name", CaseName);
+            //    cmdQueryForIBForm.Parameters.AddWithValue("@ContactId", ContactId);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //String IB_FileName = cmdQueryForIBForm.ExecuteScalar() as String;
-                Object objIB_FileName = cmdQueryForIBForm.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    if (connRN.State != ConnectionState.Closed)
+            //    {
+            //        connRN.Close();
+            //        connRN.Open();
+            //    }
+            //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    //String IB_FileName = cmdQueryForIBForm.ExecuteScalar() as String;
+            //    Object objIB_FileName = cmdQueryForIBForm.ExecuteScalar();
+            //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String IB_FileName = String.Empty;
-                if (objIB_FileName != null) IB_FileName = objIB_FileName.ToString();
-                else
-                {
-                    MessageBox.Show("No IB Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
-                    return;
-                }
+            //    String IB_FileName = String.Empty;
+            //    if (objIB_FileName != null) IB_FileName = objIB_FileName.ToString();
+            //    else
+            //    {
+            //        MessageBox.Show("No IB Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
+            //        return;
+            //    }
 
-                if (IB_FileName != String.Empty)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = IB_FileName;
+            //    if (IB_FileName != String.Empty)
+            //    {
+            //        ProcessStartInfo psi = new ProcessStartInfo();
+            //        psi.FileName = IB_FileName;
 
-                    Process.Start(psi);
-                }
-            }
+            //        Process.Start(psi);
+            //    }
+            //}
         }
 
         private void btnViewPoP_Click(object sender, EventArgs e)
         {
-            if (chkMedBillPOPReceived.Checked)
-            {
-                String CaseName = strCaseIdSelected;
-                String ContactId = strContactIdSelected;
+            //if (chkMedBillPOPReceived.Checked)
+            //{
+            //    String CaseName = strCaseIdSelected;
+            //    String ContactId = strContactIdSelected;
 
-                String strSqlQueryForPOPForm = "select dbo.tbl_case.POP_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
+            //    String strSqlQueryForPOPForm = "select dbo.tbl_case.POP_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
 
-                SqlCommand cmdQueryForPOPForm = new SqlCommand(strSqlQueryForPOPForm, connRN);
-                cmdQueryForPOPForm.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForPOPForm = new SqlCommand(strSqlQueryForPOPForm, connRN);
+            //    cmdQueryForPOPForm.CommandType = CommandType.Text;
 
-                cmdQueryForPOPForm.Parameters.AddWithValue("@Case_Name", CaseName);
-                cmdQueryForPOPForm.Parameters.AddWithValue("@ContactId", ContactId);
+            //    cmdQueryForPOPForm.Parameters.AddWithValue("@Case_Name", CaseName);
+            //    cmdQueryForPOPForm.Parameters.AddWithValue("@ContactId", ContactId);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //String POP_FileName = cmdQueryForPOPForm.ExecuteScalar() as String;
-                Object objPOP_FileName = cmdQueryForPOPForm.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    if (connRN.State != ConnectionState.Closed)
+            //    {
+            //        connRN.Close();
+            //        connRN.Open();
+            //    }
+            //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    //String POP_FileName = cmdQueryForPOPForm.ExecuteScalar() as String;
+            //    Object objPOP_FileName = cmdQueryForPOPForm.ExecuteScalar();
+            //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String POP_FileName = String.Empty;
-                if (objPOP_FileName != null) POP_FileName = objPOP_FileName.ToString();
-                else
-                {
-                    MessageBox.Show("No POP Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
-                    return;
-                }
+            //    String POP_FileName = String.Empty;
+            //    if (objPOP_FileName != null) POP_FileName = objPOP_FileName.ToString();
+            //    else
+            //    {
+            //        MessageBox.Show("No POP Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
+            //        return;
+            //    }
 
-                if (POP_FileName != String.Empty)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = POP_FileName;
+            //    if (POP_FileName != String.Empty)
+            //    {
+            //        ProcessStartInfo psi = new ProcessStartInfo();
+            //        psi.FileName = POP_FileName;
 
-                    Process.Start(psi);
-                }
-            }
+            //        Process.Start(psi);
+            //    }
+            //}
         }
 
         private void btnViewMedRecord_Click(object sender, EventArgs e)
         {
-            if (chkMedRecordReceived.Checked)
-            {
-                String CaseName = strCaseIdSelected;
-                String ContactId = strContactIdSelected;
+            //if (chkMedRecordReceived.Checked)
+            //{
+            //    String CaseName = strCaseIdSelected;
+            //    String ContactId = strContactIdSelected;
 
-                String strSqlQueryForMedRecordForm = "select dbo.tbl_case.MedRec_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
+            //    String strSqlQueryForMedRecordForm = "select dbo.tbl_case.MedRec_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
 
-                SqlCommand cmdQueryForMedRecordForm = new SqlCommand(strSqlQueryForMedRecordForm, connRN);
-                cmdQueryForMedRecordForm.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForMedRecordForm = new SqlCommand(strSqlQueryForMedRecordForm, connRN);
+            //    cmdQueryForMedRecordForm.CommandType = CommandType.Text;
 
-                cmdQueryForMedRecordForm.Parameters.AddWithValue("@Case_Name", CaseName);
-                cmdQueryForMedRecordForm.Parameters.AddWithValue("@ContactId", ContactId);
+            //    cmdQueryForMedRecordForm.Parameters.AddWithValue("@Case_Name", CaseName);
+            //    cmdQueryForMedRecordForm.Parameters.AddWithValue("@ContactId", ContactId);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //String MedRecord_FileName = cmdQueryForMedRecordForm.ExecuteScalar() as String;
-                Object objMedRecord_FileName = cmdQueryForMedRecordForm.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    if (connRN.State != ConnectionState.Closed)
+            //    {
+            //        connRN.Close();
+            //        connRN.Open();
+            //    }
+            //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    //String MedRecord_FileName = cmdQueryForMedRecordForm.ExecuteScalar() as String;
+            //    Object objMedRecord_FileName = cmdQueryForMedRecordForm.ExecuteScalar();
+            //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String MedRecord_FileName = String.Empty;
-                if (objMedRecord_FileName != null) MedRecord_FileName = objMedRecord_FileName.ToString();
-                else
-                {
-                    MessageBox.Show("No Med Rec Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
-                    return;
-                }
+            //    String MedRecord_FileName = String.Empty;
+            //    if (objMedRecord_FileName != null) MedRecord_FileName = objMedRecord_FileName.ToString();
+            //    else
+            //    {
+            //        MessageBox.Show("No Med Rec Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
+            //        return;
+            //    }
 
-                if (MedRecord_FileName != String.Empty)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = MedRecord_FileName;
+            //    if (MedRecord_FileName != String.Empty)
+            //    {
+            //        ProcessStartInfo psi = new ProcessStartInfo();
+            //        psi.FileName = MedRecord_FileName;
 
-                    Process.Start(psi);
-                }
-            }
+            //        Process.Start(psi);
+            //    }
+            //}
         }
 
         private void btnViewOtherDoc_Click(object sender, EventArgs e)
         {
-            if (chkOtherDocReceived.Checked)
-            {
-                String CaseName = strCaseIdSelected;
-                String ContactId = strContactIdSelected;
+            //if (chkOtherDocReceived.Checked)
+            //{
+            //    String CaseName = strCaseIdSelected;
+            //    String ContactId = strContactIdSelected;
 
-                String strSqlQueryForUnknownDocForm = "select dbo.tbl_case.Unknown_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
+            //    String strSqlQueryForUnknownDocForm = "select dbo.tbl_case.Unknown_Form_Destination_File_Name from dbo.tbl_case where dbo.tbl_case.Case_Name = @Case_Name and dbo.tbl_case.Contact_ID = @ContactId";
 
-                SqlCommand cmdQueryForUnknownDocForm = new SqlCommand(strSqlQueryForUnknownDocForm, connRN);
-                cmdQueryForUnknownDocForm.CommandType = CommandType.Text;
+            //    SqlCommand cmdQueryForUnknownDocForm = new SqlCommand(strSqlQueryForUnknownDocForm, connRN);
+            //    cmdQueryForUnknownDocForm.CommandType = CommandType.Text;
 
-                cmdQueryForUnknownDocForm.Parameters.AddWithValue("@Case_Name", CaseName);
-                cmdQueryForUnknownDocForm.Parameters.AddWithValue("@ContactId", ContactId);
+            //    cmdQueryForUnknownDocForm.Parameters.AddWithValue("@Case_Name", CaseName);
+            //    cmdQueryForUnknownDocForm.Parameters.AddWithValue("@ContactId", ContactId);
 
-                //if (connRN.State == ConnectionState.Closed) connRN.Open();
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                //String UnknownDoc_FileName = cmdQueryForUnknownDocForm.ExecuteScalar() as String;
-                Object objUnknownDoc_FileName = cmdQueryForUnknownDocForm.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    //if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    if (connRN.State != ConnectionState.Closed)
+            //    {
+            //        connRN.Close();
+            //        connRN.Open();
+            //    }
+            //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //    //String UnknownDoc_FileName = cmdQueryForUnknownDocForm.ExecuteScalar() as String;
+            //    Object objUnknownDoc_FileName = cmdQueryForUnknownDocForm.ExecuteScalar();
+            //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String UnknownDoc_FileName = String.Empty;
-                if (objUnknownDoc_FileName != null) UnknownDoc_FileName = objUnknownDoc_FileName.ToString();
-                else
-                {
-                    MessageBox.Show("No Unknown Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
-                    return;
-                }
+            //    String UnknownDoc_FileName = String.Empty;
+            //    if (objUnknownDoc_FileName != null) UnknownDoc_FileName = objUnknownDoc_FileName.ToString();
+            //    else
+            //    {
+            //        MessageBox.Show("No Unknown Form Destination File Name for Case Name: " + CaseName, "Error", MessageBoxButtons.OK);
+            //        return;
+            //    }
 
-                if (UnknownDoc_FileName != String.Empty)
-                {
-                    ProcessStartInfo psi = new ProcessStartInfo();
-                    psi.FileName = UnknownDoc_FileName;
+            //    if (UnknownDoc_FileName != String.Empty)
+            //    {
+            //        ProcessStartInfo psi = new ProcessStartInfo();
+            //        psi.FileName = UnknownDoc_FileName;
 
-                    Process.Start(psi);
-                }
-            }
+            //        Process.Start(psi);
+            //    }
+            //}
         }
 
         public String MedBillNote(int med_bill_note_id)
@@ -17339,83 +17339,83 @@ namespace CMMManager
 
                         if (rdrDocsReceivedDate.GetBoolean(1) == true)
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Short;
-                            dtpMedBillNPF.Value = rdrDocsReceivedDate.GetDateTime(3);
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillNPF.Value = rdrDocsReceivedDate.GetDateTime(3);
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            btnViewNPF.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //btnViewNPF.Enabled = false;
                         }
 
-                        chkMedBillNPFReceived.Enabled = false;
+                        //chkMedBillNPFReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(4) == true)
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Short;
-                            dtpMedBill_IB.Value = rdrDocsReceivedDate.GetDateTime(6);
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Short;
+                            //dtpMedBill_IB.Value = rdrDocsReceivedDate.GetDateTime(6);
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            btnViewIB.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //btnViewIB.Enabled = false;
                         }
 
-                        chkMedBill_IBReceived.Enabled = false;
+                        //chkMedBill_IBReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(7) == true)
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Short;
-                            dtpMedBillPOP.Value = rdrDocsReceivedDate.GetDateTime(9);
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillPOP.Value = rdrDocsReceivedDate.GetDateTime(9);
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            btnViewPoP.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //btnViewPoP.Enabled = false;
                         }
 
-                        chkMedBillPOPReceived.Enabled = false;
+                        //chkMedBillPOPReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(10) == true)
                         {
-                            chkMedRecordReceived.Checked = true;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
-                            dtpMedBillMedRecord.Value = rdrDocsReceivedDate.GetDateTime(12);
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillMedRecord.Value = rdrDocsReceivedDate.GetDateTime(12);
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            btnViewMedRecord.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //btnViewMedRecord.Enabled = false;
                         }
 
-                        chkMedRecordReceived.Enabled = false;
+                        //chkMedRecordReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(13) == true)
                         {
-                            chkOtherDocReceived.Checked = true;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
-                            dtpMedBillOtherDoc.Value = rdrDocsReceivedDate.GetDateTime(15);
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillOtherDoc.Value = rdrDocsReceivedDate.GetDateTime(15);
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            btnViewOtherDoc.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //btnViewOtherDoc.Enabled = false;
                         }
 
-                        chkOtherDocReceived.Enabled = false;
+                        //chkOtherDocReceived.Enabled = false;
 
                     }
                     rdrDocsReceivedDate.Close();
@@ -18274,83 +18274,83 @@ namespace CMMManager
 
                         if (rdrDocsReceivedDate.GetBoolean(1) == true)
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Short;
-                            dtpMedBillNPF.Value = rdrDocsReceivedDate.GetDateTime(3);
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillNPF.Value = rdrDocsReceivedDate.GetDateTime(3);
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            btnViewNPF.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //btnViewNPF.Enabled = false;
                         }
 
-                        chkMedBillNPFReceived.Enabled = false;
+                        //chkMedBillNPFReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(4) == true)
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Short;
-                            dtpMedBill_IB.Value = rdrDocsReceivedDate.GetDateTime(6);
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Short;
+                            //dtpMedBill_IB.Value = rdrDocsReceivedDate.GetDateTime(6);
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            btnViewIB.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //btnViewIB.Enabled = false;
                         }
 
-                        chkMedBill_IBReceived.Enabled = false;
+                        //chkMedBill_IBReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(7) == true)
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Short;
-                            dtpMedBillPOP.Value = rdrDocsReceivedDate.GetDateTime(9);
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillPOP.Value = rdrDocsReceivedDate.GetDateTime(9);
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            btnViewPoP.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //btnViewPoP.Enabled = false;
                         }
 
-                        chkMedBillPOPReceived.Enabled = false;
+                        //chkMedBillPOPReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(10) == true)
                         {
-                            chkMedRecordReceived.Checked = true;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
-                            dtpMedBillMedRecord.Value = rdrDocsReceivedDate.GetDateTime(12);
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillMedRecord.Value = rdrDocsReceivedDate.GetDateTime(12);
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            btnViewMedRecord.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //btnViewMedRecord.Enabled = false;
                         }
 
-                        chkMedRecordReceived.Enabled = false;
+                        //chkMedRecordReceived.Enabled = false;
 
                         if (rdrDocsReceivedDate.GetBoolean(13) == true)
                         {
-                            chkOtherDocReceived.Checked = true;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
-                            dtpMedBillOtherDoc.Value = rdrDocsReceivedDate.GetDateTime(15);
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Short;
+                            //dtpMedBillOtherDoc.Value = rdrDocsReceivedDate.GetDateTime(15);
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            btnViewOtherDoc.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //btnViewOtherDoc.Enabled = false;
                         }
 
-                        chkOtherDocReceived.Enabled = false;
+                        //chkOtherDocReceived.Enabled = false;
 
                     }
                     rdrDocsReceivedDate.Close();
@@ -23310,84 +23310,84 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Checked = true;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Checked = true;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Checked = true;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Checked = true;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Checked = true;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Checked = true;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Checked = true;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Checked = true;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -23395,21 +23395,21 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Checked = true;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Checked = true;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -24380,23 +24380,23 @@ namespace CMMManager
         {
             grpDocumentProcessing.Enabled = true;
 
-            chkOtherDocReceived.Enabled = false;
-            chkMedRecordReceived.Enabled = false;
-            chkMedBillPOPReceived.Enabled = false;
-            chkMedBill_IBReceived.Enabled = false;
-            chkMedBillNPFReceived.Enabled = false;
+            //chkOtherDocReceived.Enabled = false;
+            //chkMedRecordReceived.Enabled = false;
+            //chkMedBillPOPReceived.Enabled = false;
+            //chkMedBill_IBReceived.Enabled = false;
+            //chkMedBillNPFReceived.Enabled = false;
 
-            dtpMedBillOtherDoc.Enabled = false;
-            dtpMedBillMedRecord.Enabled = false;
-            dtpMedBillPOP.Enabled = false;
-            dtpMedBill_IB.Enabled = false;
-            dtpMedBillNPF.Enabled = false;
+            //dtpMedBillOtherDoc.Enabled = false;
+            //dtpMedBillMedRecord.Enabled = false;
+            //dtpMedBillPOP.Enabled = false;
+            //dtpMedBill_IB.Enabled = false;
+            //dtpMedBillNPF.Enabled = false;
 
-            btnViewNPF.Enabled = true;
-            btnViewIB.Enabled = true;
-            btnViewPoP.Enabled = true;
-            btnViewMedRecord.Enabled = true;
-            btnViewOtherDoc.Enabled = true;
+            //btnViewNPF.Enabled = true;
+            //btnViewIB.Enabled = true;
+            //btnViewPoP.Enabled = true;
+            //btnViewMedRecord.Enabled = true;
+            //btnViewOtherDoc.Enabled = true;
         }
 
         private void EnableGroupMedBillDocumentsForViewing()
@@ -26130,80 +26130,80 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -26211,20 +26211,20 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -37587,84 +37587,84 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Checked = true;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Checked = true;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Checked = true;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Checked = true;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Checked = true;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Checked = true;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Checked = true;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Checked = true;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -37672,21 +37672,21 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Checked = true;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Checked = true;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -54749,84 +54749,84 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Checked = true;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Checked = true;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Checked = true;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Checked = true;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Checked = true;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Checked = true;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Checked = true;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Checked = true;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -54834,21 +54834,21 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Checked = true;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Checked = true;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -56137,80 +56137,80 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -56218,20 +56218,20 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -57926,80 +57926,80 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -58007,20 +58007,20 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
@@ -61692,80 +61692,80 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(0))
                         {
-                            chkMedBillNPFReceived.Checked = true;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = true;
+                            //chkMedBillNPFReceived.Checked = true;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Text = rdrDocInfo.GetDateTime(1).ToString("MM/dd/yyyy");
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillNPFReceived.Checked = false;
-                            chkMedBillNPFReceived.Enabled = false;
-                            dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillNPF.CustomFormat = " ";
-                            dtpMedBillNPF.Enabled = false;
-                            btnViewNPF.Enabled = false;
+                            //chkMedBillNPFReceived.Checked = false;
+                            //chkMedBillNPFReceived.Enabled = false;
+                            //dtpMedBillNPF.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillNPF.CustomFormat = " ";
+                            //dtpMedBillNPF.Enabled = false;
+                            //btnViewNPF.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(2))
                     {
                         if (rdrDocInfo.GetBoolean(2))
                         {
-                            chkMedBill_IBReceived.Checked = true;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = true;
+                            //chkMedBill_IBReceived.Checked = true;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Text = rdrDocInfo.GetDateTime(3).ToString("MM/dd/yyyy");
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = true;
                         }
                         else
                         {
-                            chkMedBill_IBReceived.Checked = false;
-                            chkMedBill_IBReceived.Enabled = false;
-                            dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
-                            dtpMedBill_IB.CustomFormat = " ";
-                            dtpMedBill_IB.Enabled = false;
-                            btnViewIB.Enabled = false;
+                            //chkMedBill_IBReceived.Checked = false;
+                            //chkMedBill_IBReceived.Enabled = false;
+                            //dtpMedBill_IB.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBill_IB.CustomFormat = " ";
+                            //dtpMedBill_IB.Enabled = false;
+                            //btnViewIB.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(4))
                     {
                         if (rdrDocInfo.GetBoolean(4))
                         {
-                            chkMedBillPOPReceived.Checked = true;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = true;
+                            //chkMedBillPOPReceived.Checked = true;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Text = rdrDocInfo.GetDateTime(5).ToString("MM/dd/yyyy");
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = true;
                         }
                         else
                         {
-                            chkMedBillPOPReceived.Checked = false;
-                            chkMedBillPOPReceived.Enabled = false;
-                            dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillPOP.CustomFormat = " ";
-                            dtpMedBillPOP.Enabled = false;
-                            btnViewPoP.Enabled = false;
+                            //chkMedBillPOPReceived.Checked = false;
+                            //chkMedBillPOPReceived.Enabled = false;
+                            //dtpMedBillPOP.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillPOP.CustomFormat = " ";
+                            //dtpMedBillPOP.Enabled = false;
+                            //btnViewPoP.Enabled = false;
                         }
                     }
                     if (!rdrDocInfo.IsDBNull(6))
                     {
                         if (rdrDocInfo.GetBoolean(6))
                         {
-                            chkMedRecordReceived.Checked = true;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = true;
+                            //chkMedRecordReceived.Checked = true;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Text = rdrDocInfo.GetDateTime(7).ToString("MM/dd/yyyy");
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = true;
                         }
                         else
                         {
-                            chkMedRecordReceived.Checked = false;
-                            chkMedRecordReceived.Enabled = false;
-                            dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillMedRecord.CustomFormat = " ";
-                            dtpMedBillMedRecord.Enabled = false;
-                            btnViewMedRecord.Enabled = false;
+                            //chkMedRecordReceived.Checked = false;
+                            //chkMedRecordReceived.Enabled = false;
+                            //dtpMedBillMedRecord.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillMedRecord.CustomFormat = " ";
+                            //dtpMedBillMedRecord.Enabled = false;
+                            //btnViewMedRecord.Enabled = false;
                         }
                     }
 
@@ -61773,20 +61773,20 @@ namespace CMMManager
                     {
                         if (rdrDocInfo.GetBoolean(8))
                         {
-                            chkOtherDocReceived.Checked = true;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = true;
+                            //chkOtherDocReceived.Checked = true;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Text = rdrDocInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = true;
                         }
                         else
                         {
-                            chkOtherDocReceived.Checked = false;
-                            chkOtherDocReceived.Enabled = false;
-                            dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
-                            dtpMedBillOtherDoc.CustomFormat = " ";
-                            dtpMedBillOtherDoc.Enabled = false;
-                            btnViewOtherDoc.Enabled = false;
+                            //chkOtherDocReceived.Checked = false;
+                            //chkOtherDocReceived.Enabled = false;
+                            //dtpMedBillOtherDoc.Format = DateTimePickerFormat.Custom;
+                            //dtpMedBillOtherDoc.CustomFormat = " ";
+                            //dtpMedBillOtherDoc.Enabled = false;
+                            //btnViewOtherDoc.Enabled = false;
                         }
                     }
 
