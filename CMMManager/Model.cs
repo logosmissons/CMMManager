@@ -1064,6 +1064,49 @@ namespace CMMManager
         }
     }
 
+    public class CaseDocInfo
+    {
+        public int? CaseDocId;
+        public String CaseName;
+        public int? DocumentTypeId;
+        public DateTime? ReceivedDate;
+        public String DestinationFilePath;
+        public String Note;
+        public int? CreateStaffId;
+        public DateTime? CreateDate;
+
+        public CaseDocInfo()
+        {
+            CaseDocId = null;
+            CaseName = String.Empty;
+            DocumentTypeId = null;
+            ReceivedDate = null;
+            DestinationFilePath = String.Empty;
+            Note = String.Empty;
+            CreateStaffId = null;
+            CreateDate = null;
+        }
+
+        public CaseDocInfo(int case_doc_id,
+                           String case_name, 
+                           int doc_type_id, 
+                           DateTime received_date, 
+                           String destination_file_path, 
+                           String note, 
+                           int create_staff_id, 
+                           DateTime create_date)
+        {
+            CaseDocId = case_doc_id;
+            CaseName = case_name;
+            DocumentTypeId = doc_type_id;
+            ReceivedDate = received_date;
+            DestinationFilePath = destination_file_path;
+            Note = note;
+            CreateStaffId = create_staff_id;
+            CreateDate = create_date;
+        }
+    }
+
     /// <summary>
     /// classes for BlueSheet
     /// </summary>

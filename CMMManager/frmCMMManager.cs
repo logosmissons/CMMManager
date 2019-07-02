@@ -5578,41 +5578,41 @@ namespace CMMManager
 
             //txtCaseHistoryIndividualName.Text = txtLastName.Text + ", " + txtFirstName.Text + " " + txtMiddleName.Text;
 
-            //String strSqlQueryForCreateStaff = "select dbo.tbl_CreateStaff.CreateStaff_Id, dbo.tbl_CreateStaff.Staff_Name from dbo.tbl_CreateStaff";
+            String strSqlQueryForCreateStaff = "select dbo.tbl_CreateStaff.CreateStaff_Id, dbo.tbl_CreateStaff.Staff_Name from dbo.tbl_CreateStaff";
 
-            //SqlCommand cmdQueryForCreateStaff = new SqlCommand(strSqlQueryForCreateStaff, connRN);
-            //cmdQueryForCreateStaff.CommandType = CommandType.Text;
+            SqlCommand cmdQueryForCreateStaff = new SqlCommand(strSqlQueryForCreateStaff, connRN);
+            cmdQueryForCreateStaff.CommandType = CommandType.Text;
 
-            //connRN.Open();
-            //SqlDataReader rdrCreateStaff = cmdQueryForCreateStaff.ExecuteReader();
+            connRN.Open();
+            SqlDataReader rdrCreateStaff = cmdQueryForCreateStaff.ExecuteReader();
 
-            //lstCreateStaff.Clear();
-            //if (rdrCreateStaff.HasRows)
-            //{
-            //    while (rdrCreateStaff.Read())
-            //    {
-            //        lstCreateStaff.Add(new StaffInfo { StaffId = rdrCreateStaff.GetInt16(0), StaffName = rdrCreateStaff.GetString(1) });
-            //    }
-            //}
-            //connRN.Close();
+            lstCreateStaff.Clear();
+            if (rdrCreateStaff.HasRows)
+            {
+                while (rdrCreateStaff.Read())
+                {
+                    lstCreateStaff.Add(new StaffInfo { StaffId = rdrCreateStaff.GetInt16(0), StaffName = rdrCreateStaff.GetString(1) });
+                }
+            }
+            connRN.Close();
 
-            //String strSqlQueryForModifiStaff = "select dbo.tbl_ModifiStaff.ModifiStaff_Id, dbo.tbl_ModifiStaff.Staff_Name from dbo.tbl_ModifiStaff";
+            String strSqlQueryForModifiStaff = "select dbo.tbl_ModifiStaff.ModifiStaff_Id, dbo.tbl_ModifiStaff.Staff_Name from dbo.tbl_ModifiStaff";
 
-            //SqlCommand cmdQueryForModifiStaff = new SqlCommand(strSqlQueryForModifiStaff, connRN);
-            //cmdQueryForModifiStaff.CommandType = CommandType.Text;
+            SqlCommand cmdQueryForModifiStaff = new SqlCommand(strSqlQueryForModifiStaff, connRN);
+            cmdQueryForModifiStaff.CommandType = CommandType.Text;
 
-            //connRN.Open();
-            //SqlDataReader rdrModifiStaff = cmdQueryForModifiStaff.ExecuteReader();
+            connRN.Open();
+            SqlDataReader rdrModifiStaff = cmdQueryForModifiStaff.ExecuteReader();
 
-            //lstModifiStaff.Clear();
-            //if (rdrModifiStaff.HasRows)
-            //{
-            //    while (rdrModifiStaff.Read())
-            //    {
-            //        lstModifiStaff.Add(new StaffInfo { StaffId = rdrModifiStaff.GetInt16(0), StaffName = rdrModifiStaff.GetString(1) });
-            //    }
-            //}
-            //connRN.Close();
+            lstModifiStaff.Clear();
+            if (rdrModifiStaff.HasRows)
+            {
+                while (rdrModifiStaff.Read())
+                {
+                    lstModifiStaff.Add(new StaffInfo { StaffId = rdrModifiStaff.GetInt16(0), StaffName = rdrModifiStaff.GetString(1) });
+                }
+            }
+            connRN.Close();
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //String strSqlQueryForCases = "select dbo.tbl_case.Case_Name, dbo.tbl_case.CreateDate, dbo.tbl_case.CreateStaff, " +
@@ -7319,25 +7319,26 @@ namespace CMMManager
                             break;
                     }
                     caseDetail.Individual_Id = String.Empty;
-                    caseDetail.NPF_Form = 0;
-                    caseDetail.NPF_Form_File_Name = String.Empty;
-                    caseDetail.NPF_Form_Destination_File_Name = String.Empty;
 
-                    caseDetail.IB_Form = 0;
-                    caseDetail.IB_Form_File_Name = String.Empty;
-                    caseDetail.IB_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.NPF_Form = 0;
+                    //caseDetail.NPF_Form_File_Name = String.Empty;
+                    //caseDetail.NPF_Form_Destination_File_Name = String.Empty;
 
-                    caseDetail.POP_Form = 0;
-                    caseDetail.POP_Form_File_Name = String.Empty;
-                    caseDetail.POP_Form_Destionation_File_Name = String.Empty;
+                    //caseDetail.IB_Form = 0;
+                    //caseDetail.IB_Form_File_Name = String.Empty;
+                    //caseDetail.IB_Form_Destination_File_Name = String.Empty;
 
-                    caseDetail.MedicalRecord_Form = 0;
-                    caseDetail.MedRec_Form_File_Name = String.Empty;
-                    caseDetail.MedRec_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.POP_Form = 0;
+                    //caseDetail.POP_Form_File_Name = String.Empty;
+                    //caseDetail.POP_Form_Destionation_File_Name = String.Empty;
 
-                    caseDetail.Unknown_Form = 0;
-                    caseDetail.Unknown_Form_File_Name = String.Empty;
-                    caseDetail.Unknown_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.MedicalRecord_Form = 0;
+                    //caseDetail.MedRec_Form_File_Name = String.Empty;
+                    //caseDetail.MedRec_Form_Destination_File_Name = String.Empty;
+
+                    //caseDetail.Unknown_Form = 0;
+                    //caseDetail.Unknown_Form_File_Name = String.Empty;
+                    //caseDetail.Unknown_Form_Destination_File_Name = String.Empty;
 
                     caseDetail.Note = String.Empty;
                     caseDetail.Log_Id = String.Empty;
@@ -7440,19 +7441,34 @@ namespace CMMManager
                     caseDetail.AddBill_Received_Date = null;
                     caseDetail.Remove_Log = String.Empty;
 
-                    String strSqlCreateCase = "insert into tbl_case (IsDeleted, Case_Name, ParentCaseName, Contact_ID, CreateDate, ModifiDate, CreateStaff, ModifiStaff, Case_status, " +
-                                               "NPF_Form, NPF_Form_File_Name, NPF_Form_Destination_File_Name, NPF_Receiv_Date, " +
-                                               "IB_Form, IB_Form_File_Name, IB_Form_Destination_File_Name, IB_Receiv_Date, " +
-                                               "POP_Form, POP_Form_File_Name, POP_Form_Destination_File_Name, POP_Receiv_Date, " +
-                                               "MedRec_Form, MedRec_Form_File_Name, MedRec_Form_Destination_File_Name, MedRec_Receiv_Date, " +
-                                               "Unknown_Form, Unknown_Form_File_Name, Unknown_Form_Destination_File_Name, Unknown_Receiv_Date, " +
+                    //String strSqlCreateCase = "insert into tbl_case (IsDeleted, Case_Name, ParentCaseName, Contact_ID, CreateDate, ModifiDate, CreateStaff, ModifiStaff, Case_status, " +
+                    //                           "NPF_Form, NPF_Form_File_Name, NPF_Form_Destination_File_Name, NPF_Receiv_Date, " +
+                    //                           "IB_Form, IB_Form_File_Name, IB_Form_Destination_File_Name, IB_Receiv_Date, " +
+                    //                           "POP_Form, POP_Form_File_Name, POP_Form_Destination_File_Name, POP_Receiv_Date, " +
+                    //                           "MedRec_Form, MedRec_Form_File_Name, MedRec_Form_Destination_File_Name, MedRec_Receiv_Date, " +
+                    //                           "Unknown_Form, Unknown_Form_File_Name, Unknown_Form_Destination_File_Name, Unknown_Receiv_Date, " +
+                    //                           "Note, Log_ID, AddBill_Form, AddBill_receiv_Date, Remove_log, individual_id) " +
+                    //                           "Values (@IsDeleted, @CaseId, @ParentCaseName, @ContactId, @CreateDate, @ModifiDate, @CreateStaff, @ModifiStaff, @CaseStatus, " +
+                    //                           "@NPF_Form, @NPF_Form_File_Name, @NPF_Form_Destination_File_Name, @NPF_Receive_Date, " +
+                    //                           "@IB_Form, @IB_Form_File_Name, @IB_Form_Destination_File_Name, @IB_Receive_Date, " +
+                    //                           "@POP_Form, @POP_Form_File_Name, @POP_Form_Destination_File_Name, @POP_Receive_Date, " +
+                    //                           "@MedRecord_Form, @MedRecord_Form_File_Name, @MedRecord_Form_Destination_File_name, @MedRecord_Receive_Date, " +
+                    //                           "@Unknown_Form, @Unknown_Form_File_Name, @Unknown_Form_Destination_File_Name, @Unknown_Receive_Date, " +
+                    //                           "@Note, @Log_Id, @AddBill_Form, @AddBill_ReceiveDate, @Remove_Log, @Individual_Id)";
+
+                    String strSqlCreateCase = "insert into tbl_case (IsDeleted, Case_Name, Contact_ID, CreateDate, ModifiDate, CreateStaff, ModifiStaff, Case_status, " +
+                                               //"NPF_Form, NPF_Form_File_Name, NPF_Form_Destination_File_Name, NPF_Receiv_Date, " +
+                                               //"IB_Form, IB_Form_File_Name, IB_Form_Destination_File_Name, IB_Receiv_Date, " +
+                                               //"POP_Form, POP_Form_File_Name, POP_Form_Destination_File_Name, POP_Receiv_Date, " +
+                                               //"MedRec_Form, MedRec_Form_File_Name, MedRec_Form_Destination_File_Name, MedRec_Receiv_Date, " +
+                                               //"Unknown_Form, Unknown_Form_File_Name, Unknown_Form_Destination_File_Name, Unknown_Receiv_Date, " +
                                                "Note, Log_ID, AddBill_Form, AddBill_receiv_Date, Remove_log, individual_id) " +
-                                               "Values (@IsDeleted, @CaseId, @ParentCaseName, @ContactId, @CreateDate, @ModifiDate, @CreateStaff, @ModifiStaff, @CaseStatus, " +
-                                               "@NPF_Form, @NPF_Form_File_Name, @NPF_Form_Destination_File_Name, @NPF_Receive_Date, " +
-                                               "@IB_Form, @IB_Form_File_Name, @IB_Form_Destination_File_Name, @IB_Receive_Date, " +
-                                               "@POP_Form, @POP_Form_File_Name, @POP_Form_Destination_File_Name, @POP_Receive_Date, " +
-                                               "@MedRecord_Form, @MedRecord_Form_File_Name, @MedRecord_Form_Destination_File_name, @MedRecord_Receive_Date, " +
-                                               "@Unknown_Form, @Unknown_Form_File_Name, @Unknown_Form_Destination_File_Name, @Unknown_Receive_Date, " +
+                                               "Values (@IsDeleted, @CaseId, @ContactId, @CreateDate, @ModifiDate, @CreateStaff, @ModifiStaff, @CaseStatus, " +
+                                               //"@NPF_Form, @NPF_Form_File_Name, @NPF_Form_Destination_File_Name, @NPF_Receive_Date, " +
+                                               //"@IB_Form, @IB_Form_File_Name, @IB_Form_Destination_File_Name, @IB_Receive_Date, " +
+                                               //"@POP_Form, @POP_Form_File_Name, @POP_Form_Destination_File_Name, @POP_Receive_Date, " +
+                                               //"@MedRecord_Form, @MedRecord_Form_File_Name, @MedRecord_Form_Destination_File_name, @MedRecord_Receive_Date, " +
+                                               //"@Unknown_Form, @Unknown_Form_File_Name, @Unknown_Form_Destination_File_Name, @Unknown_Receive_Date, " +
                                                "@Note, @Log_Id, @AddBill_Form, @AddBill_ReceiveDate, @Remove_Log, @Individual_Id)";
 
                     SqlCommand cmdInsertNewCase = new SqlCommand(strSqlCreateCase, connRN4);
@@ -7460,8 +7476,8 @@ namespace CMMManager
 
                     cmdInsertNewCase.Parameters.AddWithValue("@IsDeleted", 0);
                     cmdInsertNewCase.Parameters.AddWithValue("@CaseId", caseDetail.CaseId);
-                    if (caseDetail.ParentCaseId != String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@ParentCaseName", caseDetail.ParentCaseId);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@ParentCaseName", DBNull.Value);
+                    //if (caseDetail.ParentCaseId != String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@ParentCaseName", caseDetail.ParentCaseId);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@ParentCaseName", DBNull.Value);
                     cmdInsertNewCase.Parameters.AddWithValue("@ContactId", caseDetail.ContactId);
                     cmdInsertNewCase.Parameters.AddWithValue("@CreateDate", caseDetail.CreateDate);
                     cmdInsertNewCase.Parameters.AddWithValue("@ModifiDate", caseDetail.ModificationDate);
@@ -7469,35 +7485,45 @@ namespace CMMManager
                     cmdInsertNewCase.Parameters.AddWithValue("@ModifiStaff", caseDetail.ModifyingStaff);
                     cmdInsertNewCase.Parameters.AddWithValue("@CaseStatus", caseDetail.Status);
 
-                    cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form", caseDetail.NPF_Form);
-                    cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_File_Name", caseDetail.NPF_Form_File_Name);
-                    cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", caseDetail.NPF_Form_Destination_File_Name);
-                    if (caseDetail.NPF_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@NPF_Receive_Date", caseDetail.NPF_ReceivedDate);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@NPF_Receive_Date", DBNull.Value);
+                    //cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form", caseDetail.NPF_Form);
+                    //if (caseDetail.NPF_Form_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_File_Name", caseDetail.NPF_Form_File_Name);
+                    //if (caseDetail.NPF_Form_Destination_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", caseDetail.NPF_Form_Destination_File_Name);
+                    //if (caseDetail.NPF_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@NPF_Receive_Date", caseDetail.NPF_ReceivedDate);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@NPF_Receive_Date", DBNull.Value);
 
-                    cmdInsertNewCase.Parameters.AddWithValue("@IB_Form", caseDetail.IB_Form);
-                    cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_File_Name", caseDetail.IB_Form_File_Name);
-                    cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", caseDetail.IB_Form_Destination_File_Name);
-                    if (caseDetail.IB_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@IB_Receive_Date", caseDetail.IB_ReceivedDate);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@IB_Receive_Date", DBNull.Value);
+                    //cmdInsertNewCase.Parameters.AddWithValue("@IB_Form", caseDetail.IB_Form);
+                    //if (caseDetail.IB_Form_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_File_Name", caseDetail.IB_Form_File_Name);
+                    //if (caseDetail.IB_Form_Destination_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", caseDetail.IB_Form_Destination_File_Name);
+                    //if (caseDetail.IB_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@IB_Receive_Date", caseDetail.IB_ReceivedDate);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@IB_Receive_Date", DBNull.Value);
 
-                    cmdInsertNewCase.Parameters.AddWithValue("@POP_Form", caseDetail.POP_Form);
-                    cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_File_Name", caseDetail.POP_Form_File_Name);
-                    cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", caseDetail.POP_Form_Destionation_File_Name);
-                    if (caseDetail.POP_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@POP_Receive_Date", caseDetail.POP_ReceivedDate);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@POP_Receive_Date", DBNull.Value);
+                    //cmdInsertNewCase.Parameters.AddWithValue("@POP_Form", caseDetail.POP_Form);
+                    //if (caseDetail.POP_Form_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_File_Name", caseDetail.POP_Form_File_Name);
+                    //if (caseDetail.POP_Form_Destionation_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", caseDetail.POP_Form_Destionation_File_Name);
+                    //if (caseDetail.POP_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@POP_Receive_Date", caseDetail.POP_ReceivedDate);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@POP_Receive_Date", DBNull.Value);
 
-                    cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form", caseDetail.MedicalRecord_Form);
-                    cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_File_Name", caseDetail.MedRec_Form_File_Name);
-                    cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_Destination_File_Name", caseDetail.MedRec_Form_Destination_File_Name);
-                    if (caseDetail.MedRec_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Receive_Date", caseDetail.MedRec_ReceivedDate);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Receive_Date", DBNull.Value);
+                    //cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form", caseDetail.MedicalRecord_Form);
+                    //if (caseDetail.MedRec_Form_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_File_Name", caseDetail.MedRec_Form_File_Name);
+                    //if (caseDetail.MedRec_Form_Destination_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_Destination_FileName", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Form_Destination_File_Name", caseDetail.MedRec_Form_Destination_File_Name);
+                    //if (caseDetail.MedRec_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Receive_Date", caseDetail.MedRec_ReceivedDate);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@MedRecord_Receive_Date", DBNull.Value);
 
-                    cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form", caseDetail.Unknown_Form);
-                    cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_File_Name", caseDetail.Unknown_Form_File_Name);
-                    cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", caseDetail.Unknown_Form_Destination_File_Name);
-                    if (caseDetail.Unknown_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Receive_Date", caseDetail.Unknown_ReceivedDate);
-                    else cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Receive_Date", DBNull.Value);
+                    //cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form", caseDetail.Unknown_Form);
+                    //if (caseDetail.Unknown_Form_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_File_Name", caseDetail.Unknown_Form_File_Name);
+                    //if (caseDetail.Unknown_Form_Destination_File_Name == String.Empty) cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", caseDetail.Unknown_Form_Destination_File_Name);
+                    //if (caseDetail.Unknown_ReceivedDate != null) cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Receive_Date", caseDetail.Unknown_ReceivedDate);
+                    //else cmdInsertNewCase.Parameters.AddWithValue("@Unknown_Receive_Date", DBNull.Value);
 
                     cmdInsertNewCase.Parameters.AddWithValue("@Note", caseDetail.Note);
                     cmdInsertNewCase.Parameters.AddWithValue("@Log_Id", caseDetail.Log_Id);
@@ -7528,6 +7554,138 @@ namespace CMMManager
                         btnNewMedBill_Case.Enabled = true;
                         btnEditMedBill.Enabled = true;
                         btnDeleteMedBill.Enabled = true;
+                    }
+
+                    List<CaseDocInfo> lstCaseDocInfo = new List<CaseDocInfo>();
+
+                    for (int i = 0; i < gvCaseDocuments.Rows.Count; i++)
+                    {
+                        if (gvCaseDocuments["TypeCaseDocument", i]?.Value?.ToString() == "Doc")
+                        {
+
+                            CaseDocInfo info = new CaseDocInfo();
+                            info.CaseName = txtCaseName.Text.Trim();
+                            int resultDocId;
+                            if (Int32.TryParse(gvCaseDocuments["DocIdCaseDocument", i]?.Value?.ToString(), out resultDocId)) info.CaseDocId = resultDocId;                            
+                            for (int j = 0; j < lstCaseDocTypeInfo.Count; j++)
+                            {
+                                if (gvCaseDocuments["DocumentTypeCaseDocument", i]?.Value?.ToString() == lstCaseDocTypeInfo[j].CaseDocTypeValue)
+                                    info.DocumentTypeId = lstCaseDocTypeInfo[j].CaseDocTypeCode;
+                            }
+
+                            DateTime resultReceivedDate;
+                            if (DateTime.TryParse(gvCaseDocuments["ReceivedDateCaseDocument", i]?.Value?.ToString(), out resultReceivedDate)) info.ReceivedDate = resultReceivedDate;
+                            else
+                            {
+                                MessageBox.Show("Invalid Date", "Error");
+                                return;
+                            }
+
+                            if (gvCaseDocuments["FilePathCaseDocument", i]?.Value?.ToString() != String.Empty) info.DestinationFilePath = gvCaseDocuments["FilePathCaseDocument", i]?.Value?.ToString();
+                            else
+                            {
+                                MessageBox.Show("Invalid Path Name", "Error");
+                                return;
+                            }
+
+                            info.Note = gvCaseDocuments["NoteCaseDocument", i]?.Value?.ToString();
+
+                            for (int j = 0; j < lstCreateStaff.Count; j++)
+                            {
+                                if (gvCaseDocuments["CreatedByCaseDocument", i]?.Value?.ToString() == lstCreateStaff[j].StaffName)
+                                    info.CreateStaffId = lstCreateStaff[j].StaffId;
+                            }
+
+                            info.CreateDate = DateTime.Now;
+
+                            lstCaseDocInfo.Add(info);
+                        }
+                    }
+
+                    if (lstCaseDocInfo.Count > 0)
+                    {
+                        for (int i = 0; i < lstCaseDocInfo.Count; i++)
+                        {
+                            if (lstCaseDocInfo[i].CaseDocId != null)
+                            {
+                                String strSqlQueryForCaseDocId = "select [dbo].[tbl_case_doc].[Id] from [dbo].[tbl_case_doc] where [dbo].[tbl_case_doc].[Id] = @DocId";
+
+                                SqlCommand cmdQueryForCaseDocId = new SqlCommand(strSqlQueryForCaseDocId, connRN4);
+                                cmdQueryForCaseDocId.CommandType = CommandType.Text;
+
+                                cmdQueryForCaseDocId.Parameters.AddWithValue("@DocId", lstCaseDocInfo[i].CaseDocId);
+
+                                if (connRN4.State != ConnectionState.Closed)
+                                {
+                                    connRN4.Close();
+                                    connRN4.Open();
+                                }
+                                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                Object objCaseDocId = cmdQueryForCaseDocId.ExecuteScalar();
+                                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                                if (objCaseDocId == null)
+                                {
+                                    String strSqlInsertNewCaseDoc = "insert into [dbo].[tbl_case_doc] ([dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
+                                                                    "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], " +
+                                                                    "[dbo].[tbl_case_doc].[Note], [dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate])" +
+                                                                    "values " +
+                                                                    "(@CaseName, @DocumentTypeId, " +
+                                                                    "@ReceivedDate, @DestinationFilePath, " +
+                                                                    "@Note, @CreatedById, @CreateDate)";
+
+                                    SqlCommand cmdInsertNewCaseDoc = new SqlCommand(strSqlInsertNewCaseDoc, connRN4);
+                                    cmdInsertNewCaseDoc.CommandType = CommandType.Text;
+
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CaseName", lstCaseDocInfo[i].CaseName);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@DocumentTypeId", lstCaseDocInfo[i].DocumentTypeId);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@ReceivedDate", lstCaseDocInfo[i].ReceivedDate);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@DestinationFilePath", lstCaseDocInfo[i].DestinationFilePath);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@Note", lstCaseDocInfo[i].Note);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreatedById", lstCaseDocInfo[i].CreateStaffId);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreateDate", lstCaseDocInfo[i].CreateDate);
+
+                                    if (connRN4.State != ConnectionState.Closed)
+                                    {
+                                        connRN4.Close();
+                                        connRN4.Open();
+                                    }
+                                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                    int nCaseDocInserted = cmdInsertNewCaseDoc.ExecuteNonQuery();
+                                    if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                                }
+                            }
+                            else
+                            {
+                                String strSqlInsertNewCaseDoc = "insert into [dbo].[tbl_case_doc] ([dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
+                                                                "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], " +
+                                                                "[dbo].[tbl_case_doc].[Note], [dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate])" +
+                                                                "values " +
+                                                                "(@CaseName, @DocumentTypeId, " +
+                                                                "@ReceivedDate, @DestinationFilePath, " +
+                                                                "@Note, @CreatedById, @CreateDate)";
+
+                                SqlCommand cmdInsertNewCaseDoc = new SqlCommand(strSqlInsertNewCaseDoc, connRN4);
+                                cmdInsertNewCaseDoc.CommandType = CommandType.Text;
+
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CaseName", lstCaseDocInfo[i].CaseName);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@DocumentTypeId", lstCaseDocInfo[i].DocumentTypeId);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@ReceivedDate", lstCaseDocInfo[i].ReceivedDate);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@DestinationFilePath", lstCaseDocInfo[i].DestinationFilePath);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@Note", lstCaseDocInfo[i].Note);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreatedById", lstCaseDocInfo[i].CreateStaffId);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreateDate", lstCaseDocInfo[i].CreateDate);
+
+                                if (connRN4.State != ConnectionState.Closed)
+                                {
+                                    connRN4.Close();
+                                    connRN4.Open();
+                                }
+                                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                int nCaseDocInserted = cmdInsertNewCaseDoc.ExecuteNonQuery();
+                                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                            }
+                        }
                     }
 
                     return;
@@ -7567,21 +7725,22 @@ namespace CMMManager
                             break;
                     }
                     caseDetail.Individual_Id = String.Empty;
-                    caseDetail.NPF_Form = 0;
-                    caseDetail.NPF_Form_File_Name = String.Empty;
-                    caseDetail.NPF_Form_Destination_File_Name = String.Empty;
-                    caseDetail.IB_Form = 0;
-                    caseDetail.IB_Form_File_Name = String.Empty;
-                    caseDetail.IB_Form_Destination_File_Name = String.Empty;
-                    caseDetail.POP_Form = 0;
-                    caseDetail.POP_Form_File_Name = String.Empty;
-                    caseDetail.POP_Form_Destionation_File_Name = String.Empty;
-                    caseDetail.MedicalRecord_Form = 0;
-                    caseDetail.MedRec_Form_File_Name = String.Empty;
-                    caseDetail.MedRec_Form_Destination_File_Name = String.Empty;
-                    caseDetail.Unknown_Form = 0;
-                    caseDetail.Unknown_Form_File_Name = String.Empty;
-                    caseDetail.Unknown_Form_Destination_File_Name = String.Empty;
+
+                    //caseDetail.NPF_Form = 0;
+                    //caseDetail.NPF_Form_File_Name = String.Empty;
+                    //caseDetail.NPF_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.IB_Form = 0;
+                    //caseDetail.IB_Form_File_Name = String.Empty;
+                    //caseDetail.IB_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.POP_Form = 0;
+                    //caseDetail.POP_Form_File_Name = String.Empty;
+                    //caseDetail.POP_Form_Destionation_File_Name = String.Empty;
+                    //caseDetail.MedicalRecord_Form = 0;
+                    //caseDetail.MedRec_Form_File_Name = String.Empty;
+                    //caseDetail.MedRec_Form_Destination_File_Name = String.Empty;
+                    //caseDetail.Unknown_Form = 0;
+                    //caseDetail.Unknown_Form_File_Name = String.Empty;
+                    //caseDetail.Unknown_Form_Destination_File_Name = String.Empty;
                     caseDetail.Note = String.Empty;
                     caseDetail.Log_Id = String.Empty;
                     caseDetail.AddBill_Form = false;
@@ -7683,18 +7842,34 @@ namespace CMMManager
                     caseDetail.AddBill_Received_Date = DateTime.Today;
                     caseDetail.Remove_Log = String.Empty;
 
-                    String strSqlUpdateCase = "Update [dbo].[tbl_case] set [dbo].[tbl_case].[ParentCaseName] = @ParentCaseName, " +
-                                              "[dbo].[tbl_case].[ModifiDate] = @ModifiDate, [dbo].[tbl_case].[ModifiStaff] = @ModifiStaff, " +
-                                              "[dbo].[tbl_case].[NPF_Form] = @NPF_Form, [dbo].[tbl_case].[NPF_Form_File_Name] = @NPF_Form_File_Name, " +
-                                              "[dbo].[tbl_case].[NPF_Form_Destination_File_Name] = @NPF_Form_Destination_File_Name, [dbo].[tbl_case].[NPF_Receiv_Date] = @NPF_Receiv_Date, " +
-                                              "[dbo].[tbl_case].[IB_Form] = @IB_Form, [dbo].[tbl_case].[IB_Form_File_Name] = @IB_Form_File_Name, " +
-                                              "[dbo].[tbl_case].[IB_Form_Destination_File_Name] = @IB_Form_Destination_File_Name, [dbo].[tbl_case].[IB_Receiv_Date] = @IB_Receiv_Date, " +
-                                              "[dbo].[tbl_case].[POP_Form] = @POP_Form, [dbo].[tbl_case].[POP_Form_File_Name] = @POP_Form_File_Name, " +
-                                              "[dbo].[tbl_case].[POP_Form_Destination_File_Name] = @POP_Form_Destination_File_Name, [dbo].[tbl_case].[POP_Receiv_Date] = @POP_Receiv_Date, " +
-                                              "[dbo].[tbl_case].[MedRec_Form] = @MedRec_Form, [dbo].[tbl_case].[MedRec_Form_File_Name] = @MedRec_Form_File_Name, " +
-                                              "[dbo].[tbl_case].[MedRec_Form_Destination_File_Name] = @MedRec_Form_Destination_File_Name, [dbo].[tbl_case].[MedRec_Receiv_Date] = @MedRec_Receiv_Date, " +
-                                              "[dbo].[tbl_case].[Unknown_Form] = @Unknown_Form, [dbo].[tbl_case].[Unknown_Form_File_Name] = @Unknown_Form_File_Name, " +
-                                              "[dbo].[tbl_case].[Unknown_Form_Destination_File_Name] = @Unknown_Form_Destination_File_Name, [dbo].[tbl_case].[Unknown_Receiv_Date] = @Unknown_Receiv_Date, " +
+                    //String strSqlUpdateCase = "Update [dbo].[tbl_case] set [dbo].[tbl_case].[ParentCaseName] = @ParentCaseName, " +
+                    //                          "[dbo].[tbl_case].[ModifiDate] = @ModifiDate, [dbo].[tbl_case].[ModifiStaff] = @ModifiStaff, " +
+                    //                          "[dbo].[tbl_case].[NPF_Form] = @NPF_Form, [dbo].[tbl_case].[NPF_Form_File_Name] = @NPF_Form_File_Name, " +
+                    //                          "[dbo].[tbl_case].[NPF_Form_Destination_File_Name] = @NPF_Form_Destination_File_Name, [dbo].[tbl_case].[NPF_Receiv_Date] = @NPF_Receiv_Date, " +
+                    //                          "[dbo].[tbl_case].[IB_Form] = @IB_Form, [dbo].[tbl_case].[IB_Form_File_Name] = @IB_Form_File_Name, " +
+                    //                          "[dbo].[tbl_case].[IB_Form_Destination_File_Name] = @IB_Form_Destination_File_Name, [dbo].[tbl_case].[IB_Receiv_Date] = @IB_Receiv_Date, " +
+                    //                          "[dbo].[tbl_case].[POP_Form] = @POP_Form, [dbo].[tbl_case].[POP_Form_File_Name] = @POP_Form_File_Name, " +
+                    //                          "[dbo].[tbl_case].[POP_Form_Destination_File_Name] = @POP_Form_Destination_File_Name, [dbo].[tbl_case].[POP_Receiv_Date] = @POP_Receiv_Date, " +
+                    //                          "[dbo].[tbl_case].[MedRec_Form] = @MedRec_Form, [dbo].[tbl_case].[MedRec_Form_File_Name] = @MedRec_Form_File_Name, " +
+                    //                          "[dbo].[tbl_case].[MedRec_Form_Destination_File_Name] = @MedRec_Form_Destination_File_Name, [dbo].[tbl_case].[MedRec_Receiv_Date] = @MedRec_Receiv_Date, " +
+                    //                          "[dbo].[tbl_case].[Unknown_Form] = @Unknown_Form, [dbo].[tbl_case].[Unknown_Form_File_Name] = @Unknown_Form_File_Name, " +
+                    //                          "[dbo].[tbl_case].[Unknown_Form_Destination_File_Name] = @Unknown_Form_Destination_File_Name, [dbo].[tbl_case].[Unknown_Receiv_Date] = @Unknown_Receiv_Date, " +
+                    //                          "[dbo].[tbl_case].[Note] = @CaseNote, [dbo].[tbl_case].[Log_ID] = @Log_Id, [dbo].[tbl_case].[AddBill_Form] = @AddBill_Form, " +
+                    //                          "[dbo].[tbl_case].[AddBill_Receiv_Date] = @AddBill_Receiv_Date, [dbo].[tbl_case].[Remove_Log] = @Remove_Log, " +
+                    //                          "[dbo].[tbl_case].[Case_status] = @CaseStatus " +
+                    //                          "where [dbo].[tbl_case].[Case_Name] = @Case_Id";
+
+                    String strSqlUpdateCase = "Update [dbo].[tbl_case] set [dbo].[tbl_case].[ModifiDate] = @ModifiDate, [dbo].[tbl_case].[ModifiStaff] = @ModifiStaff, " +
+                                              //"[dbo].[tbl_case].[NPF_Form] = @NPF_Form, [dbo].[tbl_case].[NPF_Form_File_Name] = @NPF_Form_File_Name, " +
+                                              //"[dbo].[tbl_case].[NPF_Form_Destination_File_Name] = @NPF_Form_Destination_File_Name, [dbo].[tbl_case].[NPF_Receiv_Date] = @NPF_Receiv_Date, " +
+                                              //"[dbo].[tbl_case].[IB_Form] = @IB_Form, [dbo].[tbl_case].[IB_Form_File_Name] = @IB_Form_File_Name, " +
+                                              //"[dbo].[tbl_case].[IB_Form_Destination_File_Name] = @IB_Form_Destination_File_Name, [dbo].[tbl_case].[IB_Receiv_Date] = @IB_Receiv_Date, " +
+                                              //"[dbo].[tbl_case].[POP_Form] = @POP_Form, [dbo].[tbl_case].[POP_Form_File_Name] = @POP_Form_File_Name, " +
+                                              //"[dbo].[tbl_case].[POP_Form_Destination_File_Name] = @POP_Form_Destination_File_Name, [dbo].[tbl_case].[POP_Receiv_Date] = @POP_Receiv_Date, " +
+                                              //"[dbo].[tbl_case].[MedRec_Form] = @MedRec_Form, [dbo].[tbl_case].[MedRec_Form_File_Name] = @MedRec_Form_File_Name, " +
+                                              //"[dbo].[tbl_case].[MedRec_Form_Destination_File_Name] = @MedRec_Form_Destination_File_Name, [dbo].[tbl_case].[MedRec_Receiv_Date] = @MedRec_Receiv_Date, " +
+                                              //"[dbo].[tbl_case].[Unknown_Form] = @Unknown_Form, [dbo].[tbl_case].[Unknown_Form_File_Name] = @Unknown_Form_File_Name, " +
+                                              //"[dbo].[tbl_case].[Unknown_Form_Destination_File_Name] = @Unknown_Form_Destination_File_Name, [dbo].[tbl_case].[Unknown_Receiv_Date] = @Unknown_Receiv_Date, " +
                                               "[dbo].[tbl_case].[Note] = @CaseNote, [dbo].[tbl_case].[Log_ID] = @Log_Id, [dbo].[tbl_case].[AddBill_Form] = @AddBill_Form, " +
                                               "[dbo].[tbl_case].[AddBill_Receiv_Date] = @AddBill_Receiv_Date, [dbo].[tbl_case].[Remove_Log] = @Remove_Log, " +
                                               "[dbo].[tbl_case].[Case_status] = @CaseStatus " +
@@ -7703,39 +7878,52 @@ namespace CMMManager
                     SqlCommand cmdUpdateCase = new SqlCommand(strSqlUpdateCase, connRN4);
                     cmdUpdateCase.CommandType = CommandType.Text;
 
-                    if (caseDetail.ParentCaseId != String.Empty) cmdUpdateCase.Parameters.AddWithValue("@ParentCaseName", caseDetail.ParentCaseId);
-                    else cmdUpdateCase.Parameters.AddWithValue("@ParentCaseName", DBNull.Value);
+                    //if (caseDetail.ParentCaseId != String.Empty) cmdUpdateCase.Parameters.AddWithValue("@ParentCaseName", caseDetail.ParentCaseId);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@ParentCaseName", DBNull.Value);
                     cmdUpdateCase.Parameters.AddWithValue("@ModifiDate", caseDetail.ModificationDate);
                     cmdUpdateCase.Parameters.AddWithValue("@ModifiStaff", caseDetail.ModifyingStaff);
-                    cmdUpdateCase.Parameters.AddWithValue("@NPF_Form", caseDetail.NPF_Form);
-                    cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_File_Name", caseDetail.NPF_Form_File_Name);
-                    cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", caseDetail.NPF_Form_Destination_File_Name);
-                    if (caseDetail.NPF_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@NPF_Receiv_Date", caseDetail.NPF_ReceivedDate);
-                    else cmdUpdateCase.Parameters.AddWithValue("@NPF_Receiv_Date", DBNull.Value);
 
-                    cmdUpdateCase.Parameters.AddWithValue("@IB_Form", caseDetail.IB_Form);
-                    cmdUpdateCase.Parameters.AddWithValue("@IB_Form_File_Name", caseDetail.IB_Form_File_Name);
-                    cmdUpdateCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", caseDetail.IB_Form_Destination_File_Name);
-                    if (caseDetail.IB_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@IB_Receiv_Date", caseDetail.IB_ReceivedDate);
-                    else cmdUpdateCase.Parameters.AddWithValue("@IB_Receiv_Date", DBNull.Value);
 
-                    cmdUpdateCase.Parameters.AddWithValue("@POP_Form", caseDetail.POP_Form);
-                    cmdUpdateCase.Parameters.AddWithValue("@POP_Form_File_Name", caseDetail.POP_Form_File_Name);
-                    cmdUpdateCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", caseDetail.POP_Form_Destionation_File_Name);
-                    if (caseDetail.POP_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@POP_Receiv_Date", caseDetail.POP_ReceivedDate);
-                    else cmdUpdateCase.Parameters.AddWithValue("@POP_Receiv_Date", DBNull.Value);
+                    //cmdUpdateCase.Parameters.AddWithValue("@NPF_Form", caseDetail.NPF_Form);
 
-                    cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form", caseDetail.MedicalRecord_Form);
-                    cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_File_Name", caseDetail.MedRec_Form_File_Name);
-                    cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_Destination_File_Name", caseDetail.MedRec_Form_Destination_File_Name);
-                    if (caseDetail.MedRec_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", caseDetail.MedRec_ReceivedDate);
-                    else cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", DBNull.Value);
+                    //if (caseDetail.NPF_Form_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_File_Name", caseDetail.NPF_Form_File_Name);
+                    //if (caseDetail.NPF_Form_Destination_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@NPF_Form_Destination_File_Name", caseDetail.NPF_Form_Destination_File_Name);
+                    //if (caseDetail.NPF_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@NPF_Receiv_Date", caseDetail.NPF_ReceivedDate);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@NPF_Receiv_Date", DBNull.Value);
 
-                    cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form", caseDetail.Unknown_Form);
-                    cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_File_Name", caseDetail.Unknown_Form_File_Name);
-                    cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", caseDetail.Unknown_Form_Destination_File_Name);
-                    if (caseDetail.Unknown_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@Unknown_Receiv_Date", caseDetail.Unknown_ReceivedDate);
-                    else cmdUpdateCase.Parameters.AddWithValue("@Unknown_Receiv_Date", DBNull.Value);
+                    //cmdUpdateCase.Parameters.AddWithValue("@IB_Form", caseDetail.IB_Form);
+                    //if (caseDetail.IB_Form_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@IB_Form_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@IB_Form_File_Name", caseDetail.IB_Form_File_Name);
+                    //if (caseDetail.IB_Form_Destination_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@IB_Form_Destination_File_Name", caseDetail.IB_Form_Destination_File_Name);
+                    //if (caseDetail.IB_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@IB_Receiv_Date", caseDetail.IB_ReceivedDate);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@IB_Receiv_Date", DBNull.Value);
+
+                    //cmdUpdateCase.Parameters.AddWithValue("@POP_Form", caseDetail.POP_Form);
+                    //if (caseDetail.POP_Form_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@POP_Form_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@POP_Form_File_Name", caseDetail.POP_Form_File_Name);
+                    //if (caseDetail.POP_Form_Destionation_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@POP_Form_Destination_File_Name", caseDetail.POP_Form_Destionation_File_Name);
+                    //if (caseDetail.POP_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@POP_Receiv_Date", caseDetail.POP_ReceivedDate);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@POP_Receiv_Date", DBNull.Value);
+
+                    //cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form", caseDetail.MedicalRecord_Form);
+                    //if (caseDetail.MedRec_Form_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_File_Name", caseDetail.MedRec_Form_File_Name);
+                    //if (caseDetail.MedRec_Form_Destination_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@MedRec_Form_Destination_File_Name", caseDetail.MedRec_Form_Destination_File_Name);
+                    //if (caseDetail.MedRec_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", caseDetail.MedRec_ReceivedDate);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@MedRec_Receiv_Date", DBNull.Value);
+
+                    //cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form", caseDetail.Unknown_Form);
+                    //if (caseDetail.Unknown_Form_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_File_Name", caseDetail.Unknown_Form_File_Name);
+                    //if (caseDetail.Unknown_Form_Destination_File_Name == String.Empty) cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", DBNull.Value);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@Unknown_Form_Destination_File_Name", caseDetail.Unknown_Form_Destination_File_Name);
+                    //if (caseDetail.Unknown_ReceivedDate != null) cmdUpdateCase.Parameters.AddWithValue("@Unknown_Receiv_Date", caseDetail.Unknown_ReceivedDate);
+                    //else cmdUpdateCase.Parameters.AddWithValue("@Unknown_Receiv_Date", DBNull.Value);
 
                     cmdUpdateCase.Parameters.AddWithValue("@CaseNote", caseDetail.Note);
                     cmdUpdateCase.Parameters.AddWithValue("@Log_Id", caseDetail.Log_Id);
@@ -7790,6 +7978,141 @@ namespace CMMManager
                         if (connRN4.State != ConnectionState.Closed) connRN4.Close();
                     }
                     else if (nRowAffected == 0) MessageBox.Show("Update failed", "Error");
+
+                    List<CaseDocInfo> lstCaseDocInfo = new List<CaseDocInfo>();
+
+                    for (int i = 0; i < gvCaseDocuments.Rows.Count; i++)
+                    {
+                        if (gvCaseDocuments["TypeCaseDocument", i]?.Value?.ToString() == "Doc")
+                        {
+
+                            CaseDocInfo info = new CaseDocInfo();
+                            info.CaseName = txtCaseName.Text.Trim();
+                            //info.CaseDocId = Int32.Parse(gvCaseDocuments["DocIdCaseDocument", i]?.Value?.ToString());
+                            int resultDocId;
+                            if (Int32.TryParse(gvCaseDocuments["DocIdCaseDocument", i]?.Value?.ToString(), out resultDocId)) info.CaseDocId = resultDocId;
+                            //lstCaseDocTypeInfo
+                            for (int j = 0; j < lstCaseDocTypeInfo.Count; j++)
+                            {
+                                if (gvCaseDocuments["DocumentTypeCaseDocument", i]?.Value?.ToString() == lstCaseDocTypeInfo[j].CaseDocTypeValue)
+                                    info.DocumentTypeId = lstCaseDocTypeInfo[j].CaseDocTypeCode;
+                            }
+
+                            DateTime resultReceivedDate;
+                            if (DateTime.TryParse(gvCaseDocuments["ReceivedDateCaseDocument", i]?.Value?.ToString(), out resultReceivedDate)) info.ReceivedDate = resultReceivedDate;
+                            else
+                            {
+                                MessageBox.Show("Invalid Date", "Error");
+                                return;
+                            }
+
+                            if (gvCaseDocuments["FilePathCaseDocument", i]?.Value?.ToString() != String.Empty) info.DestinationFilePath = gvCaseDocuments["FilePathCaseDocument", i]?.Value?.ToString();
+                            else
+                            {
+                                MessageBox.Show("Invalid Path Name", "Error");
+                                return;
+                            }
+
+                            info.Note = gvCaseDocuments["NoteCaseDocument", i]?.Value?.ToString();
+
+                            for (int j = 0; j < lstCreateStaff.Count; j++)
+                            {
+                                if (gvCaseDocuments["CreatedByCaseDocument", i]?.Value?.ToString() == lstCreateStaff[j].StaffName)
+                                    info.CreateStaffId = lstCreateStaff[j].StaffId;
+                            }
+
+                            info.CreateDate = DateTime.Now;
+
+                            lstCaseDocInfo.Add(info);
+                        }
+                    }
+
+                    if (lstCaseDocInfo.Count > 0)
+                    {
+                        for (int i = 0; i < lstCaseDocInfo.Count; i++)
+                        {
+                            if (lstCaseDocInfo[i].CaseDocId != null)
+                            {
+                                String strSqlQueryForCaseDocId = "select [dbo].[tbl_case_doc].[Id] from [dbo].[tbl_case_doc] where [dbo].[tbl_case_doc].[Id] = @DocId";
+
+                                SqlCommand cmdQueryForCaseDocId = new SqlCommand(strSqlQueryForCaseDocId, connRN4);
+                                cmdQueryForCaseDocId.CommandType = CommandType.Text;
+
+                                cmdQueryForCaseDocId.Parameters.AddWithValue("@DocId", lstCaseDocInfo[i].CaseDocId);
+
+                                if (connRN4.State != ConnectionState.Closed)
+                                {
+                                    connRN4.Close();
+                                    connRN4.Open();
+                                }
+                                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                Object objCaseDocId = cmdQueryForCaseDocId.ExecuteScalar();
+                                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+
+                                if (objCaseDocId == null)
+                                {
+                                    String strSqlInsertNewCaseDoc = "insert into [dbo].[tbl_case_doc] ([dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
+                                                                    "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], " +
+                                                                    "[dbo].[tbl_case_doc].[Note], [dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate])" +
+                                                                    "values " +
+                                                                    "(@CaseName, @DocumentTypeId, " +
+                                                                    "@ReceivedDate, @DestinationFilePath, " +
+                                                                    "@Note, @CreatedById, @CreateDate)";
+
+                                    SqlCommand cmdInsertNewCaseDoc = new SqlCommand(strSqlInsertNewCaseDoc, connRN4);
+                                    cmdInsertNewCaseDoc.CommandType = CommandType.Text;
+
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CaseName", lstCaseDocInfo[i].CaseName);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@DocumentTypeId", lstCaseDocInfo[i].DocumentTypeId);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@ReceivedDate", lstCaseDocInfo[i].ReceivedDate);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@DestinationFilePath", lstCaseDocInfo[i].DestinationFilePath);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@Note", lstCaseDocInfo[i].Note);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreatedById", lstCaseDocInfo[i].CreateStaffId);
+                                    cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreateDate", lstCaseDocInfo[i].CreateDate);
+
+                                    if (connRN4.State != ConnectionState.Closed)
+                                    {
+                                        connRN4.Close();
+                                        connRN4.Open();
+                                    }
+                                    else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                    int nCaseDocInserted = cmdInsertNewCaseDoc.ExecuteNonQuery();
+                                    if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                                }
+                            }
+                            else
+                            {
+                                String strSqlInsertNewCaseDoc = "insert into [dbo].[tbl_case_doc] ([dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
+                                                                "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], " +
+                                                                "[dbo].[tbl_case_doc].[Note], [dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate])" +
+                                                                "values " +
+                                                                "(@CaseName, @DocumentTypeId, " +
+                                                                "@ReceivedDate, @DestinationFilePath, " +
+                                                                "@Note, @CreatedById, @CreateDate)";
+
+                                SqlCommand cmdInsertNewCaseDoc = new SqlCommand(strSqlInsertNewCaseDoc, connRN4);
+                                cmdInsertNewCaseDoc.CommandType = CommandType.Text;
+
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CaseName", lstCaseDocInfo[i].CaseName);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@DocumentTypeId", lstCaseDocInfo[i].DocumentTypeId);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@ReceivedDate", lstCaseDocInfo[i].ReceivedDate);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@DestinationFilePath", lstCaseDocInfo[i].DestinationFilePath);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@Note", lstCaseDocInfo[i].Note);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreatedById", lstCaseDocInfo[i].CreateStaffId);
+                                cmdInsertNewCaseDoc.Parameters.AddWithValue("@CreateDate", lstCaseDocInfo[i].CreateDate);
+
+                                if (connRN4.State != ConnectionState.Closed)
+                                {
+                                    connRN4.Close();
+                                    connRN4.Open();
+                                }
+                                else if (connRN4.State == ConnectionState.Closed) connRN4.Open();
+                                int nCaseDocInserted = cmdInsertNewCaseDoc.ExecuteNonQuery();
+                                if (connRN4.State != ConnectionState.Closed) connRN4.Close();
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
@@ -21337,7 +21660,8 @@ namespace CMMManager
 
                     // Populate the gvCaseDocuments DataGridView, CaseIdForCasePageMedBill
                     String strSqlQueryForCaseDoc = "select [dbo].[tbl_case_doc_type_code].[CaseDocTypeValue], [dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[Note], " +
-                                                   "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case_doc].[CreateDate], [dbo].[tbl_case_doc].[Id] " +
+                                                   "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_case_doc].[CreateDate], [dbo].[tbl_case_doc].[Id], " +
+                                                   "[dbo].[tbl_case_doc].[DestinationFilePath] " +
                                                    "from [dbo].[tbl_case_doc] " +
                                                    "inner join [dbo].[tbl_case_doc_type_code] on [dbo].[tbl_case_doc].[DocumentTypeId] = [dbo].[tbl_case_doc_type_code].[CaseDocTypeCode] " +
                                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_case_doc].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
@@ -21371,10 +21695,11 @@ namespace CMMManager
                             }
                             for (int i = 0; i < comboDocTypeCell.Items.Count; i++)
                             {
-                                if (rdrCaseDoc.GetInt16(0) == Int16.Parse(comboDocTypeCell.Items[i].ToString()))
+                                if (rdrCaseDoc.GetString(0) == comboDocTypeCell.Items[i].ToString())
                                 {
                                     comboDocTypeCell.Value = comboDocTypeCell.Items[i];
                                     row.Cells.Add(comboDocTypeCell);
+                                    comboDocTypeCell.ReadOnly = true;
                                 }
                             }
 
@@ -21385,6 +21710,7 @@ namespace CMMManager
                             CalendarCell calReceivedDateCell = new CalendarCell();
                             calReceivedDateCell.Value = rdrCaseDoc.GetDateTime(1).ToString("MM/dd/yyyy");
                             row.Cells.Add(calReceivedDateCell);
+                            calReceivedDateCell.ReadOnly = true;
 
                             DataGridViewButtonCell btnViewCell = new DataGridViewButtonCell();
                             btnViewCell.Value = "View";
@@ -21393,20 +21719,32 @@ namespace CMMManager
                             DataGridViewTextBoxCell txtNoteCell = new DataGridViewTextBoxCell();
                             txtNoteCell.Value = rdrCaseDoc.GetString(2);
                             row.Cells.Add(txtNoteCell);
+                            txtNoteCell.ReadOnly = true;
 
                             DataGridViewTextBoxCell txtCreatedByCell = new DataGridViewTextBoxCell();
                             txtCreatedByCell.Value = rdrCaseDoc.GetString(3);
-                            txtCreatedByCell.ReadOnly = true;
                             row.Cells.Add(txtCreatedByCell);
+                            txtCreatedByCell.ReadOnly = true;
 
                             DataGridViewTextBoxCell txtCreateDateCell = new DataGridViewTextBoxCell();
                             txtCreateDateCell.Value = rdrCaseDoc.GetDateTime(4).ToString("MM/dd/yyyy HH:mm:ss");
-                            txtCreateDateCell.ReadOnly = true;
                             row.Cells.Add(txtCreateDateCell);
+                            txtCreateDateCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtDocFromCell = new DataGridViewTextBoxCell();
+                            txtDocFromCell.Value = "Doc";
+                            row.Cells.Add(txtDocFromCell);
+                            txtDocFromCell.ReadOnly = true;
 
                             DataGridViewTextBoxCell txtDocIdCell = new DataGridViewTextBoxCell();
-                            txtDocIdCell.Value = rdrCaseDoc.GetString(5);
+                            txtDocIdCell.Value = rdrCaseDoc.GetInt32(5).ToString();
+                            row.Cells.Add(txtDocIdCell);
                             txtDocIdCell.ReadOnly = true;
+
+                            DataGridViewTextBoxCell txtDestinationPathCell = new DataGridViewTextBoxCell();
+                            txtDestinationPathCell.Value = rdrCaseDoc.GetString(6);
+                            row.Cells.Add(txtDestinationPathCell);
+                            txtDestinationPathCell.ReadOnly = true;
 
                             gvCaseDocuments.Rows.Add(row);
                         }
@@ -62998,7 +63336,16 @@ namespace CMMManager
                 {
                     MessageBox.Show("This Document is read only.", "Alert");
                 }
-                if (e.ColumnIndex == 2 && gvCaseDocuments["TypeCaseDocument", e.RowIndex]?.Value?.ToString() == "Doc")
+
+                if (e.ColumnIndex == 2 && gvCaseDocuments["TypeCaseDocument", e.RowIndex]?.Value?.ToString() == "Doc" &&
+                    gvCaseDocuments["DocIdCaseDocument", e.RowIndex]?.Value?.ToString() != String.Empty)
+                {
+                    MessageBox.Show("This Document is read only.", "Alert");
+                }
+
+
+                if (e.ColumnIndex == 2 && gvCaseDocuments["TypeCaseDocument", e.RowIndex]?.Value?.ToString() == "Doc" &&
+                    gvCaseDocuments["DocIdCaseDocument", e.RowIndex]?.Value?.ToString() == String.Empty)
                 {
                     OpenFileDialog dlg = new OpenFileDialog();
 
