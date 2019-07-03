@@ -12589,14 +12589,47 @@ namespace CMMManager
                         strNote = txtPhysicalTherapyRxNote.Text.Trim();
                     }
 
+                    //String strSqlInsertNewMedBill = "insert into dbo.tbl_medbill (IsDeleted, BillNo, MedBillType_Id, BillStatus, BillClosed, CreatedDate, CreatedById, " +
+                    //                                "LastModifiedDate, LastModifiedById, " +
+                    //                                "LastActivityDate, LastViewedDate, LastReferencedDate, Case_Id, Incident_Id, Illness_Id, " +
+                    //                                "NPF_Form, NPF_SourceFileName, NPF_DestinationFileName, " +
+                    //                                "IB_Form, IB_SourceFileName, IB_DestinationFileName, " +
+                    //                                "POP_Form, POP_SourceFileName, POP_DestinationFileName, " +
+                    //                                "MedRec_Form, MedRec_SourceFileName, MedRec_DestinationFileName, " +
+                    //                                "Unknown_Form, Unknown_SourceFileName, Unknown_DestinationFileName, " +
+                    //                                "BillAmount, SettlementTotal, " +
+                    //                                "Balance, BillDate, TotalSharedAmount, Individual_Id, Contact_Id, MedicalProvider_Id, PendingReason, " +
+                    //                                "Account_At_Provider, ProviderPhoneNumber, ProviderContactPerson, " +
+                    //                                "ProposalLetterSentDate, HIPPASentDate, MedicalRecordDate, " +
+                    //                                "IneligibleReason, PersonalResponsibilityCredit, " +
+                    //                                "WellBeingCareTotal, WellBeingCare, DueDate, TotalNumberOfPhysicalTherapy, " +
+                    //                                "PrescriptionDrugName, PrescriptionNo, PrescriptionDescription, " +
+                    //                                "PatientTypeId, Note) " +
+                    //                                "values (@IsDeleted, @BillNo, @MedBillType_Id, @MedBillStatus, @MedBillClosed, @CreatedDate, @CreateById, " +
+                    //                                "@LastModifiedDate, @LastModifiedById, " +
+                    //                                "@LastActivityDate, @LastViewedDate, @LastReferencedDate, @Case_Id, @Incident_Id, @Illness_Id, " +
+                    //                                "@NPF_Form, @NPF_SourceFileName, @NPF_DestinationFileName, " +
+                    //                                "@IB_Form, @IB_SourceFileName, @IB_DestinationFileName, " +
+                    //                                "@POP_Form, @POP_SourceFileName, @POP_DestinationFileName, " +
+                    //                                "@MedRec_Form, @MedRec_SourceFileName, @MedRec_DestinationFileName, " +
+                    //                                "@Unknown_Form, @Unknown_SourceFileName, @Unknown_DestinationFileName, " +
+                    //                                "@BillAmount, @SettlementTotal, " +
+                    //                                "@Balance, @BillDate, @TotalSharedAmount, @Individual_Id, @Contact_Id, @MedicalProvider_Id, @PendingReason, " +
+                    //                                "@Account_At_Provider, @ProviderPhoneNo, @ProviderContactPerson, " +
+                    //                                "@ProposalLetterSentDate, @HIPPASentDate, @MedicalRecordDate, " +
+                    //                                "@IneligibleReason, @PersonalResponsibilityCredit, " +
+                    //                                "@WellBeingCareTotal, @WellBeingCare, @DueDate, @TotalNumberOfPhysicalTherapy, " +
+                    //                                "@PrescriptionDrugName, @PrescriptionNo, @PrescriptionDescription, " +
+                    //                                "@PatientTypeId, @Note)";
+
                     String strSqlInsertNewMedBill = "insert into dbo.tbl_medbill (IsDeleted, BillNo, MedBillType_Id, BillStatus, BillClosed, CreatedDate, CreatedById, " +
                                                     "LastModifiedDate, LastModifiedById, " +
                                                     "LastActivityDate, LastViewedDate, LastReferencedDate, Case_Id, Incident_Id, Illness_Id, " +
-                                                    "NPF_Form, NPF_SourceFileName, NPF_DestinationFileName, " +
-                                                    "IB_Form, IB_SourceFileName, IB_DestinationFileName, " +
-                                                    "POP_Form, POP_SourceFileName, POP_DestinationFileName, " +
-                                                    "MedRec_Form, MedRec_SourceFileName, MedRec_DestinationFileName, " +
-                                                    "Unknown_Form, Unknown_SourceFileName, Unknown_DestinationFileName, " +
+                                                    //"NPF_Form, NPF_SourceFileName, NPF_DestinationFileName, " +
+                                                    //"IB_Form, IB_SourceFileName, IB_DestinationFileName, " +
+                                                    //"POP_Form, POP_SourceFileName, POP_DestinationFileName, " +
+                                                    //"MedRec_Form, MedRec_SourceFileName, MedRec_DestinationFileName, " +
+                                                    //"Unknown_Form, Unknown_SourceFileName, Unknown_DestinationFileName, " +
                                                     "BillAmount, SettlementTotal, " +
                                                     "Balance, BillDate, TotalSharedAmount, Individual_Id, Contact_Id, MedicalProvider_Id, PendingReason, " +
                                                     "Account_At_Provider, ProviderPhoneNumber, ProviderContactPerson, " +
@@ -12608,11 +12641,11 @@ namespace CMMManager
                                                     "values (@IsDeleted, @BillNo, @MedBillType_Id, @MedBillStatus, @MedBillClosed, @CreatedDate, @CreateById, " +
                                                     "@LastModifiedDate, @LastModifiedById, " +
                                                     "@LastActivityDate, @LastViewedDate, @LastReferencedDate, @Case_Id, @Incident_Id, @Illness_Id, " +
-                                                    "@NPF_Form, @NPF_SourceFileName, @NPF_DestinationFileName, " +
-                                                    "@IB_Form, @IB_SourceFileName, @IB_DestinationFileName, " +
-                                                    "@POP_Form, @POP_SourceFileName, @POP_DestinationFileName, " +
-                                                    "@MedRec_Form, @MedRec_SourceFileName, @MedRec_DestinationFileName, " +
-                                                    "@Unknown_Form, @Unknown_SourceFileName, @Unknown_DestinationFileName, " +
+                                                    //"@NPF_Form, @NPF_SourceFileName, @NPF_DestinationFileName, " +
+                                                    //"@IB_Form, @IB_SourceFileName, @IB_DestinationFileName, " +
+                                                    //"@POP_Form, @POP_SourceFileName, @POP_DestinationFileName, " +
+                                                    //"@MedRec_Form, @MedRec_SourceFileName, @MedRec_DestinationFileName, " +
+                                                    //"@Unknown_Form, @Unknown_SourceFileName, @Unknown_DestinationFileName, " +
                                                     "@BillAmount, @SettlementTotal, " +
                                                     "@Balance, @BillDate, @TotalSharedAmount, @Individual_Id, @Contact_Id, @MedicalProvider_Id, @PendingReason, " +
                                                     "@Account_At_Provider, @ProviderPhoneNo, @ProviderContactPerson, " +
@@ -12658,31 +12691,31 @@ namespace CMMManager
                     cmdInsertNewMedBill.Parameters.AddWithValue("@Incident_Id", strIncidentId);
                     cmdInsertNewMedBill.Parameters.AddWithValue("@Illness_Id", strIllnessId);
                     // Med Bill document form
-                    //cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_Form", chkNPFMedBill.Checked);
-                    if (strNPFSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_SourceFileName", strNPFSourceFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_SourceFileName", DBNull.Value);
-                    if (strNPFDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_DestinationFileName", strNPFDestinationFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_DestinationFileName", DBNull.Value);
-                    //cmdInsertNewMedBill.Parameters.AddWithValue("@IB_Form", chkIBMedBill.Checked);
-                    if (strIBSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@IB_SourceFileName", strIBSourceFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@IB_SourceFileName", DBNull.Value);
-                    if (strIBDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@IB_DestinationFileName", strIBDestinationFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@IB_DestinationFileName", DBNull.Value);
-                    //cmdInsertNewMedBill.Parameters.AddWithValue("@POP_Form", chkPoPMedBill.Checked);
-                    if (strPoPSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@POP_SourceFileName", strPoPSourceFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@POP_SourceFileName", DBNull.Value);
-                    if (strPoPDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@POP_DestinationFileName", strPoPDestinationFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@POP_DestinationFileName", DBNull.Value);
-                    //cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_Form", chkMedRecMedBill.Checked);
-                    if (strMedRecSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_SourceFileName", strMedRecSourceFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_SourceFileName", DBNull.Value);
-                    if (strMedRecDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_DestinationFileName", strMedRecDestinationFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_DestinationFileName", DBNull.Value);
-                    //cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_Form", chkOtherDocMedBill.Checked);
-                    if (strOtherDocSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_SourceFileName", strOtherDocSourceFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_SourceFileName", DBNull.Value);
-                    if (strOtherDocDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_DestinationFileName", strOtherDocDestinationFilePathMedBill);
-                    else cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_DestinationFileName", DBNull.Value);
+                    ////cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_Form", chkNPFMedBill.Checked);
+                    //if (strNPFSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_SourceFileName", strNPFSourceFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_SourceFileName", DBNull.Value);
+                    //if (strNPFDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_DestinationFileName", strNPFDestinationFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@NPF_DestinationFileName", DBNull.Value);
+                    ////cmdInsertNewMedBill.Parameters.AddWithValue("@IB_Form", chkIBMedBill.Checked);
+                    //if (strIBSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@IB_SourceFileName", strIBSourceFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@IB_SourceFileName", DBNull.Value);
+                    //if (strIBDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@IB_DestinationFileName", strIBDestinationFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@IB_DestinationFileName", DBNull.Value);
+                    ////cmdInsertNewMedBill.Parameters.AddWithValue("@POP_Form", chkPoPMedBill.Checked);
+                    //if (strPoPSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@POP_SourceFileName", strPoPSourceFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@POP_SourceFileName", DBNull.Value);
+                    //if (strPoPDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@POP_DestinationFileName", strPoPDestinationFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@POP_DestinationFileName", DBNull.Value);
+                    ////cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_Form", chkMedRecMedBill.Checked);
+                    //if (strMedRecSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_SourceFileName", strMedRecSourceFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_SourceFileName", DBNull.Value);
+                    //if (strMedRecDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_DestinationFileName", strMedRecDestinationFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@MedRec_DestinationFileName", DBNull.Value);
+                    ////cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_Form", chkOtherDocMedBill.Checked);
+                    //if (strOtherDocSourceFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_SourceFileName", strOtherDocSourceFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_SourceFileName", DBNull.Value);
+                    //if (strOtherDocDestinationFilePathMedBill != String.Empty) cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_DestinationFileName", strOtherDocDestinationFilePathMedBill);
+                    //else cmdInsertNewMedBill.Parameters.AddWithValue("@Unknown_DestinationFileName", DBNull.Value);
 
                     Decimal BillAmountResult = 0;
                     Decimal BillAmount = 0;
@@ -14582,21 +14615,21 @@ namespace CMMManager
                                                  "[dbo].[tbl_medbill].[LastModifiedById] = @NewLastModifiedById, " +
                                                  "[dbo].[tbl_medbill].[Case_Id] = @NewCaseId, [dbo].[tbl_medbill].[Incident_Id] = @NewIncidentId, " +
                                                  "[dbo].[tbl_medbill].[Illness_Id] = @NewIllnessId, " +
-                                                 "[dbo].[tbl_medbill].[NPF_Form] = @NewNPF_Form, " +
-                                                 "[dbo].[tbl_medbill].[NPF_SourceFileName] = @NewNPF_SourceFileName, " +
-                                                 "[dbo].[tbl_medbill].[NPF_DestinationFileName] = @NewNPF_DestinationFileName, " +
-                                                 "[dbo].[tbl_medbill].[IB_Form] = @NewIB_Form, " +
-                                                 "[dbo].[tbl_medbill].[IB_SourceFileName] = @NewIB_SourceFileName, " +
-                                                 "[dbo].[tbl_medbill].[IB_DestinationFileName] = @NewIB_DestinationFileName, " +
-                                                 "[dbo].[tbl_medbill].[POP_Form] = @NewPOP_Form, " +
-                                                 "[dbo].[tbl_medbill].[POP_SourceFileName] = @NewPOP_SourceFileName, " +
-                                                 "[dbo].[tbl_medbill].[POP_DestinationFileName] = @NewPOP_DestinationFileName, " +
-                                                 "[dbo].[tbl_medbill].[MedRec_Form] = @NewMedRec_Form, " +
-                                                 "[dbo].[tbl_medbill].[MedRec_SourceFileName] = @NewMedRec_SourceFileName, " +
-                                                 "[dbo].[tbl_medbill].[MedRec_DestinationFileName] = @NewMedRec_DestinationFileName, " +
-                                                 "[dbo].[tbl_medbill].[Unknown_Form] = @NewUnknown_Form, " +
-                                                 "[dbo].[tbl_medbill].[Unknown_SourceFileName] = @NewUnknown_SourceFileName, " +
-                                                 "[dbo].[tbl_medbill].[Unknown_DestinationFileName] = @NewUnknown_DestinationFileName, " +
+                                                 //"[dbo].[tbl_medbill].[NPF_Form] = @NewNPF_Form, " +
+                                                 //"[dbo].[tbl_medbill].[NPF_SourceFileName] = @NewNPF_SourceFileName, " +
+                                                 //"[dbo].[tbl_medbill].[NPF_DestinationFileName] = @NewNPF_DestinationFileName, " +
+                                                 //"[dbo].[tbl_medbill].[IB_Form] = @NewIB_Form, " +
+                                                 //"[dbo].[tbl_medbill].[IB_SourceFileName] = @NewIB_SourceFileName, " +
+                                                 //"[dbo].[tbl_medbill].[IB_DestinationFileName] = @NewIB_DestinationFileName, " +
+                                                 //"[dbo].[tbl_medbill].[POP_Form] = @NewPOP_Form, " +
+                                                 //"[dbo].[tbl_medbill].[POP_SourceFileName] = @NewPOP_SourceFileName, " +
+                                                 //"[dbo].[tbl_medbill].[POP_DestinationFileName] = @NewPOP_DestinationFileName, " +
+                                                 //"[dbo].[tbl_medbill].[MedRec_Form] = @NewMedRec_Form, " +
+                                                 //"[dbo].[tbl_medbill].[MedRec_SourceFileName] = @NewMedRec_SourceFileName, " +
+                                                 //"[dbo].[tbl_medbill].[MedRec_DestinationFileName] = @NewMedRec_DestinationFileName, " +
+                                                 //"[dbo].[tbl_medbill].[Unknown_Form] = @NewUnknown_Form, " +
+                                                 //"[dbo].[tbl_medbill].[Unknown_SourceFileName] = @NewUnknown_SourceFileName, " +
+                                                 //"[dbo].[tbl_medbill].[Unknown_DestinationFileName] = @NewUnknown_DestinationFileName, " +
                                                  "[dbo].[tbl_medbill].[BillAmount] = @NewBillAmount, [dbo].[tbl_medbill].[MedBillType_Id] = @NewMedBillType_Id, " +
                                                  "[dbo].[tbl_medbill].[BillStatus] = @NewMedBillStatus, " +
                                                  "[dbo].[tbl_medbill].[BillClosed] = @NewMedBillClosed, " +
@@ -14629,31 +14662,31 @@ namespace CMMManager
                     cmdUpdateMedBill.Parameters.AddWithValue("@NewIllnessId", strIllnessId);
 
                     // Documents for Medical Bill
-                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_Form", chkNPFMedBill.Checked);
-                    if (strNPFSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_SourceFileName", strNPFSourceFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_SourceFileName", DBNull.Value);
-                    if (strNPFDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_DestinationFileName", strNPFDestinationFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_DestinationFileName", DBNull.Value);
-                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_Form", chkIBMedBill.Checked);
-                    if (strIBSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_SourceFileName", strIBSourceFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_SourceFileName", DBNull.Value);
-                    if (strIBDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_DestinationFileName", strIBDestinationFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_DestinationFileName", DBNull.Value);
-                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_Form", chkPoPMedBill.Checked);
-                    if (strPoPSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_SourceFileName", strPoPSourceFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_SourceFileName", DBNull.Value);
-                    if (strPoPDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_DestinationFileName", strPoPDestinationFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_DestinationFileName", DBNull.Value);
-                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_Form", chkMedRecMedBill.Checked);
-                    if (strMedRecSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_SourceFileName", strMedRecSourceFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_SourceFileName", DBNull.Value);
-                    if (strMedRecDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_DestinationFileName", strMedRecDestinationFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_DestinationFileName", DBNull.Value);
-                    //cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_Form", chkOtherDocMedBill.Checked);
-                    if (strOtherDocSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_SourceFileName", strOtherDocSourceFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_SourceFileName", DBNull.Value);
-                    if (strOtherDocDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_DestinationFileName", strOtherDocDestinationFilePathMedBill);
-                    else cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_DestinationFileName", DBNull.Value);
+                    ////cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_Form", chkNPFMedBill.Checked);
+                    //if (strNPFSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_SourceFileName", strNPFSourceFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_SourceFileName", DBNull.Value);
+                    //if (strNPFDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_DestinationFileName", strNPFDestinationFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewNPF_DestinationFileName", DBNull.Value);
+                    ////cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_Form", chkIBMedBill.Checked);
+                    //if (strIBSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_SourceFileName", strIBSourceFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_SourceFileName", DBNull.Value);
+                    //if (strIBDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_DestinationFileName", strIBDestinationFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewIB_DestinationFileName", DBNull.Value);
+                    ////cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_Form", chkPoPMedBill.Checked);
+                    //if (strPoPSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_SourceFileName", strPoPSourceFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_SourceFileName", DBNull.Value);
+                    //if (strPoPDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_DestinationFileName", strPoPDestinationFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewPOP_DestinationFileName", DBNull.Value);
+                    ////cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_Form", chkMedRecMedBill.Checked);
+                    //if (strMedRecSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_SourceFileName", strMedRecSourceFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_SourceFileName", DBNull.Value);
+                    //if (strMedRecDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_DestinationFileName", strMedRecDestinationFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewMedRec_DestinationFileName", DBNull.Value);
+                    ////cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_Form", chkOtherDocMedBill.Checked);
+                    //if (strOtherDocSourceFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_SourceFileName", strOtherDocSourceFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_SourceFileName", DBNull.Value);
+                    //if (strOtherDocDestinationFilePathMedBill != String.Empty) cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_DestinationFileName", strOtherDocDestinationFilePathMedBill);
+                    //else cmdUpdateMedBill.Parameters.AddWithValue("@NewUnknown_DestinationFileName", DBNull.Value);
 
                     Decimal BillAmount = 0;
                     Decimal BillAmountResult = 0;
@@ -23079,10 +23112,12 @@ namespace CMMManager
                                 "[dbo].[tbl_medbill].[IB_Form], [dbo].[tbl_medbill].[IB_SourceFileName], [dbo].[tbl_medbill].[IB_DestinationFileName], " +
                                 "[dbo].[tbl_medbill].[POP_Form], [dbo].[tbl_medbill].[POP_SourceFileName], [dbo].[tbl_medbill].[POP_DestinationFileName], " +
                                 "[dbo].[tbl_medbill].[MedRec_Form], [dbo].[tbl_medbill].[MedRec_SourceFileName], [dbo].[tbl_medbill].[MedRec_DestinationFileName], " +
-                                "[dbo].[tbl_medbill].[Unknown_Form], [dbo].[tbl_medbill].[Unknown_SourceFileName], [dbo].[tbl_medbill].[Unknown_DestinationFileName] " +
+                                "[dbo].[tbl_medbill].[Unknown_Form], [dbo].[tbl_medbill].[Unknown_SourceFileName], [dbo].[tbl_medbill].[Unknown_DestinationFileName], " +
+                                "[dbo].[tbl_medbill].[CreatedDate], [dbo].[tbl_CreateStaff].[Staff_Name] " +
                                 "from [dbo].[tbl_medbill] " +
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_medbill].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
                                 "inner join [dbo].[tbl_incident] on [dbo].[tbl_medbill].[Incident_Id] = [dbo].[tbl_incident].[Incident_id] " +
+                                "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_medbill].[CreatedById] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
                                 "where [dbo].[tbl_medbill].[BillNo] = @MedBillNo and " +
                                 "[dbo].[tbl_medbill].[Case_Id] = @CaseName and " +
                                 "[dbo].[tbl_medbill].[Contact_Id] = @IndividualId and" +
@@ -23336,21 +23371,21 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(30) && !rdrMedBillEdit.IsDBNull(31) && !rdrMedBillEdit.IsDBNull(32))
                     {
                         DataGridViewRow row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(30) });
-                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
-                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
-                        {
-                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
-                        }
-                        MedBillDocTypeCell.Value = lstMedicalBillDocType[0].MedBillDocTypeValue;
-                        row.Cells.Add(MedBillDocTypeCell);
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells[0].ReadOnly = true;
                         strNPFSourceFilePathMedBill = rdrMedBillEdit.GetString(31);
                         strNPFormFileNameMedBill = Path.GetFileName(strNPFSourceFilePathMedBill);
                         strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
                         row.Cells.Add(new DataGridViewTextBoxCell { Value = strNPFDestinationFilePathMedBill });
+                        row.Cells[1].ReadOnly = true;
+
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetDateTime(44).ToString("MM/dd/yyyy") });
+                        row.Cells[2].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(45) });
+                        row.Cells[3].ReadOnly = true;
                         row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
-                        strNPFDestinationFilePathMedBill = rdrMedBillEdit.GetString(32);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "M" });
+                        row.Cells[5].ReadOnly = true;
                         gvMedicalBillDocuments.Rows.Add(row);
                     }
                     //else
@@ -23378,21 +23413,19 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(33) && !rdrMedBillEdit.IsDBNull(34) && !rdrMedBillEdit.IsDBNull(35))
                     {
                         DataGridViewRow row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(33) });
-                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
-                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
-                        {
-                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
-                        }
-                        MedBillDocTypeCell.Value = lstMedicalBillDocType[1].MedBillDocTypeValue;
-                        row.Cells.Add(MedBillDocTypeCell);
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells[0].ReadOnly = true;
                         strIBSourceFilePathMedBill = rdrMedBillEdit.GetString(34);
                         strIBFileNameMedBill = Path.GetFileName(strIBSourceFilePathMedBill);
-                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strIBFileNameMedBill });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(35) });
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strIBDestinationFilePathMedBill = rdrMedBillEdit.GetString(35);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strIBDestinationFilePathMedBill });
+                        row.Cells[1].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetDateTime(45).ToString("MM/dd/yyyy") });
+                        row.Cells[2].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(46) });
+                        row.Cells[3].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "M" });
                         gvMedicalBillDocuments.Rows.Add(row);
                     }
 
@@ -23415,21 +23448,20 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(36) && !rdrMedBillEdit.IsDBNull(37) && !rdrMedBillEdit.IsDBNull(38))
                     {
                         DataGridViewRow row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(36) });
-                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
-                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
-                        {
-                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
-                        }
-                        MedBillDocTypeCell.Value = lstMedicalBillDocType[2].MedBillDocTypeValue;
-                        row.Cells.Add(MedBillDocTypeCell);
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells[0].ReadOnly = true;
                         strPoPSourceFilePathMedBill = rdrMedBillEdit.GetString(37);
                         strPoPFileNameMedBill = Path.GetFileName(strPoPSourceFilePathMedBill);
-                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strPoPFileNameMedBill });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(38) });
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strPoPDestinationFilePathMedBill = rdrMedBillEdit.GetString(38);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strPoPDestinationFilePathMedBill });
+                        row.Cells[1].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetDateTime(45).ToString("MM/dd/yyyy") });
+                        row.Cells[2].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(46) });
+                        row.Cells[3].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "View" });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "M" });
+                        
                         gvMedicalBillDocuments.Rows.Add(row);
                     }
 
@@ -23451,21 +23483,21 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(39) && !rdrMedBillEdit.IsDBNull(40) && !rdrMedBillEdit.IsDBNull(41))
                     {
                         DataGridViewRow row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(39) });
-                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
-                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
-                        {
-                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
-                        }
-                        MedBillDocTypeCell.Value = lstMedicalBillDocType[3].MedBillDocTypeValue;
-                        row.Cells.Add(MedBillDocTypeCell);
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells[0].ReadOnly = true;
                         strMedRecSourceFilePathMedBill = rdrMedBillEdit.GetString(40);
                         strMedRecFileNameMedBill = Path.GetFileName(strMedRecSourceFilePathMedBill);
-                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strMedRecFileNameMedBill });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(41) });
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strMedRecDestinationFilePathMedBill = rdrMedBillEdit.GetString(41);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strMedRecDestinationFilePathMedBill });
+                        row.Cells[1].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetDateTime(45).ToString("MM/dd/yyyy") });
+                        row.Cells[2].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(46) });
+                        row.Cells[3].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "M" });
+                        row.Cells[5].ReadOnly = true;
+
                         gvMedicalBillDocuments.Rows.Add(row);
                     }
 
@@ -23487,21 +23519,20 @@ namespace CMMManager
                     if (!rdrMedBillEdit.IsDBNull(42) && !rdrMedBillEdit.IsDBNull(43) && !rdrMedBillEdit.IsDBNull(44))
                     {
                         DataGridViewRow row = new DataGridViewRow();
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = rdrMedBillEdit.GetBoolean(42) });
-                        DataGridViewComboBoxCell MedBillDocTypeCell = new DataGridViewComboBoxCell();
-                        for (int i = 0; i < lstMedicalBillDocType.Count; i++)
-                        {
-                            MedBillDocTypeCell.Items.Add(lstMedicalBillDocType[i].MedBillDocTypeValue);
-                        }
-                        MedBillDocTypeCell.Value = lstMedicalBillDocType[4].MedBillDocTypeValue;
-                        row.Cells.Add(MedBillDocTypeCell);
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        row.Cells[0].ReadOnly = true;
                         strOtherDocSourceFilePathMedBill = rdrMedBillEdit.GetString(43);
                         strOtherDocFileNameMedBill = Path.GetFileName(strOtherDocSourceFilePathMedBill);
-                        //row.Cells.Add(new DataGridViewTextBoxCell { Value = strOtherDocFileNameMedBill });
-                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(44) });
-                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
                         strOtherDocDestinationFilePathMedBill = rdrMedBillEdit.GetString(44);
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = strOtherDocDestinationFilePathMedBill });
+                        row.Cells[1].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetDateTime(45).ToString("MM/dd/yyyy") });
+                        row.Cells[2].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrMedBillEdit.GetString(46) });
+                        row.Cells[3].ReadOnly = true;
+                        row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = "M" });
+
                         gvMedicalBillDocuments.Rows.Add(row);
                     }
 
@@ -64066,19 +64097,72 @@ namespace CMMManager
 
                 if (e.ColumnIndex == 4)
                 {
-                    String MedBillDocDestinationPath = gvMedBillDoc["FilePathMedBillDocuments", e.RowIndex]?.Value?.ToString();
-
-                    if (MedBillDocDestinationPath != String.Empty)
+                    if (gvMedBillDoc["DocumentTypeMedBillDocument", e.RowIndex]?.Value?.ToString() == "M")
                     {
-                        ProcessStartInfo info = new ProcessStartInfo();
-                        info.FileName = MedBillDocDestinationPath;
+                        String MedBillDocDestinationPath = gvMedBillDoc["FileNameMedicalDocument", e.RowIndex]?.Value?.ToString();
 
-                        Process.Start(info);
+                        if (MedBillDocDestinationPath != String.Empty)
+                        {
+                            ProcessStartInfo info = new ProcessStartInfo();
+                            info.FileName = MedBillDocDestinationPath;
+
+                            Process.Start(info);
+                        }
+                        else
+                        {
+                            MessageBox.Show("File Path is empty.", "Alert");
+                            return;
+                        }
+                    }
+                    if (gvMedBillDoc["DocumentTypeMedBillDocument", e.RowIndex]?.Value?.ToString() == "D")
+                    {
+                        String MedBillDocDestinationPath = strMedBillDocDestinationPath + gvMedBillDoc["FileNameMedicalDocument", e.RowIndex]?.Value?.ToString();
+
+                        if (MedBillDocDestinationPath != String.Empty)
+                        {
+                            ProcessStartInfo info = new ProcessStartInfo();
+                            info.FileName = MedBillDocDestinationPath;
+
+                            Process.Start(info);
+                        }
                     }
                 }
             }
         }
+
+        private void btnAddNewDocument_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlgMedBillDoc = new OpenFileDialog();
+
+            if (dlgMedBillDoc.ShowDialog() == DialogResult.OK)
+            {
+                String strDestinationPathName = strMedBillDocDestinationPath + Path.GetFileName(dlgMedBillDoc.FileName);
+
+                try
+                {
+                    File.Copy(dlgMedBillDoc.FileName, strDestinationPathName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
+                DataGridViewRow row = new DataGridViewRow();
+
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = Path.GetFileName(dlgMedBillDoc.FileName) });
+                row.Cells[1].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = DateTime.Today.ToString("MM/dd/yyyy") });
+                row.Cells[2].ReadOnly = true;
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = LoggedInUserName });
+                row.Cells[3].ReadOnly = true;
+                row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = "D" });
+                row.Cells[5].ReadOnly = true;
+
+                gvMedicalBillDocuments.Rows.Add(row);
+            }
+        }
     }
 }
-
-
