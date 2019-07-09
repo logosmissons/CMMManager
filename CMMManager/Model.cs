@@ -1107,6 +1107,36 @@ namespace CMMManager
         }
     }
 
+    public class MedicalDocInfo
+    {
+        public String MedBillNo;
+        public String FileName;
+        public String DestinationFilePathName;
+        public DateTime? CreateDate;
+        public int? CreatedBy;
+
+        public MedicalDocInfo()
+        {
+            MedBillNo = String.Empty;
+            FileName = String.Empty;
+            DestinationFilePathName = String.Empty;
+            CreateDate = null;
+            CreatedBy = null;
+        }
+        public MedicalDocInfo(String medbill_no, 
+                              String source_file_name, 
+                              String destination_path, 
+                              DateTime create_date, 
+                              int created_by)
+        {
+            MedBillNo = medbill_no;
+            FileName = source_file_name;
+            DestinationFilePathName = destination_path;
+            CreateDate = create_date;
+            CreatedBy = created_by;
+        }
+    }
+
     /// <summary>
     /// classes for BlueSheet
     /// </summary>

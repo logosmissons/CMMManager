@@ -380,12 +380,6 @@
             this.btnEditCase = new System.Windows.Forms.Button();
             this.btnCreateNewCase = new System.Windows.Forms.Button();
             this.gvCaseViewCaseHistory = new System.Windows.Forms.DataGridView();
-            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
@@ -544,6 +538,7 @@
             this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
             this.gvMedicalBillDocuments = new System.Windows.Forms.DataGridView();
             this.SelectedMedBillDocuments = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocIdMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FileNameMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDateMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateStaffMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1013,6 +1008,13 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -4120,46 +4122,14 @@
             this.CreateDate,
             this.CreateStaff,
             this.ModifiedDate,
-            this.ModifiedBy});
+            this.ModifiedBy,
+            this.NoteCaseHistoryCaseView});
             this.gvCaseViewCaseHistory.Location = new System.Drawing.Point(42, 121);
             this.gvCaseViewCaseHistory.Name = "gvCaseViewCaseHistory";
             this.gvCaseViewCaseHistory.Size = new System.Drawing.Size(1753, 729);
             this.gvCaseViewCaseHistory.TabIndex = 5;
             this.gvCaseViewCaseHistory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellClick);
             this.gvCaseViewCaseHistory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellDoubleClick);
-            // 
-            // CaseHistorySelected
-            // 
-            this.CaseHistorySelected.HeaderText = "Selected";
-            this.CaseHistorySelected.Name = "CaseHistorySelected";
-            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CaseHistorySelected.Width = 80;
-            // 
-            // CaseName
-            // 
-            this.CaseName.HeaderText = "Case Name";
-            this.CaseName.Name = "CaseName";
-            // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            // 
-            // CreateStaff
-            // 
-            this.CreateStaff.HeaderText = "Create Staff";
-            this.CreateStaff.Name = "CreateStaff";
-            // 
-            // ModifiedDate
-            // 
-            this.ModifiedDate.HeaderText = "Modified Date";
-            this.ModifiedDate.Name = "ModifiedDate";
-            // 
-            // ModifiedBy
-            // 
-            this.ModifiedBy.HeaderText = "Modified By";
-            this.ModifiedBy.Name = "ModifiedBy";
             // 
             // label41
             // 
@@ -5533,6 +5503,7 @@
             this.gvMedicalBillDocuments.ColumnHeadersVisible = false;
             this.gvMedicalBillDocuments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedMedBillDocuments,
+            this.DocIdMedicalDocument,
             this.FileNameMedicalDocument,
             this.CreateDateMedicalDocument,
             this.CreateStaffMedicalDocument,
@@ -5550,22 +5521,29 @@
             this.SelectedMedBillDocuments.Name = "SelectedMedBillDocuments";
             this.SelectedMedBillDocuments.Width = 25;
             // 
+            // DocIdMedicalDocument
+            // 
+            this.DocIdMedicalDocument.HeaderText = "Document Id";
+            this.DocIdMedicalDocument.Name = "DocIdMedicalDocument";
+            this.DocIdMedicalDocument.Width = 40;
+            // 
             // FileNameMedicalDocument
             // 
             this.FileNameMedicalDocument.HeaderText = "File Name";
             this.FileNameMedicalDocument.Name = "FileNameMedicalDocument";
+            this.FileNameMedicalDocument.Width = 80;
             // 
             // CreateDateMedicalDocument
             // 
             this.CreateDateMedicalDocument.HeaderText = "Create Date";
             this.CreateDateMedicalDocument.Name = "CreateDateMedicalDocument";
-            this.CreateDateMedicalDocument.Width = 80;
+            this.CreateDateMedicalDocument.Width = 70;
             // 
             // CreateStaffMedicalDocument
             // 
             this.CreateStaffMedicalDocument.HeaderText = "Created By";
             this.CreateStaffMedicalDocument.Name = "CreateStaffMedicalDocument";
-            this.CreateStaffMedicalDocument.Width = 80;
+            this.CreateStaffMedicalDocument.Width = 70;
             // 
             // ViewMedBillDocuments
             // 
@@ -5587,6 +5565,7 @@
             this.btnDeleteMedBillDocument.TabIndex = 1;
             this.btnDeleteMedBillDocument.Text = "Delete";
             this.btnDeleteMedBillDocument.UseVisualStyleBackColor = true;
+            this.btnDeleteMedBillDocument.Click += new System.EventHandler(this.btnDeleteMedBillDocument_Click);
             // 
             // btnAddNewDocument
             // 
@@ -9685,6 +9664,45 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // CaseHistorySelected
+            // 
+            this.CaseHistorySelected.HeaderText = "Selected";
+            this.CaseHistorySelected.Name = "CaseHistorySelected";
+            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CaseHistorySelected.Width = 80;
+            // 
+            // CaseName
+            // 
+            this.CaseName.HeaderText = "Case Name";
+            this.CaseName.Name = "CaseName";
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            // 
+            // CreateStaff
+            // 
+            this.CreateStaff.HeaderText = "Create Staff";
+            this.CreateStaff.Name = "CreateStaff";
+            // 
+            // ModifiedDate
+            // 
+            this.ModifiedDate.HeaderText = "Modified Date";
+            this.ModifiedDate.Name = "ModifiedDate";
+            // 
+            // ModifiedBy
+            // 
+            this.ModifiedBy.HeaderText = "Modified By";
+            this.ModifiedBy.Name = "ModifiedBy";
+            // 
+            // NoteCaseHistoryCaseView
+            // 
+            this.NoteCaseHistoryCaseView.HeaderText = "Note";
+            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
+            this.NoteCaseHistoryCaseView.Width = 1000;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10148,12 +10166,6 @@
         private System.Windows.Forms.Label label176;
         private System.Windows.Forms.TextBox txtCaseHistoryIndividualID;
         private System.Windows.Forms.Label label175;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseHistorySelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
         private System.Windows.Forms.TextBox txtNoteOnCase;
         private System.Windows.Forms.Label label177;
         private System.Windows.Forms.Button btnNewMedBill_Case;
@@ -10816,11 +10828,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseInMedBill;
         private System.Windows.Forms.DataGridViewButtonColumn ViewCaseInMedBill;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedMedBillDocuments;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DocIdMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileNameMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffMedicalDocument;
         private System.Windows.Forms.DataGridViewButtonColumn ViewMedBillDocuments;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocumentTypeMedBillDocument;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseHistorySelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CaseName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseHistoryCaseView;
     }
 }
 
