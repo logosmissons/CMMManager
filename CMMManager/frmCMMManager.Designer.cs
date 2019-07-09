@@ -380,6 +380,13 @@
             this.btnEditCase = new System.Windows.Forms.Button();
             this.btnCreateNewCase = new System.Windows.Forms.Button();
             this.gvCaseViewCaseHistory = new System.Windows.Forms.DataGridView();
+            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
@@ -1008,13 +1015,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -4131,6 +4131,45 @@
             this.gvCaseViewCaseHistory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellClick);
             this.gvCaseViewCaseHistory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellDoubleClick);
             // 
+            // CaseHistorySelected
+            // 
+            this.CaseHistorySelected.HeaderText = "Selected";
+            this.CaseHistorySelected.Name = "CaseHistorySelected";
+            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CaseHistorySelected.Width = 80;
+            // 
+            // CaseName
+            // 
+            this.CaseName.HeaderText = "Case Name";
+            this.CaseName.Name = "CaseName";
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            // 
+            // CreateStaff
+            // 
+            this.CreateStaff.HeaderText = "Create Staff";
+            this.CreateStaff.Name = "CreateStaff";
+            // 
+            // ModifiedDate
+            // 
+            this.ModifiedDate.HeaderText = "Modified Date";
+            this.ModifiedDate.Name = "ModifiedDate";
+            // 
+            // ModifiedBy
+            // 
+            this.ModifiedBy.HeaderText = "Modified By";
+            this.ModifiedBy.Name = "ModifiedBy";
+            // 
+            // NoteCaseHistoryCaseView
+            // 
+            this.NoteCaseHistoryCaseView.HeaderText = "Note";
+            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
+            this.NoteCaseHistoryCaseView.Width = 1000;
+            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -4268,6 +4307,7 @@
             this.btnDeleteCaseDoc.TabIndex = 153;
             this.btnDeleteCaseDoc.Text = "Delete";
             this.btnDeleteCaseDoc.UseVisualStyleBackColor = true;
+            this.btnDeleteCaseDoc.Click += new System.EventHandler(this.btnDeleteCaseDoc_Click);
             // 
             // btnAddNewCaseDoc
             // 
@@ -9663,45 +9703,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // CaseHistorySelected
-            // 
-            this.CaseHistorySelected.HeaderText = "Selected";
-            this.CaseHistorySelected.Name = "CaseHistorySelected";
-            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CaseHistorySelected.Width = 80;
-            // 
-            // CaseName
-            // 
-            this.CaseName.HeaderText = "Case Name";
-            this.CaseName.Name = "CaseName";
-            // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            // 
-            // CreateStaff
-            // 
-            this.CreateStaff.HeaderText = "Create Staff";
-            this.CreateStaff.Name = "CreateStaff";
-            // 
-            // ModifiedDate
-            // 
-            this.ModifiedDate.HeaderText = "Modified Date";
-            this.ModifiedDate.Name = "ModifiedDate";
-            // 
-            // ModifiedBy
-            // 
-            this.ModifiedBy.HeaderText = "Modified By";
-            this.ModifiedBy.Name = "ModifiedBy";
-            // 
-            // NoteCaseHistoryCaseView
-            // 
-            this.NoteCaseHistoryCaseView.HeaderText = "Note";
-            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
-            this.NoteCaseHistoryCaseView.Width = 1000;
             // 
             // frmCMMManager
             // 
