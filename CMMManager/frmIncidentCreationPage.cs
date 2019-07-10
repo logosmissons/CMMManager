@@ -953,8 +953,10 @@ namespace CMMManager
 
                     if (DateTime.Today < WellBeingStartDate.Value)
                     {
-                        MessageBox.Show("This incident is not eligible for Well Being Care.", "Alert");
-                        chkbox.Checked = false;
+                        //MessageBox.Show("This incident is not eligible for Well Being Care.", "Alert");
+                        DialogResult drWellBeing = MessageBox.Show("This incident is not eligible for Well Being Care. Do you want to contine with Well Being Care?", "Alert", MessageBoxButtons.YesNo);
+                        if (drWellBeing == DialogResult.Yes) chkbox.Checked = true;
+                        else chkbox.Checked = false;
                         return;
                     }
                 }
