@@ -544,6 +544,13 @@
             this.btnUndoPayment = new System.Windows.Forms.Button();
             this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
             this.gvMedicalBillDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedMedBillDocuments = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.FileNameMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ViewMedBillDocuments = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.DocNoMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DocumentTypeMedBillDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteMedBillDocument = new System.Windows.Forms.Button();
             this.btnAddNewDocument = new System.Windows.Forms.Button();
             this.txtTotalSharedAmtMedBill = new System.Windows.Forms.TextBox();
@@ -1008,13 +1015,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedMedBillDocuments = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.FileNameMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ViewMedBillDocuments = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.DocNoMedicalDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DocumentTypeMedBillDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -2813,7 +2813,7 @@
             // btnAddHealthHistoryAfterReg
             // 
             this.btnAddHealthHistoryAfterReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddHealthHistoryAfterReg.Location = new System.Drawing.Point(1010, 698);
+            this.btnAddHealthHistoryAfterReg.Location = new System.Drawing.Point(1011, 740);
             this.btnAddHealthHistoryAfterReg.Name = "btnAddHealthHistoryAfterReg";
             this.btnAddHealthHistoryAfterReg.Size = new System.Drawing.Size(139, 28);
             this.btnAddHealthHistoryAfterReg.TabIndex = 214;
@@ -2823,7 +2823,7 @@
             // btnAddHealthHistoryBeforeReg
             // 
             this.btnAddHealthHistoryBeforeReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddHealthHistoryBeforeReg.Location = new System.Drawing.Point(1010, 577);
+            this.btnAddHealthHistoryBeforeReg.Location = new System.Drawing.Point(1011, 619);
             this.btnAddHealthHistoryBeforeReg.Name = "btnAddHealthHistoryBeforeReg";
             this.btnAddHealthHistoryBeforeReg.Size = new System.Drawing.Size(139, 28);
             this.btnAddHealthHistoryBeforeReg.TabIndex = 213;
@@ -2839,7 +2839,7 @@
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN3);
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN2);
             this.pnlHealthHistoryAfterRegistration.Controls.Add(this.cbHealthHistoryFromRN1);
-            this.pnlHealthHistoryAfterRegistration.Location = new System.Drawing.Point(782, 732);
+            this.pnlHealthHistoryAfterRegistration.Location = new System.Drawing.Point(783, 774);
             this.pnlHealthHistoryAfterRegistration.Name = "pnlHealthHistoryAfterRegistration";
             this.pnlHealthHistoryAfterRegistration.Size = new System.Drawing.Size(1016, 71);
             this.pnlHealthHistoryAfterRegistration.TabIndex = 212;
@@ -2888,7 +2888,7 @@
             // 
             this.btnIndViewCancelLowerRight.Enabled = false;
             this.btnIndViewCancelLowerRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewCancelLowerRight.Location = new System.Drawing.Point(1556, 822);
+            this.btnIndViewCancelLowerRight.Location = new System.Drawing.Point(1248, 33);
             this.btnIndViewCancelLowerRight.Name = "btnIndViewCancelLowerRight";
             this.btnIndViewCancelLowerRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewCancelLowerRight.TabIndex = 211;
@@ -2901,7 +2901,7 @@
             // 
             this.btnIndViewUpdateLowerRight.Enabled = false;
             this.btnIndViewUpdateLowerRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIndViewUpdateLowerRight.Location = new System.Drawing.Point(1688, 822);
+            this.btnIndViewUpdateLowerRight.Location = new System.Drawing.Point(1380, 33);
             this.btnIndViewUpdateLowerRight.Name = "btnIndViewUpdateLowerRight";
             this.btnIndViewUpdateLowerRight.Size = new System.Drawing.Size(110, 31);
             this.btnIndViewUpdateLowerRight.TabIndex = 210;
@@ -2919,7 +2919,7 @@
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior3);
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior2);
             this.pnlHealthHistoryPriorRegistration.Controls.Add(this.cbHealthHistoryPrior1);
-            this.pnlHealthHistoryPriorRegistration.Location = new System.Drawing.Point(782, 611);
+            this.pnlHealthHistoryPriorRegistration.Location = new System.Drawing.Point(783, 653);
             this.pnlHealthHistoryPriorRegistration.Name = "pnlHealthHistoryPriorRegistration";
             this.pnlHealthHistoryPriorRegistration.Size = new System.Drawing.Size(1016, 71);
             this.pnlHealthHistoryPriorRegistration.TabIndex = 209;
@@ -2968,7 +2968,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(779, 698);
+            this.label39.Location = new System.Drawing.Point(780, 740);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(197, 16);
             this.label39.TabIndex = 208;
@@ -2978,7 +2978,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(779, 583);
+            this.label38.Location = new System.Drawing.Point(780, 625);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(218, 16);
             this.label38.TabIndex = 207;
@@ -2989,7 +2989,7 @@
             this.gvRecentCommunication.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvRecentCommunication.Location = new System.Drawing.Point(782, 466);
             this.gvRecentCommunication.Name = "gvRecentCommunication";
-            this.gvRecentCommunication.Size = new System.Drawing.Size(1016, 88);
+            this.gvRecentCommunication.Size = new System.Drawing.Size(1016, 133);
             this.gvRecentCommunication.TabIndex = 206;
             // 
             // chkCommunicationEtc
@@ -5554,6 +5554,48 @@
             this.gvMedicalBillDocuments.Size = new System.Drawing.Size(378, 136);
             this.gvMedicalBillDocuments.TabIndex = 2;
             this.gvMedicalBillDocuments.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedicalBillDocuments_CellClick);
+            // 
+            // SelectedMedBillDocuments
+            // 
+            this.SelectedMedBillDocuments.HeaderText = "";
+            this.SelectedMedBillDocuments.Name = "SelectedMedBillDocuments";
+            this.SelectedMedBillDocuments.Width = 25;
+            // 
+            // FileNameMedicalDocument
+            // 
+            this.FileNameMedicalDocument.HeaderText = "File Name";
+            this.FileNameMedicalDocument.Name = "FileNameMedicalDocument";
+            this.FileNameMedicalDocument.Width = 80;
+            // 
+            // CreateDateMedicalDocument
+            // 
+            this.CreateDateMedicalDocument.HeaderText = "Create Date";
+            this.CreateDateMedicalDocument.Name = "CreateDateMedicalDocument";
+            this.CreateDateMedicalDocument.Width = 70;
+            // 
+            // CreateStaffMedicalDocument
+            // 
+            this.CreateStaffMedicalDocument.HeaderText = "Created By";
+            this.CreateStaffMedicalDocument.Name = "CreateStaffMedicalDocument";
+            this.CreateStaffMedicalDocument.Width = 70;
+            // 
+            // ViewMedBillDocuments
+            // 
+            this.ViewMedBillDocuments.HeaderText = "View";
+            this.ViewMedBillDocuments.Name = "ViewMedBillDocuments";
+            this.ViewMedBillDocuments.Width = 60;
+            // 
+            // DocNoMedicalDocument
+            // 
+            this.DocNoMedicalDocument.HeaderText = "Document No";
+            this.DocNoMedicalDocument.Name = "DocNoMedicalDocument";
+            this.DocNoMedicalDocument.Width = 40;
+            // 
+            // DocumentTypeMedBillDocument
+            // 
+            this.DocumentTypeMedBillDocument.HeaderText = "Type";
+            this.DocumentTypeMedBillDocument.Name = "DocumentTypeMedBillDocument";
+            this.DocumentTypeMedBillDocument.Width = 30;
             // 
             // btnDeleteMedBillDocument
             // 
@@ -9661,48 +9703,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // SelectedMedBillDocuments
-            // 
-            this.SelectedMedBillDocuments.HeaderText = "";
-            this.SelectedMedBillDocuments.Name = "SelectedMedBillDocuments";
-            this.SelectedMedBillDocuments.Width = 25;
-            // 
-            // FileNameMedicalDocument
-            // 
-            this.FileNameMedicalDocument.HeaderText = "File Name";
-            this.FileNameMedicalDocument.Name = "FileNameMedicalDocument";
-            this.FileNameMedicalDocument.Width = 80;
-            // 
-            // CreateDateMedicalDocument
-            // 
-            this.CreateDateMedicalDocument.HeaderText = "Create Date";
-            this.CreateDateMedicalDocument.Name = "CreateDateMedicalDocument";
-            this.CreateDateMedicalDocument.Width = 70;
-            // 
-            // CreateStaffMedicalDocument
-            // 
-            this.CreateStaffMedicalDocument.HeaderText = "Created By";
-            this.CreateStaffMedicalDocument.Name = "CreateStaffMedicalDocument";
-            this.CreateStaffMedicalDocument.Width = 70;
-            // 
-            // ViewMedBillDocuments
-            // 
-            this.ViewMedBillDocuments.HeaderText = "View";
-            this.ViewMedBillDocuments.Name = "ViewMedBillDocuments";
-            this.ViewMedBillDocuments.Width = 60;
-            // 
-            // DocNoMedicalDocument
-            // 
-            this.DocNoMedicalDocument.HeaderText = "Document No";
-            this.DocNoMedicalDocument.Name = "DocNoMedicalDocument";
-            this.DocNoMedicalDocument.Width = 40;
-            // 
-            // DocumentTypeMedBillDocument
-            // 
-            this.DocumentTypeMedBillDocument.HeaderText = "Type";
-            this.DocumentTypeMedBillDocument.Name = "DocumentTypeMedBillDocument";
-            this.DocumentTypeMedBillDocument.Width = 30;
             // 
             // frmCMMManager
             // 
