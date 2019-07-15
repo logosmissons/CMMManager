@@ -1066,7 +1066,7 @@ namespace CMMManager
 
     public class CaseDocInfo
     {
-        public int? CaseDocId;
+        public String CaseDocNo;
         public String CaseName;
         public int? DocumentTypeId;
         public DateTime? ReceivedDate;
@@ -1077,7 +1077,7 @@ namespace CMMManager
 
         public CaseDocInfo()
         {
-            CaseDocId = null;
+            CaseDocNo = String.Empty;
             CaseName = String.Empty;
             DocumentTypeId = null;
             ReceivedDate = null;
@@ -1087,7 +1087,7 @@ namespace CMMManager
             CreateDate = null;
         }
 
-        public CaseDocInfo(int case_doc_id,
+        public CaseDocInfo(String case_doc_no,
                            String case_name, 
                            int doc_type_id, 
                            DateTime received_date, 
@@ -1096,7 +1096,7 @@ namespace CMMManager
                            int create_staff_id, 
                            DateTime create_date)
         {
-            CaseDocId = case_doc_id;
+            CaseDocNo = case_doc_no;
             CaseName = case_name;
             DocumentTypeId = doc_type_id;
             ReceivedDate = received_date;
@@ -1109,6 +1109,7 @@ namespace CMMManager
 
     public class MedicalDocInfo
     {
+        public String MedBillDocNo;
         public String MedBillNo;
         public String FileName;
         public String DestinationFilePathName;
@@ -1117,18 +1118,21 @@ namespace CMMManager
 
         public MedicalDocInfo()
         {
+            MedBillDocNo = String.Empty;
             MedBillNo = String.Empty;
             FileName = String.Empty;
             DestinationFilePathName = String.Empty;
             CreateDate = null;
             CreatedBy = null;
         }
-        public MedicalDocInfo(String medbill_no, 
+        public MedicalDocInfo(String medbill_doc_no,
+                              String medbill_no, 
                               String source_file_name, 
                               String destination_path, 
                               DateTime create_date, 
                               int created_by)
         {
+            MedBillDocNo = medbill_doc_no;
             MedBillNo = medbill_no;
             FileName = source_file_name;
             DestinationFilePathName = destination_path;
