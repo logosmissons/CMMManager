@@ -13,6 +13,11 @@ using System.Globalization;
 using System.IO;
 //using System.Text;
 using System.Windows.Forms;
+
+using OfficeOutlook = Microsoft.Office.Interop.Outlook;
+using Office = Microsoft.Office.Core;
+
+
 //using System.Linq;
 
 namespace CMMManager
@@ -913,6 +918,22 @@ namespace CMMManager
             Description = "CMM NEEDS SHARED";
             bMemberReimbursement = false;
             VendorId = String.Empty;
+        }
+    }
+
+    public class EmailContentInfo
+    {
+        public String EmailSubject;
+        public String EmailBody;
+        public List<String> lstEmailAttachmentFileNames;
+        public OfficeOutlook.Attachments EmailAttachments;
+        public OfficeOutlook.MailItem Email;
+
+        public EmailContentInfo()
+        {
+            EmailSubject = String.Empty;
+            EmailBody = String.Empty;
+            lstEmailAttachmentFileNames = new List<string>();
         }
     }
 

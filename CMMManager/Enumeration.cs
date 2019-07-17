@@ -24,6 +24,9 @@ namespace CMMManager
     public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive, SuperAdmin = 20 };
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
 
+    // enumeration for communication type
+    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncommingFax, OutgoingFax, IncomingEFax, OutgoingEFax, EmailReceived, EmailSent, LetterReceived, LetterMailed, WalkIn, Other };
+
     //public enum ViewPrevToMedBill { CaseView, MedBillView };
 
     // enumeration for BlueSheet
