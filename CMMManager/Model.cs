@@ -923,6 +923,7 @@ namespace CMMManager
 
     public class EmailContentInfo
     {
+        public String EmailIncident;
         public String EmailSubject;
         public String EmailBody;
         public List<String> lstEmailAttachmentFileNames;
@@ -931,9 +932,34 @@ namespace CMMManager
 
         public EmailContentInfo()
         {
+            EmailIncident = String.Empty;
             EmailSubject = String.Empty;
             EmailBody = String.Empty;
             lstEmailAttachmentFileNames = new List<string>();
+        }
+    }
+
+    public class CommunicationContentInfo
+    {
+        public String IndividualId;
+        public String CommunicationNo;
+        public String CaseNo;
+        public CommunicationType CommType;
+        public String Subject;
+        public String Body;
+        public DateTime CreateDate;
+        public String CreatedBy;
+
+        public CommunicationContentInfo()
+        {
+            IndividualId = String.Empty;
+            CommunicationNo = String.Empty;
+            CaseNo = String.Empty;
+            CommType = CommunicationType.EmailSent;
+            Subject = String.Empty;
+            Body = String.Empty;
+            CreateDate = DateTime.Today;
+            CreatedBy = String.Empty;
         }
     }
 

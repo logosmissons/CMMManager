@@ -100,6 +100,12 @@
     <Compile Include="frmAssignedTo.Designer.cs">
       <DependentUpon>frmAssignedTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCaseForCommunication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCaseForCommunication.Designer.cs">
+      <DependentUpon>frmCaseForCommunication.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCMMLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,12 @@
     </Compile>
     <Compile Include="frmCMMManager.Designer.cs">
       <DependentUpon>frmCMMManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCommunicationHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCommunicationHelper.Designer.cs">
+      <DependentUpon>frmCommunicationHelper.cs</DependentUpon>
     </Compile>
     <Compile Include="frmConfirmACHPayment.cs">
       <SubType>Form</SubType>
@@ -183,6 +195,12 @@
     </Compile>
     <Compile Include="frmIncidentEditPage.Designer.cs">
       <DependentUpon>frmIncidentEditPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogCommunication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogCommunication.Designer.cs">
+      <DependentUpon>frmLogCommunication.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
@@ -272,11 +290,17 @@
     <EmbeddedResource Include="frmAssignedTo.resx">
       <DependentUpon>frmAssignedTo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCaseForCommunication.resx">
+      <DependentUpon>frmCaseForCommunication.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCMMLogin.resx">
       <DependentUpon>frmCMMLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCMMManager.resx">
       <DependentUpon>frmCMMManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCommunicationHelper.resx">
+      <DependentUpon>frmCommunicationHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfirmACHPayment.resx">
       <DependentUpon>frmConfirmACHPayment.cs</DependentUpon>
@@ -313,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmIncidentEditPage.resx">
       <DependentUpon>frmIncidentEditPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogCommunication.resx">
+      <DependentUpon>frmLogCommunication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
