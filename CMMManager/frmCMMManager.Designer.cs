@@ -268,7 +268,6 @@
             this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkCommunicationEtc = new System.Windows.Forms.CheckBox();
-            this.chkCommunicationReq = new System.Windows.Forms.CheckBox();
             this.chkCommunicationFax = new System.Windows.Forms.CheckBox();
             this.chkCommunicationLetter = new System.Windows.Forms.CheckBox();
             this.chkCommunicationEmail = new System.Windows.Forms.CheckBox();
@@ -2538,7 +2537,6 @@
             this.tbpgIndividual.Controls.Add(this.label38);
             this.tbpgIndividual.Controls.Add(this.gvRecentCommunication);
             this.tbpgIndividual.Controls.Add(this.chkCommunicationEtc);
-            this.tbpgIndividual.Controls.Add(this.chkCommunicationReq);
             this.tbpgIndividual.Controls.Add(this.chkCommunicationFax);
             this.tbpgIndividual.Controls.Add(this.chkCommunicationLetter);
             this.tbpgIndividual.Controls.Add(this.chkCommunicationEmail);
@@ -3109,23 +3107,13 @@
             // 
             this.chkCommunicationEtc.AutoSize = true;
             this.chkCommunicationEtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEtc.Location = new System.Drawing.Point(1222, 429);
+            this.chkCommunicationEtc.Location = new System.Drawing.Point(1151, 429);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationEtc.TabIndex = 31;
             this.chkCommunicationEtc.Text = "Etc.";
             this.chkCommunicationEtc.UseVisualStyleBackColor = true;
-            // 
-            // chkCommunicationReq
-            // 
-            this.chkCommunicationReq.AutoSize = true;
-            this.chkCommunicationReq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationReq.Location = new System.Drawing.Point(1145, 429);
-            this.chkCommunicationReq.Name = "chkCommunicationReq";
-            this.chkCommunicationReq.Size = new System.Drawing.Size(53, 20);
-            this.chkCommunicationReq.TabIndex = 30;
-            this.chkCommunicationReq.Text = "Req";
-            this.chkCommunicationReq.UseVisualStyleBackColor = true;
+            this.chkCommunicationEtc.CheckedChanged += new System.EventHandler(this.chkCommunicationEtc_CheckedChanged);
             // 
             // chkCommunicationFax
             // 
@@ -3137,6 +3125,7 @@
             this.chkCommunicationFax.TabIndex = 29;
             this.chkCommunicationFax.Text = "Fax";
             this.chkCommunicationFax.UseVisualStyleBackColor = true;
+            this.chkCommunicationFax.CheckedChanged += new System.EventHandler(this.chkCommunicationFax_CheckedChanged);
             // 
             // chkCommunicationLetter
             // 
@@ -3148,6 +3137,7 @@
             this.chkCommunicationLetter.TabIndex = 28;
             this.chkCommunicationLetter.Text = "Letter";
             this.chkCommunicationLetter.UseVisualStyleBackColor = true;
+            this.chkCommunicationLetter.CheckedChanged += new System.EventHandler(this.chkCommunicationLetter_CheckedChanged);
             // 
             // chkCommunicationEmail
             // 
@@ -3159,6 +3149,7 @@
             this.chkCommunicationEmail.TabIndex = 27;
             this.chkCommunicationEmail.Text = "Email";
             this.chkCommunicationEmail.UseVisualStyleBackColor = true;
+            this.chkCommunicationEmail.CheckedChanged += new System.EventHandler(this.chkCommunicationEmail_CheckedChanged);
             // 
             // chkCommunicationCall
             // 
@@ -10121,7 +10112,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.DataGridView gvRecentCommunication;
         private System.Windows.Forms.CheckBox chkCommunicationEtc;
-        private System.Windows.Forms.CheckBox chkCommunicationReq;
         private System.Windows.Forms.CheckBox chkCommunicationFax;
         private System.Windows.Forms.CheckBox chkCommunicationLetter;
         private System.Windows.Forms.CheckBox chkCommunicationEmail;

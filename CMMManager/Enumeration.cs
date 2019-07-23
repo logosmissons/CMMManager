@@ -25,7 +25,7 @@ namespace CMMManager
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
 
     // enumeration for communication type
-    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncommingFax, OutgoingFax, IncomingEFax, OutgoingEFax, EmailReceived, EmailSent, LetterReceived, LetterMailed, WalkIn, Other };
+    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncommingFax, OutgoingFax, IncomingEFax, OutgoingEFax, EmailReceived, EmailSent, LetterReceived, LetterMailed, Other };
 
     //public enum ViewPrevToMedBill { CaseView, MedBillView };
 

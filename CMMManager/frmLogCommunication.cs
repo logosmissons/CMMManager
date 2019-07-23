@@ -188,9 +188,6 @@ namespace CMMManager
                 case "Letter Mailed":
                     communicationType = CommunicationType.LetterMailed;
                     break;
-                case "Walk-In":
-                    communicationType = CommunicationType.WalkIn;
-                    break;
                 case "Other":
                     communicationType = CommunicationType.Other;
                     break;
