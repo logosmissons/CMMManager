@@ -2635,6 +2635,7 @@
             this.btnIndividualCommHelper.TabIndex = 240;
             this.btnIndividualCommHelper.Text = "Comm Helper";
             this.btnIndividualCommHelper.UseVisualStyleBackColor = true;
+            this.btnIndividualCommHelper.Click += new System.EventHandler(this.btnIndividualCommHelper_Click);
             // 
             // btnLogCommunication
             // 

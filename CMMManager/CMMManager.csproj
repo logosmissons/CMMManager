@@ -280,6 +280,12 @@
     <Compile Include="frmUndoCheckProviderPayment.Designer.cs">
       <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmViewEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmViewEmail.Designer.cs">
+      <DependentUpon>frmViewEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Individual.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Program.cs" />
@@ -379,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUndoCheckProviderPayment.resx">
       <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmViewEmail.resx">
+      <DependentUpon>frmViewEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
