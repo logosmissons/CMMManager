@@ -33,6 +33,9 @@ namespace CMMManager
         private UserInfo AssignedToStaffInfo;
         private List<UserInfo> lstUserInfo;
 
+        private StringBuilder sbComment;
+        private StringBuilder sbSolution;
+
         /// <summary>
         /// For modifying Task from Med Bill form
         /// </summary>
@@ -61,6 +64,9 @@ namespace CMMManager
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
         }
 
         public frmTaskCreationPage(int task_id,
@@ -81,6 +87,49 @@ namespace CMMManager
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
+        }
+
+        public frmTaskCreationPage(String IndividualId,
+                                   String individualName,
+                                   int loggedInUserId,
+                                   String loggedInUserName,
+                                   UserRole loggedInUserRoleId,
+                                   Department loggedInUserDepartment,
+                                   TaskMode mode,
+                                   String email_case,
+                                   String email_subject,
+                                   String email_body)
+        {
+            InitializeComponent();
+            taskMode = mode;
+            WhoId = IndividualId;
+            IndividualName = individualName;
+
+            LoggedInuserInfo = new UserInfo();
+
+            LoggedInuserInfo.UserId = loggedInUserId;
+            LoggedInuserInfo.UserName = loggedInUserName;
+            LoggedInuserInfo.UserRoleId = loggedInUserRoleId;
+            LoggedInuserInfo.departmentInfo.DepartmentId = loggedInUserDepartment;
+
+            AssignedToStaffInfo = new UserInfo();
+
+            lstUserInfo = new List<UserInfo>();
+
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+
+            connRN = new SqlConnection(connStringRN);
+            connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();           
+            sbComment.AppendLine(email_case);
+            sbComment.AppendLine(email_subject);
+            sbComment.AppendLine(email_body);
+            sbSolution = new StringBuilder();
         }
 
         public frmTaskCreationPage(String IndividualId, 
@@ -117,6 +166,9 @@ namespace CMMManager
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
 
         }
 
@@ -156,6 +208,9 @@ namespace CMMManager
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
 
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
+
         }
 
         public frmTaskCreationPage(int task_id, 
@@ -185,6 +240,9 @@ namespace CMMManager
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
         }
 
         public frmTaskCreationPage(int task_id, 
@@ -221,6 +279,9 @@ namespace CMMManager
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
         }
 
         private void InitializeTaskForm()
@@ -333,6 +394,9 @@ namespace CMMManager
                 txtTaskRelatedTo.Text = WhatId;
                 txtNameOnTask.Text = IndividualName;
                 txtIndividualId.Text = WhoId;
+
+                txtTaskComments.Text = sbComment.ToString();
+                txtTaskSolution.Text = sbSolution.ToString();
 
                 String PhoneNo = String.Empty;
                 String Email = String.Empty;
@@ -998,13 +1062,13 @@ namespace CMMManager
                 {
                     MessageBox.Show("Tasks have been sent to assignees.", "Info");
                     DialogResult = DialogResult.OK;
-                    return;
+                    Close();
                 }
                 else if (!bTaskSent)
                 {
                     MessageBox.Show("At least one of task has not been sent.", "Error");
                     DialogResult = DialogResult.No;
-                    return;
+                    Close();
                 }
             }
             else // modify the task
@@ -1183,6 +1247,16 @@ namespace CMMManager
             {
                 txtTaskNameAssignedTo.Text = frmAssignedTo.AssignedToList;
             }
+        }
+
+        private void btnReplyTask_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnForward_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

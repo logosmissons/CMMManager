@@ -169,6 +169,8 @@ namespace CMMManager
             {
                 comboCases.Items.Add(Case_Name);
             }
+
+            comboCases.SelectedIndex = 0;
         }
 
         private void chkOnGoing_CheckedChanged(object sender, EventArgs e)
@@ -271,6 +273,7 @@ namespace CMMManager
             {
                 comboCases.Items.Add(Case_Name);
             }
+            comboCases.SelectedItem = "None";
         }
 
         private void chkProcessing_CheckedChanged(object sender, EventArgs e)
@@ -479,6 +482,12 @@ namespace CMMManager
         {
             SelectedCaseName = comboCases.SelectedItem.ToString();
             DialogResult = DialogResult.OK;
+            Close();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

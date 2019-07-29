@@ -26,6 +26,8 @@ namespace CMMManager
 
     // enumeration for communication type
     public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncommingFax, OutgoingFax, IncomingEFax, OutgoingEFax, EmailReceived, EmailSent, LetterReceived, LetterMailed, Other };
+    // enumeration for Communication open mode
+    public enum CommunicationOpenMode { AddNew = 0, ReadOnly, Update};
 
     //public enum ViewPrevToMedBill { CaseView, MedBillView };
 

@@ -519,6 +519,7 @@
             this.btnReplyTask.Text = "Reply";
             this.btnReplyTask.UseVisualStyleBackColor = true;
             this.btnReplyTask.Visible = false;
+            this.btnReplyTask.Click += new System.EventHandler(this.btnReplyTask_Click);
             // 
             // btnForward
             // 
@@ -530,6 +531,7 @@
             this.btnForward.Text = "Forward";
             this.btnForward.UseVisualStyleBackColor = true;
             this.btnForward.Visible = false;
+            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
             // 
             // frmTaskCreationPage
             // 
