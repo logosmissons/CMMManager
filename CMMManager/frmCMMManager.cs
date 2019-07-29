@@ -13659,7 +13659,7 @@ namespace CMMManager
 
                     // Get medical provider id
                     //String strSqlQueryForMedicalProviderId = "select [dbo].[tbl_MedicalProvider].[ID] from [dbo].[tbl_MedicalProvider] where [dbo].[tbl_MedicalProvider].[Name] = @MedicalProviderName";
-                    String strSqlQueryForMedicalProviderId = "select [dbo].[account].[Id] from [dbo].[account] where [dbo].[account].[Name] = @MedicalProviderName";
+                    String strSqlQueryForMedicalProviderId = "select [dbo].[account].[Id] from [dbo].[account] where convert(nvarchar(max), [dbo].[account].[Name]) = @MedicalProviderName";
 
                     SqlCommand cmdQueryForMedicalProviderId = new SqlCommand(strSqlQueryForMedicalProviderId, connSalesforce2);
                     cmdQueryForMedicalProviderId.CommandType = CommandType.Text;
