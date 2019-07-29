@@ -6895,20 +6895,20 @@ namespace CMMManager
             //dtpMRReceivedDate.Value = DateTime.Today;
             //dtpOtherDocReceivedDate.Value = DateTime.Today;
 
-            dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpNPFReceivedDate.CustomFormat = " ";
+            //dtpNPFReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpNPFReceivedDate.CustomFormat = " ";
 
-            dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpIBReceivedDate.CustomFormat = " ";
+            //dtpIBReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpIBReceivedDate.CustomFormat = " ";
 
-            dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpPoPReceivedDate.CustomFormat = " ";
+            //dtpPoPReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpPoPReceivedDate.CustomFormat = " ";
 
-            dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpMRReceivedDate.CustomFormat = " ";
+            //dtpMRReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpMRReceivedDate.CustomFormat = " ";
 
-            dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
-            dtpOtherDocReceivedDate.CustomFormat = " ";
+            //dtpOtherDocReceivedDate.Format = DateTimePickerFormat.Custom;
+            //dtpOtherDocReceivedDate.CustomFormat = " ";
 
         }
 
