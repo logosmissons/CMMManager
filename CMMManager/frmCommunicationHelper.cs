@@ -21,5 +21,10 @@ namespace CMMManager
         {
             Close();
         }
+
+        private void frmCommunicationHelper_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

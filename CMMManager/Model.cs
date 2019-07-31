@@ -944,10 +944,12 @@ namespace CMMManager
         public String IndividualId;
         public String CommunicationNo;
         public String CaseNo;
-        public CommunicationType CommType;
+        public String IllnessNo;
+        public String IncidentNo;
+        public CommunicationType? CommType;
         public String Subject;
         public String Body;
-        public DateTime CreateDate;
+        public DateTime? CreateDate;
         public String CreatedBy;
 
         public CommunicationContentInfo()
@@ -955,10 +957,12 @@ namespace CMMManager
             IndividualId = String.Empty;
             CommunicationNo = String.Empty;
             CaseNo = String.Empty;
-            CommType = CommunicationType.EmailSent;
+            IllnessNo = String.Empty;
+            IncidentNo = String.Empty;
+            CommType = null;
             Subject = String.Empty;
             Body = String.Empty;
-            CreateDate = DateTime.Today;
+            CreateDate = null;
             CreatedBy = String.Empty;
         }
     }

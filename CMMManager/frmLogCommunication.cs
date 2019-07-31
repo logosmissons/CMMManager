@@ -142,7 +142,7 @@ namespace CMMManager
                 }
                 else if (connRN.State == ConnectionState.Closed) connRN.Open();
                 SqlDataReader rdrCasesForIndividual = cmdQueryForCasesForIndividual.ExecuteReader();
-                comboCaseNo.Items.Add(String.Empty);
+                comboCaseNo.Items.Add("None");
                 if (rdrCasesForIndividual.HasRows)
                 {
                     while (rdrCasesForIndividual.Read())
@@ -295,6 +295,7 @@ namespace CMMManager
             }
             else if (OpenMode == CommunicationOpenMode.Update)
             {
+                comboCaseNo.Items.Add("None");
                 String strSqlQueryForCasesForIndividual = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] where [dbo].[tbl_case].[individual_id] = @IndividualId " +
                           "order by [dbo].[tbl_case].[Case_Name] desc";
 
@@ -385,7 +386,6 @@ namespace CMMManager
                         DataGridViewRow row = new DataGridViewRow();
 
                         row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                        row.Cells[0].ReadOnly = true;
                         if (!rdrAttachments.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrAttachments.GetString(0) });
                         else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                         row.Cells[1].ReadOnly = true;
@@ -410,7 +410,7 @@ namespace CMMManager
             }
         }
 
-        private void MakeCommunicationFormReadOnly()
+        public void MakeCommunicationFormReadOnly()
         {
             txtCommunicationSubject.ReadOnly = true;
             txtCommunicationBody.ReadOnly = true;
@@ -433,16 +433,36 @@ namespace CMMManager
         private void btnSaveCommunication_Click(object sender, EventArgs e)
         {
             String strIndividualId = txtCommunicationIndividualId.Text.Trim();
-            String strCaseNo = comboCaseNo.SelectedItem.ToString();
+
             String strCommunicationNo = txtCommunicationNo.Text.Trim();
-            String strCommunicationType = comboCommunicationType.SelectedItem.ToString();
+            String strCaseNo = String.Empty;
+            if (comboCaseNo.SelectedItem != null) strCaseNo = comboCaseNo.SelectedItem.ToString();
+            //else
+            //{
+            //    MessageBox.Show("Please select Case No.", "Alert");
+            //    return;
+            //}
+
+            String strIllnessNo = String.Empty;
+            if (comboIllnessNo.SelectedItem != null) strIllnessNo = comboIllnessNo.SelectedItem.ToString();
+
+            String strIncidentNo = String.Empty;
+            if (comboIncidentNo.SelectedItem != null) strIncidentNo = comboIncidentNo.SelectedItem.ToString();
+
+            String strCommunicationType = String.Empty;
+            if (comboCommunicationType.SelectedItem != null) strCommunicationType = comboCommunicationType.SelectedItem.ToString();
+            else
+            {
+                MessageBox.Show("Please select Communication Type.", "Alert");
+                return;
+            }
 
             String strSubject = String.Empty;
             if (txtCommunicationSubject.Text.Trim() != String.Empty) strSubject = txtCommunicationSubject.Text.Trim();
             String strBody = String.Empty;
             if (txtCommunicationBody.Text.Trim() != String.Empty) strBody = txtCommunicationBody.Text.Trim();
 
-            CommunicationType communicationType = CommunicationType.EmailReceived;
+            CommunicationType? communicationType = null;
 
             switch (strCommunicationType)
             {
@@ -481,6 +501,12 @@ namespace CMMManager
                     break;
             }
 
+            if (communicationType == null)
+            {
+                MessageBox.Show("You have not selected Communication Type.", "Error");
+                return;
+            }
+
             String strSqlQueryForCommunicationNo = "select [dbo].[tbl_Communication].[CommunicationNo] from [dbo].[tbl_Communication] " +
                                                    "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
 
@@ -501,21 +527,28 @@ namespace CMMManager
             String CommunicationNo = String.Empty;
             if (objCommunicationNo != null) CommunicationNo = objCommunicationNo.ToString();
 
-            if (CommunicationNo == String.Empty)
+            if (CommunicationNo == String.Empty)        // New communication
             {
                 Boolean bCommunicationSaved = false;
 
                 String strSqlInsertNewCommunication = "insert into [dbo].[tbl_Communication] ([dbo].[tbl_Communiation].[Individual_Id], [dbo].[tbl_Communication].[CaseNo], " +
+                                                      "[dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
                                                       "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
                                                       "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
                                                       "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy]) " +
-                                                      "values (@IndividualId, @CaseNo, @CommunicationNo, @CommunicationType, @Subject, @Body, @CreateDate, @CreatedBy)";
+                                                      "values (@IndividualId, @CaseNo, @IllnessNo, @IncidentNo, @CommunicationNo, @CommunicationType, " +
+                                                      "@Subject, @Body, @CreateDate, @CreatedBy)";
 
                 SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
                 cmdInsertNewCommunication.CommandType = CommandType.Text;
 
                 cmdInsertNewCommunication.Parameters.AddWithValue("@IndividualId", strIndividualId);
-                cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", strCaseNo);
+                if (strCaseNo != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", strCaseNo);
+                else cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", DBNull.Value);
+                if (strIllnessNo != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@IllnessNo", strIllnessNo);
+                else cmdInsertNewCommunication.Parameters.AddWithValue("@IllnessNo", DBNull.Value);
+                if (strIncidentNo != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
+                else cmdInsertNewCommunication.Parameters.AddWithValue("@IncidentNo", DBNull.Value);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@communicationNo", strCommunicationNo);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", communicationType);
                 if (strSubject != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", strSubject);
@@ -624,6 +657,127 @@ namespace CMMManager
             else
             {
                 // 07/29/19 - begin here to update communication code
+                String strSqlUpdateCommunication = "update [dbo].[tbl_Communication] set [dbo].[tbl_Communication].[CaseNo] = @NewCaseNo, " +
+                                                   "[dbo].[tbl_Communication].[CommunicationType] = @NewCommunicationType, " +
+                                                   "[dbo].[tbl_Communication].[Subject] = @NewSubject, " +
+                                                   "[dbo].[tbl_Communication].[Body] = @NewBody, " +
+                                                   "[dbo].[tbl_Communication].[ModifiDate] = @ModifiDate, " +
+                                                   "[dbo].[tbl_Communication].[ModifiedBy] = @ModifiedBy " +
+                                                   "where [dbo].[tbl_Communication].[Individual_Id] = @IndividualId and " +
+                                                   "[dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
+
+                SqlCommand cmdUpdateCommunication = new SqlCommand(strSqlUpdateCommunication, connRN);
+                cmdUpdateCommunication.CommandType = CommandType.Text;
+
+                cmdUpdateCommunication.Parameters.AddWithValue("@NewCaseNo", strCaseNo);
+                cmdUpdateCommunication.Parameters.AddWithValue("@NewCommunicationType", (int)communicationType);
+                cmdUpdateCommunication.Parameters.AddWithValue("@NewSubject", strSubject);
+                cmdUpdateCommunication.Parameters.AddWithValue("@NewBody", strBody);
+                cmdUpdateCommunication.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
+                cmdUpdateCommunication.Parameters.AddWithValue("@ModifiedBy", nLoggedInUserId);
+                cmdUpdateCommunication.Parameters.AddWithValue("@IndividualId", strIndividualId);
+                cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationNo", strCommunicationNo);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                int nCommunicationUpdated = cmdUpdateCommunication.ExecuteNonQuery();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                if (nCommunicationUpdated == 1)
+                {
+                    Boolean bAttachmentSaved = true;
+
+                    for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
+                    {
+                        String CommunicationAttachmentNo = gvCommunicationAttachment["CommunicationAttachmentNo", i]?.Value?.ToString();
+
+                        String strSqlQueryForCommAttachmentNo = "select [dbo].[tbl_CommunicationAttachments].[AttachmentNo] from [dbo].[tbl_CommunicationAttachments] " +
+                                                                "where [dbo].[tbl_CommunicationAttachments].[AttachmentNo] = @CommAttachmentNo";
+
+                        SqlCommand cmdQueryForCommunicationAttachmentNo = new SqlCommand(strSqlQueryForCommAttachmentNo, connRN);
+                        cmdQueryForCommunicationAttachmentNo.CommandType = CommandType.Text;
+
+                        cmdQueryForCommunicationAttachmentNo.Parameters.AddWithValue("@CommAttachmentNo", CommunicationAttachmentNo);
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            connRN.Open();
+                        }
+                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        Object objCommunicationAttachmentNo = cmdQueryForCommunicationAttachmentNo.ExecuteScalar();
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        String CommAttachmentNo = String.Empty;
+                        if (objCommunicationAttachmentNo != null) CommAttachmentNo = objCommunicationAttachmentNo.ToString();
+
+                        if (CommAttachmentNo == String.Empty)
+                        {
+                            String NewCommunicationAttachmentNo = gvCommunicationAttachment["CommunicationAttachmentNo", i]?.Value?.ToString();
+                            String NewCommunicationAttachmentFileName = gvCommunicationAttachment["CommunicationAttachmentFileName", i]?.Value?.ToString();
+
+                            if (NewCommunicationAttachmentFileName == String.Empty)
+                            {
+                                MessageBox.Show("Attachment file has not been uploaded.", "Error");
+                                return;
+                            }
+
+                            String CommNo = txtCommunicationNo.Text.Trim();
+                            String strAttachmentCreateDate = gvCommunicationAttachment["CreateDateCommunicationAttachment", i]?.Value?.ToString();
+                            DateTime resultAttachmentCreateDate;
+                            DateTime? AttachmentCreateDate = null;
+
+                            if (DateTime.TryParse(strAttachmentCreateDate, out resultAttachmentCreateDate)) AttachmentCreateDate = resultAttachmentCreateDate;
+                            else
+                            {
+                                MessageBox.Show("The Attachment Create Date is invalid.", "Error");
+                                return;
+                            }
+
+                            String strSqlInsertNewAttachment = "insert into [dbo].[tbl_CommunicationAttachments] ([dbo].[tbl_CommunicationAttachments].[IsDeleted], " +
+                                                               "[dbo].[tbl_CommunicationAttachments].[CommunicationNo], [dbo].[tbl_CommunicationAttachments].[AttachmentNo], " +
+                                                               "[dbo].[tbl_CommunicationAttachments].[AttachedFileName], " +
+                                                               "[dbo].[tbl_CommunicationAttachments].[CreatedBy], [dbo].[tbl_CommunicationAttachments].[CreateDate]) " +
+                                                               "values (0, @CommunicationNo, @AttachmentNo, @AttachmentFileName, @CreatedBy, @CreateDate)";
+
+                            SqlCommand cmdInsertNewAttachment = new SqlCommand(strSqlInsertNewAttachment, connRN);
+                            cmdInsertNewAttachment.CommandType = CommandType.Text;
+
+                            cmdInsertNewAttachment.Parameters.AddWithValue("@CommunicationNo", CommNo);
+                            cmdInsertNewAttachment.Parameters.AddWithValue("@AttachmentNo", NewCommunicationAttachmentNo);
+                            cmdInsertNewAttachment.Parameters.AddWithValue("@AttachmentFileName", NewCommunicationAttachmentFileName);
+                            cmdInsertNewAttachment.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
+                            cmdInsertNewAttachment.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                connRN.Close();
+                                connRN.Open();
+                            }
+                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            int nAttachmentSaved = cmdInsertNewAttachment.ExecuteNonQuery();
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (nAttachmentSaved != 1) bAttachmentSaved = false;
+                        }
+                    }
+
+                    if (!bAttachmentSaved)
+                    {
+                        MessageBox.Show("At least one of new attachment has not been saved.", "Error");
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The Communication has been saved.", "Info");
+                        Close();
+                    }
+
+                }
             }
         }
 
@@ -736,7 +890,37 @@ namespace CMMManager
 
         private void gvCommunicationAttachment_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (OpenMode == CommunicationOpenMode.ReadOnly && e.ColumnIndex == 2) return;
+
+            String CommAttachmentNo = String.Empty;
+
+            if (gvCommunicationAttachment["CommunicationAttachmentNo", e.RowIndex]?.Value?.ToString() != String.Empty)
+                CommAttachmentNo = gvCommunicationAttachment["CommunicationAttachmentNo", e.RowIndex]?.Value?.ToString();
+
+            String strSqlQueryForCommunicationAttachmentNo = "select [dbo].[tbl_CommunicationAttachments].[AttachmentNo] from [dbo].[tbl_CommunicationAttachments] " +
+                                                             "where [dbo].[tbl_CommunicationAttachments].[AttachmentNo] = @AttachmentNo";
+
+            SqlCommand cmdQueryForCommunicationAttachmentNo = new SqlCommand(strSqlQueryForCommunicationAttachmentNo, connRN);
+            cmdQueryForCommunicationAttachmentNo.CommandType = CommandType.Text;
+
+            cmdQueryForCommunicationAttachmentNo.Parameters.AddWithValue("@AttachmentNo", CommAttachmentNo);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            Object objCommunicationAttachmentNo = cmdQueryForCommunicationAttachmentNo.ExecuteScalar();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            String AttachmentNo = String.Empty;
+            if (objCommunicationAttachmentNo != null) AttachmentNo = objCommunicationAttachmentNo.ToString();
+
+            if (AttachmentNo != String.Empty && e.ColumnIndex == 2)
+            {
+                MessageBox.Show("The attachment is read only.", "Alert");
+                return;
+            }
 
             if (e.RowIndex >= 0)
             {
@@ -780,6 +964,214 @@ namespace CMMManager
                         return;
                     }
                 }
+            }
+        }
+
+        private void btnDeleteAttachment_Click(object sender, EventArgs e)
+        {
+            List<String> lstCommunicationAttachmentNo = new List<string>();
+
+            Boolean bAttachmentSelected = false;
+            for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvCommunicationAttachment["SelectedCommunicationAttachment", i]?.Value?.ToString()) == true)
+                {
+                    bAttachmentSelected = true;
+                }
+            }
+
+            if (!bAttachmentSelected)
+            {
+                MessageBox.Show("Please selected Communication Attachment to delete.", "Alert");
+                return;
+            }
+
+            Boolean bAttachmentDeleted = true;
+
+            for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
+            {
+
+                if (Boolean.Parse(gvCommunicationAttachment["SelectedCommunicationAttachment", i]?.Value?.ToString()) == true)
+                {
+                    String SelectedAttachmentNo = gvCommunicationAttachment["CommunicationAttachmentNo", i]?.Value?.ToString();
+
+                    String strSqlQueryForCommunicationAttachmentNo = "select [dbo].[tbl_CommunicationAttachments].[AttachmentNo] from [dbo].[tbl_CommunicationAttachments] " +
+                                                 "where [dbo].[tbl_CommunicationAttachments].[AttachmentNo] = @AttachmentNo";
+
+                    SqlCommand cmdQueryForCommunicationAttachmentNo = new SqlCommand(strSqlQueryForCommunicationAttachmentNo, connRN);
+                    cmdQueryForCommunicationAttachmentNo.CommandType = CommandType.Text;
+
+                    cmdQueryForCommunicationAttachmentNo.Parameters.AddWithValue("@AttachmentNo", SelectedAttachmentNo);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    Object objAttachmentNo = cmdQueryForCommunicationAttachmentNo.ExecuteScalar();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    String AttachmentNo = String.Empty;
+                    if (objAttachmentNo != null) AttachmentNo = objAttachmentNo.ToString();
+
+                    if (AttachmentNo == String.Empty)
+                    {
+                        gvCommunicationAttachment.Rows.RemoveAt(i);
+                        i--;
+                    }
+                    else
+                    {
+                        String strSqlDeleteCommunicationAttachment = "update [dbo].[tbl_CommunicationAttachments] set [dbo].[tbl_CommunicationAttachments].[IsDeleted] = 1 " +
+                                                                     "where [dbo].[tbl_CommunicationAttachments].[AttachmentNo] = @AttachmentNo";
+
+                        SqlCommand cmdDeleteCommunicationAttachment = new SqlCommand(strSqlDeleteCommunicationAttachment, connRN);
+                        cmdDeleteCommunicationAttachment.CommandType = CommandType.Text;
+
+                        cmdDeleteCommunicationAttachment.Parameters.AddWithValue("@AttachmentNo", AttachmentNo);
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            connRN.Open();
+                        }
+                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        int nAttachmentDeleted = cmdDeleteCommunicationAttachment.ExecuteNonQuery();
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                        if (nAttachmentDeleted == 0) bAttachmentDeleted = false;
+                        gvCommunicationAttachment.Rows.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+
+            if (bAttachmentDeleted)
+            {
+                MessageBox.Show("The Communication Attachment have been deleted.", "Info");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("At least one of Communication Attachment has not been deleted.", "Error");
+                return;
+            }
+        }
+
+        private void comboCaseNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboCaseNo.SelectedItem != null)
+            {
+                if (comboCaseNo.SelectedItem.ToString() == "None")
+                {
+                    comboIllnessNo.Items.Clear();
+                    comboIncidentNo.Items.Clear();
+                }
+                else
+                {
+                    String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
+
+                    String strSqlQueryForIllnessNo = "select [dbo].[tbl_illness].[IllnessNo] from [dbo].[tbl_illness] " +
+                                                     "where [dbo].[tbl_illness].[Case_Id] = @CaseNo and " +
+                                                     "[dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+                    SqlCommand cmdQueryForIllnessNo = new SqlCommand(strSqlQueryForIllnessNo, connRN);
+                    cmdQueryForIllnessNo.CommandType = CommandType.Text;
+
+                    cmdQueryForIllnessNo.Parameters.AddWithValue("@CaseNo", CaseNoSelected);
+                    cmdQueryForIllnessNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlDataReader rdrIllnessNo = cmdQueryForIllnessNo.ExecuteReader();
+                    if (rdrIllnessNo.HasRows)
+                    {
+                        while (rdrIllnessNo.Read())
+                        {
+                            if (!rdrIllnessNo.IsDBNull(0)) comboIllnessNo.Items.Add(rdrIllnessNo.GetString(0));
+                            else comboIllnessNo.Items.Add(String.Empty);
+                        }
+                    }
+                    rdrIllnessNo.Close();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                }
+            }
+        }
+
+        private void comboIllnessNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboIllnessNo.SelectedItem == null)
+            {
+                comboIncidentNo.Items.Clear();
+            }
+            else
+            {
+                String IllnessNo = comboIllnessNo.SelectedItem.ToString();
+
+                String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                cmdQueryForIllnessId.CommandType = CommandType.Text;
+
+                cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                int? nIllnessId = null;
+
+                if (objIllnessId != null)
+                {
+                    int nResultIllnessId;
+                    if (Int32.TryParse(objIllnessId.ToString(), out nResultIllnessId)) nIllnessId = nResultIllnessId;
+                    else
+                    {
+                        MessageBox.Show("Invalid Illness Id.", "Error");
+                        return;
+                    }
+                }
+
+                String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
+
+                String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
+                                                  "where [dbo].[tbl_incident].[Individual_Id] = @IndividualId and " +
+                                                  "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
+                                                  "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
+
+                SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRN);
+                cmdQueryForIncidentNo.CommandType = CommandType.Text;
+
+                cmdQueryForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                cmdQueryForIncidentNo.Parameters.AddWithValue("@CaseNo", CaseNoSelected);
+                cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessId", nIllnessId);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
+                if (rdrIncidentNo.HasRows)
+                {
+                    while (rdrIncidentNo.Read())
+                    {
+                        if (!rdrIncidentNo.IsDBNull(0)) comboIncidentNo.Items.Add(rdrIncidentNo.GetString(0));
+                        else comboIncidentNo.Items.Add(String.Empty);
+                    }
+                }
+                rdrIncidentNo.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
             }
         }
     }
