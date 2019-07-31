@@ -47212,6 +47212,7 @@ namespace CMMManager
                 //paraMembershipInfo.Format.SpaceBefore = "0.70in";
                 paraMembershipInfo.Format.SpaceBefore = "0.20in";
                 paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                paraMembershipInfo.Format.LeftIndent = "0.75in";
                 //paraMembershipInfo.Format.LeftIndent = "0.5in";
                 //paraMembershipInfo.Format.RightIndent = "0.5in";
                 paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
@@ -49510,6 +49511,7 @@ namespace CMMManager
                 //paraMembershipInfo.Format.SpaceBefore = "0.70in";
                 paraMembershipInfo.Format.SpaceBefore = "0.20in";
                 paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                paraMembershipInfo.Format.LeftIndent = "0.75in";
                 //paraMembershipInfo.Format.LeftIndent = "0.5in";
                 //paraMembershipInfo.Format.RightIndent = "0.5in";
                 paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
@@ -50401,6 +50403,7 @@ namespace CMMManager
                 //paraMembershipInfo.Format.SpaceBefore = "0.7in";
                 paraMembershipInfo.Format.SpaceBefore = "0.2in";
                 paraMembershipInfo.Format.SpaceAfter = "0.2in";
+                paraMembershipInfo.Format.LeftIndent = "0.75in";
                 //paraMembershipInfo.Format.LeftIndent = "0.5in";
                 //paraMembershipInfo.Format.RightIndent = "0.5in";
                 paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
@@ -52425,6 +52428,7 @@ namespace CMMManager
                 //paraMembershipInfo.Format.SpaceBefore = "0.70in";
                 paraMembershipInfo.Format.SpaceBefore = "0.20in";
                 paraMembershipInfo.Format.SpaceAfter = "0.20in";
+                paraMembershipInfo.Format.LeftIndent = "0.75in";
                 //paraMembershipInfo.Format.LeftIndent = "0.5in";
                 //paraMembershipInfo.Format.RightIndent = "0.5in";
                 paraMembershipInfo.Format.Alignment = MigraDocDOM.ParagraphAlignment.Left;
