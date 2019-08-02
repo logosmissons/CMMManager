@@ -28980,7 +28980,7 @@ namespace CMMManager
                 String IndividualIdForAnivDate = IndividualSearched.strIndividualID;
                 String strSqlQueryForLatestProgramChangeDate = "select max([dbo].[ContactHistory].[CreatedDate]) from [dbo].[ContactHistory] " +
                                                                "inner join [dbo].[contact] on [dbo].[ContactHistory].[ContactId] = [dbo].[contact].[Id] " +
-                                                               "where [dbo].[ContactHistory].[Field] = 'c4g_Plan__c' and " +
+                                                               "where convert(varchar(max), [dbo].[ContactHistory].[Field]) = 'c4g_Plan__c' and " +
                                                                "[dbo].[contact].[Individual_ID__c] = @IndividualId";
 
                 SqlCommand cmdQueryForLatestProgramChangeDate = new SqlCommand(strSqlQueryForLatestProgramChangeDate, connSalesforce);
