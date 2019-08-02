@@ -21,11 +21,17 @@ namespace CMMManager
         public SqlConnection connRN;
 
         public String IndividualId;
+        public String SelectedCaseNo;
+        public int SelectedIllnessId;
+        public String SelectedIncidentNo;
+
         private StringBuilder sbSqlQueryForCases;
 
         private List<String> lstCases;
 
         public String SelectedCaseName;
+        public String SelectedIllnessName;
+        public String SelectedIncidentName;
 
         public frmCaseForCommunication()
         {
@@ -44,6 +50,8 @@ namespace CMMManager
             lstCases = new List<string>();
 
             SelectedCaseName = String.Empty;
+            SelectedCaseNo = String.Empty;
+            SelectedIncidentNo = String.Empty;
 
         }
 
@@ -68,6 +76,8 @@ namespace CMMManager
             lstCases = new List<string>();
 
             SelectedCaseName = String.Empty;
+            SelectedCaseNo = String.Empty;
+            SelectedIncidentNo = String.Empty;
 
         }
 
@@ -480,7 +490,12 @@ namespace CMMManager
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            SelectedCaseName = comboCases.SelectedItem.ToString();
+            if (comboCases.SelectedItem != null) SelectedCaseName = comboCases.SelectedItem.ToString();
+            else SelectedCaseName = String.Empty;
+            if (comboIllnessNo.SelectedItem != null) SelectedIllnessName = comboIllnessNo.SelectedItem.ToString();
+            else SelectedIllnessName = String.Empty;
+            if (comboIncidentNo.SelectedItem != null) SelectedIncidentName = comboIncidentNo.SelectedItem.ToString();
+            else SelectedIncidentName = String.Empty;
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -489,6 +504,112 @@ namespace CMMManager
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private void comboCases_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboCases.SelectedItem != null)
+            {
+                if (comboCases.SelectedItem.ToString() != "None")
+                {
+
+                    comboIllnessNo.Items.Add("None");
+
+                    SelectedCaseNo = comboCases.SelectedItem.ToString();
+
+                    String strSqlQueryForIllnessNo = "select [dbo].[tbl_illness].[IllnessNo] from [dbo].[tbl_illness] " +
+                                                   "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and [dbo].[tbl_illness].[Case_Id] = @CaseNo";
+
+                    SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryForIllnessNo, connRN);
+                    cmdQueryForIllness.CommandType = CommandType.Text;
+
+                    cmdQueryForIllness.Parameters.AddWithValue("@IndividualId", IndividualId);
+                    cmdQueryForIllness.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlDataReader rdrIllnessNo = cmdQueryForIllness.ExecuteReader();
+                    if (rdrIllnessNo.HasRows)
+                    {
+                        while (rdrIllnessNo.Read())
+                        {
+                            if (!rdrIllnessNo.IsDBNull(0)) comboIllnessNo.Items.Add(rdrIllnessNo.GetString(0));
+                        }
+                    }
+                    rdrIllnessNo.Close();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    comboIllnessNo.SelectedIndex = 0;
+                }
+            }
+        }
+
+        private void comboIllnessNo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboIllnessNo.SelectedItem != null)
+            {
+                if (comboIllnessNo.SelectedItem.ToString() != "None")
+                {
+                    comboIncidentNo.Items.Add("None");
+
+                    String SelectedIllnessNo = comboIllnessNo.SelectedItem.ToString();
+
+                    String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                    SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                    cmdQueryForIllnessId.CommandType = CommandType.Text;
+
+                    cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", SelectedIllnessNo);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    int? nIllnessId = null;
+                    if (objIllnessId != null) nIllnessId = Int32.Parse(objIllnessId.ToString());
+
+                    String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
+                                                        "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
+                                                        "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
+                                                        "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
+
+                    SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRN);
+                    cmdQueryForIncidentNo.CommandType = CommandType.Text;
+
+                    cmdQueryForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                    cmdQueryForIncidentNo.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
+                    cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessId", nIllnessId.Value);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
+                    if (rdrIncidentNo.HasRows)
+                    {
+                        while (rdrIncidentNo.Read())
+                        {
+                            if (!rdrIncidentNo.IsDBNull(0)) comboIncidentNo.Items.Add(rdrIncidentNo.GetString(0));
+                            else comboIncidentNo.Items.Add(String.Empty);
+                        }
+                    }
+                    rdrIncidentNo.Close();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    comboIncidentNo.SelectedIndex = 0;
+                }
+            }
         }
     }
 }
