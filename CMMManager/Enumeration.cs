@@ -16,6 +16,9 @@ namespace CMMManager
     public enum IncidentProgramName { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };
     public enum PaymentTypeExport { MemberReimbursement, PR_Reimbursement, ProviderPayment };
 
+    // enumeration for program change history
+    public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II }
+
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };
     public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved };
     public enum TaskPriority { High, Normal, Low };

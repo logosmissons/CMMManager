@@ -22,6 +22,34 @@ using Office = Microsoft.Office.Core;
 
 namespace CMMManager
 {
+    public class IndividualProgramRecord
+    {
+        public String IndividualId;
+        public DateTime? CreateDate;
+        public IndividualPlan? OldPlan;
+        public IndividualPlan? NewPlan;
+
+        public IndividualProgramRecord()
+        {
+            IndividualId = String.Empty;
+            CreateDate = null;
+            OldPlan = null;
+            NewPlan = null; 
+        }
+
+        public IndividualProgramRecord(String individual_id,
+                                       DateTime create_date,
+                                       IndividualPlan old_plan,
+                                       IndividualPlan new_plan)
+        {
+            IndividualId = individual_id;
+            CreateDate = create_date;
+            OldPlan = old_plan;
+            NewPlan = new_plan;
+        }
+    }
+
+
     public class MedicalBillInfoForList
     {
         public String MedBillNo;
