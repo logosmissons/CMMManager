@@ -35646,7 +35646,8 @@ namespace CMMManager
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@MiddleName", txtMiddleName.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@LastName", txtLastName.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@BirthDate", dtpBirthDate.Value);
-            cmdUpdateIndividualInfo.Parameters.AddWithValue("@Gender", cbGender.SelectedIndex);
+            //cmdUpdateIndividualInfo.Parameters.AddWithValue("@Gender", cbGender.SelectedIndex);
+            cmdUpdateIndividualInfo.Parameters.AddWithValue("@Gender", cbGender.SelectedItem.ToString());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@SSN", txtIndividualSSN.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@ShippingStreet", txtStreetAddress1.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@ShippingCity", txtCity1.Text.Trim());
@@ -35661,7 +35662,8 @@ namespace CMMManager
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@HomePhone", txtBusinessPhone.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@PowerOfAttorney", txtPowerOfAttorney.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@Relationship", txtRelationship.Text.Trim());
-            if (ReimbursementMethod != String.Empty) cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", ReimbursementMethod);
+            //if (ReimbursementMethod != String.Empty) cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", ReimbursementMethod);
+            if (ReimbursementMethod != String.Empty) cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", cbReimbursementMethod.SelectedItem.ToString());
             else cmdUpdateIndividualInfo.Parameters.AddWithValue("@ReimbursementMethod", DBNull.Value);
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@BankName", txtBankName.Text.Trim());
             cmdUpdateIndividualInfo.Parameters.AddWithValue("@BankRoutingNumber", txtBankRoutingNo.Text.Trim());
