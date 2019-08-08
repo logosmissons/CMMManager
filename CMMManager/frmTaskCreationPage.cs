@@ -1014,7 +1014,7 @@ namespace CMMManager
                     cmdInsertIntoTask.Parameters.AddWithValue("@Subject", Subject);
                     cmdInsertIntoTask.Parameters.AddWithValue("@DueDate", DueDate);
                     cmdInsertIntoTask.Parameters.AddWithValue("@RelatedTo", comboTaskRelatedTo.SelectedIndex);
-                    cmdInsertIntoTask.Parameters.AddWithValue("@CreateDate", DateTime.Today);
+                    cmdInsertIntoTask.Parameters.AddWithValue("@CreateDate", DateTime.Now);
                     cmdInsertIntoTask.Parameters.AddWithValue("@CreatedById", LoggedInuserInfo.UserId);
                     cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
                     cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedById", LoggedInuserInfo.UserId);

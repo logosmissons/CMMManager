@@ -45,8 +45,12 @@
             this.comboCaseNo = new System.Windows.Forms.ComboBox();
             this.gvCommunicationAttachment = new System.Windows.Forms.DataGridView();
             this.SelectedCommunicationAttachment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CommunicationAttachmentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UploadCommunicationAttachment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CommunicationAttachmentFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ViewCommunicationAttachment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreatedByCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.btnAddNewAttachment = new System.Windows.Forms.Button();
             this.btnDeleteAttachment = new System.Windows.Forms.Button();
@@ -57,10 +61,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationAttachmentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationAttachmentFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboIncidentNo = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommunicationAttachment)).BeginInit();
             this.SuspendLayout();
@@ -228,17 +228,42 @@
             this.SelectedCommunicationAttachment.Name = "SelectedCommunicationAttachment";
             this.SelectedCommunicationAttachment.Width = 30;
             // 
+            // CommunicationAttachmentNo
+            // 
+            this.CommunicationAttachmentNo.HeaderText = "Att No.";
+            this.CommunicationAttachmentNo.Name = "CommunicationAttachmentNo";
+            this.CommunicationAttachmentNo.Width = 80;
+            // 
             // UploadCommunicationAttachment
             // 
             this.UploadCommunicationAttachment.HeaderText = "Upload";
             this.UploadCommunicationAttachment.Name = "UploadCommunicationAttachment";
             this.UploadCommunicationAttachment.Width = 70;
             // 
+            // CommunicationAttachmentFileName
+            // 
+            this.CommunicationAttachmentFileName.HeaderText = "File Name";
+            this.CommunicationAttachmentFileName.Name = "CommunicationAttachmentFileName";
+            this.CommunicationAttachmentFileName.ReadOnly = true;
+            this.CommunicationAttachmentFileName.Width = 200;
+            // 
             // ViewCommunicationAttachment
             // 
             this.ViewCommunicationAttachment.HeaderText = "View";
             this.ViewCommunicationAttachment.Name = "ViewCommunicationAttachment";
             this.ViewCommunicationAttachment.Width = 70;
+            // 
+            // CreatedByCommunicationAttachment
+            // 
+            this.CreatedByCommunicationAttachment.HeaderText = "Created By";
+            this.CreatedByCommunicationAttachment.Name = "CreatedByCommunicationAttachment";
+            this.CreatedByCommunicationAttachment.Width = 90;
+            // 
+            // CreateDateCommunicationAttachment
+            // 
+            this.CreateDateCommunicationAttachment.HeaderText = "Create Date";
+            this.CreateDateCommunicationAttachment.Name = "CreateDateCommunicationAttachment";
+            this.CreateDateCommunicationAttachment.Width = 120;
             // 
             // label8
             // 
@@ -293,7 +318,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(27, 190);
+            this.label10.Location = new System.Drawing.Point(27, 191);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 16);
             this.label10.TabIndex = 22;
@@ -324,31 +349,6 @@
             this.dataGridViewTextBoxColumn4.HeaderText = "Create Date";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.Width = 90;
-            // 
-            // CommunicationAttachmentNo
-            // 
-            this.CommunicationAttachmentNo.HeaderText = "Att No.";
-            this.CommunicationAttachmentNo.Name = "CommunicationAttachmentNo";
-            this.CommunicationAttachmentNo.Width = 80;
-            // 
-            // CommunicationAttachmentFileName
-            // 
-            this.CommunicationAttachmentFileName.HeaderText = "File Name";
-            this.CommunicationAttachmentFileName.Name = "CommunicationAttachmentFileName";
-            this.CommunicationAttachmentFileName.ReadOnly = true;
-            this.CommunicationAttachmentFileName.Width = 200;
-            // 
-            // CreatedByCommunicationAttachment
-            // 
-            this.CreatedByCommunicationAttachment.HeaderText = "Created By";
-            this.CreatedByCommunicationAttachment.Name = "CreatedByCommunicationAttachment";
-            this.CreatedByCommunicationAttachment.Width = 90;
-            // 
-            // CreateDateCommunicationAttachment
-            // 
-            this.CreateDateCommunicationAttachment.HeaderText = "Create Date";
-            this.CreateDateCommunicationAttachment.Name = "CreateDateCommunicationAttachment";
-            this.CreateDateCommunicationAttachment.Width = 120;
             // 
             // comboIncidentNo
             // 

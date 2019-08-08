@@ -216,6 +216,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.btnNewTaskIndividual = new System.Windows.Forms.Button();
             this.btnIndividualCommHelper = new System.Windows.Forms.Button();
             this.btnLogCommunication = new System.Windows.Forms.Button();
             this.btnReloadCommunication = new System.Windows.Forms.Button();
@@ -260,6 +261,15 @@
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.gvRecentCommunication = new System.Windows.Forms.DataGridView();
+            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkCommunicationEtc = new System.Windows.Forms.CheckBox();
             this.chkCommunicationFax = new System.Windows.Forms.CheckBox();
             this.chkCommunicationLetter = new System.Windows.Forms.CheckBox();
@@ -1019,15 +1029,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -2504,6 +2505,7 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.btnNewTaskIndividual);
             this.tbpgIndividual.Controls.Add(this.btnIndividualCommHelper);
             this.tbpgIndividual.Controls.Add(this.btnLogCommunication);
             this.tbpgIndividual.Controls.Add(this.btnReloadCommunication);
@@ -2629,11 +2631,20 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // btnNewTaskIndividual
+            // 
+            this.btnNewTaskIndividual.Location = new System.Drawing.Point(1438, 421);
+            this.btnNewTaskIndividual.Name = "btnNewTaskIndividual";
+            this.btnNewTaskIndividual.Size = new System.Drawing.Size(112, 28);
+            this.btnNewTaskIndividual.TabIndex = 241;
+            this.btnNewTaskIndividual.Text = "New Task";
+            this.btnNewTaskIndividual.UseVisualStyleBackColor = true;
+            // 
             // btnIndividualCommHelper
             // 
-            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1547, 421);
+            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1562, 421);
             this.btnIndividualCommHelper.Name = "btnIndividualCommHelper";
-            this.btnIndividualCommHelper.Size = new System.Drawing.Size(120, 28);
+            this.btnIndividualCommHelper.Size = new System.Drawing.Size(112, 28);
             this.btnIndividualCommHelper.TabIndex = 240;
             this.btnIndividualCommHelper.Text = "Comm Helper";
             this.btnIndividualCommHelper.UseVisualStyleBackColor = true;
@@ -2641,9 +2652,9 @@
             // 
             // btnLogCommunication
             // 
-            this.btnLogCommunication.Location = new System.Drawing.Point(1416, 421);
+            this.btnLogCommunication.Location = new System.Drawing.Point(1304, 421);
             this.btnLogCommunication.Name = "btnLogCommunication";
-            this.btnLogCommunication.Size = new System.Drawing.Size(120, 28);
+            this.btnLogCommunication.Size = new System.Drawing.Size(122, 28);
             this.btnLogCommunication.TabIndex = 239;
             this.btnLogCommunication.Text = "Log a Communication";
             this.btnLogCommunication.UseVisualStyleBackColor = true;
@@ -2651,9 +2662,9 @@
             // 
             // btnReloadCommunication
             // 
-            this.btnReloadCommunication.Location = new System.Drawing.Point(1678, 421);
+            this.btnReloadCommunication.Location = new System.Drawing.Point(1686, 421);
             this.btnReloadCommunication.Name = "btnReloadCommunication";
-            this.btnReloadCommunication.Size = new System.Drawing.Size(120, 28);
+            this.btnReloadCommunication.Size = new System.Drawing.Size(112, 28);
             this.btnReloadCommunication.TabIndex = 238;
             this.btnReloadCommunication.Text = "Reload";
             this.btnReloadCommunication.UseVisualStyleBackColor = true;
@@ -2661,7 +2672,7 @@
             // 
             // btnSendEmail
             // 
-            this.btnSendEmail.Location = new System.Drawing.Point(1293, 421);
+            this.btnSendEmail.Location = new System.Drawing.Point(1180, 421);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(112, 28);
             this.btnSendEmail.TabIndex = 237;
@@ -3062,11 +3073,69 @@
             this.gvRecentCommunication.TabIndex = 206;
             this.gvRecentCommunication.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellDoubleClick);
             // 
+            // CaseNoRecentCommunication
+            // 
+            this.CaseNoRecentCommunication.HeaderText = "Case No";
+            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
+            this.CaseNoRecentCommunication.ReadOnly = true;
+            // 
+            // IllnessNoRecentCommunication
+            // 
+            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
+            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
+            this.IllnessNoRecentCommunication.ReadOnly = true;
+            // 
+            // IncidentNoRecentCommunication
+            // 
+            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
+            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
+            this.IncidentNoRecentCommunication.ReadOnly = true;
+            // 
+            // CommunicationNoRecentCommunication
+            // 
+            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
+            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
+            this.CommunicationNoRecentCommunication.ReadOnly = true;
+            this.CommunicationNoRecentCommunication.Width = 80;
+            // 
+            // CommunicationTypeRecentCommunication
+            // 
+            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
+            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
+            this.CommunicationTypeRecentCommunication.ReadOnly = true;
+            this.CommunicationTypeRecentCommunication.Width = 140;
+            // 
+            // SubjectRecentCommunication
+            // 
+            this.SubjectRecentCommunication.HeaderText = "Subject";
+            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
+            this.SubjectRecentCommunication.ReadOnly = true;
+            this.SubjectRecentCommunication.Width = 120;
+            // 
+            // BodyRecentCommunication
+            // 
+            this.BodyRecentCommunication.HeaderText = "Body";
+            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
+            this.BodyRecentCommunication.ReadOnly = true;
+            this.BodyRecentCommunication.Width = 160;
+            // 
+            // CreateDateRecentCommunication
+            // 
+            this.CreateDateRecentCommunication.HeaderText = "Create Date";
+            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
+            this.CreateDateRecentCommunication.ReadOnly = true;
+            // 
+            // CreateStaffRecentCommunication
+            // 
+            this.CreateStaffRecentCommunication.HeaderText = "Created By";
+            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
+            this.CreateStaffRecentCommunication.ReadOnly = true;
+            // 
             // chkCommunicationEtc
             // 
             this.chkCommunicationEtc.AutoSize = true;
             this.chkCommunicationEtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEtc.Location = new System.Drawing.Point(1151, 429);
+            this.chkCommunicationEtc.Location = new System.Drawing.Point(1120, 429);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationEtc.TabIndex = 31;
@@ -3078,7 +3147,7 @@
             // 
             this.chkCommunicationFax.AutoSize = true;
             this.chkCommunicationFax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationFax.Location = new System.Drawing.Point(1076, 429);
+            this.chkCommunicationFax.Location = new System.Drawing.Point(1052, 429);
             this.chkCommunicationFax.Name = "chkCommunicationFax";
             this.chkCommunicationFax.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationFax.TabIndex = 29;
@@ -3090,7 +3159,7 @@
             // 
             this.chkCommunicationLetter.AutoSize = true;
             this.chkCommunicationLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationLetter.Location = new System.Drawing.Point(1000, 429);
+            this.chkCommunicationLetter.Location = new System.Drawing.Point(984, 429);
             this.chkCommunicationLetter.Name = "chkCommunicationLetter";
             this.chkCommunicationLetter.Size = new System.Drawing.Size(60, 20);
             this.chkCommunicationLetter.TabIndex = 28;
@@ -3102,7 +3171,7 @@
             // 
             this.chkCommunicationEmail.AutoSize = true;
             this.chkCommunicationEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEmail.Location = new System.Drawing.Point(928, 429);
+            this.chkCommunicationEmail.Location = new System.Drawing.Point(914, 429);
             this.chkCommunicationEmail.Name = "chkCommunicationEmail";
             this.chkCommunicationEmail.Size = new System.Drawing.Size(61, 20);
             this.chkCommunicationEmail.TabIndex = 27;
@@ -3114,7 +3183,7 @@
             // 
             this.chkCommunicationCall.AutoSize = true;
             this.chkCommunicationCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationCall.Location = new System.Drawing.Point(856, 429);
+            this.chkCommunicationCall.Location = new System.Drawing.Point(849, 429);
             this.chkCommunicationCall.Name = "chkCommunicationCall";
             this.chkCommunicationCall.Size = new System.Drawing.Size(50, 20);
             this.chkCommunicationCall.TabIndex = 26;
@@ -9780,64 +9849,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // CaseNoRecentCommunication
-            // 
-            this.CaseNoRecentCommunication.HeaderText = "Case No";
-            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
-            this.CaseNoRecentCommunication.ReadOnly = true;
-            // 
-            // IllnessNoRecentCommunication
-            // 
-            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
-            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
-            this.IllnessNoRecentCommunication.ReadOnly = true;
-            // 
-            // IncidentNoRecentCommunication
-            // 
-            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
-            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
-            this.IncidentNoRecentCommunication.ReadOnly = true;
-            // 
-            // CommunicationNoRecentCommunication
-            // 
-            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
-            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
-            this.CommunicationNoRecentCommunication.ReadOnly = true;
-            this.CommunicationNoRecentCommunication.Width = 80;
-            // 
-            // CommunicationTypeRecentCommunication
-            // 
-            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
-            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
-            this.CommunicationTypeRecentCommunication.ReadOnly = true;
-            this.CommunicationTypeRecentCommunication.Width = 140;
-            // 
-            // SubjectRecentCommunication
-            // 
-            this.SubjectRecentCommunication.HeaderText = "Subject";
-            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
-            this.SubjectRecentCommunication.ReadOnly = true;
-            this.SubjectRecentCommunication.Width = 120;
-            // 
-            // BodyRecentCommunication
-            // 
-            this.BodyRecentCommunication.HeaderText = "Body";
-            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
-            this.BodyRecentCommunication.ReadOnly = true;
-            this.BodyRecentCommunication.Width = 160;
-            // 
-            // CreateDateRecentCommunication
-            // 
-            this.CreateDateRecentCommunication.HeaderText = "Create Date";
-            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
-            this.CreateDateRecentCommunication.ReadOnly = true;
-            // 
-            // CreateStaffRecentCommunication
-            // 
-            this.CreateStaffRecentCommunication.HeaderText = "Created By";
-            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
-            this.CreateStaffRecentCommunication.ReadOnly = true;
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10989,6 +11000,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BodyRecentCommunication;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRecentCommunication;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffRecentCommunication;
+        private System.Windows.Forms.Button btnNewTaskIndividual;
     }
 }
 

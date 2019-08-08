@@ -227,6 +227,69 @@ namespace CMMManager
         }
     }
 
+    public class TaskInfo
+    {
+        public int? TaskId;
+        public DateTime? CreateDate;
+        public String Subject;
+        public String Comment;
+        public String Solution;
+
+        public TaskInfo()
+        {
+            TaskId = null;
+            CreateDate = null;
+            Subject = String.Empty;
+            Comment = String.Empty;
+            Solution = String.Empty;
+        }
+
+        public TaskInfo(int task_id, DateTime create_date, String subject, String comment, String solution)
+        {
+            TaskId = task_id;
+            CreateDate = create_date;
+            Subject = subject;
+            Comment = comment;
+            Solution = solution;
+        }
+    }
+
+    public class IllnessInfo
+    {
+        public int? IllnessId;
+        public String IllnessNo;
+
+        public IllnessInfo()
+        {
+            IllnessId = null;
+            IllnessNo = String.Empty;
+        }
+
+        public IllnessInfo(int illness_id, String illness_no)
+        {
+            IllnessId = illness_id;
+            IllnessNo = illness_no;
+        }
+    }
+
+    public class IncidentIdNo
+    {
+        public int? IncidentId;
+        public String IncidentNo;
+
+        public IncidentIdNo()
+        {
+            IncidentId = null;
+            IncidentNo = String.Empty;
+        }
+
+        public IncidentIdNo(int incd_id, String incd_no)
+        {
+            IncidentId = incd_id;
+            IncidentNo = incd_no;
+        }
+    }
+
     public class BankInfo
     {
         public String BankName;
