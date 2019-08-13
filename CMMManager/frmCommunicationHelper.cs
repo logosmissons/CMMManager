@@ -118,7 +118,7 @@ namespace CMMManager
 
             gvCommunicationList.Rows.Clear();
             String strSqlQueryForCommunication = "select [dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
-                                                 "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body] " +
+                                                 "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], [dbo].[tbl_Communication].[Solution] " +
                                                  "from [dbo].[tbl_Communication] " +
                                                  "where [dbo].[tbl_Communication].[Individual_Id] = @IndividualId " +
                                                  "order by [dbo].[tbl_Communication].[CreateDate] Desc";
@@ -186,6 +186,8 @@ namespace CMMManager
                     if (!rdrCommunication.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCommunication.GetString(2) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!rdrCommunication.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCommunication.GetString(3) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrCommunication.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrCommunication.GetString(4) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
                     gvCommunicationList.Rows.Add(row);
@@ -339,7 +341,8 @@ namespace CMMManager
             if (gvCommunication["CommNo", e.RowIndex]?.Value != null) CommunicationNo = gvCommunication["CommNo", e.RowIndex]?.Value?.ToString();
 
             String strSqlQueryForCommuniation = "select [dbo].[tbl_communication_type_code].[CommunicationTypeValue], [dbo].[tbl_CreateStaff].[Staff_Name], " +
-                                                "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body] " +
+                                                "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
+                                                "[dbo].[tbl_Communication].[Solution] " +
                                                 "from [dbo].[tbl_Communication] " +
                                                 "inner join [dbo].[tbl_communication_type_code] " +
                                                 "on [dbo].[tbl_Communication].[CommunicationType] = [dbo].[tbl_communication_type_code].[CommunicationTypeId] " +
@@ -362,6 +365,7 @@ namespace CMMManager
             {
                 while (rdrCommuniationDetail.Read())
                 {
+                    txtCommunicationNo.Text = CommunicationNo;
                     if (!rdrCommuniationDetail.IsDBNull(0)) txtCommunicationType.Text = rdrCommuniationDetail.GetString(0);
                     else txtCommunicationType.Text = String.Empty;
                     if (!rdrCommuniationDetail.IsDBNull(1)) txtCommunicationCreatedBy.Text = rdrCommuniationDetail.GetString(1);
@@ -372,6 +376,8 @@ namespace CMMManager
                     else txtCommunicationSubject.Text = String.Empty;
                     if (!rdrCommuniationDetail.IsDBNull(4)) txtCommunicationBody.Text = rdrCommuniationDetail.GetString(4);
                     else txtCommunicationBody.Text = String.Empty;
+                    if (!rdrCommuniationDetail.IsDBNull(5)) txtCommunicationSolution.Text = rdrCommuniationDetail.GetString(5);
+                    else txtCommunicationSolution.Text = String.Empty;
                 }
             }
             rdrCommuniationDetail.Close();
@@ -716,10 +722,11 @@ namespace CMMManager
                     }
 
                     List<String> lstIncidentNo = new List<string>();
+                    List<IllnessIdIncidentId> lstIllnessIdIncidentId = new List<IllnessIdIncidentId>();
 
                     foreach (IllnessInfo illness_info in lstIllnessInfo)
                     {
-                        String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
+                        String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] " +
                                                           "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
                                                           "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
                                                           "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
@@ -742,7 +749,24 @@ namespace CMMManager
                         {
                             while (rdrIncidentNo.Read())
                             {
-                                if (!rdrIncidentNo.IsDBNull(0)) lstIncidentNo.Add(rdrIncidentNo.GetString(0));
+                                String IncidentNo = String.Empty;
+                                IllnessIdIncidentId IDs = new IllnessIdIncidentId();
+
+                                if (!rdrIncidentNo.IsDBNull(0)) IncidentNo = rdrIncidentNo.GetString(0);
+                                else IncidentNo = String.Empty;
+                                if (!rdrIncidentNo.IsDBNull(1))
+                                {
+                                    IDs.IncidentId = rdrIncidentNo.GetInt32(1);
+                                    IDs.IllnessId = illness_info.IllnessId;
+                                }
+                                else
+                                {
+                                    IDs.IncidentId = null;
+                                    IDs.IllnessId = illness_info.IllnessId;
+                                }
+
+                                lstIncidentNo.Add(IncidentNo);
+                                lstIllnessIdIncidentId.Add(IDs);
                             }
                         }
                         rdrIncidentNo.Close();
@@ -829,46 +853,50 @@ namespace CMMManager
 
                         List<String> lstMedBillNo = new List<string>();
 
-                        foreach (IllnessInfo ill_info in lstIllnessInfo)
+                        //foreach (IllnessInfo ill_info in lstIllnessInfo)
+                        //{
+                        //    foreach (int? nIncidentId in lstIncidentId)
+                        //    {
+
+                        foreach (IllnessIdIncidentId IDs in lstIllnessIdIncidentId)
                         {
-                            foreach (int? nIncidentId in lstIncidentId)
+                            String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                             "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                             "[dbo].[tbl_medbill].[Case_Id] = @CaseNo and " +
+                                                             "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                             "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
+
+                            SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN);
+                            cmdQueryForMedBillNo.CommandType = CommandType.Text;
+
+                            cmdQueryForMedBillNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                            cmdQueryForMedBillNo.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
+                            cmdQueryForMedBillNo.Parameters.AddWithValue("@IllnessId", IDs.IllnessId);
+                            cmdQueryForMedBillNo.Parameters.AddWithValue("@IncidentId", IDs.IncidentId);
+
+                            if (connRN.State != ConnectionState.Closed)
                             {
-                                String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
-                                                                 "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
-                                                                 "[dbo].[tbl_medbill].[Case_Id] = @CaseNo and " +
-                                                                 "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
-                                                                 "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
-
-                                SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN);
-                                cmdQueryForMedBillNo.CommandType = CommandType.Text;
-
-                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IndividualId", IndividualId);
-                                cmdQueryForMedBillNo.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
-                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IllnessId", ill_info.IllnessId.Value);
-                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IncidentId", nIncidentId.Value);
-
-                                if (connRN.State != ConnectionState.Closed)
-                                {
-                                    connRN.Close();
-                                    connRN.Open();
-                                }
-                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                                SqlDataReader rdrMedBillNo = cmdQueryForMedBillNo.ExecuteReader();
-                                if (rdrMedBillNo.HasRows)
-                                {
-                                    while (rdrMedBillNo.Read())
-                                    {
-                                        String MedBillNo = String.Empty;
-                                        if (!rdrMedBillNo.IsDBNull(0)) MedBillNo = rdrMedBillNo.GetString(0);
-                                        else MedBillNo = String.Empty;
-
-                                        lstMedBillNo.Add(MedBillNo);
-                                    }
-                                }
-                                rdrMedBillNo.Close();
-                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                                connRN.Close();
+                                connRN.Open();
                             }
+                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            SqlDataReader rdrMedBillNo = cmdQueryForMedBillNo.ExecuteReader();
+                            if (rdrMedBillNo.HasRows)
+                            {
+                                while (rdrMedBillNo.Read())
+                                {
+                                    String MedBillNo = String.Empty;
+                                    if (!rdrMedBillNo.IsDBNull(0)) MedBillNo = rdrMedBillNo.GetString(0);
+                                    else MedBillNo = String.Empty;
+
+                                    lstMedBillNo.Add(MedBillNo);
+                                }
+                            }
+                            rdrMedBillNo.Close();
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
                         }
+                            //}
+                        //}
 
                         foreach (String medbill_no in lstMedBillNo)
                         {
@@ -1677,7 +1705,6 @@ namespace CMMManager
                                                                     "from [dbo].[tbl_task] " +
                                                                     "where [dbo].[tbl_task].[whoid] = @IndividualId and " +
                                                                     "[dbo].[tbl_task].[whatid] = @CaseNo";
-                                                            
 
                             SqlCommand cmdQueryForTaskInfoForCaseNo = new SqlCommand(strSqlQueryForTaskInfoForCaseNo, connRN);
                             cmdQueryForTaskInfoForCaseNo.CommandType = CommandType.Text;
@@ -1754,7 +1781,7 @@ namespace CMMManager
                             foreach (String illness_no in lstIllnessNo)
                             {
 
-                                String strSqlQueryForTaskInfoForIllnessNo = "select [dbo].[tbl_task].[id], [dbo].[tbl_task].[Subjet], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                String strSqlQueryForTaskInfoForIllnessNo = "select [dbo].[tbl_task].[id], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
                                                                             "from [dbo].[tbl_task] " +
                                                                             "where [dbo].[tbl_task].[whoid] = @IndividualId and " +
                                                                             "[dbo].[tbl_task].[whatid] = @IllnessNo";
@@ -1762,7 +1789,7 @@ namespace CMMManager
                                 SqlCommand cmdQueryForTaskInfoForIllnessNo = new SqlCommand(strSqlQueryForTaskInfoForIllnessNo, connRN);
                                 cmdQueryForTaskInfoForIllnessNo.CommandType = CommandType.Text;
 
-                                cmdQueryForTaskInfoForIllnessNo.Parameters.AddWithValue("@IndiviualId", IndividualId);
+                                cmdQueryForTaskInfoForIllnessNo.Parameters.AddWithValue("@IndividualId", IndividualId);
                                 cmdQueryForTaskInfoForIllnessNo.Parameters.AddWithValue("@IllnessNo", illness_no);
 
                                 if (connRN.State != ConnectionState.Closed)
@@ -1800,7 +1827,281 @@ namespace CMMManager
                             {
                                 String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                                // 08/12/19 begin here
+                                SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                                cmdQueryForIllnessId.CommandType = CommandType.Text;
+
+                                cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", illness_no);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrIllnessId = cmdQueryForIllnessId.ExecuteReader();
+                                if (rdrIllnessId.HasRows)
+                                {
+                                    while (rdrIllnessId.Read())
+                                    {
+                                        int? IllnessId = null;
+                                        if (!rdrIllnessId.IsDBNull(0)) IllnessId = rdrIllnessId.GetInt32(0);
+                                        else IllnessId = null;
+
+                                        lstIllnessId.Add(IllnessId);
+                                    }
+                                }
+                                rdrIllnessId.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+
+                            List<String> lstIncidentNo = new List<string>();
+                            List<IllnessIdIncidentId> lstIllnessIdIncidentId = new List<IllnessIdIncidentId>();
+
+                            foreach (int illness_id in lstIllnessId)
+                            {
+                                String strSQlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[Incident_id] from [dbo].[tbl_incident] " +
+                                                                  "where [dbo].[tbl_incident].[Individual_id] = @IndividualId and " +
+                                                                  "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
+                                                                  "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
+
+                                SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSQlQueryForIncidentNo, connRN);
+                                cmdQueryForIncidentNo.CommandType = CommandType.Text;
+
+                                cmdQueryForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                                cmdQueryForIncidentNo.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
+                                cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessId", illness_id);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
+                                if (rdrIncidentNo.HasRows)
+                                {
+                                    while (rdrIncidentNo.Read())
+                                    {
+                                        String IncidentNo = String.Empty;
+                                        int? IncidentId = null;
+                                        IllnessIdIncidentId IllnessIdIncidentId = new IllnessIdIncidentId();
+
+                                        if (!rdrIncidentNo.IsDBNull(0)) IncidentNo = rdrIncidentNo.GetString(0);
+                                        else IncidentNo = String.Empty;
+                                        if (!rdrIncidentNo.IsDBNull(1)) IncidentId = rdrIncidentNo.GetInt32(1);
+                                        else IncidentId = null;
+
+                                        lstIncidentNo.Add(IncidentNo);
+
+                                        IllnessIdIncidentId.IncidentId = IncidentId;
+                                        IllnessIdIncidentId.IllnessId = illness_id;
+                                        lstIllnessIdIncidentId.Add(IllnessIdIncidentId);
+                                    }
+                                }
+                                rdrIncidentNo.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            }
+
+                            foreach (String incd_no in lstIncidentNo)
+                            {
+                                String strSqlQueryForTaskInfoForIncidentNo = "select [dbo].[tbl_task].[id], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                                                             "from [dbo].[tbl_task] " +
+                                                                             "where [dbo].[tbl_task].[whoid] = @IndividualId and " +
+                                                                             "[dbo].[tbl_task].[whatid] = @IncidentNo";
+
+                                SqlCommand cmdQueryForTaskInfoForIncidentNo = new SqlCommand(strSqlQueryForTaskInfoForIncidentNo, connRN);
+                                cmdQueryForTaskInfoForIncidentNo.CommandType = CommandType.Text;
+
+                                cmdQueryForTaskInfoForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                                cmdQueryForTaskInfoForIncidentNo.Parameters.AddWithValue("@IncidentNo", incd_no);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrTaskInfo = cmdQueryForTaskInfoForIncidentNo.ExecuteReader();
+                                if (rdrTaskInfo.HasRows)
+                                {
+                                    while (rdrTaskInfo.Read())
+                                    {
+                                        TaskInfo info = new TaskInfo();
+                                        if (!rdrTaskInfo.IsDBNull(0)) info.TaskId = rdrTaskInfo.GetInt32(0);
+                                        else info.TaskId = null;
+                                        if (!rdrTaskInfo.IsDBNull(1)) info.Subject = rdrTaskInfo.GetString(1);
+                                        else info.Subject = String.Empty;
+                                        if (!rdrTaskInfo.IsDBNull(2)) info.Comment = rdrTaskInfo.GetString(2);
+                                        else info.Comment = String.Empty;
+                                        if (!rdrTaskInfo.IsDBNull(3)) info.Solution = rdrTaskInfo.GetString(3);
+                                        else info.Solution = String.Empty;
+
+                                        lstTaskInfo.Add(info);
+                                    }
+                                }
+                                rdrTaskInfo.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+
+                            List<String> lstMedBillNo = new List<string>();
+
+                            foreach (IllnessIdIncidentId IDs in lstIllnessIdIncidentId)
+                            {
+                                String strSqlQueryForMedBillNo = "select [dbo].[tbl_medbill].[BillNo] from [dbo].[tbl_medbill] " +
+                                                                 "where [dbo].[tbl_medbill].[Individual_Id] = @IndividualId and " +
+                                                                 "[dbo].[tbl_medbill].[Case_Id] = @CaseNo and " +
+                                                                 "[dbo].[tbl_medbill].[Illness_Id] = @IllnessId and " +
+                                                                 "[dbo].[tbl_medbill].[Incident_Id] = @IncidentId";
+
+                                SqlCommand cmdQueryForMedBillNo = new SqlCommand(strSqlQueryForMedBillNo, connRN);
+                                cmdQueryForMedBillNo.CommandType = CommandType.Text;
+
+                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                                cmdQueryForMedBillNo.Parameters.AddWithValue("@CaseNo", SelectedCaseNo);
+                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IllnessId", IDs.IllnessId);
+                                cmdQueryForMedBillNo.Parameters.AddWithValue("@IncidentId", IDs.IncidentId);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrMedBillNo = cmdQueryForMedBillNo.ExecuteReader();
+                                if (rdrMedBillNo.HasRows)
+                                {
+                                    while (rdrMedBillNo.Read())
+                                    {
+                                        String medbill_no = String.Empty;
+
+                                        if (!rdrMedBillNo.IsDBNull(0)) medbill_no = rdrMedBillNo.GetString(0);
+                                        else medbill_no = String.Empty;
+
+                                        lstMedBillNo.Add(medbill_no);
+                                    }
+                                }
+                                rdrMedBillNo.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+
+                            foreach (String medbill_no in lstMedBillNo)
+                            {
+                                String strSqlQueryForTaskInfoForMedBill = "select [dbo].[tbl_task].[id], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                                                        "from [dbo].[tbl_task] " +
+                                                                        "where [dbo].[tbl_task].[whoid] = @IndividualId and " +
+                                                                        "[dbo].[tbl_task].[whatid] = @MedBillNo";
+
+                                SqlCommand cmdQueryForTaskInfoForMedBill = new SqlCommand(strSqlQueryForTaskInfoForMedBill, connRN);
+                                cmdQueryForTaskInfoForMedBill.CommandType = CommandType.Text;
+
+                                cmdQueryForTaskInfoForMedBill.Parameters.AddWithValue("@IndividualId", IndividualId);
+                                cmdQueryForTaskInfoForMedBill.Parameters.AddWithValue("@MedBillNo", medbill_no);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrTaskInfoForMedBill = cmdQueryForTaskInfoForMedBill.ExecuteReader();
+                                if (rdrTaskInfoForMedBill.HasRows)
+                                {
+                                    while (rdrTaskInfoForMedBill.Read())
+                                    {
+                                        TaskInfo info = new TaskInfo();
+
+                                        if (!rdrTaskInfoForMedBill.IsDBNull(0)) info.TaskId = rdrTaskInfoForMedBill.GetInt32(0);
+                                        else info.TaskId = null;
+                                        if (!rdrTaskInfoForMedBill.IsDBNull(1)) info.Subject = rdrTaskInfoForMedBill.GetString(1);
+                                        else info.Subject = String.Empty;
+                                        if (!rdrTaskInfoForMedBill.IsDBNull(2)) info.Comment = rdrTaskInfoForMedBill.GetString(2);
+                                        else info.Comment = String.Empty;
+                                        if (!rdrTaskInfoForMedBill.IsDBNull(3)) info.Solution = rdrTaskInfoForMedBill.GetString(3);
+                                        else info.Solution = String.Empty;
+
+                                        lstTaskInfo.Add(info);
+                                    }
+                                }
+                                rdrTaskInfoForMedBill.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+
+                            List<String> lstSettlementNo = new List<string>();
+
+                            foreach (String medbill_no in lstMedBillNo)
+                            {
+                                String strSqlQueryForSettlementNo = "select [dbo].[tbl_settlement].[Name] from [dbo].[tbl_settlement] " +
+                                                                    "where [dbo].[tbl_settlement].[MedicalBillID] = @MedBillNo";
+
+                                SqlCommand cmdQueryForSettlementNo = new SqlCommand(strSqlQueryForSettlementNo, connRN);
+                                cmdQueryForSettlementNo.CommandType = CommandType.Text;
+
+                                cmdQueryForSettlementNo.Parameters.AddWithValue("@MedBillNo", medbill_no);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrSettlementNo = cmdQueryForSettlementNo.ExecuteReader();
+                                if (rdrSettlementNo.HasRows)
+                                {
+                                    while (rdrSettlementNo.Read())
+                                    {
+                                        String SettlementNo = String.Empty;
+
+                                        if (!rdrSettlementNo.IsDBNull(0)) SettlementNo = rdrSettlementNo.GetString(0);
+                                        else SettlementNo = String.Empty;
+
+                                        lstSettlementNo.Add(SettlementNo);
+                                    }
+                                }
+                                rdrSettlementNo.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                            }
+
+                            foreach (String settlement_no in lstSettlementNo)
+                            {
+                                String strSqlQueryForTaskInfo = "select [dbo].[tbl_task].[id], [dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution] " +
+                                                                "from [dbo].[tbl_task] " +
+                                                                "where [dbo].[tbl_task].[whoid] = @IndividualId and " +
+                                                                "[dbo].[tbl_task].[whatid] = @SettlementNo";
+
+                                SqlCommand cmdQueryForTaskInfo = new SqlCommand(strSqlQueryForTaskInfo, connRN);
+                                cmdQueryForTaskInfo.CommandType = CommandType.Text;
+
+                                cmdQueryForTaskInfo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                                cmdQueryForTaskInfo.Parameters.AddWithValue("@SettlementNo", settlement_no);
+
+                                if (connRN.State != ConnectionState.Closed)
+                                {
+                                    connRN.Close();
+                                    connRN.Open();
+                                }
+                                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                                SqlDataReader rdrTaskInfo = cmdQueryForTaskInfo.ExecuteReader();
+                                if (rdrTaskInfo.HasRows)
+                                {
+                                    while (rdrTaskInfo.Read())
+                                    {
+                                        TaskInfo info = new TaskInfo();
+
+                                        if (!rdrTaskInfo.IsDBNull(0)) info.TaskId = rdrTaskInfo.GetInt32(0);
+                                        else info.TaskId = null;
+                                        if (!rdrTaskInfo.IsDBNull(1)) info.Subject = rdrTaskInfo.GetString(1);
+                                        else info.Subject = String.Empty;
+                                        if (!rdrTaskInfo.IsDBNull(2)) info.Comment = rdrTaskInfo.GetString(2);
+                                        else info.Comment = String.Empty;
+                                        if (!rdrTaskInfo.IsDBNull(3)) info.Solution = rdrTaskInfo.GetString(3);
+                                        else info.Solution = String.Empty;
+
+                                        lstTaskInfo.Add(info);
+                                    }
+                                }
+                                rdrTaskInfo.Close();
+                                if (connRN.State != ConnectionState.Closed) connRN.Close();
                             }
 
                             ////////////////////////////////////////////////////////////////////////////////////////////
@@ -2717,6 +3018,41 @@ namespace CMMManager
                     gvTaskList.Rows.Add(row);
                 }
 
+            }
+        }
+
+        private void btnSaveSolution_Click(object sender, EventArgs e)
+        {
+            String CommunicationNo = txtCommunicationNo.Text.Trim();
+            String Solution = txtCommunicationSolution.Text.Trim();
+
+            String strSqlUpdateSolution = "update [dbo].[tbl_Communication] set [dbo].[tbl_Communication].[Solution] = @CommunicationSolution " +
+                                          "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
+
+            SqlCommand cmdUpdateSolution = new SqlCommand(strSqlUpdateSolution, connRN);
+            cmdUpdateSolution.CommandType = CommandType.Text;
+            
+            cmdUpdateSolution.Parameters.AddWithValue("@CommunicationSolution", Solution);
+            cmdUpdateSolution.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            int nCommunicationUpdated = cmdUpdateSolution.ExecuteNonQuery();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            if (nCommunicationUpdated == 1)
+            {
+                MessageBox.Show("The communication has been updated.", "Info");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("The communication has not been updated.", "Error");
+                return;
             }
         }
     }

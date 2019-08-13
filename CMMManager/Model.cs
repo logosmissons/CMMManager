@@ -290,6 +290,24 @@ namespace CMMManager
         }
     }
 
+    public class IllnessIdIncidentId
+    {
+        public int? IllnessId;
+        public int? IncidentId;
+
+        public IllnessIdIncidentId()
+        {
+            IllnessId = null;
+            IncidentId = null;
+        }
+
+        public IllnessIdIncidentId(int illness_id, int incident_id)
+        {
+            IllnessId = illness_id;
+            IncidentId = incident_id;
+        }
+    }
+
     public class BankInfo
     {
         public String BankName;
@@ -1038,8 +1056,10 @@ namespace CMMManager
         public String IllnessNo;
         public String IncidentNo;
         public CommunicationType? CommType;
+        public String CommunicationType;
         public String Subject;
         public String Body;
+        public String Solution;
         public DateTime? CreateDate;
         public String CreatedBy;
 
@@ -1051,8 +1071,10 @@ namespace CMMManager
             IllnessNo = String.Empty;
             IncidentNo = String.Empty;
             CommType = null;
+            CommunicationType = String.Empty;
             Subject = String.Empty;
             Body = String.Empty;
+            Solution = String.Empty;
             CreateDate = null;
             CreatedBy = String.Empty;
         }
