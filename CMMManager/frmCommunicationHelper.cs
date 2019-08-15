@@ -464,6 +464,8 @@ namespace CMMManager
             {
                 if (cbCaseNo.SelectedItem.ToString() != "All")
                 {
+                    txtDiseaseName.Text = String.Empty;
+                        
                     String SelectedCaseNo = cbCaseNo.SelectedItem.ToString();
 
                     comboIllnessNo.Items.Clear();
@@ -1040,6 +1042,8 @@ namespace CMMManager
                 }
                 else
                 {
+                    txtDiseaseName.Text = String.Empty;
+
                     comboIllnessNo.Items.Clear();
                     comboIllnessNo.Text = String.Empty;
                     comboIncidentNo.Items.Clear();
@@ -1180,6 +1184,7 @@ namespace CMMManager
                     {
                         if (comboIllnessNo.SelectedItem.ToString() != "All")
                         {
+                            txtDiseaseName.Text = String.Empty;
                             SelectedIllnessNo = comboIllnessNo.SelectedItem.ToString();
 
                             int? nSelectedIllnessId = null;
@@ -1201,6 +1206,28 @@ namespace CMMManager
                             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
                             if (objIllnessId != null) nSelectedIllnessId = Int32.Parse(objIllnessId.ToString());
+
+                            String strSqlQueryForDiseaseName = "select [SalesForce].[dbo].[ICD10 Code].[Name], [RN_DB].[dbo].[tbl_illness].[Illness_Id] " +
+                                                               "from [RN_DB].[dbo].[tbl_illness] " +
+                                                               "inner join [SalesForce].[dbo].[ICD10 Code] " +
+                                                               "on [RN_DB].[dbo].[tbl_illness].[ICD_10_Id] = [SalesForce].[dbo].[ICD10 Code].[ICD10_Code__c] " +
+                                                               "where [RN_DB].[dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                            SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRN);
+                            cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                            cmdQueryForDiseaseName.Parameters.AddWithValue("@IllnessNo", SelectedIllnessNo);
+
+                            if (connRN.State != ConnectionState.Closed)
+                            {
+                                connRN.Close();
+                                connRN.Open();
+                            }
+                            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                            Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+                            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                            if (objDiseaseName != null) txtDiseaseName.Text = objDiseaseName.ToString();
 
                             comboIncidentNo.Items.Clear();
 
@@ -1649,6 +1676,8 @@ namespace CMMManager
                         }
                         else
                         {
+
+                            txtDiseaseName.Text = String.Empty;
                             comboIncidentNo.Text = String.Empty;
                             comboIncidentNo.Items.Clear();
                             comboIncidentNo.Enabled = false;

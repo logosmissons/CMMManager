@@ -31,7 +31,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gvCommunicationList = new System.Windows.Forms.DataGridView();
+            this.CommNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Body = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvTaskList = new System.Windows.Forms.DataGridView();
+            this.TaskIdTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -82,17 +91,9 @@
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskIdTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label22 = new System.Windows.Forms.Label();
             this.txtCommunicationNo = new System.Windows.Forms.TextBox();
-            this.CommNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Body = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtDiseaseName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommunicationList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvTaskList)).BeginInit();
             this.SuspendLayout();
@@ -135,6 +136,38 @@
             this.gvCommunicationList.TabIndex = 2;
             this.gvCommunicationList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCommunicationList_CellDoubleClick);
             // 
+            // CommNo
+            // 
+            this.CommNo.HeaderText = "Comm No";
+            this.CommNo.Name = "CommNo";
+            this.CommNo.ReadOnly = true;
+            this.CommNo.Width = 80;
+            // 
+            // CommType
+            // 
+            this.CommType.HeaderText = "Comm Type";
+            this.CommType.Name = "CommType";
+            this.CommType.ReadOnly = true;
+            // 
+            // Subject
+            // 
+            this.Subject.HeaderText = "Subject";
+            this.Subject.Name = "Subject";
+            this.Subject.ReadOnly = true;
+            this.Subject.Width = 80;
+            // 
+            // Body
+            // 
+            this.Body.HeaderText = "Body";
+            this.Body.Name = "Body";
+            this.Body.ReadOnly = true;
+            // 
+            // Solution
+            // 
+            this.Solution.HeaderText = "Solution";
+            this.Solution.Name = "Solution";
+            this.Solution.ReadOnly = true;
+            // 
             // gvTaskList
             // 
             this.gvTaskList.AllowUserToAddRows = false;
@@ -151,6 +184,33 @@
             this.gvTaskList.Size = new System.Drawing.Size(489, 149);
             this.gvTaskList.TabIndex = 3;
             this.gvTaskList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvTaskList_CellDoubleClick);
+            // 
+            // TaskIdTask
+            // 
+            this.TaskIdTask.HeaderText = "Task Id";
+            this.TaskIdTask.Name = "TaskIdTask";
+            this.TaskIdTask.ReadOnly = true;
+            this.TaskIdTask.Width = 75;
+            // 
+            // SubjectTask
+            // 
+            this.SubjectTask.HeaderText = "Subject";
+            this.SubjectTask.Name = "SubjectTask";
+            this.SubjectTask.ReadOnly = true;
+            this.SubjectTask.Width = 90;
+            // 
+            // CommentTask
+            // 
+            this.CommentTask.HeaderText = "Comment";
+            this.CommentTask.Name = "CommentTask";
+            this.CommentTask.ReadOnly = true;
+            // 
+            // SolutionTask
+            // 
+            this.SolutionTask.HeaderText = "Solution";
+            this.SolutionTask.Name = "SolutionTask";
+            this.SolutionTask.ReadOnly = true;
+            this.SolutionTask.Width = 120;
             // 
             // label5
             // 
@@ -489,7 +549,7 @@
             this.comboIllnessNo.FormattingEnabled = true;
             this.comboIllnessNo.Location = new System.Drawing.Point(347, 75);
             this.comboIllnessNo.Name = "comboIllnessNo";
-            this.comboIllnessNo.Size = new System.Drawing.Size(160, 21);
+            this.comboIllnessNo.Size = new System.Drawing.Size(115, 21);
             this.comboIllnessNo.TabIndex = 50;
             this.comboIllnessNo.SelectedIndexChanged += new System.EventHandler(this.comboIllnessNo_SelectedIndexChanged);
             // 
@@ -497,7 +557,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(533, 76);
+            this.label21.Location = new System.Drawing.Point(781, 76);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(78, 16);
             this.label21.TabIndex = 51;
@@ -506,7 +566,7 @@
             // comboIncidentNo
             // 
             this.comboIncidentNo.FormattingEnabled = true;
-            this.comboIncidentNo.Location = new System.Drawing.Point(619, 75);
+            this.comboIncidentNo.Location = new System.Drawing.Point(867, 75);
             this.comboIncidentNo.Name = "comboIncidentNo";
             this.comboIncidentNo.Size = new System.Drawing.Size(158, 21);
             this.comboIncidentNo.TabIndex = 52;
@@ -593,33 +653,6 @@
             this.dataGridViewTextBoxColumn8.ReadOnly = true;
             this.dataGridViewTextBoxColumn8.Width = 120;
             // 
-            // TaskIdTask
-            // 
-            this.TaskIdTask.HeaderText = "Task Id";
-            this.TaskIdTask.Name = "TaskIdTask";
-            this.TaskIdTask.ReadOnly = true;
-            this.TaskIdTask.Width = 75;
-            // 
-            // SubjectTask
-            // 
-            this.SubjectTask.HeaderText = "Subject";
-            this.SubjectTask.Name = "SubjectTask";
-            this.SubjectTask.ReadOnly = true;
-            this.SubjectTask.Width = 90;
-            // 
-            // CommentTask
-            // 
-            this.CommentTask.HeaderText = "Comment";
-            this.CommentTask.Name = "CommentTask";
-            this.CommentTask.ReadOnly = true;
-            // 
-            // SolutionTask
-            // 
-            this.SolutionTask.HeaderText = "Solution";
-            this.SolutionTask.Name = "SolutionTask";
-            this.SolutionTask.ReadOnly = true;
-            this.SolutionTask.Width = 120;
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -638,43 +671,20 @@
             this.txtCommunicationNo.Size = new System.Drawing.Size(137, 20);
             this.txtCommunicationNo.TabIndex = 57;
             // 
-            // CommNo
+            // txtDiseaseName
             // 
-            this.CommNo.HeaderText = "Comm No";
-            this.CommNo.Name = "CommNo";
-            this.CommNo.ReadOnly = true;
-            this.CommNo.Width = 80;
-            // 
-            // CommType
-            // 
-            this.CommType.HeaderText = "Comm Type";
-            this.CommType.Name = "CommType";
-            this.CommType.ReadOnly = true;
-            // 
-            // Subject
-            // 
-            this.Subject.HeaderText = "Subject";
-            this.Subject.Name = "Subject";
-            this.Subject.ReadOnly = true;
-            this.Subject.Width = 80;
-            // 
-            // Body
-            // 
-            this.Body.HeaderText = "Body";
-            this.Body.Name = "Body";
-            this.Body.ReadOnly = true;
-            // 
-            // Solution
-            // 
-            this.Solution.HeaderText = "Solution";
-            this.Solution.Name = "Solution";
-            this.Solution.ReadOnly = true;
+            this.txtDiseaseName.Location = new System.Drawing.Point(468, 75);
+            this.txtDiseaseName.Name = "txtDiseaseName";
+            this.txtDiseaseName.ReadOnly = true;
+            this.txtDiseaseName.Size = new System.Drawing.Size(287, 20);
+            this.txtDiseaseName.TabIndex = 58;
             // 
             // frmCommunicationHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1043, 766);
+            this.Controls.Add(this.txtDiseaseName);
             this.Controls.Add(this.txtCommunicationNo);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.btnSaveSolution);
@@ -800,5 +810,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Subject;
         private System.Windows.Forms.DataGridViewTextBoxColumn Body;
         private System.Windows.Forms.DataGridViewTextBoxColumn Solution;
+        private System.Windows.Forms.TextBox txtDiseaseName;
     }
 }

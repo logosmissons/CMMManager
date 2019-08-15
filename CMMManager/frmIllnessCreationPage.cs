@@ -191,7 +191,7 @@ namespace CMMManager
 
             var srcICD10Codes = new AutoCompleteStringCollection();
 
-            for(int i = 0; i < lstICD10CodeInfo.Count; i++)
+            for (int i = 0; i < lstICD10CodeInfo.Count; i++)
             {
                 srcICD10Codes.Add(lstICD10CodeInfo[i].ICD10Code);
             }
@@ -599,11 +599,26 @@ namespace CMMManager
         {
             String strICD10Code = txtICD10Code.Text;
 
-            for (int i = 0; i < lstICD10CodeInfo.Count; i++)
+            String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+
+            SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+            cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+            cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
+
+            if (connSalesforce.State != ConnectionState.Closed)
             {
-                if (strICD10Code.ToUpper() == lstICD10CodeInfo[i].ICD10Code) txtDiseaseName.Text = lstICD10CodeInfo[i].Name;
-                else if (txtICD10Code.Text.Trim() == String.Empty) txtDiseaseName.Text = String.Empty;
+                connSalesforce.Close();
+                connSalesforce.Open();
             }
+            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+            if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+            String strDiseaseName = String.Empty;
+            if (objDiseaseName != null) strDiseaseName = objDiseaseName.ToString();
+
+            txtDiseaseName.Text = strDiseaseName.Trim();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
