@@ -262,6 +262,12 @@
     <Compile Include="frmSettlementNote.Designer.cs">
       <DependentUpon>frmSettlementNote.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStartEndDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStartEndDate.Designer.cs">
+      <DependentUpon>frmStartEndDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaskCreationPage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -376,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettlementNote.resx">
       <DependentUpon>frmSettlementNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStartEndDate.resx">
+      <DependentUpon>frmStartEndDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTaskCreationPage.resx">
       <DependentUpon>frmTaskCreationPage.cs</DependentUpon>
