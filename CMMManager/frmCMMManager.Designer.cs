@@ -2653,6 +2653,7 @@
             this.btnNewTaskIndividual.TabIndex = 241;
             this.btnNewTaskIndividual.Text = "New Task";
             this.btnNewTaskIndividual.UseVisualStyleBackColor = true;
+            this.btnNewTaskIndividual.Click += new System.EventHandler(this.btnNewTaskIndividual_Click);
             // 
             // btnIndividualCommHelper
             // 
