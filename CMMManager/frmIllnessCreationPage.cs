@@ -490,8 +490,8 @@ namespace CMMManager
                 if (strICD10Code != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@ICD10Code", strICD10Code);
                 else cmdCreateIllness.Parameters.AddWithValue("@ICD10Code", DBNull.Value);
 
-                cmdCreateIllness.Parameters.AddWithValue("@CreateDate", DateTime.Today);
-                cmdCreateIllness.Parameters.AddWithValue("@ModifiDate", DateTime.Today);
+                cmdCreateIllness.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+                cmdCreateIllness.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdCreateIllness.Parameters.AddWithValue("@CreateStaff", nLoggedInUserId);
                 cmdCreateIllness.Parameters.AddWithValue("@ModifiStaff", nLoggedInUserId);
                 cmdCreateIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
@@ -560,7 +560,7 @@ namespace CMMManager
 
                 if (strICD10Code != String.Empty) cmdUpdateIllness.Parameters.AddWithValue("@ICD10Code", strICD10Code);
                 else cmdUpdateIllness.Parameters.AddWithValue("@ICD10Code", DBNull.Value);
-                cmdUpdateIllness.Parameters.AddWithValue("@ModifiDate", DateTime.Today);
+                cmdUpdateIllness.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdUpdateIllness.Parameters.AddWithValue("@ModifiStaff", nLoggedInUserId);
                 cmdUpdateIllness.Parameters.AddWithValue("@DiagnosisDate", dtpDateOfDiagnosis.Value);
                 cmdUpdateIllness.Parameters.AddWithValue("@LimitedSharingId", comboLimitedSharing.SelectedIndex);

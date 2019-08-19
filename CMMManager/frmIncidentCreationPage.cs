@@ -762,9 +762,9 @@ namespace CMMManager
                 cmdInsertIntoIncident.Parameters.AddWithValue("@CaseId", CaseId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IllnessId", IllnessId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@OccurrenceDate", dtpIncdOccurrenceDate.Value.ToString("MM/dd/yyyy"));
-                cmdInsertIntoIncident.Parameters.AddWithValue("@CreateDate", DateTime.Today.ToString("MM/dd/yyyy"));
+                cmdInsertIntoIncident.Parameters.AddWithValue("@CreateDate", DateTime.Now);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@CreateStaff", nLoggedInId);
-                cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiDate", DateTime.Today.ToString("MM/dd/yyyy"));
+                cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@IncidentStatus", nIncidentStatus);
                 cmdInsertIntoIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
@@ -869,7 +869,7 @@ namespace CMMManager
                 cmdUpdateIncident.CommandType = CommandType.Text;
 
                 cmdUpdateIncident.Parameters.AddWithValue("@OccurrenceDate", dtpIncdOccurrenceDate.Value.ToString("MM/dd/yyyy"));
-                cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value);
+                cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdUpdateIncident.Parameters.AddWithValue("@WellBeing", chkWellBeing.Checked);

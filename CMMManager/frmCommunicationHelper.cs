@@ -333,6 +333,8 @@ namespace CMMManager
 
         private void gvCommunicationList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex <= -1) return;
+
             DataGridView gvCommunication = sender as DataGridView;
 
             InitializeCommunicationDetail();
