@@ -227,6 +227,27 @@ namespace CMMManager
         }
     }
 
+    public class IneligibleReasonCode
+    {
+        public int Index;
+        public int Id;
+        public String Description;
+
+        public IneligibleReasonCode()
+        {
+            Index = -1;
+            Id = -1;
+            Description = String.Empty;
+        }
+
+        public IneligibleReasonCode(int index, int id, String description)
+        {
+            Index = index;
+            Id = id;
+            Description = description;
+        }
+    }
+
     public class TaskInfo
     {
         public int? TaskId;

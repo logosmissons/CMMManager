@@ -175,6 +175,47 @@ namespace CMMManager
         public frmTaskCreationPage(String IndividualId,
                            RelatedToTable relatedTo,
                            String individualName,
+                           String MembershipId,
+                           String MedBillId,
+                           int loggedInUserId,
+                           String loggedInUserName,
+                           UserRole loggedInUserRoleId,
+                           Department loggedInUserDepartment,
+                           TaskMode mode)
+        {
+
+            taskMode = mode;
+            WhoId = IndividualId;
+            relatedTable = relatedTo;
+            IndividualName = individualName;
+            WhatId = MembershipId;
+
+            LoggedInuserInfo = new UserInfo();
+
+            LoggedInuserInfo.UserId = loggedInUserId;
+            LoggedInuserInfo.UserName = loggedInUserName;
+            LoggedInuserInfo.UserRoleId = loggedInUserRoleId;
+            LoggedInuserInfo.departmentInfo.DepartmentId = loggedInUserDepartment;
+
+            AssignedToStaffInfo = new UserInfo();
+
+            InitializeComponent();
+            lstUserInfo = new List<UserInfo>();
+
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+
+            connRN = new SqlConnection(connStringRN);
+            connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
+
+        }
+
+        public frmTaskCreationPage(String IndividualId,
+                           RelatedToTable relatedTo,
+                           String individualName,
                            String CaseId,
                            int loggedInUserId,
                            String loggedInUserName,
@@ -212,7 +253,6 @@ namespace CMMManager
             sbSolution = new StringBuilder();
 
         }
-
         public frmTaskCreationPage(int task_id, 
                                    String individual_id, 
                                    int login_user_id, 
