@@ -1843,12 +1843,14 @@ namespace CMMManager
     {
         public String IncidentNo;
         public DateTime? IncidentOccurrenceDate;
+        public String ICD10CodeDescription;
         public Decimal PersonalResponsibilityTotal;
 
         public PersonalResponsibilityTotalInfoBlueSheet()
         {
             IncidentNo = String.Empty;
             IncidentOccurrenceDate = null;
+            ICD10CodeDescription = String.Empty;
             PersonalResponsibilityTotal = 0;
         }
 
@@ -1856,6 +1858,14 @@ namespace CMMManager
         {
             IncidentNo = incident_no;
             IncidentOccurrenceDate = incident_occurrence_date;
+            PersonalResponsibilityTotal = personal_responsibility_total;
+        }
+
+        public PersonalResponsibilityTotalInfoBlueSheet(String incident_no, DateTime incident_occurrence_date, String icd10_description, Decimal personal_responsibility_total)
+        {
+            IncidentNo = incident_no;
+            IncidentOccurrenceDate = incident_occurrence_date;
+            ICD10CodeDescription = icd10_description;
             PersonalResponsibilityTotal = personal_responsibility_total;
         }
     }
