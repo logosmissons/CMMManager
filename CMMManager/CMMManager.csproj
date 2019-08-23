@@ -100,6 +100,12 @@
     <Compile Include="frmAssignedTo.Designer.cs">
       <DependentUpon>frmAssignedTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmBlueSheetLoadingFinished.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBlueSheetLoadingFinished.Designer.cs">
+      <DependentUpon>frmBlueSheetLoadingFinished.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCaseForCommunication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmAssignedTo.resx">
       <DependentUpon>frmAssignedTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBlueSheetLoadingFinished.resx">
+      <DependentUpon>frmBlueSheetLoadingFinished.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCaseForCommunication.resx">
       <DependentUpon>frmCaseForCommunication.cs</DependentUpon>
