@@ -154,6 +154,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 410);
+            this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnUpdateIncident);
             this.Controls.Add(this.txtIncidentNote);
@@ -167,7 +168,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label5);
             this.Name = "frmIncidentEditPage";
-            this.Text = "frmIncidentEditPage";
+            this.Text = "Incident Edit";
             this.ResumeLayout(false);
             this.PerformLayout();
 

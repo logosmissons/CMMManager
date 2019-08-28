@@ -97,6 +97,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 364);
+            this.ControlBox = false;
             this.Controls.Add(this.tvStaffNames);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);

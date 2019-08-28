@@ -149,11 +149,12 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Individual No:";
             // 
-            // frmIllnessEdit
+            // frmIllnessEditPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 410);
+            this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnSearch);
@@ -166,7 +167,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "frmIllnessEdit";
+            this.Name = "frmIllnessEditPage";
             this.Text = "frmIllnessEdit";
             this.ResumeLayout(false);
             this.PerformLayout();

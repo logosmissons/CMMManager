@@ -94,13 +94,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 484);
+            this.ControlBox = false;
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.gvNotesAboutMedicalProvider);
             this.Controls.Add(this.label83);
             this.Controls.Add(this.gvMedicalProviderDiscountHistory);
             this.Controls.Add(this.label77);
             this.Name = "frmMedicalProviderInfo";
-            this.Text = "frmMedicalProviderInfo";
+            this.Text = "Medical Provider Info";
             ((System.ComponentModel.ISupportInitialize)(this.gvNotesAboutMedicalProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMedicalProviderDiscountHistory)).EndInit();
             this.ResumeLayout(false);

@@ -285,6 +285,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(563, 607);
+            this.ControlBox = false;
             this.Controls.Add(this.dtpIncdOccurrenceDate);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.chkWellBeing);
@@ -310,6 +311,7 @@
             this.Controls.Add(this.label5);
             this.Name = "frmIncidentCreationPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Incident Creation";
             this.Load += new System.EventHandler(this.frmIncidentCreationPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

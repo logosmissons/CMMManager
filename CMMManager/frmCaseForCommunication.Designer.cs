@@ -169,6 +169,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(353, 314);
+            this.ControlBox = false;
             this.Controls.Add(this.comboIncidentNo);
             this.Controls.Add(this.comboIllnessNo);
             this.Controls.Add(this.label3);
@@ -179,6 +180,7 @@
             this.Controls.Add(this.comboCases);
             this.Controls.Add(this.grpCaseStatus);
             this.Name = "frmCaseForCommunication";
+            this.Text = "Case for Communication";
             this.Load += new System.EventHandler(this.frmCaseForCommunication_Load);
             this.grpCaseStatus.ResumeLayout(false);
             this.grpCaseStatus.PerformLayout();

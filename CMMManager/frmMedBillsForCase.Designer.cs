@@ -186,6 +186,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1032, 563);
+            this.ControlBox = false;
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSelect);
@@ -194,7 +195,7 @@
             this.Controls.Add(this.gvMedBillsForCase);
             this.Controls.Add(this.label1);
             this.Name = "frmMedBillsForCase";
-            this.Text = "frmMedBillsForCase";
+            this.Text = "Medical Bills for Case";
             this.Load += new System.EventHandler(this.frmMedBillsForCase_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillsForCase)).EndInit();
             this.ResumeLayout(false);

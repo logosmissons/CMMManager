@@ -363,6 +363,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 685);
+            this.ControlBox = false;
             this.Controls.Add(this.comboIncidentNo);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.comboIllnessNo);

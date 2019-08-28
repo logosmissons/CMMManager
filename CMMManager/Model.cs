@@ -765,6 +765,33 @@ namespace CMMManager
         }
     }
 
+    public class PendingReasonInfo
+    {
+        public int? SelectedId;
+        public int? Id;
+        public String PendingReason;
+
+        public PendingReasonInfo()
+        {
+            SelectedId = null;
+            Id = null;
+            PendingReason = String.Empty;
+        }
+
+        public PendingReasonInfo(int id, string pending_reason)
+        {
+            Id = id;
+            PendingReason = pending_reason;
+        }
+
+        public PendingReasonInfo(int selected_id, int id, string pending_reason)
+        {
+            SelectedId = selected_id;
+            Id = id;
+            PendingReason = pending_reason;
+        }
+    }
+
     public class IneligibleReasonInfo
     {
         public int? SelectedId;
