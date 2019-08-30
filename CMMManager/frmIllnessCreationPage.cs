@@ -53,14 +53,14 @@ namespace CMMManager
 
         public void SetSqlSetting()
         {
-            connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True";
+            connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
 
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True";
+            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(connStringSalesforce);
 
             strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
 
-            strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+            strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strRNConnection);
 
             nInsertedId = 0;

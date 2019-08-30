@@ -23,7 +23,7 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True;";
+            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strConnString);
             lstStaffInfo = new List<UserInfo>();
             lstStaffInfoSorted = new List<UserInfo>();

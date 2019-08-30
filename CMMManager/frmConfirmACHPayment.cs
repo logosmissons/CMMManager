@@ -32,5 +32,10 @@ namespace CMMManager
         {
             DialogResult = DialogResult.Cancel;
         }
+
+        private void frmConfirmACHPayment_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

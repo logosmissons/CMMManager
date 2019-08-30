@@ -117,6 +117,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmConfirmACHPayment";
             this.Text = "Confirm ACH Payment";
+            this.Load += new System.EventHandler(this.frmConfirmACHPayment_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

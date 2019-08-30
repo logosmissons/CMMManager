@@ -46,7 +46,7 @@ namespace CMMManager
 
         private EmailContentInfo EmailContent;
 
-        private String connStringRN = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+        private String connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
         private SqlConnection connRN;
 
         public frmViewEmail()

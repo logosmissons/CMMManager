@@ -25,7 +25,7 @@ namespace CMMManager
         {
             InitializeComponent();
             IndividualId = String.Empty;
-            RNConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            RNConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(RNConnString);
 
             SalesforceConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
@@ -36,7 +36,7 @@ namespace CMMManager
         {
             InitializeComponent();
             IndividualId = individual_id;
-            RNConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200";
+            RNConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(RNConnString);
 
             SalesforceConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";

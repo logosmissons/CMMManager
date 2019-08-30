@@ -29,7 +29,7 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(connStringRN);
 
             String strUserLoginInfoPath = @"C:\RNManagerUserLoginInfo\UserLoginInfo.txt";
