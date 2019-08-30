@@ -33,7 +33,7 @@ namespace CMMManager
         public frmLogCommunication()
         {
             IndividualId = String.Empty;
-            strConnString = @"Data Source = 12.230.174.166\cmm; Initial Catalog = RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(strConnString);
 
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace CMMManager
             IndividualId = individual_id;
             nLoggedInUserId = login_user_id;
 
-            strConnString = @"Data Source = 12.230.174.166\cmm; Initial Catalog = RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
 
             OpenMode = mode;
@@ -68,7 +68,7 @@ namespace CMMManager
 
             OpenMode = mode;
 
-            strConnString = @"Data Source = 12.230.174.166\cmm; Initial Catalog = RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
         }
 

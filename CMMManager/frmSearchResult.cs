@@ -31,7 +31,7 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            strSalesforceConnString = @"Data Source = CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True";
+            strSalesforceConnString = @"Data Source = CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(strSalesforceConnString);
             
             gvIndividual = new DataGridView();
