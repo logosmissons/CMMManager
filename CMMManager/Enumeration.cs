@@ -37,6 +37,7 @@ namespace CMMManager
     // enumeration for BlueSheet
     public enum EnumPaidTo { Member, MedicalProvider };
     public enum EnumSorted { NotSorted, SortedAsc, SortedDesc };
+    public enum EnumBlueSheetType { Check = 1, ACH, CreditCard };
 
     public enum Gender { Male, Female };
     public enum HouseholdRole { HeadOfHousehold, Spouse, Child };
