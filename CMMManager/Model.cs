@@ -227,6 +227,27 @@ namespace CMMManager
         }
     }
 
+    public class AnivDateInfo
+    {
+        public String IndividualId;
+        public DateTime? AnivDate;
+        public String Program;
+
+        public AnivDateInfo()
+        {
+            IndividualId = String.Empty;
+            AnivDate = null;
+            Program = String.Empty;
+        }
+
+        public AnivDateInfo(String individual_id, DateTime aniv_date, String program)
+        {
+            IndividualId = individual_id;
+            AnivDate = aniv_date;
+            Program = program;
+        }
+    }
+
     public class TaskInfo
     {
         public int? TaskId;

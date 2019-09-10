@@ -869,7 +869,10 @@ namespace CMMManager
                 cmdUpdateIncident.CommandType = CommandType.Text;
 
                 cmdUpdateIncident.Parameters.AddWithValue("@OccurrenceDate", dtpIncdOccurrenceDate.Value.ToString("MM/dd/yyyy"));
-                cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                //String ModifiDate = dtpModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                //cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", dtpModifiedDate.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmdUpdateIncident.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdUpdateIncident.Parameters.AddWithValue("@ModifiStaff", nLoggedInId);
                 cmdUpdateIncident.Parameters.AddWithValue("@ProgramId", comboProgram.SelectedIndex);
                 cmdUpdateIncident.Parameters.AddWithValue("@WellBeing", chkWellBeing.Checked);
