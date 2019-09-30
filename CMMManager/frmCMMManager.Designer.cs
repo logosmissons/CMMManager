@@ -1040,6 +1040,8 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.label86 = new System.Windows.Forms.Label();
+            this.txtWBBalance = new System.Windows.Forms.TextBox();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5720,6 +5722,8 @@
             // 
             // tbpgMedicalBill
             // 
+            this.tbpgMedicalBill.Controls.Add(this.txtWBBalance);
+            this.tbpgMedicalBill.Controls.Add(this.label86);
             this.tbpgMedicalBill.Controls.Add(this.btnReloadSettlementInMedBill);
             this.tbpgMedicalBill.Controls.Add(this.btnUndoPayment);
             this.tbpgMedicalBill.Controls.Add(this.grpMedBillDocuments);
@@ -9966,6 +9970,25 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(1284, 451);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(86, 16);
+            this.label86.TabIndex = 155;
+            this.label86.Text = "WB Balance:";
+            // 
+            // txtWBBalance
+            // 
+            this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWBBalance.Location = new System.Drawing.Point(1376, 449);
+            this.txtWBBalance.Name = "txtWBBalance";
+            this.txtWBBalance.ReadOnly = true;
+            this.txtWBBalance.Size = new System.Drawing.Size(100, 22);
+            this.txtWBBalance.TabIndex = 156;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11129,6 +11152,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
+        private System.Windows.Forms.TextBox txtWBBalance;
+        private System.Windows.Forms.Label label86;
     }
 }
 
