@@ -227,7 +227,7 @@ namespace CMMManager
         }
     }
 
-    public class AnivDateInfo
+    public class AnivDateInfo : IEquatable<AnivDateInfo>
     {
         public String IndividualId;
         public DateTime? AnivDate;
@@ -245,6 +245,26 @@ namespace CMMManager
             IndividualId = individual_id;
             AnivDate = aniv_date;
             Program = program;
+        }
+
+        public bool Equals(AnivDateInfo otherInfo)
+        {
+            if (Object.ReferenceEquals(otherInfo, null)) return false;
+
+            if (Object.ReferenceEquals(this, otherInfo)) return true;
+
+            return IndividualId.Equals(otherInfo.IndividualId) && AnivDate.Equals(otherInfo.AnivDate) && Program.Equals(otherInfo.Program);
+        }
+
+        public override int GetHashCode()
+        {
+            int hashAnivInfoIndividualId = IndividualId == null ? 0 : IndividualId.GetHashCode();
+
+            int hashAnivInfoProgram = Program == null ? 0 : Program.GetHashCode();
+
+            int hashAnivInfoDate = AnivDate.GetHashCode();
+
+            return hashAnivInfoIndividualId ^ hashAnivInfoProgram ^ hashAnivInfoDate;
         }
     }
 
