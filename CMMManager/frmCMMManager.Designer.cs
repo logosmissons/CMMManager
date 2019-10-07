@@ -564,6 +564,8 @@
             this.MedBill_HippaSentDate = new CMMManager.CalendarColumn();
             this.MedBill_MedicalRecordDate = new CMMManager.CalendarColumn();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
+            this.txtWBBalance = new System.Windows.Forms.TextBox();
+            this.label86 = new System.Windows.Forms.Label();
             this.btnReloadSettlementInMedBill = new System.Windows.Forms.Button();
             this.btnUndoPayment = new System.Windows.Forms.Button();
             this.grpMedBillDocuments = new System.Windows.Forms.GroupBox();
@@ -1040,8 +1042,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.label86 = new System.Windows.Forms.Label();
-            this.txtWBBalance = new System.Windows.Forms.TextBox();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5757,6 +5757,25 @@
             this.tbpgMedicalBill.Text = "Medical Bill";
             this.tbpgMedicalBill.UseVisualStyleBackColor = true;
             // 
+            // txtWBBalance
+            // 
+            this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWBBalance.Location = new System.Drawing.Point(1338, 448);
+            this.txtWBBalance.Name = "txtWBBalance";
+            this.txtWBBalance.ReadOnly = true;
+            this.txtWBBalance.Size = new System.Drawing.Size(100, 22);
+            this.txtWBBalance.TabIndex = 156;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(1246, 451);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(86, 16);
+            this.label86.TabIndex = 155;
+            this.label86.Text = "WB Balance:";
+            // 
             // btnReloadSettlementInMedBill
             // 
             this.btnReloadSettlementInMedBill.Location = new System.Drawing.Point(272, 447);
@@ -5874,7 +5893,7 @@
             // txtTotalSharedAmtMedBill
             // 
             this.txtTotalSharedAmtMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1146, 448);
+            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1118, 448);
             this.txtTotalSharedAmtMedBill.Name = "txtTotalSharedAmtMedBill";
             this.txtTotalSharedAmtMedBill.ReadOnly = true;
             this.txtTotalSharedAmtMedBill.Size = new System.Drawing.Size(100, 22);
@@ -5886,9 +5905,9 @@
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label63.Location = new System.Drawing.Point(1009, 451);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(137, 16);
+            this.label63.Size = new System.Drawing.Size(103, 16);
             this.label63.TabIndex = 151;
-            this.label63.Text = "Total Shared Amount:";
+            this.label63.Text = "Shared Amount:";
             // 
             // txtPersonalResponsibility
             // 
@@ -9969,25 +9988,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(1284, 451);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(86, 16);
-            this.label86.TabIndex = 155;
-            this.label86.Text = "WB Balance:";
-            // 
-            // txtWBBalance
-            // 
-            this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWBBalance.Location = new System.Drawing.Point(1376, 449);
-            this.txtWBBalance.Name = "txtWBBalance";
-            this.txtWBBalance.ReadOnly = true;
-            this.txtWBBalance.Size = new System.Drawing.Size(100, 22);
-            this.txtWBBalance.TabIndex = 156;
             // 
             // frmCMMManager
             // 
