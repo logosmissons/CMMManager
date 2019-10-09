@@ -163,6 +163,7 @@
             this.txtCommunicationBody.Location = new System.Drawing.Point(29, 292);
             this.txtCommunicationBody.Multiline = true;
             this.txtCommunicationBody.Name = "txtCommunicationBody";
+            this.txtCommunicationBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCommunicationBody.Size = new System.Drawing.Size(629, 110);
             this.txtCommunicationBody.TabIndex = 11;
             // 

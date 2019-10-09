@@ -294,6 +294,7 @@
             this.txtCommunicationBody.Multiline = true;
             this.txtCommunicationBody.Name = "txtCommunicationBody";
             this.txtCommunicationBody.ReadOnly = true;
+            this.txtCommunicationBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCommunicationBody.Size = new System.Drawing.Size(481, 93);
             this.txtCommunicationBody.TabIndex = 17;
             // 
@@ -467,6 +468,7 @@
             this.txtTaskComment.Multiline = true;
             this.txtTaskComment.Name = "txtTaskComment";
             this.txtTaskComment.ReadOnly = true;
+            this.txtTaskComment.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtTaskComment.Size = new System.Drawing.Size(406, 91);
             this.txtTaskComment.TabIndex = 41;
             // 
@@ -476,6 +478,7 @@
             this.txtTaskSolution.Multiline = true;
             this.txtTaskSolution.Name = "txtTaskSolution";
             this.txtTaskSolution.ReadOnly = true;
+            this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtTaskSolution.Size = new System.Drawing.Size(406, 87);
             this.txtTaskSolution.TabIndex = 42;
             // 
@@ -587,6 +590,7 @@
             this.txtCommunicationSolution.Location = new System.Drawing.Point(28, 591);
             this.txtCommunicationSolution.Multiline = true;
             this.txtCommunicationSolution.Name = "txtCommunicationSolution";
+            this.txtCommunicationSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCommunicationSolution.Size = new System.Drawing.Size(481, 103);
             this.txtCommunicationSolution.TabIndex = 54;
             // 

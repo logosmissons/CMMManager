@@ -19,6 +19,8 @@ namespace CMMManager
         private int nLoggedInUserId;
         private String CommunicationNo;
         private String CaseNo;
+        private String IllnessNo;
+        private String IncidentNo;
         private CommunicationType CommType;
         private CommunicationOpenMode OpenMode;
 
@@ -52,7 +54,7 @@ namespace CMMManager
             OpenMode = mode;
         }
 
-        public frmLogCommunication(String individual_id, int login_user_id, String communication_no, CommunicationType type, String case_no, String subject, String body, CommunicationOpenMode mode)
+        public frmLogCommunication(String individual_id, int login_user_id, String communication_no, CommunicationType type, String case_no, String illness_no, String incident_no, String subject, String body, CommunicationOpenMode mode)
         {
             InitializeComponent();
             IndividualId = individual_id;
@@ -60,6 +62,8 @@ namespace CMMManager
 
             CommunicationNo = communication_no;
             CaseNo = case_no;
+            IllnessNo = illness_no;
+            IncidentNo = incident_no;
 
             CommType = type;
 
@@ -237,6 +241,14 @@ namespace CMMManager
                 }
                 comboCaseNo.Enabled = false;
 
+                comboIllnessNo.Items.Add(IllnessNo);
+                comboIllnessNo.SelectedIndex = 0;
+                comboIllnessNo.Enabled = false;
+
+                comboIncidentNo.Items.Add(IncidentNo);
+                comboIncidentNo.SelectedIndex = 0;
+                comboIncidentNo.Enabled = false;
+
                 comboCommunicationType.SelectedIndex = (int)CommType;
 
                 txtCommunicationSubject.Text = Subject;
@@ -354,6 +366,14 @@ namespace CMMManager
                     if (CaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
                 }
                 comboCaseNo.Enabled = false;
+
+                comboIllnessNo.Items.Add(IllnessNo);
+                comboIllnessNo.SelectedIndex = 0;
+                comboIllnessNo.Enabled = false;
+
+                comboIncidentNo.Items.Add(IncidentNo);
+                comboIncidentNo.SelectedIndex = 0;
+                comboIncidentNo.Enabled = false;
 
                 comboCommunicationType.SelectedIndex = (int)CommType;
 
