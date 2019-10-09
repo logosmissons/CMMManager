@@ -28,7 +28,7 @@ namespace CMMManager
             RNConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(RNConnString);
 
-            SalesforceConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
+            SalesforceConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(SalesforceConnString);
         }
 
@@ -39,7 +39,7 @@ namespace CMMManager
             RNConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(RNConnString);
 
-            SalesforceConnString = @"Data Source=12.230.174.166\cmm; Initial Catalog=SalesForce; Integrated Security=True";
+            SalesforceConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(SalesforceConnString);
         }
 
