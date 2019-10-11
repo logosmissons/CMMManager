@@ -190,6 +190,44 @@ namespace CMMManager
         }
     }
 
+    public class MedBillInfoInCaseForm
+    {
+        public String MedicalBillType;
+        public String MedicalBillNo;
+        public DateTime? DateOfService;
+        public String MedicalProviderId;
+        public String MedicalProviderName;
+        public Double? MedicalBillAmount;
+        public Double? WaitingPayBalance;
+        public Double? TotalSharedAmount;
+        public Double? Balance;
+        public String IncidentNo;
+        public String IncidentNote;
+        public DateTime? CreateDate;
+        public String CreatedByStaffName;
+        public DateTime? ModifiedDate;
+        public String ModifiedByStaffName;
+
+        public MedBillInfoInCaseForm()
+        {
+            MedicalBillType = String.Empty;
+            MedicalBillNo = String.Empty;
+            DateOfService = null;
+            MedicalProviderId = String.Empty;
+            MedicalProviderName = String.Empty;
+            MedicalBillAmount = null;
+            WaitingPayBalance = null;
+            TotalSharedAmount = null;
+            Balance = null;
+            IncidentNo = String.Empty;
+            IncidentNote = String.Empty;
+            CreateDate = null;
+            CreatedByStaffName = String.Empty;
+            ModifiedDate = null;
+            ModifiedByStaffName = String.Empty;
+        }
+    }
+
     public class MedBillStatusInfoCMMPendingPayment
     {
         public String MedBillNo;
