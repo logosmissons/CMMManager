@@ -3798,6 +3798,7 @@
             this.txtZip2.Name = "txtZip2";
             this.txtZip2.Size = new System.Drawing.Size(74, 20);
             this.txtZip2.TabIndex = 15;
+            this.txtZip2.TextChanged += new System.EventHandler(this.txtZip2_TextChanged);
             // 
             // txtZip1
             // 
@@ -3805,6 +3806,7 @@
             this.txtZip1.Name = "txtZip1";
             this.txtZip1.Size = new System.Drawing.Size(74, 20);
             this.txtZip1.TabIndex = 11;
+            this.txtZip1.TextChanged += new System.EventHandler(this.txtZip1_TextChanged);
             // 
             // txtStreetAddress2
             // 
@@ -3896,9 +3898,9 @@
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(29, 240);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(118, 16);
+            this.label10.Size = new System.Drawing.Size(108, 16);
             this.label10.TabIndex = 136;
-            this.label10.Text = "Shipping Address:";
+            this.label10.Text = "Mailing Address:";
             // 
             // txtIndividualSSN
             // 
