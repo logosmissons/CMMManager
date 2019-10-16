@@ -216,6 +216,22 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.btnViewBeneficiary = new System.Windows.Forms.Button();
+            this.btnUploadBeneficiary = new System.Windows.Forms.Button();
+            this.chkBeneficiary = new System.Windows.Forms.CheckBox();
+            this.grpChristian = new System.Windows.Forms.GroupBox();
+            this.rbChristianNo = new System.Windows.Forms.RadioButton();
+            this.rbChristianYes = new System.Windows.Forms.RadioButton();
+            this.grpLanguages = new System.Windows.Forms.GroupBox();
+            this.rbEnglish = new System.Windows.Forms.RadioButton();
+            this.rbKorean = new System.Windows.Forms.RadioButton();
+            this.label87 = new System.Windows.Forms.Label();
+            this.btnViewVoidCheck = new System.Windows.Forms.Button();
+            this.btnUploadVoidCheck = new System.Windows.Forms.Button();
+            this.chkVoidCheck = new System.Windows.Forms.CheckBox();
+            this.btnViewCommConsent = new System.Windows.Forms.Button();
+            this.btnUploadCommConsent = new System.Windows.Forms.Button();
+            this.chkCommConsentUploaded = new System.Windows.Forms.CheckBox();
             this.btnDeleteCommunication = new System.Windows.Forms.Button();
             this.btnNewTaskIndividual = new System.Windows.Forms.Button();
             this.btnIndividualCommHelper = new System.Windows.Forms.Button();
@@ -236,8 +252,6 @@
             this.label96 = new System.Windows.Forms.Label();
             this.txtTotalMedBillAmount = new System.Windows.Forms.TextBox();
             this.label174 = new System.Windows.Forms.Label();
-            this.rbEnglish = new System.Windows.Forms.RadioButton();
-            this.rbKorean = new System.Windows.Forms.RadioButton();
             this.txtRelationship = new System.Windows.Forms.TextBox();
             this.dtpBirthDate = new System.Windows.Forms.DateTimePicker();
             this.btnEditCaseUnderProcess = new System.Windows.Forms.Button();
@@ -322,7 +336,6 @@
             this.txtProgram = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
-            this.txtPowerOfAttorney = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.cbGender = new System.Windows.Forms.ComboBox();
             this.cbReimbursementMethod = new System.Windows.Forms.ComboBox();
@@ -1072,6 +1085,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).BeginInit();
             this.tbpgIndividual.SuspendLayout();
+            this.grpChristian.SuspendLayout();
+            this.grpLanguages.SuspendLayout();
             this.pnlHealthHistoryAfterRegistration.SuspendLayout();
             this.pnlHealthHistoryPriorRegistration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRecentCommunication)).BeginInit();
@@ -2518,6 +2533,18 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.btnViewBeneficiary);
+            this.tbpgIndividual.Controls.Add(this.btnUploadBeneficiary);
+            this.tbpgIndividual.Controls.Add(this.chkBeneficiary);
+            this.tbpgIndividual.Controls.Add(this.grpChristian);
+            this.tbpgIndividual.Controls.Add(this.grpLanguages);
+            this.tbpgIndividual.Controls.Add(this.label87);
+            this.tbpgIndividual.Controls.Add(this.btnViewVoidCheck);
+            this.tbpgIndividual.Controls.Add(this.btnUploadVoidCheck);
+            this.tbpgIndividual.Controls.Add(this.chkVoidCheck);
+            this.tbpgIndividual.Controls.Add(this.btnViewCommConsent);
+            this.tbpgIndividual.Controls.Add(this.btnUploadCommConsent);
+            this.tbpgIndividual.Controls.Add(this.chkCommConsentUploaded);
             this.tbpgIndividual.Controls.Add(this.btnDeleteCommunication);
             this.tbpgIndividual.Controls.Add(this.btnNewTaskIndividual);
             this.tbpgIndividual.Controls.Add(this.btnIndividualCommHelper);
@@ -2538,8 +2565,6 @@
             this.tbpgIndividual.Controls.Add(this.label96);
             this.tbpgIndividual.Controls.Add(this.txtTotalMedBillAmount);
             this.tbpgIndividual.Controls.Add(this.label174);
-            this.tbpgIndividual.Controls.Add(this.rbEnglish);
-            this.tbpgIndividual.Controls.Add(this.rbKorean);
             this.tbpgIndividual.Controls.Add(this.txtRelationship);
             this.tbpgIndividual.Controls.Add(this.dtpBirthDate);
             this.tbpgIndividual.Controls.Add(this.btnEditCaseUnderProcess);
@@ -2588,7 +2613,6 @@
             this.tbpgIndividual.Controls.Add(this.txtProgram);
             this.tbpgIndividual.Controls.Add(this.label21);
             this.tbpgIndividual.Controls.Add(this.label40);
-            this.tbpgIndividual.Controls.Add(this.txtPowerOfAttorney);
             this.tbpgIndividual.Controls.Add(this.label32);
             this.tbpgIndividual.Controls.Add(this.cbGender);
             this.tbpgIndividual.Controls.Add(this.cbReimbursementMethod);
@@ -2644,6 +2668,165 @@
             this.tbpgIndividual.Text = "Individual";
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
+            // 
+            // btnViewBeneficiary
+            // 
+            this.btnViewBeneficiary.Location = new System.Drawing.Point(632, 749);
+            this.btnViewBeneficiary.Name = "btnViewBeneficiary";
+            this.btnViewBeneficiary.Size = new System.Drawing.Size(92, 23);
+            this.btnViewBeneficiary.TabIndex = 256;
+            this.btnViewBeneficiary.Text = "View";
+            this.btnViewBeneficiary.UseVisualStyleBackColor = true;
+            // 
+            // btnUploadBeneficiary
+            // 
+            this.btnUploadBeneficiary.Location = new System.Drawing.Point(528, 749);
+            this.btnUploadBeneficiary.Name = "btnUploadBeneficiary";
+            this.btnUploadBeneficiary.Size = new System.Drawing.Size(92, 23);
+            this.btnUploadBeneficiary.TabIndex = 255;
+            this.btnUploadBeneficiary.Text = "Upload";
+            this.btnUploadBeneficiary.UseVisualStyleBackColor = true;
+            // 
+            // chkBeneficiary
+            // 
+            this.chkBeneficiary.AutoSize = true;
+            this.chkBeneficiary.Location = new System.Drawing.Point(446, 752);
+            this.chkBeneficiary.Name = "chkBeneficiary";
+            this.chkBeneficiary.Size = new System.Drawing.Size(78, 17);
+            this.chkBeneficiary.TabIndex = 254;
+            this.chkBeneficiary.Text = "Beneficiary";
+            this.chkBeneficiary.UseVisualStyleBackColor = true;
+            // 
+            // grpChristian
+            // 
+            this.grpChristian.Controls.Add(this.rbChristianNo);
+            this.grpChristian.Controls.Add(this.rbChristianYes);
+            this.grpChristian.Location = new System.Drawing.Point(486, 520);
+            this.grpChristian.Name = "grpChristian";
+            this.grpChristian.Size = new System.Drawing.Size(143, 34);
+            this.grpChristian.TabIndex = 253;
+            this.grpChristian.TabStop = false;
+            // 
+            // rbChristianNo
+            // 
+            this.rbChristianNo.AutoSize = true;
+            this.rbChristianNo.Location = new System.Drawing.Point(83, 11);
+            this.rbChristianNo.Name = "rbChristianNo";
+            this.rbChristianNo.Size = new System.Drawing.Size(39, 17);
+            this.rbChristianNo.TabIndex = 251;
+            this.rbChristianNo.TabStop = true;
+            this.rbChristianNo.Text = "No";
+            this.rbChristianNo.UseVisualStyleBackColor = true;
+            // 
+            // rbChristianYes
+            // 
+            this.rbChristianYes.AutoSize = true;
+            this.rbChristianYes.Location = new System.Drawing.Point(27, 11);
+            this.rbChristianYes.Name = "rbChristianYes";
+            this.rbChristianYes.Size = new System.Drawing.Size(43, 17);
+            this.rbChristianYes.TabIndex = 249;
+            this.rbChristianYes.TabStop = true;
+            this.rbChristianYes.Text = "Yes";
+            this.rbChristianYes.UseVisualStyleBackColor = true;
+            // 
+            // grpLanguages
+            // 
+            this.grpLanguages.Controls.Add(this.rbEnglish);
+            this.grpLanguages.Controls.Add(this.rbKorean);
+            this.grpLanguages.Location = new System.Drawing.Point(162, 121);
+            this.grpLanguages.Name = "grpLanguages";
+            this.grpLanguages.Size = new System.Drawing.Size(184, 35);
+            this.grpLanguages.TabIndex = 252;
+            this.grpLanguages.TabStop = false;
+            // 
+            // rbEnglish
+            // 
+            this.rbEnglish.AutoSize = true;
+            this.rbEnglish.Location = new System.Drawing.Point(86, 12);
+            this.rbEnglish.Name = "rbEnglish";
+            this.rbEnglish.Size = new System.Drawing.Size(59, 17);
+            this.rbEnglish.TabIndex = 2;
+            this.rbEnglish.Text = "English";
+            this.rbEnglish.UseVisualStyleBackColor = true;
+            // 
+            // rbKorean
+            // 
+            this.rbKorean.AutoSize = true;
+            this.rbKorean.Checked = true;
+            this.rbKorean.Location = new System.Drawing.Point(13, 12);
+            this.rbKorean.Name = "rbKorean";
+            this.rbKorean.Size = new System.Drawing.Size(59, 17);
+            this.rbKorean.TabIndex = 1;
+            this.rbKorean.TabStop = true;
+            this.rbKorean.Text = "Korean";
+            this.rbKorean.UseVisualStyleBackColor = true;
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Location = new System.Drawing.Point(415, 531);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(62, 16);
+            this.label87.TabIndex = 250;
+            this.label87.Text = "Christian:";
+            // 
+            // btnViewVoidCheck
+            // 
+            this.btnViewVoidCheck.Location = new System.Drawing.Point(635, 417);
+            this.btnViewVoidCheck.Name = "btnViewVoidCheck";
+            this.btnViewVoidCheck.Size = new System.Drawing.Size(92, 23);
+            this.btnViewVoidCheck.TabIndex = 248;
+            this.btnViewVoidCheck.Text = "View";
+            this.btnViewVoidCheck.UseVisualStyleBackColor = true;
+            // 
+            // btnUploadVoidCheck
+            // 
+            this.btnUploadVoidCheck.Location = new System.Drawing.Point(531, 417);
+            this.btnUploadVoidCheck.Name = "btnUploadVoidCheck";
+            this.btnUploadVoidCheck.Size = new System.Drawing.Size(92, 23);
+            this.btnUploadVoidCheck.TabIndex = 247;
+            this.btnUploadVoidCheck.Text = "Upload";
+            this.btnUploadVoidCheck.UseVisualStyleBackColor = true;
+            // 
+            // chkVoidCheck
+            // 
+            this.chkVoidCheck.AutoSize = true;
+            this.chkVoidCheck.Location = new System.Drawing.Point(444, 421);
+            this.chkVoidCheck.Name = "chkVoidCheck";
+            this.chkVoidCheck.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.chkVoidCheck.Size = new System.Drawing.Size(81, 17);
+            this.chkVoidCheck.TabIndex = 246;
+            this.chkVoidCheck.Text = "Void Check";
+            this.chkVoidCheck.UseVisualStyleBackColor = true;
+            // 
+            // btnViewCommConsent
+            // 
+            this.btnViewCommConsent.Location = new System.Drawing.Point(284, 376);
+            this.btnViewCommConsent.Name = "btnViewCommConsent";
+            this.btnViewCommConsent.Size = new System.Drawing.Size(75, 23);
+            this.btnViewCommConsent.TabIndex = 245;
+            this.btnViewCommConsent.Text = "View";
+            this.btnViewCommConsent.UseVisualStyleBackColor = true;
+            // 
+            // btnUploadCommConsent
+            // 
+            this.btnUploadCommConsent.Location = new System.Drawing.Point(202, 376);
+            this.btnUploadCommConsent.Name = "btnUploadCommConsent";
+            this.btnUploadCommConsent.Size = new System.Drawing.Size(75, 23);
+            this.btnUploadCommConsent.TabIndex = 244;
+            this.btnUploadCommConsent.Text = "Upload";
+            this.btnUploadCommConsent.UseVisualStyleBackColor = true;
+            this.btnUploadCommConsent.Click += new System.EventHandler(this.btnUploadCommConsent_Click);
+            // 
+            // chkCommConsentUploaded
+            // 
+            this.chkCommConsentUploaded.AutoSize = true;
+            this.chkCommConsentUploaded.Location = new System.Drawing.Point(181, 381);
+            this.chkCommConsentUploaded.Name = "chkCommConsentUploaded";
+            this.chkCommConsentUploaded.Size = new System.Drawing.Size(15, 14);
+            this.chkCommConsentUploaded.TabIndex = 243;
+            this.chkCommConsentUploaded.UseVisualStyleBackColor = true;
             // 
             // btnDeleteCommunication
             // 
@@ -2813,43 +2996,21 @@
             // 
             // txtTotalMedBillAmount
             // 
-            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(558, 790);
+            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(578, 790);
             this.txtTotalMedBillAmount.Name = "txtTotalMedBillAmount";
             this.txtTotalMedBillAmount.ReadOnly = true;
-            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(166, 20);
+            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(146, 20);
             this.txtTotalMedBillAmount.TabIndex = 224;
             // 
             // label174
             // 
             this.label174.AutoSize = true;
             this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label174.Location = new System.Drawing.Point(390, 792);
+            this.label174.Location = new System.Drawing.Point(381, 792);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(162, 16);
             this.label174.TabIndex = 223;
             this.label174.Text = "Total Medical Bill Amount:";
-            // 
-            // rbEnglish
-            // 
-            this.rbEnglish.AutoSize = true;
-            this.rbEnglish.Location = new System.Drawing.Point(269, 130);
-            this.rbEnglish.Name = "rbEnglish";
-            this.rbEnglish.Size = new System.Drawing.Size(59, 17);
-            this.rbEnglish.TabIndex = 2;
-            this.rbEnglish.Text = "English";
-            this.rbEnglish.UseVisualStyleBackColor = true;
-            // 
-            // rbKorean
-            // 
-            this.rbKorean.AutoSize = true;
-            this.rbKorean.Checked = true;
-            this.rbKorean.Location = new System.Drawing.Point(196, 130);
-            this.rbKorean.Name = "rbKorean";
-            this.rbKorean.Size = new System.Drawing.Size(59, 17);
-            this.rbKorean.TabIndex = 1;
-            this.rbKorean.TabStop = true;
-            this.rbKorean.Text = "Korean";
-            this.rbKorean.UseVisualStyleBackColor = true;
             // 
             // txtRelationship
             // 
@@ -3412,25 +3573,25 @@
             // 
             // txtWellBeingAmt
             // 
-            this.txtWellBeingAmt.Location = new System.Drawing.Point(558, 824);
+            this.txtWellBeingAmt.Location = new System.Drawing.Point(579, 824);
             this.txtWellBeingAmt.Name = "txtWellBeingAmt";
             this.txtWellBeingAmt.ReadOnly = true;
-            this.txtWellBeingAmt.Size = new System.Drawing.Size(166, 20);
+            this.txtWellBeingAmt.Size = new System.Drawing.Size(145, 20);
             this.txtWellBeingAmt.TabIndex = 193;
             // 
             // label44
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(390, 825);
+            this.label44.Location = new System.Drawing.Point(381, 825);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(124, 16);
+            this.label44.Size = new System.Drawing.Size(190, 16);
             this.label44.TabIndex = 192;
-            this.label44.Text = "Well Being Amount:";
+            this.label44.Text = "Available Annual WB Balance:";
             // 
             // txtProgramChangeReqDate
             // 
-            this.txtProgramChangeReqDate.Location = new System.Drawing.Point(231, 680);
+            this.txtProgramChangeReqDate.Location = new System.Drawing.Point(231, 681);
             this.txtProgramChangeReqDate.Name = "txtProgramChangeReqDate";
             this.txtProgramChangeReqDate.ReadOnly = true;
             this.txtProgramChangeReqDate.Size = new System.Drawing.Size(147, 20);
@@ -3502,16 +3663,16 @@
             // 
             // txtIndMemberShipStatus
             // 
-            this.txtIndMemberShipStatus.Location = new System.Drawing.Point(168, 749);
+            this.txtIndMemberShipStatus.Location = new System.Drawing.Point(578, 681);
             this.txtIndMemberShipStatus.Name = "txtIndMemberShipStatus";
             this.txtIndMemberShipStatus.ReadOnly = true;
-            this.txtIndMemberShipStatus.Size = new System.Drawing.Size(169, 20);
+            this.txtIndMemberShipStatus.Size = new System.Drawing.Size(146, 20);
             this.txtIndMemberShipStatus.TabIndex = 183;
             // 
             // txtDeceasedDate
             // 
             this.txtDeceasedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDeceasedDate.Location = new System.Drawing.Point(578, 680);
+            this.txtDeceasedDate.Location = new System.Drawing.Point(231, 750);
             this.txtDeceasedDate.Name = "txtDeceasedDate";
             this.txtDeceasedDate.ReadOnly = true;
             this.txtDeceasedDate.Size = new System.Drawing.Size(146, 20);
@@ -3521,7 +3682,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(30, 749);
+            this.label27.Location = new System.Drawing.Point(446, 683);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(126, 16);
             this.label27.TabIndex = 181;
@@ -3531,7 +3692,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(470, 681);
+            this.label26.Location = new System.Drawing.Point(31, 749);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(107, 16);
             this.label26.TabIndex = 180;
@@ -3549,7 +3710,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(470, 714);
+            this.label25.Location = new System.Drawing.Point(446, 714);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(104, 16);
             this.label25.TabIndex = 178;
@@ -3619,22 +3780,15 @@
             this.label40.TabIndex = 171;
             this.label40.Text = "Relationship:";
             // 
-            // txtPowerOfAttorney
-            // 
-            this.txtPowerOfAttorney.Location = new System.Drawing.Point(145, 378);
-            this.txtPowerOfAttorney.Name = "txtPowerOfAttorney";
-            this.txtPowerOfAttorney.Size = new System.Drawing.Size(179, 20);
-            this.txtPowerOfAttorney.TabIndex = 21;
-            // 
             // label32
             // 
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label32.Location = new System.Drawing.Point(29, 380);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(115, 16);
+            this.label32.Size = new System.Drawing.Size(155, 16);
             this.label32.TabIndex = 168;
-            this.label32.Text = "Power of Attorney:";
+            this.label32.Text = "Communication Consent:";
             // 
             // cbGender
             // 
@@ -3654,7 +3808,7 @@
             this.cbReimbursementMethod.FormattingEnabled = true;
             this.cbReimbursementMethod.Location = new System.Drawing.Point(257, 419);
             this.cbReimbursementMethod.Name = "cbReimbursementMethod";
-            this.cbReimbursementMethod.Size = new System.Drawing.Size(141, 21);
+            this.cbReimbursementMethod.Size = new System.Drawing.Size(133, 21);
             this.cbReimbursementMethod.TabIndex = 23;
             this.cbReimbursementMethod.SelectedIndexChanged += new System.EventHandler(this.cbReimbursementMethod_SelectedIndexChanged);
             // 
@@ -3734,7 +3888,7 @@
             // 
             this.txtCellPhone1.Location = new System.Drawing.Point(145, 344);
             this.txtCellPhone1.Name = "txtCellPhone1";
-            this.txtCellPhone1.Size = new System.Drawing.Size(179, 20);
+            this.txtCellPhone1.Size = new System.Drawing.Size(214, 20);
             this.txtCellPhone1.TabIndex = 19;
             // 
             // label19
@@ -10046,6 +10200,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvIndividualSearched)).EndInit();
             this.tbpgIndividual.ResumeLayout(false);
             this.tbpgIndividual.PerformLayout();
+            this.grpChristian.ResumeLayout(false);
+            this.grpChristian.PerformLayout();
+            this.grpLanguages.ResumeLayout(false);
+            this.grpLanguages.PerformLayout();
             this.pnlHealthHistoryAfterRegistration.ResumeLayout(false);
             this.pnlHealthHistoryPriorRegistration.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvRecentCommunication)).EndInit();
@@ -10204,7 +10362,6 @@
         private System.Windows.Forms.TextBox txtProgram;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.TextBox txtPowerOfAttorney;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox cbGender;
         private System.Windows.Forms.ComboBox cbReimbursementMethod;
@@ -11156,6 +11313,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
         private System.Windows.Forms.TextBox txtWBBalance;
         private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Button btnViewCommConsent;
+        private System.Windows.Forms.Button btnUploadCommConsent;
+        private System.Windows.Forms.CheckBox chkCommConsentUploaded;
+        private System.Windows.Forms.Button btnViewVoidCheck;
+        private System.Windows.Forms.Button btnUploadVoidCheck;
+        private System.Windows.Forms.CheckBox chkVoidCheck;
+        private System.Windows.Forms.RadioButton rbChristianNo;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.RadioButton rbChristianYes;
+        private System.Windows.Forms.GroupBox grpChristian;
+        private System.Windows.Forms.GroupBox grpLanguages;
+        private System.Windows.Forms.Button btnViewBeneficiary;
+        private System.Windows.Forms.Button btnUploadBeneficiary;
+        private System.Windows.Forms.CheckBox chkBeneficiary;
     }
 }
 
