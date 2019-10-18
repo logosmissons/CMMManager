@@ -2677,6 +2677,7 @@
             this.btnViewBeneficiary.TabIndex = 256;
             this.btnViewBeneficiary.Text = "View";
             this.btnViewBeneficiary.UseVisualStyleBackColor = true;
+            this.btnViewBeneficiary.Click += new System.EventHandler(this.btnViewBeneficiary_Click);
             // 
             // btnUploadBeneficiary
             // 
@@ -2686,6 +2687,7 @@
             this.btnUploadBeneficiary.TabIndex = 255;
             this.btnUploadBeneficiary.Text = "Upload";
             this.btnUploadBeneficiary.UseVisualStyleBackColor = true;
+            this.btnUploadBeneficiary.Click += new System.EventHandler(this.btnUploadBeneficiary_Click);
             // 
             // chkBeneficiary
             // 
@@ -2779,6 +2781,7 @@
             this.btnViewVoidCheck.TabIndex = 248;
             this.btnViewVoidCheck.Text = "View";
             this.btnViewVoidCheck.UseVisualStyleBackColor = true;
+            this.btnViewVoidCheck.Click += new System.EventHandler(this.btnViewVoidCheck_Click);
             // 
             // btnUploadVoidCheck
             // 
@@ -2788,6 +2791,7 @@
             this.btnUploadVoidCheck.TabIndex = 247;
             this.btnUploadVoidCheck.Text = "Upload";
             this.btnUploadVoidCheck.UseVisualStyleBackColor = true;
+            this.btnUploadVoidCheck.Click += new System.EventHandler(this.btnUploadVoidCheck_Click);
             // 
             // chkVoidCheck
             // 
@@ -2808,6 +2812,7 @@
             this.btnViewCommConsent.TabIndex = 245;
             this.btnViewCommConsent.Text = "View";
             this.btnViewCommConsent.UseVisualStyleBackColor = true;
+            this.btnViewCommConsent.Click += new System.EventHandler(this.btnViewCommConsent_Click);
             // 
             // btnUploadCommConsent
             // 
@@ -2996,17 +3001,17 @@
             // 
             // txtTotalMedBillAmount
             // 
-            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(578, 790);
+            this.txtTotalMedBillAmount.Location = new System.Drawing.Point(564, 790);
             this.txtTotalMedBillAmount.Name = "txtTotalMedBillAmount";
             this.txtTotalMedBillAmount.ReadOnly = true;
-            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(146, 20);
+            this.txtTotalMedBillAmount.Size = new System.Drawing.Size(160, 20);
             this.txtTotalMedBillAmount.TabIndex = 224;
             // 
             // label174
             // 
             this.label174.AutoSize = true;
             this.label174.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label174.Location = new System.Drawing.Point(381, 792);
+            this.label174.Location = new System.Drawing.Point(394, 792);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(162, 16);
             this.label174.TabIndex = 223;
@@ -3573,21 +3578,21 @@
             // 
             // txtWellBeingAmt
             // 
-            this.txtWellBeingAmt.Location = new System.Drawing.Point(579, 824);
+            this.txtWellBeingAmt.Location = new System.Drawing.Point(564, 824);
             this.txtWellBeingAmt.Name = "txtWellBeingAmt";
             this.txtWellBeingAmt.ReadOnly = true;
-            this.txtWellBeingAmt.Size = new System.Drawing.Size(145, 20);
+            this.txtWellBeingAmt.Size = new System.Drawing.Size(160, 20);
             this.txtWellBeingAmt.TabIndex = 193;
             // 
             // label44
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(381, 825);
+            this.label44.Location = new System.Drawing.Point(394, 825);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(190, 16);
+            this.label44.Size = new System.Drawing.Size(146, 16);
             this.label44.TabIndex = 192;
-            this.label44.Text = "Available Annual WB Balance:";
+            this.label44.Text = "Available WB Balance:";
             // 
             // txtProgramChangeReqDate
             // 

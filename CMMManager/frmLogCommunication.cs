@@ -1132,66 +1132,72 @@ namespace CMMManager
             {
                 String IllnessNo = comboIllnessNo.SelectedItem.ToString();
 
-                String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
-
-                SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
-                cmdQueryForIllnessId.CommandType = CommandType.Text;
-
-                cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
-
-                if (connRN.State != ConnectionState.Closed)
+                if (IllnessNo != String.Empty)
                 {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
+                    String strSqlQueryForIllnessId = "select [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                int? nIllnessId = null;
+                    SqlCommand cmdQueryForIllnessId = new SqlCommand(strSqlQueryForIllnessId, connRN);
+                    cmdQueryForIllnessId.CommandType = CommandType.Text;
 
-                if (objIllnessId != null)
-                {
-                    int nResultIllnessId;
-                    if (Int32.TryParse(objIllnessId.ToString(), out nResultIllnessId)) nIllnessId = nResultIllnessId;
-                    else
+                    cmdQueryForIllnessId.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+
+                    if (connRN.State != ConnectionState.Closed)
                     {
-                        MessageBox.Show("Invalid Illness Id.", "Error");
-                        return;
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    Object objIllnessId = cmdQueryForIllnessId.ExecuteScalar();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                    int? nIllnessId = null;
+
+                    if (objIllnessId != null)
+                    {
+                        int nResultIllnessId;
+                        if (Int32.TryParse(objIllnessId.ToString(), out nResultIllnessId)) nIllnessId = nResultIllnessId;
+                        else
+                        {
+                            MessageBox.Show("Invalid Illness Id.", "Error");
+                            return;
+                        }
+                    }
+
+                    String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
+
+                    if (CaseNoSelected != String.Empty)
+                    {
+                        String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
+                                                          "where [dbo].[tbl_incident].[Individual_Id] = @IndividualId and " +
+                                                          "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
+                                                          "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
+
+                        SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRN);
+                        cmdQueryForIncidentNo.CommandType = CommandType.Text;
+
+                        cmdQueryForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
+                        cmdQueryForIncidentNo.Parameters.AddWithValue("@CaseNo", CaseNoSelected);
+                        cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessId", nIllnessId);
+
+                        if (connRN.State != ConnectionState.Closed)
+                        {
+                            connRN.Close();
+                            connRN.Open();
+                        }
+                        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                        SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
+                        if (rdrIncidentNo.HasRows)
+                        {
+                            while (rdrIncidentNo.Read())
+                            {
+                                if (!rdrIncidentNo.IsDBNull(0)) comboIncidentNo.Items.Add(rdrIncidentNo.GetString(0));
+                                else comboIncidentNo.Items.Add(String.Empty);
+                            }
+                        }
+                        rdrIncidentNo.Close();
+                        if (connRN.State != ConnectionState.Closed) connRN.Close();
                     }
                 }
-
-                String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
-
-                String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
-                                                  "where [dbo].[tbl_incident].[Individual_Id] = @IndividualId and " +
-                                                  "[dbo].[tbl_incident].[Case_id] = @CaseNo and " +
-                                                  "[dbo].[tbl_incident].[Illness_id] = @IllnessId";
-
-                SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRN);
-                cmdQueryForIncidentNo.CommandType = CommandType.Text;
-
-                cmdQueryForIncidentNo.Parameters.AddWithValue("@IndividualId", IndividualId);
-                cmdQueryForIncidentNo.Parameters.AddWithValue("@CaseNo", CaseNoSelected);
-                cmdQueryForIncidentNo.Parameters.AddWithValue("@IllnessId", nIllnessId);
-
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                SqlDataReader rdrIncidentNo = cmdQueryForIncidentNo.ExecuteReader();
-                if (rdrIncidentNo.HasRows)
-                {
-                    while (rdrIncidentNo.Read())
-                    {
-                        if (!rdrIncidentNo.IsDBNull(0)) comboIncidentNo.Items.Add(rdrIncidentNo.GetString(0));
-                        else comboIncidentNo.Items.Add(String.Empty);
-                    }
-                }
-                rdrIncidentNo.Close();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
             }
         }
     }
