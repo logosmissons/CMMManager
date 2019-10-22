@@ -200,7 +200,10 @@ namespace CMMManager
         public Double? MedicalBillAmount;
         public Double? WaitingPayBalance;
         public Double? TotalSharedAmount;
+        public Double? SettlementTotal;
         public Double? Balance;
+        public String PendingReason;
+        public String IneligibleReason;
         public String IncidentNo;
         public String IncidentNote;
         public DateTime? CreateDate;
@@ -218,7 +221,10 @@ namespace CMMManager
             MedicalBillAmount = null;
             WaitingPayBalance = null;
             TotalSharedAmount = null;
+            SettlementTotal = null;
             Balance = null;
+            PendingReason = String.Empty;
+            IneligibleReason = String.Empty;
             IncidentNo = String.Empty;
             IncidentNote = String.Empty;
             CreateDate = null;
