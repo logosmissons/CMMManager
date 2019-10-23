@@ -90,6 +90,7 @@ namespace CMMManager
         public String OtherDocSourceFilePathMedBill;
         public String OtherDocDestinationFilePathMedBill;
         public Decimal BillAmount;
+        public Double WaitingPayBalance;
         public Decimal Balance;
         public Decimal SettlementTotal;
         public Decimal TotalSharedAmount;
@@ -159,6 +160,7 @@ namespace CMMManager
             OtherDocSourceFilePathMedBill = String.Empty;
             OtherDocDestinationFilePathMedBill = String.Empty;
             BillAmount = 0;
+            WaitingPayBalance = 0;
             Balance = 0;
             SettlementTotal = 0;
             TotalSharedAmount = 0;
