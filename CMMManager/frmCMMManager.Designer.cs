@@ -545,6 +545,7 @@
             this.gvMedBillList = new System.Windows.Forms.DataGridView();
             this.MedBill_BillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_MedBillType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBill_BillStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_BillDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_MedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_BillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -552,7 +553,6 @@
             this.MedBillView_WaitingPayBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_Balance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBill_BillStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_PendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_IneligibleReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_PersonalResponsibilityCredit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1181,6 +1181,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(100, 22);
             this.txtSearch.TabIndex = 0;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // btnSearch
             // 
@@ -5633,6 +5634,7 @@
             this.gvMedBillList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MedBill_BillNo,
             this.MedBill_MedBillType,
+            this.MedBill_BillStatus,
             this.MedBill_BillDate,
             this.MedBill_MedicalProvider,
             this.MedBill_BillAmount,
@@ -5640,7 +5642,6 @@
             this.MedBillView_WaitingPayBalance,
             this.MedBill_TotalSharedAmount,
             this.MedBill_Balance,
-            this.MedBill_BillStatus,
             this.MedBill_PendingReason,
             this.MedBill_IneligibleReason,
             this.MedBill_PersonalResponsibilityCredit,
@@ -5686,6 +5687,14 @@
             this.MedBill_MedBillType.HeaderText = "Bill Type";
             this.MedBill_MedBillType.Name = "MedBill_MedBillType";
             this.MedBill_MedBillType.ReadOnly = true;
+            // 
+            // MedBill_BillStatus
+            // 
+            this.MedBill_BillStatus.HeaderText = "Bill Status";
+            this.MedBill_BillStatus.Name = "MedBill_BillStatus";
+            this.MedBill_BillStatus.ReadOnly = true;
+            this.MedBill_BillStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MedBill_BillStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MedBill_BillDate
             // 
@@ -5738,14 +5747,6 @@
             this.MedBill_Balance.HeaderText = "Balance";
             this.MedBill_Balance.Name = "MedBill_Balance";
             this.MedBill_Balance.ReadOnly = true;
-            // 
-            // MedBill_BillStatus
-            // 
-            this.MedBill_BillStatus.HeaderText = "Bill Status";
-            this.MedBill_BillStatus.Name = "MedBill_BillStatus";
-            this.MedBill_BillStatus.ReadOnly = true;
-            this.MedBill_BillStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MedBill_BillStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MedBill_PendingReason
             // 
@@ -11322,8 +11323,26 @@
         private System.Windows.Forms.Button btnViewBeneficiary;
         private System.Windows.Forms.Button btnUploadBeneficiary;
         private System.Windows.Forms.CheckBox chkBeneficiary;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseDateOfService;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseMedicalProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseWaitingPayBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCasePendingReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseIneligibleReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNote;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_BillNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_MedBillType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_BillStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_BillDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_MedicalProvider;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_BillAmount;
@@ -11331,7 +11350,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_WaitingPayBalance;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_TotalSharedAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_Balance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_BillStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_PendingReason;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_IneligibleReason;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_PersonalResponsibilityCredit;
@@ -11358,23 +11376,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_LastModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_LastModifiedDate;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseDateOfService;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseMedicalProvider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseWaitingPayBalance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCasePendingReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseIneligibleReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNote;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
     }
 }
 

@@ -668,9 +668,13 @@ namespace CMMManager
                     }
                 }
 
-                if (bCommunicationSaved && bAttachmentSaved) MessageBox.Show("Communication and Attachment have been saved", "Info");
-                else if (bCommunicationSaved && !bAttachmentSaved) MessageBox.Show("Communication has been saved, but at least one of attachment has not been save.", "Error");
-                else if (!bCommunicationSaved && !bAttachmentSaved) MessageBox.Show("Communiation and Attachment have not been saved.", "Error");
+                if (bCommunicationSaved)
+                {
+                    if (gvCommunicationAttachment.Rows.Count == 0) MessageBox.Show("Communication has been saved", "Info");
+                    if (gvCommunicationAttachment.Rows.Count > 0 && bAttachmentSaved) MessageBox.Show("The Communication and Attachments have been saved.");
+                }
+                else if (bCommunicationSaved && gvCommunicationAttachment.Rows.Count > 0 && !bAttachmentSaved) MessageBox.Show("Communication has been saved, but at least one of attachment has not been save.", "Error");
+                else if (!bCommunicationSaved && gvCommunicationAttachment.Rows.Count > 0 && !bAttachmentSaved) MessageBox.Show("Communiation and Attachment have not been saved.", "Error");
 
                 Close();
             }
