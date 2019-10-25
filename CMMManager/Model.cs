@@ -638,6 +638,30 @@ namespace CMMManager
         }
     }
 
+    public class IndividualCityState
+    {
+        public String City;
+        public String State;
+
+        public IndividualCityState()
+        {
+            City = String.Empty;
+            State = String.Empty;
+        }
+    }
+
+    public class ConfirmChristianYesNo
+    {
+        public Boolean? ChristianYes;
+        public Boolean? ChristianNo;
+
+        public ConfirmChristianYesNo()
+        {
+            ChristianYes = null;
+            ChristianNo = null;
+        }
+    }
+
     public class PersonalResponsiblityTypeInfo
     {
         public int PersonalResponsibilityTypeCode;
@@ -1045,6 +1069,7 @@ namespace CMMManager
         public Boolean bIsExported;
         public int nExportedBy;
         public int nSettlementType;
+        public Boolean IsReviewed;
 
         public ACHPaymentInfo()
         {
@@ -1068,6 +1093,7 @@ namespace CMMManager
             bIsExported = false;
             nExportedBy = 0;
             nSettlementType = 0;
+            IsReviewed = false;
         }
     }
 
