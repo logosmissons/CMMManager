@@ -62,6 +62,10 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboIncidentNo = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtCreatedDate = new System.Windows.Forms.TextBox();
+            this.txtCreatedByName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommunicationAttachment)).BeginInit();
             this.SuspendLayout();
             // 
@@ -359,12 +363,52 @@
             this.comboIncidentNo.Size = new System.Drawing.Size(174, 21);
             this.comboIncidentNo.TabIndex = 23;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(354, 191);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(91, 16);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Created Date:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(354, 154);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(78, 16);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Created By:";
+            // 
+            // txtCreatedDate
+            // 
+            this.txtCreatedDate.Location = new System.Drawing.Point(497, 189);
+            this.txtCreatedDate.Name = "txtCreatedDate";
+            this.txtCreatedDate.ReadOnly = true;
+            this.txtCreatedDate.Size = new System.Drawing.Size(161, 20);
+            this.txtCreatedDate.TabIndex = 26;
+            // 
+            // txtCreatedByName
+            // 
+            this.txtCreatedByName.Location = new System.Drawing.Point(497, 153);
+            this.txtCreatedByName.Name = "txtCreatedByName";
+            this.txtCreatedByName.ReadOnly = true;
+            this.txtCreatedByName.Size = new System.Drawing.Size(161, 20);
+            this.txtCreatedByName.TabIndex = 27;
+            // 
             // frmLogCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 685);
             this.ControlBox = false;
+            this.Controls.Add(this.txtCreatedByName);
+            this.Controls.Add(this.txtCreatedDate);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.comboIncidentNo);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.comboIllnessNo);
@@ -433,5 +477,9 @@
         private System.Windows.Forms.ComboBox comboIllnessNo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboIncidentNo;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtCreatedDate;
+        private System.Windows.Forms.TextBox txtCreatedByName;
     }
 }

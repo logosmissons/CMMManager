@@ -29,6 +29,8 @@ namespace CMMManager
 
         public String Subject = String.Empty;
         public String Body = String.Empty;
+        public String CreatedByStaffName = String.Empty;
+        public String CreatedDate = String.Empty;
 
         private const String CommunicationAttachmentDestinationPath = @"\\cmm-2014u\Sharefolder\CommunicationAttachments\";
 
@@ -54,7 +56,7 @@ namespace CMMManager
             OpenMode = mode;
         }
 
-        public frmLogCommunication(String individual_id, int login_user_id, String communication_no, CommunicationType type, String case_no, String illness_no, String incident_no, String subject, String body, CommunicationOpenMode mode)
+        public frmLogCommunication(String individual_id, int login_user_id, String communication_no, CommunicationType type, String case_no, String illness_no, String incident_no, String subject, String body, String create_staff, String created_date, CommunicationOpenMode mode)
         {
             InitializeComponent();
             IndividualId = individual_id;
@@ -69,6 +71,9 @@ namespace CMMManager
 
             Subject = subject;
             Body = body;
+
+            CreatedByStaffName = create_staff;
+            CreatedDate = created_date;
 
             OpenMode = mode;
 
@@ -251,6 +256,9 @@ namespace CMMManager
 
                 comboCommunicationType.SelectedIndex = (int)CommType;
 
+                txtCreatedByName.Text = CreatedByStaffName.Trim();
+                txtCreatedDate.Text = CreatedDate.Trim();
+
                 txtCommunicationSubject.Text = Subject;
                 txtCommunicationSubject.ReadOnly = true;
                 txtCommunicationBody.Text = Body;
@@ -376,6 +384,9 @@ namespace CMMManager
                 comboIncidentNo.Enabled = false;
 
                 comboCommunicationType.SelectedIndex = (int)CommType;
+
+                txtCreatedByName.Text = CreatedByStaffName.Trim();
+                txtCreatedDate.Text = CreatedDate.Trim();
 
                 txtCommunicationSubject.Text = Subject;
                 //txtCommunicationSubject.ReadOnly = true;
@@ -519,7 +530,7 @@ namespace CMMManager
                 case "Other":
                     communicationType = CommunicationType.Other;
                     break;
-                case "Wall-in":
+                case "Walk-in":
                     communicationType = CommunicationType.WalkIn;
                     break;
             }
