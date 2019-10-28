@@ -519,6 +519,9 @@ namespace CMMManager
                 case "Other":
                     communicationType = CommunicationType.Other;
                     break;
+                case "Wall-in":
+                    communicationType = CommunicationType.WalkIn;
+                    break;
             }
 
             if (communicationType == null)
