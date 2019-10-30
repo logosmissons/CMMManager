@@ -57,15 +57,18 @@
             this.label9 = new System.Windows.Forms.Label();
             this.comboIllnessNo = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboIncidentNo = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.txtCreatedDate = new System.Windows.Forms.TextBox();
             this.txtCreatedByName = new System.Windows.Forms.TextBox();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtCommunicationSolution = new System.Windows.Forms.TextBox();
+            this.chkCommunnicationComplete = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommunicationAttachment)).BeginInit();
             this.SuspendLayout();
             // 
@@ -168,12 +171,12 @@
             this.txtCommunicationBody.Multiline = true;
             this.txtCommunicationBody.Name = "txtCommunicationBody";
             this.txtCommunicationBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCommunicationBody.Size = new System.Drawing.Size(629, 110);
+            this.txtCommunicationBody.Size = new System.Drawing.Size(629, 103);
             this.txtCommunicationBody.TabIndex = 11;
             // 
             // btnSaveCommunication
             // 
-            this.btnSaveCommunication.Location = new System.Drawing.Point(427, 628);
+            this.btnSaveCommunication.Location = new System.Drawing.Point(427, 738);
             this.btnSaveCommunication.Name = "btnSaveCommunication";
             this.btnSaveCommunication.Size = new System.Drawing.Size(102, 33);
             this.btnSaveCommunication.TabIndex = 12;
@@ -183,7 +186,7 @@
             // 
             // btnCommunicationCancel
             // 
-            this.btnCommunicationCancel.Location = new System.Drawing.Point(556, 628);
+            this.btnCommunicationCancel.Location = new System.Drawing.Point(556, 738);
             this.btnCommunicationCancel.Name = "btnCommunicationCancel";
             this.btnCommunicationCancel.Size = new System.Drawing.Size(102, 33);
             this.btnCommunicationCancel.TabIndex = 13;
@@ -221,9 +224,9 @@
             this.ViewCommunicationAttachment,
             this.CreatedByCommunicationAttachment,
             this.CreateDateCommunicationAttachment});
-            this.gvCommunicationAttachment.Location = new System.Drawing.Point(29, 452);
+            this.gvCommunicationAttachment.Location = new System.Drawing.Point(29, 600);
             this.gvCommunicationAttachment.Name = "gvCommunicationAttachment";
-            this.gvCommunicationAttachment.Size = new System.Drawing.Size(629, 158);
+            this.gvCommunicationAttachment.Size = new System.Drawing.Size(629, 117);
             this.gvCommunicationAttachment.TabIndex = 16;
             this.gvCommunicationAttachment.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCommunicationAttachment_CellClick);
             // 
@@ -274,7 +277,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(27, 433);
+            this.label8.Location = new System.Drawing.Point(27, 581);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 16);
             this.label8.TabIndex = 17;
@@ -282,7 +285,7 @@
             // 
             // btnAddNewAttachment
             // 
-            this.btnAddNewAttachment.Location = new System.Drawing.Point(119, 418);
+            this.btnAddNewAttachment.Location = new System.Drawing.Point(119, 566);
             this.btnAddNewAttachment.Name = "btnAddNewAttachment";
             this.btnAddNewAttachment.Size = new System.Drawing.Size(96, 28);
             this.btnAddNewAttachment.TabIndex = 18;
@@ -292,7 +295,7 @@
             // 
             // btnDeleteAttachment
             // 
-            this.btnDeleteAttachment.Location = new System.Drawing.Point(237, 418);
+            this.btnDeleteAttachment.Location = new System.Drawing.Point(237, 566);
             this.btnDeleteAttachment.Name = "btnDeleteAttachment";
             this.btnDeleteAttachment.Size = new System.Drawing.Size(96, 28);
             this.btnDeleteAttachment.TabIndex = 19;
@@ -329,32 +332,6 @@
             this.label10.TabIndex = 22;
             this.label10.Text = "Incident No:";
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Destination Path";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 180;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Created By";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Create Date";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 90;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Create Date";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Width = 90;
-            // 
             // comboIncidentNo
             // 
             this.comboIncidentNo.FormattingEnabled = true;
@@ -362,6 +339,7 @@
             this.comboIncidentNo.Name = "comboIncidentNo";
             this.comboIncidentNo.Size = new System.Drawing.Size(174, 21);
             this.comboIncidentNo.TabIndex = 23;
+            this.comboIncidentNo.SelectedIndexChanged += new System.EventHandler(this.comboIncidentNo_SelectedIndexChanged);
             // 
             // label11
             // 
@@ -399,12 +377,71 @@
             this.txtCreatedByName.Size = new System.Drawing.Size(161, 20);
             this.txtCreatedByName.TabIndex = 27;
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Destination Path";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 180;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Created By";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Create Date";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 90;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Create Date";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 90;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(27, 426);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(56, 16);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "Solution";
+            // 
+            // txtCommunicationSolution
+            // 
+            this.txtCommunicationSolution.Location = new System.Drawing.Point(28, 446);
+            this.txtCommunicationSolution.Multiline = true;
+            this.txtCommunicationSolution.Name = "txtCommunicationSolution";
+            this.txtCommunicationSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCommunicationSolution.Size = new System.Drawing.Size(629, 103);
+            this.txtCommunicationSolution.TabIndex = 29;
+            // 
+            // chkCommunnicationComplete
+            // 
+            this.chkCommunnicationComplete.AutoSize = true;
+            this.chkCommunnicationComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCommunnicationComplete.Location = new System.Drawing.Point(572, 401);
+            this.chkCommunnicationComplete.Name = "chkCommunnicationComplete";
+            this.chkCommunnicationComplete.Size = new System.Drawing.Size(85, 20);
+            this.chkCommunnicationComplete.TabIndex = 30;
+            this.chkCommunnicationComplete.Text = "Complete";
+            this.chkCommunnicationComplete.UseVisualStyleBackColor = true;
+            // 
             // frmLogCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 685);
+            this.ClientSize = new System.Drawing.Size(688, 792);
             this.ControlBox = false;
+            this.Controls.Add(this.chkCommunnicationComplete);
+            this.Controls.Add(this.txtCommunicationSolution);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.txtCreatedByName);
             this.Controls.Add(this.txtCreatedDate);
             this.Controls.Add(this.label12);
@@ -481,5 +518,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtCreatedDate;
         private System.Windows.Forms.TextBox txtCreatedByName;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtCommunicationSolution;
+        private System.Windows.Forms.CheckBox chkCommunnicationComplete;
     }
 }

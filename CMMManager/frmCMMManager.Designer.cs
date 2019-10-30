@@ -152,6 +152,7 @@
             this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label162 = new System.Windows.Forms.Label();
             this.gvDashboardRNStaffCaseQueue = new System.Windows.Forms.DataGridView();
             this.gvDashboardRNAnnouncement = new System.Windows.Forms.DataGridView();
@@ -1849,12 +1850,14 @@
             this.CommentRNStaff,
             this.SolutionRNStaff,
             this.StatusRNStaff,
-            this.PriorityRNStaff});
+            this.PriorityRNStaff,
+            this.ActiveTaskIdRNStaff});
             this.gvRNStaffActiveTask.Location = new System.Drawing.Point(699, 104);
             this.gvRNStaffActiveTask.Name = "gvRNStaffActiveTask";
             this.gvRNStaffActiveTask.ReadOnly = true;
             this.gvRNStaffActiveTask.Size = new System.Drawing.Size(1091, 331);
             this.gvRNStaffActiveTask.TabIndex = 9;
+            this.gvRNStaffActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffActiveTask_CellDoubleClick);
             // 
             // IndividualIdRNStaff
             // 
@@ -1933,6 +1936,12 @@
             this.PriorityRNStaff.HeaderText = "Priority";
             this.PriorityRNStaff.Name = "PriorityRNStaff";
             this.PriorityRNStaff.ReadOnly = true;
+            // 
+            // ActiveTaskIdRNStaff
+            // 
+            this.ActiveTaskIdRNStaff.HeaderText = "Task Id";
+            this.ActiveTaskIdRNStaff.Name = "ActiveTaskIdRNStaff";
+            this.ActiveTaskIdRNStaff.ReadOnly = true;
             // 
             // label162
             // 
@@ -10854,19 +10863,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdMedBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
-        private CalendarColumn CreateDateRNStaff;
-        private CalendarColumn ActivityDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
@@ -11376,6 +11372,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_LastModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBill_LastModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
+        private CalendarColumn CreateDateRNStaff;
+        private CalendarColumn ActivityDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
     }
 }
 
