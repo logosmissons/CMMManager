@@ -828,6 +828,138 @@ namespace CMMManager
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
 
             }
+            else if (taskMode == TaskMode.EditInNPStaffDashboard)
+            {
+                comboTaskRelatedTo.Items.Clear();
+                String strSqlQueryForRelatedToTable = "select [dbo].[tbl_task_related_to_code].[TaskRelatedToValue] from [dbo].[tbl_task_related_to_code]";
+
+                SqlCommand cmdQueryForRelatedToTable = new SqlCommand(strSqlQueryForRelatedToTable, connRN);
+                cmdQueryForRelatedToTable.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrRelatedToTable = cmdQueryForRelatedToTable.ExecuteReader();
+                if (rdrRelatedToTable.HasRows)
+                {
+                    while (rdrRelatedToTable.Read())
+                    {
+                        if (!rdrRelatedToTable.IsDBNull(0)) comboTaskRelatedTo.Items.Add(rdrRelatedToTable.GetString(0));
+                    }
+                }
+                rdrRelatedToTable.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                comboTaskStatus.Items.Clear();
+                String strSqlQueryForTaskStatus = "select [dbo].[tbl_task_status_code].[TaskStatusValue] from [dbo].[tbl_task_status_code]";
+
+                SqlCommand cmdQueryForTaskStatus = new SqlCommand(strSqlQueryForTaskStatus, connRN);
+                cmdQueryForTaskStatus.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrTaskStatus = cmdQueryForTaskStatus.ExecuteReader();
+                if (rdrTaskStatus.HasRows)
+                {
+                    while (rdrTaskStatus.Read())
+                    {
+                        if (!rdrTaskStatus.IsDBNull(0)) comboTaskStatus.Items.Add(rdrTaskStatus.GetString(0));
+                    }
+                }
+                rdrTaskStatus.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                comboTaskPriority.Items.Clear();
+                String strSqlQueryForTaskPriority = "select [dbo].[tbl_task_priority_code].[TaskPriorityValue] from [dbo].[tbl_task_priority_code]";
+
+                SqlCommand cmdQueryForTaskPriority = new SqlCommand(strSqlQueryForTaskPriority, connRN);
+                cmdQueryForTaskPriority.CommandType = CommandType.Text;
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrTaskPriority = cmdQueryForTaskPriority.ExecuteReader();
+                if (rdrTaskPriority.HasRows)
+                {
+                    while (rdrTaskPriority.Read())
+                    {
+                        if (!rdrTaskPriority.IsDBNull(0)) comboTaskPriority.Items.Add(rdrTaskPriority.GetString(0));
+                    }
+                }
+                rdrTaskPriority.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                String strSqlQueryForTaskInfo = "select [dbo].[tbl_task_created_by].[User_Name], [dbo].[tbl_task_assigned_to].[User_Name], " +
+                                                "[dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
+                                                "[dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], [dbo].[tbl_task].[whatid], " +
+                                                "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
+                                                "[dbo].[tbl_task].[Status], [dbo].[tbl_task].[Priority], [dbo].[tbl_task].[PhoneNo], [dbo].[tbl_task].[Email], " +
+                                                "[dbo].[tbl_task].[IsReminderSet], [dbo].[tbl_task].[ReminderDateTime] " +
+                                                "from [dbo].[tbl_task] " +
+                                                "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                                                "inner join [dbo].[tbl_task_assigned_to] on [dbo].[tbl_task].[AssignedTo] = [dbo].[tbl_task_assigned_to].[User_Id] " +
+                                                "where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdQueryForTaskInfo = new SqlCommand(strSqlQueryForTaskInfo, connRN);
+                cmdQueryForTaskInfo.CommandType = CommandType.Text;
+
+                cmdQueryForTaskInfo.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrTaskInfo = cmdQueryForTaskInfo.ExecuteReader();
+                if (rdrTaskInfo.HasRows)
+                {
+                    rdrTaskInfo.Read();
+                    if (!rdrTaskInfo.IsDBNull(0)) txtTaskCreator.Text = rdrTaskInfo.GetString(0);
+                    else txtTaskCreator.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(1)) txtTaskNameAssignedTo.Text = rdrTaskInfo.GetString(1);
+                    else txtTaskNameAssignedTo.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(2)) txtIndividualId.Text = rdrTaskInfo.GetString(2);
+                    else txtIndividualId.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(3)) txtNameOnTask.Text = rdrTaskInfo.GetString(3);
+                    else txtNameOnTask.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(4)) dtpTaskDueDate.Text = rdrTaskInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                    else dtpTaskDueDate.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(5)) comboTaskRelatedTo.SelectedIndex = rdrTaskInfo.GetInt16(5);
+                    if (!rdrTaskInfo.IsDBNull(6)) txtTaskRelatedTo.Text = rdrTaskInfo.GetString(6);
+                    else txtTaskRelatedTo.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
+                    else txtTaskSubject.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                    else txtTaskComments.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                    else txtTaskSolution.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
+                    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
+                    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
+                    else txtTaskPhone.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(13)) txtTaskEmail.Text = rdrTaskInfo.GetString(13);
+                    else txtTaskEmail.Text = String.Empty;
+                    if (!rdrTaskInfo.IsDBNull(14)) chkReminder.Checked = rdrTaskInfo.GetBoolean(14);
+                    else chkReminder.Checked = false;
+                    if (!rdrTaskInfo.IsDBNull(15)) comboReminderTimePicker.Text = rdrTaskInfo.GetDateTime(15).ToString("MM/dd/yyyy");
+                    else comboReminderTimePicker.Text = String.Empty;
+                }
+                rdrTaskInfo.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+
+            }
             else if (taskMode == TaskMode.EditInCase)
             {
                 comboTaskRelatedTo.Items.Add(RelatedToTable.Membership);

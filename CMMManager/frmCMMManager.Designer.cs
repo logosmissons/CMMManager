@@ -197,6 +197,20 @@
             this.label184 = new System.Windows.Forms.Label();
             this.label171 = new System.Windows.Forms.Label();
             this.gvActiveTaskNPStaff = new System.Windows.Forms.DataGridView();
+            this.IndividualIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActiveTaskIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvDashboardNPStaff = new System.Windows.Forms.DataGridView();
             this.label170 = new System.Windows.Forms.Label();
             this.label169 = new System.Windows.Forms.Label();
@@ -2319,11 +2333,111 @@
             this.gvActiveTaskNPStaff.AllowUserToAddRows = false;
             this.gvActiveTaskNPStaff.AllowUserToDeleteRows = false;
             this.gvActiveTaskNPStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvActiveTaskNPStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdNPStaff,
+            this.IndividualNameNPStaff,
+            this.AssignedToNPStaff,
+            this.CreatedByIdNPStaff,
+            this.WhatIdNPStaff,
+            this.SubjectNPStaff,
+            this.DueDateNPStaff,
+            this.CreateDateNPStaff,
+            this.ActivityDateNPStaff,
+            this.CommentNPStaff,
+            this.SolutionNPStaff,
+            this.StatusNPStaff,
+            this.PriorityNPStaff,
+            this.ActiveTaskIdNPStaff});
             this.gvActiveTaskNPStaff.Location = new System.Drawing.Point(701, 123);
             this.gvActiveTaskNPStaff.Name = "gvActiveTaskNPStaff";
             this.gvActiveTaskNPStaff.ReadOnly = true;
             this.gvActiveTaskNPStaff.Size = new System.Drawing.Size(1089, 333);
             this.gvActiveTaskNPStaff.TabIndex = 9;
+            this.gvActiveTaskNPStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvActiveTaskNPStaff_CellDoubleClick);
+            // 
+            // IndividualIdNPStaff
+            // 
+            this.IndividualIdNPStaff.HeaderText = "Individual Id";
+            this.IndividualIdNPStaff.Name = "IndividualIdNPStaff";
+            this.IndividualIdNPStaff.ReadOnly = true;
+            // 
+            // IndividualNameNPStaff
+            // 
+            this.IndividualNameNPStaff.HeaderText = "Individual Name";
+            this.IndividualNameNPStaff.Name = "IndividualNameNPStaff";
+            this.IndividualNameNPStaff.ReadOnly = true;
+            // 
+            // AssignedToNPStaff
+            // 
+            this.AssignedToNPStaff.HeaderText = "Assigned To";
+            this.AssignedToNPStaff.Name = "AssignedToNPStaff";
+            this.AssignedToNPStaff.ReadOnly = true;
+            // 
+            // CreatedByIdNPStaff
+            // 
+            this.CreatedByIdNPStaff.HeaderText = "Created By";
+            this.CreatedByIdNPStaff.Name = "CreatedByIdNPStaff";
+            this.CreatedByIdNPStaff.ReadOnly = true;
+            // 
+            // WhatIdNPStaff
+            // 
+            this.WhatIdNPStaff.HeaderText = "What Id";
+            this.WhatIdNPStaff.Name = "WhatIdNPStaff";
+            this.WhatIdNPStaff.ReadOnly = true;
+            // 
+            // SubjectNPStaff
+            // 
+            this.SubjectNPStaff.HeaderText = "Subject";
+            this.SubjectNPStaff.Name = "SubjectNPStaff";
+            this.SubjectNPStaff.ReadOnly = true;
+            // 
+            // DueDateNPStaff
+            // 
+            this.DueDateNPStaff.HeaderText = "Due Date";
+            this.DueDateNPStaff.Name = "DueDateNPStaff";
+            this.DueDateNPStaff.ReadOnly = true;
+            // 
+            // CreateDateNPStaff
+            // 
+            this.CreateDateNPStaff.HeaderText = "Create Date";
+            this.CreateDateNPStaff.Name = "CreateDateNPStaff";
+            this.CreateDateNPStaff.ReadOnly = true;
+            // 
+            // ActivityDateNPStaff
+            // 
+            this.ActivityDateNPStaff.HeaderText = "Activity Date";
+            this.ActivityDateNPStaff.Name = "ActivityDateNPStaff";
+            this.ActivityDateNPStaff.ReadOnly = true;
+            // 
+            // CommentNPStaff
+            // 
+            this.CommentNPStaff.HeaderText = "Comment";
+            this.CommentNPStaff.Name = "CommentNPStaff";
+            this.CommentNPStaff.ReadOnly = true;
+            // 
+            // SolutionNPStaff
+            // 
+            this.SolutionNPStaff.HeaderText = "Solution";
+            this.SolutionNPStaff.Name = "SolutionNPStaff";
+            this.SolutionNPStaff.ReadOnly = true;
+            // 
+            // StatusNPStaff
+            // 
+            this.StatusNPStaff.HeaderText = "Status";
+            this.StatusNPStaff.Name = "StatusNPStaff";
+            this.StatusNPStaff.ReadOnly = true;
+            // 
+            // PriorityNPStaff
+            // 
+            this.PriorityNPStaff.HeaderText = "Priority";
+            this.PriorityNPStaff.Name = "PriorityNPStaff";
+            this.PriorityNPStaff.ReadOnly = true;
+            // 
+            // ActiveTaskIdNPStaff
+            // 
+            this.ActiveTaskIdNPStaff.HeaderText = "Task Id";
+            this.ActiveTaskIdNPStaff.Name = "ActiveTaskIdNPStaff";
+            this.ActiveTaskIdNPStaff.ReadOnly = true;
             // 
             // gvDashboardNPStaff
             // 
@@ -11386,6 +11500,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdNPStaff;
     }
 }
 
