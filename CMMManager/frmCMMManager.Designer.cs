@@ -231,6 +231,7 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.chkTask = new System.Windows.Forms.CheckBox();
             this.btnViewBeneficiary = new System.Windows.Forms.Button();
             this.btnUploadBeneficiary = new System.Windows.Forms.Button();
             this.chkBeneficiary = new System.Windows.Forms.CheckBox();
@@ -1073,7 +1074,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.chkTask = new System.Windows.Forms.CheckBox();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -2798,6 +2798,16 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // chkTask
+            // 
+            this.chkTask.AutoSize = true;
+            this.chkTask.Location = new System.Drawing.Point(1101, 432);
+            this.chkTask.Name = "chkTask";
+            this.chkTask.Size = new System.Drawing.Size(50, 17);
+            this.chkTask.TabIndex = 257;
+            this.chkTask.Text = "Task";
+            this.chkTask.UseVisualStyleBackColor = true;
+            // 
             // btnViewBeneficiary
             // 
             this.btnViewBeneficiary.Location = new System.Drawing.Point(632, 749);
@@ -4105,6 +4115,7 @@
             // 
             // txtStreetAddress1
             // 
+            this.txtStreetAddress1.BackColor = System.Drawing.SystemColors.Window;
             this.txtStreetAddress1.Location = new System.Drawing.Point(145, 240);
             this.txtStreetAddress1.Name = "txtStreetAddress1";
             this.txtStreetAddress1.Size = new System.Drawing.Size(179, 20);
@@ -10315,16 +10326,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // chkTask
-            // 
-            this.chkTask.AutoSize = true;
-            this.chkTask.Location = new System.Drawing.Point(1101, 432);
-            this.chkTask.Name = "chkTask";
-            this.chkTask.Size = new System.Drawing.Size(50, 17);
-            this.chkTask.TabIndex = 257;
-            this.chkTask.Text = "Task";
-            this.chkTask.UseVisualStyleBackColor = true;
             // 
             // frmCMMManager
             // 

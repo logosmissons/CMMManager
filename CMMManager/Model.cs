@@ -316,6 +316,7 @@ namespace CMMManager
 
     public class CommunicationTaskInfo
     {
+        public Boolean? IsSelected;
         public String CaseNo;
         public String IllnessNo;
         public String IncidentNo;
@@ -326,9 +327,17 @@ namespace CMMManager
         public String Solution;
         public DateTime? CreateDate;
         public String CreateStaff;
+        public Boolean? IsCompleted;
+        public int? nTaskId;
+        public String TaskStatus;
+        public String WhoId;
+        public String WhatId;
+        public CommunicationType? commType;
+        public String Comment;
 
         public CommunicationTaskInfo()
         {
+            IsSelected = null;
             CaseNo = String.Empty;
             IllnessNo = String.Empty;
             IncidentNo = String.Empty;
@@ -339,6 +348,14 @@ namespace CMMManager
             Solution = String.Empty;
             CreateDate = null;
             CreateStaff = String.Empty;
+            IsCompleted = null;
+
+            nTaskId = null;
+            TaskStatus = String.Empty;
+            WhoId = String.Empty;
+            WhatId = String.Empty;
+            CommunicationType = null;
+            Comment = String.Empty;
         }
     }
 
