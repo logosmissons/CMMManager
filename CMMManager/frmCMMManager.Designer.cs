@@ -1073,6 +1073,7 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.chkTask = new System.Windows.Forms.CheckBox();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -2660,6 +2661,7 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.chkTask);
             this.tbpgIndividual.Controls.Add(this.btnViewBeneficiary);
             this.tbpgIndividual.Controls.Add(this.btnUploadBeneficiary);
             this.tbpgIndividual.Controls.Add(this.chkBeneficiary);
@@ -2962,7 +2964,7 @@
             // 
             // btnDeleteCommunication
             // 
-            this.btnDeleteCommunication.Location = new System.Drawing.Point(1392, 422);
+            this.btnDeleteCommunication.Location = new System.Drawing.Point(1402, 422);
             this.btnDeleteCommunication.Name = "btnDeleteCommunication";
             this.btnDeleteCommunication.Size = new System.Drawing.Size(129, 28);
             this.btnDeleteCommunication.TabIndex = 242;
@@ -2972,7 +2974,7 @@
             // 
             // btnNewTaskIndividual
             // 
-            this.btnNewTaskIndividual.Location = new System.Drawing.Point(1527, 422);
+            this.btnNewTaskIndividual.Location = new System.Drawing.Point(1538, 422);
             this.btnNewTaskIndividual.Name = "btnNewTaskIndividual";
             this.btnNewTaskIndividual.Size = new System.Drawing.Size(90, 28);
             this.btnNewTaskIndividual.TabIndex = 241;
@@ -2982,7 +2984,7 @@
             // 
             // btnIndividualCommHelper
             // 
-            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1623, 422);
+            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1634, 422);
             this.btnIndividualCommHelper.Name = "btnIndividualCommHelper";
             this.btnIndividualCommHelper.Size = new System.Drawing.Size(90, 28);
             this.btnIndividualCommHelper.TabIndex = 240;
@@ -2992,7 +2994,7 @@
             // 
             // btnLogCommunication
             // 
-            this.btnLogCommunication.Location = new System.Drawing.Point(1257, 422);
+            this.btnLogCommunication.Location = new System.Drawing.Point(1266, 422);
             this.btnLogCommunication.Name = "btnLogCommunication";
             this.btnLogCommunication.Size = new System.Drawing.Size(129, 28);
             this.btnLogCommunication.TabIndex = 239;
@@ -3002,9 +3004,9 @@
             // 
             // btnReloadCommunication
             // 
-            this.btnReloadCommunication.Location = new System.Drawing.Point(1719, 422);
+            this.btnReloadCommunication.Location = new System.Drawing.Point(1729, 422);
             this.btnReloadCommunication.Name = "btnReloadCommunication";
-            this.btnReloadCommunication.Size = new System.Drawing.Size(90, 28);
+            this.btnReloadCommunication.Size = new System.Drawing.Size(80, 28);
             this.btnReloadCommunication.TabIndex = 238;
             this.btnReloadCommunication.Text = "Reload";
             this.btnReloadCommunication.UseVisualStyleBackColor = true;
@@ -3012,7 +3014,7 @@
             // 
             // btnSendEmail
             // 
-            this.btnSendEmail.Location = new System.Drawing.Point(1153, 422);
+            this.btnSendEmail.Location = new System.Drawing.Point(1161, 422);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(98, 28);
             this.btnSendEmail.TabIndex = 237;
@@ -3471,7 +3473,7 @@
             // 
             this.chkCommunicationEtc.AutoSize = true;
             this.chkCommunicationEtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEtc.Location = new System.Drawing.Point(1098, 430);
+            this.chkCommunicationEtc.Location = new System.Drawing.Point(1045, 430);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationEtc.TabIndex = 31;
@@ -3483,7 +3485,7 @@
             // 
             this.chkCommunicationFax.AutoSize = true;
             this.chkCommunicationFax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationFax.Location = new System.Drawing.Point(1030, 430);
+            this.chkCommunicationFax.Location = new System.Drawing.Point(990, 430);
             this.chkCommunicationFax.Name = "chkCommunicationFax";
             this.chkCommunicationFax.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationFax.TabIndex = 29;
@@ -3495,7 +3497,7 @@
             // 
             this.chkCommunicationLetter.AutoSize = true;
             this.chkCommunicationLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationLetter.Location = new System.Drawing.Point(962, 430);
+            this.chkCommunicationLetter.Location = new System.Drawing.Point(927, 430);
             this.chkCommunicationLetter.Name = "chkCommunicationLetter";
             this.chkCommunicationLetter.Size = new System.Drawing.Size(60, 20);
             this.chkCommunicationLetter.TabIndex = 28;
@@ -3507,7 +3509,7 @@
             // 
             this.chkCommunicationEmail.AutoSize = true;
             this.chkCommunicationEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEmail.Location = new System.Drawing.Point(892, 430);
+            this.chkCommunicationEmail.Location = new System.Drawing.Point(862, 430);
             this.chkCommunicationEmail.Name = "chkCommunicationEmail";
             this.chkCommunicationEmail.Size = new System.Drawing.Size(61, 20);
             this.chkCommunicationEmail.TabIndex = 27;
@@ -3519,7 +3521,7 @@
             // 
             this.chkCommunicationCall.AutoSize = true;
             this.chkCommunicationCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationCall.Location = new System.Drawing.Point(827, 430);
+            this.chkCommunicationCall.Location = new System.Drawing.Point(807, 430);
             this.chkCommunicationCall.Name = "chkCommunicationCall";
             this.chkCommunicationCall.Size = new System.Drawing.Size(50, 20);
             this.chkCommunicationCall.TabIndex = 26;
@@ -10314,6 +10316,16 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // chkTask
+            // 
+            this.chkTask.AutoSize = true;
+            this.chkTask.Location = new System.Drawing.Point(1101, 432);
+            this.chkTask.Name = "chkTask";
+            this.chkTask.Size = new System.Drawing.Size(50, 17);
+            this.chkTask.TabIndex = 257;
+            this.chkTask.Text = "Task";
+            this.chkTask.UseVisualStyleBackColor = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11514,6 +11526,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdNPStaff;
+        private System.Windows.Forms.CheckBox chkTask;
     }
 }
 

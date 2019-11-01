@@ -314,6 +314,34 @@ namespace CMMManager
         }
     }
 
+    public class CommunicationTaskInfo
+    {
+        public String CaseNo;
+        public String IllnessNo;
+        public String IncidentNo;
+        public String CommunicationNo;
+        public String CommunicationType;
+        public String Subject;
+        public String Body;
+        public String Solution;
+        public DateTime? CreateDate;
+        public String CreateStaff;
+
+        public CommunicationTaskInfo()
+        {
+            CaseNo = String.Empty;
+            IllnessNo = String.Empty;
+            IncidentNo = String.Empty;
+            CommunicationNo = String.Empty;
+            CommunicationType = String.Empty;
+            Subject = String.Empty;
+            Body = String.Empty;
+            Solution = String.Empty;
+            CreateDate = null;
+            CreateStaff = String.Empty;
+        }
+    }
+
     public class TaskInfo
     {
         public int? TaskId;
