@@ -159,12 +159,12 @@ namespace CMMManager
                             case CommunicationType.OutgoingFax:
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
                                 break;
-                            case CommunicationType.IncomingEFax:
-                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
-                                break;
-                            case CommunicationType.OutgoingEFax:
-                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
-                                break;
+                            //case CommunicationType.IncomingEFax:
+                            //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
+                            //    break;
+                            //case CommunicationType.OutgoingEFax:
+                            //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
+                            //    break;
                             case CommunicationType.EmailReceived:
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.EmailReceived.ToString() });
                                 break;
@@ -553,12 +553,12 @@ namespace CMMManager
                                     case CommunicationType.OutgoingFax:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
                                         break;
-                                    case CommunicationType.IncomingEFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
-                                        break;
-                                    case CommunicationType.OutgoingEFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
-                                        break;
+                                    //case CommunicationType.IncomingEFax:
+                                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
+                                    //    break;
+                                    //case CommunicationType.OutgoingEFax:
+                                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
+                                    //    break;
                                     case CommunicationType.EmailReceived:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.EmailReceived.ToString() });
                                         break;
@@ -1095,12 +1095,12 @@ namespace CMMManager
                                     case CommunicationType.OutgoingFax:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
                                         break;
-                                    case CommunicationType.IncomingEFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
-                                        break;
-                                    case CommunicationType.OutgoingEFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
-                                        break;
+                                    //case CommunicationType.IncomingEFax:
+                                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
+                                    //    break;
+                                    //case CommunicationType.OutgoingEFax:
+                                    //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
+                                    //    break;
                                     case CommunicationType.EmailReceived:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.EmailReceived.ToString() });
                                         break;
@@ -1319,12 +1319,12 @@ namespace CMMManager
                                             case CommunicationType.OutgoingFax:
                                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
                                                 break;
-                                            case CommunicationType.IncomingEFax:
-                                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
-                                                break;
-                                            case CommunicationType.OutgoingEFax:
-                                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
-                                                break;
+                                            //case CommunicationType.IncomingEFax:
+                                            //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
+                                            //    break;
+                                            //case CommunicationType.OutgoingEFax:
+                                            //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
+                                            //    break;
                                             case CommunicationType.EmailReceived:
                                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.EmailReceived.ToString() });
                                                 break;
@@ -2373,12 +2373,12 @@ namespace CMMManager
                                 case CommunicationType.OutgoingFax:
                                     row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
                                     break;
-                                case CommunicationType.IncomingEFax:
-                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
-                                    break;
-                                case CommunicationType.OutgoingEFax:
-                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
-                                    break;
+                                //case CommunicationType.IncomingEFax:
+                                //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingEFax.ToString() });
+                                //    break;
+                                //case CommunicationType.OutgoingEFax:
+                                //    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingEFax.ToString() });
+                                //    break;
                                 case CommunicationType.EmailReceived:
                                     row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.EmailReceived.ToString() });
                                     break;
