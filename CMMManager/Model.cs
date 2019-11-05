@@ -317,11 +317,12 @@ namespace CMMManager
     public class CommunicationTaskInfo
     {
         public Boolean? IsSelected;
+        public String IndividualId;
         public String CaseNo;
         public String IllnessNo;
         public String IncidentNo;
         public String CommunicationNo;
-        public String CommunicationType;
+        public CommunicationType? CommunicationType;
         public String Subject;
         public String Body;
         public String Solution;
@@ -338,11 +339,12 @@ namespace CMMManager
         public CommunicationTaskInfo()
         {
             IsSelected = null;
+            IndividualId = String.Empty;
             CaseNo = String.Empty;
             IllnessNo = String.Empty;
             IncidentNo = String.Empty;
             CommunicationNo = String.Empty;
-            CommunicationType = String.Empty;
+            CommunicationType = null;
             Subject = String.Empty;
             Body = String.Empty;
             Solution = String.Empty;

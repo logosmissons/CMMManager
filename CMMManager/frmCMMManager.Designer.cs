@@ -2807,6 +2807,7 @@
             this.chkTask.TabIndex = 257;
             this.chkTask.Text = "Task";
             this.chkTask.UseVisualStyleBackColor = true;
+            this.chkTask.CheckedChanged += new System.EventHandler(this.chkTask_CheckedChanged);
             // 
             // btnViewBeneficiary
             // 
