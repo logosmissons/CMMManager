@@ -2801,7 +2801,7 @@
             // chkTask
             // 
             this.chkTask.AutoSize = true;
-            this.chkTask.Location = new System.Drawing.Point(1101, 432);
+            this.chkTask.Location = new System.Drawing.Point(813, 432);
             this.chkTask.Name = "chkTask";
             this.chkTask.Size = new System.Drawing.Size(50, 17);
             this.chkTask.TabIndex = 257;
@@ -3484,7 +3484,7 @@
             // 
             this.chkCommunicationEtc.AutoSize = true;
             this.chkCommunicationEtc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEtc.Location = new System.Drawing.Point(1045, 430);
+            this.chkCommunicationEtc.Location = new System.Drawing.Point(1107, 430);
             this.chkCommunicationEtc.Name = "chkCommunicationEtc";
             this.chkCommunicationEtc.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationEtc.TabIndex = 31;
@@ -3496,7 +3496,7 @@
             // 
             this.chkCommunicationFax.AutoSize = true;
             this.chkCommunicationFax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationFax.Location = new System.Drawing.Point(990, 430);
+            this.chkCommunicationFax.Location = new System.Drawing.Point(1052, 430);
             this.chkCommunicationFax.Name = "chkCommunicationFax";
             this.chkCommunicationFax.Size = new System.Drawing.Size(49, 20);
             this.chkCommunicationFax.TabIndex = 29;
@@ -3508,7 +3508,7 @@
             // 
             this.chkCommunicationLetter.AutoSize = true;
             this.chkCommunicationLetter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationLetter.Location = new System.Drawing.Point(927, 430);
+            this.chkCommunicationLetter.Location = new System.Drawing.Point(989, 430);
             this.chkCommunicationLetter.Name = "chkCommunicationLetter";
             this.chkCommunicationLetter.Size = new System.Drawing.Size(60, 20);
             this.chkCommunicationLetter.TabIndex = 28;
@@ -3520,7 +3520,7 @@
             // 
             this.chkCommunicationEmail.AutoSize = true;
             this.chkCommunicationEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationEmail.Location = new System.Drawing.Point(862, 430);
+            this.chkCommunicationEmail.Location = new System.Drawing.Point(924, 430);
             this.chkCommunicationEmail.Name = "chkCommunicationEmail";
             this.chkCommunicationEmail.Size = new System.Drawing.Size(61, 20);
             this.chkCommunicationEmail.TabIndex = 27;
@@ -3532,7 +3532,7 @@
             // 
             this.chkCommunicationCall.AutoSize = true;
             this.chkCommunicationCall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunicationCall.Location = new System.Drawing.Point(807, 430);
+            this.chkCommunicationCall.Location = new System.Drawing.Point(869, 430);
             this.chkCommunicationCall.Name = "chkCommunicationCall";
             this.chkCommunicationCall.Size = new System.Drawing.Size(50, 20);
             this.chkCommunicationCall.TabIndex = 26;

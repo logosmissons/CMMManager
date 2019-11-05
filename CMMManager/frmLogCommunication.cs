@@ -606,12 +606,12 @@ namespace CMMManager
                 case "Outgoing Fax":
                     communicationType = CommunicationType.OutgoingFax;
                     break;
-                case "Incoming E-Fax":
-                    communicationType = CommunicationType.IncomingEFax;
-                    break;
-                case "Outgoing E-Fax":
-                    communicationType = CommunicationType.OutgoingEFax;
-                    break;
+                //case "Incoming E-Fax":
+                //    communicationType = CommunicationType.IncomingEFax;
+                //    break;
+                //case "Outgoing E-Fax":
+                //    communicationType = CommunicationType.OutgoingEFax;
+                //    break;
                 case "Email Received":
                     communicationType = CommunicationType.EmailReceived;
                     break;

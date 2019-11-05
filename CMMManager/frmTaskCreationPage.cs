@@ -118,6 +118,42 @@ namespace CMMManager
         }
 
         //public frmTaskCreationPage(int task_id,
+        //                           String individual_id,
+        //                           int loggedInUserId,
+        //                           String loggedInUserName,
+        //                           UserRole loggedInUserRoleId,
+        //                           Department loggedInUserDepartment,
+        //                           TaskMode mode)
+        //{
+        //    InitializeComponent();
+
+        //    nTaskId = task_id;
+        //    WhoId = individual_id;
+        //    taskMode = mode;
+
+        //    TaskCreatorInfo = new UserInfo();
+        //    LoggedInuserInfo = new UserInfo();
+        //    AssignedToStaffInfo = new UserInfo();
+        //    lstUserInfo = new List<UserInfo>();
+
+        //    LoggedInuserInfo.UserId = loggedInUserId;
+        //    LoggedInuserInfo.UserName = loggedInUserName;
+        //    LoggedInuserInfo.UserRoleId = loggedInUserRoleId;
+        //    LoggedInuserInfo.departmentInfo.DepartmentId = loggedInUserDepartment;
+
+        //    connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //    connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+
+        //    connRN = new SqlConnection(connStringRN);
+        //    connSalesForce = new SqlConnection(connStringSalesForce);
+
+        //    sbComment = new StringBuilder();
+        //    sbSolution = new StringBuilder();
+
+
+        //}
+
+        //public frmTaskCreationPage(int task_id,
         //                    String IndividualId,
         //                    int loggedInUserId,
         //                    String loggedInUserName,
@@ -1044,6 +1080,85 @@ namespace CMMManager
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
                 // 03/04/19 - begin here : Disable, enable and show controls for replying and forwarding
             }
+            else if (taskMode == TaskMode.EditInIndividual)
+            {
+                String strSqlQueryForTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], " +
+                            "assigned_to.[User_Name], " +
+                            //"sending_department.[DepartmentName], receiving_department.[DepartmentName], " +
+                            "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task_related_to_code].[TaskRelatedToValue], " +
+                            "[dbo].[tbl_task].[CreateDate], [dbo].[tbl_task_created_by].[User_Name], " +
+                            "[dbo].[tbl_task].[LastModifiedDate], last_modified_by.[User_Name], " +
+                            "[dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], [dbo].[tbl_task_status_code].[TaskStatusValue], " +
+                            "[dbo].[tbl_task_priority_code].[TaskPriorityValue], " +
+                            "[dbo].[tbl_task].[PhoneNo], [dbo].[tbl_task].[Email], [dbo].[tbl_task].[IsClosed], " +
+                            "[dbo].[tbl_task].[IsReminderSet], [dbo].[tbl_task].[ReminderDateTime] " +
+                            "from [dbo].[tbl_task] " +
+                            "inner join [dbo].[tbl_department] sending_department on [dbo].[tbl_task].[SendingDepartment] = sending_department.[Department_Id] " +
+                            "inner join [dbo].[tbl_department] receiving_department on [dbo].[tbl_task].[ReceivingDepartment] = receiving_department.[Department_Id] " +
+                            "inner join [dbo].[tbl_task_related_to_code] on [dbo].[tbl_task].[RelatedToTableId] = [dbo].[tbl_task_related_to_code].[TaskRelatedToId] " +
+                            "inner join [dbo].[tbl_task_created_by] on [dbo].[tbl_task].[CreatedById] = [dbo].[tbl_task_created_by].[User_Id] " +
+                            "inner join [dbo].[tbl_task_assigned_to] assigned_to on [dbo].[tbl_task].[AssignedTo] = assigned_to.[User_Id] " +
+                            "inner join [dbo].[tbl_task_assigned_to] last_modified_by on [dbo].[tbl_task].[LastModifiedById] = last_modified_by.[User_Id] " +
+                            "inner join [dbo].[tbl_task_status_code] on [dbo].[tbl_task].[Status] = [dbo].[tbl_task_status_code].[TaskStatusCode] " +
+                            "inner join [dbo].[tbl_task_priority_code] on [dbo].[tbl_task].[Priority] = [dbo].[tbl_task_priority_code].[TaskPriorityCode] " +
+                            "where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdQueryForTask = new SqlCommand(strSqlQueryForTask, connRN);
+                cmdQueryForTask.CommandType = CommandType.Text;
+
+                cmdQueryForTask.Parameters.AddWithValue("@TaskId", nTaskId);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrQueryForTask = cmdQueryForTask.ExecuteReader();
+                if (rdrQueryForTask.HasRows)
+                {
+                    rdrQueryForTask.Read();
+                    if (!rdrQueryForTask.IsDBNull(0)) txtIndividualId.Text = rdrQueryForTask.GetString(0);
+                    else txtIndividualId.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(1)) txtNameOnTask.Text = rdrQueryForTask.GetString(1);
+                    else txtNameOnTask.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(2)) txtTaskRelatedTo.Text = rdrQueryForTask.GetString(2);
+                    else txtTaskRelatedTo.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(3)) txtTaskNameAssignedTo.Text = rdrQueryForTask.GetString(3);
+                    else txtTaskNameAssignedTo.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(4)) txtTaskSubject.Text = rdrQueryForTask.GetString(4);
+                    else txtTaskSubject.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(5)) dtpTaskDueDate.Text = rdrQueryForTask.GetDateTime(5).ToString("MM/dd/yyyy");
+                    else dtpTaskDueDate.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(6)) comboTaskRelatedTo.Text = rdrQueryForTask.GetString(6);
+                    else comboTaskRelatedTo.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(8)) txtTaskCreator.Text = rdrQueryForTask.GetString(8);
+                    else txtTaskCreator.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(10)) txtTaskNameAssignedTo.Text = rdrQueryForTask.GetString(10);
+                    else txtTaskNameAssignedTo.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(11)) txtTaskComments.Text = rdrQueryForTask.GetString(11);
+                    else txtTaskComments.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(12)) txtTaskSolution.Text = rdrQueryForTask.GetString(12);
+                    else txtTaskSolution.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(13)) comboTaskStatus.Text = rdrQueryForTask.GetString(13);
+                    else comboTaskStatus.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(14)) comboTaskPriority.Text = rdrQueryForTask.GetString(14);
+                    else comboTaskPriority.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(15)) txtTaskPhone.Text = rdrQueryForTask.GetString(15);
+                    else txtTaskPhone.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(16)) txtTaskEmail.Text = rdrQueryForTask.GetString(16);
+                    else txtTaskEmail.Text = String.Empty;
+                    if (!rdrQueryForTask.IsDBNull(18)) chkReminder.Checked = rdrQueryForTask.GetBoolean(18);
+                    else chkReminder.Checked = false;
+                    if (!rdrQueryForTask.IsDBNull(19)) dtpReminderDatePicker.Text = rdrQueryForTask.GetDateTime(19).ToString("MM/dd/yyyy");
+                    else dtpReminderDatePicker.Text = String.Empty;
+ 
+                    
+                }
+                rdrQueryForTask.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+
         }
 
         private void SetReminderTime(String time)
@@ -1518,16 +1633,19 @@ namespace CMMManager
                     if (chkReminder.Checked)
                     {
                         strDate = dtpReminderDatePicker.Value.ToString("MM/dd/yyyy");
-                        strTmpTime = comboReminderTimePicker.SelectedItem.ToString();
-                        TmpTime = strTmpTime.Substring(strTmpTime.Length - 2, 2);
-
-                        if (strTmpTime.Substring(strTmpTime.Length - 2, 2) == "PM")
+                        if (comboReminderTimePicker.SelectedItem != null)
                         {
-                            int nTime = Int16.Parse(strTmpTime.Substring(0, strTmpTime.IndexOf(":")));
-                            nTime += 12;
-                            strTime = nTime.ToString() + ":" + strTmpTime.Substring(strTmpTime.IndexOf(":") + 1, 2) + "AM";
+                            strTmpTime = comboReminderTimePicker.SelectedItem.ToString();
+                            TmpTime = strTmpTime.Substring(strTmpTime.Length - 2, 2);
+
+                            if (strTmpTime.Substring(strTmpTime.Length - 2, 2) == "PM")
+                            {
+                                int nTime = Int16.Parse(strTmpTime.Substring(0, strTmpTime.IndexOf(":")));
+                                nTime += 12;
+                                strTime = nTime.ToString() + ":" + strTmpTime.Substring(strTmpTime.IndexOf(":") + 1, 2) + "AM";
+                            }
+                            else strTime = strTmpTime;
                         }
-                        else strTime = strTmpTime;
 
                         int Year = Int16.Parse(strDate.Substring(6, 4));
                         int Month = Int16.Parse(strDate.Substring(0, 2));
@@ -1550,7 +1668,9 @@ namespace CMMManager
                                                 "[dbo].[tbl_task].[Status] = @TaskStatus, " +
                                                 "[dbo].[tbl_task].[Priority] = @TaskPriority, " +
                                                 "[dbo].[tbl_task].[IsReminderSet] = @ReminderSet, " +
-                                                "[dbo].[tbl_task].[ReminderDateTime] = @ReminderDateTime " +
+                                                "[dbo].[tbl_task].[ReminderDateTime] = @ReminderDateTime, " +
+                                                "[dbo].[tbl_task].[LastModifiedDate] = @LastModifiedDate, " +
+                                                "[dbo].[tbl_task].[LastModifiedById] = @LastModifiedById " +                                                
                                                 "where [dbo].[tbl_task].[id] = @TaskId";
 
                     SqlCommand cmdUpdateTask = new SqlCommand(strSqlUpdateTask, connRN);
@@ -1570,6 +1690,8 @@ namespace CMMManager
                     cmdUpdateTask.Parameters.AddWithValue("@ReminderSet", chkReminder.Checked);
                     if (chkReminder.Checked) cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", Reminder);
                     else cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", DBNull.Value);
+                    cmdUpdateTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Now);
+                    cmdUpdateTask.Parameters.AddWithValue("@LastModifiedById", LoggedInuserInfo.UserId);
                     cmdUpdateTask.Parameters.AddWithValue("@TaskId", nTaskId);
 
                     if (connRN.State != ConnectionState.Closed)
