@@ -224,7 +224,10 @@ namespace CMMManager
 
                 comboIncidentNo.SelectedIndex = 0;
 
-                String strSqlQueryForCommunicationTypes = "select [dbo].[tbl_communication_type_code].[CommunicationTypeValue] from [dbo].[tbl_communication_type_code]";
+                List<CommunicationTypeInfo> lstCommunicationTypeInfo = new List<CommunicationTypeInfo>();
+
+                String strSqlQueryForCommunicationTypes = "select [dbo].[tbl_communication_type_code].[CommunicationTypeId], [dbo].[tbl_communication_type_code].[CommunicationTypeValue] " +
+                                                          "from [dbo].[tbl_communication_type_code]";
 
                 SqlCommand cmdQueryForCommunicationsTypes = new SqlCommand(strSqlQueryForCommunicationTypes, connRN);
                 cmdQueryForCommunicationsTypes.CommandType = CommandType.Text;
@@ -240,11 +243,52 @@ namespace CMMManager
                 {
                     while (rdrCommunicationTypes.Read())
                     {
-                        if (!rdrCommunicationTypes.IsDBNull(0)) comboCommunicationType.Items.Add(rdrCommunicationTypes.GetString(0));
+                        CommunicationTypeInfo info = new CommunicationTypeInfo();
+
+                        if (!rdrCommunicationTypes.IsDBNull(0)) info.nCommunicationTypeId = rdrCommunicationTypes.GetByte(0);
+                        else info.nCommunicationTypeId = null;
+                        if (!rdrCommunicationTypes.IsDBNull(1)) info.CommunicationTypeValue = rdrCommunicationTypes.GetString(1);
+                        else info.CommunicationTypeValue = null;
+
+                        lstCommunicationTypeInfo.Add(info);
                     }
                 }
                 rdrCommunicationTypes.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                if (lstCommunicationTypeInfo.Count > 0)
+                {
+                    for (int i = 0; i < lstCommunicationTypeInfo.Count; i++)
+                    {
+                        if (lstCommunicationTypeInfo[i].nCommunicationTypeId != 12)
+                        {
+                            comboCommunicationType.Items.Add(lstCommunicationTypeInfo[i].CommunicationTypeValue);
+                            lstCommunicationTypeInfo[i].nSelectedIndex = i;
+                        }
+                    }
+                }
+
+                //String strSqlQueryForCommunicationTypes = "select [dbo].[tbl_communication_type_code].[CommunicationTypeValue] from [dbo].[tbl_communication_type_code]";
+
+                //SqlCommand cmdQueryForCommunicationsTypes = new SqlCommand(strSqlQueryForCommunicationTypes, connRN);
+                //cmdQueryForCommunicationsTypes.CommandType = CommandType.Text;
+
+                //if (connRN.State != ConnectionState.Closed)
+                //{
+                //    connRN.Close();
+                //    connRN.Open();
+                //}
+                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                //SqlDataReader rdrCommunicationTypes = cmdQueryForCommunicationsTypes.ExecuteReader();
+                //if (rdrCommunicationTypes.HasRows)
+                //{
+                //    while (rdrCommunicationTypes.Read())
+                //    {
+                //        if (!rdrCommunicationTypes.IsDBNull(0)) comboCommunicationType.Items.Add(rdrCommunicationTypes.GetString(0));
+                //    }
+                //}
+                //rdrCommunicationTypes.Close();
+                //if (connRN.State != ConnectionState.Closed) connRN.Close();
             }
             else if (OpenMode == CommunicationOpenMode.ReadOnly)
             {
@@ -274,7 +318,10 @@ namespace CMMManager
                 rdrCasesForIndividual.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String strSqlQueryForCommunicationTypes = "select [dbo].[tbl_communication_type_code].[CommunicationTypeValue] from [dbo].[tbl_communication_type_code]";
+                List<CommunicationTypeInfo> lstCommunicationTypeInfo = new List<CommunicationTypeInfo>();
+
+                String strSqlQueryForCommunicationTypes = "select [dbo].[tbl_communication_type_code].[CommunicationTypeId], [dbo].[tbl_communication_type_code].[CommunicationTypeValue] " +
+                                                          "from [dbo].[tbl_communication_type_code]";
 
                 SqlCommand cmdQueryForCommunicationsTypes = new SqlCommand(strSqlQueryForCommunicationTypes, connRN);
                 cmdQueryForCommunicationsTypes.CommandType = CommandType.Text;
@@ -290,11 +337,30 @@ namespace CMMManager
                 {
                     while (rdrCommunicationTypes.Read())
                     {
-                        if (!rdrCommunicationTypes.IsDBNull(0)) comboCommunicationType.Items.Add(rdrCommunicationTypes.GetString(0));
+                        CommunicationTypeInfo info = new CommunicationTypeInfo();
+
+                        if (!rdrCommunicationTypes.IsDBNull(0)) info.nCommunicationTypeId = rdrCommunicationTypes.GetByte(0);
+                        else info.nCommunicationTypeId = null;
+                        if (!rdrCommunicationTypes.IsDBNull(1)) info.CommunicationTypeValue = rdrCommunicationTypes.GetString(1);
+                        else info.CommunicationTypeValue = null;
+
+                        lstCommunicationTypeInfo.Add(info);
                     }
                 }
                 rdrCommunicationTypes.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                if (lstCommunicationTypeInfo.Count > 0)
+                {
+                    for (int i = 0; i < lstCommunicationTypeInfo.Count; i++)
+                    {
+                        if (lstCommunicationTypeInfo[i].nCommunicationTypeId != 12)
+                        {
+                            comboCommunicationType.Items.Add(lstCommunicationTypeInfo[i].CommunicationTypeValue);
+                            lstCommunicationTypeInfo[i].nSelectedIndex = i;
+                        }
+                    }
+                }
 
                 String strSqlQueryForCommComplete = "select [dbo].[tbl_Communication].[IsComplete] from [dbo].[tbl_Communication] " +
                                                     "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
@@ -342,7 +408,9 @@ namespace CMMManager
                 comboIncidentNo.SelectedIndex = 0;
                 comboIncidentNo.Enabled = false;
 
-                comboCommunicationType.SelectedIndex = (int)CommType;
+                //comboCommunicationType.SelectedIndex = (int)CommType;
+                if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
+                else comboCommunicationType.SelectedIndex = (int)CommType - 2;
 
                 txtCreatedByName.Text = CreatedByStaffName.Trim();
                 txtCreatedDate.Text = CreatedDate.Trim();
@@ -477,7 +545,9 @@ namespace CMMManager
                 comboIncidentNo.SelectedIndex = 0;
                 comboIncidentNo.Enabled = false;
 
-                comboCommunicationType.SelectedIndex = (int)CommType;
+                //comboCommunicationType.SelectedIndex = (int)CommType;
+                if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
+                else comboCommunicationType.SelectedIndex = (int)CommType - 2;
 
                 txtCreatedByName.Text = CreatedByStaffName.Trim();
                 txtCreatedDate.Text = CreatedDate.Trim();

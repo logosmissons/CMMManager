@@ -361,6 +361,34 @@ namespace CMMManager
         }
     }
 
+    public class CommunicationTypeInfo
+    {
+        public int? nSelectedIndex;
+        public int? nCommunicationTypeId;
+        public String CommunicationTypeValue;
+
+        public CommunicationTypeInfo()
+        {
+            nSelectedIndex = null;
+            nCommunicationTypeId = null;
+            CommunicationTypeValue = null;
+        }
+
+        public CommunicationTypeInfo(int comm_id, String comm_type)
+        {
+            nCommunicationTypeId = comm_id;
+            CommunicationTypeValue = comm_type;
+        }
+
+        public CommunicationTypeInfo(int selected_id, int comm_id, String comm_type)
+        {
+            nSelectedIndex = selected_id;
+            nCommunicationTypeId = comm_id;
+            CommunicationTypeValue = comm_type;
+        }
+
+    }
+
     public class TaskInfo
     {
         public int? TaskId;
@@ -1220,6 +1248,7 @@ namespace CMMManager
     public class EmailContentInfo
     {
         public String EmailIncident;
+        public String EmailSender;
         public String EmailSubject;
         public String EmailBody;
         public List<String> lstEmailAttachmentFileNames;
@@ -1229,6 +1258,7 @@ namespace CMMManager
         public EmailContentInfo()
         {
             EmailIncident = String.Empty;
+            EmailSender = String.Empty;
             EmailSubject = String.Empty;
             EmailBody = String.Empty;
             lstEmailAttachmentFileNames = new List<string>();
