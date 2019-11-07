@@ -29,7 +29,7 @@ namespace CMMManager
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
 
     // enumeration for communication type
-    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncommingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, BlueSheet };
+    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet };
     // enumeration for Communication open mode
     public enum CommunicationOpenMode { AddNew = 0, ReadOnly, Update};
 

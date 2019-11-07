@@ -153,8 +153,8 @@ namespace CMMManager
                             case CommunicationType.OutgoingCall:
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingCall.ToString() });
                                 break;
-                            case CommunicationType.IncommingFax:
-                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncommingFax.ToString() });
+                            case CommunicationType.IncomingFax:
+                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingFax.ToString() });
                                 break;
                             case CommunicationType.OutgoingFax:
                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
@@ -547,8 +547,8 @@ namespace CMMManager
                                     case CommunicationType.OutgoingCall:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingCall.ToString() });
                                         break;
-                                    case CommunicationType.IncommingFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncommingFax.ToString() });
+                                    case CommunicationType.IncomingFax:
+                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingFax.ToString() });
                                         break;
                                     case CommunicationType.OutgoingFax:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
@@ -1089,8 +1089,8 @@ namespace CMMManager
                                     case CommunicationType.OutgoingCall:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingCall.ToString() });
                                         break;
-                                    case CommunicationType.IncommingFax:
-                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncommingFax.ToString() });
+                                    case CommunicationType.IncomingFax:
+                                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingFax.ToString() });
                                         break;
                                     case CommunicationType.OutgoingFax:
                                         row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
@@ -1313,8 +1313,8 @@ namespace CMMManager
                                             case CommunicationType.OutgoingCall:
                                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingCall.ToString() });
                                                 break;
-                                            case CommunicationType.IncommingFax:
-                                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncommingFax.ToString() });
+                                            case CommunicationType.IncomingFax:
+                                                row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingFax.ToString() });
                                                 break;
                                             case CommunicationType.OutgoingFax:
                                                 row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });
@@ -2367,8 +2367,8 @@ namespace CMMManager
                                 case CommunicationType.OutgoingCall:
                                     row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingCall.ToString() });
                                     break;
-                                case CommunicationType.IncommingFax:
-                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncommingFax.ToString() });
+                                case CommunicationType.IncomingFax:
+                                    row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.IncomingFax.ToString() });
                                     break;
                                 case CommunicationType.OutgoingFax:
                                     row.Cells.Add(new DataGridViewTextBoxCell { Value = CommunicationType.OutgoingFax.ToString() });

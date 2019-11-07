@@ -410,7 +410,7 @@ namespace CMMManager
 
                 //comboCommunicationType.SelectedIndex = (int)CommType;
                 if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
-                else comboCommunicationType.SelectedIndex = (int)CommType - 2;
+                else if ((int)CommType < 12) comboCommunicationType.SelectedIndex = (int)CommType - 2;
 
                 txtCreatedByName.Text = CreatedByStaffName.Trim();
                 txtCreatedDate.Text = CreatedDate.Trim();
@@ -671,7 +671,7 @@ namespace CMMManager
                     communicationType = CommunicationType.OutgoingCall;
                     break;
                 case "Incoming Fax":
-                    communicationType = CommunicationType.IncommingFax;
+                    communicationType = CommunicationType.IncomingFax;
                     break;
                 case "Outgoing Fax":
                     communicationType = CommunicationType.OutgoingFax;
@@ -754,8 +754,10 @@ namespace CMMManager
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", communicationType);
                 if (strSubject != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", strSubject);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", DBNull.Value);
+                if (chkCommunnicationComplete.Checked) strBody = "Solved";
                 if (strBody != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Body", strBody);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Body", DBNull.Value);
+                if (chkCommunnicationComplete.Checked) strSolution = "Solved";
                 if (strSolution != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Solution", strSolution);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Solution", DBNull.Value);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CreateDate", DateTime.Now);
@@ -883,6 +885,7 @@ namespace CMMManager
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewCommunicationType", (int)communicationType);
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewSubject", strSubject);
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewBody", strBody);
+                if (chkCommunnicationComplete.Checked) strSolution = "Solved";
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewSolution", strSolution);
                 cmdUpdateCommunication.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdUpdateCommunication.Parameters.AddWithValue("@ModifiedBy", nLoggedInUserId);

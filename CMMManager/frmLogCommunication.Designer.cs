@@ -426,11 +426,11 @@
             // 
             this.chkCommunnicationComplete.AutoSize = true;
             this.chkCommunnicationComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunnicationComplete.Location = new System.Drawing.Point(572, 401);
+            this.chkCommunnicationComplete.Location = new System.Drawing.Point(587, 401);
             this.chkCommunnicationComplete.Name = "chkCommunnicationComplete";
-            this.chkCommunnicationComplete.Size = new System.Drawing.Size(85, 20);
+            this.chkCommunnicationComplete.Size = new System.Drawing.Size(70, 20);
             this.chkCommunnicationComplete.TabIndex = 30;
-            this.chkCommunnicationComplete.Text = "Complete";
+            this.chkCommunnicationComplete.Text = "Solved";
             this.chkCommunnicationComplete.UseVisualStyleBackColor = true;
             // 
             // frmLogCommunication

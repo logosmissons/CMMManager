@@ -333,7 +333,7 @@ namespace CMMManager
         public String TaskStatus;
         public String WhoId;
         public String WhatId;
-        public CommunicationType? commType;
+        //public CommunicationType? commType;
         public String Comment;
 
         public CommunicationTaskInfo()
@@ -356,7 +356,7 @@ namespace CMMManager
             TaskStatus = String.Empty;
             WhoId = String.Empty;
             WhatId = String.Empty;
-            CommunicationType = null;
+            //CommunicationType = null;
             Comment = String.Empty;
         }
     }
