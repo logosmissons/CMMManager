@@ -292,6 +292,17 @@
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.gvRecentCommunication = new System.Windows.Forms.DataGridView();
+            this.SelectedCommunication = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkCommunicationEtc = new System.Windows.Forms.CheckBox();
             this.chkCommunicationFax = new System.Windows.Forms.CheckBox();
             this.chkCommunicationLetter = new System.Windows.Forms.CheckBox();
@@ -300,6 +311,10 @@
             this.chkCommunicationAll = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.gvFamilyInformation = new System.Windows.Forms.DataGridView();
+            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
             this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -1063,17 +1078,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedCommunication = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3407,6 +3411,79 @@
             this.gvRecentCommunication.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellContentClick);
             this.gvRecentCommunication.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellDoubleClick);
             // 
+            // SelectedCommunication
+            // 
+            this.SelectedCommunication.HeaderText = "Selected";
+            this.SelectedCommunication.Name = "SelectedCommunication";
+            this.SelectedCommunication.ReadOnly = true;
+            this.SelectedCommunication.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SelectedCommunication.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.SelectedCommunication.Width = 60;
+            // 
+            // CaseNoRecentCommunication
+            // 
+            this.CaseNoRecentCommunication.HeaderText = "Case No";
+            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
+            this.CaseNoRecentCommunication.ReadOnly = true;
+            // 
+            // IllnessNoRecentCommunication
+            // 
+            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
+            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
+            this.IllnessNoRecentCommunication.ReadOnly = true;
+            // 
+            // IncidentNoRecentCommunication
+            // 
+            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
+            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
+            this.IncidentNoRecentCommunication.ReadOnly = true;
+            // 
+            // CommunicationNoRecentCommunication
+            // 
+            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
+            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
+            this.CommunicationNoRecentCommunication.ReadOnly = true;
+            this.CommunicationNoRecentCommunication.Width = 80;
+            // 
+            // CommunicationTypeRecentCommunication
+            // 
+            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
+            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
+            this.CommunicationTypeRecentCommunication.ReadOnly = true;
+            this.CommunicationTypeRecentCommunication.Width = 140;
+            // 
+            // SubjectRecentCommunication
+            // 
+            this.SubjectRecentCommunication.HeaderText = "Subject";
+            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
+            this.SubjectRecentCommunication.ReadOnly = true;
+            this.SubjectRecentCommunication.Width = 120;
+            // 
+            // BodyRecentCommunication
+            // 
+            this.BodyRecentCommunication.HeaderText = "Body";
+            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
+            this.BodyRecentCommunication.ReadOnly = true;
+            this.BodyRecentCommunication.Width = 160;
+            // 
+            // Solution
+            // 
+            this.Solution.HeaderText = "Solution";
+            this.Solution.Name = "Solution";
+            this.Solution.ReadOnly = true;
+            // 
+            // CreateDateRecentCommunication
+            // 
+            this.CreateDateRecentCommunication.HeaderText = "Create Date";
+            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
+            this.CreateDateRecentCommunication.ReadOnly = true;
+            // 
+            // CreateStaffRecentCommunication
+            // 
+            this.CreateStaffRecentCommunication.HeaderText = "Created By";
+            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
+            this.CreateStaffRecentCommunication.ReadOnly = true;
+            // 
             // chkCommunicationEtc
             // 
             this.chkCommunicationEtc.AutoSize = true;
@@ -3491,11 +3568,45 @@
             // 
             // gvFamilyInformation
             // 
+            this.gvFamilyInformation.AllowUserToAddRows = false;
+            this.gvFamilyInformation.AllowUserToDeleteRows = false;
             this.gvFamilyInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvFamilyInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FamilyInfoIndividualId,
+            this.FamilyInfoIndividualName,
+            this.FamilyInfoHouseholdRole,
+            this.FamilyInfoBirthdate});
             this.gvFamilyInformation.Location = new System.Drawing.Point(760, 301);
             this.gvFamilyInformation.Name = "gvFamilyInformation";
+            this.gvFamilyInformation.ReadOnly = true;
             this.gvFamilyInformation.Size = new System.Drawing.Size(1049, 94);
             this.gvFamilyInformation.TabIndex = 197;
+            this.gvFamilyInformation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvFamilyInformation_CellDoubleClick);
+            // 
+            // FamilyInfoIndividualId
+            // 
+            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
+            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
+            this.FamilyInfoIndividualId.ReadOnly = true;
+            // 
+            // FamilyInfoIndividualName
+            // 
+            this.FamilyInfoIndividualName.HeaderText = "Name";
+            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
+            this.FamilyInfoIndividualName.ReadOnly = true;
+            // 
+            // FamilyInfoHouseholdRole
+            // 
+            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
+            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
+            this.FamilyInfoHouseholdRole.ReadOnly = true;
+            this.FamilyInfoHouseholdRole.Width = 120;
+            // 
+            // FamilyInfoBirthdate
+            // 
+            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
+            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
+            this.FamilyInfoBirthdate.ReadOnly = true;
             // 
             // label36
             // 
@@ -10255,79 +10366,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // SelectedCommunication
-            // 
-            this.SelectedCommunication.HeaderText = "Selected";
-            this.SelectedCommunication.Name = "SelectedCommunication";
-            this.SelectedCommunication.ReadOnly = true;
-            this.SelectedCommunication.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SelectedCommunication.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.SelectedCommunication.Width = 60;
-            // 
-            // CaseNoRecentCommunication
-            // 
-            this.CaseNoRecentCommunication.HeaderText = "Case No";
-            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
-            this.CaseNoRecentCommunication.ReadOnly = true;
-            // 
-            // IllnessNoRecentCommunication
-            // 
-            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
-            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
-            this.IllnessNoRecentCommunication.ReadOnly = true;
-            // 
-            // IncidentNoRecentCommunication
-            // 
-            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
-            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
-            this.IncidentNoRecentCommunication.ReadOnly = true;
-            // 
-            // CommunicationNoRecentCommunication
-            // 
-            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
-            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
-            this.CommunicationNoRecentCommunication.ReadOnly = true;
-            this.CommunicationNoRecentCommunication.Width = 80;
-            // 
-            // CommunicationTypeRecentCommunication
-            // 
-            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
-            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
-            this.CommunicationTypeRecentCommunication.ReadOnly = true;
-            this.CommunicationTypeRecentCommunication.Width = 140;
-            // 
-            // SubjectRecentCommunication
-            // 
-            this.SubjectRecentCommunication.HeaderText = "Subject";
-            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
-            this.SubjectRecentCommunication.ReadOnly = true;
-            this.SubjectRecentCommunication.Width = 120;
-            // 
-            // BodyRecentCommunication
-            // 
-            this.BodyRecentCommunication.HeaderText = "Body";
-            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
-            this.BodyRecentCommunication.ReadOnly = true;
-            this.BodyRecentCommunication.Width = 160;
-            // 
-            // Solution
-            // 
-            this.Solution.HeaderText = "Solution";
-            this.Solution.Name = "Solution";
-            this.Solution.ReadOnly = true;
-            // 
-            // CreateDateRecentCommunication
-            // 
-            this.CreateDateRecentCommunication.HeaderText = "Create Date";
-            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
-            this.CreateDateRecentCommunication.ReadOnly = true;
-            // 
-            // CreateStaffRecentCommunication
-            // 
-            this.CreateStaffRecentCommunication.HeaderText = "Created By";
-            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
-            this.CreateStaffRecentCommunication.ReadOnly = true;
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -10511,8 +10549,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button btnSearch;
+        //private System.Windows.Forms.TextBox txtSearch;
+        public System.Windows.Forms.TextBox txtSearch;
+        //private System.Windows.Forms.Button btnSearch;
+        public System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TabControl tbCMMManager;
         private System.Windows.Forms.TabPage tbpgDashboardRNManager;
@@ -10926,7 +10966,8 @@
         private System.Windows.Forms.ComboBox comboIneligibleReason;
         private System.Windows.Forms.ComboBox comboPendingReason;
         private System.Windows.Forms.TabPage tbpgSearchResult;
-        private System.Windows.Forms.DataGridView gvIndividualSearched;
+        //private System.Windows.Forms.DataGridView gvIndividualSearched;
+        public System.Windows.Forms.DataGridView gvIndividualSearched;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Button btnCloseCaseView;
         private System.Windows.Forms.DateTimePicker dtpBirthDate;
@@ -11529,6 +11570,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Solution;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRecentCommunication;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
     }
 }
 
