@@ -19,7 +19,50 @@ namespace CMMManager
             //frmCMMLogin login = new frmCMMLogin();
             //if (login.ShowDialog() == DialogResult.OK) Application.Run(new frmCMMManager());
             //else return;
-            Application.Run(new frmCMMManager());
+
+            frmCMMManager frmMainCMMManager = new frmCMMManager();
+
+            frmLogin frmLogin = new frmLogin();
+            frmLogin.StartPosition = FormStartPosition.CenterParent;
+
+            //Boolean bLoginSuccess = false;
+
+            for (int i = 0; i < 3; i++)
+            {
+                DialogResult loginResult = frmLogin.ShowDialog();
+
+                if (loginResult == DialogResult.OK)
+                {
+                    //bLoginSuccess = true;
+
+                    frmMainCMMManager.nLoggedUserId = frmLogin.nLoggedUserId;
+                    frmMainCMMManager.LoggedInUserName = frmLogin.LoggedInUserName;
+                    frmMainCMMManager.LoggedInUserRole = frmLogin.nLoggedUserRole;
+                    frmMainCMMManager.LoggedInUserDepartment = frmLogin.nLoggedInUserDepartmentId;
+                    frmMainCMMManager.bLoginSuccess = true;
+
+                    Application.Run(frmMainCMMManager);
+
+                    //nLoggedUserId = frmLogin.nLoggedUserId;
+                    //LoggedInUserName = frmLogin.LoggedInUserName;
+                    //LoggedInUserRole = frmLogin.nLoggedUserRole;
+                    //LoggedInUserDepartment = frmLogin.nLoggedInUserDepartmentId;
+
+                    break;
+                }
+                else if (loginResult == DialogResult.Cancel)
+                {
+                    MessageBox.Show("Login Canceled", "Alert");
+                    break;
+                }
+                else if (loginResult == DialogResult.Retry)
+                {
+                    continue;
+                }
+            }
+
+            //if (bLoginSuccess == false) Close();
+            //Application.Run(new frmCMMManager());
         }
     }
 }
