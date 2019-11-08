@@ -10550,9 +10550,9 @@
         #endregion
 
         //private System.Windows.Forms.TextBox txtSearch;
-        public System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.TextBox txtSearch;
         //private System.Windows.Forms.Button btnSearch;
-        public System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.TabControl tbCMMManager;
         private System.Windows.Forms.TabPage tbpgDashboardRNManager;
@@ -10629,7 +10629,7 @@
         private System.Windows.Forms.TextBox txtCRM_ID;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.TextBox txtIndividualID;
-        //public System.Windows.Forms.TextBox txtIndividualID;
+        //private System.Windows.Forms.TextBox txtIndividualID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtMembershipID;
         private System.Windows.Forms.Label label2;
@@ -10694,7 +10694,7 @@
         private System.Windows.Forms.Button btnCaseCreationSaveUpper;
         private System.Windows.Forms.Button btnCaseCreationCancelUpper;
         //private System.Windows.Forms.DataGridView gvIllnessList;
-        public System.Windows.Forms.DataGridView gvIllnessList;
+        private System.Windows.Forms.DataGridView gvIllnessList;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Button btnMedBillCreationPgUpperCancel;
         private System.Windows.Forms.Button btnMedBillCreatePgUpperSave;
@@ -10967,7 +10967,7 @@
         private System.Windows.Forms.ComboBox comboPendingReason;
         private System.Windows.Forms.TabPage tbpgSearchResult;
         //private System.Windows.Forms.DataGridView gvIndividualSearched;
-        public System.Windows.Forms.DataGridView gvIndividualSearched;
+        private System.Windows.Forms.DataGridView gvIndividualSearched;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Button btnCloseCaseView;
         private System.Windows.Forms.DateTimePicker dtpBirthDate;
