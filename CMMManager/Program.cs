@@ -20,7 +20,7 @@ namespace CMMManager
             //if (login.ShowDialog() == DialogResult.OK) Application.Run(new frmCMMManager());
             //else return;
 
-            frmCMMManager frmMainCMMManager = new frmCMMManager();
+            //frmCMMManager frmMainCMMManager = new frmCMMManager();
 
             frmLogin frmLogin = new frmLogin();
             frmLogin.StartPosition = FormStartPosition.CenterParent;
@@ -34,6 +34,7 @@ namespace CMMManager
                 if (loginResult == DialogResult.OK)
                 {
                     //bLoginSuccess = true;
+                    frmCMMManager frmMainCMMManager = new frmCMMManager();
 
                     frmMainCMMManager.nLoggedUserId = frmLogin.nLoggedUserId;
                     frmMainCMMManager.LoggedInUserName = frmLogin.LoggedInUserName;
