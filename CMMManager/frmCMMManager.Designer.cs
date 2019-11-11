@@ -2979,7 +2979,7 @@
             // 
             // btnDeleteCommunication
             // 
-            this.btnDeleteCommunication.Location = new System.Drawing.Point(1402, 422);
+            this.btnDeleteCommunication.Location = new System.Drawing.Point(1498, 422);
             this.btnDeleteCommunication.Name = "btnDeleteCommunication";
             this.btnDeleteCommunication.Size = new System.Drawing.Size(129, 28);
             this.btnDeleteCommunication.TabIndex = 242;
@@ -2989,7 +2989,7 @@
             // 
             // btnNewTaskIndividual
             // 
-            this.btnNewTaskIndividual.Location = new System.Drawing.Point(1538, 422);
+            this.btnNewTaskIndividual.Location = new System.Drawing.Point(1298, 422);
             this.btnNewTaskIndividual.Name = "btnNewTaskIndividual";
             this.btnNewTaskIndividual.Size = new System.Drawing.Size(90, 28);
             this.btnNewTaskIndividual.TabIndex = 241;
@@ -2999,7 +2999,7 @@
             // 
             // btnIndividualCommHelper
             // 
-            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1634, 422);
+            this.btnIndividualCommHelper.Location = new System.Drawing.Point(1633, 422);
             this.btnIndividualCommHelper.Name = "btnIndividualCommHelper";
             this.btnIndividualCommHelper.Size = new System.Drawing.Size(90, 28);
             this.btnIndividualCommHelper.TabIndex = 240;
@@ -3009,7 +3009,7 @@
             // 
             // btnLogCommunication
             // 
-            this.btnLogCommunication.Location = new System.Drawing.Point(1266, 422);
+            this.btnLogCommunication.Location = new System.Drawing.Point(1162, 422);
             this.btnLogCommunication.Name = "btnLogCommunication";
             this.btnLogCommunication.Size = new System.Drawing.Size(129, 28);
             this.btnLogCommunication.TabIndex = 239;
@@ -3029,7 +3029,7 @@
             // 
             // btnSendEmail
             // 
-            this.btnSendEmail.Location = new System.Drawing.Point(1161, 422);
+            this.btnSendEmail.Location = new System.Drawing.Point(1394, 422);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(98, 28);
             this.btnSendEmail.TabIndex = 237;
