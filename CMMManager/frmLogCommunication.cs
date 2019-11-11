@@ -754,7 +754,7 @@ namespace CMMManager
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", communicationType);
                 if (strSubject != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", strSubject);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", DBNull.Value);
-                if (chkCommunnicationComplete.Checked) strBody = "Solved";
+                //if (chkCommunnicationComplete.Checked) strBody = "Solved";
                 if (strBody != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Body", strBody);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Body", DBNull.Value);
                 if (chkCommunnicationComplete.Checked) strSolution = "Solved";
