@@ -311,10 +311,6 @@
             this.chkCommunicationAll = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.gvFamilyInformation = new System.Windows.Forms.DataGridView();
-            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
             this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -1078,6 +1074,11 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3575,6 +3576,7 @@
             this.FamilyInfoIndividualId,
             this.FamilyInfoIndividualName,
             this.FamilyInfoHouseholdRole,
+            this.FamilyInfoGender,
             this.FamilyInfoBirthdate});
             this.gvFamilyInformation.Location = new System.Drawing.Point(760, 301);
             this.gvFamilyInformation.Name = "gvFamilyInformation";
@@ -3582,31 +3584,6 @@
             this.gvFamilyInformation.Size = new System.Drawing.Size(1049, 94);
             this.gvFamilyInformation.TabIndex = 197;
             this.gvFamilyInformation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvFamilyInformation_CellDoubleClick);
-            // 
-            // FamilyInfoIndividualId
-            // 
-            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
-            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
-            this.FamilyInfoIndividualId.ReadOnly = true;
-            // 
-            // FamilyInfoIndividualName
-            // 
-            this.FamilyInfoIndividualName.HeaderText = "Name";
-            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
-            this.FamilyInfoIndividualName.ReadOnly = true;
-            // 
-            // FamilyInfoHouseholdRole
-            // 
-            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
-            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
-            this.FamilyInfoHouseholdRole.ReadOnly = true;
-            this.FamilyInfoHouseholdRole.Width = 120;
-            // 
-            // FamilyInfoBirthdate
-            // 
-            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
-            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
-            this.FamilyInfoBirthdate.ReadOnly = true;
             // 
             // label36
             // 
@@ -10366,6 +10343,37 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // FamilyInfoIndividualId
+            // 
+            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
+            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
+            this.FamilyInfoIndividualId.ReadOnly = true;
+            // 
+            // FamilyInfoIndividualName
+            // 
+            this.FamilyInfoIndividualName.HeaderText = "Name";
+            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
+            this.FamilyInfoIndividualName.ReadOnly = true;
+            // 
+            // FamilyInfoHouseholdRole
+            // 
+            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
+            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
+            this.FamilyInfoHouseholdRole.ReadOnly = true;
+            this.FamilyInfoHouseholdRole.Width = 120;
+            // 
+            // FamilyInfoGender
+            // 
+            this.FamilyInfoGender.HeaderText = "Gender";
+            this.FamilyInfoGender.Name = "FamilyInfoGender";
+            this.FamilyInfoGender.ReadOnly = true;
+            // 
+            // FamilyInfoBirthdate
+            // 
+            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
+            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
+            this.FamilyInfoBirthdate.ReadOnly = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11573,6 +11581,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualId;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualName;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoGender;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
     }
 }
