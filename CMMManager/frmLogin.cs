@@ -21,6 +21,7 @@ namespace CMMManager
         private String connStringSalesforce;
 
         public int nLoggedUserId;
+        public String LoggedInUserEmail;
         public String LoggedInUserName;
         public UserRole nLoggedUserRole;
         public Department nLoggedInUserDepartmentId;
@@ -50,7 +51,8 @@ namespace CMMManager
         {
             String UserEmail = txtEmail.Text.Trim();
 
-            String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+            String strSqlQueryForUserInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Email], [dbo].[tbl_user].[User_Name], " +
+                                            "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
                                             "from [dbo].[tbl_user] " +
                                             "where [dbo].[tbl_user].[User_Email] = @UserEmail";
 
@@ -72,9 +74,10 @@ namespace CMMManager
             {
                 rdrUserInfo.Read();
                 if (!rdrUserInfo.IsDBNull(0)) nLoggedUserId = rdrUserInfo.GetInt16(0);
-                if (!rdrUserInfo.IsDBNull(1)) LoggedInUserName = rdrUserInfo.GetString(1);
-                if (!rdrUserInfo.IsDBNull(2)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(2);
-                if (!rdrUserInfo.IsDBNull(3)) nLoggedInUserDepartmentId = (Department)rdrUserInfo.GetInt16(3);
+                if (!rdrUserInfo.IsDBNull(1)) LoggedInUserEmail = rdrUserInfo.GetString(1);
+                if (!rdrUserInfo.IsDBNull(2)) LoggedInUserName = rdrUserInfo.GetString(2);
+                if (!rdrUserInfo.IsDBNull(3)) nLoggedUserRole = (UserRole)rdrUserInfo.GetInt16(3);
+                if (!rdrUserInfo.IsDBNull(4)) nLoggedInUserDepartmentId = (Department)rdrUserInfo.GetInt16(4);
 
                 String strUserLoginIdFolderHidden = @"C:\RNManagerUserLoginInfo";
       
@@ -89,7 +92,7 @@ namespace CMMManager
                 FileStream fs = File.Open(strUserLoginInfoPath, FileMode.Create, FileAccess.Write, FileShare.None);
                 StreamWriter sw = new StreamWriter(fs);
 
-                sw.WriteLine(UserEmail);
+                sw.WriteLine(LoggedInUserEmail);
                 sw.Close();
                 //fs.Close();
 

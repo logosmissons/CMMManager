@@ -1249,6 +1249,9 @@ namespace CMMManager
     {
         public String EmailIncident;
         public String EmailSender;
+        //public OfficeOutlook.Recipients EmailRecipients;
+        //public OfficeOutlook.Recipient EmailRecipient;
+        public String EmailRecipient;
         public String EmailSubject;
         public String EmailBody;
         public List<String> lstEmailAttachmentFileNames;
@@ -1259,6 +1262,9 @@ namespace CMMManager
         {
             EmailIncident = String.Empty;
             EmailSender = String.Empty;
+            EmailRecipient = String.Empty;
+            //EmailRecipients = null;
+            //EmailRecipient = null;
             EmailSubject = String.Empty;
             EmailBody = String.Empty;
             lstEmailAttachmentFileNames = new List<string>();

@@ -84,7 +84,9 @@ namespace CMMManager
         private void frmCaseForCommunication_Load(object sender, EventArgs e)
         {
             comboCases.Items.Clear();
-            String strSqlQueryForCase = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] where [dbo].[tbl_case].[individual_id] = @IndividualId";
+            String strSqlQueryForCase = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
+                                        "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
+                                        "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
             sbSqlQueryForCases.Append(strSqlQueryForCase);
 
             //comboCases.Items.Add("None");

@@ -49,6 +49,9 @@ namespace CMMManager
         private String connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
         private SqlConnection connRN;
 
+        private String connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
+        private SqlConnection connSalesforce;
+
         public frmViewEmail()
         {
             InitializeComponent();
@@ -67,6 +70,8 @@ namespace CMMManager
 
             EmailContent = new EmailContentInfo();
             connRN = new SqlConnection(connStringRN);
+
+            connSalesforce = new SqlConnection(connStringSalesforce);
         }
 
         public frmViewEmail(String individual_id, 
@@ -98,13 +103,14 @@ namespace CMMManager
 
             EmailContent = new EmailContentInfo();
             connRN = new SqlConnection(connStringRN);
+            connSalesforce = new SqlConnection(connStringSalesforce);
         }
 
         private void frmViewEmail_Load(object sender, EventArgs e)
         {
             txtSender.Text = SenderEmail;
             txtRecipient.Text = RecipientEmail;
-            txtCreatedBy.Text = CreatingStaff;
+            //txtCreatedBy.Text = CreatingStaff;
             txtCaseNo.Text = CaseNo;
             txtCreateDate.Text = CreateDate.Value.ToString("MM/dd/yyyy HH:mm:ss");
             txtSubject.Text = Subject;
@@ -137,6 +143,47 @@ namespace CMMManager
                 rdrLoggedInUserInfo.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
             }
+
+            String strSqlQueryForEmailSenderName = "select [dbo].[tbl_user].[User_Name] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Email] = @SenderEmail";
+
+            SqlCommand cmdQueryForEmailSenderName = new SqlCommand(strSqlQueryForEmailSenderName, connRN);
+            cmdQueryForEmailSenderName.CommandType = CommandType.Text;
+
+            cmdQueryForEmailSenderName.Parameters.AddWithValue("@SenderEmail", SenderEmail);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            Object objEmailSenderName = cmdQueryForEmailSenderName.ExecuteScalar();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            String strEmailSenderName = objEmailSenderName?.ToString();
+
+            if (strEmailSenderName != null && SenderEmail != String.Empty) txtSender.Text = strEmailSenderName + " (" + SenderEmail + ")";
+
+            String strSqlQueryForEmailRecipientName = "select [dbo].[Contact].[Name] from [dbo].[Contact] where [dbo].[Contact].[Email] = @RecipientEmail";
+
+            SqlCommand cmdQueryForEmailRecipientName = new SqlCommand(strSqlQueryForEmailRecipientName, connSalesforce);
+            cmdQueryForEmailRecipientName.CommandType = CommandType.Text;
+
+            cmdQueryForEmailRecipientName.Parameters.AddWithValue("@RecipientEmail", RecipientEmail);
+
+            if (connSalesforce.State != ConnectionState.Closed)
+            {
+                connSalesforce.Close();
+                connSalesforce.Open();
+            }
+            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            Object objEmailRecipientName = cmdQueryForEmailRecipientName.ExecuteScalar();
+            if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+            String strEmailRecipientName = objEmailRecipientName?.ToString();
+            if (strEmailRecipientName != null && RecipientEmail != String.Empty) txtRecipient.Text = strEmailRecipientName + " (" + RecipientEmail + ")";
+
+            btnClose.Select();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -144,190 +191,190 @@ namespace CMMManager
             Close();
         }
 
-        private void btnReply_Click(object sender, EventArgs e)
-        {
-            String strMemberEmail = txtSender.Text.Trim();
+        //private void btnReply_Click(object sender, EventArgs e)
+        //{
+        //    String strMemberEmail = txtSender.Text.Trim();
 
-            strMemberEmail = "harrispark009@gmail.com";
+        //    strMemberEmail = "harrispark009@gmail.com";
 
-            application = new OfficeOutlook.Application();
-            mailItem = application.CreateItem(OfficeOutlook.OlItemType.olMailItem);
+        //    application = new OfficeOutlook.Application();
+        //    mailItem = application.CreateItem(OfficeOutlook.OlItemType.olMailItem);
 
-            ((OfficeOutlook.ItemEvents_10_Event)mailItem).Send += new OfficeOutlook.ItemEvents_10_SendEventHandler(SaveEmailContent);
+        //    ((OfficeOutlook.ItemEvents_10_Event)mailItem).Send += new OfficeOutlook.ItemEvents_10_SendEventHandler(SaveEmailContent);
 
-            mailItem.To = strMemberEmail;
-            OfficeOutlook.NameSpace outlookNamespace = application.GetNamespace("MAPI");
+        //    mailItem.To = strMemberEmail;
+        //    OfficeOutlook.NameSpace outlookNamespace = application.GetNamespace("MAPI");
 
-            mailItem.Display(true);
+        //    mailItem.Display(true);
 
-            try
-            {
-                outlookNamespace.SendAndReceive(false);
-                if (outlookNamespace != null) Marshal.ReleaseComObject(outlookNamespace);
-            }
-            catch (Exception ex)
-            {
+        //    try
+        //    {
+        //        outlookNamespace.SendAndReceive(false);
+        //        if (outlookNamespace != null) Marshal.ReleaseComObject(outlookNamespace);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
+        //    }
 
-        }
+        //}
 
-        private void SaveEmailContent(ref bool Cancel)
-        {
+        //private void SaveEmailContent(ref bool Cancel)
+        //{
 
-            String strSqlQueryForLastCommNo = "select [dbo].[tbl_LastID].[CommunicationNo] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+        //    String strSqlQueryForLastCommNo = "select [dbo].[tbl_LastID].[CommunicationNo] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
 
-            SqlCommand cmdQueryForLastCommNo = new SqlCommand(strSqlQueryForLastCommNo, connRN);
-            cmdQueryForLastCommNo.CommandType = CommandType.Text;
+        //    SqlCommand cmdQueryForLastCommNo = new SqlCommand(strSqlQueryForLastCommNo, connRN);
+        //    cmdQueryForLastCommNo.CommandType = CommandType.Text;
 
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            Object objCommunicationNo = cmdQueryForLastCommNo.ExecuteScalar();
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+        //    if (connRN.State != ConnectionState.Closed)
+        //    {
+        //        connRN.Close();
+        //        connRN.Open();
+        //    }
+        //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+        //    Object objCommunicationNo = cmdQueryForLastCommNo.ExecuteScalar();
+        //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            String strCommunicationNo = String.Empty;
-            if (objCommunicationNo != null) strCommunicationNo = objCommunicationNo.ToString();
+        //    String strCommunicationNo = String.Empty;
+        //    if (objCommunicationNo != null) strCommunicationNo = objCommunicationNo.ToString();
 
-            String NewCommunicationNo = String.Empty;
-            if (strCommunicationNo == String.Empty) NewCommunicationNo = "Comm-1";
-            else
-            {
-                String strCommNoNumber = strCommunicationNo.Substring(5);
-                int nCommNo = Int32.Parse(strCommNoNumber);
-                nCommNo++;
+        //    String NewCommunicationNo = String.Empty;
+        //    if (strCommunicationNo == String.Empty) NewCommunicationNo = "Comm-1";
+        //    else
+        //    {
+        //        String strCommNoNumber = strCommunicationNo.Substring(5);
+        //        int nCommNo = Int32.Parse(strCommNoNumber);
+        //        nCommNo++;
 
-                NewCommunicationNo = "Comm-" + nCommNo.ToString();
-            }
+        //        NewCommunicationNo = "Comm-" + nCommNo.ToString();
+        //    }
 
-            String strSqlUpdateLastCommNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CommunicationNo] = @LastCommNo where [dbo].[tbl_LastID].[Id] = 1";
+        //    String strSqlUpdateLastCommNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CommunicationNo] = @LastCommNo where [dbo].[tbl_LastID].[Id] = 1";
 
-            SqlCommand cmdUpdateLastCommNo = new SqlCommand(strSqlUpdateLastCommNo, connRN);
-            cmdUpdateLastCommNo.CommandType = CommandType.Text;
+        //    SqlCommand cmdUpdateLastCommNo = new SqlCommand(strSqlUpdateLastCommNo, connRN);
+        //    cmdUpdateLastCommNo.CommandType = CommandType.Text;
 
-            cmdUpdateLastCommNo.Parameters.AddWithValue("@LastCommNo", NewCommunicationNo);
+        //    cmdUpdateLastCommNo.Parameters.AddWithValue("@LastCommNo", NewCommunicationNo);
 
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            int nLastCommNoUpdated = cmdUpdateLastCommNo.ExecuteNonQuery();
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+        //    if (connRN.State != ConnectionState.Closed)
+        //    {
+        //        connRN.Close();
+        //        connRN.Open();
+        //    }
+        //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+        //    int nLastCommNoUpdated = cmdUpdateLastCommNo.ExecuteNonQuery();
+        //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            //String IndividualId = txtIndividualID.Text.Trim();
+        //    //String IndividualId = txtIndividualID.Text.Trim();
 
-            EmailContent.EmailSubject = mailItem.Subject;
-            EmailContent.EmailBody = mailItem.Body;
+        //    EmailContent.EmailSubject = mailItem.Subject;
+        //    EmailContent.EmailBody = mailItem.Body;
 
-            String strSqlInsertNewCommunication = "insert into [dbo].[tbl_Communication] ([dbo].[tbl_Communication].[Individual_Id], " +
-                                                  "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
-                                                  "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
-                                                  "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy]) " +
-                                                  "values (@IndividualId, @CommunicationNo, @CommunicationType, @CaseNo, @Subject, @Body, @CreateDate, @CreatedBy)";
+        //    String strSqlInsertNewCommunication = "insert into [dbo].[tbl_Communication] ([dbo].[tbl_Communication].[Individual_Id], " +
+        //                                          "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
+        //                                          "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
+        //                                          "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy]) " +
+        //                                          "values (@IndividualId, @CommunicationNo, @CommunicationType, @CaseNo, @Subject, @Body, @CreateDate, @CreatedBy)";
 
-            SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
-            cmdInsertNewCommunication.CommandType = CommandType.Text;
+        //    SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
+        //    cmdInsertNewCommunication.CommandType = CommandType.Text;
 
-            cmdInsertNewCommunication.Parameters.AddWithValue("@IndividualId", IndividualId);
-            cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
-            cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", CommunicationType.EmailSent);
-            if (CaseNo != "None") cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", CaseNo);
-            else cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", DBNull.Value);
-            cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", EmailContent.EmailSubject);
-            cmdInsertNewCommunication.Parameters.AddWithValue("@Body", EmailContent.EmailBody);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@IndividualId", IndividualId);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", CommunicationType.EmailSent);
+        //    if (CaseNo != "None") cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", CaseNo);
+        //    else cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", DBNull.Value);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", EmailContent.EmailSubject);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@Body", EmailContent.EmailBody);
 
-            cmdInsertNewCommunication.Parameters.AddWithValue("@CreateDate", DateTime.Now);
-            cmdInsertNewCommunication.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+        //    cmdInsertNewCommunication.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
 
-            if (connRN.State != ConnectionState.Closed)
-            {
-                connRN.Close();
-                connRN.Open();
-            }
-            else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            int nCommunicationInserted = cmdInsertNewCommunication.ExecuteNonQuery();
-            if (connRN.State != ConnectionState.Closed) connRN.Close();
+        //    if (connRN.State != ConnectionState.Closed)
+        //    {
+        //        connRN.Close();
+        //        connRN.Open();
+        //    }
+        //    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+        //    int nCommunicationInserted = cmdInsertNewCommunication.ExecuteNonQuery();
+        //    if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-            if (nCommunicationInserted == 1)
-            {
-                for (int i = 1; i <= mailItem.Attachments.Count; i++) EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
+        //    if (nCommunicationInserted == 1)
+        //    {
+        //        for (int i = 1; i <= mailItem.Attachments.Count; i++) EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
 
-                for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
-                {
+        //        for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
+        //        {
 
-                    String strSqlInsertEmailAttachment = "insert into [dbo].[tbl_EmailAttachment] ([dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[CommFilePath]) " +
-                                                            "values (@CommunicationNo, @CommunicationFilePath)";
+        //            String strSqlInsertEmailAttachment = "insert into [dbo].[tbl_EmailAttachment] ([dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[CommFilePath]) " +
+        //                                                    "values (@CommunicationNo, @CommunicationFilePath)";
 
-                    SqlCommand cmdInsertEmailAttachment = new SqlCommand(strSqlInsertEmailAttachment, connRN);
-                    cmdInsertEmailAttachment.CommandType = CommandType.Text;
+        //            SqlCommand cmdInsertEmailAttachment = new SqlCommand(strSqlInsertEmailAttachment, connRN);
+        //            cmdInsertEmailAttachment.CommandType = CommandType.Text;
 
-                    cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
-                    cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationFilePath", EmailContent.lstEmailAttachmentFileNames[i]);
+        //            cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
+        //            cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationFilePath", EmailContent.lstEmailAttachmentFileNames[i]);
 
-                    if (connRN.State != ConnectionState.Closed)
-                    {
-                        connRN.Close();
-                        connRN.Open();
-                    }
-                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                    int nEmailAttachmentSaved = cmdInsertEmailAttachment.ExecuteNonQuery();
-                    if (connRN.State != ConnectionState.Closed) connRN.Close();
-                }
-            }
+        //            if (connRN.State != ConnectionState.Closed)
+        //            {
+        //                connRN.Close();
+        //                connRN.Open();
+        //            }
+        //            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+        //            int nEmailAttachmentSaved = cmdInsertEmailAttachment.ExecuteNonQuery();
+        //            if (connRN.State != ConnectionState.Closed) connRN.Close();
+        //        }
+        //    }
 
-            EmailContent.EmailSubject = mailItem.Subject;
-            EmailContent.EmailBody = mailItem.Body;
+        //    EmailContent.EmailSubject = mailItem.Subject;
+        //    EmailContent.EmailBody = mailItem.Body;
 
-            for (int i = 1; i <= mailItem.Attachments.Count; i++)
-            {
-                mailItem.Attachments[i].SaveAsFile(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
-            }
-        }
+        //    for (int i = 1; i <= mailItem.Attachments.Count; i++)
+        //    {
+        //        mailItem.Attachments[i].SaveAsFile(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
+        //    }
+        //}
 
-        private void btnForward_Click(object sender, EventArgs e)
-        {
-            application = new OfficeOutlook.Application();
-            mailItem = application.CreateItem(OfficeOutlook.OlItemType.olMailItem);
+        //private void btnForward_Click(object sender, EventArgs e)
+        //{
+        //    application = new OfficeOutlook.Application();
+        //    mailItem = application.CreateItem(OfficeOutlook.OlItemType.olMailItem);
 
-            OfficeOutlook.NameSpace outlookNamespace = application.GetNamespace("MAPI");
+        //    OfficeOutlook.NameSpace outlookNamespace = application.GetNamespace("MAPI");
 
-            mailItem.Display(true);
+        //    mailItem.Display(true);
 
-            try
-            {
-                outlookNamespace.SendAndReceive(false);
-                if (outlookNamespace != null) Marshal.ReleaseComObject(outlookNamespace);
-            }
-            catch (Exception ex)
-            {
+        //    try
+        //    {
+        //        outlookNamespace.SendAndReceive(false);
+        //        if (outlookNamespace != null) Marshal.ReleaseComObject(outlookNamespace);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
-        private void btnCreateTask_Click(object sender, EventArgs e)
-        {
-            String email_case = txtCaseNo.Text.Trim();
-            String email_subject = txtSubject.Text.Trim();
-            String email_body = txtBody.Text.Trim();
+        //private void btnCreateTask_Click(object sender, EventArgs e)
+        //{
+        //    String email_case = txtCaseNo.Text.Trim();
+        //    String email_subject = txtSubject.Text.Trim();
+        //    String email_body = txtBody.Text.Trim();
 
-            frmTaskCreationPage frmTaskCreation = new frmTaskCreationPage(IndividualId,
-                                                                          IndividualName,
-                                                                          (int)nLoggedInUserId,
-                                                                          LoggedInUserName,
-                                                                          (UserRole)LoggedInUserRoleId,
-                                                                          (Department)LoggedInUserDepartmentId,
-                                                                          TaskMode.AddNew,
-                                                                          email_case,
-                                                                          email_subject,
-                                                                          email_body);
+        //    frmTaskCreationPage frmTaskCreation = new frmTaskCreationPage(IndividualId,
+        //                                                                  IndividualName,
+        //                                                                  (int)nLoggedInUserId,
+        //                                                                  LoggedInUserName,
+        //                                                                  (UserRole)LoggedInUserRoleId,
+        //                                                                  (Department)LoggedInUserDepartmentId,
+        //                                                                  TaskMode.AddNew,
+        //                                                                  email_case,
+        //                                                                  email_subject,
+        //                                                                  email_body);
 
-            frmTaskCreation.Show();
+        //    frmTaskCreation.Show();
           
-        }
+        //}
     }
 }

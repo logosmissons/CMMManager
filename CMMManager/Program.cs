@@ -37,6 +37,7 @@ namespace CMMManager
                     frmCMMManager frmMainCMMManager = new frmCMMManager();
 
                     frmMainCMMManager.nLoggedUserId = frmLogin.nLoggedUserId;
+                    frmMainCMMManager.LoggedInUserEmail = frmLogin.LoggedInUserEmail;
                     frmMainCMMManager.LoggedInUserName = frmLogin.LoggedInUserName;
                     frmMainCMMManager.LoggedInUserRole = frmLogin.nLoggedUserRole;
                     frmMainCMMManager.LoggedInUserDepartment = frmLogin.nLoggedInUserDepartmentId;
