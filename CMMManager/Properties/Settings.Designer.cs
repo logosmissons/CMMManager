@@ -26,7 +26,7 @@ namespace CMMManager.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CMM-2014U\\CMM;Initial Catalog=RN_DB;User ID=sa;Password=Yny00516")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=CMM-2014U\\CMM;Initial Catalog=RN_DB;Integrated Security=True")]
         public string RN_DBConnectionString {
             get {
                 return ((string)(this["RN_DBConnectionString"]));

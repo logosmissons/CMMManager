@@ -30,8 +30,8 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringRN = @"Data Source=CMM-2014U\CMM;Initial Catalog=RN_DB;User ID=sa;Password=Yny00516";
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=CMM-2014U\CMM;Initial Catalog=RN_DB;User ID=sa;Password=Yny00516";
             connRN = new SqlConnection(connStringRN);
 
             String strUserLoginInfoPath = @"C:\RNManagerUserLoginInfo\UserLoginInfo.txt";
