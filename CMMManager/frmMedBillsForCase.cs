@@ -25,7 +25,8 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            rn_cnn_str = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(rn_cnn_str);
 
         }
