@@ -631,14 +631,20 @@ namespace CMMManager
     public class MedicalProviderInfo
     {
         public String ID;
+        public int? RN_ID;
+        public String Phone;
         public String Name;
         public String Type;
+        public int? RN_TypeId;
 
         public MedicalProviderInfo()
         {
             ID = String.Empty;
+            RN_ID = null;
+            Phone = null;
             Name = String.Empty;
             Type = String.Empty;
+            RN_TypeId = null;
         }
 
         public MedicalProviderInfo(String id, String name, String type)
@@ -646,6 +652,35 @@ namespace CMMManager
             ID = id;
             Name = name;
             Type = type;
+        }
+
+        public MedicalProviderInfo(int rn_id, String phone_no, String name, int provider_type_id)
+        {
+            RN_ID = rn_id;
+            Phone = phone_no;
+            Name = name;
+            RN_TypeId = provider_type_id;
+        }
+    }
+
+    public class MedicalProviderTypeInfo
+    {
+        public int? SelectedId;
+        public int? MedicalProviderTypeCode;
+        public String MedicalProviderTypeName;
+
+        public MedicalProviderTypeInfo()
+        {
+            SelectedId = null;
+            MedicalProviderTypeCode = null;
+            MedicalProviderTypeName = null;
+        }
+
+        public MedicalProviderTypeInfo(int selected_id, int provider_type_code, String medical_provider_type_name)
+        {
+            SelectedId = selected_id;
+            MedicalProviderTypeCode = provider_type_code;
+            MedicalProviderTypeName = medical_provider_type_name;
         }
     }
 

@@ -311,6 +311,11 @@
             this.chkCommunicationAll = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.gvFamilyInformation = new System.Windows.Forms.DataGridView();
+            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
             this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -684,6 +689,7 @@
             this.label66 = new System.Windows.Forms.Label();
             this.btnCreateTask = new System.Windows.Forms.Button();
             this.grpMedicalBillInformation = new System.Windows.Forms.GroupBox();
+            this.btnAddNewMedProvider = new System.Windows.Forms.Button();
             this.btnRefreshListMedicalProvider = new System.Windows.Forms.Button();
             this.cbMedBillClosed = new System.Windows.Forms.ComboBox();
             this.label61 = new System.Windows.Forms.Label();
@@ -1074,11 +1080,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3584,6 +3585,37 @@
             this.gvFamilyInformation.Size = new System.Drawing.Size(1049, 94);
             this.gvFamilyInformation.TabIndex = 197;
             this.gvFamilyInformation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvFamilyInformation_CellDoubleClick);
+            // 
+            // FamilyInfoIndividualId
+            // 
+            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
+            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
+            this.FamilyInfoIndividualId.ReadOnly = true;
+            // 
+            // FamilyInfoIndividualName
+            // 
+            this.FamilyInfoIndividualName.HeaderText = "Name";
+            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
+            this.FamilyInfoIndividualName.ReadOnly = true;
+            // 
+            // FamilyInfoHouseholdRole
+            // 
+            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
+            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
+            this.FamilyInfoHouseholdRole.ReadOnly = true;
+            this.FamilyInfoHouseholdRole.Width = 120;
+            // 
+            // FamilyInfoGender
+            // 
+            this.FamilyInfoGender.HeaderText = "Gender";
+            this.FamilyInfoGender.Name = "FamilyInfoGender";
+            this.FamilyInfoGender.ReadOnly = true;
+            // 
+            // FamilyInfoBirthdate
+            // 
+            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
+            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
+            this.FamilyInfoBirthdate.ReadOnly = true;
             // 
             // label36
             // 
@@ -6917,6 +6949,7 @@
             // 
             // grpMedicalBillInformation
             // 
+            this.grpMedicalBillInformation.Controls.Add(this.btnAddNewMedProvider);
             this.grpMedicalBillInformation.Controls.Add(this.btnRefreshListMedicalProvider);
             this.grpMedicalBillInformation.Controls.Add(this.cbMedBillClosed);
             this.grpMedicalBillInformation.Controls.Add(this.label61);
@@ -6963,6 +6996,16 @@
             this.grpMedicalBillInformation.TabIndex = 98;
             this.grpMedicalBillInformation.TabStop = false;
             this.grpMedicalBillInformation.Text = "Medical Bill Information";
+            // 
+            // btnAddNewMedProvider
+            // 
+            this.btnAddNewMedProvider.Location = new System.Drawing.Point(384, 22);
+            this.btnAddNewMedProvider.Name = "btnAddNewMedProvider";
+            this.btnAddNewMedProvider.Size = new System.Drawing.Size(116, 23);
+            this.btnAddNewMedProvider.TabIndex = 173;
+            this.btnAddNewMedProvider.Text = "Add New Provider";
+            this.btnAddNewMedProvider.UseVisualStyleBackColor = true;
+            this.btnAddNewMedProvider.Click += new System.EventHandler(this.btnAddNewMedProvider_Click);
             // 
             // btnRefreshListMedicalProvider
             // 
@@ -10343,37 +10386,6 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // FamilyInfoIndividualId
-            // 
-            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
-            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
-            this.FamilyInfoIndividualId.ReadOnly = true;
-            // 
-            // FamilyInfoIndividualName
-            // 
-            this.FamilyInfoIndividualName.HeaderText = "Name";
-            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
-            this.FamilyInfoIndividualName.ReadOnly = true;
-            // 
-            // FamilyInfoHouseholdRole
-            // 
-            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
-            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
-            this.FamilyInfoHouseholdRole.ReadOnly = true;
-            this.FamilyInfoHouseholdRole.Width = 120;
-            // 
-            // FamilyInfoGender
-            // 
-            this.FamilyInfoGender.HeaderText = "Gender";
-            this.FamilyInfoGender.Name = "FamilyInfoGender";
-            this.FamilyInfoGender.ReadOnly = true;
-            // 
-            // FamilyInfoBirthdate
-            // 
-            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
-            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
-            this.FamilyInfoBirthdate.ReadOnly = true;
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11583,6 +11595,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoGender;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
+        private System.Windows.Forms.Button btnAddNewMedProvider;
     }
 }
 
