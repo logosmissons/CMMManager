@@ -6468,6 +6468,7 @@
             this.gvSettlementsInMedBill.TabIndex = 147;
             this.gvSettlementsInMedBill.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsInMedBill_CellValueChanged);
             this.gvSettlementsInMedBill.CurrentCellDirtyStateChanged += new System.EventHandler(this.gvSettlementsInMedBill_CurrentCellDirtyStateChanged);
+            this.gvSettlementsInMedBill.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gvSettlementsInMedBill_EditingControlShowing);
             this.gvSettlementsInMedBill.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gvSettlementsInMedBill_KeyDown);
             // 
             // Selected
