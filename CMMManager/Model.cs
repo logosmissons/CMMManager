@@ -614,6 +614,7 @@ namespace CMMManager
         }
     }
 
+
     public class MedBillStatusInfo
     {
         public Boolean IsDeleted;
