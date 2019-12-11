@@ -614,6 +614,23 @@ namespace CMMManager
         }
     }
 
+    public class IneligibleMedicalBillInfo
+    {
+        public String IncidentNo;
+        public String MedicalBillNo;
+        public Boolean bHasIneligibleSettlement;
+        public Boolean bHasPaymentSettlement;
+        public MedBillIneligibleType? IneligibleType;
+
+        public IneligibleMedicalBillInfo()
+        {
+            IncidentNo = null;
+            MedicalBillNo = null;
+            bHasIneligibleSettlement = false;
+            bHasPaymentSettlement = false;
+            IneligibleType = null;
+        }
+    }
 
     public class MedBillStatusInfo
     {
