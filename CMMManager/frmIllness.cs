@@ -598,7 +598,8 @@ namespace CMMManager
 
                         String strSqlQueryForIncidentNo = "select [dbo].[tbl_incident].[IncidentNo] from [dbo].[tbl_incident] " +
                                                             "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
-                                                            "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+                                                            "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
+                                                            "([dbo].[tbl_incident].[IsDeleted] = 0 or [dbo].[tbl_incident].[IsDeleted] IS NULL)";
 
                         SqlCommand cmdQueryForIncidentNo = new SqlCommand(strSqlQueryForIncidentNo, connRNDB);
 

@@ -3410,7 +3410,7 @@
             this.gvRecentCommunication.ReadOnly = true;
             this.gvRecentCommunication.Size = new System.Drawing.Size(1049, 144);
             this.gvRecentCommunication.TabIndex = 206;
-            this.gvRecentCommunication.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellContentClick);
+            //this.gvRecentCommunication.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffActiveTask_CellDoubleClick);
             this.gvRecentCommunication.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellDoubleClick);
             // 
             // SelectedCommunication

@@ -1160,8 +1160,8 @@ namespace CMMManager
                     else comboTaskRelatedTo.Text = String.Empty;
                     if (!rdrQueryForTask.IsDBNull(8)) txtTaskCreator.Text = rdrQueryForTask.GetString(8);
                     else txtTaskCreator.Text = String.Empty;
-                    if (!rdrQueryForTask.IsDBNull(10)) txtTaskNameAssignedTo.Text = rdrQueryForTask.GetString(10);
-                    else txtTaskNameAssignedTo.Text = String.Empty;
+                    //if (!rdrQueryForTask.IsDBNull(10)) txtTaskNameAssignedTo.Text = rdrQueryForTask.GetString(10);
+                    //else txtTaskNameAssignedTo.Text = String.Empty;
                     if (!rdrQueryForTask.IsDBNull(11)) txtTaskComments.Text = rdrQueryForTask.GetString(11);
                     else txtTaskComments.Text = String.Empty;
                     if (!rdrQueryForTask.IsDBNull(12)) txtTaskSolution.Text = rdrQueryForTask.GetString(12);
