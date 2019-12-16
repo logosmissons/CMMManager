@@ -25,7 +25,9 @@ namespace CMMManager
         private CommunicationOpenMode OpenMode;
 
         private String strConnString;
+        private String strConnString2;
         private SqlConnection connRN;
+        private SqlConnection connRN2;
 
         public String Subject = String.Empty;
         public String Body = String.Empty;
@@ -38,9 +40,11 @@ namespace CMMManager
         public frmLogCommunication()
         {
             IndividualId = String.Empty;
-            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
             //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(strConnString);
+            connRN2 = new SqlConnection(strConnString2);
 
             InitializeComponent();
         }
@@ -53,8 +57,11 @@ namespace CMMManager
             nLoggedInUserId = login_user_id;
 
             strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+
             //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
+            connRN2 = new SqlConnection(strConnString2);
 
             OpenMode = mode;
         }
@@ -82,8 +89,12 @@ namespace CMMManager
             OpenMode = mode;
 
             strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+
             //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
+            connRN2 = new SqlConnection(strConnString2);
+
         }
 
         private void frmLogCommunication_Load(object sender, EventArgs e)
@@ -365,65 +376,154 @@ namespace CMMManager
                     }
                 }
 
-                String strSqlQueryForCommComplete = "select [dbo].[tbl_Communication].[IsComplete] from [dbo].[tbl_Communication] " +
-                                                    "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
+                // 12-16-2019 begin here
+                string strSqlQueryForCommunicationInfo = "select [dbo].[tbl_Communication].[Individual_Id], " +
+                                                         "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
+                                                         "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
+                                                         "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], [dbo].[tbl_Communication].[Solution], " +
+                                                         "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_CreateStaff].[Staff_Name], " +
+                                                         "[dbo].[tbl_Communication].[ModifiDate], modifi_staff.[Staff_Name], " +
+                                                         "[dbo].[tbl_Communication].[CommunicationSolvedDate], solved_staff.[Staff_Name], " +
+                                                         "[dbo].[tbl_Communication].[IsComplete] " +
+                                                         "from [dbo].[tbl_Communication] " +
+                                                         "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_Communication].[CreatedBy] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                         "left join [dbo].[tbl_ModifiStaff] modifi_staff on [dbo].[tbl_Communication].[ModifiedBy] = modifi_staff.[ModifiStaff_Id] " +
+                                                         "left join [dbo].[tbl_ModifiStaff] solved_staff on [dbo].[tbl_Communication].[CommunicationSolvedBy] = solved_staff.[ModifiStaff_Id] " +
+                                                         "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
 
-                SqlCommand cmdQueryForCommComplete = new SqlCommand(strSqlQueryForCommComplete, connRN);
-                cmdQueryForCommComplete.CommandType = CommandType.Text;
-
-                cmdQueryForCommComplete.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
-
-                if (connRN.State != ConnectionState.Closed)
-                {
-                    connRN.Close();
-                    connRN.Open();
-                }
-                else if (connRN.State == ConnectionState.Closed) connRN.Open();
-                Object objCommComplete = cmdQueryForCommComplete.ExecuteScalar();
-                if (connRN.State != ConnectionState.Closed) connRN.Close();
-
-                if (objCommComplete != null)
-                {
-                    Boolean? IsComplete = null;
-                    Boolean resultComplete;
-                    if (Boolean.TryParse(objCommComplete.ToString(), out resultComplete)) IsComplete = resultComplete;
-
-                    if (IsComplete != null) chkCommunnicationComplete.Checked = IsComplete.Value;
-                }
+                SqlCommand cmdQueryForCommunicationInfo = new SqlCommand(strSqlQueryForCommunicationInfo, connRN2);
+                cmdQueryForCommunicationInfo.CommandType = CommandType.Text;
                 
 
-                txtCommunicationIndividualId.Text = IndividualId;
-                txtCommunicationIndividualId.ReadOnly = true;
-                txtCommunicationNo.Text = CommunicationNo;
-                txtCommunicationNo.ReadOnly = true;
+                cmdQueryForCommunicationInfo.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
 
-                for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                if (connRN2.State != ConnectionState.Closed)
                 {
-                    if (CaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                    connRN2.Close();
+                    connRN2.Open();
                 }
-                comboCaseNo.Enabled = false;
+                else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                SqlDataReader rdrCommunicationInfo = cmdQueryForCommunicationInfo.ExecuteReader();
+                if (rdrCommunicationInfo.HasRows)
+                {
+                    if (rdrCommunicationInfo.Read())
+                    {
+                        if (!rdrCommunicationInfo.IsDBNull(0)) txtCommunicationIndividualId.Text = rdrCommunicationInfo.GetString(0);
+                        else txtCommunicationIndividualId.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(1)) txtCommunicationNo.Text = rdrCommunicationInfo.GetString(1);
+                        else txtCommunicationNo.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(2))
+                        {
+                            int CommunicationType = rdrCommunicationInfo.GetByte(2);
+                            if (CommunicationType < 4) comboCommunicationType.SelectedIndex = CommunicationType;
+                            else if (CommunicationType < 12) comboCommunicationType.SelectedIndex = CommunicationType - 2;
+                        }
+                        if (!rdrCommunicationInfo.IsDBNull(3))
+                        {
+                            String strCaseNo = rdrCommunicationInfo.GetString(3);
+                            for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                            {
+                                if (strCaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                            }
+                        }
+                        else comboCaseNo.SelectedIndex = -1;
 
-                comboIllnessNo.Items.Add(IllnessNo);
-                comboIllnessNo.SelectedIndex = 0;
-                comboIllnessNo.Enabled = false;
+                        if (!rdrCommunicationInfo.IsDBNull(4))
+                        {
+                            String strIllnessNo = rdrCommunicationInfo.GetString(4);
+                            comboIllnessNo.Items.Add(strIllnessNo);
+                            comboIllnessNo.SelectedIndex = 0;
+                            comboIllnessNo.Enabled = false;
+                        }
+                        else comboIllnessNo.SelectedIndex = -1;
+                        if (!rdrCommunicationInfo.IsDBNull(5))
+                        {
+                            String strIncidentNo = rdrCommunicationInfo.GetString(5);
+                            comboIncidentNo.Items.Add(strIncidentNo);
+                            comboIncidentNo.SelectedIndex = 0;
+                            comboIncidentNo.Enabled = false;
+                        }
+                        else comboIncidentNo.SelectedIndex = -1;
+                        if (!rdrCommunicationInfo.IsDBNull(6)) txtCommunicationSubject.Text = rdrCommunicationInfo.GetString(6);
+                        else txtCommunicationSubject.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(7)) txtCommunicationBody.Text = rdrCommunicationInfo.GetString(7);
+                        else txtCommunicationBody.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(8)) txtCommunicationSolution.Text = rdrCommunicationInfo.GetString(8);
+                        else txtCommunicationSolution.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(9)) txtCreatedDate.Text = rdrCommunicationInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                        else txtCreatedDate.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(10)) txtCreatedByName.Text = rdrCommunicationInfo.GetString(10);
+                        else txtCreatedByName.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(13)) txtCommunicationSolvedDate.Text = rdrCommunicationInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                        else txtCommunicationSolvedDate.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(14)) txtCommunicationSolvedBy.Text = rdrCommunicationInfo.GetString(14);
+                        else txtCommunicationSolvedBy.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(15)) chkCommunnicationComplete.Checked = rdrCommunicationInfo.GetBoolean(15);
+                        else chkCommunnicationComplete.Checked = false;
+                    }
+                }
+                rdrCommunicationInfo.Close();
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
 
-                comboIncidentNo.Items.Add(IncidentNo);
-                comboIncidentNo.SelectedIndex = 0;
-                comboIncidentNo.Enabled = false;
+                //String strSqlQueryForCommComplete = "select [dbo].[tbl_Communication].[IsComplete] from [dbo].[tbl_Communication] " +
+                //                                    "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
 
-                //comboCommunicationType.SelectedIndex = (int)CommType;
-                if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
-                else if ((int)CommType < 12) comboCommunicationType.SelectedIndex = (int)CommType - 2;
+                //SqlCommand cmdQueryForCommComplete = new SqlCommand(strSqlQueryForCommComplete, connRN);
+                //cmdQueryForCommComplete.CommandType = CommandType.Text;
 
-                txtCreatedByName.Text = CreatedByStaffName.Trim();
-                txtCreatedDate.Text = CreatedDate.Trim();
+                //cmdQueryForCommComplete.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
 
-                txtCommunicationSubject.Text = Subject;
-                txtCommunicationSubject.ReadOnly = true;
-                txtCommunicationBody.Text = Body;
-                txtCommunicationBody.ReadOnly = true;
+                //if (connRN.State != ConnectionState.Closed)
+                //{
+                //    connRN.Close();
+                //    connRN.Open();
+                //}
+                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                //Object objCommComplete = cmdQueryForCommComplete.ExecuteScalar();
+                //if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                txtCommunicationSolution.Text = Solution;
+                //if (objCommComplete != null)
+                //{
+                //    Boolean? IsComplete = null;
+                //    Boolean resultComplete;
+                //    if (Boolean.TryParse(objCommComplete.ToString(), out resultComplete)) IsComplete = resultComplete;
+
+                //    if (IsComplete != null) chkCommunnicationComplete.Checked = IsComplete.Value;
+                //}
+                
+
+                //txtCommunicationIndividualId.Text = IndividualId;
+                //txtCommunicationIndividualId.ReadOnly = true;
+                //txtCommunicationNo.Text = CommunicationNo;
+                //txtCommunicationNo.ReadOnly = true;
+
+                //for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                //{
+                //    if (CaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                //}
+                //comboCaseNo.Enabled = false;
+
+                //comboIllnessNo.Items.Add(IllnessNo);
+                //comboIllnessNo.SelectedIndex = 0;
+                //comboIllnessNo.Enabled = false;
+
+                //comboIncidentNo.Items.Add(IncidentNo);
+                //comboIncidentNo.SelectedIndex = 0;
+                //comboIncidentNo.Enabled = false;
+
+                ////comboCommunicationType.SelectedIndex = (int)CommType;
+                //if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
+                //else if ((int)CommType < 12) comboCommunicationType.SelectedIndex = (int)CommType - 2;
+
+                //txtCreatedByName.Text = CreatedByStaffName.Trim();
+                //txtCreatedDate.Text = CreatedDate.Trim();
+
+                //txtCommunicationSubject.Text = Subject;
+                //txtCommunicationSubject.ReadOnly = true;
+                //txtCommunicationBody.Text = Body;
+                //txtCommunicationBody.ReadOnly = true;
+
+                //txtCommunicationSolution.Text = Solution;
                 //txtCommunicationSolution.ReadOnly = true;
 
                 String strSqlQueryForAttachments = "select [dbo].[tbl_CommunicationAttachments].[AttachmentNo], [dbo].[tbl_CommunicationAttachments].[AttachedFileName], " +
@@ -528,37 +628,125 @@ namespace CMMManager
                 rdrCommunicationTypes.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                txtCommunicationIndividualId.Text = IndividualId;
-                txtCommunicationIndividualId.ReadOnly = true;
-                txtCommunicationNo.Text = CommunicationNo;
-                txtCommunicationNo.ReadOnly = true;
-                txtCommunicationSolution.Text = Solution;
+                string strSqlQueryForCommunicationInfo = "select [dbo].[tbl_Communication].[Individual_Id], " +
+                                         "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
+                                         "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
+                                         "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], [dbo].[tbl_Communication].[Solution], " +
+                                         "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_CreateStaff].[Staff_Name], " +
+                                         "[dbo].[tbl_Communication].[ModifiDate], modifi_staff.[Staff_Name], " +
+                                         "[dbo].[tbl_Communication].[CommunicationSolvedDate], solved_staff.[Staff_Name], " +
+                                         "[dbo].[tbl_Communication].[IsComplete] " +
+                                         "from [dbo].[tbl_Communication] " +
+                                         "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_Communication].[CreatedBy] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                         "left join [dbo].[tbl_ModifiStaff] modifi_staff on [dbo].[tbl_Communication].[ModifiedBy] = modifi_staff.[ModifiStaff_Id] " +
+                                         "left join [dbo].[tbl_ModifiStaff] solved_staff on [dbo].[tbl_Communication].[CommunicationSolvedBy] = solved_staff.[ModifiStaff_Id] " +
+                                         "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
 
-                for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                SqlCommand cmdQueryForCommunicationInfo = new SqlCommand(strSqlQueryForCommunicationInfo, connRN2);
+                cmdQueryForCommunicationInfo.CommandType = CommandType.Text;
+
+
+                cmdQueryForCommunicationInfo.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
+
+                if (connRN2.State != ConnectionState.Closed)
                 {
-                    if (CaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                    connRN2.Close();
+                    connRN2.Open();
                 }
-                comboCaseNo.Enabled = false;
+                else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                SqlDataReader rdrCommunicationInfo = cmdQueryForCommunicationInfo.ExecuteReader();
+                if (rdrCommunicationInfo.HasRows)
+                {
+                    if (rdrCommunicationInfo.Read())
+                    {
+                        if (!rdrCommunicationInfo.IsDBNull(0)) txtCommunicationIndividualId.Text = rdrCommunicationInfo.GetString(0);
+                        else txtCommunicationIndividualId.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(1)) txtCommunicationNo.Text = rdrCommunicationInfo.GetString(1);
+                        else txtCommunicationNo.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(2))
+                        {
+                            int CommunicationType = rdrCommunicationInfo.GetByte(2);
+                            if (CommunicationType < 4) comboCommunicationType.SelectedIndex = CommunicationType;
+                            else if (CommunicationType < 12) comboCommunicationType.SelectedIndex = CommunicationType - 2;
+                        }
+                        if (!rdrCommunicationInfo.IsDBNull(3))
+                        {
+                            String strCaseNo = rdrCommunicationInfo.GetString(3);
+                            for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                            {
+                                if (strCaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                            }
+                        }
+                        else comboCaseNo.SelectedIndex = -1;
 
-                comboIllnessNo.Items.Add(IllnessNo);
-                comboIllnessNo.SelectedIndex = 0;
-                comboIllnessNo.Enabled = false;
+                        if (!rdrCommunicationInfo.IsDBNull(4))
+                        {
+                            String strIllnessNo = rdrCommunicationInfo.GetString(4);
+                            comboIllnessNo.Items.Add(strIllnessNo);
+                            comboIllnessNo.SelectedIndex = 0;
+                            comboIllnessNo.Enabled = false;
+                        }
+                        else comboIllnessNo.SelectedIndex = -1;
+                        if (!rdrCommunicationInfo.IsDBNull(5))
+                        {
+                            String strIncidentNo = rdrCommunicationInfo.GetString(5);
+                            comboIncidentNo.Items.Add(strIncidentNo);
+                            comboIncidentNo.SelectedIndex = 0;
+                            comboIncidentNo.Enabled = false;
+                        }
+                        else comboIncidentNo.SelectedIndex = -1;
+                        if (!rdrCommunicationInfo.IsDBNull(6)) txtCommunicationSubject.Text = rdrCommunicationInfo.GetString(6);
+                        else txtCommunicationSubject.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(7)) txtCommunicationBody.Text = rdrCommunicationInfo.GetString(7);
+                        else txtCommunicationBody.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(8)) txtCommunicationSolution.Text = rdrCommunicationInfo.GetString(8);
+                        else txtCommunicationSolution.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(9)) txtCreatedDate.Text = rdrCommunicationInfo.GetDateTime(9).ToString("MM/dd/yyyy");
+                        else txtCreatedDate.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(10)) txtCreatedByName.Text = rdrCommunicationInfo.GetString(10);
+                        else txtCreatedByName.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(13)) txtCommunicationSolvedDate.Text = rdrCommunicationInfo.GetDateTime(13).ToString("MM/dd/yyyy");
+                        else txtCommunicationSolvedDate.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(14)) txtCommunicationSolvedBy.Text = rdrCommunicationInfo.GetString(14);
+                        else txtCommunicationSolvedBy.Text = String.Empty;
+                        if (!rdrCommunicationInfo.IsDBNull(15)) chkCommunnicationComplete.Checked = rdrCommunicationInfo.GetBoolean(15);
+                        else chkCommunnicationComplete.Checked = false;
+                    }
+                }
+                rdrCommunicationInfo.Close();
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
 
-                comboIncidentNo.Items.Add(IncidentNo);
-                comboIncidentNo.SelectedIndex = 0;
-                comboIncidentNo.Enabled = false;
+                //txtCommunicationIndividualId.Text = IndividualId;
+                //txtCommunicationIndividualId.ReadOnly = true;
+                //txtCommunicationNo.Text = CommunicationNo;
+                //txtCommunicationNo.ReadOnly = true;
+                //txtCommunicationSolution.Text = Solution;
 
-                //comboCommunicationType.SelectedIndex = (int)CommType;
-                if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
-                else comboCommunicationType.SelectedIndex = (int)CommType - 2;
+                //for (int i = 0; i < comboCaseNo.Items.Count; i++)
+                //{
+                //    if (CaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
+                //}
+                //comboCaseNo.Enabled = false;
 
-                txtCreatedByName.Text = CreatedByStaffName.Trim();
-                txtCreatedDate.Text = CreatedDate.Trim();
+                //comboIllnessNo.Items.Add(IllnessNo);
+                //comboIllnessNo.SelectedIndex = 0;
+                //comboIllnessNo.Enabled = false;
 
-                txtCommunicationSubject.Text = Subject;
-                //txtCommunicationSubject.ReadOnly = true;
-                txtCommunicationBody.Text = Body;
-                //txtCommunicationBody.ReadOnly = true;
+                //comboIncidentNo.Items.Add(IncidentNo);
+                //comboIncidentNo.SelectedIndex = 0;
+                //comboIncidentNo.Enabled = false;
+
+                ////comboCommunicationType.SelectedIndex = (int)CommType;
+                //if ((int)CommType < 4) comboCommunicationType.SelectedIndex = (int)CommType;
+                //else comboCommunicationType.SelectedIndex = (int)CommType - 2;
+
+                //txtCreatedByName.Text = CreatedByStaffName.Trim();
+                //txtCreatedDate.Text = CreatedDate.Trim();
+
+                //txtCommunicationSubject.Text = Subject;
+                ////txtCommunicationSubject.ReadOnly = true;
+                //txtCommunicationBody.Text = Body;
+                ////txtCommunicationBody.ReadOnly = true;
 
                 String strSqlQueryForAttachments = "select [dbo].[tbl_CommunicationAttachments].[AttachmentNo], [dbo].[tbl_CommunicationAttachments].[AttachedFileName], " +
                                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_CommunicationAttachments].[CreateDate] " +
@@ -739,9 +927,10 @@ namespace CMMManager
                                                       "[dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
                                                       "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
                                                       "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], [dbo].[tbl_Communication].[Solution], " +
-                                                      "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy], [dbo].[tbl_Communication].[IsComplete]) " +
+                                                      "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy], " +
+                                                      "[dbo].[tbl_Communication].[IsComplete], [dbo].[tbl_Communication].[CommunicationSolvedDate], [dbo].[tbl_Communication].[CommunicationSolvedBy]) " +
                                                       "values (@IndividualId, @CaseNo, @IllnessNo, @IncidentNo, @CommunicationNo, @CommunicationType, " +
-                                                      "@Subject, @Body, @Solution, @CreateDate, @CreatedBy, @IsComplete)";
+                                                      "@Subject, @Body, @Solution,  @CreateDate, @CreatedBy, @IsComplete, @CommunicationSolvedDate, @CommunicationSolvedBy)";
 
                 SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
                 cmdInsertNewCommunication.CommandType = CommandType.Text;
@@ -760,12 +949,22 @@ namespace CMMManager
                 //if (chkCommunnicationComplete.Checked) strBody = "Solved";
                 if (strBody != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Body", strBody);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Body", DBNull.Value);
-                if (chkCommunnicationComplete.Checked) strSolution = "Solved";
+                if (chkCommunnicationComplete.Checked) strSolution += Environment.NewLine + "Solved";
                 if (strSolution != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@Solution", strSolution);
                 else cmdInsertNewCommunication.Parameters.AddWithValue("@Solution", DBNull.Value);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CreateDate", DateTime.Now);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
                 cmdInsertNewCommunication.Parameters.AddWithValue("@IsComplete", chkCommunnicationComplete.Checked);
+                if (strSolution != String.Empty || chkCommunnicationComplete.Checked)
+                {
+                    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationSolvedDate", DateTime.Now);
+                    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationSolvedBy", nLoggedInUserId);
+                }
+                else
+                {
+                    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationSolvedDate", DBNull.Value);
+                    cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationSolvedBy", DBNull.Value);
+                }
 
                 if (connRN.State != ConnectionState.Closed)
                 {
@@ -877,7 +1076,9 @@ namespace CMMManager
                                                    "[dbo].[tbl_Communication].[Solution] = @NewSolution, " +
                                                    "[dbo].[tbl_Communication].[ModifiDate] = @ModifiDate, " +
                                                    "[dbo].[tbl_Communication].[ModifiedBy] = @ModifiedBy, " +
-                                                   "[dbo].[tbl_Communication].[IsComplete] = @IsComplete " +
+                                                   "[dbo].[tbl_Communication].[IsComplete] = @IsComplete, " +
+                                                   "[dbo].[tbl_Communication].[CommunicationSolvedDate] = @CommunicationSolvedDate, " +
+                                                   "[dbo].[tbl_Communication].[CommunicationSolvedBy] = @CommunicationSolvedBy " +
                                                    "where [dbo].[tbl_Communication].[Individual_Id] = @IndividualId and " +
                                                    "[dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
 
@@ -888,13 +1089,23 @@ namespace CMMManager
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewCommunicationType", (int)communicationType);
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewSubject", strSubject);
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewBody", strBody);
-                if (chkCommunnicationComplete.Checked) strSolution = "Solved";
+                if (chkCommunnicationComplete.Checked) strSolution += Environment.NewLine + "Solved";
                 cmdUpdateCommunication.Parameters.AddWithValue("@NewSolution", strSolution);
                 cmdUpdateCommunication.Parameters.AddWithValue("@ModifiDate", DateTime.Now);
                 cmdUpdateCommunication.Parameters.AddWithValue("@ModifiedBy", nLoggedInUserId);
                 cmdUpdateCommunication.Parameters.AddWithValue("@IndividualId", strIndividualId);
                 cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationNo", strCommunicationNo);
                 cmdUpdateCommunication.Parameters.AddWithValue("@IsComplete", chkCommunnicationComplete.Checked);
+                if (strSolution != String.Empty || chkCommunnicationComplete.Checked)
+                {
+                    cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationSolvedDate", DateTime.Now);
+                    cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationSolvedBy", nLoggedInUserId);
+                }
+                else
+                {
+                    cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationSolvedDate", DBNull.Value);
+                    cmdUpdateCommunication.Parameters.AddWithValue("@CommunicationSolvedBy", DBNull.Value);
+                }
 
                 if (connRN.State != ConnectionState.Closed)
                 {

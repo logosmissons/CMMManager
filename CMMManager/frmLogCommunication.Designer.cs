@@ -45,12 +45,8 @@
             this.comboCaseNo = new System.Windows.Forms.ComboBox();
             this.gvCommunicationAttachment = new System.Windows.Forms.DataGridView();
             this.SelectedCommunicationAttachment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CommunicationAttachmentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UploadCommunicationAttachment = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CommunicationAttachmentFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ViewCommunicationAttachment = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreatedByCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.btnAddNewAttachment = new System.Windows.Forms.Button();
             this.btnDeleteAttachment = new System.Windows.Forms.Button();
@@ -62,13 +58,21 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtCreatedDate = new System.Windows.Forms.TextBox();
             this.txtCreatedByName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtCommunicationSolution = new System.Windows.Forms.TextBox();
+            this.chkCommunnicationComplete = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtCommunicationSolvedDate = new System.Windows.Forms.TextBox();
+            this.txtCommunicationSolvedBy = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtCommunicationSolution = new System.Windows.Forms.TextBox();
-            this.chkCommunnicationComplete = new System.Windows.Forms.CheckBox();
+            this.CommunicationAttachmentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationAttachmentFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCommunicationAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvCommunicationAttachment)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,7 +80,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(26, 78);
+            this.label1.Location = new System.Drawing.Point(25, 77);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 16);
             this.label1.TabIndex = 0;
@@ -86,7 +90,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(354, 78);
+            this.label2.Location = new System.Drawing.Point(25, 107);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 16);
             this.label2.TabIndex = 1;
@@ -95,16 +99,16 @@
             // comboCommunicationType
             // 
             this.comboCommunicationType.FormattingEnabled = true;
-            this.comboCommunicationType.Location = new System.Drawing.Point(497, 114);
+            this.comboCommunicationType.Location = new System.Drawing.Point(174, 137);
             this.comboCommunicationType.Name = "comboCommunicationType";
-            this.comboCommunicationType.Size = new System.Drawing.Size(161, 21);
+            this.comboCommunicationType.Size = new System.Drawing.Size(140, 21);
             this.comboCommunicationType.TabIndex = 2;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(354, 116);
+            this.label3.Location = new System.Drawing.Point(25, 139);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 16);
             this.label3.TabIndex = 3;
@@ -124,7 +128,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(26, 116);
+            this.label5.Location = new System.Drawing.Point(390, 77);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 16);
             this.label5.TabIndex = 5;
@@ -134,7 +138,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 241);
+            this.label6.Location = new System.Drawing.Point(25, 252);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 16);
             this.label6.TabIndex = 6;
@@ -144,7 +148,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(25, 273);
+            this.label7.Location = new System.Drawing.Point(25, 288);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(40, 16);
             this.label7.TabIndex = 7;
@@ -152,22 +156,23 @@
             // 
             // txtCommunicationNo
             // 
-            this.txtCommunicationNo.Location = new System.Drawing.Point(497, 76);
+            this.txtCommunicationNo.Location = new System.Drawing.Point(174, 106);
             this.txtCommunicationNo.Name = "txtCommunicationNo";
             this.txtCommunicationNo.ReadOnly = true;
-            this.txtCommunicationNo.Size = new System.Drawing.Size(161, 20);
+            this.txtCommunicationNo.Size = new System.Drawing.Size(140, 20);
             this.txtCommunicationNo.TabIndex = 8;
             // 
             // txtCommunicationSubject
             // 
-            this.txtCommunicationSubject.Location = new System.Drawing.Point(89, 240);
+            this.txtCommunicationSubject.Location = new System.Drawing.Point(89, 251);
             this.txtCommunicationSubject.Name = "txtCommunicationSubject";
             this.txtCommunicationSubject.Size = new System.Drawing.Size(569, 20);
             this.txtCommunicationSubject.TabIndex = 10;
             // 
             // txtCommunicationBody
             // 
-            this.txtCommunicationBody.Location = new System.Drawing.Point(29, 292);
+            this.txtCommunicationBody.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommunicationBody.Location = new System.Drawing.Point(29, 307);
             this.txtCommunicationBody.Multiline = true;
             this.txtCommunicationBody.Name = "txtCommunicationBody";
             this.txtCommunicationBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -196,16 +201,16 @@
             // 
             // txtCommunicationIndividualId
             // 
-            this.txtCommunicationIndividualId.Location = new System.Drawing.Point(119, 76);
+            this.txtCommunicationIndividualId.Location = new System.Drawing.Point(174, 75);
             this.txtCommunicationIndividualId.Name = "txtCommunicationIndividualId";
             this.txtCommunicationIndividualId.ReadOnly = true;
-            this.txtCommunicationIndividualId.Size = new System.Drawing.Size(174, 20);
+            this.txtCommunicationIndividualId.Size = new System.Drawing.Size(140, 20);
             this.txtCommunicationIndividualId.TabIndex = 14;
             // 
             // comboCaseNo
             // 
             this.comboCaseNo.FormattingEnabled = true;
-            this.comboCaseNo.Location = new System.Drawing.Point(119, 114);
+            this.comboCaseNo.Location = new System.Drawing.Point(483, 75);
             this.comboCaseNo.Name = "comboCaseNo";
             this.comboCaseNo.Size = new System.Drawing.Size(174, 21);
             this.comboCaseNo.TabIndex = 15;
@@ -236,42 +241,17 @@
             this.SelectedCommunicationAttachment.Name = "SelectedCommunicationAttachment";
             this.SelectedCommunicationAttachment.Width = 30;
             // 
-            // CommunicationAttachmentNo
-            // 
-            this.CommunicationAttachmentNo.HeaderText = "Att No.";
-            this.CommunicationAttachmentNo.Name = "CommunicationAttachmentNo";
-            this.CommunicationAttachmentNo.Width = 80;
-            // 
             // UploadCommunicationAttachment
             // 
             this.UploadCommunicationAttachment.HeaderText = "Upload";
             this.UploadCommunicationAttachment.Name = "UploadCommunicationAttachment";
             this.UploadCommunicationAttachment.Width = 70;
             // 
-            // CommunicationAttachmentFileName
-            // 
-            this.CommunicationAttachmentFileName.HeaderText = "File Name";
-            this.CommunicationAttachmentFileName.Name = "CommunicationAttachmentFileName";
-            this.CommunicationAttachmentFileName.ReadOnly = true;
-            this.CommunicationAttachmentFileName.Width = 200;
-            // 
             // ViewCommunicationAttachment
             // 
             this.ViewCommunicationAttachment.HeaderText = "View";
             this.ViewCommunicationAttachment.Name = "ViewCommunicationAttachment";
             this.ViewCommunicationAttachment.Width = 70;
-            // 
-            // CreatedByCommunicationAttachment
-            // 
-            this.CreatedByCommunicationAttachment.HeaderText = "Created By";
-            this.CreatedByCommunicationAttachment.Name = "CreatedByCommunicationAttachment";
-            this.CreatedByCommunicationAttachment.Width = 90;
-            // 
-            // CreateDateCommunicationAttachment
-            // 
-            this.CreateDateCommunicationAttachment.HeaderText = "Create Date";
-            this.CreateDateCommunicationAttachment.Name = "CreateDateCommunicationAttachment";
-            this.CreateDateCommunicationAttachment.Width = 120;
             // 
             // label8
             // 
@@ -307,7 +287,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(26, 154);
+            this.label9.Location = new System.Drawing.Point(390, 108);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(70, 16);
             this.label9.TabIndex = 20;
@@ -316,7 +296,7 @@
             // comboIllnessNo
             // 
             this.comboIllnessNo.FormattingEnabled = true;
-            this.comboIllnessNo.Location = new System.Drawing.Point(119, 152);
+            this.comboIllnessNo.Location = new System.Drawing.Point(483, 106);
             this.comboIllnessNo.Name = "comboIllnessNo";
             this.comboIllnessNo.Size = new System.Drawing.Size(174, 21);
             this.comboIllnessNo.TabIndex = 21;
@@ -326,7 +306,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(27, 191);
+            this.label10.Location = new System.Drawing.Point(391, 139);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 16);
             this.label10.TabIndex = 22;
@@ -335,7 +315,7 @@
             // comboIncidentNo
             // 
             this.comboIncidentNo.FormattingEnabled = true;
-            this.comboIncidentNo.Location = new System.Drawing.Point(119, 189);
+            this.comboIncidentNo.Location = new System.Drawing.Point(483, 137);
             this.comboIncidentNo.Name = "comboIncidentNo";
             this.comboIncidentNo.Size = new System.Drawing.Size(174, 21);
             this.comboIncidentNo.TabIndex = 23;
@@ -345,7 +325,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(354, 191);
+            this.label11.Location = new System.Drawing.Point(25, 177);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(91, 16);
             this.label11.TabIndex = 24;
@@ -355,7 +335,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(354, 154);
+            this.label12.Location = new System.Drawing.Point(25, 208);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(78, 16);
             this.label12.TabIndex = 25;
@@ -363,19 +343,86 @@
             // 
             // txtCreatedDate
             // 
-            this.txtCreatedDate.Location = new System.Drawing.Point(497, 189);
+            this.txtCreatedDate.Location = new System.Drawing.Point(174, 176);
             this.txtCreatedDate.Name = "txtCreatedDate";
             this.txtCreatedDate.ReadOnly = true;
-            this.txtCreatedDate.Size = new System.Drawing.Size(161, 20);
+            this.txtCreatedDate.Size = new System.Drawing.Size(142, 20);
             this.txtCreatedDate.TabIndex = 26;
             // 
             // txtCreatedByName
             // 
-            this.txtCreatedByName.Location = new System.Drawing.Point(497, 153);
+            this.txtCreatedByName.Location = new System.Drawing.Point(174, 208);
             this.txtCreatedByName.Name = "txtCreatedByName";
             this.txtCreatedByName.ReadOnly = true;
-            this.txtCreatedByName.Size = new System.Drawing.Size(161, 20);
+            this.txtCreatedByName.Size = new System.Drawing.Size(142, 20);
             this.txtCreatedByName.TabIndex = 27;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(27, 426);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(152, 16);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "Solution / Revised Body";
+            // 
+            // txtCommunicationSolution
+            // 
+            this.txtCommunicationSolution.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommunicationSolution.Location = new System.Drawing.Point(28, 446);
+            this.txtCommunicationSolution.Multiline = true;
+            this.txtCommunicationSolution.Name = "txtCommunicationSolution";
+            this.txtCommunicationSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtCommunicationSolution.Size = new System.Drawing.Size(629, 103);
+            this.txtCommunicationSolution.TabIndex = 29;
+            // 
+            // chkCommunnicationComplete
+            // 
+            this.chkCommunnicationComplete.AutoSize = true;
+            this.chkCommunnicationComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCommunnicationComplete.Location = new System.Drawing.Point(587, 416);
+            this.chkCommunnicationComplete.Name = "chkCommunnicationComplete";
+            this.chkCommunnicationComplete.Size = new System.Drawing.Size(70, 20);
+            this.chkCommunnicationComplete.TabIndex = 30;
+            this.chkCommunnicationComplete.Text = "Solved";
+            this.chkCommunnicationComplete.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(391, 177);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(86, 16);
+            this.label14.TabIndex = 31;
+            this.label14.Text = "Solved Date:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(391, 208);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 16);
+            this.label15.TabIndex = 32;
+            this.label15.Text = "Solved By:";
+            // 
+            // txtCommunicationSolvedDate
+            // 
+            this.txtCommunicationSolvedDate.Location = new System.Drawing.Point(483, 177);
+            this.txtCommunicationSolvedDate.Name = "txtCommunicationSolvedDate";
+            this.txtCommunicationSolvedDate.ReadOnly = true;
+            this.txtCommunicationSolvedDate.Size = new System.Drawing.Size(174, 20);
+            this.txtCommunicationSolvedDate.TabIndex = 33;
+            // 
+            // txtCommunicationSolvedBy
+            // 
+            this.txtCommunicationSolvedBy.Location = new System.Drawing.Point(483, 208);
+            this.txtCommunicationSolvedBy.Name = "txtCommunicationSolvedBy";
+            this.txtCommunicationSolvedBy.ReadOnly = true;
+            this.txtCommunicationSolvedBy.Size = new System.Drawing.Size(174, 20);
+            this.txtCommunicationSolvedBy.TabIndex = 34;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -403,43 +450,42 @@
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.Width = 90;
             // 
-            // label13
+            // CommunicationAttachmentNo
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(27, 426);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(56, 16);
-            this.label13.TabIndex = 28;
-            this.label13.Text = "Solution";
+            this.CommunicationAttachmentNo.HeaderText = "Att No.";
+            this.CommunicationAttachmentNo.Name = "CommunicationAttachmentNo";
+            this.CommunicationAttachmentNo.Width = 80;
             // 
-            // txtCommunicationSolution
+            // CommunicationAttachmentFileName
             // 
-            this.txtCommunicationSolution.Location = new System.Drawing.Point(28, 446);
-            this.txtCommunicationSolution.Multiline = true;
-            this.txtCommunicationSolution.Name = "txtCommunicationSolution";
-            this.txtCommunicationSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtCommunicationSolution.Size = new System.Drawing.Size(629, 103);
-            this.txtCommunicationSolution.TabIndex = 29;
+            this.CommunicationAttachmentFileName.HeaderText = "File Name";
+            this.CommunicationAttachmentFileName.Name = "CommunicationAttachmentFileName";
+            this.CommunicationAttachmentFileName.ReadOnly = true;
+            this.CommunicationAttachmentFileName.Width = 200;
             // 
-            // chkCommunnicationComplete
+            // CreatedByCommunicationAttachment
             // 
-            this.chkCommunnicationComplete.AutoSize = true;
-            this.chkCommunnicationComplete.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCommunnicationComplete.Location = new System.Drawing.Point(587, 401);
-            this.chkCommunnicationComplete.Name = "chkCommunnicationComplete";
-            this.chkCommunnicationComplete.Size = new System.Drawing.Size(70, 20);
-            this.chkCommunnicationComplete.TabIndex = 30;
-            this.chkCommunnicationComplete.Text = "Solved";
-            this.chkCommunnicationComplete.UseVisualStyleBackColor = true;
+            this.CreatedByCommunicationAttachment.HeaderText = "Created By";
+            this.CreatedByCommunicationAttachment.Name = "CreatedByCommunicationAttachment";
+            this.CreatedByCommunicationAttachment.Width = 90;
+            // 
+            // CreateDateCommunicationAttachment
+            // 
+            this.CreateDateCommunicationAttachment.HeaderText = "Create Date";
+            this.CreateDateCommunicationAttachment.Name = "CreateDateCommunicationAttachment";
+            this.CreateDateCommunicationAttachment.Width = 120;
             // 
             // frmLogCommunication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(688, 792);
+            this.ClientSize = new System.Drawing.Size(697, 792);
             this.ControlBox = false;
+            this.Controls.Add(this.txtCommunicationSolvedBy);
+            this.Controls.Add(this.txtCommunicationSolvedDate);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.chkCommunnicationComplete);
             this.Controls.Add(this.txtCommunicationSolution);
             this.Controls.Add(this.label13);
@@ -522,5 +568,9 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtCommunicationSolution;
         private System.Windows.Forms.CheckBox chkCommunnicationComplete;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtCommunicationSolvedDate;
+        private System.Windows.Forms.TextBox txtCommunicationSolvedBy;
     }
 }
