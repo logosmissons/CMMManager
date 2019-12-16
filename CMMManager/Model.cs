@@ -681,6 +681,33 @@ namespace CMMManager
         }
     }
 
+    public class CMS_MedicalProviderInfo
+    {
+        public String NPICode;
+        public String MedicalProviderName;
+        public String Phone;
+        public String Classification;
+        public String Specification;
+
+        public CMS_MedicalProviderInfo()
+        {
+            NPICode = null;
+            MedicalProviderName = null;
+            Phone = null;
+            Classification = null;
+            Specification = null;
+        }
+
+        public CMS_MedicalProviderInfo(String npi, String provider, String phone, String classification, String specification)
+        {
+            NPICode = npi;
+            MedicalProviderName = provider;
+            Phone = phone;
+            Classification = classification;
+            Specification = specification;
+        }
+    }
+
     public class MedicalProviderTypeInfo
     {
         public int? SelectedId;
