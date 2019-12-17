@@ -683,11 +683,11 @@ namespace CMMManager
 
     public class CMS_MedicalProviderInfo
     {
-        public String NPICode;
+        public Double? NPICode;
         public String MedicalProviderName;
-        public String Phone;
+        public Double? Phone;
         public String Classification;
-        public String Specification;
+        public String Specialization;
 
         public CMS_MedicalProviderInfo()
         {
@@ -695,16 +695,16 @@ namespace CMMManager
             MedicalProviderName = null;
             Phone = null;
             Classification = null;
-            Specification = null;
+            Specialization = null;
         }
 
-        public CMS_MedicalProviderInfo(String npi, String provider, String phone, String classification, String specification)
+        public CMS_MedicalProviderInfo(Double npi, String provider, Double phone, String classification, String specialization)
         {
             NPICode = npi;
             MedicalProviderName = provider;
             Phone = phone;
             Classification = classification;
-            Specification = specification;
+            Specialization = specialization;
         }
     }
 
