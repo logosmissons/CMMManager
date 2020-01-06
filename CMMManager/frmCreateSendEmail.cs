@@ -31,6 +31,9 @@ namespace CMMManager
         private SqlConnection connSalesForce;
         private String connStringSalesForce;
 
+        private MimeMessage email_message;
+        private EmailContentInfo EmailContent;
+
         private List<String> lstAttachments;
 
         public frmCreateSendEmail()
@@ -56,6 +59,14 @@ namespace CMMManager
             UserEmail = user_email;
             IndividualEmail = individual_email;
             IndividualName = individual_name;
+
+            //email_message = message;
+
+            EmailContent = new EmailContentInfo();
+            //EmailContent.EmailSender = message.Sender.ToString();
+            //EmailContent.EmailRecipient = message.To.ToString();
+            //EmailContent.EmailSubject = message.Subject;
+            //EmailContent.EmailBody = message.Body.ToString();
         }
 
         private void frmCreateSendEmail_Load(object sender, EventArgs e)
@@ -123,7 +134,7 @@ namespace CMMManager
 
             comboEmailFrom.SelectedIndex = 0;
             txtEmailTo.Text = IndividualEmail;
-            txtEmailBCC.Text = UserEmail;
+            txtEmailBcc.Text = UserEmail;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -153,28 +164,16 @@ namespace CMMManager
 
                 message.Subject = txtEmailSubject.Text;
 
-                //String[] EmailCC = txtEmailCC.Text.Trim().Split(';');
-
                 InternetAddressList list = new InternetAddressList();
-                String[] EmailBcc = txtEmailBCC.Text.Trim().Split(';');
+                String[] EmailBcc = txtEmailBcc.Text.Trim().Split(';');
 
-                foreach (String email in EmailBcc)
+                for (int i = 0; i < EmailBcc.Length; i++)
                 {
-                    list.Add(new MailboxAddress(email.Trim()));
+                    if (EmailBcc[i].Trim() != String.Empty) message.Bcc.Add(new MailboxAddress("CMM Staff", EmailBcc[i].Trim()));
                 }
-
-                foreach (MailboxAddress emailBcc in list)
-                {
-                    message.Bcc.Add(emailBcc);
-                }
-
-                //list.Add(new MailboxAddress(txtEmailBCC.Text.Trim()));
-                //message.Cc.Add(list[0]);
-                
 
                 BodyBuilder emailBuilderBody = new BodyBuilder();
                 emailBuilderBody.TextBody = txtEmailBody.Text;
-                //emailBuilderBody.Attachments.Add()
 
                 foreach (String filename in lbAttachments.Items)
                 {
@@ -182,8 +181,6 @@ namespace CMMManager
                 }
 
                 message.Body = emailBuilderBody.ToMessageBody();
-
-                //message.Body = new TextPart("plain") { Text = txtEmailBody.Text };
 
                 using (var client = new SmtpClient())
                 {
@@ -195,6 +192,20 @@ namespace CMMManager
                     client.Send(message);
                     client.Disconnect(true);
                 }
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                ///
+                EmailContent.EmailSender = message.Sender.ToString();
+                EmailContent.EmailRecipient = message.To.ToString();
+                EmailContent.EmailSubject = message.Subject;
+                EmailContent.EmailBody = message.Body.ToString();
+
+
+
+
+
+
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
             catch (Exception ex)
             {
@@ -203,6 +214,142 @@ namespace CMMManager
             }
 
             Close();
+        }
+
+        private void SaveEmailContent(MimeMessage message)
+        {
+            //String IndividualId = txtIndividualID.Text.Trim();
+
+            String strSqlQueryForLastCommNo = "select [dbo].[tbl_LastID].[CommunicationNo] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+
+            SqlCommand cmdQueryForLastCommNo = new SqlCommand(strSqlQueryForLastCommNo, connRN);
+            cmdQueryForLastCommNo.CommandType = CommandType.Text;
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            Object objCommunicationNo = cmdQueryForLastCommNo.ExecuteScalar();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            String strCommunicationNo = String.Empty;
+            if (objCommunicationNo != null) strCommunicationNo = objCommunicationNo.ToString();
+
+            String NewCommunicationNo = String.Empty;
+            if (strCommunicationNo == String.Empty) NewCommunicationNo = "Comm-1";
+            else
+            {
+                String strCommNoNumber = strCommunicationNo.Substring(5);
+                int nCommNo = Int32.Parse(strCommNoNumber);
+                nCommNo++;
+
+                NewCommunicationNo = "Comm-" + nCommNo.ToString();
+            }
+
+            String strSqlUpdateLastCommNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[CommunicationNo] = @LastCommNo where [dbo].[tbl_LastID].[Id] = 1";
+
+            SqlCommand cmdUpdateLastCommNo = new SqlCommand(strSqlUpdateLastCommNo, connRN);
+            cmdUpdateLastCommNo.CommandType = CommandType.Text;
+
+            cmdUpdateLastCommNo.Parameters.AddWithValue("@LastCommNo", NewCommunicationNo);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            int nLastCommNoUpdated = cmdUpdateLastCommNo.ExecuteNonQuery();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            //EmailContent.EmailSender = LoggedInUserEmail;
+            //EmailContent.EmailRecipient = mailItem.To;
+            //EmailContent.EmailSubject = mailItem.Subject;
+            //EmailContent.EmailBody = mailItem.Body;
+
+            String CaseNameForEmail = String.Empty;
+            String IllnessNameForEmail = String.Empty;
+            String IncidentNameForEmail = String.Empty;
+
+            if (comboCase.SelectedItem != null) CaseNameForEmail = comboCase.SelectedItem.ToString();
+            if (comboIllness.SelectedItem != null) IllnessNameForEmail = comboIllness.SelectedItem.ToString();
+            if (comboIncident.SelectedItem != null) IncidentNameForEmail = comboIncident.SelectedItem.ToString();
+
+            String strSqlInsertNewCommunication = "insert into [dbo].[tbl_Communication] ([dbo].[tbl_Communication].[Individual_Id], " +
+                                                  "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
+                                                  "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
+                                                  "[dbo].[tbl_Communication].[EmailSender], [dbo].[tbl_Communication].[EmailRecipient], " +
+                                                  "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
+                                                  "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy]) " +
+                                                  "values (@IndividualId, @CommunicationNo, @CommunicationType, @CaseNo, @IllnessNo, @IncidentNo, @EmailSender, @EmailRecipient, @Subject, @Body, @CreateDate, @CreatedBy)";
+
+            SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
+            cmdInsertNewCommunication.CommandType = CommandType.Text;
+
+            cmdInsertNewCommunication.Parameters.AddWithValue("@IndividualId", IndividualId);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@CommunicationType", CommunicationType.EmailSent);
+            if (CaseNameForEmail != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", CaseNameForEmail);
+            else cmdInsertNewCommunication.Parameters.AddWithValue("@CaseNo", DBNull.Value);
+            if (IllnessNameForEmail != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@IllnessNo", IllnessNameForEmail);
+            else cmdInsertNewCommunication.Parameters.AddWithValue("@IllnessNo", DBNull.Value);
+            if (IncidentNameForEmail != String.Empty) cmdInsertNewCommunication.Parameters.AddWithValue("@IncidentNo", IncidentNameForEmail);
+            else cmdInsertNewCommunication.Parameters.AddWithValue("@IncidentNo", DBNull.Value);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@EmailSender", EmailContent.EmailSender);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@EmailRecipient", EmailContent.EmailRecipient);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", EmailContent.EmailSubject);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@Body", EmailContent.EmailBody);
+
+            cmdInsertNewCommunication.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@CreatedBy", nUserId);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            int nCommunicationInserted = cmdInsertNewCommunication.ExecuteNonQuery();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            //if (nCommunicationInserted == 1)
+            //{
+            //    for (int i = 1; i <= mailItem.Attachments.Count; i++)
+            //        EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
+
+            //    for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
+            //    {
+
+            //        String strSqlInsertEmailAttachment = "insert into [dbo].[tbl_EmailAttachment] " +
+            //                                                "([dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[EmailAttachmentFilePath]) " +
+            //                                                "values (@CommunicationNo, @CommunicationFilePath)";
+
+            //        SqlCommand cmdInsertEmailAttachment = new SqlCommand(strSqlInsertEmailAttachment, connRN);
+            //        cmdInsertEmailAttachment.CommandType = CommandType.Text;
+
+            //        cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
+            //        cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationFilePath", EmailContent.lstEmailAttachmentFileNames[i]);
+
+            //        if (connRN.State != ConnectionState.Closed)
+            //        {
+            //            connRN.Close();
+            //            connRN.Open();
+            //        }
+            //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            //        int nEmailAttachmentSaved = cmdInsertEmailAttachment.ExecuteNonQuery();
+            //        if (connRN.State != ConnectionState.Closed) connRN.Close();
+            //    }
+            //}
+
+            //EmailContent.EmailSubject = mailItem.Subject;
+            //EmailContent.EmailBody = mailItem.Body;
+
+            //for (int i = 1; i <= mailItem.Attachments.Count; i++)
+            //{
+            //    mailItem.Attachments[i].SaveAsFile(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
+            //}
         }
 
         //private void chkOnGoing_CheckedChanged(object sender, EventArgs e)
@@ -673,11 +820,12 @@ namespace CMMManager
 
         private void btnEmailBcc_Click(object sender, EventArgs e)
         {
-            frmAddEmailBcc emailBcc = new frmAddEmailBcc();
+            frmAddEmailBcc emailBcc = new frmAddEmailBcc(UserEmail, txtEmailBcc.Text);
 
             if (emailBcc.ShowDialog() == DialogResult.OK)
             {
-
+                //txtEmailBcc.Text += emailBcc.EmailBcc;
+                txtEmailBcc.Text = UserEmail + "; " + emailBcc.EmailBcc;
             }
         }
     }

@@ -52,6 +52,7 @@
             this.tvStaffEmail.Name = "tvStaffEmail";
             this.tvStaffEmail.Size = new System.Drawing.Size(364, 195);
             this.tvStaffEmail.TabIndex = 1;
+            this.tvStaffEmail.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvStaffEmail_NodeMouseDoubleClick);
             // 
             // lbEmailBcc
             // 
@@ -69,6 +70,7 @@
             this.btnAddEmailToBcc.TabIndex = 3;
             this.btnAddEmailToBcc.Text = "Add";
             this.btnAddEmailToBcc.UseVisualStyleBackColor = true;
+            this.btnAddEmailToBcc.Click += new System.EventHandler(this.btnAddEmailToBcc_Click);
             // 
             // btnRemoveEmailFromBcc
             // 
@@ -78,6 +80,7 @@
             this.btnRemoveEmailFromBcc.TabIndex = 4;
             this.btnRemoveEmailFromBcc.Text = "Remove";
             this.btnRemoveEmailFromBcc.UseVisualStyleBackColor = true;
+            this.btnRemoveEmailFromBcc.Click += new System.EventHandler(this.btnRemoveEmailFromBcc_Click);
             // 
             // btnOkBcc
             // 
@@ -87,6 +90,7 @@
             this.btnOkBcc.TabIndex = 5;
             this.btnOkBcc.Text = "Ok";
             this.btnOkBcc.UseVisualStyleBackColor = true;
+            this.btnOkBcc.Click += new System.EventHandler(this.btnOkBcc_Click);
             // 
             // btnCancelBcc
             // 
@@ -96,6 +100,7 @@
             this.btnCancelBcc.TabIndex = 6;
             this.btnCancelBcc.Text = "Cancel";
             this.btnCancelBcc.UseVisualStyleBackColor = true;
+            this.btnCancelBcc.Click += new System.EventHandler(this.btnCancelBcc_Click);
             // 
             // frmAddEmailBcc
             // 
