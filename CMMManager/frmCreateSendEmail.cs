@@ -314,6 +314,11 @@ namespace CMMManager
             int nCommunicationInserted = cmdInsertNewCommunication.ExecuteNonQuery();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+            if (nCommunicationInserted == 1)
+            {
+
+            }
+
             //if (nCommunicationInserted == 1)
             //{
             //    for (int i = 1; i <= mailItem.Attachments.Count; i++)
