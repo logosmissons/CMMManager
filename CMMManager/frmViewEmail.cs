@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,8 @@ using System.Data.SqlClient;
 using System.Net;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
-using OfficeOutlook = Microsoft.Office.Interop.Outlook;
-using Office = Microsoft.Office.Core;
+//using OfficeOutlook = Microsoft.Office.Interop.Outlook;
+//using Office = Microsoft.Office.Core;
 using System.Reflection;
 
 namespace CMMManager
@@ -23,6 +24,7 @@ namespace CMMManager
 
         private String IndividualId;
         private String IndividualName;
+        private String CommunicationNo;
         private String SenderEmail;
         private String RecipientEmail;
         private String CreatingStaff;
@@ -33,8 +35,8 @@ namespace CMMManager
         private String Body;
 
         // MailItem
-        private OfficeOutlook.MailItem mailItem;
-        private OfficeOutlook.Application application;
+        //private OfficeOutlook.MailItem mailItem;
+        //private OfficeOutlook.Application application;
 
         // For task creation
         String LoggedInUserName = String.Empty;
@@ -77,7 +79,8 @@ namespace CMMManager
         }
 
         public frmViewEmail(String individual_id, 
-                            String individual_name, 
+                            String individual_name,
+                            String communication_no,
                             String sender, 
                             String recipient, 
                             String creating_staff, 
@@ -90,6 +93,7 @@ namespace CMMManager
             InitializeComponent();
             IndividualId = individual_id;
             IndividualName = individual_name;
+            CommunicationNo = communication_no;
             SenderEmail = sender;
             RecipientEmail = recipient;
             CreatingStaff = creating_staff;
@@ -185,12 +189,53 @@ namespace CMMManager
             String strEmailRecipientName = objEmailRecipientName?.ToString();
             if (strEmailRecipientName != null && RecipientEmail != String.Empty) txtRecipient.Text = strEmailRecipientName + " (" + RecipientEmail + ")";
 
+            String strSqlQueryForEmailAttachments = "select [dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[EmailAttachmentFilePath] " +
+                                                    "from [dbo].[tbl_EmailAttachment] " +
+                                                    "where [dbo].[tbl_EmailAttachment].[CommunicationNo] = @CommunicationNo and " +
+                                                    "([dbo].[tbl_EmailAttachment].[IsDeleted] = 0 or [dbo].[tbl_EmailAttachment].[IsDeleted] IS NULL)";
+
+            SqlCommand cmdQueryForEmailAttachments = new SqlCommand(strSqlQueryForEmailAttachments, connRN);
+            cmdQueryForEmailAttachments.CommandType = CommandType.Text;
+
+            cmdQueryForEmailAttachments.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrEmailAttachment = cmdQueryForEmailAttachments.ExecuteReader();
+            if (rdrEmailAttachment.HasRows)
+            {
+                while (rdrEmailAttachment.Read())
+                {
+                    if (!rdrEmailAttachment.IsDBNull(0) && !rdrEmailAttachment.IsDBNull(1))
+                    {
+                        if (rdrEmailAttachment.GetString(0) == CommunicationNo) lbAttachments.Items.Add(Path.GetFileName(rdrEmailAttachment.GetString(1)));
+                    }
+                }
+            }
+            rdrEmailAttachment.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
             btnClose.Select();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void lbAttachments_DoubleClick(object sender, EventArgs e)
+        {
+            if (lbAttachments.SelectedItem != null)
+            {
+                System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                processInfo.FileName = strPathForEmailAttachments + lbAttachments.SelectedItem.ToString();
+
+                System.Diagnostics.Process.Start(processInfo);
+            }
         }
 
         //private void btnReply_Click(object sender, EventArgs e)
@@ -376,7 +421,7 @@ namespace CMMManager
         //                                                                  email_body);
 
         //    frmTaskCreation.Show();
-          
+
         //}
     }
 }

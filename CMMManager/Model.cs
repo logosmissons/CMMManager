@@ -1308,8 +1308,8 @@ namespace CMMManager
         public String EmailSubject;
         public String EmailBody;
         public List<String> lstEmailAttachmentFileNames;
-        public OfficeOutlook.Attachments EmailAttachments;
-        public OfficeOutlook.MailItem Email;
+        //public OfficeOutlook.Attachments EmailAttachments;
+        //public OfficeOutlook.MailItem Email;
 
         public EmailContentInfo()
         {

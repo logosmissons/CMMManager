@@ -36,6 +36,9 @@ namespace CMMManager
 
         private List<String> lstAttachments;
 
+        // Shared folder for email attachments
+        private String strPathForEmailAttachments = @"\\cmm-2014u\Sharefolder\EmailAttachments\";
+
         public frmCreateSendEmail()
         {
             InitializeComponent();
@@ -160,13 +163,12 @@ namespace CMMManager
                 if (txtEmailTo.Text.Trim() != String.Empty && IndividualName != null)
                 {
                     message.To.Add(new MailboxAddress(IndividualName, txtEmailTo.Text.Trim()));
+                    //message.To.Add(new MailboxAddress("Hyung Park", "harrispark09@gmail.com"));
                 }
 
                 message.Subject = txtEmailSubject.Text;
 
-                InternetAddressList list = new InternetAddressList();
                 String[] EmailBcc = txtEmailBcc.Text.Trim().Split(';');
-
                 for (int i = 0; i < EmailBcc.Length; i++)
                 {
                     if (EmailBcc[i].Trim() != String.Empty) message.Bcc.Add(new MailboxAddress("CMM Staff", EmailBcc[i].Trim()));
@@ -195,16 +197,12 @@ namespace CMMManager
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///
-                EmailContent.EmailSender = message.Sender.ToString();
-                EmailContent.EmailRecipient = message.To.ToString();
-                EmailContent.EmailSubject = message.Subject;
-                EmailContent.EmailBody = message.Body.ToString();
+                if (comboEmailFrom.SelectedItem != null) EmailContent.EmailSender = comboEmailFrom.SelectedItem.ToString().Trim();
+                EmailContent.EmailRecipient = txtEmailTo.Text.Trim();
+                EmailContent.EmailSubject = txtEmailSubject.Text;
+                EmailContent.EmailBody = txtEmailBody.Text;
 
-
-
-
-
-
+                SaveEmailContent(message);
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
             catch (Exception ex)
@@ -218,8 +216,6 @@ namespace CMMManager
 
         private void SaveEmailContent(MimeMessage message)
         {
-            //String IndividualId = txtIndividualID.Text.Trim();
-
             String strSqlQueryForLastCommNo = "select [dbo].[tbl_LastID].[CommunicationNo] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
 
             SqlCommand cmdQueryForLastCommNo = new SqlCommand(strSqlQueryForLastCommNo, connRN);
@@ -263,11 +259,6 @@ namespace CMMManager
             else if (connRN.State == ConnectionState.Closed) connRN.Open();
             int nLastCommNoUpdated = cmdUpdateLastCommNo.ExecuteNonQuery();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
-
-            //EmailContent.EmailSender = LoggedInUserEmail;
-            //EmailContent.EmailRecipient = mailItem.To;
-            //EmailContent.EmailSubject = mailItem.Subject;
-            //EmailContent.EmailBody = mailItem.Body;
 
             String CaseNameForEmail = String.Empty;
             String IllnessNameForEmail = String.Empty;
@@ -314,355 +305,48 @@ namespace CMMManager
             int nCommunicationInserted = cmdInsertNewCommunication.ExecuteNonQuery();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
+            List<String> lstAttachmentFiles = new List<string>();
+
             if (nCommunicationInserted == 1)
             {
+                foreach (String file_path in lbAttachments.Items)
+                {
+                    lstAttachmentFiles.Add(Path.GetFileName(file_path));
+                }
 
+                foreach (String filename in lstAttachmentFiles)
+                {
+                    EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + filename);
+                }
+
+                for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
+                {
+                    String strSqlInsertEmailAttachment = "insert into [dbo].[tbl_EmailAttachment] " +
+                                                            "([dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[EmailAttachmentFilePath]) " +
+                                                            "values (@CommunicationNo, @CommunicationFilePath)";
+
+                    SqlCommand cmdInsertEmailAttachment = new SqlCommand(strSqlInsertEmailAttachment, connRN);
+                    cmdInsertEmailAttachment.CommandType = CommandType.Text;
+
+                    cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
+                    cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationFilePath", EmailContent.lstEmailAttachmentFileNames[i]);
+
+                    if (connRN.State != ConnectionState.Closed)
+                    {
+                        connRN.Close();
+                        connRN.Open();
+                    }
+                    else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                    int nEmailAttachmentSaved = cmdInsertEmailAttachment.ExecuteNonQuery();
+                    if (connRN.State != ConnectionState.Closed) connRN.Close();
+                }
+
+                foreach (String filename in lbAttachments.Items)
+                {
+                    File.Copy(filename, strPathForEmailAttachments + Path.GetFileName(filename), false);
+                }
             }
-
-            //if (nCommunicationInserted == 1)
-            //{
-            //    for (int i = 1; i <= mailItem.Attachments.Count; i++)
-            //        EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
-
-            //    for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
-            //    {
-
-            //        String strSqlInsertEmailAttachment = "insert into [dbo].[tbl_EmailAttachment] " +
-            //                                                "([dbo].[tbl_EmailAttachment].[CommunicationNo], [dbo].[tbl_EmailAttachment].[EmailAttachmentFilePath]) " +
-            //                                                "values (@CommunicationNo, @CommunicationFilePath)";
-
-            //        SqlCommand cmdInsertEmailAttachment = new SqlCommand(strSqlInsertEmailAttachment, connRN);
-            //        cmdInsertEmailAttachment.CommandType = CommandType.Text;
-
-            //        cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationNo", NewCommunicationNo);
-            //        cmdInsertEmailAttachment.Parameters.AddWithValue("@CommunicationFilePath", EmailContent.lstEmailAttachmentFileNames[i]);
-
-            //        if (connRN.State != ConnectionState.Closed)
-            //        {
-            //            connRN.Close();
-            //            connRN.Open();
-            //        }
-            //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-            //        int nEmailAttachmentSaved = cmdInsertEmailAttachment.ExecuteNonQuery();
-            //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-            //    }
-            //}
-
-            //EmailContent.EmailSubject = mailItem.Subject;
-            //EmailContent.EmailBody = mailItem.Body;
-
-            //for (int i = 1; i <= mailItem.Attachments.Count; i++)
-            //{
-            //    mailItem.Attachments[i].SaveAsFile(strPathForEmailAttachments + mailItem.Attachments[i].FileName);
-            //}
         }
-
-        //private void chkOnGoing_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    comboCase.Items.Clear();
-
-        //    if (chkOnGoing.Checked)
-        //    {
-        //        String strSqlQueryForOngoingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                            "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                            "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                            "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'On Going' and " +
-        //                                            "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForOnGoingCases = new SqlCommand(strSqlQueryForOngoingCases, connRN);
-        //        cmdQueryForOnGoingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForOnGoingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrOnGoingCase = cmdQueryForOnGoingCases.ExecuteReader();
-        //        if (rdrOnGoingCase.HasRows)
-        //        {
-        //            comboCase.Items.Add(String.Empty);
-        //            while (rdrOnGoingCase.Read())
-        //            {
-        //                if (!rdrOnGoingCase.IsDBNull(0)) comboCase.Items.Add(rdrOnGoingCase.GetString(0));
-        //            }
-        //        }
-        //        rdrOnGoingCase.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkProcessing.Checked)
-        //    {
-        //        String strSqlQueryForProcessingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                                "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                                "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                                "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Processing' and " +
-        //                                                "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForProcessingCases = new SqlCommand(strSqlQueryForProcessingCases, connRN);
-        //        cmdQueryForProcessingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForProcessingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrProcessingCases = cmdQueryForProcessingCases.ExecuteReader();
-        //        if (rdrProcessingCases.HasRows)
-        //        {
-        //            while (rdrProcessingCases.Read())
-        //            {
-        //                if (!rdrProcessingCases.IsDBNull(0)) comboCase.Items.Add(rdrProcessingCases.GetString(0));
-        //            }
-        //        }
-        //        rdrProcessingCases.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkClosed.Checked)
-        //    {
-        //        String strSqlQueryForClosed = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                      "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                      "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                      "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Closed' and " +
-        //                                      "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForClosed = new SqlCommand(strSqlQueryForClosed, connRN);
-        //        cmdQueryForClosed.CommandType = CommandType.Text;
-
-        //        cmdQueryForClosed.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrCasesClosed = cmdQueryForClosed.ExecuteReader();
-        //        if (rdrCasesClosed.HasRows)
-        //        {
-        //            while (rdrCasesClosed.Read())
-        //            {
-        //                if (!rdrCasesClosed.IsDBNull(0)) comboCase.Items.Add(rdrCasesClosed.GetString(0));
-        //            }
-        //        }
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkOnGoing.Checked || chkProcessing.Checked || chkClosed.Checked)
-        //    {
-        //        if (comboCase.Items[0].ToString() != String.Empty) comboCase.Items.Insert(0, String.Empty);
-        //    }
-        //}
-
-        //private void chkProcessing_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    comboCase.Items.Clear();
-
-        //    if (chkOnGoing.Checked)
-        //    {
-        //        String strSqlQueryForOngoingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                            "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                            "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                            "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'On Going' and " +
-        //                                            "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForOnGoingCases = new SqlCommand(strSqlQueryForOngoingCases, connRN);
-        //        cmdQueryForOnGoingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForOnGoingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrOnGoingCase = cmdQueryForOnGoingCases.ExecuteReader();
-        //        if (rdrOnGoingCase.HasRows)
-        //        {
-        //            while (rdrOnGoingCase.Read())
-        //            {
-        //                if (!rdrOnGoingCase.IsDBNull(0)) comboCase.Items.Add(rdrOnGoingCase.GetString(0));
-        //            }
-        //        }
-        //        rdrOnGoingCase.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkProcessing.Checked)
-        //    {
-        //        String strSqlQueryForProcessingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                                "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                                "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                                "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Processing' and " +
-        //                                                "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForProcessingCases = new SqlCommand(strSqlQueryForProcessingCases, connRN);
-        //        cmdQueryForProcessingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForProcessingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrProcessingCases = cmdQueryForProcessingCases.ExecuteReader();
-        //        if (rdrProcessingCases.HasRows)
-        //        {
-        //            while (rdrProcessingCases.Read())
-        //            {
-        //                if (!rdrProcessingCases.IsDBNull(0)) comboCase.Items.Add(rdrProcessingCases.GetString(0));
-        //            }
-        //        }
-        //        rdrProcessingCases.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkClosed.Checked)
-        //    {
-        //        String strSqlQueryForClosed = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                      "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                      "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                      "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Closed' and " +
-        //                                      "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForClosed = new SqlCommand(strSqlQueryForClosed, connRN);
-        //        cmdQueryForClosed.CommandType = CommandType.Text;
-
-        //        cmdQueryForClosed.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrCasesClosed = cmdQueryForClosed.ExecuteReader();
-        //        if (rdrCasesClosed.HasRows)
-        //        {
-        //            while (rdrCasesClosed.Read())
-        //            {
-        //                if (!rdrCasesClosed.IsDBNull(0)) comboCase.Items.Add(rdrCasesClosed.GetString(0));
-        //            }
-        //        }
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkOnGoing.Checked || chkProcessing.Checked || chkClosed.Checked)
-        //    {
-        //        if (comboCase.Items[0].ToString() != String.Empty) comboCase.Items.Insert(0, String.Empty);
-        //    }
-        //}
-
-        //private void chkClosed_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    comboCase.Items.Clear();
-
-        //    if (chkOnGoing.Checked)
-        //    {
-        //        String strSqlQueryForOngoingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                            "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                            "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                            "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'On Going' and " +
-        //                                            "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForOnGoingCases = new SqlCommand(strSqlQueryForOngoingCases, connRN);
-        //        cmdQueryForOnGoingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForOnGoingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrOnGoingCase = cmdQueryForOnGoingCases.ExecuteReader();
-        //        if (rdrOnGoingCase.HasRows)
-        //        {
-        //            while (rdrOnGoingCase.Read())
-        //            {
-        //                if (!rdrOnGoingCase.IsDBNull(0)) comboCase.Items.Add(rdrOnGoingCase.GetString(0));
-        //            }
-        //        }
-        //        rdrOnGoingCase.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkProcessing.Checked)
-        //    {
-        //        String strSqlQueryForProcessingCases = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                                "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                                "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                                "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Processing' and " +
-        //                                                "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForProcessingCases = new SqlCommand(strSqlQueryForProcessingCases, connRN);
-        //        cmdQueryForProcessingCases.CommandType = CommandType.Text;
-
-        //        cmdQueryForProcessingCases.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrProcessingCases = cmdQueryForProcessingCases.ExecuteReader();
-        //        if (rdrProcessingCases.HasRows)
-        //        {
-        //            while (rdrProcessingCases.Read())
-        //            {
-        //                if (!rdrProcessingCases.IsDBNull(0)) comboCase.Items.Add(rdrProcessingCases.GetString(0));
-        //            }
-        //        }
-        //        rdrProcessingCases.Close();
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkClosed.Checked)
-        //    {
-        //        String strSqlQueryForClosed = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
-        //                                      "inner join [dbo].[tbl_case_status_code] on [dbo].[tbl_case].[Case_status] = [dbo].[tbl_case_status_code].[CaseStatusCode]" +
-        //                                      "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
-        //                                      "[dbo].[tbl_case_status_code].[CaseStatusValue] = 'Closed' and " +
-        //                                      "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL)";
-
-        //        SqlCommand cmdQueryForClosed = new SqlCommand(strSqlQueryForClosed, connRN);
-        //        cmdQueryForClosed.CommandType = CommandType.Text;
-
-        //        cmdQueryForClosed.Parameters.AddWithValue("@IndividualId", IndividualId);
-
-        //        if (connRN.State != ConnectionState.Closed)
-        //        {
-        //            connRN.Close();
-        //            connRN.Open();
-        //        }
-        //        else if (connRN.State == ConnectionState.Closed) connRN.Open();
-        //        SqlDataReader rdrCasesClosed = cmdQueryForClosed.ExecuteReader();
-        //        if (rdrCasesClosed.HasRows)
-        //        {
-        //            while (rdrCasesClosed.Read())
-        //            {
-        //                if (!rdrCasesClosed.IsDBNull(0)) comboCase.Items.Add(rdrCasesClosed.GetString(0));
-        //            }
-        //        }
-        //        if (connRN.State != ConnectionState.Closed) connRN.Close();
-        //    }
-
-        //    if (chkOnGoing.Checked || chkProcessing.Checked || chkClosed.Checked)
-        //    {
-        //        if (comboCase.Items[0].ToString() != String.Empty) comboCase.Items.Insert(0, String.Empty);
-        //    }
-        //}
 
         private void comboCase_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -831,6 +515,17 @@ namespace CMMManager
             {
                 //txtEmailBcc.Text += emailBcc.EmailBcc;
                 txtEmailBcc.Text = UserEmail + "; " + emailBcc.EmailBcc;
+            }
+        }
+
+        private void lbAttachments_DoubleClick(object sender, EventArgs e)
+        {
+            if (lbAttachments.SelectedItem != null)
+            {
+                System.Diagnostics.ProcessStartInfo processInfo = new System.Diagnostics.ProcessStartInfo();
+                processInfo.FileName = lbAttachments.SelectedItem.ToString();
+
+                System.Diagnostics.Process.Start(processInfo);
             }
         }
     }

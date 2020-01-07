@@ -54,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(27, 30);
+            this.label1.Location = new System.Drawing.Point(27, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 16);
             this.label1.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(27, 102);
+            this.label2.Location = new System.Drawing.Point(505, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(98, 16);
             this.label2.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(27, 66);
+            this.label3.Location = new System.Drawing.Point(263, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 16);
             this.label3.TabIndex = 3;
@@ -83,33 +83,33 @@
             // comboCase
             // 
             this.comboCase.FormattingEnabled = true;
-            this.comboCase.Location = new System.Drawing.Point(138, 27);
+            this.comboCase.Location = new System.Drawing.Point(114, 27);
             this.comboCase.Name = "comboCase";
-            this.comboCase.Size = new System.Drawing.Size(153, 21);
+            this.comboCase.Size = new System.Drawing.Size(136, 21);
             this.comboCase.TabIndex = 4;
             this.comboCase.SelectedIndexChanged += new System.EventHandler(this.comboCase_SelectedIndexChanged);
             // 
             // comboIncident
             // 
             this.comboIncident.FormattingEnabled = true;
-            this.comboIncident.Location = new System.Drawing.Point(138, 99);
+            this.comboIncident.Location = new System.Drawing.Point(609, 27);
             this.comboIncident.Name = "comboIncident";
-            this.comboIncident.Size = new System.Drawing.Size(153, 21);
+            this.comboIncident.Size = new System.Drawing.Size(123, 21);
             this.comboIncident.TabIndex = 5;
             // 
             // comboIllness
             // 
             this.comboIllness.FormattingEnabled = true;
-            this.comboIllness.Location = new System.Drawing.Point(138, 63);
+            this.comboIllness.Location = new System.Drawing.Point(359, 27);
             this.comboIllness.Name = "comboIllness";
-            this.comboIllness.Size = new System.Drawing.Size(153, 21);
+            this.comboIllness.Size = new System.Drawing.Size(127, 21);
             this.comboIllness.TabIndex = 6;
             this.comboIllness.SelectedIndexChanged += new System.EventHandler(this.comboIllness_SelectedIndexChanged);
             // 
             // btnSendEmail
             // 
             this.btnSendEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendEmail.Location = new System.Drawing.Point(679, 560);
+            this.btnSendEmail.Location = new System.Drawing.Point(453, 588);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(172, 40);
             this.btnSendEmail.TabIndex = 7;
@@ -119,7 +119,7 @@
             // 
             // btnEmailBcc
             // 
-            this.btnEmailBcc.Location = new System.Drawing.Point(316, 95);
+            this.btnEmailBcc.Location = new System.Drawing.Point(25, 133);
             this.btnEmailBcc.Name = "btnEmailBcc";
             this.btnEmailBcc.Size = new System.Drawing.Size(83, 30);
             this.btnEmailBcc.TabIndex = 9;
@@ -131,33 +131,33 @@
             // 
             this.comboEmailFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboEmailFrom.FormattingEnabled = true;
-            this.comboEmailFrom.Location = new System.Drawing.Point(405, 27);
+            this.comboEmailFrom.Location = new System.Drawing.Point(114, 65);
             this.comboEmailFrom.Name = "comboEmailFrom";
-            this.comboEmailFrom.Size = new System.Drawing.Size(553, 24);
+            this.comboEmailFrom.Size = new System.Drawing.Size(618, 24);
             this.comboEmailFrom.TabIndex = 11;
             // 
             // txtEmailTo
             // 
             this.txtEmailTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailTo.Location = new System.Drawing.Point(405, 63);
+            this.txtEmailTo.Location = new System.Drawing.Point(114, 101);
             this.txtEmailTo.Name = "txtEmailTo";
-            this.txtEmailTo.Size = new System.Drawing.Size(553, 22);
+            this.txtEmailTo.Size = new System.Drawing.Size(618, 22);
             this.txtEmailTo.TabIndex = 12;
             // 
             // txtEmailBcc
             // 
             this.txtEmailBcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailBcc.Location = new System.Drawing.Point(405, 99);
+            this.txtEmailBcc.Location = new System.Drawing.Point(114, 137);
             this.txtEmailBcc.Name = "txtEmailBcc";
             this.txtEmailBcc.ReadOnly = true;
-            this.txtEmailBcc.Size = new System.Drawing.Size(553, 22);
+            this.txtEmailBcc.Size = new System.Drawing.Size(618, 22);
             this.txtEmailBcc.TabIndex = 13;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(323, 143);
+            this.label4.Location = new System.Drawing.Point(27, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 16);
             this.label4.TabIndex = 14;
@@ -166,14 +166,14 @@
             // txtEmailSubject
             // 
             this.txtEmailSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailSubject.Location = new System.Drawing.Point(405, 140);
+            this.txtEmailSubject.Location = new System.Drawing.Point(114, 178);
             this.txtEmailSubject.Name = "txtEmailSubject";
-            this.txtEmailSubject.Size = new System.Drawing.Size(553, 22);
+            this.txtEmailSubject.Size = new System.Drawing.Size(618, 22);
             this.txtEmailSubject.TabIndex = 15;
             // 
             // btnAttachFile
             // 
-            this.btnAttachFile.Location = new System.Drawing.Point(316, 183);
+            this.btnAttachFile.Location = new System.Drawing.Point(25, 221);
             this.btnAttachFile.Name = "btnAttachFile";
             this.btnAttachFile.Size = new System.Drawing.Size(83, 30);
             this.btnAttachFile.TabIndex = 16;
@@ -184,16 +184,16 @@
             // txtEmailBody
             // 
             this.txtEmailBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailBody.Location = new System.Drawing.Point(24, 271);
+            this.txtEmailBody.Location = new System.Drawing.Point(24, 320);
             this.txtEmailBody.Multiline = true;
             this.txtEmailBody.Name = "txtEmailBody";
-            this.txtEmailBody.Size = new System.Drawing.Size(934, 262);
+            this.txtEmailBody.Size = new System.Drawing.Size(708, 246);
             this.txtEmailBody.TabIndex = 18;
             // 
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(868, 560);
+            this.btnCancel.Location = new System.Drawing.Point(642, 588);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 40);
             this.btnCancel.TabIndex = 19;
@@ -203,7 +203,7 @@
             // 
             // btnDeleteAttachment
             // 
-            this.btnDeleteAttachment.Location = new System.Drawing.Point(316, 219);
+            this.btnDeleteAttachment.Location = new System.Drawing.Point(25, 257);
             this.btnDeleteAttachment.Name = "btnDeleteAttachment";
             this.btnDeleteAttachment.Size = new System.Drawing.Size(83, 30);
             this.btnDeleteAttachment.TabIndex = 21;
@@ -214,16 +214,17 @@
             // lbAttachments
             // 
             this.lbAttachments.FormattingEnabled = true;
-            this.lbAttachments.Location = new System.Drawing.Point(405, 183);
+            this.lbAttachments.Location = new System.Drawing.Point(114, 221);
             this.lbAttachments.Name = "lbAttachments";
-            this.lbAttachments.Size = new System.Drawing.Size(553, 82);
+            this.lbAttachments.Size = new System.Drawing.Size(618, 82);
             this.lbAttachments.TabIndex = 22;
+            this.lbAttachments.DoubleClick += new System.EventHandler(this.lbAttachments_DoubleClick);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(323, 66);
+            this.label5.Location = new System.Drawing.Point(27, 104);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(28, 16);
             this.label5.TabIndex = 23;
@@ -233,7 +234,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(323, 30);
+            this.label6.Location = new System.Drawing.Point(27, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 16);
             this.label6.TabIndex = 24;
@@ -243,7 +244,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(989, 623);
+            this.ClientSize = new System.Drawing.Size(757, 654);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lbAttachments);
