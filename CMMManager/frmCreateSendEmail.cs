@@ -179,7 +179,7 @@ namespace CMMManager
 
                 foreach (String filename in lbAttachments.Items)
                 {
-                    emailBuilderBody.Attachments.Add(filename);
+                    emailBuilderBody.Attachments.Add(filename);                    
                 }
 
                 message.Body = emailBuilderBody.ToMessageBody();
