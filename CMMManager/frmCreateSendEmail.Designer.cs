@@ -173,7 +173,7 @@
             // 
             // btnAttachFile
             // 
-            this.btnAttachFile.Location = new System.Drawing.Point(25, 485);
+            this.btnAttachFile.Location = new System.Drawing.Point(25, 489);
             this.btnAttachFile.Name = "btnAttachFile";
             this.btnAttachFile.Size = new System.Drawing.Size(83, 30);
             this.btnAttachFile.TabIndex = 16;
@@ -184,11 +184,11 @@
             // txtEmailBody
             // 
             this.txtEmailBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailBody.Location = new System.Drawing.Point(25, 216);
+            this.txtEmailBody.Location = new System.Drawing.Point(24, 217);
             this.txtEmailBody.Multiline = true;
             this.txtEmailBody.Name = "txtEmailBody";
             this.txtEmailBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEmailBody.Size = new System.Drawing.Size(708, 251);
+            this.txtEmailBody.Size = new System.Drawing.Size(708, 255);
             this.txtEmailBody.TabIndex = 18;
             // 
             // btnCancel
@@ -204,7 +204,7 @@
             // 
             // btnDeleteAttachment
             // 
-            this.btnDeleteAttachment.Location = new System.Drawing.Point(25, 521);
+            this.btnDeleteAttachment.Location = new System.Drawing.Point(25, 525);
             this.btnDeleteAttachment.Name = "btnDeleteAttachment";
             this.btnDeleteAttachment.Size = new System.Drawing.Size(83, 30);
             this.btnDeleteAttachment.TabIndex = 21;
@@ -215,7 +215,7 @@
             // lbAttachments
             // 
             this.lbAttachments.FormattingEnabled = true;
-            this.lbAttachments.Location = new System.Drawing.Point(114, 485);
+            this.lbAttachments.Location = new System.Drawing.Point(114, 489);
             this.lbAttachments.Name = "lbAttachments";
             this.lbAttachments.Size = new System.Drawing.Size(618, 82);
             this.lbAttachments.TabIndex = 22;
