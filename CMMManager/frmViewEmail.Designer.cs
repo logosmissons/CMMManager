@@ -89,6 +89,7 @@
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ReadOnly = true;
+            this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtBody.Size = new System.Drawing.Size(709, 221);
             this.txtBody.TabIndex = 6;
             // 

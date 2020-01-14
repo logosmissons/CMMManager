@@ -1511,6 +1511,7 @@ namespace CMMManager
         public int? DocumentTypeId;
         public DateTime? ReceivedDate;
         public String DestinationFilePath;
+        public Boolean bAddOn;
         public String Note;
         public int? CreateStaffId;
         public DateTime? CreateDate;
@@ -1522,6 +1523,7 @@ namespace CMMManager
             DocumentTypeId = null;
             ReceivedDate = null;
             DestinationFilePath = String.Empty;
+            bAddOn = false;
             Note = String.Empty;
             CreateStaffId = null;
             CreateDate = null;
@@ -1531,7 +1533,8 @@ namespace CMMManager
                            String case_name, 
                            int doc_type_id, 
                            DateTime received_date, 
-                           String destination_file_path, 
+                           String destination_file_path,
+                           Boolean add_on,
                            String note, 
                            int create_staff_id, 
                            DateTime create_date)
@@ -1541,6 +1544,7 @@ namespace CMMManager
             DocumentTypeId = doc_type_id;
             ReceivedDate = received_date;
             DestinationFilePath = destination_file_path;
+            bAddOn = add_on;
             Note = note;
             CreateStaffId = create_staff_id;
             CreateDate = create_date;

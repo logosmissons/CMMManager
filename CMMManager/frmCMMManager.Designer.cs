@@ -323,6 +323,21 @@
             this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
+            this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseIdForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddOnCaseIndividual = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CreateDateForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NPF_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.NPF_Receiv_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IB_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IB_Received_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.POP_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PoP_ReceivedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedRecForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MedRecReceivDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unknown_Doc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Unknown_Doc_Receive_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label33 = new System.Windows.Forms.Label();
             this.txtWellBeingAmt = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
@@ -436,17 +451,6 @@
             this.label84 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
-            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
-            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteCaseDoc = new System.Windows.Forms.Button();
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
@@ -1070,21 +1074,18 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseIdForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AddOnCaseIndividual = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CreateDateForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NPF_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.NPF_Receiv_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IB_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IB_Received_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.POP_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.PoP_ReceivedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedRecForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.MedRecReceivDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unknown_Doc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Unknown_Doc_Receive_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
+            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AddOnCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3722,6 +3723,107 @@
             this.gvProcessingCaseNo.TabIndex = 195;
             this.gvProcessingCaseNo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellDoubleClick);
             // 
+            // CaseSelected
+            // 
+            this.CaseSelected.HeaderText = "Selected";
+            this.CaseSelected.Name = "CaseSelected";
+            this.CaseSelected.Width = 80;
+            // 
+            // CaseIdForIndividual
+            // 
+            this.CaseIdForIndividual.HeaderText = "Case Id";
+            this.CaseIdForIndividual.Name = "CaseIdForIndividual";
+            // 
+            // AddOnCaseIndividual
+            // 
+            this.AddOnCaseIndividual.HeaderText = "Add On";
+            this.AddOnCaseIndividual.Name = "AddOnCaseIndividual";
+            this.AddOnCaseIndividual.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AddOnCaseIndividual.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AddOnCaseIndividual.Width = 80;
+            // 
+            // CreateDateForIndividual
+            // 
+            this.CreateDateForIndividual.HeaderText = "Date";
+            this.CreateDateForIndividual.Name = "CreateDateForIndividual";
+            this.CreateDateForIndividual.Width = 80;
+            // 
+            // CreateStaffForIndividual
+            // 
+            this.CreateStaffForIndividual.HeaderText = "Staff";
+            this.CreateStaffForIndividual.Name = "CreateStaffForIndividual";
+            this.CreateStaffForIndividual.Width = 80;
+            // 
+            // NPF_Form
+            // 
+            this.NPF_Form.HeaderText = "NPF";
+            this.NPF_Form.Name = "NPF_Form";
+            this.NPF_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NPF_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.NPF_Form.Width = 40;
+            // 
+            // NPF_Receiv_Date
+            // 
+            this.NPF_Receiv_Date.HeaderText = "NPF Date";
+            this.NPF_Receiv_Date.Name = "NPF_Receiv_Date";
+            this.NPF_Receiv_Date.Width = 80;
+            // 
+            // IB_Form
+            // 
+            this.IB_Form.HeaderText = "IB";
+            this.IB_Form.Name = "IB_Form";
+            this.IB_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IB_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IB_Form.Width = 40;
+            // 
+            // IB_Received_Date
+            // 
+            this.IB_Received_Date.HeaderText = "IB Date";
+            this.IB_Received_Date.Name = "IB_Received_Date";
+            this.IB_Received_Date.Width = 80;
+            // 
+            // POP_Form
+            // 
+            this.POP_Form.HeaderText = "PoP";
+            this.POP_Form.Name = "POP_Form";
+            this.POP_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.POP_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.POP_Form.Width = 40;
+            // 
+            // PoP_ReceivedDate
+            // 
+            this.PoP_ReceivedDate.HeaderText = "PoP Date";
+            this.PoP_ReceivedDate.Name = "PoP_ReceivedDate";
+            this.PoP_ReceivedDate.Width = 80;
+            // 
+            // MedRecForm
+            // 
+            this.MedRecForm.HeaderText = "Med Rec";
+            this.MedRecForm.Name = "MedRecForm";
+            this.MedRecForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MedRecForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.MedRecForm.Width = 80;
+            // 
+            // MedRecReceivDate
+            // 
+            this.MedRecReceivDate.HeaderText = "Med Rec Date";
+            this.MedRecReceivDate.Name = "MedRecReceivDate";
+            this.MedRecReceivDate.Width = 110;
+            // 
+            // Unknown_Doc
+            // 
+            this.Unknown_Doc.HeaderText = "Unknown Doc";
+            this.Unknown_Doc.Name = "Unknown_Doc";
+            this.Unknown_Doc.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Unknown_Doc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Unknown_Doc.Width = 110;
+            // 
+            // Unknown_Doc_Receive_Date
+            // 
+            this.Unknown_Doc_Receive_Date.HeaderText = "Unknow Doc Date";
+            this.Unknown_Doc_Receive_Date.Name = "Unknown_Doc_Receive_Date";
+            this.Unknown_Doc_Receive_Date.Width = 180;
+            // 
             // label33
             // 
             this.label33.AutoSize = true;
@@ -4785,6 +4887,7 @@
             this.BtnUploadCaseDocument,
             this.ReceivedDateCaseDocument,
             this.BtnViewCaseDocument,
+            this.AddOnCaseDocument,
             this.NoteCaseDocument,
             this.CreatedByCaseDocument,
             this.CreatedDateCaseDocument,
@@ -4796,65 +4899,6 @@
             this.gvCaseDocuments.Size = new System.Drawing.Size(833, 169);
             this.gvCaseDocuments.TabIndex = 154;
             this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
-            // 
-            // SelectedCaseDocument
-            // 
-            this.SelectedCaseDocument.HeaderText = "";
-            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
-            this.SelectedCaseDocument.Width = 40;
-            // 
-            // DocumentTypeCaseDocument
-            // 
-            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
-            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
-            // 
-            // BtnUploadCaseDocument
-            // 
-            this.BtnUploadCaseDocument.HeaderText = "Upload";
-            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
-            this.BtnUploadCaseDocument.Width = 80;
-            // 
-            // ReceivedDateCaseDocument
-            // 
-            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
-            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
-            // 
-            // BtnViewCaseDocument
-            // 
-            this.BtnViewCaseDocument.HeaderText = "View";
-            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
-            this.BtnViewCaseDocument.Width = 80;
-            // 
-            // NoteCaseDocument
-            // 
-            this.NoteCaseDocument.HeaderText = "Note";
-            this.NoteCaseDocument.Name = "NoteCaseDocument";
-            this.NoteCaseDocument.Width = 512;
-            // 
-            // CreatedByCaseDocument
-            // 
-            this.CreatedByCaseDocument.HeaderText = "Created By";
-            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
-            // 
-            // CreatedDateCaseDocument
-            // 
-            this.CreatedDateCaseDocument.HeaderText = "Created Date";
-            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
-            // 
-            // TypeCaseDocument
-            // 
-            this.TypeCaseDocument.HeaderText = "Type";
-            this.TypeCaseDocument.Name = "TypeCaseDocument";
-            // 
-            // CaseDocNoCaseDocument
-            // 
-            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
-            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
-            // 
-            // FilePathCaseDocument
-            // 
-            this.FilePathCaseDocument.HeaderText = "Destination";
-            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // btnDeleteCaseDoc
             // 
@@ -10356,106 +10400,70 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // CaseSelected
+            // SelectedCaseDocument
             // 
-            this.CaseSelected.HeaderText = "Selected";
-            this.CaseSelected.Name = "CaseSelected";
-            this.CaseSelected.Width = 80;
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
             // 
-            // CaseIdForIndividual
+            // DocumentTypeCaseDocument
             // 
-            this.CaseIdForIndividual.HeaderText = "Case Id";
-            this.CaseIdForIndividual.Name = "CaseIdForIndividual";
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
             // 
-            // AddOnCaseIndividual
+            // BtnUploadCaseDocument
             // 
-            this.AddOnCaseIndividual.HeaderText = "Add On";
-            this.AddOnCaseIndividual.Name = "AddOnCaseIndividual";
-            this.AddOnCaseIndividual.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AddOnCaseIndividual.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.AddOnCaseIndividual.Width = 80;
+            this.BtnUploadCaseDocument.HeaderText = "Upload";
+            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
+            this.BtnUploadCaseDocument.Width = 80;
             // 
-            // CreateDateForIndividual
+            // ReceivedDateCaseDocument
             // 
-            this.CreateDateForIndividual.HeaderText = "Date";
-            this.CreateDateForIndividual.Name = "CreateDateForIndividual";
-            this.CreateDateForIndividual.Width = 80;
+            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
+            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
             // 
-            // CreateStaffForIndividual
+            // BtnViewCaseDocument
             // 
-            this.CreateStaffForIndividual.HeaderText = "Staff";
-            this.CreateStaffForIndividual.Name = "CreateStaffForIndividual";
-            this.CreateStaffForIndividual.Width = 80;
+            this.BtnViewCaseDocument.HeaderText = "View";
+            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
+            this.BtnViewCaseDocument.Width = 80;
             // 
-            // NPF_Form
+            // AddOnCaseDocument
             // 
-            this.NPF_Form.HeaderText = "NPF";
-            this.NPF_Form.Name = "NPF_Form";
-            this.NPF_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.NPF_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.NPF_Form.Width = 40;
+            this.AddOnCaseDocument.HeaderText = "Add On";
+            this.AddOnCaseDocument.Name = "AddOnCaseDocument";
+            this.AddOnCaseDocument.Width = 80;
             // 
-            // NPF_Receiv_Date
+            // NoteCaseDocument
             // 
-            this.NPF_Receiv_Date.HeaderText = "NPF Date";
-            this.NPF_Receiv_Date.Name = "NPF_Receiv_Date";
-            this.NPF_Receiv_Date.Width = 80;
+            this.NoteCaseDocument.HeaderText = "Note";
+            this.NoteCaseDocument.Name = "NoteCaseDocument";
+            this.NoteCaseDocument.Width = 512;
             // 
-            // IB_Form
+            // CreatedByCaseDocument
             // 
-            this.IB_Form.HeaderText = "IB";
-            this.IB_Form.Name = "IB_Form";
-            this.IB_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IB_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IB_Form.Width = 40;
+            this.CreatedByCaseDocument.HeaderText = "Created By";
+            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
             // 
-            // IB_Received_Date
+            // CreatedDateCaseDocument
             // 
-            this.IB_Received_Date.HeaderText = "IB Date";
-            this.IB_Received_Date.Name = "IB_Received_Date";
-            this.IB_Received_Date.Width = 80;
+            this.CreatedDateCaseDocument.HeaderText = "Created Date";
+            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
             // 
-            // POP_Form
+            // TypeCaseDocument
             // 
-            this.POP_Form.HeaderText = "PoP";
-            this.POP_Form.Name = "POP_Form";
-            this.POP_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.POP_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.POP_Form.Width = 40;
+            this.TypeCaseDocument.HeaderText = "Type";
+            this.TypeCaseDocument.Name = "TypeCaseDocument";
             // 
-            // PoP_ReceivedDate
+            // CaseDocNoCaseDocument
             // 
-            this.PoP_ReceivedDate.HeaderText = "PoP Date";
-            this.PoP_ReceivedDate.Name = "PoP_ReceivedDate";
-            this.PoP_ReceivedDate.Width = 80;
+            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
+            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
             // 
-            // MedRecForm
+            // FilePathCaseDocument
             // 
-            this.MedRecForm.HeaderText = "Med Rec";
-            this.MedRecForm.Name = "MedRecForm";
-            this.MedRecForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MedRecForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.MedRecForm.Width = 80;
-            // 
-            // MedRecReceivDate
-            // 
-            this.MedRecReceivDate.HeaderText = "Med Rec Date";
-            this.MedRecReceivDate.Name = "MedRecReceivDate";
-            this.MedRecReceivDate.Width = 110;
-            // 
-            // Unknown_Doc
-            // 
-            this.Unknown_Doc.HeaderText = "Unknown Doc";
-            this.Unknown_Doc.Name = "Unknown_Doc";
-            this.Unknown_Doc.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Unknown_Doc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Unknown_Doc.Width = 110;
-            // 
-            // Unknown_Doc_Receive_Date
-            // 
-            this.Unknown_Doc_Receive_Date.HeaderText = "Unknow Doc Date";
-            this.Unknown_Doc_Receive_Date.Name = "Unknown_Doc_Receive_Date";
-            this.Unknown_Doc_Receive_Date.Width = 180;
+            this.FilePathCaseDocument.HeaderText = "Destination";
+            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // frmCMMManager
             // 
@@ -11505,17 +11513,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseHistoryCaseView;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
-        private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
-        private System.Windows.Forms.DataGridViewButtonColumn BtnUploadCaseDocument;
-        private CalendarColumn ReceivedDateCaseDocument;
-        private System.Windows.Forms.DataGridViewButtonColumn BtnViewCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDateCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseDocNoCaseDocument;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseDocument;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedMedBillDocuments;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileNameMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateMedicalDocument;
@@ -11673,6 +11670,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedRecReceivDate;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Unknown_Doc;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unknown_Doc_Receive_Date;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
+        private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn BtnUploadCaseDocument;
+        private CalendarColumn ReceivedDateCaseDocument;
+        private System.Windows.Forms.DataGridViewButtonColumn BtnViewCaseDocument;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn AddOnCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDateCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CaseDocNoCaseDocument;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseDocument;
     }
 }
 
