@@ -435,13 +435,6 @@
             this.btnEditCase = new System.Windows.Forms.Button();
             this.btnCreateNewCase = new System.Windows.Forms.Button();
             this.gvCaseViewCaseHistory = new System.Windows.Forms.DataGridView();
-            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
             this.txtCaseTotalSharedAmount = new System.Windows.Forms.TextBox();
@@ -451,6 +444,18 @@
             this.label84 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
+            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AddOnCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteCaseDoc = new System.Windows.Forms.Button();
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
@@ -1074,18 +1079,14 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
-            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.AddOnCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsAddOnCaseView = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -4718,6 +4719,7 @@
             this.gvCaseViewCaseHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CaseHistorySelected,
             this.CaseName,
+            this.IsAddOnCaseView,
             this.CreateDate,
             this.CreateStaff,
             this.ModifiedDate,
@@ -4729,45 +4731,6 @@
             this.gvCaseViewCaseHistory.TabIndex = 5;
             this.gvCaseViewCaseHistory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellClick);
             this.gvCaseViewCaseHistory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellDoubleClick);
-            // 
-            // CaseHistorySelected
-            // 
-            this.CaseHistorySelected.HeaderText = "Selected";
-            this.CaseHistorySelected.Name = "CaseHistorySelected";
-            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CaseHistorySelected.Width = 80;
-            // 
-            // CaseName
-            // 
-            this.CaseName.HeaderText = "Case Name";
-            this.CaseName.Name = "CaseName";
-            // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            // 
-            // CreateStaff
-            // 
-            this.CreateStaff.HeaderText = "Create Staff";
-            this.CreateStaff.Name = "CreateStaff";
-            // 
-            // ModifiedDate
-            // 
-            this.ModifiedDate.HeaderText = "Modified Date";
-            this.ModifiedDate.Name = "ModifiedDate";
-            // 
-            // ModifiedBy
-            // 
-            this.ModifiedBy.HeaderText = "Modified By";
-            this.ModifiedBy.Name = "ModifiedBy";
-            // 
-            // NoteCaseHistoryCaseView
-            // 
-            this.NoteCaseHistoryCaseView.HeaderText = "Note";
-            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
-            this.NoteCaseHistoryCaseView.Width = 1000;
             // 
             // label41
             // 
@@ -4899,6 +4862,71 @@
             this.gvCaseDocuments.Size = new System.Drawing.Size(833, 169);
             this.gvCaseDocuments.TabIndex = 154;
             this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
+            // 
+            // SelectedCaseDocument
+            // 
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
+            // 
+            // DocumentTypeCaseDocument
+            // 
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            // 
+            // BtnUploadCaseDocument
+            // 
+            this.BtnUploadCaseDocument.HeaderText = "Upload";
+            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
+            this.BtnUploadCaseDocument.Width = 80;
+            // 
+            // ReceivedDateCaseDocument
+            // 
+            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
+            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
+            // 
+            // BtnViewCaseDocument
+            // 
+            this.BtnViewCaseDocument.HeaderText = "View";
+            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
+            this.BtnViewCaseDocument.Width = 80;
+            // 
+            // AddOnCaseDocument
+            // 
+            this.AddOnCaseDocument.HeaderText = "Add On";
+            this.AddOnCaseDocument.Name = "AddOnCaseDocument";
+            this.AddOnCaseDocument.Width = 80;
+            // 
+            // NoteCaseDocument
+            // 
+            this.NoteCaseDocument.HeaderText = "Note";
+            this.NoteCaseDocument.Name = "NoteCaseDocument";
+            this.NoteCaseDocument.Width = 512;
+            // 
+            // CreatedByCaseDocument
+            // 
+            this.CreatedByCaseDocument.HeaderText = "Created By";
+            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
+            // 
+            // CreatedDateCaseDocument
+            // 
+            this.CreatedDateCaseDocument.HeaderText = "Created Date";
+            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
+            // 
+            // TypeCaseDocument
+            // 
+            this.TypeCaseDocument.HeaderText = "Type";
+            this.TypeCaseDocument.Name = "TypeCaseDocument";
+            // 
+            // CaseDocNoCaseDocument
+            // 
+            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
+            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
+            // 
+            // FilePathCaseDocument
+            // 
+            this.FilePathCaseDocument.HeaderText = "Destination";
+            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // btnDeleteCaseDoc
             // 
@@ -10400,70 +10428,49 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // SelectedCaseDocument
+            // CaseHistorySelected
             // 
-            this.SelectedCaseDocument.HeaderText = "";
-            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
-            this.SelectedCaseDocument.Width = 40;
+            this.CaseHistorySelected.HeaderText = "Selected";
+            this.CaseHistorySelected.Name = "CaseHistorySelected";
+            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CaseHistorySelected.Width = 80;
             // 
-            // DocumentTypeCaseDocument
+            // CaseName
             // 
-            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
-            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            this.CaseName.HeaderText = "Case Name";
+            this.CaseName.Name = "CaseName";
             // 
-            // BtnUploadCaseDocument
+            // IsAddOnCaseView
             // 
-            this.BtnUploadCaseDocument.HeaderText = "Upload";
-            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
-            this.BtnUploadCaseDocument.Width = 80;
+            this.IsAddOnCaseView.HeaderText = "Add On";
+            this.IsAddOnCaseView.Name = "IsAddOnCaseView";
             // 
-            // ReceivedDateCaseDocument
+            // CreateDate
             // 
-            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
-            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
             // 
-            // BtnViewCaseDocument
+            // CreateStaff
             // 
-            this.BtnViewCaseDocument.HeaderText = "View";
-            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
-            this.BtnViewCaseDocument.Width = 80;
+            this.CreateStaff.HeaderText = "Create Staff";
+            this.CreateStaff.Name = "CreateStaff";
             // 
-            // AddOnCaseDocument
+            // ModifiedDate
             // 
-            this.AddOnCaseDocument.HeaderText = "Add On";
-            this.AddOnCaseDocument.Name = "AddOnCaseDocument";
-            this.AddOnCaseDocument.Width = 80;
+            this.ModifiedDate.HeaderText = "Modified Date";
+            this.ModifiedDate.Name = "ModifiedDate";
             // 
-            // NoteCaseDocument
+            // ModifiedBy
             // 
-            this.NoteCaseDocument.HeaderText = "Note";
-            this.NoteCaseDocument.Name = "NoteCaseDocument";
-            this.NoteCaseDocument.Width = 512;
+            this.ModifiedBy.HeaderText = "Modified By";
+            this.ModifiedBy.Name = "ModifiedBy";
             // 
-            // CreatedByCaseDocument
+            // NoteCaseHistoryCaseView
             // 
-            this.CreatedByCaseDocument.HeaderText = "Created By";
-            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
-            // 
-            // CreatedDateCaseDocument
-            // 
-            this.CreatedDateCaseDocument.HeaderText = "Created Date";
-            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
-            // 
-            // TypeCaseDocument
-            // 
-            this.TypeCaseDocument.HeaderText = "Type";
-            this.TypeCaseDocument.Name = "TypeCaseDocument";
-            // 
-            // CaseDocNoCaseDocument
-            // 
-            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
-            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
-            // 
-            // FilePathCaseDocument
-            // 
-            this.FilePathCaseDocument.HeaderText = "Destination";
-            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
+            this.NoteCaseHistoryCaseView.HeaderText = "Note";
+            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
+            this.NoteCaseHistoryCaseView.Width = 1000;
             // 
             // frmCMMManager
             // 
@@ -11506,13 +11513,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ReceivedDateCaseInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseInMedBill;
         private System.Windows.Forms.DataGridViewButtonColumn ViewCaseInMedBill;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseHistorySelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseHistoryCaseView;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedMedBillDocuments;
         private System.Windows.Forms.DataGridViewTextBoxColumn FileNameMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateMedicalDocument;
@@ -11682,6 +11682,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeCaseDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn CaseDocNoCaseDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseDocument;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseHistorySelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CaseName;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsAddOnCaseView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseHistoryCaseView;
     }
 }
 
