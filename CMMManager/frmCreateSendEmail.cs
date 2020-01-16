@@ -208,10 +208,12 @@ namespace CMMManager
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return;
+                //return;
             }
-
-            Close();
+            finally
+            {
+                Close();
+            }
         }
 
         private void SaveEmailContent(MimeMessage message)
@@ -316,6 +318,7 @@ namespace CMMManager
 
                 foreach (String filename in lstAttachmentFiles)
                 {
+                    //EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + DateTime.Now.ToString("MM-dd-yyyy HH-mm-ss") + "_" + filename);
                     EmailContent.lstEmailAttachmentFileNames.Add(strPathForEmailAttachments + filename);
                 }
 
@@ -341,9 +344,14 @@ namespace CMMManager
                     if (connRN.State != ConnectionState.Closed) connRN.Close();
                 }
 
+                //for (int i = 0; i < EmailContent.lstEmailAttachmentFileNames.Count; i++)
+                //{
+                //    File.Copy(lbAttachments.Items[i].ToString(), EmailContent.lstEmailAttachmentFileNames[i], true);
+                //}
+
                 foreach (String filename in lbAttachments.Items)
                 {
-                    File.Copy(filename, strPathForEmailAttachments + Path.GetFileName(filename), false);
+                    File.Copy(filename, strPathForEmailAttachments + Path.GetFileName(filename), true);
                 }
             }
         }
