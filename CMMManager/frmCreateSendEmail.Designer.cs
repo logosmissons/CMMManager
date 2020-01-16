@@ -217,6 +217,7 @@
             this.lbAttachments.FormattingEnabled = true;
             this.lbAttachments.Location = new System.Drawing.Point(114, 489);
             this.lbAttachments.Name = "lbAttachments";
+            this.lbAttachments.ScrollAlwaysVisible = true;
             this.lbAttachments.Size = new System.Drawing.Size(618, 82);
             this.lbAttachments.TabIndex = 22;
             this.lbAttachments.DoubleClick += new System.EventHandler(this.lbAttachments_DoubleClick);
