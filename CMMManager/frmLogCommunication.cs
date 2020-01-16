@@ -321,7 +321,8 @@ namespace CMMManager
                 }
                 else if (connRN.State == ConnectionState.Closed) connRN.Open();
                 SqlDataReader rdrCasesForIndividual = cmdQueryForCasesForIndividual.ExecuteReader();
-                comboCaseNo.Items.Add(String.Empty);
+                //comboCaseNo.Items.Add(String.Empty);
+                comboCaseNo.Items.Add("None");
                 if (rdrCasesForIndividual.HasRows)
                 {
                     while (rdrCasesForIndividual.Read())
@@ -426,7 +427,7 @@ namespace CMMManager
                                 if (strCaseNo == comboCaseNo.Items[i].ToString()) comboCaseNo.SelectedIndex = i;
                             }
                         }
-                        else comboCaseNo.SelectedIndex = -1;
+                        else comboCaseNo.SelectedIndex = 0;
 
                         if (!rdrCommunicationInfo.IsDBNull(4))
                         {
@@ -1630,8 +1631,13 @@ namespace CMMManager
                 this.comboIllnessNo.SelectedIndexChanged -= new System.EventHandler(this.comboIllnessNo_SelectedIndexChanged);
                 this.comboIncidentNo.SelectedIndexChanged -= new System.EventHandler(this.comboIncidentNo_SelectedIndexChanged);
 
-                String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
-                String IllnessNo = comboIllnessNo.SelectedItem.ToString();
+                //String CaseNoSelected = comboCaseNo.SelectedItem.ToString();
+                //String IllnessNo = comboIllnessNo.SelectedItem.ToString();
+
+                String CaseNoSelected = "None";
+                if (comboCaseNo.SelectedItem != null) CaseNoSelected = comboCaseNo.SelectedItem.ToString();
+                String IllnessNo = "None";
+                if (comboIllnessNo.SelectedItem != null) IllnessNo = comboIllnessNo.SelectedItem.ToString();
 
                 //if (IllnessNo != String.Empty)
                 if (IllnessNo != "None")

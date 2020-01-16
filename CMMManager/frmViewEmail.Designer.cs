@@ -85,10 +85,11 @@
             // txtBody
             // 
             this.txtBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBody.Location = new System.Drawing.Point(12, 292);
+            this.txtBody.Location = new System.Drawing.Point(11, 185);
             this.txtBody.Multiline = true;
             this.txtBody.Name = "txtBody";
             this.txtBody.ReadOnly = true;
+            this.txtBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtBody.Size = new System.Drawing.Size(709, 221);
             this.txtBody.TabIndex = 6;
             // 
@@ -163,7 +164,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(9, 180);
+            this.label4.Location = new System.Drawing.Point(10, 428);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 16);
             this.label4.TabIndex = 16;
@@ -172,8 +173,9 @@
             // lbAttachments
             // 
             this.lbAttachments.FormattingEnabled = true;
-            this.lbAttachments.Location = new System.Drawing.Point(100, 180);
+            this.lbAttachments.Location = new System.Drawing.Point(101, 428);
             this.lbAttachments.Name = "lbAttachments";
+            this.lbAttachments.ScrollAlwaysVisible = true;
             this.lbAttachments.Size = new System.Drawing.Size(621, 95);
             this.lbAttachments.TabIndex = 17;
             this.lbAttachments.DoubleClick += new System.EventHandler(this.lbAttachments_DoubleClick);
