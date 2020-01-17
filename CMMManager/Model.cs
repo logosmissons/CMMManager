@@ -1611,7 +1611,7 @@ namespace CMMManager
 
         public CaseDocReceived()
         {
-            CaseName = null;
+            CaseNo = null;
             IndividualId = null;
             bFullDocReceived = null;
             bNPFReceived = null;
