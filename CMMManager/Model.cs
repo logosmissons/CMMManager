@@ -1551,6 +1551,77 @@ namespace CMMManager
         }
     }
 
+    public class MissingCaseDocInfo
+    {
+        public String MissingCaseDocNo;
+        public String CaseName;
+        public DateTime? CaseCreateDate;
+        public Boolean? bAddOn;
+        public int? DocumentTypeId;
+        public Boolean? bMissingDocRequested;
+        public DateTime? CreateDate;
+        public int? CreateStaffId;
+        public String Note;
+
+        public MissingCaseDocInfo()
+        {
+            MissingCaseDocNo = null;
+            CaseName = null;
+            CaseCreateDate = null;
+            bAddOn = null;
+            DocumentTypeId = null;
+            bMissingDocRequested = null;
+            CreateDate = null;
+            CreateStaffId = null;
+            Note = null;
+        }
+        
+        public MissingCaseDocInfo(String missing_casedoc_no, 
+                                  String case_name, 
+                                  DateTime case_create_date, 
+                                  Boolean add_on, 
+                                  int doc_type_id, 
+                                  Boolean missing_doc_requested, 
+                                  DateTime create_date, 
+                                  int create_staff_id, 
+                                  String note)
+        {
+            MissingCaseDocNo = missing_casedoc_no;
+            CaseName = case_name;
+            CaseCreateDate = case_create_date;
+            bAddOn = add_on;
+            DocumentTypeId = doc_type_id;
+            bMissingDocRequested = missing_doc_requested;
+            CreateDate = create_date;
+            CreateStaffId = create_staff_id;
+            Note = note;
+        }
+    }
+
+    public class CaseDocReceived
+    {
+        public String CaseNo;
+        public String IndividualId;
+        public Boolean? bFullDocReceived;
+        public Boolean? bNPFReceived;
+        public Boolean? bIBReceived;
+        public Boolean? bPoPReceived;
+        public Boolean? bMedRecReceived;
+        public Boolean? bOtherDocReceived;
+
+        public CaseDocReceived()
+        {
+            CaseName = null;
+            IndividualId = null;
+            bFullDocReceived = null;
+            bNPFReceived = null;
+            bIBReceived = null;
+            bPoPReceived = null;
+            bMedRecReceived = null;
+            bOtherDocReceived = null;
+        }
+    }
+
     public class MedicalDocInfo
     {
         public String MedBillDocNo;

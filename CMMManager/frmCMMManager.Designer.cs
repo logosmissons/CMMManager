@@ -323,21 +323,6 @@
             this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
-            this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseIdForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AddOnCaseIndividual = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CreateDateForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NPF_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.NPF_Receiv_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IB_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IB_Received_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.POP_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.PoP_ReceivedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedRecForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.MedRecReceivDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unknown_Doc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Unknown_Doc_Receive_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label33 = new System.Windows.Forms.Label();
             this.txtWellBeingAmt = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
@@ -435,6 +420,14 @@
             this.btnEditCase = new System.Windows.Forms.Button();
             this.btnCreateNewCase = new System.Windows.Forms.Button();
             this.gvCaseViewCaseHistory = new System.Windows.Forms.DataGridView();
+            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsAddOnCaseView = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label41 = new System.Windows.Forms.Label();
             this.tbpgCreateCase = new System.Windows.Forms.TabPage();
             this.txtCaseTotalSharedAmount = new System.Windows.Forms.TextBox();
@@ -1079,14 +1072,22 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.CaseHistorySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsAddOnCaseView = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoteCaseHistoryCaseView = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseIdForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullDocForIndividual = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.FullDocReceivedDateForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NPF_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.NPF_Receiv_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IB_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IB_Received_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.POP_Form = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.PoP_ReceivedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedRecForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MedRecReceivDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Unknown_Doc = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Unknown_Doc_Receive_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffForIndividual = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3704,9 +3705,8 @@
             this.gvProcessingCaseNo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CaseSelected,
             this.CaseIdForIndividual,
-            this.AddOnCaseIndividual,
-            this.CreateDateForIndividual,
-            this.CreateStaffForIndividual,
+            this.FullDocForIndividual,
+            this.FullDocReceivedDateForIndividual,
             this.NPF_Form,
             this.NPF_Receiv_Date,
             this.IB_Form,
@@ -3716,114 +3716,15 @@
             this.MedRecForm,
             this.MedRecReceivDate,
             this.Unknown_Doc,
-            this.Unknown_Doc_Receive_Date});
+            this.Unknown_Doc_Receive_Date,
+            this.CreateDateForIndividual,
+            this.CreateStaffForIndividual});
             this.gvProcessingCaseNo.Location = new System.Drawing.Point(760, 121);
             this.gvProcessingCaseNo.MultiSelect = false;
             this.gvProcessingCaseNo.Name = "gvProcessingCaseNo";
             this.gvProcessingCaseNo.Size = new System.Drawing.Size(1049, 145);
             this.gvProcessingCaseNo.TabIndex = 195;
             this.gvProcessingCaseNo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellDoubleClick);
-            // 
-            // CaseSelected
-            // 
-            this.CaseSelected.HeaderText = "Selected";
-            this.CaseSelected.Name = "CaseSelected";
-            this.CaseSelected.Width = 80;
-            // 
-            // CaseIdForIndividual
-            // 
-            this.CaseIdForIndividual.HeaderText = "Case Id";
-            this.CaseIdForIndividual.Name = "CaseIdForIndividual";
-            // 
-            // AddOnCaseIndividual
-            // 
-            this.AddOnCaseIndividual.HeaderText = "Add On";
-            this.AddOnCaseIndividual.Name = "AddOnCaseIndividual";
-            this.AddOnCaseIndividual.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AddOnCaseIndividual.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.AddOnCaseIndividual.Width = 80;
-            // 
-            // CreateDateForIndividual
-            // 
-            this.CreateDateForIndividual.HeaderText = "Date";
-            this.CreateDateForIndividual.Name = "CreateDateForIndividual";
-            this.CreateDateForIndividual.Width = 80;
-            // 
-            // CreateStaffForIndividual
-            // 
-            this.CreateStaffForIndividual.HeaderText = "Staff";
-            this.CreateStaffForIndividual.Name = "CreateStaffForIndividual";
-            this.CreateStaffForIndividual.Width = 80;
-            // 
-            // NPF_Form
-            // 
-            this.NPF_Form.HeaderText = "NPF";
-            this.NPF_Form.Name = "NPF_Form";
-            this.NPF_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.NPF_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.NPF_Form.Width = 40;
-            // 
-            // NPF_Receiv_Date
-            // 
-            this.NPF_Receiv_Date.HeaderText = "NPF Date";
-            this.NPF_Receiv_Date.Name = "NPF_Receiv_Date";
-            this.NPF_Receiv_Date.Width = 80;
-            // 
-            // IB_Form
-            // 
-            this.IB_Form.HeaderText = "IB";
-            this.IB_Form.Name = "IB_Form";
-            this.IB_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.IB_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.IB_Form.Width = 40;
-            // 
-            // IB_Received_Date
-            // 
-            this.IB_Received_Date.HeaderText = "IB Date";
-            this.IB_Received_Date.Name = "IB_Received_Date";
-            this.IB_Received_Date.Width = 80;
-            // 
-            // POP_Form
-            // 
-            this.POP_Form.HeaderText = "PoP";
-            this.POP_Form.Name = "POP_Form";
-            this.POP_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.POP_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.POP_Form.Width = 40;
-            // 
-            // PoP_ReceivedDate
-            // 
-            this.PoP_ReceivedDate.HeaderText = "PoP Date";
-            this.PoP_ReceivedDate.Name = "PoP_ReceivedDate";
-            this.PoP_ReceivedDate.Width = 80;
-            // 
-            // MedRecForm
-            // 
-            this.MedRecForm.HeaderText = "Med Rec";
-            this.MedRecForm.Name = "MedRecForm";
-            this.MedRecForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.MedRecForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.MedRecForm.Width = 80;
-            // 
-            // MedRecReceivDate
-            // 
-            this.MedRecReceivDate.HeaderText = "Med Rec Date";
-            this.MedRecReceivDate.Name = "MedRecReceivDate";
-            this.MedRecReceivDate.Width = 110;
-            // 
-            // Unknown_Doc
-            // 
-            this.Unknown_Doc.HeaderText = "Unknown Doc";
-            this.Unknown_Doc.Name = "Unknown_Doc";
-            this.Unknown_Doc.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Unknown_Doc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Unknown_Doc.Width = 110;
-            // 
-            // Unknown_Doc_Receive_Date
-            // 
-            this.Unknown_Doc_Receive_Date.HeaderText = "Unknow Doc Date";
-            this.Unknown_Doc_Receive_Date.Name = "Unknown_Doc_Receive_Date";
-            this.Unknown_Doc_Receive_Date.Width = 180;
             // 
             // label33
             // 
@@ -4731,6 +4632,50 @@
             this.gvCaseViewCaseHistory.TabIndex = 5;
             this.gvCaseViewCaseHistory.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellClick);
             this.gvCaseViewCaseHistory.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseViewCaseHistory_CellDoubleClick);
+            // 
+            // CaseHistorySelected
+            // 
+            this.CaseHistorySelected.HeaderText = "Selected";
+            this.CaseHistorySelected.Name = "CaseHistorySelected";
+            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.CaseHistorySelected.Width = 80;
+            // 
+            // CaseName
+            // 
+            this.CaseName.HeaderText = "Case Name";
+            this.CaseName.Name = "CaseName";
+            // 
+            // IsAddOnCaseView
+            // 
+            this.IsAddOnCaseView.HeaderText = "Add On";
+            this.IsAddOnCaseView.Name = "IsAddOnCaseView";
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            // 
+            // CreateStaff
+            // 
+            this.CreateStaff.HeaderText = "Create Staff";
+            this.CreateStaff.Name = "CreateStaff";
+            // 
+            // ModifiedDate
+            // 
+            this.ModifiedDate.HeaderText = "Modified Date";
+            this.ModifiedDate.Name = "ModifiedDate";
+            // 
+            // ModifiedBy
+            // 
+            this.ModifiedBy.HeaderText = "Modified By";
+            this.ModifiedBy.Name = "ModifiedBy";
+            // 
+            // NoteCaseHistoryCaseView
+            // 
+            this.NoteCaseHistoryCaseView.HeaderText = "Note";
+            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
+            this.NoteCaseHistoryCaseView.Width = 1000;
             // 
             // label41
             // 
@@ -10428,49 +10373,111 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // CaseHistorySelected
+            // CaseSelected
             // 
-            this.CaseHistorySelected.HeaderText = "Selected";
-            this.CaseHistorySelected.Name = "CaseHistorySelected";
-            this.CaseHistorySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CaseHistorySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.CaseHistorySelected.Width = 80;
+            this.CaseSelected.HeaderText = "Selected";
+            this.CaseSelected.Name = "CaseSelected";
+            this.CaseSelected.Width = 60;
             // 
-            // CaseName
+            // CaseIdForIndividual
             // 
-            this.CaseName.HeaderText = "Case Name";
-            this.CaseName.Name = "CaseName";
+            this.CaseIdForIndividual.HeaderText = "Case Id";
+            this.CaseIdForIndividual.Name = "CaseIdForIndividual";
+            this.CaseIdForIndividual.Width = 80;
             // 
-            // IsAddOnCaseView
+            // FullDocForIndividual
             // 
-            this.IsAddOnCaseView.HeaderText = "Add On";
-            this.IsAddOnCaseView.Name = "IsAddOnCaseView";
+            this.FullDocForIndividual.HeaderText = "Full Doc";
+            this.FullDocForIndividual.Name = "FullDocForIndividual";
+            this.FullDocForIndividual.Width = 60;
             // 
-            // CreateDate
+            // FullDocReceivedDateForIndividual
             // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
+            this.FullDocReceivedDateForIndividual.HeaderText = "Rec. Date";
+            this.FullDocReceivedDateForIndividual.Name = "FullDocReceivedDateForIndividual";
+            this.FullDocReceivedDateForIndividual.Width = 85;
             // 
-            // CreateStaff
+            // NPF_Form
             // 
-            this.CreateStaff.HeaderText = "Create Staff";
-            this.CreateStaff.Name = "CreateStaff";
+            this.NPF_Form.HeaderText = "NPF";
+            this.NPF_Form.Name = "NPF_Form";
+            this.NPF_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NPF_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.NPF_Form.Width = 60;
             // 
-            // ModifiedDate
+            // NPF_Receiv_Date
             // 
-            this.ModifiedDate.HeaderText = "Modified Date";
-            this.ModifiedDate.Name = "ModifiedDate";
+            this.NPF_Receiv_Date.HeaderText = "Rec. Date";
+            this.NPF_Receiv_Date.Name = "NPF_Receiv_Date";
+            this.NPF_Receiv_Date.Width = 85;
             // 
-            // ModifiedBy
+            // IB_Form
             // 
-            this.ModifiedBy.HeaderText = "Modified By";
-            this.ModifiedBy.Name = "ModifiedBy";
+            this.IB_Form.HeaderText = "IB";
+            this.IB_Form.Name = "IB_Form";
+            this.IB_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.IB_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.IB_Form.Width = 60;
             // 
-            // NoteCaseHistoryCaseView
+            // IB_Received_Date
             // 
-            this.NoteCaseHistoryCaseView.HeaderText = "Note";
-            this.NoteCaseHistoryCaseView.Name = "NoteCaseHistoryCaseView";
-            this.NoteCaseHistoryCaseView.Width = 1000;
+            this.IB_Received_Date.HeaderText = "Rec. Date";
+            this.IB_Received_Date.Name = "IB_Received_Date";
+            this.IB_Received_Date.Width = 85;
+            // 
+            // POP_Form
+            // 
+            this.POP_Form.HeaderText = "PoP";
+            this.POP_Form.Name = "POP_Form";
+            this.POP_Form.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.POP_Form.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.POP_Form.Width = 60;
+            // 
+            // PoP_ReceivedDate
+            // 
+            this.PoP_ReceivedDate.HeaderText = "Rec. Date";
+            this.PoP_ReceivedDate.Name = "PoP_ReceivedDate";
+            this.PoP_ReceivedDate.Width = 85;
+            // 
+            // MedRecForm
+            // 
+            this.MedRecForm.HeaderText = "Med Rec";
+            this.MedRecForm.Name = "MedRecForm";
+            this.MedRecForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.MedRecForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.MedRecForm.Width = 75;
+            // 
+            // MedRecReceivDate
+            // 
+            this.MedRecReceivDate.HeaderText = "Rec. Date";
+            this.MedRecReceivDate.Name = "MedRecReceivDate";
+            this.MedRecReceivDate.Width = 85;
+            // 
+            // Unknown_Doc
+            // 
+            this.Unknown_Doc.HeaderText = "Other Doc";
+            this.Unknown_Doc.Name = "Unknown_Doc";
+            this.Unknown_Doc.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Unknown_Doc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Unknown_Doc.Width = 85;
+            // 
+            // Unknown_Doc_Receive_Date
+            // 
+            this.Unknown_Doc_Receive_Date.HeaderText = "Rec. Date";
+            this.Unknown_Doc_Receive_Date.Name = "Unknown_Doc_Receive_Date";
+            this.Unknown_Doc_Receive_Date.Width = 85;
+            // 
+            // CreateDateForIndividual
+            // 
+            this.CreateDateForIndividual.HeaderText = "Date";
+            this.CreateDateForIndividual.Name = "CreateDateForIndividual";
+            this.CreateDateForIndividual.Width = 80;
+            // 
+            // CreateStaffForIndividual
+            // 
+            this.CreateStaffForIndividual.HeaderText = "Staff";
+            this.CreateStaffForIndividual.Name = "CreateStaffForIndividual";
+            this.CreateStaffForIndividual.Width = 80;
             // 
             // frmCMMManager
             // 
@@ -11655,21 +11662,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdNPStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelatedToNPStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPStaff;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseIdForIndividual;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn AddOnCaseIndividual;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateForIndividual;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffForIndividual;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn NPF_Form;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NPF_Receiv_Date;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IB_Form;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IB_Received_Date;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn POP_Form;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PoP_ReceivedDate;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn MedRecForm;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedRecReceivDate;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Unknown_Doc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unknown_Doc_Receive_Date;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
         private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
         private System.Windows.Forms.DataGridViewButtonColumn BtnUploadCaseDocument;
@@ -11690,6 +11682,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn ModifiedBy;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoteCaseHistoryCaseView;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CaseSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CaseIdForIndividual;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn FullDocForIndividual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullDocReceivedDateForIndividual;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn NPF_Form;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NPF_Receiv_Date;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IB_Form;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IB_Received_Date;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn POP_Form;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PoP_ReceivedDate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn MedRecForm;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedRecReceivDate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Unknown_Doc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unknown_Doc_Receive_Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateForIndividual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffForIndividual;
     }
 }
 
