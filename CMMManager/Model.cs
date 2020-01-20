@@ -905,6 +905,52 @@ namespace CMMManager
         }
     }
 
+    public class ReceivedCaseDocInfo
+    {
+        public String IndividualId;
+        public String CaseNo;
+        public Boolean? bAddOn;
+        public Boolean? bFullDocReceived;
+        public DateTime? FullDocReceivedDate;
+        public Boolean? bNPF_Received;
+        public DateTime? NPF_ReceivedDate;
+        public Boolean? bIB_Received;
+        public DateTime? IB_ReceivedDate;
+        public Boolean? bPoP_Received;
+        public DateTime? PoP_ReceivedDate;
+        public Boolean? bMedRecReceived;
+        public DateTime? MedRecReceivedDate;
+        public Boolean? bOtherDocReceived;
+        public DateTime? OtherDocReceivedDate;
+        public DateTime? CreateDate;
+        public int? CreateStaffId;
+        public String CreateStaffName;
+
+        public ReceivedCaseDocInfo()
+        {
+            IndividualId = null;
+            CaseNo = null;
+            bAddOn = false;
+
+            bFullDocReceived = false;
+            FullDocReceivedDate = null;
+            bNPF_Received = false;
+            NPF_ReceivedDate = null;
+            bIB_Received = false;
+            IB_ReceivedDate = null;
+            bPoP_Received = false;
+            PoP_ReceivedDate = null;
+            bMedRecReceived = false;
+            MedRecReceivedDate = null;
+            bOtherDocReceived = false;
+            OtherDocReceivedDate = null;
+
+            CreateDate = null;
+            CreateStaffId = null;
+            CreateStaffName = null;
+        }
+    }
+
     public class CasedInfoDetailed
     {
         public String CaseId;
@@ -1557,7 +1603,7 @@ namespace CMMManager
         public String CaseName;
         public DateTime? CaseCreateDate;
         public Boolean? bAddOn;
-        public int? DocumentTypeId;
+        public CaseDocType? DocumentTypeId;
         public Boolean? bMissingDocRequested;
         public DateTime? CreateDate;
         public int? CreateStaffId;
@@ -1580,7 +1626,7 @@ namespace CMMManager
                                   String case_name, 
                                   DateTime case_create_date, 
                                   Boolean add_on, 
-                                  int doc_type_id, 
+                                  CaseDocType doc_type,
                                   Boolean missing_doc_requested, 
                                   DateTime create_date, 
                                   int create_staff_id, 
@@ -1590,7 +1636,7 @@ namespace CMMManager
             CaseName = case_name;
             CaseCreateDate = case_create_date;
             bAddOn = add_on;
-            DocumentTypeId = doc_type_id;
+            DocumentTypeId = doc_type;
             bMissingDocRequested = missing_doc_requested;
             CreateDate = create_date;
             CreateStaffId = create_staff_id;
@@ -1613,12 +1659,12 @@ namespace CMMManager
         {
             CaseNo = null;
             IndividualId = null;
-            bFullDocReceived = null;
-            bNPFReceived = null;
-            bIBReceived = null;
-            bPoPReceived = null;
-            bMedRecReceived = null;
-            bOtherDocReceived = null;
+            bFullDocReceived = false;
+            bNPFReceived = false;
+            bIBReceived = false;
+            bPoPReceived = false;
+            bMedRecReceived = false;
+            bOtherDocReceived = false;
         }
     }
 
