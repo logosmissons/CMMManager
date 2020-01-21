@@ -319,6 +319,12 @@
     <Compile Include="frmUndoCheckProviderPayment.Designer.cs">
       <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUploadNewCaseDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUploadNewCaseDoc.Designer.cs">
+      <DependentUpon>frmUploadNewCaseDoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmViewEmail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -444,6 +450,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmUndoCheckProviderPayment.resx">
       <DependentUpon>frmUndoCheckProviderPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUploadNewCaseDoc.resx">
+      <DependentUpon>frmUploadNewCaseDoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewEmail.resx">
       <DependentUpon>frmViewEmail.cs</DependentUpon>
