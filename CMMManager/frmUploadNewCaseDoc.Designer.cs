@@ -47,6 +47,7 @@
             this.dtpCaseDocReceivedDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.txtCaseDocNote = new System.Windows.Forms.TextBox();
+            this.btnViewCaseDoc = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -80,7 +81,7 @@
             // 
             this.chkAddOn.AutoCheck = false;
             this.chkAddOn.AutoSize = true;
-            this.chkAddOn.Location = new System.Drawing.Point(281, 102);
+            this.chkAddOn.Location = new System.Drawing.Point(321, 102);
             this.chkAddOn.Name = "chkAddOn";
             this.chkAddOn.Size = new System.Drawing.Size(62, 17);
             this.chkAddOn.TabIndex = 3;
@@ -92,7 +93,7 @@
             this.comboDocumentType.FormattingEnabled = true;
             this.comboDocumentType.Location = new System.Drawing.Point(117, 171);
             this.comboDocumentType.Name = "comboDocumentType";
-            this.comboDocumentType.Size = new System.Drawing.Size(153, 21);
+            this.comboDocumentType.Size = new System.Drawing.Size(118, 21);
             this.comboDocumentType.TabIndex = 4;
             // 
             // label4
@@ -112,13 +113,14 @@
             this.btnUpload.TabIndex = 6;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // txtCaseDocDestinationPath
             // 
             this.txtCaseDocDestinationPath.Location = new System.Drawing.Point(117, 204);
             this.txtCaseDocDestinationPath.Name = "txtCaseDocDestinationPath";
             this.txtCaseDocDestinationPath.ReadOnly = true;
-            this.txtCaseDocDestinationPath.Size = new System.Drawing.Size(226, 20);
+            this.txtCaseDocDestinationPath.Size = new System.Drawing.Size(177, 20);
             this.txtCaseDocDestinationPath.TabIndex = 7;
             // 
             // txtIndividualId
@@ -126,7 +128,7 @@
             this.txtIndividualId.Location = new System.Drawing.Point(116, 29);
             this.txtIndividualId.Name = "txtIndividualId";
             this.txtIndividualId.ReadOnly = true;
-            this.txtIndividualId.Size = new System.Drawing.Size(227, 20);
+            this.txtIndividualId.Size = new System.Drawing.Size(267, 20);
             this.txtIndividualId.TabIndex = 8;
             // 
             // txtIndividualName
@@ -134,7 +136,7 @@
             this.txtIndividualName.Location = new System.Drawing.Point(116, 61);
             this.txtIndividualName.Name = "txtIndividualName";
             this.txtIndividualName.ReadOnly = true;
-            this.txtIndividualName.Size = new System.Drawing.Size(227, 20);
+            this.txtIndividualName.Size = new System.Drawing.Size(267, 20);
             this.txtIndividualName.TabIndex = 9;
             // 
             // txtCaseNo
@@ -142,26 +144,28 @@
             this.txtCaseNo.Location = new System.Drawing.Point(117, 100);
             this.txtCaseNo.Name = "txtCaseNo";
             this.txtCaseNo.ReadOnly = true;
-            this.txtCaseNo.Size = new System.Drawing.Size(153, 20);
+            this.txtCaseNo.Size = new System.Drawing.Size(198, 20);
             this.txtCaseNo.TabIndex = 10;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(145, 373);
+            this.btnSave.Location = new System.Drawing.Point(185, 373);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(90, 31);
             this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(253, 373);
+            this.btnCancel.Location = new System.Drawing.Point(293, 373);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(90, 31);
             this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // label5
             // 
@@ -177,7 +181,7 @@
             this.txtCaseDocNo.Location = new System.Drawing.Point(117, 132);
             this.txtCaseDocNo.Name = "txtCaseDocNo";
             this.txtCaseDocNo.ReadOnly = true;
-            this.txtCaseDocNo.Size = new System.Drawing.Size(226, 20);
+            this.txtCaseDocNo.Size = new System.Drawing.Size(266, 20);
             this.txtCaseDocNo.TabIndex = 14;
             // 
             // label6
@@ -194,7 +198,7 @@
             this.dtpCaseDocReceivedDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpCaseDocReceivedDate.Location = new System.Drawing.Point(117, 237);
             this.dtpCaseDocReceivedDate.Name = "dtpCaseDocReceivedDate";
-            this.dtpCaseDocReceivedDate.Size = new System.Drawing.Size(88, 20);
+            this.dtpCaseDocReceivedDate.Size = new System.Drawing.Size(118, 20);
             this.dtpCaseDocReceivedDate.TabIndex = 16;
             // 
             // label7
@@ -211,14 +215,25 @@
             this.txtCaseDocNote.Location = new System.Drawing.Point(24, 291);
             this.txtCaseDocNote.Multiline = true;
             this.txtCaseDocNote.Name = "txtCaseDocNote";
-            this.txtCaseDocNote.Size = new System.Drawing.Size(319, 60);
+            this.txtCaseDocNote.Size = new System.Drawing.Size(359, 60);
             this.txtCaseDocNote.TabIndex = 18;
+            // 
+            // btnViewCaseDoc
+            // 
+            this.btnViewCaseDoc.Location = new System.Drawing.Point(300, 202);
+            this.btnViewCaseDoc.Name = "btnViewCaseDoc";
+            this.btnViewCaseDoc.Size = new System.Drawing.Size(83, 25);
+            this.btnViewCaseDoc.TabIndex = 19;
+            this.btnViewCaseDoc.Text = "View";
+            this.btnViewCaseDoc.UseVisualStyleBackColor = true;
+            this.btnViewCaseDoc.Click += new System.EventHandler(this.btnViewCaseDoc_Click);
             // 
             // frmUploadNewCaseDoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 425);
+            this.ClientSize = new System.Drawing.Size(415, 425);
+            this.Controls.Add(this.btnViewCaseDoc);
             this.Controls.Add(this.txtCaseDocNote);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dtpCaseDocReceivedDate);
@@ -240,6 +255,7 @@
             this.Controls.Add(this.label1);
             this.Name = "frmUploadNewCaseDoc";
             this.Text = "Upload New Case Document";
+            this.Load += new System.EventHandler(this.frmUploadNewCaseDoc_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,5 +282,6 @@
         private System.Windows.Forms.DateTimePicker dtpCaseDocReceivedDate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtCaseDocNote;
+        private System.Windows.Forms.Button btnViewCaseDoc;
     }
 }

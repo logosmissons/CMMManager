@@ -911,16 +911,22 @@ namespace CMMManager
         public String CaseNo;
         public Boolean? bAddOn;
         public Boolean? bFullDocReceived;
+        public Boolean? bFullDocAddOn;
         public DateTime? FullDocReceivedDate;
         public Boolean? bNPF_Received;
+        public Boolean? bNPF_AddOn;
         public DateTime? NPF_ReceivedDate;
         public Boolean? bIB_Received;
+        public Boolean? bIB_AddOn;
         public DateTime? IB_ReceivedDate;
         public Boolean? bPoP_Received;
+        public Boolean? bPoP_AddOn;
         public DateTime? PoP_ReceivedDate;
         public Boolean? bMedRecReceived;
+        public Boolean? bMedRecAddOn;
         public DateTime? MedRecReceivedDate;
         public Boolean? bOtherDocReceived;
+        public Boolean? bOtherAddOn;
         public DateTime? OtherDocReceivedDate;
         public DateTime? CreateDate;
         public int? CreateStaffId;
@@ -933,16 +939,22 @@ namespace CMMManager
             bAddOn = false;
 
             bFullDocReceived = false;
+            bFullDocAddOn = false;
             FullDocReceivedDate = null;
             bNPF_Received = false;
+            bNPF_AddOn = false;
             NPF_ReceivedDate = null;
             bIB_Received = false;
+            bIB_AddOn = false;
             IB_ReceivedDate = null;
             bPoP_Received = false;
+            bPoP_AddOn = false;
             PoP_ReceivedDate = null;
             bMedRecReceived = false;
+            bMedRecAddOn = false;
             MedRecReceivedDate = null;
             bOtherDocReceived = false;
+            bOtherAddOn = false;
             OtherDocReceivedDate = null;
 
             CreateDate = null;
