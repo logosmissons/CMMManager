@@ -909,6 +909,7 @@ namespace CMMManager
     {
         public String IndividualId;
         public String CaseNo;
+        public String FullDocNo;
         public Boolean? bAddOn;
         public Boolean? bFullDocReceived;
         public Boolean? bFullDocAddOn;
@@ -936,6 +937,7 @@ namespace CMMManager
         {
             IndividualId = null;
             CaseNo = null;
+            FullDocNo = null;
             bAddOn = false;
 
             bFullDocReceived = false;

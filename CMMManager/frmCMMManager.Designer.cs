@@ -453,6 +453,18 @@
             this.label84 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.gvCaseDocuments = new System.Windows.Forms.DataGridView();
+            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
+            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AddOnCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeleteCaseDoc = new System.Windows.Forms.Button();
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
@@ -1076,18 +1088,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.DocumentTypeCaseDocument = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BtnUploadCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ReceivedDateCaseDocument = new CMMManager.CalendarColumn();
-            this.BtnViewCaseDocument = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.AddOnCaseDocument = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.NoteCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedDateCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CaseDocNoCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FilePathCaseDocument = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3725,7 +3725,7 @@
             this.gvProcessingCaseNo.Name = "gvProcessingCaseNo";
             this.gvProcessingCaseNo.Size = new System.Drawing.Size(1049, 145);
             this.gvProcessingCaseNo.TabIndex = 195;
-            this.gvProcessingCaseNo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellClick);
+            this.gvProcessingCaseNo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellContentClick);
             this.gvProcessingCaseNo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellDoubleClick);
             // 
             // CaseSelected
@@ -4914,6 +4914,72 @@
             this.gvCaseDocuments.Size = new System.Drawing.Size(833, 169);
             this.gvCaseDocuments.TabIndex = 154;
             this.gvCaseDocuments.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocuments_CellContentClick);
+            // 
+            // SelectedCaseDocument
+            // 
+            this.SelectedCaseDocument.HeaderText = "";
+            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
+            this.SelectedCaseDocument.Width = 40;
+            // 
+            // DocumentTypeCaseDocument
+            // 
+            this.DocumentTypeCaseDocument.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
+            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
+            // 
+            // BtnUploadCaseDocument
+            // 
+            this.BtnUploadCaseDocument.HeaderText = "Upload";
+            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
+            this.BtnUploadCaseDocument.Width = 80;
+            // 
+            // ReceivedDateCaseDocument
+            // 
+            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
+            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
+            // 
+            // BtnViewCaseDocument
+            // 
+            this.BtnViewCaseDocument.HeaderText = "View";
+            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
+            this.BtnViewCaseDocument.Width = 80;
+            // 
+            // AddOnCaseDocument
+            // 
+            this.AddOnCaseDocument.HeaderText = "Add On";
+            this.AddOnCaseDocument.Name = "AddOnCaseDocument";
+            this.AddOnCaseDocument.Width = 80;
+            // 
+            // NoteCaseDocument
+            // 
+            this.NoteCaseDocument.HeaderText = "Note";
+            this.NoteCaseDocument.Name = "NoteCaseDocument";
+            this.NoteCaseDocument.Width = 512;
+            // 
+            // CreatedByCaseDocument
+            // 
+            this.CreatedByCaseDocument.HeaderText = "Created By";
+            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
+            // 
+            // CreatedDateCaseDocument
+            // 
+            this.CreatedDateCaseDocument.HeaderText = "Created Date";
+            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
+            // 
+            // TypeCaseDocument
+            // 
+            this.TypeCaseDocument.HeaderText = "Type";
+            this.TypeCaseDocument.Name = "TypeCaseDocument";
+            // 
+            // CaseDocNoCaseDocument
+            // 
+            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
+            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
+            // 
+            // FilePathCaseDocument
+            // 
+            this.FilePathCaseDocument.HeaderText = "Destination";
+            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // btnDeleteCaseDoc
             // 
@@ -10414,72 +10480,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // SelectedCaseDocument
-            // 
-            this.SelectedCaseDocument.HeaderText = "";
-            this.SelectedCaseDocument.Name = "SelectedCaseDocument";
-            this.SelectedCaseDocument.Width = 40;
-            // 
-            // DocumentTypeCaseDocument
-            // 
-            this.DocumentTypeCaseDocument.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.DocumentTypeCaseDocument.HeaderText = "Document Type";
-            this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
-            // 
-            // BtnUploadCaseDocument
-            // 
-            this.BtnUploadCaseDocument.HeaderText = "Upload";
-            this.BtnUploadCaseDocument.Name = "BtnUploadCaseDocument";
-            this.BtnUploadCaseDocument.Width = 80;
-            // 
-            // ReceivedDateCaseDocument
-            // 
-            this.ReceivedDateCaseDocument.HeaderText = "Received Date";
-            this.ReceivedDateCaseDocument.Name = "ReceivedDateCaseDocument";
-            // 
-            // BtnViewCaseDocument
-            // 
-            this.BtnViewCaseDocument.HeaderText = "View";
-            this.BtnViewCaseDocument.Name = "BtnViewCaseDocument";
-            this.BtnViewCaseDocument.Width = 80;
-            // 
-            // AddOnCaseDocument
-            // 
-            this.AddOnCaseDocument.HeaderText = "Add On";
-            this.AddOnCaseDocument.Name = "AddOnCaseDocument";
-            this.AddOnCaseDocument.Width = 80;
-            // 
-            // NoteCaseDocument
-            // 
-            this.NoteCaseDocument.HeaderText = "Note";
-            this.NoteCaseDocument.Name = "NoteCaseDocument";
-            this.NoteCaseDocument.Width = 512;
-            // 
-            // CreatedByCaseDocument
-            // 
-            this.CreatedByCaseDocument.HeaderText = "Created By";
-            this.CreatedByCaseDocument.Name = "CreatedByCaseDocument";
-            // 
-            // CreatedDateCaseDocument
-            // 
-            this.CreatedDateCaseDocument.HeaderText = "Created Date";
-            this.CreatedDateCaseDocument.Name = "CreatedDateCaseDocument";
-            // 
-            // TypeCaseDocument
-            // 
-            this.TypeCaseDocument.HeaderText = "Type";
-            this.TypeCaseDocument.Name = "TypeCaseDocument";
-            // 
-            // CaseDocNoCaseDocument
-            // 
-            this.CaseDocNoCaseDocument.HeaderText = "Case Doc No";
-            this.CaseDocNoCaseDocument.Name = "CaseDocNoCaseDocument";
-            // 
-            // FilePathCaseDocument
-            // 
-            this.FilePathCaseDocument.HeaderText = "Destination";
-            this.FilePathCaseDocument.Name = "FilePathCaseDocument";
             // 
             // frmCMMManager
             // 
