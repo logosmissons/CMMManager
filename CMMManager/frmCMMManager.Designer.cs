@@ -3727,6 +3727,8 @@
             this.gvProcessingCaseNo.TabIndex = 195;
             this.gvProcessingCaseNo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellContentClick);
             this.gvProcessingCaseNo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellDoubleClick);
+            this.gvProcessingCaseNo.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvProcessingCaseNo_CellValueChanged);
+            this.gvProcessingCaseNo.CurrentCellDirtyStateChanged += new System.EventHandler(this.gvProcessingCaseNo_CurrentCellDirtyStateChanged);
             // 
             // label33
             // 

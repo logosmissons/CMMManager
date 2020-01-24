@@ -20,6 +20,7 @@ namespace CMMManager
         private String CaseNo;
         private CaseDocType CaseDocType;
         private Boolean bAddOn;
+        private String FullDocNo;
         private DateTime CaseDocReceivedDate;
         private String CaseDocNote;
         private String CaseDocDestinationPath;
@@ -45,7 +46,8 @@ namespace CMMManager
                                    String case_no, 
                                    Boolean add_on, 
                                    CaseDocType doc_type,
-                                   int login_user)
+                                   int login_user,
+                                   String full_doc_no)
         {
             InitializeComponent();
 
@@ -55,6 +57,7 @@ namespace CMMManager
             bAddOn = add_on;
             CaseDocType = doc_type;
             nLoggedInUserId = login_user;
+            FullDocNo = full_doc_no;            
 
             connRN = new SqlConnection(connStringRN);
         }
@@ -168,14 +171,14 @@ namespace CMMManager
             if (objCaseDocNo == null) // save new case document
             {
                 String strSqlInsertNewCaseDocument = "insert into [dbo].[tbl_case_doc] ([dbo].[tbl_case_doc].[IsDeleted], " +
-                                                     "[dbo].[tbl_case_doc].[CaseDocNo], [dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
-                                                     "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], [dbo].[tbl_case_doc].[IsAddOn], " +
-                                                     "[dbo].[tbl_case_doc].[Note], " +
-                                                     "[dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate]) " +
-                                                     "values (0, " +
-                                                     "@NewCaseDocNo, @Case_Name, @CaseDocType, " +
-                                                     "@ReceivedDate, @DestinationFilePath, @AddOn, @Note, " +
-                                                     "@CreatedById, @CreateDate)";
+                                                        "[dbo].[tbl_case_doc].[CaseDocNo], [dbo].[tbl_case_doc].[Case_Name], [dbo].[tbl_case_doc].[DocumentTypeId], " +
+                                                        "[dbo].[tbl_case_doc].[ReceivedDate], [dbo].[tbl_case_doc].[DestinationFilePath], [dbo].[tbl_case_doc].[IsAddOn], " +
+                                                        "[dbo].[tbl_case_doc].[Note], " +
+                                                        "[dbo].[tbl_case_doc].[CreatedById], [dbo].[tbl_case_doc].[CreateDate], [dbo].[tbl_case_doc].[FullDocNo]) " +
+                                                        "values (0, " +
+                                                        "@NewCaseDocNo, @Case_Name, @CaseDocType, " +
+                                                        "@ReceivedDate, @DestinationFilePath, @AddOn, @Note, " +
+                                                        "@CreatedById, @CreateDate, @FullDocNo)";
 
                 SqlCommand cmdInsertNewCaseDocument = new SqlCommand(strSqlInsertNewCaseDocument, connRN);
                 cmdInsertNewCaseDocument.CommandType = CommandType.Text;
@@ -191,6 +194,7 @@ namespace CMMManager
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@Note", txtCaseDocNote.Text.Trim());
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@CreatedById", nLoggedInUserId);
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@CreateDate", DateTime.Now);
+                cmdInsertNewCaseDocument.Parameters.AddWithValue("@FullDocNo", FullDocNo);                  
 
                 if (connRN.State != ConnectionState.Closed)
                 {
