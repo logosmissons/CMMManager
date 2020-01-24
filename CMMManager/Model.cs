@@ -965,6 +965,18 @@ namespace CMMManager
         }
     }
 
+    public class NPFReceivedInfo
+    {
+        public Boolean? NPFReceived;
+        public DateTime? NPFReceivedDate;
+
+        public NPFReceivedInfo()
+        {
+            NPFReceived = null;
+            NPFReceivedDate = null;
+        }
+    }
+
     public class CasedInfoDetailed
     {
         public String CaseId;
