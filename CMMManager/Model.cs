@@ -977,6 +977,54 @@ namespace CMMManager
         }
     }
 
+    public class IBReceivedInfo
+    {
+        public Boolean? IBReceived;
+        public DateTime? IBReceivedDate;
+
+        public IBReceivedInfo()
+        {
+            IBReceived = null;
+            IBReceivedDate = null;
+        }
+    }
+
+    public class PoPReceivedInfo
+    {
+        public Boolean? PoPReceived;
+        public DateTime? PoPReceivedDate;
+
+        public PoPReceivedInfo()
+        {
+            PoPReceived = null;
+            PoPReceivedDate = null;
+        }
+    }
+
+    public class MedRecReceivedInfo
+    {
+        public Boolean? MedRecReceived;
+        public DateTime? MedRecReceivedDate;
+
+        public MedRecReceivedInfo()
+        {
+            MedRecReceived = null;
+            MedRecReceivedDate = null;
+        }
+    }
+
+    public class OtherDocReceivedInfo
+    {
+        public Boolean? OtherDocReceived;
+        public DateTime? OtherDocReceivedDate;
+
+        public OtherDocReceivedInfo()
+        {
+            OtherDocReceived = null;
+            OtherDocReceivedDate = null;
+        }
+    }
+
     public class CasedInfoDetailed
     {
         public String CaseId;
