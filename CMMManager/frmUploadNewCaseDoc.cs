@@ -21,6 +21,7 @@ namespace CMMManager
         private CaseDocType CaseDocType;
         private Boolean bAddOn;
         private String FullDocNo;
+        private DateTime FullDocReceivedDate;
         private DateTime CaseDocReceivedDate;
         private String CaseDocNote;
         private String CaseDocDestinationPath;
@@ -47,7 +48,8 @@ namespace CMMManager
                                    Boolean add_on, 
                                    CaseDocType doc_type,
                                    int login_user,
-                                   String full_doc_no)
+                                   String full_doc_no,
+                                   DateTime full_doc_received_date)
         {
             InitializeComponent();
 
@@ -57,7 +59,8 @@ namespace CMMManager
             bAddOn = add_on;
             CaseDocType = doc_type;
             nLoggedInUserId = login_user;
-            FullDocNo = full_doc_no;            
+            FullDocNo = full_doc_no;
+            FullDocReceivedDate = full_doc_received_date;
 
             connRN = new SqlConnection(connStringRN);
         }
@@ -152,6 +155,12 @@ namespace CMMManager
 
             Boolean bCaseDocInserted = true;
 
+            if ((FullDocReceivedDate.ToString("MM/dd/yyyy") != dtpCaseDocReceivedDate.Value.ToString("MM/dd/yyyy")) && (txtCaseDocDestinationPath.Text.Trim() == String.Empty))
+            {
+                MessageBox.Show("If you do not want to upload any document, the Received Date has to be same as Full Doc Received Date.", "Alert");
+                return;
+            }
+
             String strSqlQueryForCaseDocNo = "select [dbo].[tbl_case_doc].[CaseDocNo] from [dbo].[tbl_case_doc] where [dbo].[tbl_case_doc].[CaseDocNo] = @NewCaseDocNo";
 
             SqlCommand cmdQueryForCaseDocNo = new SqlCommand(strSqlQueryForCaseDocNo, connRN);
@@ -189,7 +198,8 @@ namespace CMMManager
 
                 if (dtpCaseDocReceivedDate.Value != null) cmdInsertNewCaseDocument.Parameters.AddWithValue("@ReceivedDate", dtpCaseDocReceivedDate.Value);
                 else cmdInsertNewCaseDocument.Parameters.AddWithValue("@ReceivedDate", DBNull.Value);
-                cmdInsertNewCaseDocument.Parameters.AddWithValue("@DestinationFilePath", txtCaseDocDestinationPath.Text.Trim());
+                if (txtCaseDocDestinationPath.Text.Trim() != String.Empty) cmdInsertNewCaseDocument.Parameters.AddWithValue("@DestinationFilePath", txtCaseDocDestinationPath.Text.Trim());
+                else cmdInsertNewCaseDocument.Parameters.AddWithValue("@DestinationFilePath", DBNull.Value);
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@AddOn", chkAddOn.Checked);
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@Note", txtCaseDocNote.Text.Trim());
                 cmdInsertNewCaseDocument.Parameters.AddWithValue("@CreatedById", nLoggedInUserId);
@@ -242,14 +252,13 @@ namespace CMMManager
                 try
                 {
                     File.Copy(strCaseDocSourcePathName, strCaseDocDestinationPathName, true);
+                    txtCaseDocDestinationPath.Text = strCaseDocDestinationPathName;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     return;
                 }
-
-                txtCaseDocDestinationPath.Text = strCaseDocDestinationPathName;
             }
             else return;
         }
@@ -257,10 +266,17 @@ namespace CMMManager
         private void btnViewCaseDoc_Click(object sender, EventArgs e)
         {
 
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.FileName = txtCaseDocDestinationPath.Text.Trim();
-
-            Process.Start(info);
+            if (txtCaseDocDestinationPath.Text.Trim() != String.Empty)
+            {
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.FileName = txtCaseDocDestinationPath.Text.Trim();
+                Process.Start(info);
+            }
+            else
+            {
+                MessageBox.Show("The Case Doc Destination Path is empty.", "Error");
+                return;
+            }
         }
     }
 }
