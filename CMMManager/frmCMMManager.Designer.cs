@@ -98,6 +98,7 @@
             this.ActivityDateCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CommentCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SolutionCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCompleteTaskRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label157 = new System.Windows.Forms.Label();
             this.gvRNManagerActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -113,6 +114,7 @@
             this.SolutionRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label156 = new System.Windows.Forms.Label();
             this.gvRNManagerIncompleteCase = new System.Windows.Forms.DataGridView();
             this.RNManagerIncompleteCase_CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -136,6 +138,7 @@
             this.ActivityDateCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CommentCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SolutionCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label164 = new System.Windows.Forms.Label();
             this.label163 = new System.Windows.Forms.Label();
             this.gvRNStaffActiveTask = new System.Windows.Forms.DataGridView();
@@ -161,19 +164,6 @@
             this.label159 = new System.Windows.Forms.Label();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
             this.gvNPManagerCompleteTask = new System.Windows.Forms.DataGridView();
-            this.IndividualIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WhatIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActivityDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvNPManagerActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -188,6 +178,7 @@
             this.SolutionNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PriorityNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvDashboardNPManager = new System.Windows.Forms.DataGridView();
             this.label183 = new System.Windows.Forms.Label();
             this.label182 = new System.Windows.Forms.Label();
@@ -1088,6 +1079,20 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.IndividualIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1466,12 +1471,14 @@
             this.CreateDateCompleteTaskRNMgr,
             this.ActivityDateCompleteTaskRNMgr,
             this.CommentCompleteTaskRNMgr,
-            this.SolutionCompleteTaskRNMgr});
+            this.SolutionCompleteTaskRNMgr,
+            this.TaskIdCompleteTaskRNManager});
             this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(885, 521);
             this.gvRNManagerCompleteTask.Name = "gvRNManagerCompleteTask";
             this.gvRNManagerCompleteTask.ReadOnly = true;
             this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(902, 319);
             this.gvRNManagerCompleteTask.TabIndex = 7;
+            this.gvRNManagerCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNManagerCompleteTask_CellDoubleClick);
             // 
             // IndividualIdCompleteTaskRNMgr
             // 
@@ -1515,6 +1522,12 @@
             this.SolutionCompleteTaskRNMgr.Name = "SolutionCompleteTaskRNMgr";
             this.SolutionCompleteTaskRNMgr.ReadOnly = true;
             // 
+            // TaskIdCompleteTaskRNManager
+            // 
+            this.TaskIdCompleteTaskRNManager.HeaderText = "Task Id";
+            this.TaskIdCompleteTaskRNManager.Name = "TaskIdCompleteTaskRNManager";
+            this.TaskIdCompleteTaskRNManager.ReadOnly = true;
+            // 
             // label157
             // 
             this.label157.AutoSize = true;
@@ -1543,12 +1556,14 @@
             this.CommentRNManager,
             this.SolutionRNManager,
             this.StatusRNManager,
-            this.PriorityRNManager});
+            this.PriorityRNManager,
+            this.TaskIdRNManager});
             this.gvRNManagerActiveTask.Location = new System.Drawing.Point(885, 129);
             this.gvRNManagerActiveTask.Name = "gvRNManagerActiveTask";
             this.gvRNManagerActiveTask.ReadOnly = true;
             this.gvRNManagerActiveTask.Size = new System.Drawing.Size(900, 341);
             this.gvRNManagerActiveTask.TabIndex = 5;
+            this.gvRNManagerActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNManagerActiveTask_CellDoubleClick);
             // 
             // IndividualIdRNManager
             // 
@@ -1627,6 +1642,12 @@
             this.PriorityRNManager.HeaderText = "Priority";
             this.PriorityRNManager.Name = "PriorityRNManager";
             this.PriorityRNManager.ReadOnly = true;
+            // 
+            // TaskIdRNManager
+            // 
+            this.TaskIdRNManager.HeaderText = "Task ID";
+            this.TaskIdRNManager.Name = "TaskIdRNManager";
+            this.TaskIdRNManager.ReadOnly = true;
             // 
             // label156
             // 
@@ -1793,12 +1814,14 @@
             this.CreateDateCompleteTaskRNStaff,
             this.ActivityDateCompleteTaskRNStaff,
             this.CommentCompleteTaskRNStaff,
-            this.SolutionCompleteTaskRNStaff});
+            this.SolutionCompleteTaskRNStaff,
+            this.TaskIdCompleteTaskRNStaff});
             this.gvRNStaffCompleteTask.Location = new System.Drawing.Point(699, 490);
             this.gvRNStaffCompleteTask.Name = "gvRNStaffCompleteTask";
             this.gvRNStaffCompleteTask.ReadOnly = true;
             this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(521, 330);
             this.gvRNStaffCompleteTask.TabIndex = 12;
+            this.gvRNStaffCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffCompleteTask_CellDoubleClick);
             // 
             // IndividualIdCompleteTaskRNStaff
             // 
@@ -1841,6 +1864,12 @@
             this.SolutionCompleteTaskRNStaff.HeaderText = "Solution";
             this.SolutionCompleteTaskRNStaff.Name = "SolutionCompleteTaskRNStaff";
             this.SolutionCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // TaskIdCompleteTaskRNStaff
+            // 
+            this.TaskIdCompleteTaskRNStaff.HeaderText = "Task Id";
+            this.TaskIdCompleteTaskRNStaff.Name = "TaskIdCompleteTaskRNStaff";
+            this.TaskIdCompleteTaskRNStaff.ReadOnly = true;
             // 
             // label164
             // 
@@ -2068,90 +2097,13 @@
             this.CommentCompleteTaskNPManager,
             this.SolutionCompleteTaskNPManager,
             this.StatusCompleteTaskNPManager,
-            this.PriorityCompleteTaskNPManager});
+            this.PriorityCompleteTaskNPManager,
+            this.TaskIdCompleteTaskNPManager});
             this.gvNPManagerCompleteTask.Location = new System.Drawing.Point(750, 484);
             this.gvNPManagerCompleteTask.Name = "gvNPManagerCompleteTask";
             this.gvNPManagerCompleteTask.ReadOnly = true;
             this.gvNPManagerCompleteTask.Size = new System.Drawing.Size(1034, 355);
             this.gvNPManagerCompleteTask.TabIndex = 10;
-            // 
-            // IndividualIdCompleteTaskNPManager
-            // 
-            this.IndividualIdCompleteTaskNPManager.HeaderText = "Individual Id";
-            this.IndividualIdCompleteTaskNPManager.Name = "IndividualIdCompleteTaskNPManager";
-            this.IndividualIdCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // IndividualNameCompleteTaskNPManager
-            // 
-            this.IndividualNameCompleteTaskNPManager.HeaderText = "Individual Name";
-            this.IndividualNameCompleteTaskNPManager.Name = "IndividualNameCompleteTaskNPManager";
-            this.IndividualNameCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // AssignedToCompleteTaskNPManager
-            // 
-            this.AssignedToCompleteTaskNPManager.HeaderText = "Assigned To";
-            this.AssignedToCompleteTaskNPManager.Name = "AssignedToCompleteTaskNPManager";
-            this.AssignedToCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // CreatedByCompleteTaskNPManager
-            // 
-            this.CreatedByCompleteTaskNPManager.HeaderText = "Created By";
-            this.CreatedByCompleteTaskNPManager.Name = "CreatedByCompleteTaskNPManager";
-            this.CreatedByCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // WhatIdCompleteTaskNPManager
-            // 
-            this.WhatIdCompleteTaskNPManager.HeaderText = "What Id";
-            this.WhatIdCompleteTaskNPManager.Name = "WhatIdCompleteTaskNPManager";
-            this.WhatIdCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // SubjectCompleteTaskNPManager
-            // 
-            this.SubjectCompleteTaskNPManager.HeaderText = "Subject";
-            this.SubjectCompleteTaskNPManager.Name = "SubjectCompleteTaskNPManager";
-            this.SubjectCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // DueDateCompleteTaskNPManager
-            // 
-            this.DueDateCompleteTaskNPManager.HeaderText = "Due Date";
-            this.DueDateCompleteTaskNPManager.Name = "DueDateCompleteTaskNPManager";
-            this.DueDateCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // CreateDateCompleteTaskNPManager
-            // 
-            this.CreateDateCompleteTaskNPManager.HeaderText = "Create Date";
-            this.CreateDateCompleteTaskNPManager.Name = "CreateDateCompleteTaskNPManager";
-            this.CreateDateCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // ActivityDateCompleteTaskNPManager
-            // 
-            this.ActivityDateCompleteTaskNPManager.HeaderText = "Activity Date";
-            this.ActivityDateCompleteTaskNPManager.Name = "ActivityDateCompleteTaskNPManager";
-            this.ActivityDateCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // CommentCompleteTaskNPManager
-            // 
-            this.CommentCompleteTaskNPManager.HeaderText = "Comment";
-            this.CommentCompleteTaskNPManager.Name = "CommentCompleteTaskNPManager";
-            this.CommentCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // SolutionCompleteTaskNPManager
-            // 
-            this.SolutionCompleteTaskNPManager.HeaderText = "Solution";
-            this.SolutionCompleteTaskNPManager.Name = "SolutionCompleteTaskNPManager";
-            this.SolutionCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // StatusCompleteTaskNPManager
-            // 
-            this.StatusCompleteTaskNPManager.HeaderText = "Status";
-            this.StatusCompleteTaskNPManager.Name = "StatusCompleteTaskNPManager";
-            this.StatusCompleteTaskNPManager.ReadOnly = true;
-            // 
-            // PriorityCompleteTaskNPManager
-            // 
-            this.PriorityCompleteTaskNPManager.HeaderText = "Priority";
-            this.PriorityCompleteTaskNPManager.Name = "PriorityCompleteTaskNPManager";
-            this.PriorityCompleteTaskNPManager.ReadOnly = true;
             // 
             // gvNPManagerActiveTask
             // 
@@ -2171,12 +2123,14 @@
             this.CommentNPManager,
             this.SolutionNPManager,
             this.StatusNPManager,
-            this.PriorityNPManager});
+            this.PriorityNPManager,
+            this.TaskIdNPManager});
             this.gvNPManagerActiveTask.Location = new System.Drawing.Point(750, 72);
             this.gvNPManagerActiveTask.Name = "gvNPManagerActiveTask";
             this.gvNPManagerActiveTask.ReadOnly = true;
             this.gvNPManagerActiveTask.Size = new System.Drawing.Size(1034, 359);
             this.gvNPManagerActiveTask.TabIndex = 9;
+            this.gvNPManagerActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNPManagerActiveTask_CellDoubleClick);
             // 
             // IndividualIdNPManager
             // 
@@ -2255,6 +2209,12 @@
             this.PriorityNPManager.HeaderText = "Priority";
             this.PriorityNPManager.Name = "PriorityNPManager";
             this.PriorityNPManager.ReadOnly = true;
+            // 
+            // TaskIdNPManager
+            // 
+            this.TaskIdNPManager.HeaderText = "Task Id";
+            this.TaskIdNPManager.Name = "TaskIdNPManager";
+            this.TaskIdNPManager.ReadOnly = true;
             // 
             // gvDashboardNPManager
             // 
@@ -10495,6 +10455,90 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // IndividualIdCompleteTaskNPManager
+            // 
+            this.IndividualIdCompleteTaskNPManager.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskNPManager.Name = "IndividualIdCompleteTaskNPManager";
+            this.IndividualIdCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // IndividualNameCompleteTaskNPManager
+            // 
+            this.IndividualNameCompleteTaskNPManager.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskNPManager.Name = "IndividualNameCompleteTaskNPManager";
+            this.IndividualNameCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // AssignedToCompleteTaskNPManager
+            // 
+            this.AssignedToCompleteTaskNPManager.HeaderText = "Assigned To";
+            this.AssignedToCompleteTaskNPManager.Name = "AssignedToCompleteTaskNPManager";
+            this.AssignedToCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CreatedByCompleteTaskNPManager
+            // 
+            this.CreatedByCompleteTaskNPManager.HeaderText = "Created By";
+            this.CreatedByCompleteTaskNPManager.Name = "CreatedByCompleteTaskNPManager";
+            this.CreatedByCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // WhatIdCompleteTaskNPManager
+            // 
+            this.WhatIdCompleteTaskNPManager.HeaderText = "What Id";
+            this.WhatIdCompleteTaskNPManager.Name = "WhatIdCompleteTaskNPManager";
+            this.WhatIdCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskNPManager
+            // 
+            this.SubjectCompleteTaskNPManager.HeaderText = "Subject";
+            this.SubjectCompleteTaskNPManager.Name = "SubjectCompleteTaskNPManager";
+            this.SubjectCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // DueDateCompleteTaskNPManager
+            // 
+            this.DueDateCompleteTaskNPManager.HeaderText = "Due Date";
+            this.DueDateCompleteTaskNPManager.Name = "DueDateCompleteTaskNPManager";
+            this.DueDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskNPManager
+            // 
+            this.CreateDateCompleteTaskNPManager.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskNPManager.Name = "CreateDateCompleteTaskNPManager";
+            this.CreateDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskNPManager
+            // 
+            this.ActivityDateCompleteTaskNPManager.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskNPManager.Name = "ActivityDateCompleteTaskNPManager";
+            this.ActivityDateCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // CommentCompleteTaskNPManager
+            // 
+            this.CommentCompleteTaskNPManager.HeaderText = "Comment";
+            this.CommentCompleteTaskNPManager.Name = "CommentCompleteTaskNPManager";
+            this.CommentCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskNPManager
+            // 
+            this.SolutionCompleteTaskNPManager.HeaderText = "Solution";
+            this.SolutionCompleteTaskNPManager.Name = "SolutionCompleteTaskNPManager";
+            this.SolutionCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // StatusCompleteTaskNPManager
+            // 
+            this.StatusCompleteTaskNPManager.HeaderText = "Status";
+            this.StatusCompleteTaskNPManager.Name = "StatusCompleteTaskNPManager";
+            this.StatusCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // PriorityCompleteTaskNPManager
+            // 
+            this.PriorityCompleteTaskNPManager.HeaderText = "Priority";
+            this.PriorityCompleteTaskNPManager.Name = "PriorityCompleteTaskNPManager";
+            this.PriorityCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // TaskIdCompleteTaskNPManager
+            // 
+            this.TaskIdCompleteTaskNPManager.HeaderText = "Task Id";
+            this.TaskIdCompleteTaskNPManager.Name = "TaskIdCompleteTaskNPManager";
+            this.TaskIdCompleteTaskNPManager.ReadOnly = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11162,33 +11206,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusTaskInMedBill;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdMedBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNStaff;
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.Label label182;
         private System.Windows.Forms.Label label181;
@@ -11197,32 +11214,6 @@
         private System.Windows.Forms.DataGridView gvDashboardNPManager;
         private System.Windows.Forms.DataGridView gvActiveTaskNPStaff;
         private System.Windows.Forms.Label label171;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
         private System.Windows.Forms.DataGridView gvRNManagerMedBillPending;
         private System.Windows.Forms.Label label185;
         private System.Windows.Forms.Label label158;
@@ -11714,6 +11705,64 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Unknown_Doc_Receive_Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateForIndividual;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffForIndividual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskNPManager;
     }
 }
 
