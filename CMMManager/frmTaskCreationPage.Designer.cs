@@ -511,14 +511,12 @@
             // 
             // btnReplyTask
             // 
-            this.btnReplyTask.Enabled = false;
             this.btnReplyTask.Location = new System.Drawing.Point(482, 545);
             this.btnReplyTask.Name = "btnReplyTask";
             this.btnReplyTask.Size = new System.Drawing.Size(112, 29);
             this.btnReplyTask.TabIndex = 9;
             this.btnReplyTask.Text = "Reply";
             this.btnReplyTask.UseVisualStyleBackColor = true;
-            this.btnReplyTask.Visible = false;
             this.btnReplyTask.Click += new System.EventHandler(this.btnReplyTask_Click);
             // 
             // btnForward

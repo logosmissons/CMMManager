@@ -1757,7 +1757,83 @@ namespace CMMManager
 
         private void btnReplyTask_Click(object sender, EventArgs e)
         {
+            TaskType? NewTaskType = null;
 
+            String strSqlQueryForReplySentAgain = "select [dbo].[tbl_task].[Replied], [dbo].[tbl_task].[SentAgain] from [dbo].[tbl_task] where [dbo].[tbl_task].[id] = @TaskId";
+
+            SqlCommand cmdQueryForReplySentAgain = new SqlCommand(strSqlQueryForReplySentAgain, connRN);
+            cmdQueryForReplySentAgain.CommandType = CommandType.Text;
+
+            cmdQueryForReplySentAgain.Parameters.AddWithValue("@TaskId", nTaskId.Value);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrReplySentAgain = cmdQueryForReplySentAgain.ExecuteReader();
+            if (rdrReplySentAgain.HasRows)
+            {
+                rdrReplySentAgain.Read();
+
+                if (!rdrReplySentAgain.IsDBNull(0) && !rdrReplySentAgain.IsDBNull(1))
+                {
+                    if (!rdrReplySentAgain.GetBoolean(0) && !rdrReplySentAgain.GetBoolean(1)) NewTaskType = TaskType.Reply;
+                    if (!rdrReplySentAgain.GetBoolean(0) && rdrReplySentAgain.GetBoolean(1)) NewTaskType = TaskType.Reply;
+                    if (rdrReplySentAgain.GetBoolean(0) && !rdrReplySentAgain.GetBoolean(1)) NewTaskType = TaskType.SendAgain;
+                }
+                else if (rdrReplySentAgain.IsDBNull(0) && rdrReplySentAgain.IsDBNull(1))
+                {
+                    NewTaskType = TaskType.Reply;
+                }
+                else if (rdrReplySentAgain.IsDBNull(0) && !rdrReplySentAgain.IsDBNull(1))
+                {
+                    if (rdrReplySentAgain.GetBoolean(1)) NewTaskType = TaskType.Reply;
+                }
+                else if (!rdrReplySentAgain.IsDBNull(0) && rdrReplySentAgain.IsDBNull(1))
+                {
+                    if (rdrReplySentAgain.GetBoolean(0)) NewTaskType = TaskType.SendAgain;
+                }
+            }
+            rdrReplySentAgain.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+
+            if (NewTaskType == TaskType.Reply)
+            {
+ 
+                String strSqlReplyTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[Comment] = @NewComment, [dbo].[tbl_task].[Solution] = @NewSolution, " +
+                                        "[dbo].[tbl_task].[DueDate] = @NewDueDate, [dbo].[tbl_task].[Status] = @NewStatus, " +
+                                        "[dbo].[tbl_task].[Replied] = 1, [dbo].[tbl_task].[SentAgain] = 0 " +
+                                        "where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdUpdateReplyTask = new SqlCommand(strSqlReplyTask, connRN);
+                cmdUpdateReplyTask.CommandType = CommandType.Text;
+
+                cmdUpdateReplyTask.Parameters.AddWithValue("@NewComment", txtTaskComments.Text.Trim());
+                cmdUpdateReplyTask.Parameters.AddWithValue("@NewSolution", txtTaskSolution.Text.Trim());
+                cmdUpdateReplyTask.Parameters.AddWithValue("@NewDueDate", dtpTaskDueDate.Value.ToString("yyyy-MM-dd"));
+                cmdUpdateReplyTask.Parameters.AddWithValue("@NewStatus", comboTaskStatus.SelectedIndex);
+                cmdUpdateReplyTask.Parameters.AddWithValue("@TaskId", nTaskId.Value);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                int nTaskUpdated = cmdUpdateReplyTask.ExecuteNonQuery();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                if (nTaskUpdated == 1)
+                {
+                    MessageBox.Show("The task has been replied.", "Info");
+                    Close();
+                    //return;
+                }
+  
+            }
         }
 
         private void btnForward_Click(object sender, EventArgs e)

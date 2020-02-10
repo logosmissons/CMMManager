@@ -31,6 +31,9 @@ namespace CMMManager
     // enumeration for case doc type
     public enum CaseDocType { NPF = 0, IB, PoP, MedRec, OtherDoc, FullDoc, IB_POP };
 
+    // enumeration for task type
+    public enum TaskType { Send = 0, Reply, SendAgain};
+
     // enumeration for communication type
     public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet };
     // enumeration for Communication open mode
