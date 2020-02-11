@@ -1515,9 +1515,9 @@ namespace CMMManager
                     cmdInsertIntoTask.Parameters.AddWithValue("@RelatedTo", comboTaskRelatedTo.SelectedIndex);
                     cmdInsertIntoTask.Parameters.AddWithValue("@CreateDate", DateTime.Now);
                     cmdInsertIntoTask.Parameters.AddWithValue("@CreatedById", LoggedInuserInfo.UserId);
-                    cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Today);
+                    cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Now);
                     cmdInsertIntoTask.Parameters.AddWithValue("@LastModifiedById", LoggedInuserInfo.UserId);
-                    cmdInsertIntoTask.Parameters.AddWithValue("@ActivityDate", DateTime.Today);
+                    cmdInsertIntoTask.Parameters.AddWithValue("@ActivityDate", DateTime.Now);
                     cmdInsertIntoTask.Parameters.AddWithValue("@Comment", Comment);
                     cmdInsertIntoTask.Parameters.AddWithValue("@Solution", Solution);
                     cmdInsertIntoTask.Parameters.AddWithValue("@Status", ts);
@@ -1576,7 +1576,8 @@ namespace CMMManager
                     LoggedInuserInfo.UserRoleId == UserRole.NPStaff ||
                     LoggedInuserInfo.UserRoleId == UserRole.RNStaff)
                 {
-                    String strSqlUpdateTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[Solution] = @Solution, [dbo].[tbl_task].[Status] = @Status, [dbo].[tbl_task].[Priority] = @Priority " +
+                    String strSqlUpdateTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[Solution] = @Solution, [dbo].[tbl_task].[Status] = @Status, [dbo].[tbl_task].[Priority] = @Priority, " +
+                                              "[dbo].[tbl_task].[ActivityDate] = @ActivityDate, [dbo].[tbl_task].[LastModifiedDate] = @LastModifiedDate " +
                                               "where [dbo].[tbl_task].[id] = @TaskId";
 
                     SqlCommand cmdUpdateTask = new SqlCommand(strSqlUpdateTask, connRN);
@@ -1585,6 +1586,8 @@ namespace CMMManager
                     cmdUpdateTask.Parameters.AddWithValue("@Solution", txtTaskSolution.Text.Trim());
                     cmdUpdateTask.Parameters.AddWithValue("@Status", (TaskStatus)comboTaskStatus.SelectedIndex);
                     cmdUpdateTask.Parameters.AddWithValue("@Priority", (TaskPriority)comboTaskPriority.SelectedIndex);
+                    cmdUpdateTask.Parameters.AddWithValue("@ActivityDate", DateTime.Now);
+                    cmdUpdateTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Now);
                     cmdUpdateTask.Parameters.AddWithValue("@TaskId", nTaskId);
 
                     if (connRN.State != ConnectionState.Closed)
@@ -1693,6 +1696,7 @@ namespace CMMManager
                                                 "[dbo].[tbl_task].[Solution] = @TaskSolution, " +
                                                 "[dbo].[tbl_task].[Status] = @TaskStatus, " +
                                                 "[dbo].[tbl_task].[Priority] = @TaskPriority, " +
+                                                "[dbo].[tbl_task].[ActivityDate] = @ActivityDate, " +
                                                 "[dbo].[tbl_task].[IsReminderSet] = @ReminderSet, " +
                                                 "[dbo].[tbl_task].[ReminderDateTime] = @ReminderDateTime, " +
                                                 "[dbo].[tbl_task].[LastModifiedDate] = @LastModifiedDate, " +
@@ -1713,6 +1717,7 @@ namespace CMMManager
                     cmdUpdateTask.Parameters.AddWithValue("@TaskSolution", Solution);
                     cmdUpdateTask.Parameters.AddWithValue("@TaskStatus", (int)ts);
                     cmdUpdateTask.Parameters.AddWithValue("@TaskPriority", (int)tp);
+                    cmdUpdateTask.Parameters.AddWithValue("@ActivityDate", DateTime.Now);
                     cmdUpdateTask.Parameters.AddWithValue("@ReminderSet", chkReminder.Checked);
                     if (chkReminder.Checked) cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", Reminder);
                     else cmdUpdateTask.Parameters.AddWithValue("@ReminderDateTime", DBNull.Value);
@@ -1805,6 +1810,7 @@ namespace CMMManager
  
                 String strSqlReplyTask = "update [dbo].[tbl_task] set [dbo].[tbl_task].[Comment] = @NewComment, [dbo].[tbl_task].[Solution] = @NewSolution, " +
                                         "[dbo].[tbl_task].[DueDate] = @NewDueDate, [dbo].[tbl_task].[Status] = @NewStatus, " +
+                                        "[dbo].[tbl_task].[ActivityDate] = @ActivityDate, [dbo].[tbl_task].[LastModifiedDate] = @LastModifiedDate, " +
                                         "[dbo].[tbl_task].[Replied] = 1, [dbo].[tbl_task].[SentAgain] = 0 " +
                                         "where [dbo].[tbl_task].[id] = @TaskId";
 
@@ -1815,6 +1821,8 @@ namespace CMMManager
                 cmdUpdateReplyTask.Parameters.AddWithValue("@NewSolution", txtTaskSolution.Text.Trim());
                 cmdUpdateReplyTask.Parameters.AddWithValue("@NewDueDate", dtpTaskDueDate.Value.ToString("yyyy-MM-dd"));
                 cmdUpdateReplyTask.Parameters.AddWithValue("@NewStatus", comboTaskStatus.SelectedIndex);
+                cmdUpdateReplyTask.Parameters.AddWithValue("@ActivityDate", DateTime.Now);
+                cmdUpdateReplyTask.Parameters.AddWithValue("@LastModifiedDate", DateTime.Now);
                 cmdUpdateReplyTask.Parameters.AddWithValue("@TaskId", nTaskId.Value);
 
                 if (connRN.State != ConnectionState.Closed)
