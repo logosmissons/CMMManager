@@ -53,18 +53,18 @@ namespace CMMManager
 
         public void SetSqlSetting()
         {
-            connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
-            //connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
+            connStringIcd10 = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
+            //connStringIcd10 = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
 
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
-            //connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
+            connStringSalesforce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
+            //connStringSalesforce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
 
             connSalesforce = new SqlConnection(connStringSalesforce);
 
             strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
 
-            strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            strRNConnection = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //strRNConnection = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strRNConnection);
 
             nInsertedId = 0;
@@ -482,7 +482,7 @@ namespace CMMManager
                                              "@LimitedSharingId, @DateOfDiagnosis, @RemoveLog, " +
                                              "@Introduction, @Body, @Conclusion, 0)";
 
-                //String strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
+                //String strRNConnection = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security=True";
                 //SqlConnection connRNDB = new SqlConnection(strRNConnection);
 
                 SqlCommand cmdCreateIllness = new SqlCommand(strSqlCreateIllness, connRNDB);

@@ -46,14 +46,14 @@ namespace CMMManager
 
         public void SetSqlSetting()
         {
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesforce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesforce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(connStringSalesforce);
 
             strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(connStringRN);
 
             dicProgram = new Dictionary<int, string>();

@@ -59,10 +59,10 @@ namespace CMMManager
             AssignedToStaffInfo = new UserInfo();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -84,11 +84,11 @@ namespace CMMManager
             AssignedToStaffInfo = new UserInfo();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -112,11 +112,11 @@ namespace CMMManager
             AssignedToStaffInfo = new UserInfo();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -149,8 +149,8 @@ namespace CMMManager
         //    LoggedInuserInfo.UserRoleId = loggedInUserRoleId;
         //    LoggedInuserInfo.departmentInfo.DepartmentId = loggedInUserDepartment;
 
-        //    connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-        //    connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //    connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //    connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
         //    connRN = new SqlConnection(connStringRN);
         //    connSalesForce = new SqlConnection(connStringSalesForce);
@@ -186,8 +186,8 @@ namespace CMMManager
 
         //    lstUserInfo = new List<UserInfo>();
 
-        //    connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-        //    connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //    connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //    connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
         //    connRN = new SqlConnection(connStringRN);
         //    connSalesForce = new SqlConnection(connStringSalesForce);
@@ -222,11 +222,11 @@ namespace CMMManager
 
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -267,11 +267,11 @@ namespace CMMManager
             InitializeComponent();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -311,11 +311,11 @@ namespace CMMManager
             InitializeComponent();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -355,11 +355,11 @@ namespace CMMManager
             InitializeComponent();
             lstUserInfo = new List<UserInfo>();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -390,11 +390,11 @@ namespace CMMManager
             LoggedInuserInfo.UserRoleId = login_user_role_id;
             LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);
@@ -432,11 +432,11 @@ namespace CMMManager
             LoggedInuserInfo.UserRoleId = login_user_role_id;
             LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
 
-            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
-            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringRN = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=10.1.10.60\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);

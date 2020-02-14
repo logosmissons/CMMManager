@@ -35,14 +35,14 @@ namespace CMMManager
         public String CreatedByStaffName = String.Empty;
         public String CreatedDate = String.Empty;
 
-        private const String CommunicationAttachmentDestinationPath = @"\\cmm-2014u\Sharefolder\CommunicationAttachments\";
+        private const String CommunicationAttachmentDestinationPath = @"\\10.1.10.60\Sharefolder\CommunicationAttachments\";
 
         public frmLogCommunication()
         {
             IndividualId = String.Empty;
-            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
-            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
-            //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+            strConnString2 = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+            //strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRN = new SqlConnection(strConnString);
             connRN2 = new SqlConnection(strConnString2);
 
@@ -56,10 +56,10 @@ namespace CMMManager
             IndividualId = individual_id;
             nLoggedInUserId = login_user_id;
 
-            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
-            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+            strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString2 = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
 
-            //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
+            //strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
             connRN2 = new SqlConnection(strConnString2);
 
@@ -88,10 +88,10 @@ namespace CMMManager
 
             OpenMode = mode;
 
-            strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
-            strConnString2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
+            strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; Integrated Security = True; Max Pool Size = 200";
+            strConnString2 = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True; ";
 
-            //strConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
+            //strConnString = @"Data Source=10.1.10.60\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size = 200";
             connRN = new SqlConnection(strConnString);
             connRN2 = new SqlConnection(strConnString2);
 
