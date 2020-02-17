@@ -528,7 +528,6 @@
             this.btnForward.TabIndex = 10;
             this.btnForward.Text = "Forward";
             this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.Visible = false;
             this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
             // 
             // frmTaskCreationPage
