@@ -142,6 +142,20 @@
             this.label164 = new System.Windows.Forms.Label();
             this.label163 = new System.Windows.Forms.Label();
             this.gvRNStaffActiveTask = new System.Windows.Forms.DataGridView();
+            this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label162 = new System.Windows.Forms.Label();
             this.gvDashboardRNStaffCaseQueue = new System.Windows.Forms.DataGridView();
             this.gvDashboardRNAnnouncement = new System.Windows.Forms.DataGridView();
@@ -149,6 +163,15 @@
             this.label160 = new System.Windows.Forms.Label();
             this.label159 = new System.Windows.Forms.Label();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
+            this.comboStaffSelected = new System.Windows.Forms.ComboBox();
+            this.gvNPManagerCommunicationLog = new System.Windows.Forms.DataGridView();
+            this.btnNPManagerCommReload = new System.Windows.Forms.Button();
+            this.dtpLogCommunicationToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpLogCommunicationFromDate = new System.Windows.Forms.DateTimePicker();
+            this.udLogCommunicationShown = new System.Windows.Forms.NumericUpDown();
+            this.label138 = new System.Windows.Forms.Label();
+            this.label137 = new System.Windows.Forms.Label();
+            this.label136 = new System.Windows.Forms.Label();
             this.gvNPManagerCompleteTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1102,20 +1125,14 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActivityDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationNoLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdLogCommunicationNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MemberNameCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BodyCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCommunicationLogNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1130,6 +1147,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).BeginInit();
             this.tbpgDashboardNPManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udLogCommunicationShown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPManager)).BeginInit();
@@ -1942,6 +1961,93 @@
             this.gvRNStaffActiveTask.TabIndex = 9;
             this.gvRNStaffActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffActiveTask_CellDoubleClick);
             // 
+            // IndividualIdRNStaff
+            // 
+            this.IndividualIdRNStaff.HeaderText = "Individual Id";
+            this.IndividualIdRNStaff.Name = "IndividualIdRNStaff";
+            this.IndividualIdRNStaff.ReadOnly = true;
+            // 
+            // IndividualNameRNStaff
+            // 
+            this.IndividualNameRNStaff.HeaderText = "Individual Name";
+            this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
+            this.IndividualNameRNStaff.ReadOnly = true;
+            // 
+            // AssignedToRNStaff
+            // 
+            this.AssignedToRNStaff.HeaderText = "Assigned To";
+            this.AssignedToRNStaff.Name = "AssignedToRNStaff";
+            this.AssignedToRNStaff.ReadOnly = true;
+            // 
+            // CreatedByIdRNStaff
+            // 
+            this.CreatedByIdRNStaff.HeaderText = "Created By";
+            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
+            this.CreatedByIdRNStaff.ReadOnly = true;
+            // 
+            // WhatIdRNStaff
+            // 
+            this.WhatIdRNStaff.HeaderText = "What Id";
+            this.WhatIdRNStaff.Name = "WhatIdRNStaff";
+            this.WhatIdRNStaff.ReadOnly = true;
+            // 
+            // SubjectRNStaff
+            // 
+            this.SubjectRNStaff.HeaderText = "Subject";
+            this.SubjectRNStaff.Name = "SubjectRNStaff";
+            this.SubjectRNStaff.ReadOnly = true;
+            // 
+            // DueDateRNStaff
+            // 
+            this.DueDateRNStaff.HeaderText = "Due Date";
+            this.DueDateRNStaff.Name = "DueDateRNStaff";
+            this.DueDateRNStaff.ReadOnly = true;
+            // 
+            // CreateDateRNStaff
+            // 
+            this.CreateDateRNStaff.HeaderText = "Create Date";
+            this.CreateDateRNStaff.Name = "CreateDateRNStaff";
+            this.CreateDateRNStaff.ReadOnly = true;
+            this.CreateDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // ActivityDateRNStaff
+            // 
+            this.ActivityDateRNStaff.HeaderText = "Activity Date";
+            this.ActivityDateRNStaff.Name = "ActivityDateRNStaff";
+            this.ActivityDateRNStaff.ReadOnly = true;
+            this.ActivityDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // CommentRNStaff
+            // 
+            this.CommentRNStaff.HeaderText = "Comment";
+            this.CommentRNStaff.Name = "CommentRNStaff";
+            this.CommentRNStaff.ReadOnly = true;
+            // 
+            // SolutionRNStaff
+            // 
+            this.SolutionRNStaff.HeaderText = "Solution";
+            this.SolutionRNStaff.Name = "SolutionRNStaff";
+            this.SolutionRNStaff.ReadOnly = true;
+            // 
+            // StatusRNStaff
+            // 
+            this.StatusRNStaff.HeaderText = "Status";
+            this.StatusRNStaff.Name = "StatusRNStaff";
+            this.StatusRNStaff.ReadOnly = true;
+            // 
+            // PriorityRNStaff
+            // 
+            this.PriorityRNStaff.HeaderText = "Priority";
+            this.PriorityRNStaff.Name = "PriorityRNStaff";
+            this.PriorityRNStaff.ReadOnly = true;
+            this.PriorityRNStaff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // ActiveTaskIdRNStaff
+            // 
+            this.ActiveTaskIdRNStaff.HeaderText = "Task Id";
+            this.ActiveTaskIdRNStaff.Name = "ActiveTaskIdRNStaff";
+            this.ActiveTaskIdRNStaff.ReadOnly = true;
+            // 
             // label162
             // 
             this.label162.AutoSize = true;
@@ -2006,6 +2112,15 @@
             // 
             // tbpgDashboardNPManager
             // 
+            this.tbpgDashboardNPManager.Controls.Add(this.comboStaffSelected);
+            this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerCommunicationLog);
+            this.tbpgDashboardNPManager.Controls.Add(this.btnNPManagerCommReload);
+            this.tbpgDashboardNPManager.Controls.Add(this.dtpLogCommunicationToDate);
+            this.tbpgDashboardNPManager.Controls.Add(this.dtpLogCommunicationFromDate);
+            this.tbpgDashboardNPManager.Controls.Add(this.udLogCommunicationShown);
+            this.tbpgDashboardNPManager.Controls.Add(this.label138);
+            this.tbpgDashboardNPManager.Controls.Add(this.label137);
+            this.tbpgDashboardNPManager.Controls.Add(this.label136);
             this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerCompleteTask);
             this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerActiveTask);
             this.tbpgDashboardNPManager.Controls.Add(this.gvDashboardNPManager);
@@ -2018,6 +2133,101 @@
             this.tbpgDashboardNPManager.TabIndex = 5;
             this.tbpgDashboardNPManager.Text = "Dashboard";
             this.tbpgDashboardNPManager.UseVisualStyleBackColor = true;
+            // 
+            // comboStaffSelected
+            // 
+            this.comboStaffSelected.FormattingEnabled = true;
+            this.comboStaffSelected.Location = new System.Drawing.Point(599, 378);
+            this.comboStaffSelected.Name = "comboStaffSelected";
+            this.comboStaffSelected.Size = new System.Drawing.Size(121, 21);
+            this.comboStaffSelected.TabIndex = 32;
+            // 
+            // gvNPManagerCommunicationLog
+            // 
+            this.gvNPManagerCommunicationLog.AllowUserToAddRows = false;
+            this.gvNPManagerCommunicationLog.AllowUserToDeleteRows = false;
+            this.gvNPManagerCommunicationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvNPManagerCommunicationLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CommunicationNoLogNPManager,
+            this.IndividualIdLogCommunicationNPManager,
+            this.MemberNameCommunicationLogNPManager,
+            this.SubjectCommunicationLogNPManager,
+            this.BodyCommunicationLogNPManager,
+            this.SolutionCommunicationLogNPManager,
+            this.CreateDateCommunicationLogNPManager,
+            this.CreatedByCommunicationLogNPManager});
+            this.gvNPManagerCommunicationLog.Location = new System.Drawing.Point(44, 406);
+            this.gvNPManagerCommunicationLog.Name = "gvNPManagerCommunicationLog";
+            this.gvNPManagerCommunicationLog.ReadOnly = true;
+            this.gvNPManagerCommunicationLog.Size = new System.Drawing.Size(766, 433);
+            this.gvNPManagerCommunicationLog.TabIndex = 31;
+            // 
+            // btnNPManagerCommReload
+            // 
+            this.btnNPManagerCommReload.Location = new System.Drawing.Point(739, 377);
+            this.btnNPManagerCommReload.Name = "btnNPManagerCommReload";
+            this.btnNPManagerCommReload.Size = new System.Drawing.Size(71, 23);
+            this.btnNPManagerCommReload.TabIndex = 30;
+            this.btnNPManagerCommReload.Text = "Reload";
+            this.btnNPManagerCommReload.UseVisualStyleBackColor = true;
+            // 
+            // dtpLogCommunicationToDate
+            // 
+            this.dtpLogCommunicationToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpLogCommunicationToDate.Location = new System.Drawing.Point(481, 378);
+            this.dtpLogCommunicationToDate.Name = "dtpLogCommunicationToDate";
+            this.dtpLogCommunicationToDate.Size = new System.Drawing.Size(98, 20);
+            this.dtpLogCommunicationToDate.TabIndex = 29;
+            // 
+            // dtpLogCommunicationFromDate
+            // 
+            this.dtpLogCommunicationFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpLogCommunicationFromDate.Location = new System.Drawing.Point(345, 378);
+            this.dtpLogCommunicationFromDate.Name = "dtpLogCommunicationFromDate";
+            this.dtpLogCommunicationFromDate.Size = new System.Drawing.Size(98, 20);
+            this.dtpLogCommunicationFromDate.TabIndex = 28;
+            // 
+            // udLogCommunicationShown
+            // 
+            this.udLogCommunicationShown.Location = new System.Drawing.Point(230, 378);
+            this.udLogCommunicationShown.Name = "udLogCommunicationShown";
+            this.udLogCommunicationShown.Size = new System.Drawing.Size(58, 20);
+            this.udLogCommunicationShown.TabIndex = 27;
+            this.udLogCommunicationShown.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label138.Location = new System.Drawing.Point(452, 381);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(23, 15);
+            this.label138.TabIndex = 26;
+            this.label138.Text = "To";
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label137.Location = new System.Drawing.Point(299, 381);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(40, 15);
+            this.label137.TabIndex = 25;
+            this.label137.Text = "From";
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label136.Location = new System.Drawing.Point(40, 376);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(184, 24);
+            this.label136.TabIndex = 24;
+            this.label136.Text = "Communication Log:";
             // 
             // gvNPManagerCompleteTask
             // 
@@ -2039,10 +2249,10 @@
             this.StatusCompleteTaskNPManager,
             this.PriorityCompleteTaskNPManager,
             this.TaskIdCompleteTaskNPManager});
-            this.gvNPManagerCompleteTask.Location = new System.Drawing.Point(750, 484);
+            this.gvNPManagerCompleteTask.Location = new System.Drawing.Point(846, 484);
             this.gvNPManagerCompleteTask.Name = "gvNPManagerCompleteTask";
             this.gvNPManagerCompleteTask.ReadOnly = true;
-            this.gvNPManagerCompleteTask.Size = new System.Drawing.Size(1034, 355);
+            this.gvNPManagerCompleteTask.Size = new System.Drawing.Size(938, 355);
             this.gvNPManagerCompleteTask.TabIndex = 10;
             this.gvNPManagerCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNPManagerCompleteTask_CellDoubleClick);
             // 
@@ -2150,10 +2360,10 @@
             this.StatusNPManager,
             this.PriorityNPManager,
             this.TaskIdNPManager});
-            this.gvNPManagerActiveTask.Location = new System.Drawing.Point(750, 72);
+            this.gvNPManagerActiveTask.Location = new System.Drawing.Point(846, 72);
             this.gvNPManagerActiveTask.Name = "gvNPManagerActiveTask";
             this.gvNPManagerActiveTask.ReadOnly = true;
-            this.gvNPManagerActiveTask.Size = new System.Drawing.Size(1034, 359);
+            this.gvNPManagerActiveTask.Size = new System.Drawing.Size(938, 359);
             this.gvNPManagerActiveTask.TabIndex = 9;
             this.gvNPManagerActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNPManagerActiveTask_CellDoubleClick);
             // 
@@ -2249,14 +2459,14 @@
             this.gvDashboardNPManager.Location = new System.Drawing.Point(44, 71);
             this.gvDashboardNPManager.Name = "gvDashboardNPManager";
             this.gvDashboardNPManager.ReadOnly = true;
-            this.gvDashboardNPManager.Size = new System.Drawing.Size(675, 768);
+            this.gvDashboardNPManager.Size = new System.Drawing.Size(766, 271);
             this.gvDashboardNPManager.TabIndex = 8;
             // 
             // label183
             // 
             this.label183.AutoSize = true;
             this.label183.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label183.Location = new System.Drawing.Point(745, 455);
+            this.label183.Location = new System.Drawing.Point(841, 456);
             this.label183.Name = "label183";
             this.label183.Size = new System.Drawing.Size(168, 25);
             this.label183.TabIndex = 7;
@@ -2266,7 +2476,7 @@
             // 
             this.label182.AutoSize = true;
             this.label182.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label182.Location = new System.Drawing.Point(745, 43);
+            this.label182.Location = new System.Drawing.Point(841, 44);
             this.label182.Name = "label182";
             this.label182.Size = new System.Drawing.Size(124, 25);
             this.label182.TabIndex = 5;
@@ -10652,92 +10862,54 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // IndividualIdRNStaff
+            // CommunicationNoLogNPManager
             // 
-            this.IndividualIdRNStaff.HeaderText = "Individual Id";
-            this.IndividualIdRNStaff.Name = "IndividualIdRNStaff";
-            this.IndividualIdRNStaff.ReadOnly = true;
+            this.CommunicationNoLogNPManager.HeaderText = "Communication No";
+            this.CommunicationNoLogNPManager.Name = "CommunicationNoLogNPManager";
+            this.CommunicationNoLogNPManager.ReadOnly = true;
             // 
-            // IndividualNameRNStaff
+            // IndividualIdLogCommunicationNPManager
             // 
-            this.IndividualNameRNStaff.HeaderText = "Individual Name";
-            this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
-            this.IndividualNameRNStaff.ReadOnly = true;
+            this.IndividualIdLogCommunicationNPManager.HeaderText = "Individual Id";
+            this.IndividualIdLogCommunicationNPManager.Name = "IndividualIdLogCommunicationNPManager";
+            this.IndividualIdLogCommunicationNPManager.ReadOnly = true;
             // 
-            // AssignedToRNStaff
+            // MemberNameCommunicationLogNPManager
             // 
-            this.AssignedToRNStaff.HeaderText = "Assigned To";
-            this.AssignedToRNStaff.Name = "AssignedToRNStaff";
-            this.AssignedToRNStaff.ReadOnly = true;
+            this.MemberNameCommunicationLogNPManager.HeaderText = "Member Name";
+            this.MemberNameCommunicationLogNPManager.Name = "MemberNameCommunicationLogNPManager";
+            this.MemberNameCommunicationLogNPManager.ReadOnly = true;
+            this.MemberNameCommunicationLogNPManager.Width = 120;
             // 
-            // CreatedByIdRNStaff
+            // SubjectCommunicationLogNPManager
             // 
-            this.CreatedByIdRNStaff.HeaderText = "Created By";
-            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
-            this.CreatedByIdRNStaff.ReadOnly = true;
+            this.SubjectCommunicationLogNPManager.HeaderText = "Subject";
+            this.SubjectCommunicationLogNPManager.Name = "SubjectCommunicationLogNPManager";
+            this.SubjectCommunicationLogNPManager.ReadOnly = true;
             // 
-            // WhatIdRNStaff
+            // BodyCommunicationLogNPManager
             // 
-            this.WhatIdRNStaff.HeaderText = "What Id";
-            this.WhatIdRNStaff.Name = "WhatIdRNStaff";
-            this.WhatIdRNStaff.ReadOnly = true;
+            this.BodyCommunicationLogNPManager.HeaderText = "Body";
+            this.BodyCommunicationLogNPManager.Name = "BodyCommunicationLogNPManager";
+            this.BodyCommunicationLogNPManager.ReadOnly = true;
             // 
-            // SubjectRNStaff
+            // SolutionCommunicationLogNPManager
             // 
-            this.SubjectRNStaff.HeaderText = "Subject";
-            this.SubjectRNStaff.Name = "SubjectRNStaff";
-            this.SubjectRNStaff.ReadOnly = true;
+            this.SolutionCommunicationLogNPManager.HeaderText = "Solution";
+            this.SolutionCommunicationLogNPManager.Name = "SolutionCommunicationLogNPManager";
+            this.SolutionCommunicationLogNPManager.ReadOnly = true;
             // 
-            // DueDateRNStaff
+            // CreateDateCommunicationLogNPManager
             // 
-            this.DueDateRNStaff.HeaderText = "Due Date";
-            this.DueDateRNStaff.Name = "DueDateRNStaff";
-            this.DueDateRNStaff.ReadOnly = true;
+            this.CreateDateCommunicationLogNPManager.HeaderText = "Create Date";
+            this.CreateDateCommunicationLogNPManager.Name = "CreateDateCommunicationLogNPManager";
+            this.CreateDateCommunicationLogNPManager.ReadOnly = true;
             // 
-            // CreateDateRNStaff
+            // CreatedByCommunicationLogNPManager
             // 
-            this.CreateDateRNStaff.HeaderText = "Create Date";
-            this.CreateDateRNStaff.Name = "CreateDateRNStaff";
-            this.CreateDateRNStaff.ReadOnly = true;
-            this.CreateDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ActivityDateRNStaff
-            // 
-            this.ActivityDateRNStaff.HeaderText = "Activity Date";
-            this.ActivityDateRNStaff.Name = "ActivityDateRNStaff";
-            this.ActivityDateRNStaff.ReadOnly = true;
-            this.ActivityDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // CommentRNStaff
-            // 
-            this.CommentRNStaff.HeaderText = "Comment";
-            this.CommentRNStaff.Name = "CommentRNStaff";
-            this.CommentRNStaff.ReadOnly = true;
-            // 
-            // SolutionRNStaff
-            // 
-            this.SolutionRNStaff.HeaderText = "Solution";
-            this.SolutionRNStaff.Name = "SolutionRNStaff";
-            this.SolutionRNStaff.ReadOnly = true;
-            // 
-            // StatusRNStaff
-            // 
-            this.StatusRNStaff.HeaderText = "Status";
-            this.StatusRNStaff.Name = "StatusRNStaff";
-            this.StatusRNStaff.ReadOnly = true;
-            // 
-            // PriorityRNStaff
-            // 
-            this.PriorityRNStaff.HeaderText = "Priority";
-            this.PriorityRNStaff.Name = "PriorityRNStaff";
-            this.PriorityRNStaff.ReadOnly = true;
-            this.PriorityRNStaff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // ActiveTaskIdRNStaff
-            // 
-            this.ActiveTaskIdRNStaff.HeaderText = "Task Id";
-            this.ActiveTaskIdRNStaff.Name = "ActiveTaskIdRNStaff";
-            this.ActiveTaskIdRNStaff.ReadOnly = true;
+            this.CreatedByCommunicationLogNPManager.HeaderText = "Created By";
+            this.CreatedByCommunicationLogNPManager.Name = "CreatedByCommunicationLogNPManager";
+            this.CreatedByCommunicationLogNPManager.ReadOnly = true;
             // 
             // frmCMMManager
             // 
@@ -10774,6 +10946,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).EndInit();
             this.tbpgDashboardNPManager.ResumeLayout(false);
             this.tbpgDashboardNPManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udLogCommunicationShown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPManager)).EndInit();
@@ -11987,6 +12161,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
+        private System.Windows.Forms.DataGridView gvNPManagerCommunicationLog;
+        private System.Windows.Forms.Button btnNPManagerCommReload;
+        private System.Windows.Forms.DateTimePicker dtpLogCommunicationToDate;
+        private System.Windows.Forms.DateTimePicker dtpLogCommunicationFromDate;
+        private System.Windows.Forms.NumericUpDown udLogCommunicationShown;
+        private System.Windows.Forms.Label label138;
+        private System.Windows.Forms.Label label137;
+        private System.Windows.Forms.Label label136;
+        private System.Windows.Forms.ComboBox comboStaffSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationNoLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdLogCommunicationNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MemberNameCommunicationLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCommunicationLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BodyCommunicationLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCommunicationLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCommunicationLogNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCommunicationLogNPManager;
     }
 }
 
