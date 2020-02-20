@@ -163,6 +163,9 @@
             this.label160 = new System.Windows.Forms.Label();
             this.label159 = new System.Windows.Forms.Label();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
+            this.btnPreviousPage = new System.Windows.Forms.Button();
+            this.btnNextPage = new System.Windows.Forms.Button();
+            this.trackAnnouncement = new System.Windows.Forms.TrackBar();
             this.label139 = new System.Windows.Forms.Label();
             this.comboStaffSelected = new System.Windows.Forms.ComboBox();
             this.gvNPManagerCommunicationLog = new System.Windows.Forms.DataGridView();
@@ -1149,6 +1152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).BeginInit();
             this.tbpgDashboardNPManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAnnouncement)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).BeginInit();
@@ -2112,6 +2116,9 @@
             // 
             // tbpgDashboardNPManager
             // 
+            this.tbpgDashboardNPManager.Controls.Add(this.btnPreviousPage);
+            this.tbpgDashboardNPManager.Controls.Add(this.btnNextPage);
+            this.tbpgDashboardNPManager.Controls.Add(this.trackAnnouncement);
             this.tbpgDashboardNPManager.Controls.Add(this.label139);
             this.tbpgDashboardNPManager.Controls.Add(this.comboStaffSelected);
             this.tbpgDashboardNPManager.Controls.Add(this.gvNPManagerCommunicationLog);
@@ -2134,6 +2141,33 @@
             this.tbpgDashboardNPManager.Text = "Dashboard";
             this.tbpgDashboardNPManager.UseVisualStyleBackColor = true;
             // 
+            // btnPreviousPage
+            // 
+            this.btnPreviousPage.Location = new System.Drawing.Point(44, 379);
+            this.btnPreviousPage.Name = "btnPreviousPage";
+            this.btnPreviousPage.Size = new System.Drawing.Size(64, 45);
+            this.btnPreviousPage.TabIndex = 36;
+            this.btnPreviousPage.Text = "<";
+            this.btnPreviousPage.UseVisualStyleBackColor = true;
+            this.btnPreviousPage.Click += new System.EventHandler(this.btnPreviousPage_Click);
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Location = new System.Drawing.Point(686, 379);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(64, 45);
+            this.btnNextPage.TabIndex = 35;
+            this.btnNextPage.Text = ">";
+            this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
+            // trackAnnouncement
+            // 
+            this.trackAnnouncement.Location = new System.Drawing.Point(114, 379);
+            this.trackAnnouncement.Name = "trackAnnouncement";
+            this.trackAnnouncement.Size = new System.Drawing.Size(566, 45);
+            this.trackAnnouncement.TabIndex = 34;
+            // 
             // label139
             // 
             this.label139.AutoSize = true;
@@ -2147,7 +2181,7 @@
             // comboStaffSelected
             // 
             this.comboStaffSelected.FormattingEnabled = true;
-            this.comboStaffSelected.Location = new System.Drawing.Point(539, 479);
+            this.comboStaffSelected.Location = new System.Drawing.Point(539, 454);
             this.comboStaffSelected.Name = "comboStaffSelected";
             this.comboStaffSelected.Size = new System.Drawing.Size(121, 21);
             this.comboStaffSelected.TabIndex = 32;
@@ -2166,10 +2200,10 @@
             this.SolutionCommunicationLogNPManager,
             this.CreateDateCommunicationLogNPManager,
             this.CreatedByCommunicationLogNPManager});
-            this.gvNPManagerCommunicationLog.Location = new System.Drawing.Point(44, 507);
+            this.gvNPManagerCommunicationLog.Location = new System.Drawing.Point(44, 482);
             this.gvNPManagerCommunicationLog.Name = "gvNPManagerCommunicationLog";
             this.gvNPManagerCommunicationLog.ReadOnly = true;
-            this.gvNPManagerCommunicationLog.Size = new System.Drawing.Size(706, 332);
+            this.gvNPManagerCommunicationLog.Size = new System.Drawing.Size(706, 357);
             this.gvNPManagerCommunicationLog.TabIndex = 31;
             // 
             // CommunicationNoLogNPManager
@@ -2223,7 +2257,7 @@
             // 
             // btnNPManagerCommReload
             // 
-            this.btnNPManagerCommReload.Location = new System.Drawing.Point(679, 478);
+            this.btnNPManagerCommReload.Location = new System.Drawing.Point(679, 453);
             this.btnNPManagerCommReload.Name = "btnNPManagerCommReload";
             this.btnNPManagerCommReload.Size = new System.Drawing.Size(71, 23);
             this.btnNPManagerCommReload.TabIndex = 30;
@@ -2234,7 +2268,7 @@
             // dtpLogCommunicationToDate
             // 
             this.dtpLogCommunicationToDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpLogCommunicationToDate.Location = new System.Drawing.Point(421, 479);
+            this.dtpLogCommunicationToDate.Location = new System.Drawing.Point(421, 454);
             this.dtpLogCommunicationToDate.Name = "dtpLogCommunicationToDate";
             this.dtpLogCommunicationToDate.Size = new System.Drawing.Size(98, 20);
             this.dtpLogCommunicationToDate.TabIndex = 29;
@@ -2242,7 +2276,7 @@
             // dtpLogCommunicationFromDate
             // 
             this.dtpLogCommunicationFromDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpLogCommunicationFromDate.Location = new System.Drawing.Point(285, 479);
+            this.dtpLogCommunicationFromDate.Location = new System.Drawing.Point(285, 454);
             this.dtpLogCommunicationFromDate.Name = "dtpLogCommunicationFromDate";
             this.dtpLogCommunicationFromDate.Size = new System.Drawing.Size(98, 20);
             this.dtpLogCommunicationFromDate.TabIndex = 28;
@@ -2251,7 +2285,7 @@
             // 
             this.label138.AutoSize = true;
             this.label138.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label138.Location = new System.Drawing.Point(392, 480);
+            this.label138.Location = new System.Drawing.Point(392, 455);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(23, 15);
             this.label138.TabIndex = 26;
@@ -2261,7 +2295,7 @@
             // 
             this.label137.AutoSize = true;
             this.label137.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label137.Location = new System.Drawing.Point(239, 480);
+            this.label137.Location = new System.Drawing.Point(239, 455);
             this.label137.Name = "label137";
             this.label137.Size = new System.Drawing.Size(40, 15);
             this.label137.TabIndex = 25;
@@ -2271,7 +2305,7 @@
             // 
             this.label136.AutoSize = true;
             this.label136.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label136.Location = new System.Drawing.Point(40, 475);
+            this.label136.Location = new System.Drawing.Point(40, 450);
             this.label136.Name = "label136";
             this.label136.Size = new System.Drawing.Size(184, 24);
             this.label136.TabIndex = 24;
@@ -2511,7 +2545,7 @@
             this.gvAnnouncementNPManager.Location = new System.Drawing.Point(44, 112);
             this.gvAnnouncementNPManager.Name = "gvAnnouncementNPManager";
             this.gvAnnouncementNPManager.ReadOnly = true;
-            this.gvAnnouncementNPManager.Size = new System.Drawing.Size(706, 289);
+            this.gvAnnouncementNPManager.Size = new System.Drawing.Size(706, 259);
             this.gvAnnouncementNPManager.TabIndex = 8;
             // 
             // NPAnnouncementID
@@ -10957,6 +10991,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).EndInit();
             this.tbpgDashboardNPManager.ResumeLayout(false);
             this.tbpgDashboardNPManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackAnnouncement)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerActiveTask)).EndInit();
@@ -12189,6 +12224,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NPAnnouncementID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnnouncementTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NPAnnouncementContent;
+        private System.Windows.Forms.Button btnPreviousPage;
+        private System.Windows.Forms.Button btnNextPage;
+        private System.Windows.Forms.TrackBar trackAnnouncement;
     }
 }
 
