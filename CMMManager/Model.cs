@@ -273,6 +273,22 @@ namespace CMMManager
         }
     }
 
+    public class CaseDocInfoInMedBill
+    {
+        public String CaseDocNo;
+        public String DocumentType;
+        public DateTime? ReceivedDate;
+        public String DestinationFilePath;
+
+        public CaseDocInfoInMedBill()
+        {
+            CaseDocNo = null;
+            DocumentType = null;
+            ReceivedDate = null;
+            DestinationFilePath = null;
+        }
+    }
+
     public class AnivDateInfo : IEquatable<AnivDateInfo>
     {
         public String IndividualId;
