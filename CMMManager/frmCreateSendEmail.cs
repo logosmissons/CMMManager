@@ -536,5 +536,10 @@ namespace CMMManager
                 System.Diagnostics.Process.Start(processInfo);
             }
         }
+
+        public void DisableSendButton()
+        {
+            btnSendEmail.Enabled = false;
+        }
     }
 }
