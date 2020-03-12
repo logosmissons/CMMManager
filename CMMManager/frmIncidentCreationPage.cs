@@ -305,12 +305,39 @@ namespace CMMManager
                     }
                 }
                 rdrPrograms.Close();
-                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
 
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
 
                 comboProgram.SelectedIndex = 0;
 
+                String strSqlQueryForIllnessOccurrenceDate = "select [dbo].[tbl_illness].[Date_of_Diagnosis] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                SqlCommand cmdQueryForIllnessOccurrenceDate = new SqlCommand(strSqlQueryForIllnessOccurrenceDate, connRNDB);
+                cmdQueryForIllnessOccurrenceDate.CommandType = CommandType.Text;
+
+                cmdQueryForIllnessOccurrenceDate.Parameters.AddWithValue("@IllnessNo", strIllnessNo);
+
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                Object objOccurrenceDate = cmdQueryForIllnessOccurrenceDate.ExecuteScalar();
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                if (objOccurrenceDate != null)
+                {
+                    DateTime IllnessOccurrenceDate;
+                    DateTime resultIllnessOccurrenceDate;
+
+                    if (DateTime.TryParse(objOccurrenceDate.ToString(), out resultIllnessOccurrenceDate))
+                    {
+                        IllnessOccurrenceDate = resultIllnessOccurrenceDate;
+                        dtpIncdOccurrenceDate.Value = IllnessOccurrenceDate;
+                    }
+                }
                 dtpCreateDate.Enabled = false;
                 dtpModifiedDate.Enabled = false;
             }

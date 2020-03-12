@@ -204,8 +204,10 @@ namespace CMMManager
             txtICD10Code.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtICD10Code.AutoCompleteCustomSource = srcICD10Codes;
 
-            dtpDateOfDiagnosis.Format = DateTimePickerFormat.Custom;
-            dtpDateOfDiagnosis.CustomFormat = " ";
+            //dtpDateOfDiagnosis.Format = DateTimePickerFormat.Custom;
+            //dtpDateOfDiagnosis.CustomFormat = " ";
+
+            dtpDateOfDiagnosis.Value = DateTime.Today;
 
             //if (mode == IllnessMode.AddNew)
             //{
