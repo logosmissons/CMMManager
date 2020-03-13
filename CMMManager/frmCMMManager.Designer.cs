@@ -2775,6 +2775,7 @@
             this.gvLogCommunicationNPStaff.ReadOnly = true;
             this.gvLogCommunicationNPStaff.Size = new System.Drawing.Size(603, 471);
             this.gvLogCommunicationNPStaff.TabIndex = 14;
+            this.gvLogCommunicationNPStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvLogCommunicationNPStaff_CellDoubleClick);
             // 
             // CommunicationNoLogCommunication
             // 
