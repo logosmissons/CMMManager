@@ -502,6 +502,43 @@ namespace CMMManager
         }
     }
 
+    public class SearchResultSettlementInfo
+    {
+        public String Name;
+        public String MedicalBillNo;
+        public String IndividualId;
+        public String IndividualName;
+        public String Type;
+        public Double Amount;
+        public String PaymentMethod;
+        public String CheckNo;
+        public DateTime? CheckDate;
+        public String ACH_No;
+        public DateTime? ACH_Date;
+        public String CreditCardNo;
+        public DateTime? CreditCardPaidDate;
+        public Boolean Approved;
+
+        public SearchResultSettlementInfo()
+        {
+            Name = null;
+            MedicalBillNo = null;
+            IndividualId = null;
+            IndividualName = null;
+            Type = null;
+            Amount = 0;
+            PaymentMethod = null;
+            CheckNo = null;
+            CheckDate = null;
+            ACH_No = null;
+            ACH_Date = null;
+            CreditCardNo = null;
+            CreditCardPaidDate = null;
+            Approved = false;
+            
+        }
+    }
+
     public class SettlementInfoForApproval
     {
         public String MedBillNo;

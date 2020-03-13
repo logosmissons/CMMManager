@@ -1135,6 +1135,20 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.SettlementNameSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNoSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypeSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementAmountSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentMethodSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckNoSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckDateSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ACH_NoSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ACH_DateSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardNoSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidDateSearchResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ApprovedSearchResult = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3108,6 +3122,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gvSettlementSearched.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvSettlementSearched.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SettlementNameSearchResult,
+            this.MedBillNoSearchResult,
+            this.IndividualIdSearchResult,
+            this.IndividualNameSearchResult,
+            this.SettlementTypeSearchResult,
+            this.SettlementAmountSearchResult,
+            this.PaymentMethodSearchResult,
+            this.CheckNoSearchResult,
+            this.CheckDateSearchResult,
+            this.ACH_NoSearchResult,
+            this.ACH_DateSearchResult,
+            this.CreditCardNoSearchResult,
+            this.CreditCardPaidDateSearchResult,
+            this.ApprovedSearchResult});
             this.gvSettlementSearched.Location = new System.Drawing.Point(29, 466);
             this.gvSettlementSearched.Name = "gvSettlementSearched";
             this.gvSettlementSearched.ReadOnly = true;
@@ -10924,6 +10953,92 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // SettlementNameSearchResult
+            // 
+            this.SettlementNameSearchResult.HeaderText = "Settlement Name";
+            this.SettlementNameSearchResult.Name = "SettlementNameSearchResult";
+            this.SettlementNameSearchResult.ReadOnly = true;
+            // 
+            // MedBillNoSearchResult
+            // 
+            this.MedBillNoSearchResult.HeaderText = "Medical Bill No";
+            this.MedBillNoSearchResult.Name = "MedBillNoSearchResult";
+            this.MedBillNoSearchResult.ReadOnly = true;
+            // 
+            // IndividualIdSearchResult
+            // 
+            this.IndividualIdSearchResult.HeaderText = "Individual Id";
+            this.IndividualIdSearchResult.Name = "IndividualIdSearchResult";
+            this.IndividualIdSearchResult.ReadOnly = true;
+            // 
+            // IndividualNameSearchResult
+            // 
+            this.IndividualNameSearchResult.HeaderText = "Individual Name";
+            this.IndividualNameSearchResult.Name = "IndividualNameSearchResult";
+            this.IndividualNameSearchResult.ReadOnly = true;
+            // 
+            // SettlementTypeSearchResult
+            // 
+            this.SettlementTypeSearchResult.HeaderText = "Type";
+            this.SettlementTypeSearchResult.Name = "SettlementTypeSearchResult";
+            this.SettlementTypeSearchResult.ReadOnly = true;
+            // 
+            // SettlementAmountSearchResult
+            // 
+            this.SettlementAmountSearchResult.HeaderText = "Amount";
+            this.SettlementAmountSearchResult.Name = "SettlementAmountSearchResult";
+            this.SettlementAmountSearchResult.ReadOnly = true;
+            // 
+            // PaymentMethodSearchResult
+            // 
+            this.PaymentMethodSearchResult.HeaderText = "Payment Method";
+            this.PaymentMethodSearchResult.Name = "PaymentMethodSearchResult";
+            this.PaymentMethodSearchResult.ReadOnly = true;
+            // 
+            // CheckNoSearchResult
+            // 
+            this.CheckNoSearchResult.HeaderText = "Check No";
+            this.CheckNoSearchResult.Name = "CheckNoSearchResult";
+            this.CheckNoSearchResult.ReadOnly = true;
+            // 
+            // CheckDateSearchResult
+            // 
+            this.CheckDateSearchResult.HeaderText = "Check Date";
+            this.CheckDateSearchResult.Name = "CheckDateSearchResult";
+            this.CheckDateSearchResult.ReadOnly = true;
+            // 
+            // ACH_NoSearchResult
+            // 
+            this.ACH_NoSearchResult.HeaderText = "ACH No";
+            this.ACH_NoSearchResult.Name = "ACH_NoSearchResult";
+            this.ACH_NoSearchResult.ReadOnly = true;
+            // 
+            // ACH_DateSearchResult
+            // 
+            this.ACH_DateSearchResult.HeaderText = "ACH Date";
+            this.ACH_DateSearchResult.Name = "ACH_DateSearchResult";
+            this.ACH_DateSearchResult.ReadOnly = true;
+            // 
+            // CreditCardNoSearchResult
+            // 
+            this.CreditCardNoSearchResult.HeaderText = "Credit Card No";
+            this.CreditCardNoSearchResult.Name = "CreditCardNoSearchResult";
+            this.CreditCardNoSearchResult.ReadOnly = true;
+            // 
+            // CreditCardPaidDateSearchResult
+            // 
+            this.CreditCardPaidDateSearchResult.HeaderText = "Credit Card Paid Date";
+            this.CreditCardPaidDateSearchResult.Name = "CreditCardPaidDateSearchResult";
+            this.CreditCardPaidDateSearchResult.ReadOnly = true;
+            // 
+            // ApprovedSearchResult
+            // 
+            this.ApprovedSearchResult.HeaderText = "Approved";
+            this.ApprovedSearchResult.Name = "ApprovedSearchResult";
+            this.ApprovedSearchResult.ReadOnly = true;
+            this.ApprovedSearchResult.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ApprovedSearchResult.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -12191,6 +12306,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn MembershipNoPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNameSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNoSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypeSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementAmountSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PaymentMethodSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckNoSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckDateSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACH_NoSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACH_DateSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardNoSearchResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidDateSearchResult;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ApprovedSearchResult;
     }
 }
 
