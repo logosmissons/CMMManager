@@ -84,6 +84,8 @@ namespace CMMManager
             comboDocumentType.SelectedIndex = (int)CaseDocType;
             comboDocumentType.Enabled = false;
 
+            dtpCaseDocReceivedDate.Value = FullDocReceivedDate;
+
             String NewCaseDocNo = String.Empty;
 
             String strSqlQueryForLastCaseDocId = "select [dbo].[tbl_LastID].[CaseDocId] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
