@@ -198,6 +198,7 @@ namespace CMMManager
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ///
                 if (comboEmailFrom.SelectedItem != null) EmailContent.EmailSender = comboEmailFrom.SelectedItem.ToString().Trim();
+                if (txtEmailBcc.Text.Trim() != String.Empty) EmailContent.EmailBcc = txtEmailBcc.Text.Trim();
                 EmailContent.EmailRecipient = txtEmailTo.Text.Trim();
                 EmailContent.EmailSubject = txtEmailSubject.Text;
                 EmailContent.EmailBody = txtEmailBody.Text;
@@ -274,9 +275,11 @@ namespace CMMManager
                                                   "[dbo].[tbl_Communication].[CommunicationNo], [dbo].[tbl_Communication].[CommunicationType], " +
                                                   "[dbo].[tbl_Communication].[CaseNo], [dbo].[tbl_Communication].[IllnessNo], [dbo].[tbl_Communication].[IncidentNo], " +
                                                   "[dbo].[tbl_Communication].[EmailSender], [dbo].[tbl_Communication].[EmailRecipient], " +
+                                                  "[dbo].[tbl_Communication].[EmailBcc], " +
                                                   "[dbo].[tbl_Communication].[Subject], [dbo].[tbl_Communication].[Body], " +
                                                   "[dbo].[tbl_Communication].[CreateDate], [dbo].[tbl_Communication].[CreatedBy]) " +
-                                                  "values (@IndividualId, @CommunicationNo, @CommunicationType, @CaseNo, @IllnessNo, @IncidentNo, @EmailSender, @EmailRecipient, @Subject, @Body, @CreateDate, @CreatedBy)";
+                                                  "values (@IndividualId, @CommunicationNo, @CommunicationType, @CaseNo, @IllnessNo, @IncidentNo, @EmailSender, @EmailRecipient, @EmailBcc, " +
+                                                  "@Subject, @Body, @CreateDate, @CreatedBy)";
 
             SqlCommand cmdInsertNewCommunication = new SqlCommand(strSqlInsertNewCommunication, connRN);
             cmdInsertNewCommunication.CommandType = CommandType.Text;
@@ -292,6 +295,7 @@ namespace CMMManager
             else cmdInsertNewCommunication.Parameters.AddWithValue("@IncidentNo", DBNull.Value);
             cmdInsertNewCommunication.Parameters.AddWithValue("@EmailSender", EmailContent.EmailSender);
             cmdInsertNewCommunication.Parameters.AddWithValue("@EmailRecipient", EmailContent.EmailRecipient);
+            cmdInsertNewCommunication.Parameters.AddWithValue("@EmailBcc", EmailContent.EmailBcc);
             cmdInsertNewCommunication.Parameters.AddWithValue("@Subject", EmailContent.EmailSubject);
             cmdInsertNewCommunication.Parameters.AddWithValue("@Body", EmailContent.EmailBody);
 

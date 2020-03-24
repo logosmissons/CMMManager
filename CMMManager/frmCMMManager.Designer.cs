@@ -48,6 +48,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -64,7 +65,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -563,22 +563,6 @@
             this.gvNewSupportLog = new System.Windows.Forms.DataGridView();
             this.btnCaseCreationNewSupportLog = new System.Windows.Forms.Button();
             this.gvTaskInCase = new System.Windows.Forms.DataGridView();
-            this.IndividualIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WhatIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedToTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActivityDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReminderDateTimeTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewTaskCaseForm = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.txtCreateCaseIndividualName = new System.Windows.Forms.TextBox();
@@ -828,6 +812,28 @@
             this.btnExportCheckPayment = new System.Windows.Forms.Button();
             this.btnConfirmCheckPaymentMemberReimbursement = new System.Windows.Forms.Button();
             this.gvPaymentCheckMemberReimbursement = new System.Windows.Forms.DataGridView();
+            this.SelectedPaymentCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ExportedMemberReimbursement = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IndividualNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrimaryNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateOfServicePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStreetPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingCityPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingStatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShippingZipPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label93 = new System.Windows.Forms.Label();
             this.tbpgCheckForProviderPayment = new System.Windows.Forms.TabPage();
             this.btnReloadProviderCheckPayment = new System.Windows.Forms.Button();
@@ -1127,28 +1133,22 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.SelectedPaymentCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ExportedMemberReimbursement = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IndividualNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualIdPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HouseholdRolePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrimaryNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentProgramNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStatusPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOfServicePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedProviderPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNamePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStreetPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingCityPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingStatePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShippingZipPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementTypePaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedByPaymentCheck = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedToTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReminderDateTimeTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5883,103 +5883,6 @@
             this.gvTaskInCase.TabIndex = 106;
             this.gvTaskInCase.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvTaskInCase_CellDoubleClick);
             // 
-            // IndividualIdCaseTask
-            // 
-            this.IndividualIdCaseTask.HeaderText = "IndividualId";
-            this.IndividualIdCaseTask.Name = "IndividualIdCaseTask";
-            this.IndividualIdCaseTask.ReadOnly = true;
-            // 
-            // IndividualNameCaseTask
-            // 
-            this.IndividualNameCaseTask.HeaderText = "Individual Name";
-            this.IndividualNameCaseTask.Name = "IndividualNameCaseTask";
-            this.IndividualNameCaseTask.ReadOnly = true;
-            this.IndividualNameCaseTask.Width = 120;
-            // 
-            // AssignedToCaseTask
-            // 
-            this.AssignedToCaseTask.HeaderText = "Assigned To";
-            this.AssignedToCaseTask.Name = "AssignedToCaseTask";
-            this.AssignedToCaseTask.ReadOnly = true;
-            // 
-            // WhatIdCaseTask
-            // 
-            this.WhatIdCaseTask.HeaderText = "What Id";
-            this.WhatIdCaseTask.Name = "WhatIdCaseTask";
-            this.WhatIdCaseTask.ReadOnly = true;
-            // 
-            // SubjectCaseTask
-            // 
-            this.SubjectCaseTask.HeaderText = "Subject";
-            this.SubjectCaseTask.Name = "SubjectCaseTask";
-            this.SubjectCaseTask.ReadOnly = true;
-            // 
-            // DueDateCaseTask
-            // 
-            this.DueDateCaseTask.HeaderText = "DueDate";
-            this.DueDateCaseTask.Name = "DueDateCaseTask";
-            this.DueDateCaseTask.ReadOnly = true;
-            // 
-            // RelatedToTaskInCase
-            // 
-            this.RelatedToTaskInCase.HeaderText = "Related To";
-            this.RelatedToTaskInCase.Name = "RelatedToTaskInCase";
-            this.RelatedToTaskInCase.ReadOnly = true;
-            // 
-            // CreateDateCaseTask
-            // 
-            this.CreateDateCaseTask.HeaderText = "Create Date";
-            this.CreateDateCaseTask.Name = "CreateDateCaseTask";
-            this.CreateDateCaseTask.ReadOnly = true;
-            // 
-            // CreatedByCaseTask
-            // 
-            this.CreatedByCaseTask.HeaderText = "Created By";
-            this.CreatedByCaseTask.Name = "CreatedByCaseTask";
-            this.CreatedByCaseTask.ReadOnly = true;
-            // 
-            // ActivityDateCaseTask
-            // 
-            this.ActivityDateCaseTask.HeaderText = "Activity Date";
-            this.ActivityDateCaseTask.Name = "ActivityDateCaseTask";
-            this.ActivityDateCaseTask.ReadOnly = true;
-            // 
-            // CommentCaseTask
-            // 
-            this.CommentCaseTask.HeaderText = "Comment";
-            this.CommentCaseTask.Name = "CommentCaseTask";
-            this.CommentCaseTask.ReadOnly = true;
-            // 
-            // SolutionCaseTask
-            // 
-            this.SolutionCaseTask.HeaderText = "Solution";
-            this.SolutionCaseTask.Name = "SolutionCaseTask";
-            this.SolutionCaseTask.ReadOnly = true;
-            // 
-            // StatusCaseTask
-            // 
-            this.StatusCaseTask.HeaderText = "Status";
-            this.StatusCaseTask.Name = "StatusCaseTask";
-            this.StatusCaseTask.ReadOnly = true;
-            // 
-            // PriorityCaseTask
-            // 
-            this.PriorityCaseTask.HeaderText = "Priority";
-            this.PriorityCaseTask.Name = "PriorityCaseTask";
-            this.PriorityCaseTask.ReadOnly = true;
-            // 
-            // ReminderDateTimeTaskInCase
-            // 
-            this.ReminderDateTimeTaskInCase.HeaderText = "Reminder Date";
-            this.ReminderDateTimeTaskInCase.Name = "ReminderDateTimeTaskInCase";
-            this.ReminderDateTimeTaskInCase.ReadOnly = true;
-            // 
-            // TaskIdCaseTask
-            // 
-            this.TaskIdCaseTask.HeaderText = "Task Id";
-            this.TaskIdCaseTask.Name = "TaskIdCaseTask";
-            this.TaskIdCaseTask.ReadOnly = true;
-            // 
             // btnNewTaskCaseForm
             // 
             this.btnNewTaskCaseForm.Location = new System.Drawing.Point(918, 91);
@@ -8367,6 +8270,143 @@
             this.gvPaymentCheckMemberReimbursement.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheckMemberReimbursement_CellContentClick);
             this.gvPaymentCheckMemberReimbursement.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentCheckMemberReimbursement_CellDoubleClick);
             this.gvPaymentCheckMemberReimbursement.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentCheckMemberReimbursement_ColumnHeaderMouseDoubleClick);
+            // 
+            // SelectedPaymentCheck
+            // 
+            this.SelectedPaymentCheck.HeaderText = "Selected";
+            this.SelectedPaymentCheck.Name = "SelectedPaymentCheck";
+            this.SelectedPaymentCheck.Width = 80;
+            // 
+            // ExportedMemberReimbursement
+            // 
+            this.ExportedMemberReimbursement.HeaderText = "Exported";
+            this.ExportedMemberReimbursement.Name = "ExportedMemberReimbursement";
+            this.ExportedMemberReimbursement.Width = 80;
+            // 
+            // IndividualNamePaymentCheck
+            // 
+            this.IndividualNamePaymentCheck.HeaderText = "Individual Name";
+            this.IndividualNamePaymentCheck.Name = "IndividualNamePaymentCheck";
+            this.IndividualNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // IndividualIdPaymentCheck
+            // 
+            this.IndividualIdPaymentCheck.HeaderText = "Individual Id";
+            this.IndividualIdPaymentCheck.Name = "IndividualIdPaymentCheck";
+            this.IndividualIdPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // HouseholdRolePaymentCheck
+            // 
+            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
+            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
+            this.HouseholdRolePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // PrimaryNamePaymentCheck
+            // 
+            this.PrimaryNamePaymentCheck.HeaderText = "Primary Name";
+            this.PrimaryNamePaymentCheck.Name = "PrimaryNamePaymentCheck";
+            this.PrimaryNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // IncidentNoPaymentCheck
+            // 
+            this.IncidentNoPaymentCheck.HeaderText = "Incident No";
+            this.IncidentNoPaymentCheck.Name = "IncidentNoPaymentCheck";
+            this.IncidentNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // IncidentProgramNamePaymentCheck
+            // 
+            this.IncidentProgramNamePaymentCheck.HeaderText = "Incident Program";
+            this.IncidentProgramNamePaymentCheck.Name = "IncidentProgramNamePaymentCheck";
+            this.IncidentProgramNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MembershipStatusPaymentCheck
+            // 
+            this.MembershipStatusPaymentCheck.HeaderText = "Membership Status";
+            this.MembershipStatusPaymentCheck.Name = "MembershipStatusPaymentCheck";
+            this.MembershipStatusPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MembershipNoPaymentCheck
+            // 
+            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
+            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
+            this.MembershipNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.MembershipNoPaymentCheck.Width = 120;
+            // 
+            // SettlementNoPaymentCheck
+            // 
+            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
+            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
+            this.SettlementNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // AmountPaymentCheck
+            // 
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle20;
+            this.AmountPaymentCheck.HeaderText = "Amount";
+            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
+            this.AmountPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // DateOfServicePaymentCheck
+            // 
+            this.DateOfServicePaymentCheck.HeaderText = "Service Date";
+            this.DateOfServicePaymentCheck.Name = "DateOfServicePaymentCheck";
+            this.DateOfServicePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MedProviderPaymentCheck
+            // 
+            this.MedProviderPaymentCheck.HeaderText = "Medical Provider";
+            this.MedProviderPaymentCheck.Name = "MedProviderPaymentCheck";
+            this.MedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // AccountNamePaymentCheck
+            // 
+            this.AccountNamePaymentCheck.HeaderText = "Account No";
+            this.AccountNamePaymentCheck.Name = "AccountNamePaymentCheck";
+            this.AccountNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ShippingStreetPaymentCheck
+            // 
+            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
+            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
+            this.ShippingStreetPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ShippingStreetPaymentCheck.Width = 200;
+            // 
+            // ShippingCityPaymentCheck
+            // 
+            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
+            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
+            this.ShippingCityPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ShippingStatePaymentCheck
+            // 
+            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
+            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
+            this.ShippingStatePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ShippingZipPaymentCheck
+            // 
+            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
+            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
+            this.ShippingZipPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // SettlementTypePaymentCheck
+            // 
+            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
+            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
+            this.SettlementTypePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // CreatedByPaymentCheck
+            // 
+            this.CreatedByPaymentCheck.HeaderText = "Created By";
+            this.CreatedByPaymentCheck.Name = "CreatedByPaymentCheck";
+            this.CreatedByPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // LastModifiedByPaymentCheck
+            // 
+            this.LastModifiedByPaymentCheck.HeaderText = "Last Modified By";
+            this.LastModifiedByPaymentCheck.Name = "LastModifiedByPaymentCheck";
+            this.LastModifiedByPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.LastModifiedByPaymentCheck.Width = 120;
             // 
             // label93
             // 
@@ -10902,142 +10942,102 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // SelectedPaymentCheck
+            // IndividualIdCaseTask
             // 
-            this.SelectedPaymentCheck.HeaderText = "Selected";
-            this.SelectedPaymentCheck.Name = "SelectedPaymentCheck";
-            this.SelectedPaymentCheck.Width = 80;
+            this.IndividualIdCaseTask.HeaderText = "Individual Id";
+            this.IndividualIdCaseTask.Name = "IndividualIdCaseTask";
+            this.IndividualIdCaseTask.ReadOnly = true;
             // 
-            // ExportedMemberReimbursement
+            // IndividualNameCaseTask
             // 
-            this.ExportedMemberReimbursement.HeaderText = "Exported";
-            this.ExportedMemberReimbursement.Name = "ExportedMemberReimbursement";
-            this.ExportedMemberReimbursement.Width = 80;
+            this.IndividualNameCaseTask.HeaderText = "Individual Name";
+            this.IndividualNameCaseTask.Name = "IndividualNameCaseTask";
+            this.IndividualNameCaseTask.ReadOnly = true;
+            this.IndividualNameCaseTask.Width = 120;
             // 
-            // IndividualNamePaymentCheck
+            // AssignedToCaseTask
             // 
-            this.IndividualNamePaymentCheck.HeaderText = "Individual Name";
-            this.IndividualNamePaymentCheck.Name = "IndividualNamePaymentCheck";
-            this.IndividualNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AssignedToCaseTask.HeaderText = "Assigned To";
+            this.AssignedToCaseTask.Name = "AssignedToCaseTask";
+            this.AssignedToCaseTask.ReadOnly = true;
             // 
-            // IndividualIdPaymentCheck
+            // WhatIdCaseTask
             // 
-            this.IndividualIdPaymentCheck.HeaderText = "Individual Id";
-            this.IndividualIdPaymentCheck.Name = "IndividualIdPaymentCheck";
-            this.IndividualIdPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.WhatIdCaseTask.HeaderText = "What Id";
+            this.WhatIdCaseTask.Name = "WhatIdCaseTask";
+            this.WhatIdCaseTask.ReadOnly = true;
             // 
-            // HouseholdRolePaymentCheck
+            // SubjectCaseTask
             // 
-            this.HouseholdRolePaymentCheck.HeaderText = "Household Role";
-            this.HouseholdRolePaymentCheck.Name = "HouseholdRolePaymentCheck";
-            this.HouseholdRolePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SubjectCaseTask.HeaderText = "Subject";
+            this.SubjectCaseTask.Name = "SubjectCaseTask";
+            this.SubjectCaseTask.ReadOnly = true;
             // 
-            // PrimaryNamePaymentCheck
+            // DueDateCaseTask
             // 
-            this.PrimaryNamePaymentCheck.HeaderText = "Primary Name";
-            this.PrimaryNamePaymentCheck.Name = "PrimaryNamePaymentCheck";
-            this.PrimaryNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.DueDateCaseTask.HeaderText = "DueDate";
+            this.DueDateCaseTask.Name = "DueDateCaseTask";
+            this.DueDateCaseTask.ReadOnly = true;
             // 
-            // IncidentNoPaymentCheck
+            // RelatedToTaskInCase
             // 
-            this.IncidentNoPaymentCheck.HeaderText = "Incident No";
-            this.IncidentNoPaymentCheck.Name = "IncidentNoPaymentCheck";
-            this.IncidentNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.RelatedToTaskInCase.HeaderText = "Related To";
+            this.RelatedToTaskInCase.Name = "RelatedToTaskInCase";
+            this.RelatedToTaskInCase.ReadOnly = true;
             // 
-            // IncidentProgramNamePaymentCheck
+            // CreateDateCaseTask
             // 
-            this.IncidentProgramNamePaymentCheck.HeaderText = "Incident Program";
-            this.IncidentProgramNamePaymentCheck.Name = "IncidentProgramNamePaymentCheck";
-            this.IncidentProgramNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CreateDateCaseTask.HeaderText = "Create Date";
+            this.CreateDateCaseTask.Name = "CreateDateCaseTask";
+            this.CreateDateCaseTask.ReadOnly = true;
             // 
-            // MembershipStatusPaymentCheck
+            // CreatedByCaseTask
             // 
-            this.MembershipStatusPaymentCheck.HeaderText = "Membership Status";
-            this.MembershipStatusPaymentCheck.Name = "MembershipStatusPaymentCheck";
-            this.MembershipStatusPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CreatedByCaseTask.HeaderText = "Created By";
+            this.CreatedByCaseTask.Name = "CreatedByCaseTask";
+            this.CreatedByCaseTask.ReadOnly = true;
             // 
-            // MembershipNoPaymentCheck
+            // ActivityDateCaseTask
             // 
-            this.MembershipNoPaymentCheck.HeaderText = "Membership No";
-            this.MembershipNoPaymentCheck.Name = "MembershipNoPaymentCheck";
-            this.MembershipNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.MembershipNoPaymentCheck.Width = 120;
+            this.ActivityDateCaseTask.HeaderText = "Activity Date";
+            this.ActivityDateCaseTask.Name = "ActivityDateCaseTask";
+            this.ActivityDateCaseTask.ReadOnly = true;
             // 
-            // SettlementNoPaymentCheck
+            // CommentCaseTask
             // 
-            this.SettlementNoPaymentCheck.HeaderText = "Settlement No";
-            this.SettlementNoPaymentCheck.Name = "SettlementNoPaymentCheck";
-            this.SettlementNoPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CommentCaseTask.HeaderText = "Comment";
+            this.CommentCaseTask.Name = "CommentCaseTask";
+            this.CommentCaseTask.ReadOnly = true;
             // 
-            // AmountPaymentCheck
+            // SolutionCaseTask
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle20;
-            this.AmountPaymentCheck.HeaderText = "Amount";
-            this.AmountPaymentCheck.Name = "AmountPaymentCheck";
-            this.AmountPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SolutionCaseTask.HeaderText = "Solution";
+            this.SolutionCaseTask.Name = "SolutionCaseTask";
+            this.SolutionCaseTask.ReadOnly = true;
             // 
-            // DateOfServicePaymentCheck
+            // StatusCaseTask
             // 
-            this.DateOfServicePaymentCheck.HeaderText = "Service Date";
-            this.DateOfServicePaymentCheck.Name = "DateOfServicePaymentCheck";
-            this.DateOfServicePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.StatusCaseTask.HeaderText = "Status";
+            this.StatusCaseTask.Name = "StatusCaseTask";
+            this.StatusCaseTask.ReadOnly = true;
             // 
-            // MedProviderPaymentCheck
+            // PriorityCaseTask
             // 
-            this.MedProviderPaymentCheck.HeaderText = "Medical Provider";
-            this.MedProviderPaymentCheck.Name = "MedProviderPaymentCheck";
-            this.MedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.PriorityCaseTask.HeaderText = "Priority";
+            this.PriorityCaseTask.Name = "PriorityCaseTask";
+            this.PriorityCaseTask.ReadOnly = true;
             // 
-            // AccountNamePaymentCheck
+            // ReminderDateTimeTaskInCase
             // 
-            this.AccountNamePaymentCheck.HeaderText = "Account No";
-            this.AccountNamePaymentCheck.Name = "AccountNamePaymentCheck";
-            this.AccountNamePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ReminderDateTimeTaskInCase.HeaderText = "Reminder Date";
+            this.ReminderDateTimeTaskInCase.Name = "ReminderDateTimeTaskInCase";
+            this.ReminderDateTimeTaskInCase.ReadOnly = true;
             // 
-            // ShippingStreetPaymentCheck
+            // TaskIdCaseTask
             // 
-            this.ShippingStreetPaymentCheck.HeaderText = "Shipping Street";
-            this.ShippingStreetPaymentCheck.Name = "ShippingStreetPaymentCheck";
-            this.ShippingStreetPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ShippingStreetPaymentCheck.Width = 200;
-            // 
-            // ShippingCityPaymentCheck
-            // 
-            this.ShippingCityPaymentCheck.HeaderText = "Shipping City";
-            this.ShippingCityPaymentCheck.Name = "ShippingCityPaymentCheck";
-            this.ShippingCityPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ShippingStatePaymentCheck
-            // 
-            this.ShippingStatePaymentCheck.HeaderText = "Shipping State";
-            this.ShippingStatePaymentCheck.Name = "ShippingStatePaymentCheck";
-            this.ShippingStatePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ShippingZipPaymentCheck
-            // 
-            this.ShippingZipPaymentCheck.HeaderText = "Shipping Zip";
-            this.ShippingZipPaymentCheck.Name = "ShippingZipPaymentCheck";
-            this.ShippingZipPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // SettlementTypePaymentCheck
-            // 
-            this.SettlementTypePaymentCheck.HeaderText = "Settlement Type";
-            this.SettlementTypePaymentCheck.Name = "SettlementTypePaymentCheck";
-            this.SettlementTypePaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // CreatedByPaymentCheck
-            // 
-            this.CreatedByPaymentCheck.HeaderText = "Created By";
-            this.CreatedByPaymentCheck.Name = "CreatedByPaymentCheck";
-            this.CreatedByPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // LastModifiedByPaymentCheck
-            // 
-            this.LastModifiedByPaymentCheck.HeaderText = "Last Modified By";
-            this.LastModifiedByPaymentCheck.Name = "LastModifiedByPaymentCheck";
-            this.LastModifiedByPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.LastModifiedByPaymentCheck.Width = 120;
+            this.TaskIdCaseTask.HeaderText = "Task Id";
+            this.TaskIdCaseTask.Name = "TaskIdCaseTask";
+            this.TaskIdCaseTask.ReadOnly = true;
             // 
             // frmCMMManager
             // 
@@ -11833,22 +11833,6 @@
         private System.Windows.Forms.Button btnExportCheckProviderPayment;
         private System.Windows.Forms.DataGridView gvPaymentCheckProvider;
         private System.Windows.Forms.Label label121;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RelatedToTaskInCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCaseTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ReminderDateTimeTaskInCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCaseTask;
         private System.Windows.Forms.GroupBox grpMedBillDocuments;
         private System.Windows.Forms.DataGridView gvSettlementsForApproval;
         private System.Windows.Forms.Label label122;
@@ -12320,6 +12304,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SettlementTypePaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelatedToTaskInCase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCaseTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReminderDateTimeTaskInCase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCaseTask;
     }
 }
 
