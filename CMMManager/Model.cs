@@ -619,6 +619,35 @@ namespace CMMManager
             IncidentProgramName = String.Empty;
         }
 
+        public IncidentProgramInfo(int program_id, String program_name)
+        {
+            bIsDeleted = false;
+            IncidentProgramId = program_id;
+            IncidentProgramName = program_name;
+
+            switch (program_id)
+            {
+                case 0:
+                    PersonalResponsibilityAmount = 500;
+                    break;
+                case 1:
+                    PersonalResponsibilityAmount = 500;
+                    break;
+                case 2:
+                    PersonalResponsibilityAmount = 1000;
+                    break;
+                case 3:
+                    PersonalResponsibilityAmount = 5000;
+                    break;
+                case 4:
+                    PersonalResponsibilityAmount = 500;
+                    break;
+                case 5:
+                    PersonalResponsibilityAmount = 500;
+                    break;
+            }
+        }
+
         public IncidentProgramInfo(Boolean deleted, int program_id, String program_name)
         {
             bIsDeleted = deleted;

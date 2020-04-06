@@ -295,6 +295,12 @@
     <Compile Include="frmSettlementNote.Designer.cs">
       <DependentUpon>frmSettlementNote.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmStartEndAnivDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStartEndAnivDate.Designer.cs">
+      <DependentUpon>frmStartEndAnivDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmStartEndDate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -438,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmSettlementNote.resx">
       <DependentUpon>frmSettlementNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStartEndAnivDate.resx">
+      <DependentUpon>frmStartEndAnivDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStartEndDate.resx">
       <DependentUpon>frmStartEndDate.cs</DependentUpon>
