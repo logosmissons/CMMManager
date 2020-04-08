@@ -563,6 +563,22 @@
             this.gvNewSupportLog = new System.Windows.Forms.DataGridView();
             this.btnCaseCreationNewSupportLog = new System.Windows.Forms.Button();
             this.gvTaskInCase = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelatedToTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReminderDateTimeTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNewTaskCaseForm = new System.Windows.Forms.Button();
             this.label49 = new System.Windows.Forms.Label();
             this.txtCreateCaseIndividualName = new System.Windows.Forms.TextBox();
@@ -1133,22 +1149,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.IndividualIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WhatIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelatedToTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActivityDateCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReminderDateTimeTaskInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskIdCaseTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5883,6 +5883,103 @@
             this.gvTaskInCase.TabIndex = 106;
             this.gvTaskInCase.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvTaskInCase_CellDoubleClick);
             // 
+            // IndividualIdCaseTask
+            // 
+            this.IndividualIdCaseTask.HeaderText = "Individual Id";
+            this.IndividualIdCaseTask.Name = "IndividualIdCaseTask";
+            this.IndividualIdCaseTask.ReadOnly = true;
+            // 
+            // IndividualNameCaseTask
+            // 
+            this.IndividualNameCaseTask.HeaderText = "Individual Name";
+            this.IndividualNameCaseTask.Name = "IndividualNameCaseTask";
+            this.IndividualNameCaseTask.ReadOnly = true;
+            this.IndividualNameCaseTask.Width = 120;
+            // 
+            // AssignedToCaseTask
+            // 
+            this.AssignedToCaseTask.HeaderText = "Assigned To";
+            this.AssignedToCaseTask.Name = "AssignedToCaseTask";
+            this.AssignedToCaseTask.ReadOnly = true;
+            // 
+            // WhatIdCaseTask
+            // 
+            this.WhatIdCaseTask.HeaderText = "What Id";
+            this.WhatIdCaseTask.Name = "WhatIdCaseTask";
+            this.WhatIdCaseTask.ReadOnly = true;
+            // 
+            // SubjectCaseTask
+            // 
+            this.SubjectCaseTask.HeaderText = "Subject";
+            this.SubjectCaseTask.Name = "SubjectCaseTask";
+            this.SubjectCaseTask.ReadOnly = true;
+            // 
+            // DueDateCaseTask
+            // 
+            this.DueDateCaseTask.HeaderText = "DueDate";
+            this.DueDateCaseTask.Name = "DueDateCaseTask";
+            this.DueDateCaseTask.ReadOnly = true;
+            // 
+            // RelatedToTaskInCase
+            // 
+            this.RelatedToTaskInCase.HeaderText = "Related To";
+            this.RelatedToTaskInCase.Name = "RelatedToTaskInCase";
+            this.RelatedToTaskInCase.ReadOnly = true;
+            // 
+            // CreateDateCaseTask
+            // 
+            this.CreateDateCaseTask.HeaderText = "Create Date";
+            this.CreateDateCaseTask.Name = "CreateDateCaseTask";
+            this.CreateDateCaseTask.ReadOnly = true;
+            // 
+            // CreatedByCaseTask
+            // 
+            this.CreatedByCaseTask.HeaderText = "Created By";
+            this.CreatedByCaseTask.Name = "CreatedByCaseTask";
+            this.CreatedByCaseTask.ReadOnly = true;
+            // 
+            // ActivityDateCaseTask
+            // 
+            this.ActivityDateCaseTask.HeaderText = "Activity Date";
+            this.ActivityDateCaseTask.Name = "ActivityDateCaseTask";
+            this.ActivityDateCaseTask.ReadOnly = true;
+            // 
+            // CommentCaseTask
+            // 
+            this.CommentCaseTask.HeaderText = "Comment";
+            this.CommentCaseTask.Name = "CommentCaseTask";
+            this.CommentCaseTask.ReadOnly = true;
+            // 
+            // SolutionCaseTask
+            // 
+            this.SolutionCaseTask.HeaderText = "Solution";
+            this.SolutionCaseTask.Name = "SolutionCaseTask";
+            this.SolutionCaseTask.ReadOnly = true;
+            // 
+            // StatusCaseTask
+            // 
+            this.StatusCaseTask.HeaderText = "Status";
+            this.StatusCaseTask.Name = "StatusCaseTask";
+            this.StatusCaseTask.ReadOnly = true;
+            // 
+            // PriorityCaseTask
+            // 
+            this.PriorityCaseTask.HeaderText = "Priority";
+            this.PriorityCaseTask.Name = "PriorityCaseTask";
+            this.PriorityCaseTask.ReadOnly = true;
+            // 
+            // ReminderDateTimeTaskInCase
+            // 
+            this.ReminderDateTimeTaskInCase.HeaderText = "Reminder Date";
+            this.ReminderDateTimeTaskInCase.Name = "ReminderDateTimeTaskInCase";
+            this.ReminderDateTimeTaskInCase.ReadOnly = true;
+            // 
+            // TaskIdCaseTask
+            // 
+            this.TaskIdCaseTask.HeaderText = "Task Id";
+            this.TaskIdCaseTask.Name = "TaskIdCaseTask";
+            this.TaskIdCaseTask.ReadOnly = true;
+            // 
             // btnNewTaskCaseForm
             // 
             this.btnNewTaskCaseForm.Location = new System.Drawing.Point(918, 91);
@@ -7021,6 +7118,7 @@
             this.gvSettlementsInMedBill.Name = "gvSettlementsInMedBill";
             this.gvSettlementsInMedBill.Size = new System.Drawing.Size(1764, 178);
             this.gvSettlementsInMedBill.TabIndex = 147;
+            this.gvSettlementsInMedBill.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.gvSettlementsInMedBill_CellBeginEdit);
             this.gvSettlementsInMedBill.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsInMedBill_CellValueChanged);
             this.gvSettlementsInMedBill.CurrentCellDirtyStateChanged += new System.EventHandler(this.gvSettlementsInMedBill_CurrentCellDirtyStateChanged);
             this.gvSettlementsInMedBill.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gvSettlementsInMedBill_EditingControlShowing);
@@ -10941,103 +11039,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // IndividualIdCaseTask
-            // 
-            this.IndividualIdCaseTask.HeaderText = "Individual Id";
-            this.IndividualIdCaseTask.Name = "IndividualIdCaseTask";
-            this.IndividualIdCaseTask.ReadOnly = true;
-            // 
-            // IndividualNameCaseTask
-            // 
-            this.IndividualNameCaseTask.HeaderText = "Individual Name";
-            this.IndividualNameCaseTask.Name = "IndividualNameCaseTask";
-            this.IndividualNameCaseTask.ReadOnly = true;
-            this.IndividualNameCaseTask.Width = 120;
-            // 
-            // AssignedToCaseTask
-            // 
-            this.AssignedToCaseTask.HeaderText = "Assigned To";
-            this.AssignedToCaseTask.Name = "AssignedToCaseTask";
-            this.AssignedToCaseTask.ReadOnly = true;
-            // 
-            // WhatIdCaseTask
-            // 
-            this.WhatIdCaseTask.HeaderText = "What Id";
-            this.WhatIdCaseTask.Name = "WhatIdCaseTask";
-            this.WhatIdCaseTask.ReadOnly = true;
-            // 
-            // SubjectCaseTask
-            // 
-            this.SubjectCaseTask.HeaderText = "Subject";
-            this.SubjectCaseTask.Name = "SubjectCaseTask";
-            this.SubjectCaseTask.ReadOnly = true;
-            // 
-            // DueDateCaseTask
-            // 
-            this.DueDateCaseTask.HeaderText = "DueDate";
-            this.DueDateCaseTask.Name = "DueDateCaseTask";
-            this.DueDateCaseTask.ReadOnly = true;
-            // 
-            // RelatedToTaskInCase
-            // 
-            this.RelatedToTaskInCase.HeaderText = "Related To";
-            this.RelatedToTaskInCase.Name = "RelatedToTaskInCase";
-            this.RelatedToTaskInCase.ReadOnly = true;
-            // 
-            // CreateDateCaseTask
-            // 
-            this.CreateDateCaseTask.HeaderText = "Create Date";
-            this.CreateDateCaseTask.Name = "CreateDateCaseTask";
-            this.CreateDateCaseTask.ReadOnly = true;
-            // 
-            // CreatedByCaseTask
-            // 
-            this.CreatedByCaseTask.HeaderText = "Created By";
-            this.CreatedByCaseTask.Name = "CreatedByCaseTask";
-            this.CreatedByCaseTask.ReadOnly = true;
-            // 
-            // ActivityDateCaseTask
-            // 
-            this.ActivityDateCaseTask.HeaderText = "Activity Date";
-            this.ActivityDateCaseTask.Name = "ActivityDateCaseTask";
-            this.ActivityDateCaseTask.ReadOnly = true;
-            // 
-            // CommentCaseTask
-            // 
-            this.CommentCaseTask.HeaderText = "Comment";
-            this.CommentCaseTask.Name = "CommentCaseTask";
-            this.CommentCaseTask.ReadOnly = true;
-            // 
-            // SolutionCaseTask
-            // 
-            this.SolutionCaseTask.HeaderText = "Solution";
-            this.SolutionCaseTask.Name = "SolutionCaseTask";
-            this.SolutionCaseTask.ReadOnly = true;
-            // 
-            // StatusCaseTask
-            // 
-            this.StatusCaseTask.HeaderText = "Status";
-            this.StatusCaseTask.Name = "StatusCaseTask";
-            this.StatusCaseTask.ReadOnly = true;
-            // 
-            // PriorityCaseTask
-            // 
-            this.PriorityCaseTask.HeaderText = "Priority";
-            this.PriorityCaseTask.Name = "PriorityCaseTask";
-            this.PriorityCaseTask.ReadOnly = true;
-            // 
-            // ReminderDateTimeTaskInCase
-            // 
-            this.ReminderDateTimeTaskInCase.HeaderText = "Reminder Date";
-            this.ReminderDateTimeTaskInCase.Name = "ReminderDateTimeTaskInCase";
-            this.ReminderDateTimeTaskInCase.ReadOnly = true;
-            // 
-            // TaskIdCaseTask
-            // 
-            this.TaskIdCaseTask.HeaderText = "Task Id";
-            this.TaskIdCaseTask.Name = "TaskIdCaseTask";
-            this.TaskIdCaseTask.ReadOnly = true;
             // 
             // frmCMMManager
             // 
