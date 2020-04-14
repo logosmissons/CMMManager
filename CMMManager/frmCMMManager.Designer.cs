@@ -1149,6 +1149,7 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.btnPRCalculator = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6760,6 +6761,7 @@
             // 
             // tbpgMedicalBill
             // 
+            this.tbpgMedicalBill.Controls.Add(this.btnPRCalculator);
             this.tbpgMedicalBill.Controls.Add(this.txtWBBalance);
             this.tbpgMedicalBill.Controls.Add(this.label86);
             this.tbpgMedicalBill.Controls.Add(this.btnReloadSettlementInMedBill);
@@ -6798,7 +6800,7 @@
             // txtWBBalance
             // 
             this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWBBalance.Location = new System.Drawing.Point(1338, 448);
+            this.txtWBBalance.Location = new System.Drawing.Point(1467, 448);
             this.txtWBBalance.Name = "txtWBBalance";
             this.txtWBBalance.ReadOnly = true;
             this.txtWBBalance.Size = new System.Drawing.Size(100, 22);
@@ -6808,7 +6810,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(1246, 451);
+            this.label86.Location = new System.Drawing.Point(1375, 451);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(86, 16);
             this.label86.TabIndex = 155;
@@ -6931,7 +6933,7 @@
             // txtTotalSharedAmtMedBill
             // 
             this.txtTotalSharedAmtMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1118, 448);
+            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1247, 448);
             this.txtTotalSharedAmtMedBill.Name = "txtTotalSharedAmtMedBill";
             this.txtTotalSharedAmtMedBill.ReadOnly = true;
             this.txtTotalSharedAmtMedBill.Size = new System.Drawing.Size(100, 22);
@@ -6941,7 +6943,7 @@
             // 
             this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(1009, 451);
+            this.label63.Location = new System.Drawing.Point(1138, 451);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(103, 16);
             this.label63.TabIndex = 151;
@@ -11040,6 +11042,15 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // btnPRCalculator
+            // 
+            this.btnPRCalculator.Location = new System.Drawing.Point(1005, 448);
+            this.btnPRCalculator.Name = "btnPRCalculator";
+            this.btnPRCalculator.Size = new System.Drawing.Size(116, 23);
+            this.btnPRCalculator.TabIndex = 157;
+            this.btnPRCalculator.Text = "PR Calculator";
+            this.btnPRCalculator.UseVisualStyleBackColor = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -12321,6 +12332,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCaseTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReminderDateTimeTaskInCase;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCaseTask;
+        private System.Windows.Forms.Button btnPRCalculator;
     }
 }
 
