@@ -273,6 +273,28 @@ namespace CMMManager
         }
     }
 
+    public class PersonalResponsibilityTotalInfo
+    {
+        public String CaseName;
+        public String IllnessNo;
+        public String IncidentNo;
+        public String MedBillNo;
+        public String SettlementNo;
+        public Double PersonalResponsibilityAmount;
+        public PersonalResponsibilityType? PR_Type;
+        
+        public PersonalResponsibilityTotalInfo()
+        {
+            CaseName = null;
+            IllnessNo = null;
+            IncidentNo = null;
+            MedBillNo = null;
+            SettlementNo = null;
+            PersonalResponsibilityAmount = 0;
+            PR_Type = null;
+        }
+    }
+
     public class CaseDocInfoInMedBill
     {
         public String CaseDocNo;

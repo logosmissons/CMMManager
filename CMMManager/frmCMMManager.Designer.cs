@@ -670,6 +670,7 @@
             this.MedBill_LastModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_LastModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
+            this.btnPRCalculator = new System.Windows.Forms.Button();
             this.txtWBBalance = new System.Windows.Forms.TextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.btnReloadSettlementInMedBill = new System.Windows.Forms.Button();
@@ -1149,7 +1150,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.btnPRCalculator = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6797,6 +6797,16 @@
             this.tbpgMedicalBill.Text = "Medical Bill";
             this.tbpgMedicalBill.UseVisualStyleBackColor = true;
             // 
+            // btnPRCalculator
+            // 
+            this.btnPRCalculator.Location = new System.Drawing.Point(1005, 448);
+            this.btnPRCalculator.Name = "btnPRCalculator";
+            this.btnPRCalculator.Size = new System.Drawing.Size(116, 23);
+            this.btnPRCalculator.TabIndex = 157;
+            this.btnPRCalculator.Text = "PR Calculator";
+            this.btnPRCalculator.UseVisualStyleBackColor = true;
+            this.btnPRCalculator.Click += new System.EventHandler(this.btnPRCalculator_Click);
+            // 
             // txtWBBalance
             // 
             this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -11041,15 +11051,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // btnPRCalculator
-            // 
-            this.btnPRCalculator.Location = new System.Drawing.Point(1005, 448);
-            this.btnPRCalculator.Name = "btnPRCalculator";
-            this.btnPRCalculator.Size = new System.Drawing.Size(116, 23);
-            this.btnPRCalculator.TabIndex = 157;
-            this.btnPRCalculator.Text = "PR Calculator";
-            this.btnPRCalculator.UseVisualStyleBackColor = true;
             // 
             // frmCMMManager
             // 

@@ -259,6 +259,12 @@
     <Compile Include="frmMemberReimbursementTransacDate.Designer.cs">
       <DependentUpon>frmMemberReimbursementTransacDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPRCalculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPRCalculator.Designer.cs">
+      <DependentUpon>frmPRCalculator.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSaveChangeOnCase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -426,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMemberReimbursementTransacDate.resx">
       <DependentUpon>frmMemberReimbursementTransacDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPRCalculator.resx">
+      <DependentUpon>frmPRCalculator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSaveChangeOnCase.resx">
       <DependentUpon>frmSaveChangeOnCase.cs</DependentUpon>

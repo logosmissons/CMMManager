@@ -20,6 +20,9 @@ namespace CMMManager
     public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
     public enum IncidentProgram { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
 
+    // enumeration for Personal Responsibility Type
+    public enum PersonalResponsibilityType { ThirdPartyDiscount = 0, MemberPayment, MemberDiscount };
+
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };
     public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved };
     public enum TaskPriority { High, Normal, Low };
