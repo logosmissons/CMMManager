@@ -49,6 +49,37 @@ namespace CMMManager
         }
     }
 
+    public class IncidentAnniversaryInfo
+    {
+        public String IndividualId;
+        public DateTime? AnnivStartDate;
+        public DateTime? AnnivEndDate;
+        public String IncidentNo;
+        public IndividualPlan? IncidentProgram;
+
+        public IncidentAnniversaryInfo()
+        {
+            IndividualId = null;
+            AnnivStartDate = null;
+            AnnivEndDate = null;
+            IncidentNo = null;
+            IncidentProgram = null;
+        }
+
+        public IncidentAnniversaryInfo(String individual_id,
+                                       DateTime anniv_start_date,
+                                       DateTime anniv_end_date,
+                                       String incident_no,
+                                       IndividualPlan program)
+        {
+            IndividualId = individual_id;
+            AnnivStartDate = anniv_start_date;
+            AnnivEndDate = anniv_end_date;
+            IncidentNo = incident_no;
+            IncidentProgram = program;
+        }
+    }
+
 
     public class MedicalBillInfoForList
     {
