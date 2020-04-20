@@ -55,7 +55,16 @@
             this.txtLimitedSharingYearlyLimit = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtIllnessNo = new System.Windows.Forms.TextBox();
+            this.rbEligible = new System.Windows.Forms.RadioButton();
+            this.rbIneligible = new System.Windows.Forms.RadioButton();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbIncidentsForIllness = new System.Windows.Forms.ListBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.combIllnessProgram = new System.Windows.Forms.ComboBox();
             this.grpIllnessNote.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpIllnessNote
@@ -67,37 +76,38 @@
             this.grpIllnessNote.Controls.Add(this.label4);
             this.grpIllnessNote.Controls.Add(this.txtIllnessNote);
             this.grpIllnessNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpIllnessNote.Location = new System.Drawing.Point(32, 264);
+            this.grpIllnessNote.Location = new System.Drawing.Point(32, 269);
             this.grpIllnessNote.Name = "grpIllnessNote";
-            this.grpIllnessNote.Size = new System.Drawing.Size(714, 352);
+            this.grpIllnessNote.Size = new System.Drawing.Size(514, 356);
             this.grpIllnessNote.TabIndex = 26;
             this.grpIllnessNote.TabStop = false;
-            this.grpIllnessNote.Text = "Illness Note";
+            this.grpIllnessNote.Text = "Note";
             // 
             // txtConclusion
             // 
-            this.txtConclusion.Location = new System.Drawing.Point(24, 309);
+            this.txtConclusion.Location = new System.Drawing.Point(24, 256);
+            this.txtConclusion.Multiline = true;
             this.txtConclusion.Name = "txtConclusion";
-            this.txtConclusion.Size = new System.Drawing.Size(314, 22);
+            this.txtConclusion.Size = new System.Drawing.Size(471, 71);
             this.txtConclusion.TabIndex = 14;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 290);
+            this.label7.Location = new System.Drawing.Point(21, 237);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 16);
+            this.label7.Size = new System.Drawing.Size(85, 16);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Conclusion";
+            this.label7.Text = "Review Note";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(21, 88);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 16);
+            this.label6.Size = new System.Drawing.Size(78, 16);
             this.label6.TabIndex = 12;
-            this.label6.Text = "Body";
+            this.label6.Text = "Illness Note";
             // 
             // txtIntroduction
             // 
@@ -121,21 +131,21 @@
             this.txtIllnessNote.Multiline = true;
             this.txtIllnessNote.Name = "txtIllnessNote";
             this.txtIllnessNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtIllnessNote.Size = new System.Drawing.Size(668, 169);
+            this.txtIllnessNote.Size = new System.Drawing.Size(471, 110);
             this.txtIllnessNote.TabIndex = 9;
             // 
             // dtpCreateDate
             // 
             this.dtpCreateDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCreateDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpCreateDate.Location = new System.Drawing.Point(389, 164);
+            this.dtpCreateDate.Location = new System.Drawing.Point(389, 178);
             this.dtpCreateDate.Name = "dtpCreateDate";
-            this.dtpCreateDate.Size = new System.Drawing.Size(109, 22);
+            this.dtpCreateDate.Size = new System.Drawing.Size(120, 22);
             this.dtpCreateDate.TabIndex = 25;
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(646, 641);
+            this.btnClose.Location = new System.Drawing.Point(647, 648);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(99, 29);
             this.btnClose.TabIndex = 23;
@@ -145,7 +155,7 @@
             // 
             // btnSaveIllness
             // 
-            this.btnSaveIllness.Location = new System.Drawing.Point(526, 641);
+            this.btnSaveIllness.Location = new System.Drawing.Point(527, 648);
             this.btnSaveIllness.Name = "btnSaveIllness";
             this.btnSaveIllness.Size = new System.Drawing.Size(99, 29);
             this.btnSaveIllness.TabIndex = 22;
@@ -156,7 +166,7 @@
             // txtICD10Code
             // 
             this.txtICD10Code.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtICD10Code.Location = new System.Drawing.Point(147, 127);
+            this.txtICD10Code.Location = new System.Drawing.Point(147, 119);
             this.txtICD10Code.Name = "txtICD10Code";
             this.txtICD10Code.Size = new System.Drawing.Size(117, 22);
             this.txtICD10Code.TabIndex = 20;
@@ -165,7 +175,7 @@
             // txtIndividualNo
             // 
             this.txtIndividualNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndividualNo.Location = new System.Drawing.Point(389, 88);
+            this.txtIndividualNo.Location = new System.Drawing.Point(389, 80);
             this.txtIndividualNo.Name = "txtIndividualNo";
             this.txtIndividualNo.ReadOnly = true;
             this.txtIndividualNo.Size = new System.Drawing.Size(173, 22);
@@ -186,7 +196,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(281, 167);
+            this.label3.Location = new System.Drawing.Point(281, 181);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 16);
             this.label3.TabIndex = 17;
@@ -196,7 +206,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(29, 129);
+            this.label2.Location = new System.Drawing.Point(29, 121);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 16;
@@ -206,7 +216,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(294, 91);
+            this.label1.Location = new System.Drawing.Point(294, 83);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 16);
             this.label1.TabIndex = 15;
@@ -215,7 +225,7 @@
             // txtDiseaseName
             // 
             this.txtDiseaseName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiseaseName.Location = new System.Drawing.Point(270, 127);
+            this.txtDiseaseName.Location = new System.Drawing.Point(270, 119);
             this.txtDiseaseName.Name = "txtDiseaseName";
             this.txtDiseaseName.Size = new System.Drawing.Size(476, 22);
             this.txtDiseaseName.TabIndex = 27;
@@ -224,7 +234,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(29, 167);
+            this.label8.Location = new System.Drawing.Point(29, 181);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(103, 16);
             this.label8.TabIndex = 28;
@@ -235,7 +245,7 @@
             this.dtpDateOfDiagnosis.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDateOfDiagnosis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDateOfDiagnosis.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateOfDiagnosis.Location = new System.Drawing.Point(147, 164);
+            this.dtpDateOfDiagnosis.Location = new System.Drawing.Point(147, 178);
             this.dtpDateOfDiagnosis.Name = "dtpDateOfDiagnosis";
             this.dtpDateOfDiagnosis.Size = new System.Drawing.Size(117, 22);
             this.dtpDateOfDiagnosis.TabIndex = 29;
@@ -246,7 +256,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(576, 91);
+            this.label9.Location = new System.Drawing.Point(576, 83);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(64, 16);
             this.label9.TabIndex = 31;
@@ -255,7 +265,7 @@
             // txtCaseNo
             // 
             this.txtCaseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaseNo.Location = new System.Drawing.Point(646, 88);
+            this.txtCaseNo.Location = new System.Drawing.Point(646, 80);
             this.txtCaseNo.Name = "txtCaseNo";
             this.txtCaseNo.ReadOnly = true;
             this.txtCaseNo.Size = new System.Drawing.Size(100, 22);
@@ -265,7 +275,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(29, 206);
+            this.label10.Location = new System.Drawing.Point(29, 220);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(103, 16);
             this.label10.TabIndex = 33;
@@ -274,7 +284,7 @@
             // comboLimitedSharing
             // 
             this.comboLimitedSharing.FormattingEnabled = true;
-            this.comboLimitedSharing.Location = new System.Drawing.Point(147, 204);
+            this.comboLimitedSharing.Location = new System.Drawing.Point(147, 218);
             this.comboLimitedSharing.Name = "comboLimitedSharing";
             this.comboLimitedSharing.Size = new System.Drawing.Size(117, 21);
             this.comboLimitedSharing.TabIndex = 34;
@@ -284,7 +294,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(296, 206);
+            this.label11.Location = new System.Drawing.Point(296, 220);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(87, 16);
             this.label11.TabIndex = 35;
@@ -293,17 +303,17 @@
             // txtLimitedSharingYearlyLimit
             // 
             this.txtLimitedSharingYearlyLimit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLimitedSharingYearlyLimit.Location = new System.Drawing.Point(389, 203);
+            this.txtLimitedSharingYearlyLimit.Location = new System.Drawing.Point(389, 217);
             this.txtLimitedSharingYearlyLimit.Name = "txtLimitedSharingYearlyLimit";
             this.txtLimitedSharingYearlyLimit.ReadOnly = true;
-            this.txtLimitedSharingYearlyLimit.Size = new System.Drawing.Size(109, 22);
+            this.txtLimitedSharingYearlyLimit.Size = new System.Drawing.Size(120, 22);
             this.txtLimitedSharingYearlyLimit.TabIndex = 36;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(29, 91);
+            this.label12.Location = new System.Drawing.Point(29, 83);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 16);
             this.label12.TabIndex = 37;
@@ -312,18 +322,104 @@
             // txtIllnessNo
             // 
             this.txtIllnessNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIllnessNo.Location = new System.Drawing.Point(147, 88);
+            this.txtIllnessNo.Location = new System.Drawing.Point(147, 80);
             this.txtIllnessNo.Name = "txtIllnessNo";
             this.txtIllnessNo.ReadOnly = true;
             this.txtIllnessNo.Size = new System.Drawing.Size(117, 22);
             this.txtIllnessNo.TabIndex = 38;
             // 
+            // rbEligible
+            // 
+            this.rbEligible.AutoSize = true;
+            this.rbEligible.Location = new System.Drawing.Point(286, 151);
+            this.rbEligible.Name = "rbEligible";
+            this.rbEligible.Size = new System.Drawing.Size(58, 17);
+            this.rbEligible.TabIndex = 39;
+            this.rbEligible.TabStop = true;
+            this.rbEligible.Text = "Eligible";
+            this.rbEligible.UseVisualStyleBackColor = true;
+            // 
+            // rbIneligible
+            // 
+            this.rbIneligible.AutoSize = true;
+            this.rbIneligible.Location = new System.Drawing.Point(371, 151);
+            this.rbIneligible.Name = "rbIneligible";
+            this.rbIneligible.Size = new System.Drawing.Size(66, 17);
+            this.rbIneligible.TabIndex = 40;
+            this.rbIneligible.TabStop = true;
+            this.rbIneligible.Text = "Ineligible";
+            this.rbIneligible.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(531, 220);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(61, 16);
+            this.label13.TabIndex = 41;
+            this.label13.Text = "Balance:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(600, 217);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(146, 22);
+            this.textBox1.TabIndex = 42;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbIncidentsForIllness);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(560, 269);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(186, 356);
+            this.groupBox1.TabIndex = 45;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Related Incidents";
+            // 
+            // lbIncidentsForIllness
+            // 
+            this.lbIncidentsForIllness.FormattingEnabled = true;
+            this.lbIncidentsForIllness.ItemHeight = 16;
+            this.lbIncidentsForIllness.Location = new System.Drawing.Point(17, 35);
+            this.lbIncidentsForIllness.Name = "lbIncidentsForIllness";
+            this.lbIncidentsForIllness.Size = new System.Drawing.Size(153, 292);
+            this.lbIncidentsForIllness.TabIndex = 46;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(531, 181);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(63, 16);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "Program:";
+            // 
+            // combIllnessProgram
+            // 
+            this.combIllnessProgram.FormattingEnabled = true;
+            this.combIllnessProgram.Location = new System.Drawing.Point(601, 179);
+            this.combIllnessProgram.Name = "combIllnessProgram";
+            this.combIllnessProgram.Size = new System.Drawing.Size(145, 21);
+            this.combIllnessProgram.TabIndex = 47;
+            // 
             // frmIllnessCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 693);
+            this.ClientSize = new System.Drawing.Size(775, 691);
             this.ControlBox = false;
+            this.Controls.Add(this.combIllnessProgram);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.rbIneligible);
+            this.Controls.Add(this.rbEligible);
             this.Controls.Add(this.txtIllnessNo);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtLimitedSharingYearlyLimit);
@@ -351,6 +447,7 @@
             this.Load += new System.EventHandler(this.frmIllnessCreationPage_Load);
             this.grpIllnessNote.ResumeLayout(false);
             this.grpIllnessNote.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,5 +485,13 @@
         private System.Windows.Forms.TextBox txtLimitedSharingYearlyLimit;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtIllnessNo;
+        private System.Windows.Forms.RadioButton rbEligible;
+        private System.Windows.Forms.RadioButton rbIneligible;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ListBox lbIncidentsForIllness;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox combIllnessProgram;
     }
 }
