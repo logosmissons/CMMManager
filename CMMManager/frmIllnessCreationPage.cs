@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
@@ -40,6 +41,7 @@ namespace CMMManager
 
         public DateTime MembershipStartDate;
 
+        List<IllnessProgramInfo> lstIllnessProgramInfo;
 
         List<ICD10CodeInfo> lstICD10CodeInfo;
 
@@ -77,7 +79,39 @@ namespace CMMManager
         {
             InitializeComponent();
             SetSqlSetting();
+
             lstICD10CodeInfo = new List<ICD10CodeInfo>();
+            lstIllnessProgramInfo = new List<IllnessProgramInfo>();
+
+            String strSqlQueryForIllnessProgramInfo = "select [dbo].[tbl_program].[Program_Id], [dbo].[tbl_program].[ProgramName] from [dbo].[tbl_program] " +
+                                                      "where [dbo].[tbl_program].[IsDeleted] = 0 or [dbo].[tbl_program].[IsDeleted] IS NULL";
+
+            SqlCommand cmdQueryForIllnessProgramInfo = new SqlCommand(strSqlQueryForIllnessProgramInfo, connRNDB);
+            cmdQueryForIllnessProgramInfo.CommandType = CommandType.Text;
+
+            if (connRNDB.State != ConnectionState.Closed)
+            {
+                connRNDB.Close();
+                connRNDB.Open();
+            }
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            SqlDataReader rdrIllnessProgramInfo = cmdQueryForIllnessProgramInfo.ExecuteReader();
+            if (rdrIllnessProgramInfo.HasRows)
+            {
+                while (rdrIllnessProgramInfo.Read())
+                {
+                    IllnessProgramInfo info = new IllnessProgramInfo();
+                    if (!rdrIllnessProgramInfo.IsDBNull(0)) info.IllnessProgramId = rdrIllnessProgramInfo.GetInt16(0);
+                    else info.IllnessProgramId = null;
+                    if (!rdrIllnessProgramInfo.IsDBNull(1)) info.IllnessProgramName = rdrIllnessProgramInfo.GetString(1);
+                    else info.IllnessProgramName = null;
+                    lstIllnessProgramInfo.Add(info);
+                }
+            }
+            rdrIllnessProgramInfo.Close();
+            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                                                      
+
             dicLimitedSharingOptions = new Dictionary<int, string>();
             dicLimitedSharing1 = new Dictionary<int, Decimal>();
             dicLimitedSharing2 = new Dictionary<int, Decimal>();
@@ -222,6 +256,11 @@ namespace CMMManager
             //    btnIllnessUpdate.Enabled = true;
             //}
 
+            foreach (IllnessProgramInfo info in lstIllnessProgramInfo)
+            {
+                comboIllnessProgram.Items.Add(info.IllnessProgramName);
+            }
+
             for (int i = 0; i < dicLimitedSharingOptions.Count; i++)
             {
                 comboLimitedSharing.Items.Add(dicLimitedSharingOptions[i]);
@@ -230,7 +269,47 @@ namespace CMMManager
 
             if (mode == IllnessMode.AddNew)
             {
+                String strSqlQueryForMemberProgram = "select [dbo].[Program].[Name] from [dbo].[Contact] " +
+                                                     "inner join [dbo].[Program] on [dbo].[Contact].[c4g_Plan__c] = [dbo].[Program].[ID] " +
+                                                     "where [dbo].[Contact].[Individual_ID__c] = @IndividualId";
 
+                SqlCommand cmdQueryForMemberProgram = new SqlCommand(strSqlQueryForMemberProgram, connSalesforce);
+                cmdQueryForMemberProgram.CommandType = CommandType.Text;
+
+                cmdQueryForMemberProgram.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                Object objMemberProgram = cmdQueryForMemberProgram.ExecuteScalar();
+                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                String strMemberProgram = objMemberProgram?.ToString();
+
+                switch (strMemberProgram.Trim())
+                {
+                    case "Gold Plus":
+                        comboIllnessProgram.SelectedIndex = 0;
+                        break;
+                    case "Gold":
+                        comboIllnessProgram.SelectedIndex = 1;
+                        break;
+                    case "Silver":
+                        comboIllnessProgram.SelectedIndex = 2;
+                        break;
+                    case "Bronze":
+                        comboIllnessProgram.SelectedIndex = 3;
+                        break;
+                    case "Gold Medi-I":
+                        comboIllnessProgram.SelectedIndex = 4;
+                        break;
+                    case "Gold Medi-II":
+                        comboIllnessProgram.SelectedIndex = 5;
+                        break;
+                }
             }
             else if (mode == IllnessMode.Edit)
             {
@@ -239,7 +318,8 @@ namespace CMMManager
                 String strSqlQueryForIllness = "select [dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], [dbo].[tbl_illness].[ModifiDate], " +
                                                "[dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[Case_Id], [dbo].[tbl_illness].[Date_of_Diagnosis], " +
                                                "[dbo].[tbl_illness].[LimitedSharingId], " +
-                                               "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
+                                               "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion], " +
+                                               "[dbo].[tbl_illness].[Program_Id] " +
                                                "from [dbo].[tbl_illness] " +
                                                "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
                                                //"where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
@@ -277,12 +357,108 @@ namespace CMMManager
                         dtpDateOfDiagnosis.CustomFormat = " ";
                     }
                     if (!rdrIllness.IsDBNull(7)) comboLimitedSharing.SelectedIndex = rdrIllness.GetInt16(7);
-                    if (!rdrIllness.IsDBNull(8)) txtIntroduction.Text = rdrIllness.GetString(8);
-                    if (!rdrIllness.IsDBNull(9)) txtIllnessNote.Text = rdrIllness.GetString(9);
+                    if (!rdrIllness.IsDBNull(8)) txtIllnessNote.Text = rdrIllness.GetString(8) + Environment.NewLine;
+                    if (!rdrIllness.IsDBNull(9)) txtIllnessNote.Text += rdrIllness.GetString(9);
                     if (!rdrIllness.IsDBNull(10)) txtConclusion.Text = rdrIllness.GetString(10);
+                    if (!rdrIllness.IsDBNull(11)) comboIllnessProgram.SelectedIndex = rdrIllness.GetByte(11);
+                    else comboIllnessProgram.SelectedIndex = -1;
                 }
                 rdrIllness.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                String strSqlQueryForIncidentInfoForIllness = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
+                                                           "[dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[OccurrenceDate], " +
+                                                           "[dbo].[tbl_incident].[TotalSharedAmount], [dbo].[tbl_incident].[IncidentNote] " +
+                                                           "from [dbo].[tbl_incident] " +
+                                                           "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                                           "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                                                           "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                SqlCommand cmdQueryForIncidentInfoForIllness = new SqlCommand(strSqlQueryForIncidentInfoForIllness, connRNDB);
+                cmdQueryForIncidentInfoForIllness.CommandType = CommandType.Text;
+
+                cmdQueryForIncidentInfoForIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                SqlDataReader rdrIncidentInfo = cmdQueryForIncidentInfoForIllness.ExecuteReader();
+                if (rdrIncidentInfo.HasRows)
+                {
+                    while (rdrIncidentInfo.Read())
+                    {
+                        DataGridViewRow row = new DataGridViewRow();
+                        if (!rdrIncidentInfo.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(0) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrIncidentInfo.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(1).Trim() });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrIncidentInfo.IsDBNull(2))
+                        {
+                            if (rdrIncidentInfo.GetBoolean(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = "Well Being" });
+                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = "Incident" });
+                        }
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrIncidentInfo.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDateTime(3).ToString("MM/dd/yyyy") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrIncidentInfo.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDecimal(4).ToString("C") });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        if (!rdrIncidentInfo.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(5) });
+                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        gvRelatedIncidentInfo.Rows.Add(row);
+                    }
+                }
+                rdrIncidentInfo.Close();
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+            }
+
+            if (comboIllnessProgram.SelectedIndex == -1)
+            {
+                String strSqlQueryForMemberProgram = "select [dbo].[Program].[Name] from [dbo].[Contact] " +
+                                     "inner join [dbo].[Program] on [dbo].[Contact].[c4g_Plan__c] = [dbo].[Program].[ID] " +
+                                     "where [dbo].[Contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForMemberProgram = new SqlCommand(strSqlQueryForMemberProgram, connSalesforce);
+                cmdQueryForMemberProgram.CommandType = CommandType.Text;
+
+                cmdQueryForMemberProgram.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                Object objMemberProgram = cmdQueryForMemberProgram.ExecuteScalar();
+                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                String strMemberProgram = objMemberProgram?.ToString();
+
+                switch (strMemberProgram.Trim())
+                {
+                    case "Gold Plus":
+                        comboIllnessProgram.SelectedIndex = 0;
+                        break;
+                    case "Gold":
+                        comboIllnessProgram.SelectedIndex = 1;
+                        break;
+                    case "Silver":
+                        comboIllnessProgram.SelectedIndex = 2;
+                        break;
+                    case "Bronze":
+                        comboIllnessProgram.SelectedIndex = 3;
+                        break;
+                    case "Gold Medi-I":
+                        comboIllnessProgram.SelectedIndex = 4;
+                        break;
+                    case "Gold Medi-II":
+                        comboIllnessProgram.SelectedIndex = 5;
+                        break;
+                }
             }
 
 
@@ -356,14 +532,14 @@ namespace CMMManager
 
             //String strIllnessId = String.Empty;
             String strIndividualId = String.Empty;
-            String strIntroduction = String.Empty;
+            //String strIntroduction = String.Empty;
             String strIllnessNote = String.Empty;
             String strConclusion = String.Empty;
 
             //if (txtIllnessId.Text.Trim() != String.Empty) strIllnessId = txtIllnessId.Text.Trim();
             if (txtICD10Code.Text.Trim() != String.Empty) strICD10Code = txtICD10Code.Text.Trim();
             if (txtIndividualNo.Text.Trim() != String.Empty) strIndividualId = txtIndividualNo.Text.Trim();
-            if (txtIntroduction.Text.Trim() != String.Empty) strIntroduction = txtIntroduction.Text.Trim();
+            //if (txtIntroduction.Text.Trim() != String.Empty) strIntroduction = txtIntroduction.Text.Trim();
             if (txtIllnessNote.Text.Trim() != String.Empty) strIllnessNote = txtIllnessNote.Text.Trim();
             if (txtConclusion.Text.Trim() != String.Empty) strConclusion = txtConclusion.Text.Trim();
 
@@ -478,11 +654,12 @@ namespace CMMManager
                                              "[dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], [dbo].[tbl_illness].[ModifiDate], " +
                                              "[dbo].[tbl_illness].[CreateStaff], [dbo].[tbl_illness].[ModifiStaff], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[Case_Id], " +
                                              "[dbo].[tbl_illness].[LimitedSharingId], [dbo].[tbl_illness].[Date_of_Diagnosis], [dbo].[tbl_illness].[Remove_log], " +
-                                             "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion], [dbo].[tbl_illness].[IsRemoved]) " +
+                                             "[dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion], [dbo].[tbl_illness].[Program_Id], " +
+                                             "[dbo].[tbl_illness].[IsRemoved]) " +
                                              "values (@IllnessNo, @IsDeleted, @ICD10Code, @CreateDate, @ModifiDate, " +
                                              "@CreateStaff, @ModifiStaff, @IndividualId, @CaseId, " +
                                              "@LimitedSharingId, @DateOfDiagnosis, @RemoveLog, " +
-                                             "@Introduction, @Body, @Conclusion, 0)";
+                                             "@Body, @Conclusion, @ProgramId, 0)";
 
                 //String strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True";
                 //SqlConnection connRNDB = new SqlConnection(strRNConnection);
@@ -506,12 +683,14 @@ namespace CMMManager
                 if (dtpDateOfDiagnosis.Text.Trim() != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@DateOfDiagnosis", dtpDateOfDiagnosis.Value);
                 else cmdCreateIllness.Parameters.AddWithValue("@DateOfDiagnosis", DBNull.Value);
                 cmdCreateIllness.Parameters.AddWithValue("@RemoveLog", DBNull.Value);
-                if (strIntroduction != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Introduction", strIntroduction);
-                else cmdCreateIllness.Parameters.AddWithValue("@Introduction", DBNull.Value);
-                if (strIntroduction != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Body", strIllnessNote);
+                //if (strIntroduction != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Introduction", strIntroduction);
+                //else cmdCreateIllness.Parameters.AddWithValue("@Introduction", DBNull.Value);
+                if (strIllnessNote != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Body", strIllnessNote);
                 else cmdCreateIllness.Parameters.AddWithValue("@Body", DBNull.Value);
                 if (strConclusion != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Conclusion", strConclusion);
                 else cmdCreateIllness.Parameters.AddWithValue("@Conclusion", DBNull.Value);
+                if (comboIllnessProgram.SelectedIndex != -1) cmdCreateIllness.Parameters.AddWithValue("@Program_Id", comboIllnessProgram.SelectedIndex);
+                else cmdCreateIllness.Parameters.AddWithValue("@Program_Id", DBNull.Value);
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
@@ -550,14 +729,16 @@ namespace CMMManager
                 if (txtICD10Code.Text.Trim() != String.Empty) strICD10Code = txtICD10Code.Text.Trim();
                 if (txtIndividualNo.Text.Trim() != String.Empty) strIndividualId = txtIndividualNo.Text.Trim();
                 if (txtCaseNo.Text.Trim() != String.Empty) strCaseNo = txtCaseNo.Text.Trim();
-                if (txtIntroduction.Text.Trim() != String.Empty) strIntroduction = txtIntroduction.Text.Trim();
+                //if (txtIntroduction.Text.Trim() != String.Empty) strIntroduction = txtIntroduction.Text.Trim();
+
                 if (txtIllnessNote.Text.Trim() != String.Empty) strIllnessNote = txtIllnessNote.Text.Trim();
                 if (txtConclusion.Text.Trim() != String.Empty) strConclusion = txtConclusion.Text.Trim();
 
                 String strSqlUpdateIllness = "update [dbo].[tbl_illness] set [dbo].[tbl_illness].[icd_10_Id] = @ICD10Code, [dbo].[tbl_illness].[ModifiDate] = @ModifiDate, " +
                                              "[dbo].[tbl_illness].[ModifiStaff] = @ModifiStaff, [dbo].[tbl_illness].[Date_of_Diagnosis] = @DiagnosisDate, " +
                                              "[dbo].[tbl_illness].[LimitedSharingId] = @LimitedSharingId, " +
-                                             "[dbo].[tbl_illness].[Introduction] = @Introduction, [dbo].[tbl_illness].[Body] = @Body, [dbo].[tbl_illness].[Conclusion] = @Conclusion " +
+                                             "[dbo].[tbl_illness].[Body] = @Body, [dbo].[tbl_illness].[Conclusion] = @Conclusion, " +
+                                             "[dbo].[tbl_illness].[Program_Id] = @ProgramId " +
                                              "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
                                              "[dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
@@ -570,9 +751,11 @@ namespace CMMManager
                 cmdUpdateIllness.Parameters.AddWithValue("@ModifiStaff", nLoggedInUserId);
                 cmdUpdateIllness.Parameters.AddWithValue("@DiagnosisDate", dtpDateOfDiagnosis.Value);
                 cmdUpdateIllness.Parameters.AddWithValue("@LimitedSharingId", comboLimitedSharing.SelectedIndex);
-                cmdUpdateIllness.Parameters.AddWithValue("@Introduction", strIntroduction);
+                //cmdUpdateIllness.Parameters.AddWithValue("@Introduction", strIntroduction);
                 cmdUpdateIllness.Parameters.AddWithValue("@Body", strIllnessNote);
                 cmdUpdateIllness.Parameters.AddWithValue("@Conclusion", strConclusion);
+                if (comboIllnessProgram.SelectedIndex != -1) cmdUpdateIllness.Parameters.AddWithValue("@ProgramId", comboIllnessProgram.SelectedIndex);
+                else cmdUpdateIllness.Parameters.AddWithValue("@ProgramId", DBNull.Value);
                 cmdUpdateIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
                 cmdUpdateIllness.Parameters.AddWithValue("@CaseId", strCaseNo);
                 cmdUpdateIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
@@ -729,6 +912,55 @@ namespace CMMManager
                     txtLimitedSharingYearlyLimit.Text = Zero.ToString("C");
                     break;
             }
+
+            Double LimitedSharingYearlyLimit = 0;
+
+            String strLimitedSharingYearlyLimit = txtLimitedSharingYearlyLimit.Text.Trim();
+
+            Double resultLimitedSharingYearlyLimit = 0;
+
+            if (Double.TryParse(strLimitedSharingYearlyLimit, NumberStyles.Currency, new CultureInfo("en-US"), out resultLimitedSharingYearlyLimit))
+            {
+                LimitedSharingYearlyLimit = resultLimitedSharingYearlyLimit;
+
+                if (LimitedSharingYearlyLimit == 0) return;
+            }
+
+            String IllnessNo = txtIllnessNo.Text?.Trim();
+
+            Double IllnessTotalSharedAmount = 0;
+
+            if (IllnessNo != null && IllnessNo != String.Empty)
+            {
+                String strSqlQueryForTotalSharedAmount = "select [dbo].[tbl_illness].[TotalSharedAmount] from [dbo].[tbl_illness] " +
+                                                         "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                SqlCommand cmdQueryForTotalSharedAmount = new SqlCommand(strSqlQueryForTotalSharedAmount, connRNDB);
+                cmdQueryForTotalSharedAmount.CommandType = CommandType.Text;
+
+                cmdQueryForTotalSharedAmount.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+
+                if (connRNDB.State != ConnectionState.Closed)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                Object objIllnessTotalSharedAmount = cmdQueryForTotalSharedAmount.ExecuteScalar();
+                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                String strIllnessTotalSharedAmount = objIllnessTotalSharedAmount?.ToString();
+
+                if (strIllnessTotalSharedAmount != null)
+                {
+                    Double resultIllnessTotalSharedAmount = 0;
+                    if (Double.TryParse(strIllnessTotalSharedAmount, out resultIllnessTotalSharedAmount)) IllnessTotalSharedAmount = resultIllnessTotalSharedAmount;
+                }
+            }
+
+            LimitedSharingYearlyLimit -= IllnessTotalSharedAmount;
+
+            txtYearlyLimitBalance.Text = LimitedSharingYearlyLimit.ToString("C");
         }
 
         private void dtpDateOfDiagnosis_ValueChanged(object sender, EventArgs e)

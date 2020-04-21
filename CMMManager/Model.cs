@@ -49,6 +49,24 @@ namespace CMMManager
         }
     }
 
+    public class IllnessProgramInfo
+    {
+        public int? IllnessProgramId;
+        public String IllnessProgramName;
+
+        public IllnessProgramInfo()
+        {
+            IllnessProgramId = null;
+            IllnessProgramName = null;
+        }
+
+        public IllnessProgramInfo(int program_id, String program_name)
+        {
+            IllnessProgramId = program_id;
+            IllnessProgramName = program_name;
+        }
+    }
+
     public class IncidentAnniversaryInfo
     {
         public String IndividualId;
