@@ -18,6 +18,7 @@ namespace CMMManager
 
     // enumeration for program change history
     public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
+    public enum IllnessProgram { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
     public enum IncidentProgram { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
 
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };

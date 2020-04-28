@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpIllnessNote = new System.Windows.Forms.GroupBox();
             this.txtConclusion = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -319,6 +319,7 @@
             // 
             // rbEligible
             // 
+            this.rbEligible.AutoCheck = false;
             this.rbEligible.AutoSize = true;
             this.rbEligible.Location = new System.Drawing.Point(305, 147);
             this.rbEligible.Name = "rbEligible";
@@ -330,6 +331,7 @@
             // 
             // rbIneligible
             // 
+            this.rbIneligible.AutoCheck = false;
             this.rbIneligible.AutoSize = true;
             this.rbIneligible.Location = new System.Drawing.Point(390, 147);
             this.rbIneligible.Name = "rbIneligible";
@@ -417,8 +419,8 @@
             // 
             // TotalSharedAmountRelatedIncidents
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TotalSharedAmountRelatedIncidents.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TotalSharedAmountRelatedIncidents.DefaultCellStyle = dataGridViewCellStyle2;
             this.TotalSharedAmountRelatedIncidents.HeaderText = "Total Shared Amount";
             this.TotalSharedAmountRelatedIncidents.Name = "TotalSharedAmountRelatedIncidents";
             this.TotalSharedAmountRelatedIncidents.ReadOnly = true;

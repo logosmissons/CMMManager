@@ -110,7 +110,12 @@ namespace CMMManager
             }
             rdrIllnessProgramInfo.Close();
             if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
-                                                      
+
+            foreach (IllnessProgramInfo info in lstIllnessProgramInfo)
+            {
+                comboIllnessProgram.Items.Add(info.IllnessProgramName);
+            }
+
 
             dicLimitedSharingOptions = new Dictionary<int, string>();
             dicLimitedSharing1 = new Dictionary<int, Decimal>();
@@ -256,11 +261,6 @@ namespace CMMManager
             //    btnIllnessUpdate.Enabled = true;
             //}
 
-            foreach (IllnessProgramInfo info in lstIllnessProgramInfo)
-            {
-                comboIllnessProgram.Items.Add(info.IllnessProgramName);
-            }
-
             for (int i = 0; i < dicLimitedSharingOptions.Count; i++)
             {
                 comboLimitedSharing.Items.Add(dicLimitedSharingOptions[i]);
@@ -269,47 +269,134 @@ namespace CMMManager
 
             if (mode == IllnessMode.AddNew)
             {
-                String strSqlQueryForMemberProgram = "select [dbo].[Program].[Name] from [dbo].[Contact] " +
-                                                     "inner join [dbo].[Program] on [dbo].[Contact].[c4g_Plan__c] = [dbo].[Program].[ID] " +
-                                                     "where [dbo].[Contact].[Individual_ID__c] = @IndividualId";
+                //List<IllnessProgramHistory> lstIllnessProgramHistory = new List<IllnessProgramHistory>();
 
-                SqlCommand cmdQueryForMemberProgram = new SqlCommand(strSqlQueryForMemberProgram, connSalesforce);
-                cmdQueryForMemberProgram.CommandType = CommandType.Text;
+                //String strSqlQueryForMemberProgramHistory = "select [dbo].[ContactHistory].[CreateDate], [dbo].[ContactHistory].[OldValue], [dbo].[ContactHistory].[NewValue] " +
+                //                                            "from [dbo].[ContactHistory] " +
+                //                                            "inner join [dbo].[Contact] on [dbo].[ContactHistory].[ContactId] = [dbo].[Contact].[Id] " +
+                //                                            "where [dbo].[Contact].[Individual_ID__c] = @IndividualId and " +
+                //                                            "cast([dbo].[ContactHistory].[Field] as nvarchar(max)) = 'c4g_Plan__c'";
 
-                cmdQueryForMemberProgram.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+                //SqlCommand cmdQueryForMemberProgramHistory = new SqlCommand(strSqlQueryForMemberProgramHistory, connSalesforce);
+                //cmdQueryForMemberProgramHistory.CommandType = CommandType.Text;
 
-                if (connSalesforce.State != ConnectionState.Closed)
-                {
-                    connSalesforce.Close();
-                    connSalesforce.Open();
-                }
-                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
-                Object objMemberProgram = cmdQueryForMemberProgram.ExecuteScalar();
-                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+                //cmdQueryForMemberProgramHistory.Parameters.AddWithValue("@IndividualId", strIndividualNo);
 
-                String strMemberProgram = objMemberProgram?.ToString();
+                //if (connSalesforce.State != ConnectionState.Closed)
+                //{
+                //    connSalesforce.Close();
+                //    connSalesforce.Open();
+                //}
+                //else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                //SqlDataReader rdrIllnessProgramHistory = cmdQueryForMemberProgramHistory.ExecuteReader();
+                //if (rdrIllnessProgramHistory.HasRows)
+                //{
+                //    while (rdrIllnessProgramHistory.Read())
+                //    {
+                //        IllnessProgramHistory program = new IllnessProgramHistory();
+                //        if (!rdrIllnessProgramHistory.IsDBNull(0)) program.CreateDate = rdrIllnessProgramHistory.GetDateTime(0);
+                //        if (!rdrIllnessProgramHistory.IsDBNull(1))
+                //        {
+                //            switch (rdrIllnessProgramHistory.GetString(1).Trim())
+                //            {
+                //                case "GoldPlus":
+                //                    program.OldProgram = IllnessProgram.GoldPlus;
+                //                    break;
+                //                case "Gold":
+                //                    program.OldProgram = IllnessProgram.Gold;
+                //                    break;
+                //                case "Silver":
+                //                    program.OldProgram = IllnessProgram.Silver;
+                //                    break;
+                //                case "Bronze":
+                //                    program.OldProgram = IllnessProgram.Bronze;
+                //                    break;
+                //                case "Gold Medi-I":
+                //                    program.OldProgram = IllnessProgram.GoldMedi_I;
+                //                    break;
+                //                case "Gold Medi-II":
+                //                    program.OldProgram = IllnessProgram.GoldMedi_II;
+                //                    break;
+                //            }
+                //        }
+                //        if (!rdrIllnessProgramHistory.IsDBNull(2))
+                //        {
+                //            switch (rdrIllnessProgramHistory.GetString(2).Trim())
+                //            {
+                //                case "GoldPlus":
+                //                    program.NewProgram = IllnessProgram.GoldPlus;
+                //                    break;
+                //                case "Gold":
+                //                    program.NewProgram = IllnessProgram.Gold;
+                //                    break;
+                //                case "Silver":
+                //                    program.NewProgram = IllnessProgram.Silver;
+                //                    break;
+                //                case "Bronze":
+                //                    program.NewProgram = IllnessProgram.Bronze;
+                //                    break;
+                //                case "Gold Medi-I":
+                //                    program.NewProgram = IllnessProgram.GoldMedi_I;
+                //                    break;
+                //                case "Gold Medi-II":
+                //                    program.NewProgram = IllnessProgram.GoldMedi_II;
+                //                    break;
+                //            }
+                //        }
 
-                switch (strMemberProgram.Trim())
-                {
-                    case "Gold Plus":
-                        comboIllnessProgram.SelectedIndex = 0;
-                        break;
-                    case "Gold":
-                        comboIllnessProgram.SelectedIndex = 1;
-                        break;
-                    case "Silver":
-                        comboIllnessProgram.SelectedIndex = 2;
-                        break;
-                    case "Bronze":
-                        comboIllnessProgram.SelectedIndex = 3;
-                        break;
-                    case "Gold Medi-I":
-                        comboIllnessProgram.SelectedIndex = 4;
-                        break;
-                    case "Gold Medi-II":
-                        comboIllnessProgram.SelectedIndex = 5;
-                        break;
-                }
+                //        lstIllnessProgramHistory.Add(program);                        
+                //    }
+                //}
+                //rdrIllnessProgramHistory.Close();
+                //if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                //if (lstIllnessProgramHistory.Count > 0)
+                //{
+                    
+                //}
+
+
+                //String strSqlQueryForMemberProgram = "select [dbo].[Program].[Name] from [dbo].[Contact] " +
+                //                                     "inner join [dbo].[Program] on [dbo].[Contact].[c4g_Plan__c] = [dbo].[Program].[ID] " +
+                //                                     "where [dbo].[Contact].[Individual_ID__c] = @IndividualId";
+
+                //SqlCommand cmdQueryForMemberProgram = new SqlCommand(strSqlQueryForMemberProgram, connSalesforce);
+                //cmdQueryForMemberProgram.CommandType = CommandType.Text;
+
+                //cmdQueryForMemberProgram.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+
+                //if (connSalesforce.State != ConnectionState.Closed)
+                //{
+                //    connSalesforce.Close();
+                //    connSalesforce.Open();
+                //}
+                //else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                //Object objMemberProgram = cmdQueryForMemberProgram.ExecuteScalar();
+                //if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                //String strMemberProgram = objMemberProgram?.ToString();
+
+                //switch (strMemberProgram.Trim())
+                //{
+                //    case "Gold Plus":
+                //        comboIllnessProgram.SelectedIndex = 0;
+                //        break;
+                //    case "Gold":
+                //        comboIllnessProgram.SelectedIndex = 1;
+                //        break;
+                //    case "Silver":
+                //        comboIllnessProgram.SelectedIndex = 2;
+                //        break;
+                //    case "Bronze":
+                //        comboIllnessProgram.SelectedIndex = 3;
+                //        break;
+                //    case "Gold Medi-I":
+                //        comboIllnessProgram.SelectedIndex = 4;
+                //        break;
+                //    case "Gold Medi-II":
+                //        comboIllnessProgram.SelectedIndex = 5;
+                //        break;
+                //}
             }
             else if (mode == IllnessMode.Edit)
             {
@@ -338,7 +425,13 @@ namespace CMMManager
                 {
                     rdrIllness.Read();
                     nIllnessId = rdrIllness.GetInt32(0);
-                    if (!rdrIllness.IsDBNull(1)) txtICD10Code.Text = rdrIllness.GetString(1);
+                    if (!rdrIllness.IsDBNull(1))
+                    {
+                        //txtICD10Code.Text = rdrIllness.GetString(1);
+                        String strICD10Code = rdrIllness.GetString(1);
+                        txtICD10Code.Text = strICD10Code;
+                        SetIllnessEligibility(strICD10Code);
+                    }
                     if (!rdrIllness.IsDBNull(2))
                     {
                         dtpCreateDate.Value = rdrIllness.GetDateTime(2);
@@ -521,6 +614,25 @@ namespace CMMManager
             //    }
             //}
             //connRNDB.Close();
+        }
+
+        private void SetIllnessEligibility(String icd10code)
+        {
+            String ICD10CodeUpperCase = icd10code.ToUpper();
+
+            if (ICD10CodeUpperCase.Contains("F17") ||
+                ICD10CodeUpperCase.Contains("Z33.2") ||
+                ICD10CodeUpperCase.Contains("Z71.51") ||
+                ICD10CodeUpperCase.Contains("X78.9XXA") ||
+                ICD10CodeUpperCase.Contains("B20") ||
+                ICD10CodeUpperCase.Contains("F41.9") ||
+                ICD10CodeUpperCase.Contains("F90.0") ||
+                ICD10CodeUpperCase.Contains("G47.00") ||
+                ICD10CodeUpperCase.Contains("F39"))
+            {
+                rbEligible.Checked = false;
+                rbIneligible.Checked = true;
+            }
         }
 
         private void btnSaveIllness_Click(object sender, EventArgs e)
@@ -786,6 +898,9 @@ namespace CMMManager
 
         private void txtICD10Code_TextChanged(object sender, EventArgs e)
         {
+            rbEligible.Checked = false;
+            rbIneligible.Checked = false;
+
             String strICD10Code = txtICD10Code.Text;
 
             String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
@@ -808,6 +923,9 @@ namespace CMMManager
             if (objDiseaseName != null) strDiseaseName = objDiseaseName.ToString();
 
             txtDiseaseName.Text = strDiseaseName.Trim();
+
+            //String strICD10CodeUpperCase = strICD10Code;
+            SetIllnessEligibility(strICD10Code);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -910,6 +1028,7 @@ namespace CMMManager
                 default:
                     Decimal Zero = 0;
                     txtLimitedSharingYearlyLimit.Text = Zero.ToString("C");
+                    txtYearlyLimitBalance.Text = String.Empty;
                     break;
             }
 
@@ -966,7 +1085,192 @@ namespace CMMManager
         private void dtpDateOfDiagnosis_ValueChanged(object sender, EventArgs e)
         {
             dtpDateOfDiagnosis.Format = DateTimePickerFormat.Short;
+
+            List<IllnessProgramHistory> lstIllnessProgramHistory = new List<IllnessProgramHistory>();
+
+            String strSqlQueryForMemberProgramHistory = "select [dbo].[ContactHistory].[CreatedDate], [dbo].[ContactHistory].[OldValue], [dbo].[ContactHistory].[NewValue] " +
+                                                        "from [dbo].[ContactHistory] " +
+                                                        "inner join [dbo].[Contact] on [dbo].[ContactHistory].[ContactId] = [dbo].[Contact].[Id] " +
+                                                        "where [dbo].[Contact].[Individual_ID__c] = @IndividualId and " +
+                                                        "cast([dbo].[ContactHistory].[Field] as nvarchar(max)) = 'c4g_Plan__c' " +
+                                                        "order by [dbo].[ContactHistory].[CreatedDate]";
+
+            SqlCommand cmdQueryForMemberProgramHistory = new SqlCommand(strSqlQueryForMemberProgramHistory, connSalesforce);
+            cmdQueryForMemberProgramHistory.CommandType = CommandType.Text;
+
+            cmdQueryForMemberProgramHistory.Parameters.AddWithValue("@IndividualId", strIndividualNo);
+
+            if (connSalesforce.State != ConnectionState.Closed)
+            {
+                connSalesforce.Close();
+                connSalesforce.Open();
+            }
+            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            SqlDataReader rdrIllnessProgramHistory = cmdQueryForMemberProgramHistory.ExecuteReader();
+            if (rdrIllnessProgramHistory.HasRows)
+            {
+                while (rdrIllnessProgramHistory.Read())
+                {
+                    IllnessProgramHistory program = new IllnessProgramHistory();
+                    if (!rdrIllnessProgramHistory.IsDBNull(0)) program.CreateDate = rdrIllnessProgramHistory.GetDateTime(0);
+                    if (!rdrIllnessProgramHistory.IsDBNull(1))
+                    {
+                        switch (rdrIllnessProgramHistory.GetString(1).Trim())
+                        {
+                            case "Gold Plus":
+                                program.OldProgram = IllnessProgram.GoldPlus;
+                                break;
+                            case "Gold":
+                                program.OldProgram = IllnessProgram.Gold;
+                                break;
+                            case "Silver":
+                                program.OldProgram = IllnessProgram.Silver;
+                                break;
+                            case "Bronze":
+                                program.OldProgram = IllnessProgram.Bronze;
+                                break;
+                            case "Gold Medi-I":
+                                program.OldProgram = IllnessProgram.GoldMedi_I;
+                                break;
+                            case "Gold Medi-II":
+                                program.OldProgram = IllnessProgram.GoldMedi_II;
+                                break;
+                            default:
+                                program.OldProgram = null;
+                                break;
+                        }
+                    }
+                    if (!rdrIllnessProgramHistory.IsDBNull(2))
+                    {
+                        switch (rdrIllnessProgramHistory.GetString(2).Trim())
+                        {
+                            case "Gold Plus":
+                                program.NewProgram = IllnessProgram.GoldPlus;
+                                break;
+                            case "Gold":
+                                program.NewProgram = IllnessProgram.Gold;
+                                break;
+                            case "Silver":
+                                program.NewProgram = IllnessProgram.Silver;
+                                break;
+                            case "Bronze":
+                                program.NewProgram = IllnessProgram.Bronze;
+                                break;
+                            case "Gold Medi-I":
+                                program.NewProgram = IllnessProgram.GoldMedi_I;
+                                break;
+                            case "Gold Medi-II":
+                                program.NewProgram = IllnessProgram.GoldMedi_II;
+                                break;
+                            default:
+                                program.NewProgram = null;
+                                break;
+                        }
+                    }
+
+                    program.IndividualId = strIndividualNo;
+
+                    lstIllnessProgramHistory.Add(program);
+                }
+            }
+            rdrIllnessProgramHistory.Close();
+            if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+            for (int i = 0; i < lstIllnessProgramHistory.Count; i++)
+            {
+                if (lstIllnessProgramHistory[i].OldProgram == null && lstIllnessProgramHistory[i].NewProgram == null)
+                {
+                    lstIllnessProgramHistory.RemoveAt(i);
+                    i--;
+                }
+            }
+            
+            if (lstIllnessProgramHistory.Count > 1)
+            {
+                for (int i = 0; i < lstIllnessProgramHistory.Count - 1; i++)
+                {
+                    if (lstIllnessProgramHistory[i].CreateDate.Value == lstIllnessProgramHistory[i + 1].CreateDate.Value)
+                    {
+                        lstIllnessProgramHistory.RemoveAt(i);
+                        i--;
+                    }
+                }
+
+                for (int i = 0; i < lstIllnessProgramHistory.Count - 1; i++)
+                {
+                    if (lstIllnessProgramHistory[i].CreateDate.Value.Year == lstIllnessProgramHistory[i + 1].CreateDate.Value.Year &&
+                        lstIllnessProgramHistory[i].CreateDate.Value.Month == lstIllnessProgramHistory[i + 1].CreateDate.Value.Month)
+                    {
+                        lstIllnessProgramHistory.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+            
+            List<IllnessProgramHistory> lstIllnessProgramHistoryAnnivDate = new List<IllnessProgramHistory>();
+
+            foreach (IllnessProgramHistory program in lstIllnessProgramHistory)
+            {
+                IllnessProgramHistory program_history = new IllnessProgramHistory();
+                program_history.CreateDate = new DateTime(program.CreateDate.Value.Year, program.CreateDate.Value.Month, 1);
+                program_history.IndividualId = program.IndividualId;
+                program_history.OldProgram = program.OldProgram;
+                program_history.NewProgram = program.NewProgram;
+
+                lstIllnessProgramHistoryAnnivDate.Add(program_history);
+            }
+
+            DateTime DiagnosisDate = dtpDateOfDiagnosis.Value;
+
+            if (lstIllnessProgramHistoryAnnivDate.Count > 0)
+            {
+                if (DiagnosisDate >= lstIllnessProgramHistoryAnnivDate[lstIllnessProgramHistoryAnnivDate.Count - 1].CreateDate)
+                {
+                    SetIllnessProgram(lstIllnessProgramHistoryAnnivDate[lstIllnessProgramHistoryAnnivDate.Count - 1].NewProgram.Value);
+                }
+                else if (lstIllnessProgramHistoryAnnivDate[0].CreateDate.Value <= DiagnosisDate)
+                {
+                    for (int i = 0; i < lstIllnessProgramHistoryAnnivDate.Count - 1; i++)
+                    {
+                        if (DiagnosisDate >= lstIllnessProgramHistoryAnnivDate[i].CreateDate.Value && 
+                            DiagnosisDate < lstIllnessProgramHistoryAnnivDate[i + 1].CreateDate.Value)
+                        {
+                            SetIllnessProgram(lstIllnessProgramHistoryAnnivDate[i].NewProgram.Value);
+                        }
+                    }
+                }
+                else if (lstIllnessProgramHistoryAnnivDate[0].CreateDate.Value > DiagnosisDate)
+                {
+                    SetIllnessProgram(lstIllnessProgramHistoryAnnivDate[0].OldProgram.Value);
+                }
+            }
+
             //dtpDateOfDiagnosis.CustomFormat = null;
+        }
+
+        private void SetIllnessProgram(IllnessProgram program)
+        {
+            switch (program)
+            {
+                case IllnessProgram.GoldPlus:
+                    comboIllnessProgram.SelectedIndex = 0;
+                    break;
+                case IllnessProgram.Gold:
+                    comboIllnessProgram.SelectedIndex = 1;
+                    break;
+                case IllnessProgram.Silver:
+                    comboIllnessProgram.SelectedIndex = 2;
+                    break;
+                case IllnessProgram.Bronze:
+                    comboIllnessProgram.SelectedIndex = 3;
+                    break;
+                case IllnessProgram.GoldMedi_I:
+                    comboIllnessProgram.SelectedIndex = 4;
+                    break;
+                case IllnessProgram.GoldMedi_II:
+                    comboIllnessProgram.SelectedIndex = 5;
+                    break;
+            }
         }
 
         private void dtpDateOfDiagnosis_KeyDown(object sender, KeyEventArgs e)

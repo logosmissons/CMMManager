@@ -49,6 +49,33 @@ namespace CMMManager
         }
     }
 
+    public class IllnessProgramHistory
+    {
+        public String IndividualId;
+        public DateTime? CreateDate;
+        public IllnessProgram? OldProgram;
+        public IllnessProgram? NewProgram;
+
+        public IllnessProgramHistory()
+        {
+            IndividualId = null;
+            CreateDate = null;
+            OldProgram = null;
+            NewProgram = null;
+        }
+
+        public IllnessProgramHistory(String individual_id,
+                                    DateTime create_date,
+                                    IllnessProgram old_program,
+                                    IllnessProgram new_program)
+        {
+            IndividualId = individual_id;
+            CreateDate = create_date;
+            OldProgram = old_program;
+            NewProgram = new_program;
+        }
+    }
+
     public class IllnessProgramInfo
     {
         public int? IllnessProgramId;
