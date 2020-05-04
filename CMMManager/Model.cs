@@ -276,6 +276,7 @@ namespace CMMManager
         public String MedicalProviderId;
         public String MedicalProviderName;
         public Double? MedicalBillAmount;
+        public Double? ApprovalNeededAmount;
         public Double? WaitingPayBalance;
         public Double? TotalSharedAmount;
         public Double? SettlementTotal;
@@ -297,6 +298,7 @@ namespace CMMManager
             MedicalProviderId = String.Empty;
             MedicalProviderName = String.Empty;
             MedicalBillAmount = null;
+            ApprovalNeededAmount = null;
             WaitingPayBalance = null;
             TotalSharedAmount = null;
             SettlementTotal = null;
