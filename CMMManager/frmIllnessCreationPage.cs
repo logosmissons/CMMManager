@@ -801,8 +801,8 @@ namespace CMMManager
                 else cmdCreateIllness.Parameters.AddWithValue("@Body", DBNull.Value);
                 if (strConclusion != String.Empty) cmdCreateIllness.Parameters.AddWithValue("@Conclusion", strConclusion);
                 else cmdCreateIllness.Parameters.AddWithValue("@Conclusion", DBNull.Value);
-                if (comboIllnessProgram.SelectedIndex != -1) cmdCreateIllness.Parameters.AddWithValue("@Program_Id", comboIllnessProgram.SelectedIndex);
-                else cmdCreateIllness.Parameters.AddWithValue("@Program_Id", DBNull.Value);
+                if (comboIllnessProgram.SelectedIndex != -1) cmdCreateIllness.Parameters.AddWithValue("@ProgramId", comboIllnessProgram.SelectedIndex);
+                else cmdCreateIllness.Parameters.AddWithValue("@ProgramId", DBNull.Value);
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
