@@ -54,14 +54,18 @@ namespace CMMManager
         public String IndividualId;
         public DateTime? CreateDate;
         public IllnessProgram? OldProgram;
+        public int? OldProgramId;
         public IllnessProgram? NewProgram;
+        public int? NewProgramId;
 
         public IllnessProgramHistory()
         {
             IndividualId = null;
             CreateDate = null;
             OldProgram = null;
+            OldProgramId = null;
             NewProgram = null;
+            NewProgramId = null;
         }
 
         public IllnessProgramHistory(String individual_id,
@@ -72,6 +76,36 @@ namespace CMMManager
             IndividualId = individual_id;
             CreateDate = create_date;
             OldProgram = old_program;
+            switch (OldProgram)
+            {
+                case IllnessProgram.GoldPlus:
+                    OldProgramId = 0;
+                    break;
+                case IllnessProgram.Gold:
+                    OldProgramId = 1;
+                    break;
+                case IllnessProgram.Silver:
+                    OldProgramId = 2;
+                    break;
+                case IllnessProgram.Bronze:
+                    OldProgramId = 3;
+                    break;
+            }
+            switch (NewProgram)
+            {
+                case IllnessProgram.GoldPlus:
+                    NewProgramId = 0;
+                    break;
+                case IllnessProgram.Gold:
+                    NewProgramId = 1;
+                    break;
+                case IllnessProgram.Silver:
+                    NewProgramId = 2;
+                    break;
+                case IllnessProgram.Bronze:
+                    NewProgramId = 3;
+                    break;
+            }
             NewProgram = new_program;
         }
     }
