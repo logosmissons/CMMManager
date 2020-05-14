@@ -76,12 +76,16 @@ namespace CMMManager
                                         "[dbo].[tbl_illness].[CreateDate], " +
                                         "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body] " +
                                         "from [dbo].[tbl_illness] " +
-                                        "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
+                                        "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
+
+                                        //"where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
                                         //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                         "[dbo].[tbl_illness].[IsDeleted] = 0";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
-            cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
+
+            cmdQueryForIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
+            //cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
             //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
 
             cmdQueryForIllness.CommandType = CommandType.Text;
