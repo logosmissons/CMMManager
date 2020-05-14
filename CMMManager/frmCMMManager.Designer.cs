@@ -31,6 +31,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -61,11 +66,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -531,6 +531,24 @@
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
             this.gvCasePageMedBills = new System.Windows.Forms.DataGridView();
+            this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MedBillIncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillTypeInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseDateOfService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseApprovalNeededAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseWaitingPayBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillTotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCasePendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseIneligibleReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillIncidentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillCreatedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillCreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbCaseStatus = new System.Windows.Forms.ComboBox();
             this.btnDeleteMedBill = new System.Windows.Forms.Button();
             this.btnEditMedBill = new System.Windows.Forms.Button();
@@ -1133,24 +1151,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.MedBillIncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillTypeInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseDateOfService = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseApprovalNeededAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseWaitingPayBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillTotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCasePendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseIneligibleReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillIncidentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillCreatedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillCreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -5601,6 +5601,115 @@
             this.gvCasePageMedBills.TabIndex = 111;
             this.gvCasePageMedBills.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCasePageMedBills_CellDoubleClick);
             // 
+            // MedBillSelected
+            // 
+            this.MedBillSelected.HeaderText = "Select";
+            this.MedBillSelected.Name = "MedBillSelected";
+            this.MedBillSelected.Width = 50;
+            // 
+            // MedBillIncidentNo
+            // 
+            this.MedBillIncidentNo.HeaderText = "Incident No";
+            this.MedBillIncidentNo.Name = "MedBillIncidentNo";
+            this.MedBillIncidentNo.Width = 80;
+            // 
+            // MedBillNo
+            // 
+            this.MedBillNo.HeaderText = "Med Bill No";
+            this.MedBillNo.Name = "MedBillNo";
+            // 
+            // MedBillTypeInCase
+            // 
+            this.MedBillTypeInCase.HeaderText = "Type";
+            this.MedBillTypeInCase.Name = "MedBillTypeInCase";
+            // 
+            // MedBillInCaseDateOfService
+            // 
+            this.MedBillInCaseDateOfService.HeaderText = "Date Of Service";
+            this.MedBillInCaseDateOfService.Name = "MedBillInCaseDateOfService";
+            this.MedBillInCaseDateOfService.Width = 80;
+            // 
+            // MedBillInCaseMedicalProvider
+            // 
+            this.MedBillInCaseMedicalProvider.HeaderText = "Medical Provider";
+            this.MedBillInCaseMedicalProvider.Name = "MedBillInCaseMedicalProvider";
+            this.MedBillInCaseMedicalProvider.Width = 200;
+            // 
+            // MedBillAmount
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle3;
+            this.MedBillAmount.HeaderText = "Amount";
+            this.MedBillAmount.Name = "MedBillAmount";
+            // 
+            // MedBillInCaseApprovalNeededAmount
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle4;
+            this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
+            this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
+            // 
+            // MedBillInCaseWaitingPayBalance
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle5;
+            this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
+            this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
+            // 
+            // MedBillTotalSharedAmount
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle6;
+            this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
+            // 
+            // MedBillBalance
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle7;
+            this.MedBillBalance.HeaderText = "Balance";
+            this.MedBillBalance.Name = "MedBillBalance";
+            // 
+            // MedBillInCasePendingReason
+            // 
+            this.MedBillInCasePendingReason.HeaderText = "Pending Reason";
+            this.MedBillInCasePendingReason.Name = "MedBillInCasePendingReason";
+            this.MedBillInCasePendingReason.Width = 200;
+            // 
+            // MedBillInCaseIneligibleReason
+            // 
+            this.MedBillInCaseIneligibleReason.HeaderText = "Ineligible Reason";
+            this.MedBillInCaseIneligibleReason.Name = "MedBillInCaseIneligibleReason";
+            this.MedBillInCaseIneligibleReason.Width = 200;
+            // 
+            // MedBillIncidentNote
+            // 
+            this.MedBillIncidentNote.HeaderText = "Incident Note";
+            this.MedBillIncidentNote.Name = "MedBillIncidentNote";
+            this.MedBillIncidentNote.Width = 240;
+            // 
+            // MedBillCreatedById
+            // 
+            this.MedBillCreatedById.HeaderText = "Created By";
+            this.MedBillCreatedById.Name = "MedBillCreatedById";
+            // 
+            // MedBillCreateDate
+            // 
+            this.MedBillCreateDate.HeaderText = "Created Date";
+            this.MedBillCreateDate.Name = "MedBillCreateDate";
+            this.MedBillCreateDate.Width = 140;
+            // 
+            // MedBillModifiedById
+            // 
+            this.MedBillModifiedById.HeaderText = "Modified By";
+            this.MedBillModifiedById.Name = "MedBillModifiedById";
+            // 
+            // MedBillModifiedDate
+            // 
+            this.MedBillModifiedDate.HeaderText = "Modified Date";
+            this.MedBillModifiedDate.Name = "MedBillModifiedDate";
+            this.MedBillModifiedDate.Width = 140;
+            // 
             // cbCaseStatus
             // 
             this.cbCaseStatus.FormattingEnabled = true;
@@ -7785,6 +7894,7 @@
             this.dtpBillDate.Name = "dtpBillDate";
             this.dtpBillDate.Size = new System.Drawing.Size(120, 20);
             this.dtpBillDate.TabIndex = 44;
+            this.dtpBillDate.ValueChanged += new System.EventHandler(this.dtpBillDate_ValueChanged);
             // 
             // label67
             // 
@@ -10940,115 +11050,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // MedBillSelected
-            // 
-            this.MedBillSelected.HeaderText = "Select";
-            this.MedBillSelected.Name = "MedBillSelected";
-            this.MedBillSelected.Width = 50;
-            // 
-            // MedBillIncidentNo
-            // 
-            this.MedBillIncidentNo.HeaderText = "Incident No";
-            this.MedBillIncidentNo.Name = "MedBillIncidentNo";
-            this.MedBillIncidentNo.Width = 80;
-            // 
-            // MedBillNo
-            // 
-            this.MedBillNo.HeaderText = "Med Bill No";
-            this.MedBillNo.Name = "MedBillNo";
-            // 
-            // MedBillTypeInCase
-            // 
-            this.MedBillTypeInCase.HeaderText = "Type";
-            this.MedBillTypeInCase.Name = "MedBillTypeInCase";
-            // 
-            // MedBillInCaseDateOfService
-            // 
-            this.MedBillInCaseDateOfService.HeaderText = "Date Of Service";
-            this.MedBillInCaseDateOfService.Name = "MedBillInCaseDateOfService";
-            this.MedBillInCaseDateOfService.Width = 80;
-            // 
-            // MedBillInCaseMedicalProvider
-            // 
-            this.MedBillInCaseMedicalProvider.HeaderText = "Medical Provider";
-            this.MedBillInCaseMedicalProvider.Name = "MedBillInCaseMedicalProvider";
-            this.MedBillInCaseMedicalProvider.Width = 200;
-            // 
-            // MedBillAmount
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle3;
-            this.MedBillAmount.HeaderText = "Amount";
-            this.MedBillAmount.Name = "MedBillAmount";
-            // 
-            // MedBillInCaseApprovalNeededAmount
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle4;
-            this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
-            this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
-            // 
-            // MedBillInCaseWaitingPayBalance
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle5;
-            this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
-            this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
-            // 
-            // MedBillTotalSharedAmount
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle6;
-            this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
-            this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
-            // 
-            // MedBillBalance
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle7;
-            this.MedBillBalance.HeaderText = "Balance";
-            this.MedBillBalance.Name = "MedBillBalance";
-            // 
-            // MedBillInCasePendingReason
-            // 
-            this.MedBillInCasePendingReason.HeaderText = "Pending Reason";
-            this.MedBillInCasePendingReason.Name = "MedBillInCasePendingReason";
-            this.MedBillInCasePendingReason.Width = 200;
-            // 
-            // MedBillInCaseIneligibleReason
-            // 
-            this.MedBillInCaseIneligibleReason.HeaderText = "Ineligible Reason";
-            this.MedBillInCaseIneligibleReason.Name = "MedBillInCaseIneligibleReason";
-            this.MedBillInCaseIneligibleReason.Width = 200;
-            // 
-            // MedBillIncidentNote
-            // 
-            this.MedBillIncidentNote.HeaderText = "Incident Note";
-            this.MedBillIncidentNote.Name = "MedBillIncidentNote";
-            this.MedBillIncidentNote.Width = 240;
-            // 
-            // MedBillCreatedById
-            // 
-            this.MedBillCreatedById.HeaderText = "Created By";
-            this.MedBillCreatedById.Name = "MedBillCreatedById";
-            // 
-            // MedBillCreateDate
-            // 
-            this.MedBillCreateDate.HeaderText = "Created Date";
-            this.MedBillCreateDate.Name = "MedBillCreateDate";
-            this.MedBillCreateDate.Width = 140;
-            // 
-            // MedBillModifiedById
-            // 
-            this.MedBillModifiedById.HeaderText = "Modified By";
-            this.MedBillModifiedById.Name = "MedBillModifiedById";
-            // 
-            // MedBillModifiedDate
-            // 
-            this.MedBillModifiedDate.HeaderText = "Modified Date";
-            this.MedBillModifiedDate.Name = "MedBillModifiedDate";
-            this.MedBillModifiedDate.Width = 140;
             // 
             // frmCMMManager
             // 
