@@ -77,7 +77,7 @@ namespace CMMManager
                                             "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id]) " +
                                             "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
                                             "where [dbo].[tbl_incident].[individual_id] = @IndividualId and " +
-                                            "[dbo].[tbl_incident].[Case_id] = @CaseId and " +
+                                            //"[dbo].[tbl_incident].[Case_id] = @CaseId and " +
                                             "[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                             "[dbo].[tbl_incident].[IsDeleted] = 0 " +
                                             "order by [dbo].[tbl_incident].[incident_id]";
@@ -87,7 +87,7 @@ namespace CMMManager
             cmdQueryForIncident.CommandText = strSqlQueryForIncident;
 
             cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", IndividualId);
-            cmdQueryForIncident.Parameters.AddWithValue("@CaseId", CaseId);
+            //cmdQueryForIncident.Parameters.AddWithValue("@CaseId", CaseId);
             cmdQueryForIncident.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
             SqlDependency dependencyIncident = new SqlDependency(cmdQueryForIncident);
