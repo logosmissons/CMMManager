@@ -348,6 +348,26 @@ namespace CMMManager
         }
     }
 
+    public class InfoForNewMedBil
+    {
+        public String IndividualId;
+        public String CaseNo;
+        public String IllnessId;
+        public String IllnessNo;
+        public String IncidentId;
+        public String IncidentNo;
+
+        public InfoForNewMedBil()
+        {
+            IndividualId = null;
+            CaseNo = null;
+            IllnessId = null;
+            IllnessNo = null;
+            IncidentId = null;
+            IncidentNo = null;
+        }
+    }
+
     public class MedBillStatusInfoCMMPendingPayment
     {
         public String MedBillNo;

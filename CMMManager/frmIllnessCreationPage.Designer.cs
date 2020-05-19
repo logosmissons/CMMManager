@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpIllnessNote = new System.Windows.Forms.GroupBox();
             this.txtConclusion = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -47,7 +47,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dtpDateOfDiagnosis = new System.Windows.Forms.DateTimePicker();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtCaseNo = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboLimitedSharing = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -68,6 +67,7 @@
             this.IncidentNoteRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label14 = new System.Windows.Forms.Label();
             this.comboIllnessProgram = new System.Windows.Forms.ComboBox();
+            this.comboCaseNoIllness = new System.Windows.Forms.ComboBox();
             this.grpIllnessNote.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvRelatedIncidentInfo)).BeginInit();
@@ -251,15 +251,6 @@
             this.label9.TabIndex = 31;
             this.label9.Text = "Case No:";
             // 
-            // txtCaseNo
-            // 
-            this.txtCaseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCaseNo.Location = new System.Drawing.Point(656, 80);
-            this.txtCaseNo.Name = "txtCaseNo";
-            this.txtCaseNo.ReadOnly = true;
-            this.txtCaseNo.Size = new System.Drawing.Size(137, 22);
-            this.txtCaseNo.TabIndex = 32;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -419,8 +410,8 @@
             // 
             // TotalSharedAmountRelatedIncidents
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TotalSharedAmountRelatedIncidents.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.TotalSharedAmountRelatedIncidents.DefaultCellStyle = dataGridViewCellStyle1;
             this.TotalSharedAmountRelatedIncidents.HeaderText = "Total Shared Amount";
             this.TotalSharedAmountRelatedIncidents.Name = "TotalSharedAmountRelatedIncidents";
             this.TotalSharedAmountRelatedIncidents.ReadOnly = true;
@@ -451,12 +442,21 @@
             this.comboIllnessProgram.Size = new System.Drawing.Size(137, 21);
             this.comboIllnessProgram.TabIndex = 47;
             // 
+            // comboCaseNoIllness
+            // 
+            this.comboCaseNoIllness.FormattingEnabled = true;
+            this.comboCaseNoIllness.Location = new System.Drawing.Point(656, 80);
+            this.comboCaseNoIllness.Name = "comboCaseNoIllness";
+            this.comboCaseNoIllness.Size = new System.Drawing.Size(137, 21);
+            this.comboCaseNoIllness.TabIndex = 48;
+            // 
             // frmIllnessCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(817, 765);
             this.ControlBox = false;
+            this.Controls.Add(this.comboCaseNoIllness);
             this.Controls.Add(this.comboIllnessProgram);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.groupBox1);
@@ -470,7 +470,6 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.comboLimitedSharing);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.txtCaseNo);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.dtpDateOfDiagnosis);
             this.Controls.Add(this.label8);
@@ -520,7 +519,6 @@
         private System.Windows.Forms.Label label8;
         public System.Windows.Forms.DateTimePicker dtpDateOfDiagnosis;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtCaseNo;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboLimitedSharing;
         private System.Windows.Forms.Label label11;
@@ -541,5 +539,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OccurrenceDateRelatedIncidents;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSharedAmountRelatedIncidents;
         private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoteRelatedIncidents;
+        private System.Windows.Forms.ComboBox comboCaseNoIllness;
     }
 }

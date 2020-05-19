@@ -438,6 +438,7 @@ namespace CMMManager
 
                 frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
 
+                frmIllnessCreation.bOpenFromIllnessView = false;
                 frmIllnessCreation.IllnessNo = NewIllnessNo;
 
                 frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;
@@ -534,6 +535,7 @@ namespace CMMManager
 
                 frmIllnessCreationPage frmIllnessCreation = new frmIllnessCreationPage();
 
+                frmIllnessCreation.bOpenFromIllnessView = false;
                 frmIllnessCreation.IllnessNo = NewIllnessId;
 
                 frmIllnessCreation.nLoggedInUserId = nLoggedInUserId;

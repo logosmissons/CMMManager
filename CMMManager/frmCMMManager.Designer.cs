@@ -589,6 +589,7 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.tbpgIllnessView = new System.Windows.Forms.TabPage();
+            this.btnAddNewIllness = new System.Windows.Forms.Button();
             this.txtIllnessViewIndId = new System.Windows.Forms.TextBox();
             this.txtIllnessViewMEMB = new System.Windows.Forms.TextBox();
             this.label60 = new System.Windows.Forms.Label();
@@ -609,6 +610,7 @@
             this.Illness_Conclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label89 = new System.Windows.Forms.Label();
             this.tbpgIncidentView = new System.Windows.Forms.TabPage();
+            this.btnAddNewIncident = new System.Windows.Forms.Button();
             this.txtIncidentViewIndId = new System.Windows.Forms.TextBox();
             this.txtIncidentViewMEMB = new System.Windows.Forms.TextBox();
             this.label90 = new System.Windows.Forms.Label();
@@ -629,6 +631,7 @@
             this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbpgMedBillView = new System.Windows.Forms.TabPage();
+            this.btnAddNewMedBill = new System.Windows.Forms.Button();
             this.txtMedBillViewIndId = new System.Windows.Forms.TextBox();
             this.txtMedBillViewMEMB = new System.Windows.Forms.TextBox();
             this.label178 = new System.Windows.Forms.Label();
@@ -6058,6 +6061,7 @@
             // 
             // tbpgIllnessView
             // 
+            this.tbpgIllnessView.Controls.Add(this.btnAddNewIllness);
             this.tbpgIllnessView.Controls.Add(this.txtIllnessViewIndId);
             this.tbpgIllnessView.Controls.Add(this.txtIllnessViewMEMB);
             this.tbpgIllnessView.Controls.Add(this.label60);
@@ -6070,6 +6074,17 @@
             this.tbpgIllnessView.TabIndex = 9;
             this.tbpgIllnessView.Text = "Illness View";
             this.tbpgIllnessView.UseVisualStyleBackColor = true;
+            // 
+            // btnAddNewIllness
+            // 
+            this.btnAddNewIllness.Enabled = false;
+            this.btnAddNewIllness.Location = new System.Drawing.Point(564, 89);
+            this.btnAddNewIllness.Name = "btnAddNewIllness";
+            this.btnAddNewIllness.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewIllness.TabIndex = 125;
+            this.btnAddNewIllness.Text = "New Illness";
+            this.btnAddNewIllness.UseVisualStyleBackColor = true;
+            this.btnAddNewIllness.Click += new System.EventHandler(this.btnAddNewIllness_Click);
             // 
             // txtIllnessViewIndId
             // 
@@ -6135,6 +6150,7 @@
             this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.gvIllnessList.Size = new System.Drawing.Size(1738, 682);
             this.gvIllnessList.TabIndex = 13;
+            this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
             // 
             // Illness_IllnessNo
             // 
@@ -6240,6 +6256,7 @@
             // 
             // tbpgIncidentView
             // 
+            this.tbpgIncidentView.Controls.Add(this.btnAddNewIncident);
             this.tbpgIncidentView.Controls.Add(this.txtIncidentViewIndId);
             this.tbpgIncidentView.Controls.Add(this.txtIncidentViewMEMB);
             this.tbpgIncidentView.Controls.Add(this.label90);
@@ -6252,6 +6269,16 @@
             this.tbpgIncidentView.TabIndex = 16;
             this.tbpgIncidentView.Text = "Incident View";
             this.tbpgIncidentView.UseVisualStyleBackColor = true;
+            // 
+            // btnAddNewIncident
+            // 
+            this.btnAddNewIncident.Location = new System.Drawing.Point(564, 90);
+            this.btnAddNewIncident.Name = "btnAddNewIncident";
+            this.btnAddNewIncident.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewIncident.TabIndex = 129;
+            this.btnAddNewIncident.Text = "New Incident";
+            this.btnAddNewIncident.UseVisualStyleBackColor = true;
+            this.btnAddNewIncident.Click += new System.EventHandler(this.btnAddNewIncident_Click);
             // 
             // txtIncidentViewIndId
             // 
@@ -6325,6 +6352,7 @@
             this.gvIncidentList.ReadOnly = true;
             this.gvIncidentList.Size = new System.Drawing.Size(1743, 703);
             this.gvIncidentList.TabIndex = 23;
+            this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
             // 
             // Incident_IncidentNo
             // 
@@ -6410,6 +6438,7 @@
             // 
             // tbpgMedBillView
             // 
+            this.tbpgMedBillView.Controls.Add(this.btnAddNewMedBill);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewIndId);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewMEMB);
             this.tbpgMedBillView.Controls.Add(this.label178);
@@ -6424,10 +6453,20 @@
             this.tbpgMedBillView.UseVisualStyleBackColor = true;
             this.tbpgMedBillView.Click += new System.EventHandler(this.tbpgMedBillView_Click);
             // 
+            // btnAddNewMedBill
+            // 
+            this.btnAddNewMedBill.Location = new System.Drawing.Point(564, 89);
+            this.btnAddNewMedBill.Name = "btnAddNewMedBill";
+            this.btnAddNewMedBill.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewMedBill.TabIndex = 133;
+            this.btnAddNewMedBill.Text = "New Medical Bill";
+            this.btnAddNewMedBill.UseVisualStyleBackColor = true;
+            this.btnAddNewMedBill.Click += new System.EventHandler(this.btnAddNewMedBill_Click);
+            // 
             // txtMedBillViewIndId
             // 
             this.txtMedBillViewIndId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillViewIndId.Location = new System.Drawing.Point(320, 103);
+            this.txtMedBillViewIndId.Location = new System.Drawing.Point(320, 97);
             this.txtMedBillViewIndId.Name = "txtMedBillViewIndId";
             this.txtMedBillViewIndId.ReadOnly = true;
             this.txtMedBillViewIndId.Size = new System.Drawing.Size(109, 22);
@@ -6436,7 +6475,7 @@
             // txtMedBillViewMEMB
             // 
             this.txtMedBillViewMEMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillViewMEMB.Location = new System.Drawing.Point(101, 103);
+            this.txtMedBillViewMEMB.Location = new System.Drawing.Point(101, 97);
             this.txtMedBillViewMEMB.Name = "txtMedBillViewMEMB";
             this.txtMedBillViewMEMB.ReadOnly = true;
             this.txtMedBillViewMEMB.Size = new System.Drawing.Size(109, 22);
@@ -6446,7 +6485,7 @@
             // 
             this.label178.AutoSize = true;
             this.label178.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label178.Location = new System.Drawing.Point(235, 106);
+            this.label178.Location = new System.Drawing.Point(235, 100);
             this.label178.Name = "label178";
             this.label178.Size = new System.Drawing.Size(84, 16);
             this.label178.TabIndex = 130;
@@ -6456,7 +6495,7 @@
             // 
             this.label180.AutoSize = true;
             this.label180.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label180.Location = new System.Drawing.Point(40, 106);
+            this.label180.Location = new System.Drawing.Point(40, 100);
             this.label180.Name = "label180";
             this.label180.Size = new System.Drawing.Size(55, 16);
             this.label180.TabIndex = 129;
@@ -6466,7 +6505,7 @@
             // 
             this.label179.AutoSize = true;
             this.label179.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label179.Location = new System.Drawing.Point(38, 48);
+            this.label179.Location = new System.Drawing.Point(38, 34);
             this.label179.Name = "label179";
             this.label179.Size = new System.Drawing.Size(197, 29);
             this.label179.TabIndex = 13;
@@ -12333,6 +12372,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.Button btnAddNewIllness;
+        private System.Windows.Forms.Button btnAddNewIncident;
+        private System.Windows.Forms.Button btnAddNewMedBill;
     }
 }
 
