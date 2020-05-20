@@ -368,6 +368,18 @@ namespace CMMManager
         }
     }
 
+    public class CaseReceivedDate
+    {
+        public String CaseNo;
+        public DateTime? dtReceivedDate;
+
+        public CaseReceivedDate()
+        {
+            CaseNo = null;
+            dtReceivedDate = null;
+        }
+    }
+
     public class MedBillStatusInfoCMMPendingPayment
     {
         public String MedBillNo;
