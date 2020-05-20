@@ -6232,14 +6232,14 @@
             // 
             // Illness_Body
             // 
-            this.Illness_Body.HeaderText = "Body";
+            this.Illness_Body.HeaderText = "Illness Note";
             this.Illness_Body.Name = "Illness_Body";
             this.Illness_Body.ReadOnly = true;
             this.Illness_Body.Width = 300;
             // 
             // Illness_Conclusion
             // 
-            this.Illness_Conclusion.HeaderText = "Conclusion";
+            this.Illness_Conclusion.HeaderText = "Review Note";
             this.Illness_Conclusion.Name = "Illness_Conclusion";
             this.Illness_Conclusion.ReadOnly = true;
             this.Illness_Conclusion.Width = 180;
@@ -11717,19 +11717,6 @@
         private System.Windows.Forms.TextBox txtIllnessViewMEMB;
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_IllnessNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CaseId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ICD10Code;
-        private CalendarColumn Illness_CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CreatedBy;
-        private CalendarColumn Illness_ModifyDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ModifiedBy;
-        private CalendarColumn Illness_DiagnosisDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_TotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_LimitedSharing;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Introduction;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Body;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Conclusion;
         private System.Windows.Forms.TextBox txtIncidentViewIndId;
         private System.Windows.Forms.TextBox txtIncidentViewMEMB;
         private System.Windows.Forms.Label label90;
@@ -12375,6 +12362,19 @@
         private System.Windows.Forms.Button btnAddNewIllness;
         private System.Windows.Forms.Button btnAddNewIncident;
         private System.Windows.Forms.Button btnAddNewMedBill;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_IllnessNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CaseId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ICD10Code;
+        private CalendarColumn Illness_CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CreatedBy;
+        private CalendarColumn Illness_ModifyDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ModifiedBy;
+        private CalendarColumn Illness_DiagnosisDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_TotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_LimitedSharing;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Introduction;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Body;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Conclusion;
     }
 }
 
