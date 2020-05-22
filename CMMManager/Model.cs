@@ -348,6 +348,40 @@ namespace CMMManager
         }
     }
 
+    public class IncidentInfoIncidentView
+    {
+        public String IncidentNo;
+        public String CaseNo;
+        public String IllnessNo;
+        public DateTime? IncidentCreateDate;
+        public String CreateStaffName;
+        public DateTime? IncidentModifiedDate;
+        public String ModifyingStaffName;
+        public Double? TotalSharedAmount;
+        public IncidentStatusCode? IncidentStatus;
+        public Boolean? IsReviewRequested;
+        public String ProgramName;
+        public String IncidentNote;
+        public Boolean? Eligibility;
+
+        public IncidentInfoIncidentView()
+        {
+            IncidentNo = null;
+            CaseNo = null;
+            IllnessNo = null;
+            IncidentCreateDate = null;
+            CreateStaffName = null;
+            IncidentModifiedDate = null;
+            ModifyingStaffName = null;
+            TotalSharedAmount = null;
+            IncidentStatus = null;
+            IsReviewRequested = null;
+            ProgramName = null;
+            IncidentNote = null;
+            Eligibility = null;
+        }
+    }
+
     public class InfoForNewMedBil
     {
         public String IndividualId;

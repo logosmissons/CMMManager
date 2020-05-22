@@ -610,6 +610,8 @@
             this.Illness_Conclusion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label89 = new System.Windows.Forms.Label();
             this.tbpgIncidentView = new System.Windows.Forms.TabPage();
+            this.label140 = new System.Windows.Forms.Label();
+            this.comboIllness = new System.Windows.Forms.ComboBox();
             this.btnAddNewIncident = new System.Windows.Forms.Button();
             this.txtIncidentViewIndId = new System.Windows.Forms.TextBox();
             this.txtIncidentViewMEMB = new System.Windows.Forms.TextBox();
@@ -619,7 +621,6 @@
             this.gvIncidentList = new System.Windows.Forms.DataGridView();
             this.Incident_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_CreateDate = new CMMManager.CalendarColumn();
             this.Incident_CreatingStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_ModifiDate = new CMMManager.CalendarColumn();
@@ -631,6 +632,8 @@
             this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbpgMedBillView = new System.Windows.Forms.TabPage();
+            this.label141 = new System.Windows.Forms.Label();
+            this.comboIncident = new System.Windows.Forms.ComboBox();
             this.btnAddNewMedBill = new System.Windows.Forms.Button();
             this.txtMedBillViewIndId = new System.Windows.Forms.TextBox();
             this.txtMedBillViewMEMB = new System.Windows.Forms.TextBox();
@@ -6256,6 +6259,8 @@
             // 
             // tbpgIncidentView
             // 
+            this.tbpgIncidentView.Controls.Add(this.label140);
+            this.tbpgIncidentView.Controls.Add(this.comboIllness);
             this.tbpgIncidentView.Controls.Add(this.btnAddNewIncident);
             this.tbpgIncidentView.Controls.Add(this.txtIncidentViewIndId);
             this.tbpgIncidentView.Controls.Add(this.txtIncidentViewMEMB);
@@ -6270,9 +6275,28 @@
             this.tbpgIncidentView.Text = "Incident View";
             this.tbpgIncidentView.UseVisualStyleBackColor = true;
             // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label140.Location = new System.Drawing.Point(479, 101);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(70, 16);
+            this.label140.TabIndex = 131;
+            this.label140.Text = "Illness No:";
+            // 
+            // comboIllness
+            // 
+            this.comboIllness.FormattingEnabled = true;
+            this.comboIllness.Location = new System.Drawing.Point(555, 100);
+            this.comboIllness.Name = "comboIllness";
+            this.comboIllness.Size = new System.Drawing.Size(137, 21);
+            this.comboIllness.TabIndex = 130;
+            // 
             // btnAddNewIncident
             // 
-            this.btnAddNewIncident.Location = new System.Drawing.Point(564, 90);
+            this.btnAddNewIncident.Enabled = false;
+            this.btnAddNewIncident.Location = new System.Drawing.Point(725, 90);
             this.btnAddNewIncident.Name = "btnAddNewIncident";
             this.btnAddNewIncident.Size = new System.Drawing.Size(129, 39);
             this.btnAddNewIncident.TabIndex = 129;
@@ -6336,7 +6360,6 @@
             this.gvIncidentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Incident_IncidentNo,
             this.Incident_CaseId,
-            this.Incident_IllnessNo,
             this.Incident_CreateDate,
             this.Incident_CreatingStaff,
             this.Incident_ModifiDate,
@@ -6365,12 +6388,6 @@
             this.Incident_CaseId.HeaderText = "Case No";
             this.Incident_CaseId.Name = "Incident_CaseId";
             this.Incident_CaseId.ReadOnly = true;
-            // 
-            // Incident_IllnessNo
-            // 
-            this.Incident_IllnessNo.HeaderText = "Illness No";
-            this.Incident_IllnessNo.Name = "Incident_IllnessNo";
-            this.Incident_IllnessNo.ReadOnly = true;
             // 
             // Incident_CreateDate
             // 
@@ -6438,6 +6455,8 @@
             // 
             // tbpgMedBillView
             // 
+            this.tbpgMedBillView.Controls.Add(this.label141);
+            this.tbpgMedBillView.Controls.Add(this.comboIncident);
             this.tbpgMedBillView.Controls.Add(this.btnAddNewMedBill);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewIndId);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewMEMB);
@@ -6453,9 +6472,27 @@
             this.tbpgMedBillView.UseVisualStyleBackColor = true;
             this.tbpgMedBillView.Click += new System.EventHandler(this.tbpgMedBillView_Click);
             // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label141.Location = new System.Drawing.Point(455, 100);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(78, 16);
+            this.label141.TabIndex = 135;
+            this.label141.Text = "Incident No:";
+            // 
+            // comboIncident
+            // 
+            this.comboIncident.FormattingEnabled = true;
+            this.comboIncident.Location = new System.Drawing.Point(545, 97);
+            this.comboIncident.Name = "comboIncident";
+            this.comboIncident.Size = new System.Drawing.Size(138, 21);
+            this.comboIncident.TabIndex = 134;
+            // 
             // btnAddNewMedBill
             // 
-            this.btnAddNewMedBill.Location = new System.Drawing.Point(564, 89);
+            this.btnAddNewMedBill.Location = new System.Drawing.Point(718, 89);
             this.btnAddNewMedBill.Name = "btnAddNewMedBill";
             this.btnAddNewMedBill.Size = new System.Drawing.Size(129, 39);
             this.btnAddNewMedBill.TabIndex = 133;
@@ -11725,19 +11762,6 @@
         private System.Windows.Forms.TextBox txtMedBillViewMEMB;
         private System.Windows.Forms.Label label178;
         private System.Windows.Forms.Label label180;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IncidentNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CaseId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IllnessNo;
-        private CalendarColumn Incident_CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CreatingStaff;
-        private CalendarColumn Incident_ModifiDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ModifiStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_TotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Status;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_ReviewRequest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ProgramName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Note;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_Eligibility;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnWellBeingExport;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubjectTaskInMedBill;
@@ -12375,6 +12399,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Introduction;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Body;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Conclusion;
+        private System.Windows.Forms.ComboBox comboIllness;
+        private System.Windows.Forms.ComboBox comboIncident;
+        private System.Windows.Forms.Label label140;
+        private System.Windows.Forms.Label label141;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IncidentNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CaseId;
+        private CalendarColumn Incident_CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CreatingStaff;
+        private CalendarColumn Incident_ModifiDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ModifiStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_TotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Status;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_ReviewRequest;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ProgramName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Note;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_Eligibility;
     }
 }
 

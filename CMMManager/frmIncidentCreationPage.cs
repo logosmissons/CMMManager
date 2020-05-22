@@ -69,6 +69,13 @@ namespace CMMManager
 
         private void frmIncidentCreationPage_Load(object sender, EventArgs e)
         {
+            // This initialization for testing
+            //strCaseId = "Case-286";
+            //strIllnessNo = "ILL-216";
+            //strIllnessId = "212";
+            //strIndividualId = "IND-0013369";
+
+
             txtCaseNo.Text = strCaseId.Trim();
             txtIllnessNo.Text = strIllnessNo.Trim();
          
