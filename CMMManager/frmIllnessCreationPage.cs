@@ -272,8 +272,13 @@ namespace CMMManager
                 comboCaseNoIllness.Items.Add(info.CaseNo + ": " + info.dtReceivedDate.Value.ToString("MM/dd/yyyy"));
             }
 
-            comboCaseNoIllness.SelectedItem = strCaseNo;
-            comboCaseNoIllness.Enabled = false;
+            //comboCaseNoIllness.SelectedItem = strCaseNo;
+            //comboCaseNoIllness.Enabled = false;
+            if (comboCaseNoIllness.Items.Count > 0)
+            {
+                comboCaseNoIllness.SelectedIndex = 0;
+                comboCaseNoIllness.Enabled = false;
+            }
 
             conn_icd10codes = new SqlConnection(connStringIcd10);
             cmd_icd10 = conn_icd10codes.CreateCommand();
@@ -338,8 +343,9 @@ namespace CMMManager
             if (mode == IllnessMode.AddNew)
             {
 
-                if (bOpenFromIllnessView) comboCaseNoIllness.Enabled = true;
-                else comboCaseNoIllness.Enabled = false;
+                //if (bOpenFromIllnessView) comboCaseNoIllness.Enabled = true;
+                //else comboCaseNoIllness.Enabled = false;
+                if (comboCaseNoIllness.Items.Count > 1) comboCaseNoIllness.Enabled = true;
                 //List<IllnessProgramHistory> lstIllnessProgramHistory = new List<IllnessProgramHistory>();
 
                 //String strSqlQueryForMemberProgramHistory = "select [dbo].[ContactHistory].[CreateDate], [dbo].[ContactHistory].[OldValue], [dbo].[ContactHistory].[NewValue] " +
