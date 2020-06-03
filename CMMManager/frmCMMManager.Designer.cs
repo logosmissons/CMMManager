@@ -1157,6 +1157,8 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
+            this.txtMemberPaymentPRTotal = new System.Windows.Forms.TextBox();
+            this.label142 = new System.Windows.Forms.Label();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6846,6 +6848,8 @@
             // 
             // tbpgMedicalBill
             // 
+            this.tbpgMedicalBill.Controls.Add(this.label142);
+            this.tbpgMedicalBill.Controls.Add(this.txtMemberPaymentPRTotal);
             this.tbpgMedicalBill.Controls.Add(this.txtWBBalance);
             this.tbpgMedicalBill.Controls.Add(this.label86);
             this.tbpgMedicalBill.Controls.Add(this.btnReloadSettlementInMedBill);
@@ -6884,7 +6888,7 @@
             // txtWBBalance
             // 
             this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtWBBalance.Location = new System.Drawing.Point(1338, 448);
+            this.txtWBBalance.Location = new System.Drawing.Point(1565, 448);
             this.txtWBBalance.Name = "txtWBBalance";
             this.txtWBBalance.ReadOnly = true;
             this.txtWBBalance.Size = new System.Drawing.Size(100, 22);
@@ -6894,7 +6898,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(1246, 451);
+            this.label86.Location = new System.Drawing.Point(1473, 451);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(86, 16);
             this.label86.TabIndex = 155;
@@ -7017,7 +7021,7 @@
             // txtTotalSharedAmtMedBill
             // 
             this.txtTotalSharedAmtMedBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1118, 448);
+            this.txtTotalSharedAmtMedBill.Location = new System.Drawing.Point(1345, 448);
             this.txtTotalSharedAmtMedBill.Name = "txtTotalSharedAmtMedBill";
             this.txtTotalSharedAmtMedBill.ReadOnly = true;
             this.txtTotalSharedAmtMedBill.Size = new System.Drawing.Size(100, 22);
@@ -7027,7 +7031,7 @@
             // 
             this.label63.AutoSize = true;
             this.label63.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(1009, 451);
+            this.label63.Location = new System.Drawing.Point(1236, 451);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(103, 16);
             this.label63.TabIndex = 151;
@@ -7035,7 +7039,7 @@
             // 
             // txtPersonalResponsibility
             // 
-            this.txtPersonalResponsibility.Location = new System.Drawing.Point(889, 449);
+            this.txtPersonalResponsibility.Location = new System.Drawing.Point(828, 449);
             this.txtPersonalResponsibility.Name = "txtPersonalResponsibility";
             this.txtPersonalResponsibility.ReadOnly = true;
             this.txtPersonalResponsibility.Size = new System.Drawing.Size(100, 20);
@@ -7045,7 +7049,7 @@
             // 
             this.label83.AutoSize = true;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(806, 451);
+            this.label83.Location = new System.Drawing.Point(745, 451);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(83, 16);
             this.label83.TabIndex = 149;
@@ -11127,6 +11131,24 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
+            // txtMemberPaymentPRTotal
+            // 
+            this.txtMemberPaymentPRTotal.Location = new System.Drawing.Point(1102, 449);
+            this.txtMemberPaymentPRTotal.Name = "txtMemberPaymentPRTotal";
+            this.txtMemberPaymentPRTotal.ReadOnly = true;
+            this.txtMemberPaymentPRTotal.Size = new System.Drawing.Size(100, 20);
+            this.txtMemberPaymentPRTotal.TabIndex = 157;
+            // 
+            // label142
+            // 
+            this.label142.AutoSize = true;
+            this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label142.Location = new System.Drawing.Point(957, 451);
+            this.label142.Name = "label142";
+            this.label142.Size = new System.Drawing.Size(139, 16);
+            this.label142.TabIndex = 158;
+            this.label142.Text = "Member Payment PR:";
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -12415,6 +12437,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ProgramName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Note;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_Eligibility;
+        private System.Windows.Forms.Label label142;
+        private System.Windows.Forms.TextBox txtMemberPaymentPRTotal;
     }
 }
 
