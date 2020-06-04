@@ -425,7 +425,13 @@ namespace CMMManager
                     if (!rdrIncident.IsDBNull(1)) txtIllnessNo.Text = rdrIncident.GetString(1);
                     if (!rdrIncident.IsDBNull(2)) txtIncidentNo.Text = rdrIncident.GetString(2);
                     if (!rdrIncident.IsDBNull(3)) comboProgram.SelectedIndex = rdrIncident.GetInt16(3);
-                    if (!rdrIncident.IsDBNull(4)) chkWellBeing.Checked = rdrIncident.GetBoolean(4);
+                    if (!rdrIncident.IsDBNull(4))
+                    {
+                        //chkWellBeing.CheckedChanged += new System.EventHandler(this.chkWellBeing_CheckedChanged);
+                        chkWellBeing.CheckedChanged -= chkWellBeing_CheckedChanged;
+                        chkWellBeing.Checked = rdrIncident.GetBoolean(4);
+                        chkWellBeing.CheckedChanged += chkWellBeing_CheckedChanged;
+                    }
                     if (!rdrIncident.IsDBNull(5)) dtpCreateDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
                     if (!rdrIncident.IsDBNull(6)) dtpModifiedDate.Text = rdrIncident.GetDateTime(6).ToString("MM/dd/yyyy");
                     if (!rdrIncident.IsDBNull(7)) txtIncidentNote.Text = rdrIncident.GetString(7);
