@@ -678,6 +678,8 @@
             this.MedBill_LastModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBill_LastModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpgMedicalBill = new System.Windows.Forms.TabPage();
+            this.label142 = new System.Windows.Forms.Label();
+            this.txtMemberPaymentPRTotal = new System.Windows.Forms.TextBox();
             this.txtWBBalance = new System.Windows.Forms.TextBox();
             this.label86 = new System.Windows.Forms.Label();
             this.btnReloadSettlementInMedBill = new System.Windows.Forms.Button();
@@ -1157,8 +1159,6 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.txtMemberPaymentPRTotal = new System.Windows.Forms.TextBox();
-            this.label142 = new System.Windows.Forms.Label();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6885,6 +6885,24 @@
             this.tbpgMedicalBill.Text = "Medical Bill";
             this.tbpgMedicalBill.UseVisualStyleBackColor = true;
             // 
+            // label142
+            // 
+            this.label142.AutoSize = true;
+            this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label142.Location = new System.Drawing.Point(957, 451);
+            this.label142.Name = "label142";
+            this.label142.Size = new System.Drawing.Size(139, 16);
+            this.label142.TabIndex = 158;
+            this.label142.Text = "Member Payment PR:";
+            // 
+            // txtMemberPaymentPRTotal
+            // 
+            this.txtMemberPaymentPRTotal.Location = new System.Drawing.Point(1102, 449);
+            this.txtMemberPaymentPRTotal.Name = "txtMemberPaymentPRTotal";
+            this.txtMemberPaymentPRTotal.ReadOnly = true;
+            this.txtMemberPaymentPRTotal.Size = new System.Drawing.Size(100, 20);
+            this.txtMemberPaymentPRTotal.TabIndex = 157;
+            // 
             // txtWBBalance
             // 
             this.txtWBBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -8629,6 +8647,7 @@
             this.btnReloadProviderCheckPayment.TabIndex = 6;
             this.btnReloadProviderCheckPayment.Text = "Reload";
             this.btnReloadProviderCheckPayment.UseVisualStyleBackColor = true;
+            this.btnReloadProviderCheckPayment.Click += new System.EventHandler(this.btnReloadProviderCheckPayment_Click);
             // 
             // btnConfirmCheckProviderPayment
             // 
@@ -11130,24 +11149,6 @@
             this.btnWellBeingExport.Text = "Well Being Export";
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
-            // 
-            // txtMemberPaymentPRTotal
-            // 
-            this.txtMemberPaymentPRTotal.Location = new System.Drawing.Point(1102, 449);
-            this.txtMemberPaymentPRTotal.Name = "txtMemberPaymentPRTotal";
-            this.txtMemberPaymentPRTotal.ReadOnly = true;
-            this.txtMemberPaymentPRTotal.Size = new System.Drawing.Size(100, 20);
-            this.txtMemberPaymentPRTotal.TabIndex = 157;
-            // 
-            // label142
-            // 
-            this.label142.AutoSize = true;
-            this.label142.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label142.Location = new System.Drawing.Point(957, 451);
-            this.label142.Name = "label142";
-            this.label142.Size = new System.Drawing.Size(139, 16);
-            this.label142.TabIndex = 158;
-            this.label142.Text = "Member Payment PR:";
             // 
             // frmCMMManager
             // 
