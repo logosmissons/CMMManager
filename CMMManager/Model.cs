@@ -782,6 +782,42 @@ namespace CMMManager
         }
     }
 
+    public class IllnessViewInfo
+    {
+        public String CaseNo;
+        public String IllnessNo;
+        public String ICD10Code;
+        public String ICD10Description;
+        public String IllnessNote;
+        public DateTime? OccurrenceDate;
+        public DateTime? LastServiceDate;
+        public int? LimitSharingId;
+        public Boolean? Eligibility;
+        public Double? TotalSharedAmount;
+        public DateTime? CreateDate;
+        public String CreateStaff;
+        public DateTime? ModifiDate;
+        public String ModifyStaff;
+
+        public IllnessViewInfo()
+        {
+            CaseNo = null;
+            IllnessNo = null;
+            ICD10Code = null;
+            ICD10Description = null;
+            IllnessNote = null;
+            OccurrenceDate = null;
+            LastServiceDate = null;
+            LimitSharingId = null;
+            Eligibility = null;
+            TotalSharedAmount = null;
+            CreateDate = null;
+            CreateStaff = null;
+            ModifiDate = null;
+            ModifyStaff = null;
+        }
+    }
+
     public class IncidentProgramInfo
     {
         public Boolean bIsDeleted;
