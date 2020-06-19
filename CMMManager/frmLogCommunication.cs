@@ -491,7 +491,7 @@ namespace CMMManager
 
                 //    if (IsComplete != null) chkCommunnicationComplete.Checked = IsComplete.Value;
                 //}
-
+                
 
                 //txtCommunicationIndividualId.Text = IndividualId;
                 //txtCommunicationIndividualId.ReadOnly = true;
@@ -531,8 +531,8 @@ namespace CMMManager
                                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_CommunicationAttachments].[CreateDate] " +
                                                    "from [dbo].[tbl_CommunicationAttachments] " +
                                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_CommunicationAttachments].[CreatedBy] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                                   "where [dbo].[tbl_CommunicationAttachments].[CommunicationNo] = @CommunicationNo";
-                                                   
+                                                   "where [dbo].[tbl_CommunicationAttachments].[CommunicationNo] = @CommunicationNo and " +
+                                                   "([dbo].[tbl_CommunicationAttachments].[IsDeleted] = 0 or [dbo].[tbl_CommunicationAttachments].[IsDeleted] IS NULL)";
 
                 SqlCommand cmdQueryForAttachments = new SqlCommand(strSqlQueryForAttachments, connRN);
                 cmdQueryForAttachments.CommandType = CommandType.Text;
