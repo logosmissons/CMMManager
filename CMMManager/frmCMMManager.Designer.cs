@@ -28,44 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle61 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle62 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle70 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle71 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -595,6 +595,19 @@
             this.label60 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.gvIllnessList = new System.Windows.Forms.DataGridView();
+            this.Illness_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_ICD10Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_ICD10Code_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Body = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_DiagnosisDate = new CMMManager.CalendarColumn();
+            this.Illness_LimitedSharing = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Eligibility = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_CreateDate = new CMMManager.CalendarColumn();
+            this.Illness_CreatedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_ModifyDate = new CMMManager.CalendarColumn();
+            this.Illness_ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label89 = new System.Windows.Forms.Label();
             this.tbpgIncidentView = new System.Windows.Forms.TabPage();
             this.label140 = new System.Windows.Forms.Label();
@@ -606,18 +619,6 @@
             this.label91 = new System.Windows.Forms.Label();
             this.label92 = new System.Windows.Forms.Label();
             this.gvIncidentList = new System.Windows.Forms.DataGridView();
-            this.Incident_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_CreateDate = new CMMManager.CalendarColumn();
-            this.Incident_CreatingStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ModifiDate = new CMMManager.CalendarColumn();
-            this.Incident_ModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ReviewRequest = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Incident_ProgramName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbpgMedBillView = new System.Windows.Forms.TabPage();
             this.label141 = new System.Windows.Forms.Label();
             this.comboIncident = new System.Windows.Forms.ComboBox();
@@ -1146,19 +1147,22 @@
             this.dataGridViewTextBoxColumn88 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
-            this.Illness_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_ICD10Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_ICD10Code_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_Body = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_DiagnosisDate = new CMMManager.CalendarColumn();
-            this.Illness_LimitedSharing = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_Eligibility = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_CreateDate = new CMMManager.CalendarColumn();
-            this.Illness_CreatedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_ModifyDate = new CMMManager.CalendarColumn();
-            this.Illness_ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ProgramName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ICD10_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Occurrence_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Incident_TotalPRAmountApplied = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_CreateDate = new CMMManager.CalendarColumn();
+            this.Incident_CreatingStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ModifiDate = new CMMManager.CalendarColumn();
+            this.Incident_ModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ReviewRequest = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1411,8 +1415,8 @@
             // 
             // SettlementAmountForApproval
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle38;
             this.SettlementAmountForApproval.HeaderText = "Settlement Amount";
             this.SettlementAmountForApproval.Name = "SettlementAmountForApproval";
             this.SettlementAmountForApproval.ReadOnly = true;
@@ -1420,8 +1424,8 @@
             // 
             // IsWellBeingForApproval
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle39;
             this.IsWellBeingForApproval.HeaderText = "Is Well Being";
             this.IsWellBeingForApproval.Name = "IsWellBeingForApproval";
             this.IsWellBeingForApproval.ReadOnly = true;
@@ -5645,36 +5649,36 @@
             // 
             // MedBillAmount
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle40;
             this.MedBillAmount.HeaderText = "Amount";
             this.MedBillAmount.Name = "MedBillAmount";
             // 
             // MedBillInCaseApprovalNeededAmount
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle41;
             this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
             this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
             // 
             // MedBillInCaseWaitingPayBalance
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle42;
             this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
             this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
             // 
             // MedBillTotalSharedAmount
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle43;
             this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
             // 
             // MedBillBalance
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle44;
             this.MedBillBalance.HeaderText = "Balance";
             this.MedBillBalance.Name = "MedBillBalance";
             // 
@@ -6157,6 +6161,102 @@
             this.gvIllnessList.TabIndex = 13;
             this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
             // 
+            // Illness_CaseId
+            // 
+            this.Illness_CaseId.HeaderText = "Case No";
+            this.Illness_CaseId.Name = "Illness_CaseId";
+            this.Illness_CaseId.ReadOnly = true;
+            this.Illness_CaseId.Width = 90;
+            // 
+            // Illness_IllnessNo
+            // 
+            this.Illness_IllnessNo.HeaderText = "Illness No";
+            this.Illness_IllnessNo.Name = "Illness_IllnessNo";
+            this.Illness_IllnessNo.ReadOnly = true;
+            this.Illness_IllnessNo.Width = 90;
+            // 
+            // Illness_ICD10Code
+            // 
+            this.Illness_ICD10Code.HeaderText = "ICD 10 Code";
+            this.Illness_ICD10Code.Name = "Illness_ICD10Code";
+            this.Illness_ICD10Code.ReadOnly = true;
+            // 
+            // Illness_ICD10Code_Description
+            // 
+            this.Illness_ICD10Code_Description.HeaderText = "ICD 10 Description";
+            this.Illness_ICD10Code_Description.Name = "Illness_ICD10Code_Description";
+            this.Illness_ICD10Code_Description.ReadOnly = true;
+            this.Illness_ICD10Code_Description.Width = 240;
+            // 
+            // Illness_Body
+            // 
+            this.Illness_Body.HeaderText = "Illness Note";
+            this.Illness_Body.Name = "Illness_Body";
+            this.Illness_Body.ReadOnly = true;
+            this.Illness_Body.Width = 380;
+            // 
+            // Illness_DiagnosisDate
+            // 
+            this.Illness_DiagnosisDate.HeaderText = "Occurrence Date";
+            this.Illness_DiagnosisDate.Name = "Illness_DiagnosisDate";
+            this.Illness_DiagnosisDate.ReadOnly = true;
+            // 
+            // Illness_LimitedSharing
+            // 
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle45.Format = "C2";
+            dataGridViewCellStyle45.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle45;
+            this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
+            this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
+            this.Illness_LimitedSharing.ReadOnly = true;
+            this.Illness_LimitedSharing.Width = 110;
+            // 
+            // Illness_Eligibility
+            // 
+            this.Illness_Eligibility.HeaderText = "Eligibility";
+            this.Illness_Eligibility.Name = "Illness_Eligibility";
+            this.Illness_Eligibility.ReadOnly = true;
+            this.Illness_Eligibility.Width = 90;
+            // 
+            // Illness_TotalSharedAmount
+            // 
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle46.Format = "C2";
+            dataGridViewCellStyle46.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle46;
+            this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
+            this.Illness_TotalSharedAmount.ReadOnly = true;
+            this.Illness_TotalSharedAmount.Width = 130;
+            // 
+            // Illness_CreateDate
+            // 
+            this.Illness_CreateDate.HeaderText = "Create Date";
+            this.Illness_CreateDate.Name = "Illness_CreateDate";
+            this.Illness_CreateDate.ReadOnly = true;
+            this.Illness_CreateDate.Width = 80;
+            // 
+            // Illness_CreatedBy
+            // 
+            this.Illness_CreatedBy.HeaderText = "Created By";
+            this.Illness_CreatedBy.Name = "Illness_CreatedBy";
+            this.Illness_CreatedBy.ReadOnly = true;
+            // 
+            // Illness_ModifyDate
+            // 
+            this.Illness_ModifyDate.HeaderText = "Modify Date";
+            this.Illness_ModifyDate.Name = "Illness_ModifyDate";
+            this.Illness_ModifyDate.ReadOnly = true;
+            this.Illness_ModifyDate.Width = 80;
+            // 
+            // Illness_ModifiedBy
+            // 
+            this.Illness_ModifiedBy.HeaderText = "Last Modified By";
+            this.Illness_ModifiedBy.Name = "Illness_ModifiedBy";
+            this.Illness_ModifiedBy.ReadOnly = true;
+            this.Illness_ModifiedBy.Width = 120;
+            // 
             // label89
             // 
             this.label89.AutoSize = true;
@@ -6268,100 +6368,28 @@
             this.gvIncidentList.AllowUserToDeleteRows = false;
             this.gvIncidentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvIncidentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Incident_IncidentNo,
             this.Incident_CaseId,
+            this.Incident_IllnessNo,
+            this.Incident_IncidentNo,
+            this.Incident_ProgramName,
+            this.Incident_ICD10_Description,
+            this.Incident_Note,
+            this.Incident_Occurrence_Date,
+            this.Incident_Eligibility,
+            this.Incident_TotalPRAmountApplied,
+            this.Incident_TotalSharedAmount,
+            this.Incident_Status,
             this.Incident_CreateDate,
             this.Incident_CreatingStaff,
             this.Incident_ModifiDate,
             this.Incident_ModifiStaff,
-            this.Incident_TotalSharedAmount,
-            this.Incident_Status,
-            this.Incident_ReviewRequest,
-            this.Incident_ProgramName,
-            this.Incident_Note,
-            this.Incident_Eligibility});
+            this.Incident_ReviewRequest});
             this.gvIncidentList.Location = new System.Drawing.Point(39, 140);
             this.gvIncidentList.Name = "gvIncidentList";
             this.gvIncidentList.ReadOnly = true;
             this.gvIncidentList.Size = new System.Drawing.Size(1743, 703);
             this.gvIncidentList.TabIndex = 23;
             this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
-            // 
-            // Incident_IncidentNo
-            // 
-            this.Incident_IncidentNo.HeaderText = "Incident No";
-            this.Incident_IncidentNo.Name = "Incident_IncidentNo";
-            this.Incident_IncidentNo.ReadOnly = true;
-            // 
-            // Incident_CaseId
-            // 
-            this.Incident_CaseId.HeaderText = "Case No";
-            this.Incident_CaseId.Name = "Incident_CaseId";
-            this.Incident_CaseId.ReadOnly = true;
-            // 
-            // Incident_CreateDate
-            // 
-            this.Incident_CreateDate.HeaderText = "Create Date";
-            this.Incident_CreateDate.Name = "Incident_CreateDate";
-            this.Incident_CreateDate.ReadOnly = true;
-            // 
-            // Incident_CreatingStaff
-            // 
-            this.Incident_CreatingStaff.HeaderText = "Created By";
-            this.Incident_CreatingStaff.Name = "Incident_CreatingStaff";
-            this.Incident_CreatingStaff.ReadOnly = true;
-            // 
-            // Incident_ModifiDate
-            // 
-            this.Incident_ModifiDate.HeaderText = "Modification Date";
-            this.Incident_ModifiDate.Name = "Incident_ModifiDate";
-            this.Incident_ModifiDate.ReadOnly = true;
-            // 
-            // Incident_ModifiStaff
-            // 
-            this.Incident_ModifiStaff.HeaderText = "Modified By";
-            this.Incident_ModifiStaff.Name = "Incident_ModifiStaff";
-            this.Incident_ModifiStaff.ReadOnly = true;
-            // 
-            // Incident_TotalSharedAmount
-            // 
-            this.Incident_TotalSharedAmount.HeaderText = "Total Shared Amount";
-            this.Incident_TotalSharedAmount.Name = "Incident_TotalSharedAmount";
-            this.Incident_TotalSharedAmount.ReadOnly = true;
-            this.Incident_TotalSharedAmount.Width = 180;
-            // 
-            // Incident_Status
-            // 
-            this.Incident_Status.HeaderText = "Status";
-            this.Incident_Status.Name = "Incident_Status";
-            this.Incident_Status.ReadOnly = true;
-            // 
-            // Incident_ReviewRequest
-            // 
-            this.Incident_ReviewRequest.HeaderText = "Review Requested";
-            this.Incident_ReviewRequest.Name = "Incident_ReviewRequest";
-            this.Incident_ReviewRequest.ReadOnly = true;
-            this.Incident_ReviewRequest.Width = 160;
-            // 
-            // Incident_ProgramName
-            // 
-            this.Incident_ProgramName.HeaderText = "Program";
-            this.Incident_ProgramName.Name = "Incident_ProgramName";
-            this.Incident_ProgramName.ReadOnly = true;
-            this.Incident_ProgramName.Width = 120;
-            // 
-            // Incident_Note
-            // 
-            this.Incident_Note.HeaderText = "Note";
-            this.Incident_Note.Name = "Incident_Note";
-            this.Incident_Note.ReadOnly = true;
-            this.Incident_Note.Width = 240;
-            // 
-            // Incident_Eligibility
-            // 
-            this.Incident_Eligibility.HeaderText = "Eligibility";
-            this.Incident_Eligibility.Name = "Incident_Eligibility";
-            this.Incident_Eligibility.ReadOnly = true;
             // 
             // tbpgMedBillView
             // 
@@ -6544,8 +6572,8 @@
             // 
             // MedBill_BillAmount
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_BillAmount.DefaultCellStyle = dataGridViewCellStyle47;
             this.MedBill_BillAmount.HeaderText = "Amount";
             this.MedBill_BillAmount.Name = "MedBill_BillAmount";
             this.MedBill_BillAmount.ReadOnly = true;
@@ -6566,16 +6594,16 @@
             // 
             // MedBill_TotalSharedAmount
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle48;
             this.MedBill_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBill_TotalSharedAmount.Name = "MedBill_TotalSharedAmount";
             this.MedBill_TotalSharedAmount.ReadOnly = true;
             // 
             // MedBill_Balance
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_Balance.DefaultCellStyle = dataGridViewCellStyle49;
             this.MedBill_Balance.HeaderText = "Balance";
             this.MedBill_Balance.Name = "MedBill_Balance";
             this.MedBill_Balance.ReadOnly = true;
@@ -6594,8 +6622,8 @@
             // 
             // MedBill_PersonalResponsibilityCredit
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_PersonalResponsibilityCredit.DefaultCellStyle = dataGridViewCellStyle50;
             this.MedBill_PersonalResponsibilityCredit.HeaderText = "Personal Responsibility Credit";
             this.MedBill_PersonalResponsibilityCredit.Name = "MedBill_PersonalResponsibilityCredit";
             this.MedBill_PersonalResponsibilityCredit.ReadOnly = true;
@@ -6640,16 +6668,16 @@
             // 
             // MedBill_WellBeingCare
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.MedBill_WellBeingCare.DefaultCellStyle = dataGridViewCellStyle51;
             this.MedBill_WellBeingCare.HeaderText = "Well Being Care";
             this.MedBill_WellBeingCare.Name = "MedBill_WellBeingCare";
             this.MedBill_WellBeingCare.ReadOnly = true;
             // 
             // MedBill_WellBeingCareTotal
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_WellBeingCareTotal.DefaultCellStyle = dataGridViewCellStyle52;
             this.MedBill_WellBeingCareTotal.HeaderText = "Well Being Care Total";
             this.MedBill_WellBeingCareTotal.Name = "MedBill_WellBeingCareTotal";
             this.MedBill_WellBeingCareTotal.ReadOnly = true;
@@ -6700,8 +6728,8 @@
             // 
             // MedBill_TotalNumberOfPhysicalTherapy
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBill_TotalNumberOfPhysicalTherapy.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBill_TotalNumberOfPhysicalTherapy.DefaultCellStyle = dataGridViewCellStyle53;
             this.MedBill_TotalNumberOfPhysicalTherapy.HeaderText = "Total Number of Physical Therapy";
             this.MedBill_TotalNumberOfPhysicalTherapy.Name = "MedBill_TotalNumberOfPhysicalTherapy";
             this.MedBill_TotalNumberOfPhysicalTherapy.ReadOnly = true;
@@ -7162,15 +7190,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle54;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle55;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -7224,8 +7252,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle56;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -8354,8 +8382,8 @@
             // 
             this.gvPaymentCheckMemberReimbursement.AllowUserToAddRows = false;
             this.gvPaymentCheckMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle57.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle57;
             this.gvPaymentCheckMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedPaymentCheck,
@@ -8458,8 +8486,8 @@
             // 
             // AmountPaymentCheck
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle58;
             this.AmountPaymentCheck.HeaderText = "Amount";
             this.AmountPaymentCheck.Name = "AmountPaymentCheck";
             this.AmountPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8584,8 +8612,8 @@
             // 
             this.gvPaymentCheckProvider.AllowUserToAddRows = false;
             this.gvPaymentCheckProvider.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle59.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle59;
             this.gvPaymentCheckProvider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckProvider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedProviderPaymentCheck,
@@ -8621,8 +8649,8 @@
             // 
             // SelectedProviderPaymentCheck
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle60;
             this.SelectedProviderPaymentCheck.HeaderText = "Selected";
             this.SelectedProviderPaymentCheck.Name = "SelectedProviderPaymentCheck";
             this.SelectedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8630,8 +8658,8 @@
             // 
             // ExportedProviderPaymentCheck
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle61;
             this.ExportedProviderPaymentCheck.HeaderText = "Exported";
             this.ExportedProviderPaymentCheck.Name = "ExportedProviderPaymentCheck";
             this.ExportedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8681,8 +8709,8 @@
             // 
             // AmountProviderPaymentCheck
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle62;
             this.AmountProviderPaymentCheck.HeaderText = "Amount";
             this.AmountProviderPaymentCheck.Name = "AmountProviderPaymentCheck";
             this.AmountProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8824,8 +8852,8 @@
             // 
             this.gvPaymentACH.AllowUserToAddRows = false;
             this.gvPaymentACH.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.White;
-            this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle63.BackColor = System.Drawing.Color.White;
+            this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle63;
             this.gvPaymentACH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentACH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedACHPayment,
@@ -8996,8 +9024,8 @@
             // 
             this.gvPaymentCreditCard.AllowUserToAddRows = false;
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle64.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle64;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CreditCardPaymentConfirm,
@@ -9216,8 +9244,8 @@
             // 
             this.gvPaymentInactive.AllowUserToAddRows = false;
             this.gvPaymentInactive.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
-            this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle65.BackColor = System.Drawing.Color.White;
+            this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle65;
             this.gvPaymentInactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentInactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdPaymentInactive,
@@ -9307,8 +9335,8 @@
             // 
             this.gvCheckReconcilation.AllowUserToAddRows = false;
             this.gvCheckReconcilation.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.White;
-            this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle66.BackColor = System.Drawing.Color.White;
+            this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle66;
             this.gvCheckReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvCheckReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CheckCleared,
@@ -9349,8 +9377,8 @@
             // 
             // CheckPaidSettlementAmount
             // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle67;
             this.CheckPaidSettlementAmount.HeaderText = "Amount";
             this.CheckPaidSettlementAmount.Name = "CheckPaidSettlementAmount";
             this.CheckPaidSettlementAmount.ReadOnly = true;
@@ -9447,9 +9475,9 @@
             // 
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToAddRows = false;
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle68.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle68.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle68;
             this.gvUndoCheckPaymentMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvUndoCheckPaymentMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedUndoCheckMemberReimbursement,
@@ -9468,8 +9496,8 @@
             // 
             // SelectedUndoCheckMemberReimbursement
             // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle69;
             this.SelectedUndoCheckMemberReimbursement.HeaderText = "Selected";
             this.SelectedUndoCheckMemberReimbursement.Name = "SelectedUndoCheckMemberReimbursement";
             this.SelectedUndoCheckMemberReimbursement.ReadOnly = true;
@@ -9477,8 +9505,8 @@
             // 
             // AmountUndoCheckPaymentMemberReimbursement
             // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle70;
             this.AmountUndoCheckPaymentMemberReimbursement.HeaderText = "Amount";
             this.AmountUndoCheckPaymentMemberReimbursement.Name = "AmountUndoCheckPaymentMemberReimbursement";
             this.AmountUndoCheckPaymentMemberReimbursement.ReadOnly = true;
@@ -9562,8 +9590,8 @@
             // 
             // AmountUndoCheckProviderPayment
             // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle71;
             this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
             this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
             this.AmountUndoCheckProviderPayment.ReadOnly = true;
@@ -10652,15 +10680,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle72.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle72;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle73;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -10688,8 +10716,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle74;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -11061,101 +11089,106 @@
             this.btnWellBeingExport.UseVisualStyleBackColor = true;
             this.btnWellBeingExport.Click += new System.EventHandler(this.btnWellBeingExport_Click);
             // 
-            // Illness_CaseId
+            // Incident_CaseId
             // 
-            this.Illness_CaseId.HeaderText = "Case No";
-            this.Illness_CaseId.Name = "Illness_CaseId";
-            this.Illness_CaseId.ReadOnly = true;
-            this.Illness_CaseId.Width = 90;
+            this.Incident_CaseId.HeaderText = "Case No";
+            this.Incident_CaseId.Name = "Incident_CaseId";
+            this.Incident_CaseId.ReadOnly = true;
             // 
-            // Illness_IllnessNo
+            // Incident_IllnessNo
             // 
-            this.Illness_IllnessNo.HeaderText = "Illness No";
-            this.Illness_IllnessNo.Name = "Illness_IllnessNo";
-            this.Illness_IllnessNo.ReadOnly = true;
-            this.Illness_IllnessNo.Width = 90;
+            this.Incident_IllnessNo.HeaderText = "Illness No";
+            this.Incident_IllnessNo.Name = "Incident_IllnessNo";
+            this.Incident_IllnessNo.ReadOnly = true;
             // 
-            // Illness_ICD10Code
+            // Incident_IncidentNo
             // 
-            this.Illness_ICD10Code.HeaderText = "ICD 10 Code";
-            this.Illness_ICD10Code.Name = "Illness_ICD10Code";
-            this.Illness_ICD10Code.ReadOnly = true;
+            this.Incident_IncidentNo.HeaderText = "Incident No";
+            this.Incident_IncidentNo.Name = "Incident_IncidentNo";
+            this.Incident_IncidentNo.ReadOnly = true;
             // 
-            // Illness_ICD10Code_Description
+            // Incident_ProgramName
             // 
-            this.Illness_ICD10Code_Description.HeaderText = "ICD 10 Description";
-            this.Illness_ICD10Code_Description.Name = "Illness_ICD10Code_Description";
-            this.Illness_ICD10Code_Description.ReadOnly = true;
-            this.Illness_ICD10Code_Description.Width = 240;
+            this.Incident_ProgramName.HeaderText = "Incident Program";
+            this.Incident_ProgramName.Name = "Incident_ProgramName";
+            this.Incident_ProgramName.ReadOnly = true;
+            this.Incident_ProgramName.Width = 120;
             // 
-            // Illness_Body
+            // Incident_ICD10_Description
             // 
-            this.Illness_Body.HeaderText = "Illness Note";
-            this.Illness_Body.Name = "Illness_Body";
-            this.Illness_Body.ReadOnly = true;
-            this.Illness_Body.Width = 380;
+            this.Incident_ICD10_Description.HeaderText = "ICD 10 Description";
+            this.Incident_ICD10_Description.Name = "Incident_ICD10_Description";
+            this.Incident_ICD10_Description.ReadOnly = true;
             // 
-            // Illness_DiagnosisDate
+            // Incident_Note
             // 
-            this.Illness_DiagnosisDate.HeaderText = "Occurrence Date";
-            this.Illness_DiagnosisDate.Name = "Illness_DiagnosisDate";
-            this.Illness_DiagnosisDate.ReadOnly = true;
+            this.Incident_Note.HeaderText = "Incident Note";
+            this.Incident_Note.Name = "Incident_Note";
+            this.Incident_Note.ReadOnly = true;
+            this.Incident_Note.Width = 240;
             // 
-            // Illness_LimitedSharing
+            // Incident_Occurrence_Date
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "C2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
-            this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
-            this.Illness_LimitedSharing.ReadOnly = true;
-            this.Illness_LimitedSharing.Width = 110;
+            this.Incident_Occurrence_Date.HeaderText = "Occurrence Date";
+            this.Incident_Occurrence_Date.Name = "Incident_Occurrence_Date";
+            this.Incident_Occurrence_Date.ReadOnly = true;
             // 
-            // Illness_Eligibility
+            // Incident_Eligibility
             // 
-            this.Illness_Eligibility.HeaderText = "Eligibility";
-            this.Illness_Eligibility.Name = "Illness_Eligibility";
-            this.Illness_Eligibility.ReadOnly = true;
-            this.Illness_Eligibility.Width = 90;
+            this.Incident_Eligibility.HeaderText = "Eligibility";
+            this.Incident_Eligibility.Name = "Incident_Eligibility";
+            this.Incident_Eligibility.ReadOnly = true;
             // 
-            // Illness_TotalSharedAmount
+            // Incident_TotalPRAmountApplied
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "C2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle9;
-            this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
-            this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
-            this.Illness_TotalSharedAmount.ReadOnly = true;
-            this.Illness_TotalSharedAmount.Width = 130;
+            this.Incident_TotalPRAmountApplied.HeaderText = "Total PR Amount Applied";
+            this.Incident_TotalPRAmountApplied.Name = "Incident_TotalPRAmountApplied";
+            this.Incident_TotalPRAmountApplied.ReadOnly = true;
+            this.Incident_TotalPRAmountApplied.Width = 180;
             // 
-            // Illness_CreateDate
+            // Incident_TotalSharedAmount
             // 
-            this.Illness_CreateDate.HeaderText = "Create Date";
-            this.Illness_CreateDate.Name = "Illness_CreateDate";
-            this.Illness_CreateDate.ReadOnly = true;
-            this.Illness_CreateDate.Width = 80;
+            this.Incident_TotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.Incident_TotalSharedAmount.Name = "Incident_TotalSharedAmount";
+            this.Incident_TotalSharedAmount.ReadOnly = true;
+            this.Incident_TotalSharedAmount.Width = 180;
             // 
-            // Illness_CreatedBy
+            // Incident_Status
             // 
-            this.Illness_CreatedBy.HeaderText = "Created By";
-            this.Illness_CreatedBy.Name = "Illness_CreatedBy";
-            this.Illness_CreatedBy.ReadOnly = true;
+            this.Incident_Status.HeaderText = "Status";
+            this.Incident_Status.Name = "Incident_Status";
+            this.Incident_Status.ReadOnly = true;
             // 
-            // Illness_ModifyDate
+            // Incident_CreateDate
             // 
-            this.Illness_ModifyDate.HeaderText = "Modify Date";
-            this.Illness_ModifyDate.Name = "Illness_ModifyDate";
-            this.Illness_ModifyDate.ReadOnly = true;
-            this.Illness_ModifyDate.Width = 80;
+            this.Incident_CreateDate.HeaderText = "Create Date";
+            this.Incident_CreateDate.Name = "Incident_CreateDate";
+            this.Incident_CreateDate.ReadOnly = true;
             // 
-            // Illness_ModifiedBy
+            // Incident_CreatingStaff
             // 
-            this.Illness_ModifiedBy.HeaderText = "Last Modified By";
-            this.Illness_ModifiedBy.Name = "Illness_ModifiedBy";
-            this.Illness_ModifiedBy.ReadOnly = true;
-            this.Illness_ModifiedBy.Width = 120;
+            this.Incident_CreatingStaff.HeaderText = "Created By";
+            this.Incident_CreatingStaff.Name = "Incident_CreatingStaff";
+            this.Incident_CreatingStaff.ReadOnly = true;
+            // 
+            // Incident_ModifiDate
+            // 
+            this.Incident_ModifiDate.HeaderText = "Modification Date";
+            this.Incident_ModifiDate.Name = "Incident_ModifiDate";
+            this.Incident_ModifiDate.ReadOnly = true;
+            // 
+            // Incident_ModifiStaff
+            // 
+            this.Incident_ModifiStaff.HeaderText = "Modified By";
+            this.Incident_ModifiStaff.Name = "Incident_ModifiStaff";
+            this.Incident_ModifiStaff.ReadOnly = true;
+            // 
+            // Incident_ReviewRequest
+            // 
+            this.Incident_ReviewRequest.HeaderText = "Review Requested";
+            this.Incident_ReviewRequest.Name = "Incident_ReviewRequest";
+            this.Incident_ReviewRequest.ReadOnly = true;
+            this.Incident_ReviewRequest.Width = 160;
             // 
             // frmCMMManager
             // 
@@ -12413,18 +12446,6 @@
         private System.Windows.Forms.ComboBox comboIncident;
         private System.Windows.Forms.Label label140;
         private System.Windows.Forms.Label label141;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IncidentNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CaseId;
-        private CalendarColumn Incident_CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CreatingStaff;
-        private CalendarColumn Incident_ModifiDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ModifiStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_TotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Status;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_ReviewRequest;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ProgramName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Note;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_Eligibility;
         private System.Windows.Forms.Label label142;
         private System.Windows.Forms.TextBox txtMemberPaymentPRTotal;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedMedBillDocuments;
@@ -12447,6 +12468,22 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CreatedBy;
         private CalendarColumn Illness_ModifyDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_ModifiedBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CaseId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IllnessNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_IncidentNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ProgramName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ICD10_Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Note;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Occurrence_Date;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_Eligibility;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_TotalPRAmountApplied;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_TotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_Status;
+        private CalendarColumn Incident_CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_CreatingStaff;
+        private CalendarColumn Incident_ModifiDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ModifiStaff;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_ReviewRequest;
     }
 }
 
