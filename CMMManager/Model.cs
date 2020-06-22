@@ -818,6 +818,61 @@ namespace CMMManager
         }
     }
 
+    public class IncidentViewInfo
+    {
+        public String CaseNo;
+        public String IllnessNo;
+        public int? IncidentId;
+        public String IncidentNo;
+        public String IncidentProgram;
+        public String ICD10Code;
+        public String ICD10Description;
+        public String IncidentNote;
+        public DateTime? IncidentOccurrenceDate;
+        public DateTime? IncidentLastServiceDate;
+        public Boolean? Eligibility;
+        public Double? TotalPRAmountApplied;
+        public Double? TotalSharedAmount;
+        public IncidentStatusCode? IncidentStatus;
+        public DateTime? IncidentCreateDate;
+        public String IncidentCreateStaff;
+        public DateTime? IncidentModifiDate;
+        public String IncidentModifiStaff;
+        public Boolean? IncidentReviewRequest;
+
+        public IncidentViewInfo()
+        {
+            CaseNo = null;
+            IllnessNo = null;
+            IncidentId = null;
+            IncidentNo = null;
+            IncidentProgram = null;
+            ICD10Code = null;
+            ICD10Description = null;
+            IncidentNote = null;
+            IncidentOccurrenceDate = null;
+            IncidentLastServiceDate = null;
+            Eligibility = null;
+            TotalPRAmountApplied = null;
+            TotalSharedAmount = null;
+            IncidentStatus = null;
+            IncidentCreateDate = null;
+            IncidentCreateStaff = null;
+            IncidentModifiDate = null;
+            IncidentModifiStaff = null;
+            IncidentReviewRequest = null;
+        }
+    }
+
+    //public class MedBillViewInfo
+    //{
+    //    public String IncidentNo;
+    //    public String ICD10Description;
+    //    public String MedBillNo;
+    //    public MedicalBillType? MedBillType;
+    //    // not done yet
+    //}
+
     public class IncidentProgramInfo
     {
         public Boolean bIsDeleted;

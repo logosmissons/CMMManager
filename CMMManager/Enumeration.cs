@@ -17,6 +17,8 @@ namespace CMMManager
     public enum IncidentProgramName { GoldPlus = 0, Gold, Silver, Bronze, GoldMedi_I, GoldMedi_II };
     public enum PaymentTypeExport { MemberReimbursement, PR_Reimbursement, ProviderPayment };
 
+    public enum MedicalBillType { MedicalBill = 1, Prescription = 2, PhysicalTherapy = 3, MedicalRecord = 4 };
+
     // enumeration for program change history
     public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
     public enum IllnessProgram { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
