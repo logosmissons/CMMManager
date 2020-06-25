@@ -39,6 +39,7 @@ namespace CMMManager
         public String strMembershipID;
         public String strMembershipNo;
         public MembershipStatus membershipStatus;
+        public MemberStatus? memberStatus;
         public DateTime? dtMembershipStartDate;
         public String strIndividualID;
         public String strLegacyIndividualID;
@@ -69,6 +70,7 @@ namespace CMMManager
             strReferredBy = String.Empty;
             strMembershipID = String.Empty;
             strMembershipNo = String.Empty;
+            memberStatus = null;
             dtMembershipStartDate = null;
             strSSN = String.Empty;
             strIndividualID = String.Empty;

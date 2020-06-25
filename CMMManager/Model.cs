@@ -1590,6 +1590,7 @@ namespace CMMManager
         public int? nExportedByID;
         public String IndividualName;
         public String IndividualId;
+        public String LegacyIndividualId;
         public String HouseholdRole;
         public String PrimaryName;
         public String IncidentNo;
@@ -1610,7 +1611,7 @@ namespace CMMManager
         public String SettlementType;
         public String CreatedBy;
         public String LastModifiedBy;
-        public String MembershipStatus;
+        public MemberStatus? MembershipStatus;
         public String MemebershipNo;
 
         public CheckPaymentInfo()
@@ -1621,6 +1622,7 @@ namespace CMMManager
             nExportedByID = null;
             IndividualName = String.Empty;
             IndividualId = String.Empty;
+            LegacyIndividualId = String.Empty;
             HouseholdRole = String.Empty;
             PrimaryName = String.Empty;
             IncidentNo = String.Empty;
@@ -1641,7 +1643,7 @@ namespace CMMManager
             SettlementType = String.Empty;
             CreatedBy = String.Empty;
             LastModifiedBy = String.Empty;
-            MembershipStatus = String.Empty;
+            MembershipStatus = null;
             MemebershipNo = String.Empty;
         }
     }
@@ -1655,9 +1657,12 @@ namespace CMMManager
         public String FirstName;
         public String MiddleName;
         public String IndividualId;
+        public String LegacyIndividualId;
         public String MedicalBillNo;
         public String SettlementNo;
         public Decimal SettlementAmount;
+        public String MedicalProviderId;
+        public String MedicalProviderName;
         public String BankName;
         public String RoutingNumber;
         public String AccountNumber;
@@ -1665,6 +1670,7 @@ namespace CMMManager
         public String CreateStaffName;
         public String ModifiStaffName;
         public String MembershipStatus;
+        public MemberStatus? MemberStatus;
         public Boolean bIsExported;
         public int nExportedBy;
         public int nSettlementType;
@@ -1679,9 +1685,12 @@ namespace CMMManager
             FirstName = String.Empty;
             MiddleName = String.Empty;
             IndividualId = String.Empty;
+            LegacyIndividualId = null;
             MedicalBillNo = String.Empty;
             SettlementNo = String.Empty;
             SettlementAmount = 0;
+            MedicalProviderId = null;
+            MedicalProviderName = null;
             BankName = String.Empty;
             RoutingNumber = String.Empty;
             AccountNumber = String.Empty;
@@ -1689,6 +1698,7 @@ namespace CMMManager
             CreateStaffName = String.Empty;
             ModifiStaffName = String.Empty;
             MembershipStatus = String.Empty;
+            MemberStatus = null;
             bIsExported = false;
             nExportedBy = 0;
             nSettlementType = 0;
@@ -1851,10 +1861,12 @@ namespace CMMManager
         public String SettlementName;
         public Decimal SettlementAmount;
         public String MembershipStatus;
+        public MemberStatus? MemberStatus;
         public String SettlementNote;
         public String CreateStaffName;
         public String ModifyStaffName;
         public String IndividualID;
+        public String LegacyIndividualId;
         public String MembershipNumber;
 
         public CreditCardPaymentInfo()
@@ -1877,10 +1889,12 @@ namespace CMMManager
             SettlementName = String.Empty;
             SettlementAmount = 0;
             MembershipStatus = String.Empty;
+            MemberStatus = null;
             SettlementNote = String.Empty;
             CreateStaffName = String.Empty;
             ModifyStaffName = String.Empty;
             IndividualID = String.Empty;
+            LegacyIndividualId = null;
             MembershipNumber = String.Empty;
         }
     }
