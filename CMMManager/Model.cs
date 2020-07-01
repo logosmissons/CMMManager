@@ -864,14 +864,50 @@ namespace CMMManager
         }
     }
 
-    //public class MedBillViewInfo
-    //{
-    //    public String IncidentNo;
-    //    public String ICD10Description;
-    //    public String MedBillNo;
-    //    public MedicalBillType? MedBillType;
-    //    // not done yet
-    //}
+
+    public class MedBillViewInfo
+    {
+        public String IncidentNo;
+        public String ICD10Code;
+        public String ICD10Description;
+        public String MedicalBillNo;
+        public MedicalBillType? MedBillType;
+        public MedicalBillStatus? MedBillStatus;
+        public String PendingReason;
+        public String IneligibleReason;
+        public DateTime? ServiceDate;
+        public String MedicalProviderId;
+        public String MedicalProviderName;
+        public Double? BillAmount;
+        public Double? PRAmount;
+        public Double? TotalSharedAmount;
+        public DateTime? CreateDate;
+        public String CreatedBy;
+        public DateTime? LastModifiedDate;
+        public String ModifiedBy;
+
+        public MedBillViewInfo()
+        {
+            IncidentNo = null;
+            ICD10Code = null;
+            ICD10Description = null;
+            MedicalBillNo = null;
+            MedBillType = null;
+            MedBillStatus = null;
+            PendingReason = null;
+            IneligibleReason = null;
+            ServiceDate = null;
+            MedicalProviderId = null;
+            MedicalProviderName = null;
+            BillAmount = null;
+            PRAmount = null;
+            TotalSharedAmount = null;
+            CreateDate = null;
+            CreatedBy = null;
+            LastModifiedDate = null;
+            ModifiedBy = null;
+        }
+    }
 
     public class IncidentProgramInfo
     {
