@@ -521,7 +521,6 @@
             // 
             // btnForward
             // 
-            this.btnForward.Enabled = false;
             this.btnForward.Location = new System.Drawing.Point(622, 545);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(112, 29);

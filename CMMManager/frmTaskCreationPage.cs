@@ -32,6 +32,7 @@ namespace CMMManager
         private UserInfo LoggedInuserInfo;
         private UserInfo AssignedToStaffInfo;
         private List<UserInfo> lstUserInfo;
+        private TaskSendType taskSendType;
 
         private StringBuilder sbComment;
         private StringBuilder sbSolution;
@@ -431,6 +432,53 @@ namespace CMMManager
             LoggedInuserInfo.UserName = login_user_name;
             LoggedInuserInfo.UserRoleId = login_user_role_id;
             LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
+
+            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+
+            //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+
+            connRN = new SqlConnection(connStringRN);
+            connSalesForce = new SqlConnection(connStringSalesForce);
+
+            sbComment = new StringBuilder();
+            sbSolution = new StringBuilder();
+        }
+
+
+        // this contructor will be called for Forwarded Task
+        public frmTaskCreationPage(String individual_id,
+                           String creator_name,
+                           int creator_id,
+                           int login_user_id,
+                           String login_user_name,
+                           UserRole login_user_role_id,
+                           Department login_user_department,
+                           TaskMode mode,
+                           Boolean forwarded)
+        {
+            taskMode = mode;
+            //nTaskId = task_id;
+            WhoId = individual_id;
+            TaskCreatorName = creator_name;
+
+            TaskCreatorInfo = new UserInfo();
+
+            TaskCreatorInfo.UserId = creator_id;
+            TaskCreatorInfo.UserName = creator_name;
+
+            LoggedInuserInfo = new UserInfo();
+            lstUserInfo = new List<UserInfo>();
+            InitializeComponent();
+
+            LoggedInuserInfo.UserId = login_user_id;
+            LoggedInuserInfo.UserName = login_user_name;
+            LoggedInuserInfo.UserRoleId = login_user_role_id;
+            LoggedInuserInfo.departmentInfo.DepartmentId = login_user_department;
+
+            if (forwarded) taskSendType = TaskSendType.Forward;
+            else taskSendType = TaskSendType.Original;
 
             connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
@@ -960,7 +1008,9 @@ namespace CMMManager
                 rdrTaskPriority.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                String strSqlQueryForTaskInfo = "select [dbo].[tbl_task_created_by].[User_Name], [dbo].[tbl_task_assigned_to].[User_Name], " +
+                TaskCreatorInfo = new UserInfo();
+
+                String strSqlQueryForTaskInfo = "select [dbo].[tbl_task_created_by].[User_Name], [dbo].[tbl_task_created_by].[User_Id], [dbo].[tbl_task_assigned_to].[User_Name], " +
                                                 "[dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
                                                 "[dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], [dbo].[tbl_task].[whatid], " +
                                                 "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[Comment], [dbo].[tbl_task].[Solution], " +
@@ -986,34 +1036,45 @@ namespace CMMManager
                 if (rdrTaskInfo.HasRows)
                 {
                     rdrTaskInfo.Read();
-                    if (!rdrTaskInfo.IsDBNull(0)) txtTaskCreator.Text = rdrTaskInfo.GetString(0);
-                    else txtTaskCreator.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(1)) txtTaskNameAssignedTo.Text = rdrTaskInfo.GetString(1);
+                    if (!rdrTaskInfo.IsDBNull(0))
+                    {
+                        txtTaskCreator.Text = rdrTaskInfo.GetString(0);
+                        TaskCreatorInfo.UserName = rdrTaskInfo.GetString(0);
+                    }
+                    else
+                    {
+                        txtTaskCreator.Text = String.Empty;
+                        TaskCreatorInfo.UserName = null;
+                    }
+                    if (!rdrTaskInfo.IsDBNull(1)) TaskCreatorInfo.UserId = rdrTaskInfo.GetInt16(1);
+                    else TaskCreatorInfo.UserId = null;
+
+                    if (!rdrTaskInfo.IsDBNull(2)) txtTaskNameAssignedTo.Text = rdrTaskInfo.GetString(2);
                     else txtTaskNameAssignedTo.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(2)) txtIndividualId.Text = rdrTaskInfo.GetString(2);
+                    if (!rdrTaskInfo.IsDBNull(3)) txtIndividualId.Text = rdrTaskInfo.GetString(3);
                     else txtIndividualId.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(3)) txtNameOnTask.Text = rdrTaskInfo.GetString(3);
+                    if (!rdrTaskInfo.IsDBNull(4)) txtNameOnTask.Text = rdrTaskInfo.GetString(4);
                     else txtNameOnTask.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(4)) dtpTaskDueDate.Text = rdrTaskInfo.GetDateTime(4).ToString("MM/dd/yyyy");
+                    if (!rdrTaskInfo.IsDBNull(5)) dtpTaskDueDate.Text = rdrTaskInfo.GetDateTime(5).ToString("MM/dd/yyyy");
                     else dtpTaskDueDate.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(5)) comboTaskRelatedTo.SelectedIndex = rdrTaskInfo.GetInt16(5);
-                    if (!rdrTaskInfo.IsDBNull(6)) txtTaskRelatedTo.Text = rdrTaskInfo.GetString(6);
+                    if (!rdrTaskInfo.IsDBNull(6)) comboTaskRelatedTo.SelectedIndex = rdrTaskInfo.GetInt16(6);
+                    if (!rdrTaskInfo.IsDBNull(7)) txtTaskRelatedTo.Text = rdrTaskInfo.GetString(7);
                     else txtTaskRelatedTo.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
+                    if (!rdrTaskInfo.IsDBNull(8)) txtTaskSubject.Text = rdrTaskInfo.GetString(8);
                     else txtTaskSubject.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                    if (!rdrTaskInfo.IsDBNull(9)) txtTaskComments.Text = rdrTaskInfo.GetString(9);
                     else txtTaskComments.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                    if (!rdrTaskInfo.IsDBNull(10)) txtTaskSolution.Text = rdrTaskInfo.GetString(10);
                     else txtTaskSolution.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
-                    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
-                    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
+                    if (!rdrTaskInfo.IsDBNull(11)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(11);
+                    if (!rdrTaskInfo.IsDBNull(12)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(12);
+                    if (!rdrTaskInfo.IsDBNull(13)) txtTaskPhone.Text = rdrTaskInfo.GetString(13);
                     else txtTaskPhone.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(13)) txtTaskEmail.Text = rdrTaskInfo.GetString(13);
+                    if (!rdrTaskInfo.IsDBNull(14)) txtTaskEmail.Text = rdrTaskInfo.GetString(14);
                     else txtTaskEmail.Text = String.Empty;
-                    if (!rdrTaskInfo.IsDBNull(14)) chkReminder.Checked = rdrTaskInfo.GetBoolean(14);
+                    if (!rdrTaskInfo.IsDBNull(15)) chkReminder.Checked = rdrTaskInfo.GetBoolean(15);
                     else chkReminder.Checked = false;
-                    if (!rdrTaskInfo.IsDBNull(15)) comboReminderTimePicker.Text = rdrTaskInfo.GetDateTime(15).ToString("MM/dd/yyyy");
+                    if (!rdrTaskInfo.IsDBNull(16)) comboReminderTimePicker.Text = rdrTaskInfo.GetDateTime(16).ToString("MM/dd/yyyy");
                     else comboReminderTimePicker.Text = String.Empty;
                 }
                 rdrTaskInfo.Close();
@@ -1443,6 +1504,10 @@ namespace CMMManager
                 }
                 rdrQueryForTask.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+            }
+            else if (taskMode == TaskMode.Forward)
+            {
+
             }
 
         }
@@ -2106,6 +2171,23 @@ namespace CMMManager
 
         private void btnForward_Click(object sender, EventArgs e)
         {
+            int nOriginalTaskId = nTaskId.Value;
+            //taskMode = TaskMode.AddNew;
+
+            //public frmTaskCreationPage(String individual_id,
+            //       String creator_name,
+            //       int creator_id,
+            //       int login_user_id,
+            //       String login_user_name,
+            //       UserRole login_user_role_id,
+            //       Department login_user_department,
+            //       TaskMode mode,
+            //       Boolean forwarded)
+
+            // 07-07-2020 begin here - TaskCreatorInfo is null, fix this
+            frmTaskCreationPage frmTaskForward = new frmTaskCreationPage(WhoId, TaskCreatorInfo.UserName, TaskCreatorInfo.UserId.Value, LoggedInuserInfo.UserId.Value, LoggedInuserInfo.UserName, LoggedInuserInfo.UserRoleId, LoggedInuserInfo.departmentInfo.DepartmentId, TaskMode.Forward, true);
+
+            frmTaskForward.ShowDialog();
 
         }
     }
