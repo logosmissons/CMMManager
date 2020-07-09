@@ -39,6 +39,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -63,8 +65,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -619,6 +619,23 @@
             this.label91 = new System.Windows.Forms.Label();
             this.label92 = new System.Windows.Forms.Label();
             this.gvIncidentList = new System.Windows.Forms.DataGridView();
+            this.Incident_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ProgramName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ICD10_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Occurrence_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_LastServiceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Incident_TotalPRAmountApplied = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_CreateDate = new CMMManager.CalendarColumn();
+            this.Incident_CreatingStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ModifiDate = new CMMManager.CalendarColumn();
+            this.Incident_ModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Incident_ReviewRequest = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbpgMedBillView = new System.Windows.Forms.TabPage();
             this.label141 = new System.Windows.Forms.Label();
             this.comboIncident = new System.Windows.Forms.ComboBox();
@@ -1128,23 +1145,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.Incident_CaseId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ProgramName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ICD10_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Occurrence_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_LastServiceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Eligibility = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Incident_TotalPRAmountApplied = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_TotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_CreateDate = new CMMManager.CalendarColumn();
-            this.Incident_CreatingStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ModifiDate = new CMMManager.CalendarColumn();
-            this.Incident_ModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Incident_ReviewRequest = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6383,6 +6383,117 @@
             this.gvIncidentList.TabIndex = 23;
             this.gvIncidentList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidentList_CellDoubleClick);
             // 
+            // Incident_CaseId
+            // 
+            this.Incident_CaseId.HeaderText = "Case No";
+            this.Incident_CaseId.Name = "Incident_CaseId";
+            this.Incident_CaseId.ReadOnly = true;
+            // 
+            // Incident_IllnessNo
+            // 
+            this.Incident_IllnessNo.HeaderText = "Illness No";
+            this.Incident_IllnessNo.Name = "Incident_IllnessNo";
+            this.Incident_IllnessNo.ReadOnly = true;
+            // 
+            // Incident_IncidentNo
+            // 
+            this.Incident_IncidentNo.HeaderText = "Incident No";
+            this.Incident_IncidentNo.Name = "Incident_IncidentNo";
+            this.Incident_IncidentNo.ReadOnly = true;
+            // 
+            // Incident_ProgramName
+            // 
+            this.Incident_ProgramName.HeaderText = "Incident Program";
+            this.Incident_ProgramName.Name = "Incident_ProgramName";
+            this.Incident_ProgramName.ReadOnly = true;
+            this.Incident_ProgramName.Width = 120;
+            // 
+            // Incident_ICD10_Description
+            // 
+            this.Incident_ICD10_Description.HeaderText = "ICD 10 Description";
+            this.Incident_ICD10_Description.Name = "Incident_ICD10_Description";
+            this.Incident_ICD10_Description.ReadOnly = true;
+            this.Incident_ICD10_Description.Width = 240;
+            // 
+            // Incident_Note
+            // 
+            this.Incident_Note.HeaderText = "Incident Note";
+            this.Incident_Note.Name = "Incident_Note";
+            this.Incident_Note.ReadOnly = true;
+            this.Incident_Note.Width = 280;
+            // 
+            // Incident_Occurrence_Date
+            // 
+            this.Incident_Occurrence_Date.HeaderText = "Occurrence Date";
+            this.Incident_Occurrence_Date.Name = "Incident_Occurrence_Date";
+            this.Incident_Occurrence_Date.ReadOnly = true;
+            // 
+            // Incident_LastServiceDate
+            // 
+            this.Incident_LastServiceDate.HeaderText = "Last Date of Service";
+            this.Incident_LastServiceDate.Name = "Incident_LastServiceDate";
+            this.Incident_LastServiceDate.ReadOnly = true;
+            // 
+            // Incident_Eligibility
+            // 
+            this.Incident_Eligibility.HeaderText = "Eligibility";
+            this.Incident_Eligibility.Name = "Incident_Eligibility";
+            this.Incident_Eligibility.ReadOnly = true;
+            this.Incident_Eligibility.Width = 80;
+            // 
+            // Incident_TotalPRAmountApplied
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Incident_TotalPRAmountApplied.DefaultCellStyle = dataGridViewCellStyle11;
+            this.Incident_TotalPRAmountApplied.HeaderText = "Total PR Amount Applied";
+            this.Incident_TotalPRAmountApplied.Name = "Incident_TotalPRAmountApplied";
+            this.Incident_TotalPRAmountApplied.ReadOnly = true;
+            this.Incident_TotalPRAmountApplied.Width = 120;
+            // 
+            // Incident_TotalSharedAmount
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Incident_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Incident_TotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.Incident_TotalSharedAmount.Name = "Incident_TotalSharedAmount";
+            this.Incident_TotalSharedAmount.ReadOnly = true;
+            // 
+            // Incident_Status
+            // 
+            this.Incident_Status.HeaderText = "Status";
+            this.Incident_Status.Name = "Incident_Status";
+            this.Incident_Status.ReadOnly = true;
+            // 
+            // Incident_CreateDate
+            // 
+            this.Incident_CreateDate.HeaderText = "Create Date";
+            this.Incident_CreateDate.Name = "Incident_CreateDate";
+            this.Incident_CreateDate.ReadOnly = true;
+            // 
+            // Incident_CreatingStaff
+            // 
+            this.Incident_CreatingStaff.HeaderText = "Created By";
+            this.Incident_CreatingStaff.Name = "Incident_CreatingStaff";
+            this.Incident_CreatingStaff.ReadOnly = true;
+            // 
+            // Incident_ModifiDate
+            // 
+            this.Incident_ModifiDate.HeaderText = "Modification Date";
+            this.Incident_ModifiDate.Name = "Incident_ModifiDate";
+            this.Incident_ModifiDate.ReadOnly = true;
+            // 
+            // Incident_ModifiStaff
+            // 
+            this.Incident_ModifiStaff.HeaderText = "Modified By";
+            this.Incident_ModifiStaff.Name = "Incident_ModifiStaff";
+            this.Incident_ModifiStaff.ReadOnly = true;
+            // 
+            // Incident_ReviewRequest
+            // 
+            this.Incident_ReviewRequest.HeaderText = "Review Requested";
+            this.Incident_ReviewRequest.Name = "Incident_ReviewRequest";
+            this.Incident_ReviewRequest.ReadOnly = true;
+            // 
             // tbpgMedBillView
             // 
             this.tbpgMedBillView.Controls.Add(this.label141);
@@ -10922,122 +11033,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1607, 33);
+            this.label143.Location = new System.Drawing.Point(1586, 29);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(256, 13);
+            this.label143.Size = new System.Drawing.Size(277, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Member Status added to Payment Tab - 06/25/2020";
-            // 
-            // Incident_CaseId
-            // 
-            this.Incident_CaseId.HeaderText = "Case No";
-            this.Incident_CaseId.Name = "Incident_CaseId";
-            this.Incident_CaseId.ReadOnly = true;
-            // 
-            // Incident_IllnessNo
-            // 
-            this.Incident_IllnessNo.HeaderText = "Illness No";
-            this.Incident_IllnessNo.Name = "Incident_IllnessNo";
-            this.Incident_IllnessNo.ReadOnly = true;
-            // 
-            // Incident_IncidentNo
-            // 
-            this.Incident_IncidentNo.HeaderText = "Incident No";
-            this.Incident_IncidentNo.Name = "Incident_IncidentNo";
-            this.Incident_IncidentNo.ReadOnly = true;
-            // 
-            // Incident_ProgramName
-            // 
-            this.Incident_ProgramName.HeaderText = "Incident Program";
-            this.Incident_ProgramName.Name = "Incident_ProgramName";
-            this.Incident_ProgramName.ReadOnly = true;
-            this.Incident_ProgramName.Width = 120;
-            // 
-            // Incident_ICD10_Description
-            // 
-            this.Incident_ICD10_Description.HeaderText = "ICD 10 Description";
-            this.Incident_ICD10_Description.Name = "Incident_ICD10_Description";
-            this.Incident_ICD10_Description.ReadOnly = true;
-            this.Incident_ICD10_Description.Width = 240;
-            // 
-            // Incident_Note
-            // 
-            this.Incident_Note.HeaderText = "Incident Note";
-            this.Incident_Note.Name = "Incident_Note";
-            this.Incident_Note.ReadOnly = true;
-            this.Incident_Note.Width = 280;
-            // 
-            // Incident_Occurrence_Date
-            // 
-            this.Incident_Occurrence_Date.HeaderText = "Occurrence Date";
-            this.Incident_Occurrence_Date.Name = "Incident_Occurrence_Date";
-            this.Incident_Occurrence_Date.ReadOnly = true;
-            // 
-            // Incident_LastServiceDate
-            // 
-            this.Incident_LastServiceDate.HeaderText = "Last Date of Service";
-            this.Incident_LastServiceDate.Name = "Incident_LastServiceDate";
-            this.Incident_LastServiceDate.ReadOnly = true;
-            // 
-            // Incident_Eligibility
-            // 
-            this.Incident_Eligibility.HeaderText = "Eligibility";
-            this.Incident_Eligibility.Name = "Incident_Eligibility";
-            this.Incident_Eligibility.ReadOnly = true;
-            this.Incident_Eligibility.Width = 80;
-            // 
-            // Incident_TotalPRAmountApplied
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Incident_TotalPRAmountApplied.DefaultCellStyle = dataGridViewCellStyle11;
-            this.Incident_TotalPRAmountApplied.HeaderText = "Total PR Amount Applied";
-            this.Incident_TotalPRAmountApplied.Name = "Incident_TotalPRAmountApplied";
-            this.Incident_TotalPRAmountApplied.ReadOnly = true;
-            this.Incident_TotalPRAmountApplied.Width = 120;
-            // 
-            // Incident_TotalSharedAmount
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Incident_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle12;
-            this.Incident_TotalSharedAmount.HeaderText = "Total Shared Amount";
-            this.Incident_TotalSharedAmount.Name = "Incident_TotalSharedAmount";
-            this.Incident_TotalSharedAmount.ReadOnly = true;
-            // 
-            // Incident_Status
-            // 
-            this.Incident_Status.HeaderText = "Status";
-            this.Incident_Status.Name = "Incident_Status";
-            this.Incident_Status.ReadOnly = true;
-            // 
-            // Incident_CreateDate
-            // 
-            this.Incident_CreateDate.HeaderText = "Create Date";
-            this.Incident_CreateDate.Name = "Incident_CreateDate";
-            this.Incident_CreateDate.ReadOnly = true;
-            // 
-            // Incident_CreatingStaff
-            // 
-            this.Incident_CreatingStaff.HeaderText = "Created By";
-            this.Incident_CreatingStaff.Name = "Incident_CreatingStaff";
-            this.Incident_CreatingStaff.ReadOnly = true;
-            // 
-            // Incident_ModifiDate
-            // 
-            this.Incident_ModifiDate.HeaderText = "Modification Date";
-            this.Incident_ModifiDate.Name = "Incident_ModifiDate";
-            this.Incident_ModifiDate.ReadOnly = true;
-            // 
-            // Incident_ModifiStaff
-            // 
-            this.Incident_ModifiStaff.HeaderText = "Modified By";
-            this.Incident_ModifiStaff.Name = "Incident_ModifiStaff";
-            this.Incident_ModifiStaff.ReadOnly = true;
-            // 
-            // Incident_ReviewRequest
-            // 
-            this.Incident_ReviewRequest.HeaderText = "Review Requested";
-            this.Incident_ReviewRequest.Name = "Incident_ReviewRequest";
-            this.Incident_ReviewRequest.ReadOnly = true;
+            this.label143.Text = "Pending Reason, Ineligible Reason revised - 07/09/2020";
             // 
             // frmCMMManager
             // 

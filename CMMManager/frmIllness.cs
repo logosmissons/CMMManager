@@ -80,7 +80,7 @@ namespace CMMManager
 
                                         //"where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
                                         //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
-                                        "[dbo].[tbl_illness].[IsDeleted] = 0";
+                                        "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
 
@@ -224,15 +224,16 @@ namespace CMMManager
 
             String strSqlQueryFprIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], " +
                             "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
-                            "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
+                            "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
                             //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
-                            "[dbo].[tbl_illness].[IsDeleted] = 0";
+                            "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryFprIllnessForCaseId, connRNDB);
             cmdQueryForIllness.CommandType = CommandType.Text;
             //cmdQueryForIllness.CommandText = strQueryForIllness;
 
-            cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
+            cmdQueryForIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
+            //cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
             //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
 
             SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllness);
