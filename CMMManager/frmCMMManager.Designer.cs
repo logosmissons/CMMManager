@@ -11033,11 +11033,12 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1460, 29);
+            this.label143.Location = new System.Drawing.Point(1443, 28);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(403, 13);
+            this.label143.Size = new System.Drawing.Size(420, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Staff Log Comm Deletion enabled for Comm Log less than one day old - 07/09/2020";
+            this.label143.Text = "Staff Log Comm Deletion enabled for Comm Log less than one day old - 07/09/2020 p" +
+    "m";
             // 
             // frmCMMManager
             // 
