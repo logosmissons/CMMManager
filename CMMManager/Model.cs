@@ -529,6 +529,7 @@ namespace CMMManager
         public String WhatId;
         //public CommunicationType? commType;
         public String Comment;
+        public String AssignedToStaff;
 
         public CommunicationTaskInfo()
         {
@@ -552,6 +553,7 @@ namespace CMMManager
             WhatId = String.Empty;
             //CommunicationType = null;
             Comment = String.Empty;
+            AssignedToStaff = null;
         }
     }
 
