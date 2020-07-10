@@ -754,7 +754,8 @@ namespace CMMManager
                                                    "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_CommunicationAttachments].[CreateDate] " +
                                                    "from [dbo].[tbl_CommunicationAttachments] " +
                                                    "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_CommunicationAttachments].[CreatedBy] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
-                                                   "where [dbo].[tbl_CommunicationAttachments].[CommunicationNo] = @CommunicationNo";
+                                                   "where [dbo].[tbl_CommunicationAttachments].[CommunicationNo] = @CommunicationNo and " +
+                                                   "([dbo].[tbl_CommunicationAttachments].[IsDeleted] = 0 or [dbo].[tbl_CommunicationAttachments].[IsDeleted] IS NULL)";
 
                 SqlCommand cmdQueryForAttachments = new SqlCommand(strSqlQueryForAttachments, connRN);
                 cmdQueryForAttachments.CommandType = CommandType.Text;
@@ -1417,6 +1418,195 @@ namespace CMMManager
                 return;
             }
 
+            DialogResult result = MessageBox.Show("Do you want to delete the selected attachments?", "Confirm", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.No) return;
+
+            for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvCommunicationAttachment["SelectedCommunicationAttachment", i]?.Value?.ToString()) == true)
+                {
+                    String CommunicationAttachmentNo = gvCommunicationAttachment["CommunicationAttachmentNo", i]?.Value?.ToString();
+
+                    if (CommunicationAttachmentNo != null)
+                    {
+                        String strSqlQueryForCreateStaffId = "select [dbo].[tbl_CommunicationAttachments].[CreatedBy] from [dbo].[tbl_CommunicationAttachments] " +
+                                                             "where [dbo].[tbl_CommunicationAttachments].[AttachmentNo] = @CommAttachmentNo";
+
+                        SqlCommand cmdQueryForCreateStaffId = new SqlCommand(strSqlQueryForCreateStaffId, connRN2);
+                        cmdQueryForCreateStaffId.CommandType = CommandType.Text;
+
+                        cmdQueryForCreateStaffId.Parameters.AddWithValue("@CommAttachmentNo", CommunicationAttachmentNo);
+
+                        if (connRN2.State != ConnectionState.Closed)
+                        {
+                            connRN2.Close();
+                            connRN2.Open();
+                        }
+                        else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                        Object objCommunicationAttachmentCreateStaffId = cmdQueryForCreateStaffId.ExecuteScalar();
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                        Int16? nCommunicationAttachmentCreateStaffId = null;
+                        if (objCommunicationAttachmentCreateStaffId != null)
+                        {
+                            Int16 resultCommAttachmentStaffId;
+                            if (Int16.TryParse(objCommunicationAttachmentCreateStaffId.ToString(), out resultCommAttachmentStaffId))
+                                nCommunicationAttachmentCreateStaffId = resultCommAttachmentStaffId;
+                        }
+
+                        String strSqlQueryForCreateStaffDepartment = "select [dbo].[tbl_user].[Department_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @CommunicationCreateStaffId";
+
+                        SqlCommand cmdQueryForCreateStaffDepartment = new SqlCommand(strSqlQueryForCreateStaffDepartment, connRN2);
+                        cmdQueryForCreateStaffDepartment.CommandType = CommandType.Text;
+
+                        cmdQueryForCreateStaffDepartment.Parameters.AddWithValue("@CommunicationCreateStaffId", nCommunicationAttachmentCreateStaffId);
+
+                        if (connRN2.State != ConnectionState.Closed)
+                        {
+                            connRN2.Close();
+                            connRN2.Open();
+                        }
+                        else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                        Object objCreateStaffDepartment = cmdQueryForCreateStaffDepartment.ExecuteScalar();
+                        if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                        Int16? nCommunicationAttachmentCreateStaffDepartmentId = null;
+                        if (objCreateStaffDepartment != null)
+                        {
+                            Int16 resultComAttachmentCreateStaffDepartmentId;
+                            if (Int16.TryParse(objCreateStaffDepartment.ToString(), out resultComAttachmentCreateStaffDepartmentId))
+                                nCommunicationAttachmentCreateStaffDepartmentId = resultComAttachmentCreateStaffDepartmentId;
+                        }
+
+                        if (nCommunicationAttachmentCreateStaffId != nLoggedInUserId)
+                        {
+                            String strSqlQueryForLoggedInUserRoleId = "select [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @LoggedInUserId";
+
+                            SqlCommand cmdQueryForLoggedInUserRoleId = new SqlCommand(strSqlQueryForLoggedInUserRoleId, connRN2);
+                            cmdQueryForLoggedInUserRoleId.CommandType = CommandType.Text;
+
+                            cmdQueryForLoggedInUserRoleId.Parameters.AddWithValue("@LoggedInUserId", nLoggedInUserId);
+
+                            if (connRN2.State != ConnectionState.Closed)
+                            {
+                                connRN2.Close();
+                                connRN2.Open();
+                            }
+                            else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                            Object objLoggedInUserRoleId = cmdQueryForLoggedInUserRoleId.ExecuteScalar();
+                            if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                            UserRole? LoggedInUserRole = null;
+                            if (objLoggedInUserRoleId != null)
+                            {
+                                Int16 resultLoggedInUserRole;
+                                if (Int16.TryParse(objLoggedInUserRoleId.ToString(), out resultLoggedInUserRole)) LoggedInUserRole = (UserRole)resultLoggedInUserRole;
+                            }
+
+                            if (LoggedInUserRole != UserRole.Executive &&
+                                LoggedInUserRole != UserRole.SuperAdmin &&
+                                LoggedInUserRole != UserRole.Administrator &&
+                                LoggedInUserRole != UserRole.FDManager &&
+                                LoggedInUserRole != UserRole.MSManager &&
+                                LoggedInUserRole != UserRole.NPManager &&
+                                LoggedInUserRole != UserRole.RNManager)
+                            {
+                                MessageBox.Show("You cannot delete Communication Log Attachment you didn't create.", "Alert");
+                                return;
+                            }
+
+                            switch ((Department)nCommunicationAttachmentCreateStaffDepartmentId)
+                            {
+                                case Department.Finance:
+                                    if (LoggedInUserRole != UserRole.FDManager)
+                                    {
+                                        MessageBox.Show("You cannot delete Communication Log Attachment other department staff created.", "Alert");
+                                        return;
+                                    }
+                                    break;
+                                case Department.MemberService:
+                                    if (LoggedInUserRole != UserRole.MSManager)
+                                    {
+                                        MessageBox.Show("You cannot delete Communication Log Attachment other department staff created.", "Alert");
+                                        return;
+                                    }
+                                    break;
+                                case Department.NeedsProcessing:
+                                    if (LoggedInUserRole != UserRole.NPManager)
+                                    {
+                                        MessageBox.Show("You cannot delete Communication Log Attachment other department staff created.", "Alert");
+                                        return;
+                                    }
+                                    break;
+                                case Department.ReviewAndNegotiation:
+                                    if (LoggedInUserRole != UserRole.RNManager)
+                                    {
+                                        MessageBox.Show("You cannot delete Communication Log Attachment other department staff created.", "Alert");
+                                        return;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Boolean bOneDayPassed = false;
+            for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
+            {
+                if (Boolean.Parse(gvCommunicationAttachment["SelectedCommunicationAttachment", i]?.Value?.ToString()) == true)
+                {
+                    if (gvCommunicationAttachment["CreateDateCommunicationAttachment", i]?.Value != null &&
+                        gvCommunicationAttachment["CreateDateCommunicationAttachment", i]?.Value?.ToString() != String.Empty)
+                    {
+                        String strCommunicationLogAttachmentCreateDate = gvCommunicationAttachment["CreateDateCommunicationAttachment", i]?.Value?.ToString();
+
+                        DateTime? CommunicationLogAttachmentCreateDate = null;
+                        DateTime resultCommunicationLogAttachmentCreateDate;
+
+                        if (DateTime.TryParse(strCommunicationLogAttachmentCreateDate, out resultCommunicationLogAttachmentCreateDate))
+                            CommunicationLogAttachmentCreateDate = resultCommunicationLogAttachmentCreateDate;
+                        if (CommunicationLogAttachmentCreateDate.Value.AddDays(1) < DateTime.Now) bOneDayPassed = true;
+                    }
+                }
+            }
+
+            if (bOneDayPassed)
+            {
+                String strSqlQueryForLoggedInUserRoleId = "select [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @LoggedInUserId";
+
+                SqlCommand cmdQueryForLoggedInUserRoleId = new SqlCommand(strSqlQueryForLoggedInUserRoleId, connRN2);
+                cmdQueryForLoggedInUserRoleId.CommandType = CommandType.Text;
+
+                cmdQueryForLoggedInUserRoleId.Parameters.AddWithValue("@LoggedInUserId", nLoggedInUserId);
+
+                if (connRN2.State != ConnectionState.Closed)
+                {
+                    connRN2.Close();
+                    connRN2.Open();
+                }
+                else if (connRN2.State == ConnectionState.Closed) connRN2.Open();
+                Object objLoggedInUserRoleId = cmdQueryForLoggedInUserRoleId.ExecuteScalar();
+                if (connRN2.State != ConnectionState.Closed) connRN2.Close();
+
+                UserRole? LoggedInUserRole = null;
+                if (objLoggedInUserRoleId != null)
+                {
+                    Int16 resultLoggedInUserRole;
+                    if (Int16.TryParse(objLoggedInUserRoleId.ToString(), out resultLoggedInUserRole)) LoggedInUserRole = (UserRole)resultLoggedInUserRole;
+                }
+
+                if (LoggedInUserRole == UserRole.FDStaff ||
+                    LoggedInUserRole == UserRole.MSStaff ||
+                    LoggedInUserRole == UserRole.NPStaff ||
+                    LoggedInUserRole == UserRole.RNStaff)
+                {
+                    MessageBox.Show("You don't have the right to delete Communication Log Attachment more than one day old.", "Alert");
+                    return;
+                }
+            }
+
             Boolean bAttachmentDeleted = true;
 
             for (int i = 0; i < gvCommunicationAttachment.Rows.Count; i++)
@@ -1471,8 +1661,11 @@ namespace CMMManager
                         if (connRN.State != ConnectionState.Closed) connRN.Close();
 
                         if (nAttachmentDeleted == 0) bAttachmentDeleted = false;
-                        gvCommunicationAttachment.Rows.RemoveAt(i);
-                        i--;
+                        if (nAttachmentDeleted == 1)
+                        {
+                            gvCommunicationAttachment.Rows.RemoveAt(i);
+                            i--;
+                        }
                     }
                 }
             }
