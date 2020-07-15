@@ -222,8 +222,10 @@ namespace CMMManager
             //                            "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
             //                            "[dbo].[tbl_illness].[IsDeleted] = 0";
 
-            String strSqlQueryFprIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], " +
-                            "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Illness_Id] from [dbo].[tbl_illness] " +
+            String strSqlQueryFprIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], " +
+                            "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[CreateDate], " +
+                            "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body] " +
+                            "from [dbo].[tbl_illness] " +
                             "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
                             //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                             "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
@@ -254,18 +256,43 @@ namespace CMMManager
 
             if (reader.HasRows)
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
                     DataGridViewRow row = new DataGridViewRow();
 
                     row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(0) });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(1) });
+                    if (!reader.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!reader.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     if (!reader.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(2) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetDateTime(3) });
-                    if (!reader.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(4) });
+                    //if (!reader.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetDateTime(3) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    String IllnessNote = String.Empty;
+                    if (!reader.IsDBNull(3))
+                    {
+                        if (reader.GetString(3) != String.Empty) IllnessNote = reader.GetString(3);
+                    }
+                    if (!reader.IsDBNull(6))
+                    {
+                        if (reader.GetString(6) != String.Empty)
+                        {
+                            if (IllnessNote == String.Empty) IllnessNote += reader.GetString(6);
+                            else IllnessNote += ", " + reader.GetString(6);
+                        }
+                    }
+                    if (IllnessNote != String.Empty) row.Cells.Add(new DataGridViewTextBoxCell { Value = IllnessNote });
+
+                    if (reader.IsDBNull(3) && reader.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    if (!reader.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetDateTime(4).ToString("MM/dd/yyyy") });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    
+
+                    //if (!reader.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = reader.GetString(4) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
                     if (IsHandleCreated) AddRowToIllnessSafely(row);
                     else gvIllness.Rows.Add(row);

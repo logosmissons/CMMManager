@@ -269,7 +269,7 @@ namespace CMMManager
 
             foreach (CaseReceivedDate info in lstCaseReceivedDate)
             {
-                comboCaseNoIllness.Items.Add(info.CaseNo + ": " + info.dtReceivedDate.Value.ToString("MM/dd/yyyy"));
+                if (info.CaseNo != null && info.dtReceivedDate != null) comboCaseNoIllness.Items.Add(info.CaseNo + ": " + info.dtReceivedDate.Value.ToString("MM/dd/yyyy"));                
             }
 
             //comboCaseNoIllness.SelectedItem = strCaseNo;
