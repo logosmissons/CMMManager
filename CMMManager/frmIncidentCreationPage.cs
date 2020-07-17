@@ -784,7 +784,7 @@ namespace CMMManager
                         "[dbo].[tbl_incident].[Individual_id], [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[illness_id], " +
                         "[dbo].[tbl_incident].[OccurrenceDate], " +
                         "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[CreateStaff], " +
-                        "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff]," +
+                        "[dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[ModifiStaff], " +
                         "[dbo].[tbl_incident].[Incident_Status], " +
                         "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[IncidentNote]) " +
                         "values (@IncidentNo, @IsDeleted, @IndividualId, @CaseId, @IllnessId, @OccurrenceDate, @CreateDate, @CreateStaff, @ModifiDate, @ModifiStaff, @IncidentStatus, " +
