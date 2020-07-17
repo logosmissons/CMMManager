@@ -1719,7 +1719,8 @@ namespace CMMManager
 
                 foreach (String name in lstNamesAssignedTo)
                 {
-                    String strSqlQueryForAssignedToInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[Department_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @UserName";
+                    String strSqlQueryForAssignedToInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[Department_Id], [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] " +
+                                                          "where [dbo].[tbl_user].[User_Name] = @UserName";
 
                     SqlCommand cmdQueryForAssignedToInfo = new SqlCommand(strSqlQueryForAssignedToInfo, connRN);
                     cmdQueryForAssignedToInfo.CommandType = CommandType.Text;
@@ -1740,6 +1741,7 @@ namespace CMMManager
                         UserInfo staffInfo = new UserInfo();
                         if (!rdrAssignedTo.IsDBNull(0)) staffInfo.UserId = rdrAssignedTo.GetInt16(0);
                         if (!rdrAssignedTo.IsDBNull(1)) staffInfo.departmentInfo.DepartmentId = (Department)rdrAssignedTo.GetInt16(1);
+                        if (!rdrAssignedTo.IsDBNull(2)) staffInfo.UserRoleId = (UserRole)rdrAssignedTo.GetInt16(2);                        
                         lstStaffAssignedTo.Add(staffInfo);
                     }
                     if (connRN.State == ConnectionState.Open) connRN.Close();
@@ -1880,7 +1882,7 @@ namespace CMMManager
                             switch (staffInfo.departmentInfo.DepartmentId)
                             {
                                 case Department.MemberService:
-                                    if (!bTaskSentToMSManager)
+                                    if (!bTaskSentToMSManager && staffInfo.UserRoleId != UserRole.MSManager)
                                     {
                                         nDepartmentManagerId = 18;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -1888,7 +1890,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.NeedsProcessing:
-                                    if (!bTaskSentToNPManager)
+                                    if (!bTaskSentToNPManager && staffInfo.UserRoleId != UserRole.NPManager)
                                     {
                                         nDepartmentManagerId = 9;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -1896,7 +1898,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.Finance:
-                                    if (!bTaskSentToFDManager)
+                                    if (!bTaskSentToFDManager && staffInfo.UserRoleId != UserRole.FDManager)
                                     {
                                         nDepartmentManagerId = 3;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -1904,7 +1906,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.ReviewAndNegotiation:
-                                    if (!bTaskSentToRNManager)
+                                    if (!bTaskSentToRNManager && staffInfo.UserRoleId != UserRole.RNManager)
                                     {
                                         nDepartmentManagerId = 13;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
