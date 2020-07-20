@@ -33,6 +33,7 @@ namespace CMMManager
         private UserInfo AssignedToStaffInfo;
         private List<UserInfo> lstUserInfo;
 
+        private Boolean bTaskSentToITManager;
         private Boolean bTaskSentToMSManager;
         private Boolean bTaskSentToNPManager;
         private Boolean bTaskSentToRNManager;
@@ -80,6 +81,7 @@ namespace CMMManager
             //private Boolean bTaskSentToRNManager;
             //private Boolean bTaskSentToFDManager;
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -111,6 +113,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -144,6 +147,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -262,6 +266,7 @@ namespace CMMManager
             sbComment.AppendLine(email_body);
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -309,6 +314,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -358,6 +364,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -407,6 +414,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -447,6 +455,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -494,6 +503,7 @@ namespace CMMManager
             sbComment = new StringBuilder();
             sbSolution = new StringBuilder();
 
+            bTaskSentToITManager = false;
             bTaskSentToFDManager = false;
             bTaskSentToMSManager = false;
             bTaskSentToNPManager = false;
@@ -1802,6 +1812,7 @@ namespace CMMManager
                 Cursor.Current = Cursors.WaitCursor;
                 Boolean bTaskSent = true;
 
+                bTaskSentToITManager = false;
                 bTaskSentToFDManager = false;
                 bTaskSentToMSManager = false;
                 bTaskSentToNPManager = false;
