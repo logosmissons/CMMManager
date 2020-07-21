@@ -2038,6 +2038,7 @@ namespace CMMManager
         public String DestinationFilePath;
         public Boolean bAddOn;
         public String Note;
+        public Double? Amount;
         public int? CreateStaffId;
         public DateTime? CreateDate;
 
@@ -2050,6 +2051,7 @@ namespace CMMManager
             DestinationFilePath = String.Empty;
             bAddOn = false;
             Note = String.Empty;
+            Amount = null;
             CreateStaffId = null;
             CreateDate = null;
         }
@@ -2070,7 +2072,30 @@ namespace CMMManager
             ReceivedDate = received_date;
             DestinationFilePath = destination_file_path;
             bAddOn = add_on;
+            Note = note;            
+            CreateStaffId = create_staff_id;
+            CreateDate = create_date;
+        }
+
+        public CaseDocInfo(String case_doc_no,
+                   String case_name,
+                   int doc_type_id,
+                   DateTime received_date,
+                   String destination_file_path,
+                   Boolean add_on,
+                   String note,
+                   Double amount,
+                   int create_staff_id,
+                   DateTime create_date)
+        {
+            CaseDocNo = case_doc_no;
+            CaseName = case_name;
+            DocumentTypeId = doc_type_id;
+            ReceivedDate = received_date;
+            DestinationFilePath = destination_file_path;
+            bAddOn = add_on;
             Note = note;
+            Amount = amount;
             CreateStaffId = create_staff_id;
             CreateDate = create_date;
         }
