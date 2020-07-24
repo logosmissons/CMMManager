@@ -22,6 +22,7 @@ namespace CMMManager
 
     public enum MedicalBillType { MedicalBill = 1, Prescription = 2, PhysicalTherapy = 3, MedicalRecord = 4 };
     public enum MedicalBillStatus { Pending = 0, CMMPendingPayment = 1, Closed = 2, Ineligible = 3, PartiallyIneligible = 4 };
+    public enum IncidentType { All, WellBeing, Incident };
 
     // enumeration for program change history
     public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
