@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -65,7 +66,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -488,6 +488,7 @@
             this.label128 = new System.Windows.Forms.Label();
             this.label127 = new System.Windows.Forms.Label();
             this.label126 = new System.Windows.Forms.Label();
+            this.pdfBlueSheetViewer = new AxAcroPDFLib.AxAcroPDF();
             this.tbpgCaseView = new System.Windows.Forms.TabPage();
             this.btnCloseCaseView = new System.Windows.Forms.Button();
             this.txtCaseHistoryIndividualName = new System.Windows.Forms.TextBox();
@@ -941,6 +942,8 @@
             this.PhonePaymentInactive = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label95 = new System.Windows.Forms.Label();
             this.tbpgCheckReconcilation = new System.Windows.Forms.TabPage();
+            this.btnReloadCheck = new System.Windows.Forms.Button();
+            this.txtReconcileFromFile = new System.Windows.Forms.Button();
             this.btnReconcile = new System.Windows.Forms.Button();
             this.gvCheckReconcilation = new System.Windows.Forms.DataGridView();
             this.CheckCleared = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -1149,7 +1152,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.pdfBlueSheetViewer = new AxAcroPDFLib.AxAcroPDF();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1191,6 +1193,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvProcessingCaseNo)).BeginInit();
             this.tbpgIndividualBlueSheet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBlueSheetList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).BeginInit();
             this.tbpgCaseView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).BeginInit();
             this.tbpgCreateCase.SuspendLayout();
@@ -1265,7 +1268,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
             this.grpPaymentInformationBlueSheet.SuspendLayout();
             this.grpPaymentMethodBlueSheet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -5174,6 +5176,15 @@
             this.label126.Size = new System.Drawing.Size(239, 29);
             this.label126.TabIndex = 1;
             this.label126.Text = "Individual Blue Sheet";
+            // 
+            // pdfBlueSheetViewer
+            // 
+            this.pdfBlueSheetViewer.Enabled = true;
+            this.pdfBlueSheetViewer.Location = new System.Drawing.Point(931, 31);
+            this.pdfBlueSheetViewer.Name = "pdfBlueSheetViewer";
+            this.pdfBlueSheetViewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("pdfBlueSheetViewer.OcxState")));
+            this.pdfBlueSheetViewer.Size = new System.Drawing.Size(869, 810);
+            this.pdfBlueSheetViewer.TabIndex = 0;
             // 
             // tbpgCaseView
             // 
@@ -9291,6 +9302,8 @@
             // 
             // tbpgCheckReconcilation
             // 
+            this.tbpgCheckReconcilation.Controls.Add(this.btnReloadCheck);
+            this.tbpgCheckReconcilation.Controls.Add(this.txtReconcileFromFile);
             this.tbpgCheckReconcilation.Controls.Add(this.btnReconcile);
             this.tbpgCheckReconcilation.Controls.Add(this.gvCheckReconcilation);
             this.tbpgCheckReconcilation.Controls.Add(this.label124);
@@ -9301,9 +9314,29 @@
             this.tbpgCheckReconcilation.Text = "Check Reconcilation";
             this.tbpgCheckReconcilation.UseVisualStyleBackColor = true;
             // 
+            // btnReloadCheck
+            // 
+            this.btnReloadCheck.Location = new System.Drawing.Point(1581, 686);
+            this.btnReloadCheck.Name = "btnReloadCheck";
+            this.btnReloadCheck.Size = new System.Drawing.Size(147, 32);
+            this.btnReloadCheck.TabIndex = 10;
+            this.btnReloadCheck.Text = "Reload";
+            this.btnReloadCheck.UseVisualStyleBackColor = true;
+            this.btnReloadCheck.Click += new System.EventHandler(this.btnReloadCheck_Click);
+            // 
+            // txtReconcileFromFile
+            // 
+            this.txtReconcileFromFile.Location = new System.Drawing.Point(1218, 686);
+            this.txtReconcileFromFile.Name = "txtReconcileFromFile";
+            this.txtReconcileFromFile.Size = new System.Drawing.Size(147, 32);
+            this.txtReconcileFromFile.TabIndex = 9;
+            this.txtReconcileFromFile.Text = "Reconcile From File";
+            this.txtReconcileFromFile.UseVisualStyleBackColor = true;
+            this.txtReconcileFromFile.Click += new System.EventHandler(this.txtReconcileFromFile_Click);
+            // 
             // btnReconcile
             // 
-            this.btnReconcile.Location = new System.Drawing.Point(1581, 685);
+            this.btnReconcile.Location = new System.Drawing.Point(1399, 686);
             this.btnReconcile.Name = "btnReconcile";
             this.btnReconcile.Size = new System.Drawing.Size(147, 32);
             this.btnReconcile.TabIndex = 8;
@@ -11072,20 +11105,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1626, 33);
+            this.label143.Location = new System.Drawing.Point(1663, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(237, 13);
+            this.label143.Size = new System.Drawing.Size(198, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Payment Tab DClick Open MedBill - 07/24/2020";
-            // 
-            // pdfBlueSheetViewer
-            // 
-            this.pdfBlueSheetViewer.Enabled = true;
-            this.pdfBlueSheetViewer.Location = new System.Drawing.Point(931, 31);
-            this.pdfBlueSheetViewer.Name = "pdfBlueSheetViewer";
-            this.pdfBlueSheetViewer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("pdfBlueSheetViewer.OcxState")));
-            this.pdfBlueSheetViewer.Size = new System.Drawing.Size(869, 810);
-            this.pdfBlueSheetViewer.TabIndex = 0;
+            this.label143.Text = "Check Reconcile from File - 07/28/2020";
             // 
             // frmCMMManager
             // 
@@ -11157,6 +11181,7 @@
             this.tbpgIndividualBlueSheet.ResumeLayout(false);
             this.tbpgIndividualBlueSheet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvBlueSheetList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).EndInit();
             this.tbpgCaseView.ResumeLayout(false);
             this.tbpgCaseView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseViewCaseHistory)).EndInit();
@@ -11265,7 +11290,6 @@
             this.grpPaymentInformationBlueSheet.PerformLayout();
             this.grpPaymentMethodBlueSheet.ResumeLayout(false);
             this.grpPaymentMethodBlueSheet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pdfBlueSheetViewer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12369,6 +12393,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FilePathCaseDocument;
         private System.Windows.Forms.ComboBox comboCheckMemberReimbursementFilter;
         private System.Windows.Forms.ComboBox comboACHFilter;
+        private System.Windows.Forms.Button txtReconcileFromFile;
+        private System.Windows.Forms.Button btnReloadCheck;
     }
 }
 
