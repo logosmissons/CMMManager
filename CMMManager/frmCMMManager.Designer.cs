@@ -11105,11 +11105,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1663, 33);
+            this.label143.Location = new System.Drawing.Point(1660, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(198, 13);
+            this.label143.Size = new System.Drawing.Size(203, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Check Reconcile from File - 07/28/2020";
+            this.label143.Text = "Bronze Processing Begines - 07/28/2020";
             // 
             // frmCMMManager
             // 
