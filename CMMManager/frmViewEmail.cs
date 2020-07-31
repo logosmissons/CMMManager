@@ -171,6 +171,7 @@ namespace CMMManager
             if (strEmailSenderName != null && SenderEmail != String.Empty) txtSender.Text = strEmailSenderName + " (" + SenderEmail + ")";
 
             String strSqlQueryForEmailRecipientName = "select [dbo].[Contact].[Name] from [dbo].[Contact] where [dbo].[Contact].[Email] = @RecipientEmail";
+                                                      
 
             SqlCommand cmdQueryForEmailRecipientName = new SqlCommand(strSqlQueryForEmailRecipientName, connSalesforce);
             cmdQueryForEmailRecipientName.CommandType = CommandType.Text;
