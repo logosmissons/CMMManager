@@ -3280,7 +3280,7 @@
             this.gvIndividualSearched.Name = "gvIndividualSearched";
             this.gvIndividualSearched.ReadOnly = true;
             this.gvIndividualSearched.Size = new System.Drawing.Size(854, 378);
-            this.gvIndividualSearched.TabIndex = 0;            
+            this.gvIndividualSearched.TabIndex = 0;
             this.gvIndividualSearched.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIndividualSearched_CellDoubleClick);
             // 
             // tbpgIndividual
