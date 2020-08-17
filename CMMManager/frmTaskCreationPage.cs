@@ -682,14 +682,25 @@ namespace CMMManager
                 {
                     while (rdrUserInfo.Read())
                     {
-                        lstUserInfo.Add(new UserInfo
-                        {
-                            UserId = rdrUserInfo.GetInt16(0),
-                            UserName = rdrUserInfo.GetString(1),
-                            UserEmail = rdrUserInfo.GetString(2),
-                            UserRoleId = (UserRole)rdrUserInfo.GetInt16(3),
-                            departmentInfo = new DepartmentInfo { DepartmentId = (Department)rdrUserInfo.GetInt16(4), DepartmentName = string.Empty }
-                        });
+                        UserInfo info = new UserInfo();
+
+                        if (!rdrUserInfo.IsDBNull(0)) info.UserId = rdrUserInfo.GetInt16(0);
+                        else info.UserId = null;
+                        if (!rdrUserInfo.IsDBNull(1)) info.UserName = rdrUserInfo.GetString(1);
+                        else info.UserName = null;
+                        if (!rdrUserInfo.IsDBNull(2)) info.UserEmail = rdrUserInfo.GetString(2);
+                        else info.UserEmail = null;
+                        if (!rdrUserInfo.IsDBNull(3)) info.UserRoleId = (UserRole)rdrUserInfo.GetInt16(3);
+                        if (!rdrUserInfo.IsDBNull(4)) info.departmentInfo = new DepartmentInfo { DepartmentId = (Department)rdrUserInfo.GetInt16(4), DepartmentName = String.Empty };
+
+                        lstUserInfo.Add(info);
+                        //lstUserInfo.Add(new UserInfo
+                        //{
+                        //    UserId = rdrUserInfo.GetInt16(0),
+                        //    UserName = rdrUserInfo.GetString(1),
+                        //    UserEmail = rdrUserInfo.GetString(2),
+                        //    UserRoleId = (UserRole)rdrUserInfo.GetInt16(3),
+                        //    departmentInfo = new DepartmentInfo { DepartmentId = (Department)rdrUserInfo.GetInt16(4), DepartmentName = string.Empty }                       
                     }
                 }
                 rdrUserInfo.Close();

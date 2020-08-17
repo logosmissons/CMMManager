@@ -316,7 +316,42 @@ namespace CMMManager
 
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
 
-                comboProgram.SelectedIndex = 0;
+                String strSqlQueryForIndividualProgram = "select [dbo].[program].[Name] from [dbo].[Contact] " +
+                                                         "inner join [dbo].[program] on [dbo].[Contact].[c4g_Plan__c] = [dbo].[program].[ID] " +
+                                                         "where [dbo].[Contact].[Individual_ID__c] = @IndividualId";
+
+                SqlCommand cmdQueryForIndividualProgram = new SqlCommand(strSqlQueryForIndividualProgram, connSalesforce);
+                cmdQueryForIndividualProgram.CommandType = CommandType.Text;
+
+                cmdQueryForIndividualProgram.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                Object objIndividualProgram = cmdQueryForIndividualProgram.ExecuteScalar();
+                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                String strIndividualProgram = objIndividualProgram?.ToString();
+                switch (strIndividualProgram)
+                {
+                    case "Gold Plus":
+                        comboProgram.SelectedIndex = 0;
+                        break;
+                    case "Gold":
+                        comboProgram.SelectedIndex = 1;
+                        break;
+                    case "Silver":
+                        comboProgram.SelectedIndex = 2;
+                        break;
+                    case "Bronze":
+                        comboProgram.SelectedIndex = 3;
+                        break;
+                }
+
+                //comboProgram.SelectedIndex = 0;
 
                 String strSqlQueryForIllnessOccurrenceDate = "select [dbo].[tbl_illness].[Date_of_Diagnosis] from [dbo].[tbl_illness] where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 

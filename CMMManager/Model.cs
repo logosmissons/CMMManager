@@ -2038,7 +2038,7 @@ namespace CMMManager
         public String DestinationFilePath;
         public Boolean bAddOn;
         public String Note;
-        public Double? Amount;
+        public Double Amount;
         public int? CreateStaffId;
         public DateTime? CreateDate;
 
@@ -2051,7 +2051,7 @@ namespace CMMManager
             DestinationFilePath = String.Empty;
             bAddOn = false;
             Note = String.Empty;
-            Amount = null;
+            Amount = 0;
             CreateStaffId = null;
             CreateDate = null;
         }
