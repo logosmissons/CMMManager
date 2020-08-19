@@ -7122,6 +7122,7 @@
             this.gvSettlementsInMedBill.Size = new System.Drawing.Size(1764, 178);
             this.gvSettlementsInMedBill.TabIndex = 147;
             this.gvSettlementsInMedBill.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.gvSettlementsInMedBill_CellBeginEdit);
+            this.gvSettlementsInMedBill.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsInMedBill_CellEndEdit);
             this.gvSettlementsInMedBill.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsInMedBill_CellValueChanged);
             this.gvSettlementsInMedBill.CurrentCellDirtyStateChanged += new System.EventHandler(this.gvSettlementsInMedBill_CurrentCellDirtyStateChanged);
             this.gvSettlementsInMedBill.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.gvSettlementsInMedBill_EditingControlShowing);
