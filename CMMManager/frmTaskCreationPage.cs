@@ -1899,6 +1899,19 @@ namespace CMMManager
 
                         if (TaskIdInserted != null)
                         {
+                            // send the task to sending user department manager
+                            //LoggedInuserInfo.departmentInfo.DepartmentId
+                            Department? SendingDepartment = null;
+
+                            switch (LoggedInuserInfo.departmentInfo.DepartmentId)
+                            {
+                                //case Department.MemberService:
+
+                            }
+                        }
+
+                        if (TaskIdInserted != null)
+                        {
                             Int32? nDepartmentManagerId = null;
 
                             switch (staffInfo.departmentInfo.DepartmentId)
@@ -1924,7 +1937,7 @@ namespace CMMManager
                                     {
                                         nDepartmentManagerId = 3;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
-                                        bTaskSentToFDManager = true;
+                                        bTaskSentToF DManager = true;
                                     }
                                     break;
                                 case Department.ReviewAndNegotiation:
