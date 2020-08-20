@@ -1213,11 +1213,16 @@ namespace CMMManager
 
                             if (objIllnessId != null) nSelectedIllnessId = Int32.Parse(objIllnessId.ToString());
 
-                            String strSqlQueryForDiseaseName = "select [SalesForce].[dbo].[ICD10 Code].[Name], [RN_DB].[dbo].[tbl_illness].[Illness_Id] " +
-                                                               "from [RN_DB].[dbo].[tbl_illness] " +
-                                                               "inner join [SalesForce].[dbo].[ICD10 Code] " +
-                                                               "on [RN_DB].[dbo].[tbl_illness].[ICD_10_Id] = [SalesForce].[dbo].[ICD10 Code].[ICD10_Code__c] " +
-                                                               "where [RN_DB].[dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+                            //String strSqlQueryForDiseaseName = "select [SalesForce].[dbo].[ICD10 Code].[Name], [RN_DB].[dbo].[tbl_illness].[Illness_Id] " +
+                            //                                   "from [RN_DB].[dbo].[tbl_illness] " +
+                            //                                   "inner join [SalesForce].[dbo].[ICD10 Code] " +
+                            //                                   "on [RN_DB].[dbo].[tbl_illness].[ICD_10_Id] = [SalesForce].[dbo].[ICD10 Code].[ICD10_Code__c] " +
+                            //                                   "where [RN_DB].[dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+
+                            String strSqlQueryForDiseaseName = "select [dbo].[tbl_ICD10].[Name], [dbo].[tbl_illness].[Illness_Id] " +
+                                   "from [dbo].[tbl_illness] " +
+                                   "inner join [dbo].[tbl_ICD10 Code] on [RN_DB].[dbo].[tbl_illness].[ICD_10_Id] = [dbo].[tbl_ICD10].[ICD10_Code__c] " +
+                                   "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
                             SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRN);
                             cmdQueryForDiseaseName.CommandType = CommandType.Text;

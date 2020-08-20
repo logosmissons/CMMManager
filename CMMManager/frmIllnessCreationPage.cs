@@ -18,6 +18,7 @@ namespace CMMManager
     public partial class frmIllnessCreationPage : Form
     {
         private String connStringIcd10;
+        //private String connStringIcd10_2;
         private SqlConnection conn_icd10codes;
         private String connStringSalesforce;
         private SqlConnection connSalesforce;
@@ -25,7 +26,10 @@ namespace CMMManager
         private String strSqlForICD10Codes;
 
         private String strRNConnection;
+        private String strRNConnection2;
+
         private SqlConnection connRNDB;
+        private SqlConnection connRNDB2;
 
         private String strCaseNoConnection;
         private SqlConnection connCaseNo;
@@ -56,7 +60,9 @@ namespace CMMManager
 
         public void SetSqlSetting()
         {
-            connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
+            //connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
+            connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            //connStringIcd10_2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
             //connStringIcd10 = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
 
             connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;Integrated Security=True; MultipleActiveResultSets=True";
@@ -64,11 +70,13 @@ namespace CMMManager
 
             connSalesforce = new SqlConnection(connStringSalesforce);
 
-            strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
+            strSqlForICD10Codes = "select id, name, icd10_code__c from [dbo].[tbl_ICD10]";
 
             strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            strRNConnection2 = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             //strRNConnection = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strRNConnection);
+            connRNDB2 = new SqlConnection(strRNConnection2);
 
             nInsertedId = 0;
           
@@ -299,7 +307,8 @@ namespace CMMManager
             {
                 while (rdr_icd10codes.Read())
                 {
-                    lstICD10CodeInfo.Add(new ICD10CodeInfo { Id = rdr_icd10codes.GetString(0), Name = rdr_icd10codes.GetString(1), ICD10Code = rdr_icd10codes.GetString(2) });
+                    //lstICD10CodeInfo.Add(new ICD10CodeInfo { Id = rdr_icd10codes.GetString(0), Name = rdr_icd10codes.GetString(1), ICD10Code = rdr_icd10codes.GetString(2) });
+                    lstICD10CodeInfo.Add(new ICD10CodeInfo { Id = rdr_icd10codes.GetInt32(0), Name = rdr_icd10codes.GetString(1), ICD10Code = rdr_icd10codes.GetString(2) });
                 }
             }
             rdr_icd10codes.Close();
@@ -1003,26 +1012,43 @@ namespace CMMManager
 
             String strICD10Code = txtICD10Code.Text;
 
-            String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+            String strSqlQueryForDiseaseName = "select [dbo].[tbl_ICD10].[Name] from [dbo].[tbl_ICD10] where [dbo].[tbl_ICD10].[ICD10_Code__c] = @ICD10Code";
 
-            SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+            SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRNDB2);
             cmdQueryForDiseaseName.CommandType = CommandType.Text;
 
             cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
 
-            if (connSalesforce.State != ConnectionState.Closed)
+            if (connRNDB2.State != ConnectionState.Closed)
             {
-                connSalesforce.Close();
-                connSalesforce.Open();
+                connRNDB2.Close();
+                connRNDB2.Open();
             }
-            else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            else if (connRNDB2.State == ConnectionState.Closed) connRNDB2.Open();
             Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
-            if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
 
-            String strDiseaseName = String.Empty;
-            if (objDiseaseName != null) strDiseaseName = objDiseaseName.ToString();
+            if (connRNDB2.State != ConnectionState.Closed) connRNDB2.Close();
 
-            txtDiseaseName.Text = strDiseaseName.Trim();
+            //String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+
+            //SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+            //cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+            //cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
+
+            //if (connSalesforce.State != ConnectionState.Closed)
+            //{
+            //    connSalesforce.Close();
+            //    connSalesforce.Open();
+            //}
+            //else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+            //Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+            //if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+            String strDiseaseName = objDiseaseName?.ToString();
+            //if (objDiseaseName != null) strDiseaseName = objDiseaseName.ToString();
+
+            txtDiseaseName.Text = strDiseaseName?.Trim();
 
             //String strICD10CodeUpperCase = strICD10Code;
             SetIllnessEligibility(strICD10Code);
@@ -1385,20 +1411,22 @@ namespace CMMManager
 
     public class ICD10CodeInfo
     {
-        public String Id;
+        //public String Id;
+        public int? Id;
         public String Name;
         public String ICD10Code;
 
         public ICD10CodeInfo()
         {
-            Id = String.Empty;
+            //Id = String.Empty;
+            Id = null;
             Name = String.Empty;
             ICD10Code = String.Empty;
         }
 
-        public ICD10CodeInfo(String strId, String strName, String strICD10Code)
+        public ICD10CodeInfo(int id, String strName, String strICD10Code)
         {
-            Id = strId;
+            Id = id;
             Name = strName;
             ICD10Code = strICD10Code;
         }

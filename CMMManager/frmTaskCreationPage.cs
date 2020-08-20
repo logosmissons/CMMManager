@@ -1937,7 +1937,7 @@ namespace CMMManager
                                     {
                                         nDepartmentManagerId = 3;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
-                                        bTaskSentToF DManager = true;
+                                        bTaskSentToFDManager = true;
                                     }
                                     break;
                                 case Department.ReviewAndNegotiation:

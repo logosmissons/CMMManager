@@ -50,7 +50,7 @@ namespace CMMManager
             //connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(connStringSalesforce);
 
-            strSqlForICD10Codes = "select id, name, icd10_code__c from [ICD10 Code]";
+            strSqlForICD10Codes = "select id, name, icd10_code__c from [tbl_ICD10]";
 
             connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             //connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB; User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
@@ -260,22 +260,22 @@ namespace CMMManager
 
                 if (strICD10Code != String.Empty) txtICD10Code.Text = strICD10Code;
 
-                String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_CODE__C] = @ICD10Code";
+                String strSqlQueryForDiseaseName = "select [dbo].[tbl_ICD10].[Name] from [dbo].[tbl_ICD10] where [dbo].[tbl_ICD10].[ICD10_CODE__C] = @ICD10Code";
 
-                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRNDB);
 
                 cmdQueryForDiseaseName.CommandType = CommandType.Text;
                 cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
 
-                if (connSalesforce.State == ConnectionState.Open)
+                if (connRNDB.State == ConnectionState.Open)
                 {
-                    connSalesforce.Close();
-                    connSalesforce.Open();
+                    connRNDB.Close();
+                    connRNDB.Open();
                 }
-                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
                 //String strDiseaseName = cmdQueryForDiseaseName.ExecuteScalar().ToString();
                 Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
-                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 String strDiseaseName = String.Empty;
 
@@ -513,22 +513,22 @@ namespace CMMManager
 
                 if (strICD10Code != String.Empty) txtICD10Code.Text = strICD10Code;
 
-                String strSqlQueryForDiseaseName = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_CODE__C] = @ICD10Code";
+                String strSqlQueryForDiseaseName = "select [dbo].[tbl_ICD10].[Name] from [dbo].[tbl_ICD10] where [dbo].[tbl_ICD10].[ICD10_CODE__C] = @ICD10Code";
 
-                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connSalesforce);
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRNDB);
 
                 cmdQueryForDiseaseName.CommandType = CommandType.Text;
                 cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
 
-                if (connSalesforce.State == ConnectionState.Open)
+                if (connRNDB.State == ConnectionState.Open)
                 {
-                    connSalesforce.Close();
-                    connSalesforce.Open();
+                    connRNDB.Close();
+                    connRNDB.Open();
                 }
-                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
                 //String strDiseaseName = cmdQueryForDiseaseName.ExecuteScalar().ToString();
                 Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
-                if (connSalesforce.State == ConnectionState.Open) connSalesforce.Close();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 String strDiseaseName = String.Empty;
                 if (objDiseaseName != null)
