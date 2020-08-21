@@ -39,6 +39,8 @@ namespace CMMManager
         private Boolean bTaskSentToRNManager;
         private Boolean bTaskSentToFDManager;
 
+        private Boolean bTaskSentToManagerOfSender;
+
         private StringBuilder sbComment;
         private StringBuilder sbSolution;
 
@@ -1829,6 +1831,8 @@ namespace CMMManager
                 bTaskSentToNPManager = false;
                 bTaskSentToRNManager = false;
 
+                bTaskSentToManagerOfSender = false;
+
                 foreach (UserInfo staffInfo in lstStaffAssignedTo)
                 {
 
@@ -1893,20 +1897,52 @@ namespace CMMManager
                     {
                         bTaskSent = true;
                         Int32? TaskIdInserted = null;
-                        Int32 resultTaskIdInserted;
+                        Int32 resultTaskIdInserted;                 
 
                         if (Int32.TryParse(objTaskIdSent.ToString(), out resultTaskIdInserted)) TaskIdInserted = resultTaskIdInserted;
 
-                        if (TaskIdInserted != null)
+                        if (TaskIdInserted != null && !bTaskSentToManagerOfSender)
                         {
                             // send the task to sending user department manager
                             //LoggedInuserInfo.departmentInfo.DepartmentId
                             Department? SendingDepartment = null;
+                            Int32? nSendingStaffDepartmentManagerId = null;
 
                             switch (LoggedInuserInfo.departmentInfo.DepartmentId)
                             {
-                                //case Department.MemberService:
+                                case Department.MemberService:
+                                    if (LoggedInuserInfo.UserRoleId != UserRole.MSManager)
+                                    {
+                                        nSendingStaffDepartmentManagerId = 18;
+                                        AssignTaskToManager(nSendingStaffDepartmentManagerId.Value, LoggedInuserInfo, TaskIdInserted.Value);
+                                        bTaskSentToManagerOfSender = true;
+                                    }
+                                    break;
 
+                                case Department.NeedsProcessing:
+                                    if (LoggedInuserInfo.UserRoleId != UserRole.NPManager)
+                                    {
+                                        nSendingStaffDepartmentManagerId = 9;
+                                        AssignTaskToManager(nSendingStaffDepartmentManagerId.Value, LoggedInuserInfo, TaskIdInserted.Value);
+                                        bTaskSentToManagerOfSender = true;
+                                    }
+                                    break;
+                                case Department.ReviewAndNegotiation:
+                                    if (LoggedInuserInfo.UserRoleId != UserRole.RNManager)
+                                    {
+                                        nSendingStaffDepartmentManagerId = 13;
+                                        AssignTaskToManager(nSendingStaffDepartmentManagerId.Value, LoggedInuserInfo, TaskIdInserted.Value);
+                                        bTaskSentToManagerOfSender = true;
+                                    }
+                                    break;
+                                case Department.Finance:
+                                    if (LoggedInuserInfo.UserRoleId != UserRole.FDManager)
+                                    {
+                                        nSendingStaffDepartmentManagerId = 3;
+                                        AssignTaskToManager(nSendingStaffDepartmentManagerId.Value, LoggedInuserInfo, TaskIdInserted.Value);
+                                        bTaskSentToManagerOfSender = true;
+                                    }
+                                    break;
                             }
                         }
 
