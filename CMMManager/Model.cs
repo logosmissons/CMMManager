@@ -2011,6 +2011,20 @@ namespace CMMManager
         }
     }
 
+    public class TaskSolutionHistoryInfo
+    {
+        public String UserName;
+        public String Solution;
+        public DateTime? SolutionModifiedDateTime;
+
+        public TaskSolutionHistoryInfo()
+        {
+            UserName = null;
+            Solution = null;
+            SolutionModifiedDateTime = null;
+        }
+    }
+
     public class CaseDocTypeInfo
     {
         public int? CaseDocTypeCode;
