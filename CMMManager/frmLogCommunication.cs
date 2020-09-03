@@ -152,7 +152,9 @@ namespace CMMManager
 
                 txtCommunicationNo.Text = strNewCommunicationNo;
 
-                String strSqlQueryForCasesForIndividual = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] where [dbo].[tbl_case].[individual_id] = @IndividualId " +
+                String strSqlQueryForCasesForIndividual = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] " +
+                                                          "where [dbo].[tbl_case].[individual_id] = @IndividualId and " +
+                                                          "([dbo].[tbl_case].[IsDeleted] = 0 or [dbo].[tbl_case].[IsDeleted] IS NULL) " +
                                                           "order by [dbo].[tbl_case].[Case_Name] desc";
 
                 SqlCommand cmdQueryForCasesForIndividual = new SqlCommand(strSqlQueryForCasesForIndividual, connRN);

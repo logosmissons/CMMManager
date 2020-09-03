@@ -11108,9 +11108,9 @@
             this.label143.AutoSize = true;
             this.label143.Location = new System.Drawing.Point(1703, 28);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(160, 13);
+            this.label143.Size = new System.Drawing.Size(142, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "New ICD 10 Code - 08/20/2020";
+            this.label143.Text = "Task Revision - 09/02/2020";
             // 
             // frmCMMManager
             // 
