@@ -7206,6 +7206,7 @@
             // 
             this.Reconciled.HeaderText = "Reconciled";
             this.Reconciled.Name = "Reconciled";
+            this.Reconciled.ReadOnly = true;
             this.Reconciled.Width = 80;
             // 
             // AllowedAmount
@@ -11995,23 +11996,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EmailPaymentInactive;
         private System.Windows.Forms.DataGridViewTextBoxColumn PhonePaymentInactive;
         private System.Windows.Forms.Button btnReloadInactive;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn SettlementTypeValue;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PersonalResponsibility;
-        private System.Windows.Forms.DataGridViewComboBoxColumn PaymentMethod;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Approved;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CheckNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ACHNo;
-        private System.Windows.Forms.DataGridViewComboBoxColumn CreditCard;
-        private CalendarColumn PaymentDate;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Reconciled;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AllowedAmount;
-        private System.Windows.Forms.DataGridViewComboBoxColumn IneligibleReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SettlementViewed;
         private System.Windows.Forms.Button btnDeleteMedBillDocument;
         private System.Windows.Forms.Button btnAddNewDocument;
         private System.Windows.Forms.DataGridView gvMedicalBillDocuments;
@@ -12396,6 +12380,23 @@
         private System.Windows.Forms.ComboBox comboACHFilter;
         private System.Windows.Forms.Button txtReconcileFromFile;
         private System.Windows.Forms.Button btnReloadCheck;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn SettlementTypeValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PersonalResponsibility;
+        private System.Windows.Forms.DataGridViewComboBoxColumn PaymentMethod;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Approved;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ApprovedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ACHNo;
+        private System.Windows.Forms.DataGridViewComboBoxColumn CreditCard;
+        private CalendarColumn PaymentDate;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Reconciled;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AllowedAmount;
+        private System.Windows.Forms.DataGridViewComboBoxColumn IneligibleReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SettlementViewed;
     }
 }
 
