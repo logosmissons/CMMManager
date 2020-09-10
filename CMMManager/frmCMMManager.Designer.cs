@@ -7943,7 +7943,7 @@
             // 
             this.rbInpatient.AutoSize = true;
             this.rbInpatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbInpatient.Location = new System.Drawing.Point(159, 201);
+            this.rbInpatient.Location = new System.Drawing.Point(158, 201);
             this.rbInpatient.Name = "rbInpatient";
             this.rbInpatient.Size = new System.Drawing.Size(76, 20);
             this.rbInpatient.TabIndex = 47;
@@ -7955,7 +7955,7 @@
             // 
             this.rbOutpatient.AutoSize = true;
             this.rbOutpatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbOutpatient.Location = new System.Drawing.Point(36, 201);
+            this.rbOutpatient.Location = new System.Drawing.Point(35, 201);
             this.rbOutpatient.Name = "rbOutpatient";
             this.rbOutpatient.Size = new System.Drawing.Size(86, 20);
             this.rbOutpatient.TabIndex = 46;
