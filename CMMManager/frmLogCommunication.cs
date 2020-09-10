@@ -1364,11 +1364,23 @@ namespace CMMManager
 
                     if (dlgUpload.ShowDialog() == DialogResult.OK)
                     {
-                        String CommunicationAttachmentDestinationFileName = CommunicationAttachmentDestinationPath + Path.GetFileName(dlgUpload.FileName);
+
+                        String strIndividualId = txtCommunicationIndividualId.Text.Trim();
+                        String strCommunicationNo = txtCommunicationNo.Text.Trim();
+
+                        String strAttachmentFileName = strIndividualId + "_" +
+                                                       strCommunicationNo + "_" +
+                                                       DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" +
+                                                       Path.GetFileName(dlgUpload.FileName);
+
+                        String CommunicationAttachmentDestinationFileName = CommunicationAttachmentDestinationPath + strAttachmentFileName;
+                                                                            
+                        
                         try
                         {
                             File.Copy(dlgUpload.FileName, CommunicationAttachmentDestinationFileName, true);
-                            gvCommunicationAttachment[3, e.RowIndex].Value = Path.GetFileName(dlgUpload.FileName);
+                            //gvCommunicationAttachment[3, e.RowIndex].Value = Path.GetFileName(dlgUpload.FileName);
+                            gvCommunicationAttachment[3, e.RowIndex].Value = strAttachmentFileName;
                             gvCommunicationAttachment[3, e.RowIndex].ReadOnly = true;
 
                         }

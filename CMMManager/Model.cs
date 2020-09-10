@@ -49,6 +49,69 @@ namespace CMMManager
         }
     }
 
+    public class IndividualConsentFormInfo
+    {
+        public String IndividualId;
+        public String ConsentFormFilePath;
+        public DateTime? UploadedDate;
+
+        public IndividualConsentFormInfo()
+        {
+            IndividualId = null;
+            ConsentFormFilePath = null;
+            UploadedDate = null;
+        }
+
+        public IndividualConsentFormInfo(String individual_id, String file_path, DateTime uploaded_date)
+        {
+            IndividualId = individual_id;
+            ConsentFormFilePath = file_path;
+            UploadedDate = uploaded_date;
+        }
+    }
+
+    public class IndividualVoidCheckInfo
+    {
+        public String IndividualId;
+        public String VoidCheckFilePath;
+        public DateTime? UploadedDate;
+
+        public IndividualVoidCheckInfo()
+        {
+            IndividualId = null;
+            VoidCheckFilePath = null;
+            UploadedDate = null;
+        }
+
+        public IndividualVoidCheckInfo(String individual_id, String file_path, DateTime uploaded_date)
+        {
+            IndividualId = individual_id;
+            VoidCheckFilePath = file_path;
+            UploadedDate = uploaded_date;
+        }
+    }
+
+    public class IndividualBeneficiaryInfo
+    {
+        public String IndividualId;
+        public String BeneficiaryFilePath;
+        public DateTime? UploadedDate;
+
+        public IndividualBeneficiaryInfo()
+        {
+            IndividualId = null;
+            BeneficiaryFilePath = null;
+            UploadedDate = null;
+        }
+
+        public IndividualBeneficiaryInfo(String individual_id, String file_path, DateTime uploaded_date)
+        {
+            IndividualId = individual_id;
+            BeneficiaryFilePath = file_path;
+            UploadedDate = uploaded_date;
+        }
+    }
+
     public class IllnessProgramHistory
     {
         public String IndividualId;
