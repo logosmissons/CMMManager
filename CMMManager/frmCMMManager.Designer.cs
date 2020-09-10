@@ -299,7 +299,6 @@
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
             this.chkTask = new System.Windows.Forms.CheckBox();
-            this.btnViewBeneficiary = new System.Windows.Forms.Button();
             this.btnUploadBeneficiary = new System.Windows.Forms.Button();
             this.chkBeneficiary = new System.Windows.Forms.CheckBox();
             this.grpChristian = new System.Windows.Forms.GroupBox();
@@ -309,10 +308,8 @@
             this.rbEnglish = new System.Windows.Forms.RadioButton();
             this.rbKorean = new System.Windows.Forms.RadioButton();
             this.label87 = new System.Windows.Forms.Label();
-            this.btnViewVoidCheck = new System.Windows.Forms.Button();
             this.btnUploadVoidCheck = new System.Windows.Forms.Button();
             this.chkVoidCheck = new System.Windows.Forms.CheckBox();
-            this.btnViewCommConsent = new System.Windows.Forms.Button();
             this.btnUploadCommConsent = new System.Windows.Forms.Button();
             this.chkCommConsentUploaded = new System.Windows.Forms.CheckBox();
             this.btnDeleteCommunication = new System.Windows.Forms.Button();
@@ -3286,16 +3283,13 @@
             // tbpgIndividual
             // 
             this.tbpgIndividual.Controls.Add(this.chkTask);
-            this.tbpgIndividual.Controls.Add(this.btnViewBeneficiary);
             this.tbpgIndividual.Controls.Add(this.btnUploadBeneficiary);
             this.tbpgIndividual.Controls.Add(this.chkBeneficiary);
             this.tbpgIndividual.Controls.Add(this.grpChristian);
             this.tbpgIndividual.Controls.Add(this.grpLanguages);
             this.tbpgIndividual.Controls.Add(this.label87);
-            this.tbpgIndividual.Controls.Add(this.btnViewVoidCheck);
             this.tbpgIndividual.Controls.Add(this.btnUploadVoidCheck);
             this.tbpgIndividual.Controls.Add(this.chkVoidCheck);
-            this.tbpgIndividual.Controls.Add(this.btnViewCommConsent);
             this.tbpgIndividual.Controls.Add(this.btnUploadCommConsent);
             this.tbpgIndividual.Controls.Add(this.chkCommConsentUploaded);
             this.tbpgIndividual.Controls.Add(this.btnDeleteCommunication);
@@ -3433,16 +3427,6 @@
             this.chkTask.UseVisualStyleBackColor = true;
             this.chkTask.CheckedChanged += new System.EventHandler(this.chkTask_CheckedChanged);
             // 
-            // btnViewBeneficiary
-            // 
-            this.btnViewBeneficiary.Location = new System.Drawing.Point(632, 749);
-            this.btnViewBeneficiary.Name = "btnViewBeneficiary";
-            this.btnViewBeneficiary.Size = new System.Drawing.Size(92, 23);
-            this.btnViewBeneficiary.TabIndex = 256;
-            this.btnViewBeneficiary.Text = "View";
-            this.btnViewBeneficiary.UseVisualStyleBackColor = true;
-            this.btnViewBeneficiary.Click += new System.EventHandler(this.btnViewBeneficiary_Click);
-            // 
             // btnUploadBeneficiary
             // 
             this.btnUploadBeneficiary.Location = new System.Drawing.Point(528, 749);
@@ -3537,16 +3521,6 @@
             this.label87.TabIndex = 250;
             this.label87.Text = "Christian:";
             // 
-            // btnViewVoidCheck
-            // 
-            this.btnViewVoidCheck.Location = new System.Drawing.Point(635, 417);
-            this.btnViewVoidCheck.Name = "btnViewVoidCheck";
-            this.btnViewVoidCheck.Size = new System.Drawing.Size(92, 23);
-            this.btnViewVoidCheck.TabIndex = 248;
-            this.btnViewVoidCheck.Text = "View";
-            this.btnViewVoidCheck.UseVisualStyleBackColor = true;
-            this.btnViewVoidCheck.Click += new System.EventHandler(this.btnViewVoidCheck_Click);
-            // 
             // btnUploadVoidCheck
             // 
             this.btnUploadVoidCheck.Location = new System.Drawing.Point(531, 417);
@@ -3567,16 +3541,6 @@
             this.chkVoidCheck.TabIndex = 246;
             this.chkVoidCheck.Text = "Void Check";
             this.chkVoidCheck.UseVisualStyleBackColor = true;
-            // 
-            // btnViewCommConsent
-            // 
-            this.btnViewCommConsent.Location = new System.Drawing.Point(284, 376);
-            this.btnViewCommConsent.Name = "btnViewCommConsent";
-            this.btnViewCommConsent.Size = new System.Drawing.Size(75, 23);
-            this.btnViewCommConsent.TabIndex = 245;
-            this.btnViewCommConsent.Text = "View";
-            this.btnViewCommConsent.UseVisualStyleBackColor = true;
-            this.btnViewCommConsent.Click += new System.EventHandler(this.btnViewCommConsent_Click);
             // 
             // btnUploadCommConsent
             // 
@@ -12022,10 +11986,8 @@
         private System.Windows.Forms.TextBox txtCaseMedBillAmountTotal;
         private System.Windows.Forms.TextBox txtWBBalance;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.Button btnViewCommConsent;
         private System.Windows.Forms.Button btnUploadCommConsent;
         private System.Windows.Forms.CheckBox chkCommConsentUploaded;
-        private System.Windows.Forms.Button btnViewVoidCheck;
         private System.Windows.Forms.Button btnUploadVoidCheck;
         private System.Windows.Forms.CheckBox chkVoidCheck;
         private System.Windows.Forms.RadioButton rbChristianNo;
@@ -12033,7 +11995,6 @@
         private System.Windows.Forms.RadioButton rbChristianYes;
         private System.Windows.Forms.GroupBox grpChristian;
         private System.Windows.Forms.GroupBox grpLanguages;
-        private System.Windows.Forms.Button btnViewBeneficiary;
         private System.Windows.Forms.Button btnUploadBeneficiary;
         private System.Windows.Forms.CheckBox chkBeneficiary;
         private System.Windows.Forms.CheckBox chkTask;
