@@ -298,8 +298,10 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.comboBeneficiary = new System.Windows.Forms.ComboBox();
+            this.comboVoidCheck = new System.Windows.Forms.ComboBox();
+            this.comboCommunicationConsent = new System.Windows.Forms.ComboBox();
             this.chkTask = new System.Windows.Forms.CheckBox();
-            this.btnViewBeneficiary = new System.Windows.Forms.Button();
             this.btnUploadBeneficiary = new System.Windows.Forms.Button();
             this.chkBeneficiary = new System.Windows.Forms.CheckBox();
             this.grpChristian = new System.Windows.Forms.GroupBox();
@@ -309,10 +311,8 @@
             this.rbEnglish = new System.Windows.Forms.RadioButton();
             this.rbKorean = new System.Windows.Forms.RadioButton();
             this.label87 = new System.Windows.Forms.Label();
-            this.btnViewVoidCheck = new System.Windows.Forms.Button();
             this.btnUploadVoidCheck = new System.Windows.Forms.Button();
             this.chkVoidCheck = new System.Windows.Forms.CheckBox();
-            this.btnViewCommConsent = new System.Windows.Forms.Button();
             this.btnUploadCommConsent = new System.Windows.Forms.Button();
             this.chkCommConsentUploaded = new System.Windows.Forms.CheckBox();
             this.btnDeleteCommunication = new System.Windows.Forms.Button();
@@ -3285,17 +3285,17 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.comboBeneficiary);
+            this.tbpgIndividual.Controls.Add(this.comboVoidCheck);
+            this.tbpgIndividual.Controls.Add(this.comboCommunicationConsent);
             this.tbpgIndividual.Controls.Add(this.chkTask);
-            this.tbpgIndividual.Controls.Add(this.btnViewBeneficiary);
             this.tbpgIndividual.Controls.Add(this.btnUploadBeneficiary);
             this.tbpgIndividual.Controls.Add(this.chkBeneficiary);
             this.tbpgIndividual.Controls.Add(this.grpChristian);
             this.tbpgIndividual.Controls.Add(this.grpLanguages);
             this.tbpgIndividual.Controls.Add(this.label87);
-            this.tbpgIndividual.Controls.Add(this.btnViewVoidCheck);
             this.tbpgIndividual.Controls.Add(this.btnUploadVoidCheck);
             this.tbpgIndividual.Controls.Add(this.chkVoidCheck);
-            this.tbpgIndividual.Controls.Add(this.btnViewCommConsent);
             this.tbpgIndividual.Controls.Add(this.btnUploadCommConsent);
             this.tbpgIndividual.Controls.Add(this.chkCommConsentUploaded);
             this.tbpgIndividual.Controls.Add(this.btnDeleteCommunication);
@@ -3422,6 +3422,32 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // comboBeneficiary
+            // 
+            this.comboBeneficiary.FormattingEnabled = true;
+            this.comboBeneficiary.Location = new System.Drawing.Point(578, 749);
+            this.comboBeneficiary.Name = "comboBeneficiary";
+            this.comboBeneficiary.Size = new System.Drawing.Size(146, 21);
+            this.comboBeneficiary.TabIndex = 260;
+            // 
+            // comboVoidCheck
+            // 
+            this.comboVoidCheck.FormattingEnabled = true;
+            this.comboVoidCheck.Location = new System.Drawing.Point(581, 417);
+            this.comboVoidCheck.Name = "comboVoidCheck";
+            this.comboVoidCheck.Size = new System.Drawing.Size(146, 21);
+            this.comboVoidCheck.TabIndex = 259;
+            this.comboVoidCheck.SelectedIndexChanged += new System.EventHandler(this.comboVoidCheck_SelectedIndexChanged);
+            // 
+            // comboCommunicationConsent
+            // 
+            this.comboCommunicationConsent.FormattingEnabled = true;
+            this.comboCommunicationConsent.Location = new System.Drawing.Point(277, 377);
+            this.comboCommunicationConsent.Name = "comboCommunicationConsent";
+            this.comboCommunicationConsent.Size = new System.Drawing.Size(146, 21);
+            this.comboCommunicationConsent.TabIndex = 258;
+            this.comboCommunicationConsent.SelectedIndexChanged += new System.EventHandler(this.comboCommunicationConsent_SelectedIndexChanged);
+            // 
             // chkTask
             // 
             this.chkTask.AutoSize = true;
@@ -3433,21 +3459,11 @@
             this.chkTask.UseVisualStyleBackColor = true;
             this.chkTask.CheckedChanged += new System.EventHandler(this.chkTask_CheckedChanged);
             // 
-            // btnViewBeneficiary
-            // 
-            this.btnViewBeneficiary.Location = new System.Drawing.Point(632, 749);
-            this.btnViewBeneficiary.Name = "btnViewBeneficiary";
-            this.btnViewBeneficiary.Size = new System.Drawing.Size(92, 23);
-            this.btnViewBeneficiary.TabIndex = 256;
-            this.btnViewBeneficiary.Text = "View";
-            this.btnViewBeneficiary.UseVisualStyleBackColor = true;
-            this.btnViewBeneficiary.Click += new System.EventHandler(this.btnViewBeneficiary_Click);
-            // 
             // btnUploadBeneficiary
             // 
-            this.btnUploadBeneficiary.Location = new System.Drawing.Point(528, 749);
+            this.btnUploadBeneficiary.Location = new System.Drawing.Point(499, 748);
             this.btnUploadBeneficiary.Name = "btnUploadBeneficiary";
-            this.btnUploadBeneficiary.Size = new System.Drawing.Size(92, 23);
+            this.btnUploadBeneficiary.Size = new System.Drawing.Size(75, 23);
             this.btnUploadBeneficiary.TabIndex = 255;
             this.btnUploadBeneficiary.Text = "Upload";
             this.btnUploadBeneficiary.UseVisualStyleBackColor = true;
@@ -3456,7 +3472,7 @@
             // chkBeneficiary
             // 
             this.chkBeneficiary.AutoSize = true;
-            this.chkBeneficiary.Location = new System.Drawing.Point(446, 752);
+            this.chkBeneficiary.Location = new System.Drawing.Point(416, 752);
             this.chkBeneficiary.Name = "chkBeneficiary";
             this.chkBeneficiary.Size = new System.Drawing.Size(78, 17);
             this.chkBeneficiary.TabIndex = 254;
@@ -3537,21 +3553,11 @@
             this.label87.TabIndex = 250;
             this.label87.Text = "Christian:";
             // 
-            // btnViewVoidCheck
-            // 
-            this.btnViewVoidCheck.Location = new System.Drawing.Point(635, 417);
-            this.btnViewVoidCheck.Name = "btnViewVoidCheck";
-            this.btnViewVoidCheck.Size = new System.Drawing.Size(92, 23);
-            this.btnViewVoidCheck.TabIndex = 248;
-            this.btnViewVoidCheck.Text = "View";
-            this.btnViewVoidCheck.UseVisualStyleBackColor = true;
-            this.btnViewVoidCheck.Click += new System.EventHandler(this.btnViewVoidCheck_Click);
-            // 
             // btnUploadVoidCheck
             // 
-            this.btnUploadVoidCheck.Location = new System.Drawing.Point(531, 417);
+            this.btnUploadVoidCheck.Location = new System.Drawing.Point(502, 416);
             this.btnUploadVoidCheck.Name = "btnUploadVoidCheck";
-            this.btnUploadVoidCheck.Size = new System.Drawing.Size(92, 23);
+            this.btnUploadVoidCheck.Size = new System.Drawing.Size(75, 23);
             this.btnUploadVoidCheck.TabIndex = 247;
             this.btnUploadVoidCheck.Text = "Upload";
             this.btnUploadVoidCheck.UseVisualStyleBackColor = true;
@@ -3560,7 +3566,7 @@
             // chkVoidCheck
             // 
             this.chkVoidCheck.AutoSize = true;
-            this.chkVoidCheck.Location = new System.Drawing.Point(444, 421);
+            this.chkVoidCheck.Location = new System.Drawing.Point(416, 421);
             this.chkVoidCheck.Name = "chkVoidCheck";
             this.chkVoidCheck.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.chkVoidCheck.Size = new System.Drawing.Size(81, 17);
@@ -3568,19 +3574,9 @@
             this.chkVoidCheck.Text = "Void Check";
             this.chkVoidCheck.UseVisualStyleBackColor = true;
             // 
-            // btnViewCommConsent
-            // 
-            this.btnViewCommConsent.Location = new System.Drawing.Point(284, 376);
-            this.btnViewCommConsent.Name = "btnViewCommConsent";
-            this.btnViewCommConsent.Size = new System.Drawing.Size(75, 23);
-            this.btnViewCommConsent.TabIndex = 245;
-            this.btnViewCommConsent.Text = "View";
-            this.btnViewCommConsent.UseVisualStyleBackColor = true;
-            this.btnViewCommConsent.Click += new System.EventHandler(this.btnViewCommConsent_Click);
-            // 
             // btnUploadCommConsent
             // 
-            this.btnUploadCommConsent.Location = new System.Drawing.Point(202, 376);
+            this.btnUploadCommConsent.Location = new System.Drawing.Point(199, 376);
             this.btnUploadCommConsent.Name = "btnUploadCommConsent";
             this.btnUploadCommConsent.Size = new System.Drawing.Size(75, 23);
             this.btnUploadCommConsent.TabIndex = 244;
@@ -3699,7 +3695,7 @@
             // 
             this.txtAccountNo.Location = new System.Drawing.Point(531, 490);
             this.txtAccountNo.Name = "txtAccountNo";
-            this.txtAccountNo.Size = new System.Drawing.Size(193, 20);
+            this.txtAccountNo.Size = new System.Drawing.Size(196, 20);
             this.txtAccountNo.TabIndex = 232;
             // 
             // label99
@@ -3716,7 +3712,7 @@
             // 
             this.txtAccountHolder.Location = new System.Drawing.Point(531, 456);
             this.txtAccountHolder.Name = "txtAccountHolder";
-            this.txtAccountHolder.Size = new System.Drawing.Size(193, 20);
+            this.txtAccountHolder.Size = new System.Drawing.Size(196, 20);
             this.txtAccountHolder.TabIndex = 230;
             // 
             // label98
@@ -4648,7 +4644,7 @@
             this.cbReimbursementMethod.FormattingEnabled = true;
             this.cbReimbursementMethod.Location = new System.Drawing.Point(257, 419);
             this.cbReimbursementMethod.Name = "cbReimbursementMethod";
-            this.cbReimbursementMethod.Size = new System.Drawing.Size(133, 21);
+            this.cbReimbursementMethod.Size = new System.Drawing.Size(121, 21);
             this.cbReimbursementMethod.TabIndex = 23;
             this.cbReimbursementMethod.SelectedIndexChanged += new System.EventHandler(this.cbReimbursementMethod_SelectedIndexChanged);
             // 
@@ -12022,10 +12018,8 @@
         private System.Windows.Forms.TextBox txtCaseMedBillAmountTotal;
         private System.Windows.Forms.TextBox txtWBBalance;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.Button btnViewCommConsent;
         private System.Windows.Forms.Button btnUploadCommConsent;
         private System.Windows.Forms.CheckBox chkCommConsentUploaded;
-        private System.Windows.Forms.Button btnViewVoidCheck;
         private System.Windows.Forms.Button btnUploadVoidCheck;
         private System.Windows.Forms.CheckBox chkVoidCheck;
         private System.Windows.Forms.RadioButton rbChristianNo;
@@ -12033,7 +12027,6 @@
         private System.Windows.Forms.RadioButton rbChristianYes;
         private System.Windows.Forms.GroupBox grpChristian;
         private System.Windows.Forms.GroupBox grpLanguages;
-        private System.Windows.Forms.Button btnViewBeneficiary;
         private System.Windows.Forms.Button btnUploadBeneficiary;
         private System.Windows.Forms.CheckBox chkBeneficiary;
         private System.Windows.Forms.CheckBox chkTask;
@@ -12397,6 +12390,9 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn IneligibleReason;
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SettlementViewed;
+        private System.Windows.Forms.ComboBox comboVoidCheck;
+        private System.Windows.Forms.ComboBox comboCommunicationConsent;
+        private System.Windows.Forms.ComboBox comboBeneficiary;
     }
 }
 
