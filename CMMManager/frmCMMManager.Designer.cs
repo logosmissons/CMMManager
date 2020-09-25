@@ -11103,11 +11103,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1609, 29);
+            this.label143.Location = new System.Drawing.Point(1664, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(254, 13);
+            this.label143.Size = new System.Drawing.Size(199, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Log Comm Long Attachment File Name - 09-10-2020";
+            this.label143.Text = "BlueSheet No Sharing Only - 09-25-2020";
             // 
             // frmCMMManager
             // 
