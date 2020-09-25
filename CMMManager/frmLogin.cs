@@ -131,5 +131,55 @@ namespace CMMManager
         {
 
         }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("You just clicked the Test button.", "Alert");
+
+            //String HelloWorld = "Hello, World. Welcome to C# Program World.";
+
+            //MessageBox.Show(HelloWorld, "Info");
+
+            //Double? price = null;
+            //price = 50;
+
+            //MessageBox.Show("The price is " + price.Value.ToString("C"), "Info");
+
+            //if (price.Value == 50)
+            //{
+            //    MessageBox.Show("The price is 50.", "Info");
+            //}
+            //else MessageBox.Show("The price is not 50.", "Info");
+
+            //List<String> lstNames = new List<string>();
+
+            //lstNames.Add("Harris Park.");
+            //lstNames.Add("James Ahn");
+            //lstNames.Add("Tim Koo");
+
+            //foreach (String name in lstNames)
+            //{
+            //    //MessageBox.Show("The name is " + name);
+            //    txtNames.Text += name + Environment.NewLine;
+            //}
+            //String number = "200A";
+
+            //Double number1 = 0;
+
+            //Double resultNumber;
+            //if (Double.TryParse(number, out resultNumber))
+            //{
+            //    number1 = resultNumber;
+            //    MessageBox.Show(number1 + " is a valid number.", "Info");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("The variable doesn't contain a valid number.", "Error");
+            //}
+
+
+
+
+        }
     }
 }

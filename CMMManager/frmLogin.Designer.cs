@@ -33,6 +33,8 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnTest = new System.Windows.Forms.Button();
+            this.txtNames = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -82,13 +84,33 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(58, 215);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(93, 34);
+            this.btnTest.TabIndex = 5;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // txtNames
+            // 
+            this.txtNames.Location = new System.Drawing.Point(58, 278);
+            this.txtNames.Multiline = true;
+            this.txtNames.Name = "txtNames";
+            this.txtNames.Size = new System.Drawing.Size(244, 121);
+            this.txtNames.TabIndex = 6;
+            // 
             // frmLogin
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 218);
+            this.ClientSize = new System.Drawing.Size(456, 479);
             this.ControlBox = false;
+            this.Controls.Add(this.txtNames);
+            this.Controls.Add(this.btnTest);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.txtEmail);
@@ -109,5 +131,7 @@
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.TextBox txtNames;
     }
 }
