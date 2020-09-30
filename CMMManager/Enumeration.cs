@@ -20,7 +20,7 @@ namespace CMMManager
     public enum MemberStatus { Applied = 1, Hold = 2, Active = 3, PastDue = 4, Inactive = 5, CancelledByMember = 6, Imported = 7,
                                Deleted = 8, Pending = 9, TerminatedByCMM = 10, CancelledReq = 11, Incomplete = 12, CancelledByMember2 = 13 }
 
-    public enum MedicalBillType { MedicalBill = 1, Prescription = 2, PhysicalTherapy = 3, MedicalRecord = 4 };
+    public enum MedicalBillType { MedicalBill = 1, Prescription = 2, PhysicalTherapy = 3, MedicalRecord = 4, LifePlan = 5, TestRequestByCMM = 6 };
     public enum MedicalBillStatus { Pending = 0, CMMPendingPayment = 1, Closed = 2, Ineligible = 3, PartiallyIneligible = 4 };
     public enum IncidentType { All, WellBeing, Incident };
 
