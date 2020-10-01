@@ -1152,6 +1152,17 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.gvCreditCardReconcilation = new System.Windows.Forms.DataGridView();
+            this.label144 = new System.Windows.Forms.Label();
+            this.ReconcileCreditCardPayment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementNo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementType = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidCreditCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnReloadCreditCardRecon = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1236,6 +1247,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPaymentInactive)).BeginInit();
             this.tbpgCheckReconcilation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).BeginInit();
+            this.tbpgCreditCardReconcilation.SuspendLayout();
             this.tbpgUndoCheckPaymentMemberReimbursement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).BeginInit();
             this.tbpgUndoCheckPaymentProviderPayment.SuspendLayout();
@@ -1268,6 +1280,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
             this.grpPaymentInformationBlueSheet.SuspendLayout();
             this.grpPaymentMethodBlueSheet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -9433,6 +9446,9 @@
             // 
             // tbpgCreditCardReconcilation
             // 
+            this.tbpgCreditCardReconcilation.Controls.Add(this.btnReloadCreditCardRecon);
+            this.tbpgCreditCardReconcilation.Controls.Add(this.label144);
+            this.tbpgCreditCardReconcilation.Controls.Add(this.gvCreditCardReconcilation);
             this.tbpgCreditCardReconcilation.Location = new System.Drawing.Point(4, 25);
             this.tbpgCreditCardReconcilation.Name = "tbpgCreditCardReconcilation";
             this.tbpgCreditCardReconcilation.Size = new System.Drawing.Size(1757, 752);
@@ -11109,6 +11125,100 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "BlueSheet No Sharing Only - 09-25-2020";
             // 
+            // gvCreditCardReconcilation
+            // 
+            this.gvCreditCardReconcilation.AllowUserToAddRows = false;
+            this.gvCreditCardReconcilation.AllowUserToDeleteRows = false;
+            this.gvCreditCardReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCreditCardReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ReconcileCreditCardPayment,
+            this.CreditCardPaidSettlementNo,
+            this.CreditCardPaidSettlementType,
+            this.CreditCardPaidSettlementAmount,
+            this.CreditCardPaidIndividualId,
+            this.CreditCardPaidCreditCardNo,
+            this.CreditCardPaidDate,
+            this.CreditCardPaidNotes});
+            this.gvCreditCardReconcilation.Location = new System.Drawing.Point(44, 69);
+            this.gvCreditCardReconcilation.Name = "gvCreditCardReconcilation";
+            this.gvCreditCardReconcilation.ReadOnly = true;
+            this.gvCreditCardReconcilation.Size = new System.Drawing.Size(1673, 581);
+            this.gvCreditCardReconcilation.TabIndex = 0;
+            // 
+            // label144
+            // 
+            this.label144.AutoSize = true;
+            this.label144.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label144.Location = new System.Drawing.Point(41, 39);
+            this.label144.Name = "label144";
+            this.label144.Size = new System.Drawing.Size(106, 16);
+            this.label144.TabIndex = 7;
+            this.label144.Text = "Credit Card Paid";
+            // 
+            // ReconcileCreditCardPayment
+            // 
+            this.ReconcileCreditCardPayment.HeaderText = "Reconcile";
+            this.ReconcileCreditCardPayment.Name = "ReconcileCreditCardPayment";
+            this.ReconcileCreditCardPayment.ReadOnly = true;
+            // 
+            // CreditCardPaidSettlementNo
+            // 
+            this.CreditCardPaidSettlementNo.HeaderText = "Settlement No";
+            this.CreditCardPaidSettlementNo.Name = "CreditCardPaidSettlementNo";
+            this.CreditCardPaidSettlementNo.ReadOnly = true;
+            this.CreditCardPaidSettlementNo.Width = 120;
+            // 
+            // CreditCardPaidSettlementType
+            // 
+            this.CreditCardPaidSettlementType.HeaderText = "Settlement Type";
+            this.CreditCardPaidSettlementType.Name = "CreditCardPaidSettlementType";
+            this.CreditCardPaidSettlementType.ReadOnly = true;
+            this.CreditCardPaidSettlementType.Width = 160;
+            // 
+            // CreditCardPaidSettlementAmount
+            // 
+            this.CreditCardPaidSettlementAmount.HeaderText = "Settlement Amount";
+            this.CreditCardPaidSettlementAmount.Name = "CreditCardPaidSettlementAmount";
+            this.CreditCardPaidSettlementAmount.ReadOnly = true;
+            this.CreditCardPaidSettlementAmount.Width = 180;
+            // 
+            // CreditCardPaidIndividualId
+            // 
+            this.CreditCardPaidIndividualId.HeaderText = "Individual Id";
+            this.CreditCardPaidIndividualId.Name = "CreditCardPaidIndividualId";
+            this.CreditCardPaidIndividualId.ReadOnly = true;
+            this.CreditCardPaidIndividualId.Width = 120;
+            // 
+            // CreditCardPaidCreditCardNo
+            // 
+            this.CreditCardPaidCreditCardNo.HeaderText = "Credit Card No";
+            this.CreditCardPaidCreditCardNo.Name = "CreditCardPaidCreditCardNo";
+            this.CreditCardPaidCreditCardNo.ReadOnly = true;
+            this.CreditCardPaidCreditCardNo.Width = 120;
+            // 
+            // CreditCardPaidDate
+            // 
+            this.CreditCardPaidDate.HeaderText = "Paid Date";
+            this.CreditCardPaidDate.Name = "CreditCardPaidDate";
+            this.CreditCardPaidDate.ReadOnly = true;
+            this.CreditCardPaidDate.Width = 120;
+            // 
+            // CreditCardPaidNotes
+            // 
+            this.CreditCardPaidNotes.HeaderText = "Notes";
+            this.CreditCardPaidNotes.Name = "CreditCardPaidNotes";
+            this.CreditCardPaidNotes.ReadOnly = true;
+            this.CreditCardPaidNotes.Width = 440;
+            // 
+            // btnReloadCreditCardRecon
+            // 
+            this.btnReloadCreditCardRecon.Location = new System.Drawing.Point(1582, 679);
+            this.btnReloadCreditCardRecon.Name = "btnReloadCreditCardRecon";
+            this.btnReloadCreditCardRecon.Size = new System.Drawing.Size(135, 37);
+            this.btnReloadCreditCardRecon.TabIndex = 8;
+            this.btnReloadCreditCardRecon.Text = "Reload";
+            this.btnReloadCreditCardRecon.UseVisualStyleBackColor = true;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11242,6 +11352,8 @@
             this.tbpgCheckReconcilation.ResumeLayout(false);
             this.tbpgCheckReconcilation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).EndInit();
+            this.tbpgCreditCardReconcilation.ResumeLayout(false);
+            this.tbpgCreditCardReconcilation.PerformLayout();
             this.tbpgUndoCheckPaymentMemberReimbursement.ResumeLayout(false);
             this.tbpgUndoCheckPaymentMemberReimbursement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).EndInit();
@@ -11288,6 +11400,7 @@
             this.grpPaymentInformationBlueSheet.PerformLayout();
             this.grpPaymentMethodBlueSheet.ResumeLayout(false);
             this.grpPaymentMethodBlueSheet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12393,6 +12506,17 @@
         private System.Windows.Forms.ComboBox comboVoidCheck;
         private System.Windows.Forms.ComboBox comboCommunicationConsent;
         private System.Windows.Forms.ComboBox comboBeneficiary;
+        private System.Windows.Forms.Label label144;
+        private System.Windows.Forms.DataGridView gvCreditCardReconcilation;
+        private System.Windows.Forms.DataGridViewButtonColumn ReconcileCreditCardPayment;
+        private System.Windows.Forms.DataGridViewButtonColumn CreditCardPaidSettlementNo;
+        private System.Windows.Forms.DataGridViewButtonColumn CreditCardPaidSettlementType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidSettlementAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidIndividualId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidCreditCardNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidNotes;
+        private System.Windows.Forms.Button btnReloadCreditCardRecon;
     }
 }
 
