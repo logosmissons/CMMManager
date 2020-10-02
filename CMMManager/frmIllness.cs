@@ -53,7 +53,6 @@ namespace CMMManager
         {
             InitializeComponent();
             strRNDBConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            //strRNDBConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strRNDBConnString);
 
             SqlDependency.Start(strRNDBConnString);
@@ -77,16 +76,11 @@ namespace CMMManager
                                         "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
                                         "from [dbo].[tbl_illness] " +
                                         "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
-
-                                        //"where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
-                                        //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                         "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
 
             cmdQueryForIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
-            //cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
-            //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
 
             cmdQueryForIllness.CommandType = CommandType.Text;
             cmdQueryForIllness.CommandText = strSqlGetIllnessForCaseId;
@@ -227,11 +221,6 @@ namespace CMMManager
         private void UpdateGridViewIllnessList()
         {
 
-            //String strQueryForIllness = "select [dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], " +
-            //                            "[dbo].[tbl_illness].[Introduction] from [dbo].[tbl_illness] " +
-            //                            "where [dbo].[tbl_illness].[Case_Id] = @CaseId and " +
-            //                            "[dbo].[tbl_illness].[IsDeleted] = 0";
-
             String strSqlQueryFprIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], " +
                             "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[CreateDate], " +
                             "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body] " +
@@ -242,11 +231,9 @@ namespace CMMManager
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryFprIllnessForCaseId, connRNDB);
             cmdQueryForIllness.CommandType = CommandType.Text;
-            //cmdQueryForIllness.CommandText = strQueryForIllness;
 
             cmdQueryForIllness.Parameters.AddWithValue("@IndividualId", strIndividualId);
-            //cmdQueryForIllness.Parameters.AddWithValue("@CaseId", strCaseIdIllness);
-            //cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessSelected.IllnessNo);
+
 
             SqlDependency dependencyIllness = new SqlDependency(cmdQueryForIllness);
             dependencyIllness.OnChange += new OnChangeEventHandler(OnIllnessListChange);
@@ -258,8 +245,6 @@ namespace CMMManager
             }
             else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
             SqlDataReader reader = cmdQueryForIllness.ExecuteReader();
-
-            //gvIllness.Rows.Clear();
 
             if (IsHandleCreated) ClearIllnessSafely();
             else gvIllness.Rows.Clear();
