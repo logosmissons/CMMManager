@@ -755,6 +755,8 @@
             this.label66 = new System.Windows.Forms.Label();
             this.btnCreateTask = new System.Windows.Forms.Button();
             this.grpMedicalBillInformation = new System.Windows.Forms.GroupBox();
+            this.label145 = new System.Windows.Forms.Label();
+            this.dtpEndingServiceDate = new System.Windows.Forms.DateTimePicker();
             this.btnAddNewMedProvider = new System.Windows.Forms.Button();
             this.btnRefreshListMedicalProvider = new System.Windows.Forms.Button();
             this.cbMedBillClosed = new System.Windows.Forms.ComboBox();
@@ -779,7 +781,7 @@
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
             this.label65 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
-            this.dtpBillDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpBeginningServiceDate = new System.Windows.Forms.DateTimePicker();
             this.label67 = new System.Windows.Forms.Label();
             this.txtMedBillAmount = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
@@ -956,6 +958,17 @@
             this.CheckPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label124 = new System.Windows.Forms.Label();
             this.tbpgCreditCardReconcilation = new System.Windows.Forms.TabPage();
+            this.btnReloadCreditCardRecon = new System.Windows.Forms.Button();
+            this.label144 = new System.Windows.Forms.Label();
+            this.gvCreditCardReconcilation = new System.Windows.Forms.DataGridView();
+            this.ReconcileCreditCardPayment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementNo = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementType = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidCreditCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbpgUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.TabPage();
             this.label129 = new System.Windows.Forms.Label();
             this.btnUndoCheckPaymentMemberReimbursement = new System.Windows.Forms.Button();
@@ -1152,17 +1165,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.gvCreditCardReconcilation = new System.Windows.Forms.DataGridView();
-            this.label144 = new System.Windows.Forms.Label();
-            this.ReconcileCreditCardPayment = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreditCardPaidSettlementNo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreditCardPaidSettlementType = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreditCardPaidSettlementAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardPaidIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardPaidCreditCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardPaidDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreditCardPaidNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnReloadCreditCardRecon = new System.Windows.Forms.Button();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1248,6 +1250,7 @@
             this.tbpgCheckReconcilation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).BeginInit();
             this.tbpgCreditCardReconcilation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).BeginInit();
             this.tbpgUndoCheckPaymentMemberReimbursement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).BeginInit();
             this.tbpgUndoCheckPaymentProviderPayment.SuspendLayout();
@@ -1280,7 +1283,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
             this.grpPaymentInformationBlueSheet.SuspendLayout();
             this.grpPaymentMethodBlueSheet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -3599,6 +3601,7 @@
             // 
             // chkCommConsentUploaded
             // 
+            this.chkCommConsentUploaded.AutoCheck = false;
             this.chkCommConsentUploaded.AutoSize = true;
             this.chkCommConsentUploaded.Location = new System.Drawing.Point(181, 381);
             this.chkCommConsentUploaded.Name = "chkCommConsentUploaded";
@@ -6170,7 +6173,7 @@
             this.gvIllnessList.MultiSelect = false;
             this.gvIllnessList.Name = "gvIllnessList";
             this.gvIllnessList.ReadOnly = true;
-            this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.gvIllnessList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gvIllnessList.Size = new System.Drawing.Size(1738, 682);
             this.gvIllnessList.TabIndex = 13;
             this.gvIllnessList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessList_CellDoubleClick);
@@ -6849,9 +6852,9 @@
             this.grpMedBillDocuments.Controls.Add(this.gvMedicalBillDocuments);
             this.grpMedBillDocuments.Controls.Add(this.btnDeleteMedBillDocument);
             this.grpMedBillDocuments.Controls.Add(this.btnAddNewDocument);
-            this.grpMedBillDocuments.Location = new System.Drawing.Point(480, 234);
+            this.grpMedBillDocuments.Location = new System.Drawing.Point(465, 234);
             this.grpMedBillDocuments.Name = "grpMedBillDocuments";
-            this.grpMedBillDocuments.Size = new System.Drawing.Size(395, 191);
+            this.grpMedBillDocuments.Size = new System.Drawing.Size(380, 191);
             this.grpMedBillDocuments.TabIndex = 51;
             this.grpMedBillDocuments.TabStop = false;
             this.grpMedBillDocuments.Text = "Upload Medical Bill Documents";
@@ -6872,7 +6875,7 @@
             this.DocumentTypeMedBillDocument});
             this.gvMedicalBillDocuments.Location = new System.Drawing.Point(9, 49);
             this.gvMedicalBillDocuments.Name = "gvMedicalBillDocuments";
-            this.gvMedicalBillDocuments.Size = new System.Drawing.Size(378, 136);
+            this.gvMedicalBillDocuments.Size = new System.Drawing.Size(363, 136);
             this.gvMedicalBillDocuments.TabIndex = 2;
             this.gvMedicalBillDocuments.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedicalBillDocuments_CellClick);
             // 
@@ -7257,17 +7260,17 @@
             this.grpMedBillInfo.Controls.Add(this.label54);
             this.grpMedBillInfo.Location = new System.Drawing.Point(37, 244);
             this.grpMedBillInfo.Name = "grpMedBillInfo";
-            this.grpMedBillInfo.Size = new System.Drawing.Size(432, 84);
+            this.grpMedBillInfo.Size = new System.Drawing.Size(419, 84);
             this.grpMedBillInfo.TabIndex = 137;
             this.grpMedBillInfo.TabStop = false;
             this.grpMedBillInfo.Text = "Medical Bill";
             // 
             // txtIncdProgram
             // 
-            this.txtIncdProgram.Location = new System.Drawing.Point(305, 23);
+            this.txtIncdProgram.Location = new System.Drawing.Point(298, 23);
             this.txtIncdProgram.Name = "txtIncdProgram";
             this.txtIncdProgram.ReadOnly = true;
-            this.txtIncdProgram.Size = new System.Drawing.Size(113, 20);
+            this.txtIncdProgram.Size = new System.Drawing.Size(108, 20);
             this.txtIncdProgram.TabIndex = 43;
             // 
             // label77
@@ -7282,10 +7285,10 @@
             // 
             // txtMedBill_Incident
             // 
-            this.txtMedBill_Incident.Location = new System.Drawing.Point(305, 50);
+            this.txtMedBill_Incident.Location = new System.Drawing.Point(298, 50);
             this.txtMedBill_Incident.Name = "txtMedBill_Incident";
             this.txtMedBill_Incident.ReadOnly = true;
-            this.txtMedBill_Incident.Size = new System.Drawing.Size(113, 20);
+            this.txtMedBill_Incident.Size = new System.Drawing.Size(108, 20);
             this.txtMedBill_Incident.TabIndex = 41;
             // 
             // txtMedBill_Illness
@@ -7298,7 +7301,7 @@
             // 
             // btnMedBill_Incident
             // 
-            this.btnMedBill_Incident.Location = new System.Drawing.Point(219, 49);
+            this.btnMedBill_Incident.Location = new System.Drawing.Point(216, 49);
             this.btnMedBill_Incident.Name = "btnMedBill_Incident";
             this.btnMedBill_Incident.Size = new System.Drawing.Size(77, 23);
             this.btnMedBill_Incident.TabIndex = 39;
@@ -7387,7 +7390,7 @@
             this.grpICD10Code.Controls.Add(this.label56);
             this.grpICD10Code.Location = new System.Drawing.Point(37, 338);
             this.grpICD10Code.Name = "grpICD10Code";
-            this.grpICD10Code.Size = new System.Drawing.Size(432, 87);
+            this.grpICD10Code.Size = new System.Drawing.Size(419, 87);
             this.grpICD10Code.TabIndex = 49;
             this.grpICD10Code.TabStop = false;
             this.grpICD10Code.Text = "ICD10 Code";
@@ -7397,7 +7400,7 @@
             this.txtMedBillDiseaseName.Location = new System.Drawing.Point(136, 52);
             this.txtMedBillDiseaseName.Name = "txtMedBillDiseaseName";
             this.txtMedBillDiseaseName.ReadOnly = true;
-            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(211, 20);
+            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(270, 20);
             this.txtMedBillDiseaseName.TabIndex = 18;
             // 
             // label48
@@ -7617,6 +7620,8 @@
             // 
             // grpMedicalBillInformation
             // 
+            this.grpMedicalBillInformation.Controls.Add(this.label145);
+            this.grpMedicalBillInformation.Controls.Add(this.dtpEndingServiceDate);
             this.grpMedicalBillInformation.Controls.Add(this.btnAddNewMedProvider);
             this.grpMedicalBillInformation.Controls.Add(this.btnRefreshListMedicalProvider);
             this.grpMedicalBillInformation.Controls.Add(this.cbMedBillClosed);
@@ -7641,7 +7646,7 @@
             this.grpMedicalBillInformation.Controls.Add(this.dtpDueDate);
             this.grpMedicalBillInformation.Controls.Add(this.label65);
             this.grpMedicalBillInformation.Controls.Add(this.label55);
-            this.grpMedicalBillInformation.Controls.Add(this.dtpBillDate);
+            this.grpMedicalBillInformation.Controls.Add(this.dtpBeginningServiceDate);
             this.grpMedicalBillInformation.Controls.Add(this.label67);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillAmount);
             this.grpMedicalBillInformation.Controls.Add(this.label64);
@@ -7658,16 +7663,37 @@
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionName);
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfPhysicalTheraph);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
-            this.grpMedicalBillInformation.Location = new System.Drawing.Point(886, 69);
+            this.grpMedicalBillInformation.Location = new System.Drawing.Point(854, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
-            this.grpMedicalBillInformation.Size = new System.Drawing.Size(514, 356);
+            this.grpMedicalBillInformation.Size = new System.Drawing.Size(551, 356);
             this.grpMedicalBillInformation.TabIndex = 98;
             this.grpMedicalBillInformation.TabStop = false;
             this.grpMedicalBillInformation.Text = "Medical Bill Information";
             // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label145.Location = new System.Drawing.Point(272, 113);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(152, 16);
+            this.label145.TabIndex = 175;
+            this.label145.Text = "Beginning Service Date:";
+            // 
+            // dtpEndingServiceDate
+            // 
+            this.dtpEndingServiceDate.Checked = false;
+            this.dtpEndingServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpEndingServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEndingServiceDate.Location = new System.Drawing.Point(430, 137);
+            this.dtpEndingServiceDate.Name = "dtpEndingServiceDate";
+            this.dtpEndingServiceDate.Size = new System.Drawing.Size(113, 20);
+            this.dtpEndingServiceDate.TabIndex = 174;
+            this.dtpEndingServiceDate.ValueChanged += new System.EventHandler(this.dtpEndingServiceDate_ValueChanged);
+            // 
             // btnAddNewMedProvider
             // 
-            this.btnAddNewMedProvider.Location = new System.Drawing.Point(384, 22);
+            this.btnAddNewMedProvider.Location = new System.Drawing.Point(427, 20);
             this.btnAddNewMedProvider.Name = "btnAddNewMedProvider";
             this.btnAddNewMedProvider.Size = new System.Drawing.Size(116, 23);
             this.btnAddNewMedProvider.TabIndex = 173;
@@ -7679,7 +7705,7 @@
             // 
             this.btnRefreshListMedicalProvider.Location = new System.Drawing.Point(274, 70);
             this.btnRefreshListMedicalProvider.Name = "btnRefreshListMedicalProvider";
-            this.btnRefreshListMedicalProvider.Size = new System.Drawing.Size(93, 23);
+            this.btnRefreshListMedicalProvider.Size = new System.Drawing.Size(111, 23);
             this.btnRefreshListMedicalProvider.TabIndex = 172;
             this.btnRefreshListMedicalProvider.Text = "Refresh";
             this.btnRefreshListMedicalProvider.UseVisualStyleBackColor = true;
@@ -7852,9 +7878,9 @@
             // 
             // btnMedicalProviderInfo
             // 
-            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(373, 70);
+            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(400, 70);
             this.btnMedicalProviderInfo.Name = "btnMedicalProviderInfo";
-            this.btnMedicalProviderInfo.Size = new System.Drawing.Size(127, 23);
+            this.btnMedicalProviderInfo.Size = new System.Drawing.Size(143, 23);
             this.btnMedicalProviderInfo.TabIndex = 152;
             this.btnMedicalProviderInfo.Text = "Medical Provider Info";
             this.btnMedicalProviderInfo.UseVisualStyleBackColor = true;
@@ -7864,9 +7890,9 @@
             // 
             this.dtpDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDueDate.Location = new System.Drawing.Point(380, 147);
+            this.dtpDueDate.Location = new System.Drawing.Point(430, 163);
             this.dtpDueDate.Name = "dtpDueDate";
-            this.dtpDueDate.Size = new System.Drawing.Size(120, 20);
+            this.dtpDueDate.Size = new System.Drawing.Size(113, 20);
             this.dtpDueDate.TabIndex = 45;
             this.dtpDueDate.ValueChanged += new System.EventHandler(this.dtpDueDate_ValueChanged);
             // 
@@ -7874,7 +7900,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(272, 149);
+            this.label65.Location = new System.Drawing.Point(272, 163);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(102, 16);
             this.label65.TabIndex = 150;
@@ -7890,26 +7916,26 @@
             this.label55.TabIndex = 68;
             this.label55.Text = "Bill Status:";
             // 
-            // dtpBillDate
+            // dtpBeginningServiceDate
             // 
-            this.dtpBillDate.Checked = false;
-            this.dtpBillDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpBillDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBillDate.Location = new System.Drawing.Point(380, 122);
-            this.dtpBillDate.Name = "dtpBillDate";
-            this.dtpBillDate.Size = new System.Drawing.Size(120, 20);
-            this.dtpBillDate.TabIndex = 44;
-            this.dtpBillDate.ValueChanged += new System.EventHandler(this.dtpBillDate_ValueChanged);
+            this.dtpBeginningServiceDate.Checked = false;
+            this.dtpBeginningServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpBeginningServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpBeginningServiceDate.Location = new System.Drawing.Point(430, 111);
+            this.dtpBeginningServiceDate.Name = "dtpBeginningServiceDate";
+            this.dtpBeginningServiceDate.Size = new System.Drawing.Size(113, 20);
+            this.dtpBeginningServiceDate.TabIndex = 44;
+            this.dtpBeginningServiceDate.ValueChanged += new System.EventHandler(this.dtpBillDate_ValueChanged);
             // 
             // label67
             // 
             this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(272, 124);
+            this.label67.Location = new System.Drawing.Point(272, 138);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(103, 16);
+            this.label67.Size = new System.Drawing.Size(134, 16);
             this.label67.TabIndex = 149;
-            this.label67.Text = "Date of Service:";
+            this.label67.Text = "Ending Service Date:";
             // 
             // txtMedBillAmount
             // 
@@ -7976,7 +8002,7 @@
             // 
             this.txtMedicalProvider.Location = new System.Drawing.Point(275, 47);
             this.txtMedicalProvider.Name = "txtMedicalProvider";
-            this.txtMedicalProvider.Size = new System.Drawing.Size(225, 20);
+            this.txtMedicalProvider.Size = new System.Drawing.Size(268, 20);
             this.txtMedicalProvider.TabIndex = 43;
             // 
             // label57
@@ -7995,7 +8021,7 @@
             this.txtPrescriptionNote.Multiline = true;
             this.txtPrescriptionNote.Name = "txtPrescriptionNote";
             this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionNote.Size = new System.Drawing.Size(226, 55);
+            this.txtPrescriptionNote.Size = new System.Drawing.Size(269, 52);
             this.txtPrescriptionNote.TabIndex = 54;
             // 
             // txtPhysicalTherapyRxNote
@@ -8004,7 +8030,7 @@
             this.txtPhysicalTherapyRxNote.Multiline = true;
             this.txtPhysicalTherapyRxNote.Name = "txtPhysicalTherapyRxNote";
             this.txtPhysicalTherapyRxNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(226, 102);
+            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(269, 102);
             this.txtPhysicalTherapyRxNote.TabIndex = 56;
             // 
             // txtPrescriptionDescription
@@ -8013,7 +8039,7 @@
             this.txtPrescriptionDescription.Multiline = true;
             this.txtPrescriptionDescription.Name = "txtPrescriptionDescription";
             this.txtPrescriptionDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionDescription.Size = new System.Drawing.Size(226, 55);
+            this.txtPrescriptionDescription.Size = new System.Drawing.Size(269, 55);
             this.txtPrescriptionDescription.TabIndex = 53;
             // 
             // txtMedBillNote
@@ -8022,7 +8048,7 @@
             this.txtMedBillNote.Multiline = true;
             this.txtMedBillNote.Name = "txtMedBillNote";
             this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMedBillNote.Size = new System.Drawing.Size(225, 132);
+            this.txtMedBillNote.Size = new System.Drawing.Size(268, 132);
             this.txtMedBillNote.TabIndex = 50;
             // 
             // lblPrescriptionName
@@ -8058,9 +8084,9 @@
             // grpDocumentProcessing
             // 
             this.grpDocumentProcessing.Controls.Add(this.gvCaseDocumentInMedBill);
-            this.grpDocumentProcessing.Location = new System.Drawing.Point(480, 69);
+            this.grpDocumentProcessing.Location = new System.Drawing.Point(465, 69);
             this.grpDocumentProcessing.Name = "grpDocumentProcessing";
-            this.grpDocumentProcessing.Size = new System.Drawing.Size(395, 159);
+            this.grpDocumentProcessing.Size = new System.Drawing.Size(380, 159);
             this.grpDocumentProcessing.TabIndex = 50;
             this.grpDocumentProcessing.TabStop = false;
             this.grpDocumentProcessing.Text = "Case Documents";
@@ -8079,7 +8105,7 @@
             this.gvCaseDocumentInMedBill.Location = new System.Drawing.Point(9, 20);
             this.gvCaseDocumentInMedBill.Name = "gvCaseDocumentInMedBill";
             this.gvCaseDocumentInMedBill.ReadOnly = true;
-            this.gvCaseDocumentInMedBill.Size = new System.Drawing.Size(378, 133);
+            this.gvCaseDocumentInMedBill.Size = new System.Drawing.Size(363, 133);
             this.gvCaseDocumentInMedBill.TabIndex = 0;
             this.gvCaseDocumentInMedBill.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocumentInMedBill_CellClick);
             // 
@@ -8129,7 +8155,7 @@
             this.grpPatientInfo.Controls.Add(this.label53);
             this.grpPatientInfo.Location = new System.Drawing.Point(37, 69);
             this.grpPatientInfo.Name = "grpPatientInfo";
-            this.grpPatientInfo.Size = new System.Drawing.Size(432, 166);
+            this.grpPatientInfo.Size = new System.Drawing.Size(419, 166);
             this.grpPatientInfo.TabIndex = 48;
             this.grpPatientInfo.TabStop = false;
             this.grpPatientInfo.Text = "Patient Info";
@@ -8137,7 +8163,7 @@
             // txtMemberProgram
             // 
             this.txtMemberProgram.BackColor = System.Drawing.SystemColors.Control;
-            this.txtMemberProgram.Location = new System.Drawing.Point(136, 106);
+            this.txtMemberProgram.Location = new System.Drawing.Point(132, 106);
             this.txtMemberProgram.Name = "txtMemberProgram";
             this.txtMemberProgram.ReadOnly = true;
             this.txtMemberProgram.Size = new System.Drawing.Size(121, 20);
@@ -8155,7 +8181,7 @@
             // 
             // txtMedBillGuarantor
             // 
-            this.txtMedBillGuarantor.Location = new System.Drawing.Point(136, 133);
+            this.txtMedBillGuarantor.Location = new System.Drawing.Point(132, 133);
             this.txtMedBillGuarantor.Name = "txtMedBillGuarantor";
             this.txtMedBillGuarantor.Size = new System.Drawing.Size(121, 20);
             this.txtMedBillGuarantor.TabIndex = 27;
@@ -8172,10 +8198,10 @@
             // 
             // txtMedBillAddress
             // 
-            this.txtMedBillAddress.Location = new System.Drawing.Point(136, 78);
+            this.txtMedBillAddress.Location = new System.Drawing.Point(132, 78);
             this.txtMedBillAddress.Name = "txtMedBillAddress";
             this.txtMedBillAddress.ReadOnly = true;
-            this.txtMedBillAddress.Size = new System.Drawing.Size(282, 20);
+            this.txtMedBillAddress.Size = new System.Drawing.Size(274, 20);
             this.txtMedBillAddress.TabIndex = 25;
             // 
             // label80
@@ -8190,17 +8216,17 @@
             // 
             // txtMedBillSSN
             // 
-            this.txtMedBillSSN.Location = new System.Drawing.Point(313, 50);
+            this.txtMedBillSSN.Location = new System.Drawing.Point(305, 50);
             this.txtMedBillSSN.Name = "txtMedBillSSN";
             this.txtMedBillSSN.ReadOnly = true;
-            this.txtMedBillSSN.Size = new System.Drawing.Size(105, 20);
+            this.txtMedBillSSN.Size = new System.Drawing.Size(101, 20);
             this.txtMedBillSSN.TabIndex = 23;
             // 
             // label79
             // 
             this.label79.AutoSize = true;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label79.Location = new System.Drawing.Point(271, 50);
+            this.label79.Location = new System.Drawing.Point(266, 50);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(39, 16);
             this.label79.TabIndex = 22;
@@ -8208,7 +8234,7 @@
             // 
             // txtMedBillDOB
             // 
-            this.txtMedBillDOB.Location = new System.Drawing.Point(136, 50);
+            this.txtMedBillDOB.Location = new System.Drawing.Point(132, 50);
             this.txtMedBillDOB.Name = "txtMedBillDOB";
             this.txtMedBillDOB.ReadOnly = true;
             this.txtMedBillDOB.Size = new System.Drawing.Size(75, 20);
@@ -8226,10 +8252,10 @@
             // 
             // txtPatientNameMedBill
             // 
-            this.txtPatientNameMedBill.Location = new System.Drawing.Point(313, 22);
+            this.txtPatientNameMedBill.Location = new System.Drawing.Point(305, 22);
             this.txtPatientNameMedBill.Name = "txtPatientNameMedBill";
             this.txtPatientNameMedBill.ReadOnly = true;
-            this.txtPatientNameMedBill.Size = new System.Drawing.Size(105, 20);
+            this.txtPatientNameMedBill.Size = new System.Drawing.Size(101, 20);
             this.txtPatientNameMedBill.TabIndex = 15;
             // 
             // label51
@@ -8244,7 +8270,7 @@
             // 
             // txtIndividualIDMedBill
             // 
-            this.txtIndividualIDMedBill.Location = new System.Drawing.Point(136, 22);
+            this.txtIndividualIDMedBill.Location = new System.Drawing.Point(132, 22);
             this.txtIndividualIDMedBill.Name = "txtIndividualIDMedBill";
             this.txtIndividualIDMedBill.ReadOnly = true;
             this.txtIndividualIDMedBill.Size = new System.Drawing.Size(75, 20);
@@ -8254,7 +8280,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(217, 23);
+            this.label53.Location = new System.Drawing.Point(213, 23);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(92, 16);
             this.label53.TabIndex = 14;
@@ -9455,6 +9481,100 @@
             this.tbpgCreditCardReconcilation.TabIndex = 6;
             this.tbpgCreditCardReconcilation.Text = "Credit Card Reconcilation";
             this.tbpgCreditCardReconcilation.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadCreditCardRecon
+            // 
+            this.btnReloadCreditCardRecon.Location = new System.Drawing.Point(1582, 679);
+            this.btnReloadCreditCardRecon.Name = "btnReloadCreditCardRecon";
+            this.btnReloadCreditCardRecon.Size = new System.Drawing.Size(135, 37);
+            this.btnReloadCreditCardRecon.TabIndex = 8;
+            this.btnReloadCreditCardRecon.Text = "Reload";
+            this.btnReloadCreditCardRecon.UseVisualStyleBackColor = true;
+            // 
+            // label144
+            // 
+            this.label144.AutoSize = true;
+            this.label144.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label144.Location = new System.Drawing.Point(41, 39);
+            this.label144.Name = "label144";
+            this.label144.Size = new System.Drawing.Size(106, 16);
+            this.label144.TabIndex = 7;
+            this.label144.Text = "Credit Card Paid";
+            // 
+            // gvCreditCardReconcilation
+            // 
+            this.gvCreditCardReconcilation.AllowUserToAddRows = false;
+            this.gvCreditCardReconcilation.AllowUserToDeleteRows = false;
+            this.gvCreditCardReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCreditCardReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ReconcileCreditCardPayment,
+            this.CreditCardPaidSettlementNo,
+            this.CreditCardPaidSettlementType,
+            this.CreditCardPaidSettlementAmount,
+            this.CreditCardPaidIndividualId,
+            this.CreditCardPaidCreditCardNo,
+            this.CreditCardPaidDate,
+            this.CreditCardPaidNotes});
+            this.gvCreditCardReconcilation.Location = new System.Drawing.Point(44, 69);
+            this.gvCreditCardReconcilation.Name = "gvCreditCardReconcilation";
+            this.gvCreditCardReconcilation.ReadOnly = true;
+            this.gvCreditCardReconcilation.Size = new System.Drawing.Size(1673, 581);
+            this.gvCreditCardReconcilation.TabIndex = 0;
+            // 
+            // ReconcileCreditCardPayment
+            // 
+            this.ReconcileCreditCardPayment.HeaderText = "Reconcile";
+            this.ReconcileCreditCardPayment.Name = "ReconcileCreditCardPayment";
+            this.ReconcileCreditCardPayment.ReadOnly = true;
+            // 
+            // CreditCardPaidSettlementNo
+            // 
+            this.CreditCardPaidSettlementNo.HeaderText = "Settlement No";
+            this.CreditCardPaidSettlementNo.Name = "CreditCardPaidSettlementNo";
+            this.CreditCardPaidSettlementNo.ReadOnly = true;
+            this.CreditCardPaidSettlementNo.Width = 120;
+            // 
+            // CreditCardPaidSettlementType
+            // 
+            this.CreditCardPaidSettlementType.HeaderText = "Settlement Type";
+            this.CreditCardPaidSettlementType.Name = "CreditCardPaidSettlementType";
+            this.CreditCardPaidSettlementType.ReadOnly = true;
+            this.CreditCardPaidSettlementType.Width = 160;
+            // 
+            // CreditCardPaidSettlementAmount
+            // 
+            this.CreditCardPaidSettlementAmount.HeaderText = "Settlement Amount";
+            this.CreditCardPaidSettlementAmount.Name = "CreditCardPaidSettlementAmount";
+            this.CreditCardPaidSettlementAmount.ReadOnly = true;
+            this.CreditCardPaidSettlementAmount.Width = 180;
+            // 
+            // CreditCardPaidIndividualId
+            // 
+            this.CreditCardPaidIndividualId.HeaderText = "Individual Id";
+            this.CreditCardPaidIndividualId.Name = "CreditCardPaidIndividualId";
+            this.CreditCardPaidIndividualId.ReadOnly = true;
+            this.CreditCardPaidIndividualId.Width = 120;
+            // 
+            // CreditCardPaidCreditCardNo
+            // 
+            this.CreditCardPaidCreditCardNo.HeaderText = "Credit Card No";
+            this.CreditCardPaidCreditCardNo.Name = "CreditCardPaidCreditCardNo";
+            this.CreditCardPaidCreditCardNo.ReadOnly = true;
+            this.CreditCardPaidCreditCardNo.Width = 120;
+            // 
+            // CreditCardPaidDate
+            // 
+            this.CreditCardPaidDate.HeaderText = "Paid Date";
+            this.CreditCardPaidDate.Name = "CreditCardPaidDate";
+            this.CreditCardPaidDate.ReadOnly = true;
+            this.CreditCardPaidDate.Width = 120;
+            // 
+            // CreditCardPaidNotes
+            // 
+            this.CreditCardPaidNotes.HeaderText = "Notes";
+            this.CreditCardPaidNotes.Name = "CreditCardPaidNotes";
+            this.CreditCardPaidNotes.ReadOnly = true;
+            this.CreditCardPaidNotes.Width = 440;
             // 
             // tbpgUndoCheckPaymentMemberReimbursement
             // 
@@ -11119,105 +11239,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1664, 33);
+            this.label143.Location = new System.Drawing.Point(1613, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(199, 13);
+            this.label143.Size = new System.Drawing.Size(250, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "BlueSheet No Sharing Only - 09-25-2020";
-            // 
-            // gvCreditCardReconcilation
-            // 
-            this.gvCreditCardReconcilation.AllowUserToAddRows = false;
-            this.gvCreditCardReconcilation.AllowUserToDeleteRows = false;
-            this.gvCreditCardReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvCreditCardReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ReconcileCreditCardPayment,
-            this.CreditCardPaidSettlementNo,
-            this.CreditCardPaidSettlementType,
-            this.CreditCardPaidSettlementAmount,
-            this.CreditCardPaidIndividualId,
-            this.CreditCardPaidCreditCardNo,
-            this.CreditCardPaidDate,
-            this.CreditCardPaidNotes});
-            this.gvCreditCardReconcilation.Location = new System.Drawing.Point(44, 69);
-            this.gvCreditCardReconcilation.Name = "gvCreditCardReconcilation";
-            this.gvCreditCardReconcilation.ReadOnly = true;
-            this.gvCreditCardReconcilation.Size = new System.Drawing.Size(1673, 581);
-            this.gvCreditCardReconcilation.TabIndex = 0;
-            // 
-            // label144
-            // 
-            this.label144.AutoSize = true;
-            this.label144.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label144.Location = new System.Drawing.Point(41, 39);
-            this.label144.Name = "label144";
-            this.label144.Size = new System.Drawing.Size(106, 16);
-            this.label144.TabIndex = 7;
-            this.label144.Text = "Credit Card Paid";
-            // 
-            // ReconcileCreditCardPayment
-            // 
-            this.ReconcileCreditCardPayment.HeaderText = "Reconcile";
-            this.ReconcileCreditCardPayment.Name = "ReconcileCreditCardPayment";
-            this.ReconcileCreditCardPayment.ReadOnly = true;
-            // 
-            // CreditCardPaidSettlementNo
-            // 
-            this.CreditCardPaidSettlementNo.HeaderText = "Settlement No";
-            this.CreditCardPaidSettlementNo.Name = "CreditCardPaidSettlementNo";
-            this.CreditCardPaidSettlementNo.ReadOnly = true;
-            this.CreditCardPaidSettlementNo.Width = 120;
-            // 
-            // CreditCardPaidSettlementType
-            // 
-            this.CreditCardPaidSettlementType.HeaderText = "Settlement Type";
-            this.CreditCardPaidSettlementType.Name = "CreditCardPaidSettlementType";
-            this.CreditCardPaidSettlementType.ReadOnly = true;
-            this.CreditCardPaidSettlementType.Width = 160;
-            // 
-            // CreditCardPaidSettlementAmount
-            // 
-            this.CreditCardPaidSettlementAmount.HeaderText = "Settlement Amount";
-            this.CreditCardPaidSettlementAmount.Name = "CreditCardPaidSettlementAmount";
-            this.CreditCardPaidSettlementAmount.ReadOnly = true;
-            this.CreditCardPaidSettlementAmount.Width = 180;
-            // 
-            // CreditCardPaidIndividualId
-            // 
-            this.CreditCardPaidIndividualId.HeaderText = "Individual Id";
-            this.CreditCardPaidIndividualId.Name = "CreditCardPaidIndividualId";
-            this.CreditCardPaidIndividualId.ReadOnly = true;
-            this.CreditCardPaidIndividualId.Width = 120;
-            // 
-            // CreditCardPaidCreditCardNo
-            // 
-            this.CreditCardPaidCreditCardNo.HeaderText = "Credit Card No";
-            this.CreditCardPaidCreditCardNo.Name = "CreditCardPaidCreditCardNo";
-            this.CreditCardPaidCreditCardNo.ReadOnly = true;
-            this.CreditCardPaidCreditCardNo.Width = 120;
-            // 
-            // CreditCardPaidDate
-            // 
-            this.CreditCardPaidDate.HeaderText = "Paid Date";
-            this.CreditCardPaidDate.Name = "CreditCardPaidDate";
-            this.CreditCardPaidDate.ReadOnly = true;
-            this.CreditCardPaidDate.Width = 120;
-            // 
-            // CreditCardPaidNotes
-            // 
-            this.CreditCardPaidNotes.HeaderText = "Notes";
-            this.CreditCardPaidNotes.Name = "CreditCardPaidNotes";
-            this.CreditCardPaidNotes.ReadOnly = true;
-            this.CreditCardPaidNotes.Width = 440;
-            // 
-            // btnReloadCreditCardRecon
-            // 
-            this.btnReloadCreditCardRecon.Location = new System.Drawing.Point(1582, 679);
-            this.btnReloadCreditCardRecon.Name = "btnReloadCreditCardRecon";
-            this.btnReloadCreditCardRecon.Size = new System.Drawing.Size(135, 37);
-            this.btnReloadCreditCardRecon.TabIndex = 8;
-            this.btnReloadCreditCardRecon.Text = "Reload";
-            this.btnReloadCreditCardRecon.UseVisualStyleBackColor = true;
+            this.label143.Text = "Beginnng Ending Service Date Added - 10-05-2020";
             // 
             // frmCMMManager
             // 
@@ -11354,6 +11380,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCheckReconcilation)).EndInit();
             this.tbpgCreditCardReconcilation.ResumeLayout(false);
             this.tbpgCreditCardReconcilation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).EndInit();
             this.tbpgUndoCheckPaymentMemberReimbursement.ResumeLayout(false);
             this.tbpgUndoCheckPaymentMemberReimbursement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUndoCheckPaymentMemberReimbursement)).EndInit();
@@ -11400,7 +11427,6 @@
             this.grpPaymentInformationBlueSheet.PerformLayout();
             this.grpPaymentMethodBlueSheet.ResumeLayout(false);
             this.grpPaymentMethodBlueSheet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvCreditCardReconcilation)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11777,7 +11803,7 @@
         private System.Windows.Forms.DataGridView gvSettlementsInMedBill;
         private System.Windows.Forms.DateTimePicker dtpDueDate;
         private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.DateTimePicker dtpBillDate;
+        private System.Windows.Forms.DateTimePicker dtpBeginningServiceDate;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Button btnMedicalProviderInfo;
         private System.Windows.Forms.GroupBox grpEtc;
@@ -12517,6 +12543,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidNotes;
         private System.Windows.Forms.Button btnReloadCreditCardRecon;
+        private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.DateTimePicker dtpEndingServiceDate;
     }
 }
 
