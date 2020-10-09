@@ -6852,9 +6852,9 @@
             this.grpMedBillDocuments.Controls.Add(this.gvMedicalBillDocuments);
             this.grpMedBillDocuments.Controls.Add(this.btnDeleteMedBillDocument);
             this.grpMedBillDocuments.Controls.Add(this.btnAddNewDocument);
-            this.grpMedBillDocuments.Location = new System.Drawing.Point(465, 234);
+            this.grpMedBillDocuments.Location = new System.Drawing.Point(474, 234);
             this.grpMedBillDocuments.Name = "grpMedBillDocuments";
-            this.grpMedBillDocuments.Size = new System.Drawing.Size(380, 191);
+            this.grpMedBillDocuments.Size = new System.Drawing.Size(402, 191);
             this.grpMedBillDocuments.TabIndex = 51;
             this.grpMedBillDocuments.TabStop = false;
             this.grpMedBillDocuments.Text = "Upload Medical Bill Documents";
@@ -6875,7 +6875,7 @@
             this.DocumentTypeMedBillDocument});
             this.gvMedicalBillDocuments.Location = new System.Drawing.Point(9, 49);
             this.gvMedicalBillDocuments.Name = "gvMedicalBillDocuments";
-            this.gvMedicalBillDocuments.Size = new System.Drawing.Size(363, 136);
+            this.gvMedicalBillDocuments.Size = new System.Drawing.Size(387, 136);
             this.gvMedicalBillDocuments.TabIndex = 2;
             this.gvMedicalBillDocuments.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedicalBillDocuments_CellClick);
             // 
@@ -7260,7 +7260,7 @@
             this.grpMedBillInfo.Controls.Add(this.label54);
             this.grpMedBillInfo.Location = new System.Drawing.Point(37, 244);
             this.grpMedBillInfo.Name = "grpMedBillInfo";
-            this.grpMedBillInfo.Size = new System.Drawing.Size(419, 84);
+            this.grpMedBillInfo.Size = new System.Drawing.Size(428, 84);
             this.grpMedBillInfo.TabIndex = 137;
             this.grpMedBillInfo.TabStop = false;
             this.grpMedBillInfo.Text = "Medical Bill";
@@ -7270,7 +7270,7 @@
             this.txtIncdProgram.Location = new System.Drawing.Point(298, 23);
             this.txtIncdProgram.Name = "txtIncdProgram";
             this.txtIncdProgram.ReadOnly = true;
-            this.txtIncdProgram.Size = new System.Drawing.Size(108, 20);
+            this.txtIncdProgram.Size = new System.Drawing.Size(120, 20);
             this.txtIncdProgram.TabIndex = 43;
             // 
             // label77
@@ -7288,7 +7288,7 @@
             this.txtMedBill_Incident.Location = new System.Drawing.Point(298, 50);
             this.txtMedBill_Incident.Name = "txtMedBill_Incident";
             this.txtMedBill_Incident.ReadOnly = true;
-            this.txtMedBill_Incident.Size = new System.Drawing.Size(108, 20);
+            this.txtMedBill_Incident.Size = new System.Drawing.Size(120, 20);
             this.txtMedBill_Incident.TabIndex = 41;
             // 
             // txtMedBill_Illness
@@ -7390,7 +7390,7 @@
             this.grpICD10Code.Controls.Add(this.label56);
             this.grpICD10Code.Location = new System.Drawing.Point(37, 338);
             this.grpICD10Code.Name = "grpICD10Code";
-            this.grpICD10Code.Size = new System.Drawing.Size(419, 87);
+            this.grpICD10Code.Size = new System.Drawing.Size(428, 87);
             this.grpICD10Code.TabIndex = 49;
             this.grpICD10Code.TabStop = false;
             this.grpICD10Code.Text = "ICD10 Code";
@@ -7400,7 +7400,7 @@
             this.txtMedBillDiseaseName.Location = new System.Drawing.Point(136, 52);
             this.txtMedBillDiseaseName.Name = "txtMedBillDiseaseName";
             this.txtMedBillDiseaseName.ReadOnly = true;
-            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(270, 20);
+            this.txtMedBillDiseaseName.Size = new System.Drawing.Size(282, 20);
             this.txtMedBillDiseaseName.TabIndex = 18;
             // 
             // label48
@@ -7663,9 +7663,9 @@
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionName);
             this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfPhysicalTheraph);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
-            this.grpMedicalBillInformation.Location = new System.Drawing.Point(854, 69);
+            this.grpMedicalBillInformation.Location = new System.Drawing.Point(884, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
-            this.grpMedicalBillInformation.Size = new System.Drawing.Size(551, 356);
+            this.grpMedicalBillInformation.Size = new System.Drawing.Size(518, 356);
             this.grpMedicalBillInformation.TabIndex = 98;
             this.grpMedicalBillInformation.TabStop = false;
             this.grpMedicalBillInformation.Text = "Medical Bill Information";
@@ -7674,18 +7674,18 @@
             // 
             this.label145.AutoSize = true;
             this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label145.Location = new System.Drawing.Point(272, 113);
+            this.label145.Location = new System.Drawing.Point(262, 113);
             this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(152, 16);
+            this.label145.Size = new System.Drawing.Size(119, 16);
             this.label145.TabIndex = 175;
-            this.label145.Text = "Beginning Service Date:";
+            this.label145.Text = "Service Start Date:";
             // 
             // dtpEndingServiceDate
             // 
             this.dtpEndingServiceDate.Checked = false;
             this.dtpEndingServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpEndingServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndingServiceDate.Location = new System.Drawing.Point(430, 137);
+            this.dtpEndingServiceDate.Location = new System.Drawing.Point(395, 137);
             this.dtpEndingServiceDate.Name = "dtpEndingServiceDate";
             this.dtpEndingServiceDate.Size = new System.Drawing.Size(113, 20);
             this.dtpEndingServiceDate.TabIndex = 174;
@@ -7693,7 +7693,7 @@
             // 
             // btnAddNewMedProvider
             // 
-            this.btnAddNewMedProvider.Location = new System.Drawing.Point(427, 20);
+            this.btnAddNewMedProvider.Location = new System.Drawing.Point(392, 20);
             this.btnAddNewMedProvider.Name = "btnAddNewMedProvider";
             this.btnAddNewMedProvider.Size = new System.Drawing.Size(116, 23);
             this.btnAddNewMedProvider.TabIndex = 173;
@@ -7703,7 +7703,7 @@
             // 
             // btnRefreshListMedicalProvider
             // 
-            this.btnRefreshListMedicalProvider.Location = new System.Drawing.Point(274, 70);
+            this.btnRefreshListMedicalProvider.Location = new System.Drawing.Point(264, 70);
             this.btnRefreshListMedicalProvider.Name = "btnRefreshListMedicalProvider";
             this.btnRefreshListMedicalProvider.Size = new System.Drawing.Size(111, 23);
             this.btnRefreshListMedicalProvider.TabIndex = 172;
@@ -7717,7 +7717,7 @@
             this.cbMedBillClosed.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.cbMedBillClosed.Location = new System.Drawing.Point(141, 97);
+            this.cbMedBillClosed.Location = new System.Drawing.Point(137, 97);
             this.cbMedBillClosed.Name = "cbMedBillClosed";
             this.cbMedBillClosed.Size = new System.Drawing.Size(116, 21);
             this.cbMedBillClosed.TabIndex = 41;
@@ -7726,7 +7726,7 @@
             // 
             this.label61.AutoSize = true;
             this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label61.Location = new System.Drawing.Point(13, 99);
+            this.label61.Location = new System.Drawing.Point(11, 99);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(75, 16);
             this.label61.TabIndex = 171;
@@ -7735,7 +7735,7 @@
             // comboIneligibleReason
             // 
             this.comboIneligibleReason.FormattingEnabled = true;
-            this.comboIneligibleReason.Location = new System.Drawing.Point(16, 318);
+            this.comboIneligibleReason.Location = new System.Drawing.Point(12, 318);
             this.comboIneligibleReason.Name = "comboIneligibleReason";
             this.comboIneligibleReason.Size = new System.Drawing.Size(241, 21);
             this.comboIneligibleReason.TabIndex = 49;
@@ -7743,7 +7743,7 @@
             // comboPendingReason
             // 
             this.comboPendingReason.FormattingEnabled = true;
-            this.comboPendingReason.Location = new System.Drawing.Point(16, 263);
+            this.comboPendingReason.Location = new System.Drawing.Point(12, 263);
             this.comboPendingReason.Name = "comboPendingReason";
             this.comboPendingReason.Size = new System.Drawing.Size(241, 21);
             this.comboPendingReason.TabIndex = 48;
@@ -7751,7 +7751,7 @@
             // comboMedBillStatus
             // 
             this.comboMedBillStatus.FormattingEnabled = true;
-            this.comboMedBillStatus.Location = new System.Drawing.Point(141, 72);
+            this.comboMedBillStatus.Location = new System.Drawing.Point(137, 72);
             this.comboMedBillStatus.Name = "comboMedBillStatus";
             this.comboMedBillStatus.Size = new System.Drawing.Size(116, 21);
             this.comboMedBillStatus.TabIndex = 40;
@@ -7761,7 +7761,7 @@
             // 
             this.lblIneligibleReason.AutoSize = true;
             this.lblIneligibleReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIneligibleReason.Location = new System.Drawing.Point(13, 297);
+            this.lblIneligibleReason.Location = new System.Drawing.Point(11, 297);
             this.lblIneligibleReason.Name = "lblIneligibleReason";
             this.lblIneligibleReason.Size = new System.Drawing.Size(116, 16);
             this.lblIneligibleReason.TabIndex = 164;
@@ -7771,7 +7771,7 @@
             // 
             this.lblPendingReason.AutoSize = true;
             this.lblPendingReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPendingReason.Location = new System.Drawing.Point(13, 246);
+            this.lblPendingReason.Location = new System.Drawing.Point(11, 246);
             this.lblPendingReason.Name = "lblPendingReason";
             this.lblPendingReason.Size = new System.Drawing.Size(112, 16);
             this.lblPendingReason.TabIndex = 163;
@@ -7781,7 +7781,7 @@
             // 
             this.lblPhysicalTherapyRxNote.AutoSize = true;
             this.lblPhysicalTherapyRxNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhysicalTherapyRxNote.Location = new System.Drawing.Point(272, 218);
+            this.lblPhysicalTherapyRxNote.Location = new System.Drawing.Point(262, 218);
             this.lblPhysicalTherapyRxNote.Name = "lblPhysicalTherapyRxNote";
             this.lblPhysicalTherapyRxNote.Size = new System.Drawing.Size(164, 16);
             this.lblPhysicalTherapyRxNote.TabIndex = 153;
@@ -7791,7 +7791,7 @@
             // 
             this.lblPrescriptionNote.AutoSize = true;
             this.lblPrescriptionNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionNote.Location = new System.Drawing.Point(272, 268);
+            this.lblPrescriptionNote.Location = new System.Drawing.Point(262, 268);
             this.lblPrescriptionNote.Name = "lblPrescriptionNote";
             this.lblPrescriptionNote.Size = new System.Drawing.Size(37, 16);
             this.lblPrescriptionNote.TabIndex = 168;
@@ -7800,21 +7800,21 @@
             // txtNumPhysicalTherapy
             // 
             this.txtNumPhysicalTherapy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNumPhysicalTherapy.Location = new System.Drawing.Point(159, 178);
+            this.txtNumPhysicalTherapy.Location = new System.Drawing.Point(155, 178);
             this.txtNumPhysicalTherapy.Name = "txtNumPhysicalTherapy";
             this.txtNumPhysicalTherapy.Size = new System.Drawing.Size(98, 20);
             this.txtNumPhysicalTherapy.TabIndex = 55;
             // 
             // txtNumberOfMedication
             // 
-            this.txtNumberOfMedication.Location = new System.Drawing.Point(141, 218);
+            this.txtNumberOfMedication.Location = new System.Drawing.Point(137, 218);
             this.txtNumberOfMedication.Name = "txtNumberOfMedication";
             this.txtNumberOfMedication.Size = new System.Drawing.Size(116, 20);
             this.txtNumberOfMedication.TabIndex = 52;
             // 
             // txtPrescriptionName
             // 
-            this.txtPrescriptionName.Location = new System.Drawing.Point(141, 178);
+            this.txtPrescriptionName.Location = new System.Drawing.Point(137, 178);
             this.txtPrescriptionName.Name = "txtPrescriptionName";
             this.txtPrescriptionName.Size = new System.Drawing.Size(116, 20);
             this.txtPrescriptionName.TabIndex = 51;
@@ -7823,7 +7823,7 @@
             // 
             this.lblNumberOfMedication.AutoSize = true;
             this.lblNumberOfMedication.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberOfMedication.Location = new System.Drawing.Point(13, 218);
+            this.lblNumberOfMedication.Location = new System.Drawing.Point(11, 218);
             this.lblNumberOfMedication.Name = "lblNumberOfMedication";
             this.lblNumberOfMedication.Size = new System.Drawing.Size(101, 16);
             this.lblNumberOfMedication.TabIndex = 164;
@@ -7833,7 +7833,7 @@
             // 
             this.lblMedBillNote.AutoSize = true;
             this.lblMedBillNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMedBillNote.Location = new System.Drawing.Point(272, 188);
+            this.lblMedBillNote.Location = new System.Drawing.Point(262, 188);
             this.lblMedBillNote.Name = "lblMedBillNote";
             this.lblMedBillNote.Size = new System.Drawing.Size(88, 16);
             this.lblMedBillNote.TabIndex = 161;
@@ -7842,7 +7842,7 @@
             // comboMedBillType
             // 
             this.comboMedBillType.FormattingEnabled = true;
-            this.comboMedBillType.Location = new System.Drawing.Point(141, 47);
+            this.comboMedBillType.Location = new System.Drawing.Point(137, 47);
             this.comboMedBillType.Name = "comboMedBillType";
             this.comboMedBillType.Size = new System.Drawing.Size(116, 21);
             this.comboMedBillType.TabIndex = 39;
@@ -7852,7 +7852,7 @@
             // 
             this.label173.AutoSize = true;
             this.label173.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label173.Location = new System.Drawing.Point(13, 49);
+            this.label173.Location = new System.Drawing.Point(11, 49);
             this.label173.Name = "label173";
             this.label173.Size = new System.Drawing.Size(115, 16);
             this.label173.TabIndex = 155;
@@ -7860,7 +7860,7 @@
             // 
             // txtBalance
             // 
-            this.txtBalance.Location = new System.Drawing.Point(141, 147);
+            this.txtBalance.Location = new System.Drawing.Point(137, 147);
             this.txtBalance.Name = "txtBalance";
             this.txtBalance.ReadOnly = true;
             this.txtBalance.Size = new System.Drawing.Size(116, 20);
@@ -7870,7 +7870,7 @@
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label71.Location = new System.Drawing.Point(13, 149);
+            this.label71.Location = new System.Drawing.Point(11, 149);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(61, 16);
             this.label71.TabIndex = 153;
@@ -7878,9 +7878,9 @@
             // 
             // btnMedicalProviderInfo
             // 
-            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(400, 70);
+            this.btnMedicalProviderInfo.Location = new System.Drawing.Point(381, 70);
             this.btnMedicalProviderInfo.Name = "btnMedicalProviderInfo";
-            this.btnMedicalProviderInfo.Size = new System.Drawing.Size(143, 23);
+            this.btnMedicalProviderInfo.Size = new System.Drawing.Size(127, 23);
             this.btnMedicalProviderInfo.TabIndex = 152;
             this.btnMedicalProviderInfo.Text = "Medical Provider Info";
             this.btnMedicalProviderInfo.UseVisualStyleBackColor = true;
@@ -7890,7 +7890,7 @@
             // 
             this.dtpDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDueDate.Location = new System.Drawing.Point(430, 163);
+            this.dtpDueDate.Location = new System.Drawing.Point(395, 163);
             this.dtpDueDate.Name = "dtpDueDate";
             this.dtpDueDate.Size = new System.Drawing.Size(113, 20);
             this.dtpDueDate.TabIndex = 45;
@@ -7900,7 +7900,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(272, 163);
+            this.label65.Location = new System.Drawing.Point(262, 163);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(102, 16);
             this.label65.TabIndex = 150;
@@ -7910,7 +7910,7 @@
             // 
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(13, 74);
+            this.label55.Location = new System.Drawing.Point(11, 74);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(69, 16);
             this.label55.TabIndex = 68;
@@ -7921,7 +7921,7 @@
             this.dtpBeginningServiceDate.Checked = false;
             this.dtpBeginningServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpBeginningServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBeginningServiceDate.Location = new System.Drawing.Point(430, 111);
+            this.dtpBeginningServiceDate.Location = new System.Drawing.Point(395, 111);
             this.dtpBeginningServiceDate.Name = "dtpBeginningServiceDate";
             this.dtpBeginningServiceDate.Size = new System.Drawing.Size(113, 20);
             this.dtpBeginningServiceDate.TabIndex = 44;
@@ -7931,16 +7931,16 @@
             // 
             this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(272, 138);
+            this.label67.Location = new System.Drawing.Point(262, 138);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(134, 16);
+            this.label67.Size = new System.Drawing.Size(116, 16);
             this.label67.TabIndex = 149;
-            this.label67.Text = "Ending Service Date:";
+            this.label67.Text = "Service End Date:";
             // 
             // txtMedBillAmount
             // 
             this.txtMedBillAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillAmount.Location = new System.Drawing.Point(141, 122);
+            this.txtMedBillAmount.Location = new System.Drawing.Point(137, 122);
             this.txtMedBillAmount.Name = "txtMedBillAmount";
             this.txtMedBillAmount.Size = new System.Drawing.Size(116, 20);
             this.txtMedBillAmount.TabIndex = 42;
@@ -7950,7 +7950,7 @@
             // 
             this.label64.AutoSize = true;
             this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(13, 124);
+            this.label64.Location = new System.Drawing.Point(11, 124);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(77, 16);
             this.label64.TabIndex = 66;
@@ -7958,7 +7958,7 @@
             // 
             // txtMedBillNo
             // 
-            this.txtMedBillNo.Location = new System.Drawing.Point(141, 23);
+            this.txtMedBillNo.Location = new System.Drawing.Point(137, 23);
             this.txtMedBillNo.Name = "txtMedBillNo";
             this.txtMedBillNo.ReadOnly = true;
             this.txtMedBillNo.Size = new System.Drawing.Size(116, 20);
@@ -7968,7 +7968,7 @@
             // 
             this.label76.AutoSize = true;
             this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label76.Location = new System.Drawing.Point(13, 25);
+            this.label76.Location = new System.Drawing.Point(11, 25);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(101, 16);
             this.label76.TabIndex = 60;
@@ -7978,7 +7978,7 @@
             // 
             this.rbInpatient.AutoSize = true;
             this.rbInpatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbInpatient.Location = new System.Drawing.Point(158, 201);
+            this.rbInpatient.Location = new System.Drawing.Point(154, 201);
             this.rbInpatient.Name = "rbInpatient";
             this.rbInpatient.Size = new System.Drawing.Size(76, 20);
             this.rbInpatient.TabIndex = 47;
@@ -7990,7 +7990,7 @@
             // 
             this.rbOutpatient.AutoSize = true;
             this.rbOutpatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbOutpatient.Location = new System.Drawing.Point(35, 201);
+            this.rbOutpatient.Location = new System.Drawing.Point(31, 201);
             this.rbOutpatient.Name = "rbOutpatient";
             this.rbOutpatient.Size = new System.Drawing.Size(86, 20);
             this.rbOutpatient.TabIndex = 46;
@@ -8000,16 +8000,16 @@
             // 
             // txtMedicalProvider
             // 
-            this.txtMedicalProvider.Location = new System.Drawing.Point(275, 47);
+            this.txtMedicalProvider.Location = new System.Drawing.Point(265, 47);
             this.txtMedicalProvider.Name = "txtMedicalProvider";
-            this.txtMedicalProvider.Size = new System.Drawing.Size(268, 20);
+            this.txtMedicalProvider.Size = new System.Drawing.Size(243, 20);
             this.txtMedicalProvider.TabIndex = 43;
             // 
             // label57
             // 
             this.label57.AutoSize = true;
             this.label57.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.Location = new System.Drawing.Point(272, 25);
+            this.label57.Location = new System.Drawing.Point(262, 25);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(113, 16);
             this.label57.TabIndex = 39;
@@ -8017,45 +8017,45 @@
             // 
             // txtPrescriptionNote
             // 
-            this.txtPrescriptionNote.Location = new System.Drawing.Point(274, 286);
+            this.txtPrescriptionNote.Location = new System.Drawing.Point(264, 286);
             this.txtPrescriptionNote.Multiline = true;
             this.txtPrescriptionNote.Name = "txtPrescriptionNote";
             this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionNote.Size = new System.Drawing.Size(269, 52);
+            this.txtPrescriptionNote.Size = new System.Drawing.Size(244, 52);
             this.txtPrescriptionNote.TabIndex = 54;
             // 
             // txtPhysicalTherapyRxNote
             // 
-            this.txtPhysicalTherapyRxNote.Location = new System.Drawing.Point(274, 237);
+            this.txtPhysicalTherapyRxNote.Location = new System.Drawing.Point(264, 237);
             this.txtPhysicalTherapyRxNote.Multiline = true;
             this.txtPhysicalTherapyRxNote.Name = "txtPhysicalTherapyRxNote";
             this.txtPhysicalTherapyRxNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(269, 102);
+            this.txtPhysicalTherapyRxNote.Size = new System.Drawing.Size(244, 102);
             this.txtPhysicalTherapyRxNote.TabIndex = 56;
             // 
             // txtPrescriptionDescription
             // 
-            this.txtPrescriptionDescription.Location = new System.Drawing.Point(274, 207);
+            this.txtPrescriptionDescription.Location = new System.Drawing.Point(264, 207);
             this.txtPrescriptionDescription.Multiline = true;
             this.txtPrescriptionDescription.Name = "txtPrescriptionDescription";
             this.txtPrescriptionDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionDescription.Size = new System.Drawing.Size(269, 55);
+            this.txtPrescriptionDescription.Size = new System.Drawing.Size(244, 55);
             this.txtPrescriptionDescription.TabIndex = 53;
             // 
             // txtMedBillNote
             // 
-            this.txtMedBillNote.Location = new System.Drawing.Point(275, 207);
+            this.txtMedBillNote.Location = new System.Drawing.Point(264, 207);
             this.txtMedBillNote.Multiline = true;
             this.txtMedBillNote.Name = "txtMedBillNote";
             this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMedBillNote.Size = new System.Drawing.Size(268, 132);
+            this.txtMedBillNote.Size = new System.Drawing.Size(244, 132);
             this.txtMedBillNote.TabIndex = 50;
             // 
             // lblPrescriptionName
             // 
             this.lblPrescriptionName.AutoSize = true;
             this.lblPrescriptionName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionName.Location = new System.Drawing.Point(13, 180);
+            this.lblPrescriptionName.Location = new System.Drawing.Point(11, 180);
             this.lblPrescriptionName.Name = "lblPrescriptionName";
             this.lblPrescriptionName.Size = new System.Drawing.Size(122, 16);
             this.lblPrescriptionName.TabIndex = 162;
@@ -8065,7 +8065,7 @@
             // 
             this.lblNumberOfPhysicalTheraph.AutoSize = true;
             this.lblNumberOfPhysicalTheraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumberOfPhysicalTheraph.Location = new System.Drawing.Point(13, 180);
+            this.lblNumberOfPhysicalTheraph.Location = new System.Drawing.Point(39, 180);
             this.lblNumberOfPhysicalTheraph.Name = "lblNumberOfPhysicalTheraph";
             this.lblNumberOfPhysicalTheraph.Size = new System.Drawing.Size(140, 16);
             this.lblNumberOfPhysicalTheraph.TabIndex = 151;
@@ -8075,7 +8075,7 @@
             // 
             this.lblPrescriptionDescription.AutoSize = true;
             this.lblPrescriptionDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionDescription.Location = new System.Drawing.Point(272, 188);
+            this.lblPrescriptionDescription.Location = new System.Drawing.Point(267, 188);
             this.lblPrescriptionDescription.Name = "lblPrescriptionDescription";
             this.lblPrescriptionDescription.Size = new System.Drawing.Size(150, 16);
             this.lblPrescriptionDescription.TabIndex = 165;
@@ -8084,9 +8084,9 @@
             // grpDocumentProcessing
             // 
             this.grpDocumentProcessing.Controls.Add(this.gvCaseDocumentInMedBill);
-            this.grpDocumentProcessing.Location = new System.Drawing.Point(465, 69);
+            this.grpDocumentProcessing.Location = new System.Drawing.Point(474, 69);
             this.grpDocumentProcessing.Name = "grpDocumentProcessing";
-            this.grpDocumentProcessing.Size = new System.Drawing.Size(380, 159);
+            this.grpDocumentProcessing.Size = new System.Drawing.Size(402, 159);
             this.grpDocumentProcessing.TabIndex = 50;
             this.grpDocumentProcessing.TabStop = false;
             this.grpDocumentProcessing.Text = "Case Documents";
@@ -8105,7 +8105,7 @@
             this.gvCaseDocumentInMedBill.Location = new System.Drawing.Point(9, 20);
             this.gvCaseDocumentInMedBill.Name = "gvCaseDocumentInMedBill";
             this.gvCaseDocumentInMedBill.ReadOnly = true;
-            this.gvCaseDocumentInMedBill.Size = new System.Drawing.Size(363, 133);
+            this.gvCaseDocumentInMedBill.Size = new System.Drawing.Size(387, 133);
             this.gvCaseDocumentInMedBill.TabIndex = 0;
             this.gvCaseDocumentInMedBill.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCaseDocumentInMedBill_CellClick);
             // 
@@ -8155,7 +8155,7 @@
             this.grpPatientInfo.Controls.Add(this.label53);
             this.grpPatientInfo.Location = new System.Drawing.Point(37, 69);
             this.grpPatientInfo.Name = "grpPatientInfo";
-            this.grpPatientInfo.Size = new System.Drawing.Size(419, 166);
+            this.grpPatientInfo.Size = new System.Drawing.Size(428, 166);
             this.grpPatientInfo.TabIndex = 48;
             this.grpPatientInfo.TabStop = false;
             this.grpPatientInfo.Text = "Patient Info";
@@ -8201,7 +8201,7 @@
             this.txtMedBillAddress.Location = new System.Drawing.Point(132, 78);
             this.txtMedBillAddress.Name = "txtMedBillAddress";
             this.txtMedBillAddress.ReadOnly = true;
-            this.txtMedBillAddress.Size = new System.Drawing.Size(274, 20);
+            this.txtMedBillAddress.Size = new System.Drawing.Size(286, 20);
             this.txtMedBillAddress.TabIndex = 25;
             // 
             // label80
@@ -8219,7 +8219,7 @@
             this.txtMedBillSSN.Location = new System.Drawing.Point(305, 50);
             this.txtMedBillSSN.Name = "txtMedBillSSN";
             this.txtMedBillSSN.ReadOnly = true;
-            this.txtMedBillSSN.Size = new System.Drawing.Size(101, 20);
+            this.txtMedBillSSN.Size = new System.Drawing.Size(113, 20);
             this.txtMedBillSSN.TabIndex = 23;
             // 
             // label79
@@ -8255,7 +8255,7 @@
             this.txtPatientNameMedBill.Location = new System.Drawing.Point(305, 22);
             this.txtPatientNameMedBill.Name = "txtPatientNameMedBill";
             this.txtPatientNameMedBill.ReadOnly = true;
-            this.txtPatientNameMedBill.Size = new System.Drawing.Size(101, 20);
+            this.txtPatientNameMedBill.Size = new System.Drawing.Size(113, 20);
             this.txtPatientNameMedBill.TabIndex = 15;
             // 
             // label51
