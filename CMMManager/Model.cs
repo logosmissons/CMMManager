@@ -2683,8 +2683,10 @@ namespace CMMManager
         //public String INCD;
         public String PatientName;
         public String MED_BILL;
-        public String Bill_Date;
-        public String EndServiceDate;
+        //public String Bill_Date;
+        //public String EndServiceDate;
+        public DateTime? Bill_Date;
+        public DateTime? EndServiceDate;
         public String Due_Date;
         public String Medical_Provider;
         public String Bill_Amount;
@@ -2698,8 +2700,10 @@ namespace CMMManager
         {
             PatientName = String.Empty;
             MED_BILL = String.Empty;
-            Bill_Date = String.Empty;
-            EndServiceDate = String.Empty;
+            //Bill_Date = String.Empty;
+            //EndServiceDate = String.Empty;
+            Bill_Date = null;
+            EndServiceDate = null;
             Due_Date = String.Empty;
             Medical_Provider = String.Empty;
             Bill_Amount = String.Empty;
@@ -2716,8 +2720,10 @@ namespace CMMManager
         //public String INCD;
         public String PatientName;
         public String MED_BILL;
-        public String Bill_Date;
-        public String EndingServiceDate;
+        //public String Bill_Date;
+        //public String EndingServiceDate;
+        public DateTime? Bill_Date;
+        public DateTime? EndingServiceDate;
         public String Due_Date;
         public String Medical_Provider;
         public String Bill_Amount;
@@ -2731,8 +2737,10 @@ namespace CMMManager
         {
             PatientName = String.Empty;
             MED_BILL = String.Empty;
-            Bill_Date = String.Empty;
-            EndingServiceDate = String.Empty;
+            //Bill_Date = String.Empty;
+            //EndingServiceDate = String.Empty;
+            Bill_Date = null;
+            EndingServiceDate = null;
             Due_Date = String.Empty;
             Medical_Provider = String.Empty;
             Bill_Amount = String.Empty;
@@ -2749,8 +2757,10 @@ namespace CMMManager
         //public String INCD;
         public String PatientName;
         public String MED_BILL;
-        public String Bill_Date;
-        public String EndingServiceDate;
+        //public String Bill_Date;
+        //public String EndingServiceDate;
+        public DateTime? Bill_Date;
+        public DateTime? EndingServiceDate;
         public String Received_Date;
         public String Medical_Provider;
         public String Bill_Amount;
@@ -2761,8 +2771,10 @@ namespace CMMManager
         {
             PatientName = String.Empty;
             MED_BILL = String.Empty;
-            Bill_Date = String.Empty;
-            EndingServiceDate = String.Empty;
+            //Bill_Date = String.Empty;
+            //EndingServiceDate = String.Empty;
+            Bill_Date = null;
+            EndingServiceDate = null;
             Received_Date = String.Empty;
             Medical_Provider = String.Empty;
             Bill_Amount = String.Empty;
