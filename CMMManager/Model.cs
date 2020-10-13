@@ -605,12 +605,14 @@ namespace CMMManager
         public String CaseNo;
         public String IllnessNo;
         public String IncidentNo;
+        public String NoSharingOnlyBlueSheetIncidentNo;
         public String CommunicationNo;
         public CommunicationType? CommunicationType;
         public String Subject;
         public String Body;
         public String Solution;
         public DateTime? CreateDate;
+        public DateTime? IncidentOccurrenceDate;
         public String CreateStaff;
         public Boolean? IsCompleted;
         public int? nTaskId;
@@ -628,12 +630,14 @@ namespace CMMManager
             CaseNo = String.Empty;
             IllnessNo = String.Empty;
             IncidentNo = String.Empty;
+            NoSharingOnlyBlueSheetIncidentNo = String.Empty;
             CommunicationNo = String.Empty;
             CommunicationType = null;
             Subject = String.Empty;
             Body = String.Empty;
             Solution = String.Empty;
             CreateDate = null;
+            IncidentOccurrenceDate = null;
             CreateStaff = String.Empty;
             IsCompleted = null;
 

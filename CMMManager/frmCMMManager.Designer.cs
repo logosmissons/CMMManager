@@ -11239,11 +11239,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1613, 33);
+            this.label143.Location = new System.Drawing.Point(1496, 28);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(250, 13);
+            this.label143.Size = new System.Drawing.Size(367, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Beginnng Ending Service Date Added - 10-05-2020";
+            this.label143.Text = "Beginnng Ending Service Date Added and BlueSheet Updated - 10-13-2020";
             // 
             // frmCMMManager
             // 

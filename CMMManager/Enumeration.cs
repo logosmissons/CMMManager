@@ -44,7 +44,7 @@ namespace CMMManager
     public enum TaskType { Send = 0, Reply, SendAgain};
 
     // enumeration for communication type
-    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet };
+    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet, NoSharingOnlyBlueSheet };
     // enumeration for Communication open mode
     public enum CommunicationOpenMode { AddNew = 0, ReadOnly, Update};
 
@@ -53,7 +53,7 @@ namespace CMMManager
     // enumeration for BlueSheet
     public enum EnumPaidTo { Member, MedicalProvider };
     public enum EnumSorted { NotSorted, SortedAsc, SortedDesc };
-    public enum EnumBlueSheetType { Check = 1, ACH, CreditCard };
+    public enum EnumBlueSheetType { Check = 1, ACH, CreditCard, NoSharingOnly };
 
     public enum Gender { Male, Female };
     public enum HouseholdRole { HeadOfHousehold, Spouse, Child };
