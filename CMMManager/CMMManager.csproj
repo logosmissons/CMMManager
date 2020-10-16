@@ -200,6 +200,12 @@
     <Compile Include="frmConfirmACHPayment.Designer.cs">
       <DependentUpon>frmConfirmACHPayment.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConfirmCCRecon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfirmCCRecon.Designer.cs">
+      <DependentUpon>frmConfirmCCRecon.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmConfirmCheckPayment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -418,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfirmACHPayment.resx">
       <DependentUpon>frmConfirmACHPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmConfirmCCRecon.resx">
+      <DependentUpon>frmConfirmCCRecon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmConfirmCheckPayment.resx">
       <DependentUpon>frmConfirmCheckPayment.cs</DependentUpon>

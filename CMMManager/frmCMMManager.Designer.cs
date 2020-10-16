@@ -66,6 +66,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -962,8 +963,8 @@
             this.label144 = new System.Windows.Forms.Label();
             this.gvCreditCardReconcilation = new System.Windows.Forms.DataGridView();
             this.ReconcileCreditCardPayment = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreditCardPaidSettlementNo = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CreditCardPaidSettlementType = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreditCardPaidSettlementNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreditCardPaidSettlementType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreditCardPaidSettlementAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreditCardPaidIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreditCardPaidCreditCardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -9490,6 +9491,7 @@
             this.btnReloadCreditCardRecon.TabIndex = 8;
             this.btnReloadCreditCardRecon.Text = "Reload";
             this.btnReloadCreditCardRecon.UseVisualStyleBackColor = true;
+            this.btnReloadCreditCardRecon.Click += new System.EventHandler(this.btnReloadCreditCardRecon_Click);
             // 
             // label144
             // 
@@ -9520,6 +9522,8 @@
             this.gvCreditCardReconcilation.ReadOnly = true;
             this.gvCreditCardReconcilation.Size = new System.Drawing.Size(1673, 581);
             this.gvCreditCardReconcilation.TabIndex = 0;
+            this.gvCreditCardReconcilation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCreditCardReconcilation_CellContentClick);
+            this.gvCreditCardReconcilation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCreditCardReconcilation_CellDoubleClick);
             // 
             // ReconcileCreditCardPayment
             // 
@@ -9532,6 +9536,8 @@
             this.CreditCardPaidSettlementNo.HeaderText = "Settlement No";
             this.CreditCardPaidSettlementNo.Name = "CreditCardPaidSettlementNo";
             this.CreditCardPaidSettlementNo.ReadOnly = true;
+            this.CreditCardPaidSettlementNo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CreditCardPaidSettlementNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.CreditCardPaidSettlementNo.Width = 120;
             // 
             // CreditCardPaidSettlementType
@@ -9539,10 +9545,14 @@
             this.CreditCardPaidSettlementType.HeaderText = "Settlement Type";
             this.CreditCardPaidSettlementType.Name = "CreditCardPaidSettlementType";
             this.CreditCardPaidSettlementType.ReadOnly = true;
+            this.CreditCardPaidSettlementType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CreditCardPaidSettlementType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.CreditCardPaidSettlementType.Width = 160;
             // 
             // CreditCardPaidSettlementAmount
             // 
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditCardPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle31;
             this.CreditCardPaidSettlementAmount.HeaderText = "Settlement Amount";
             this.CreditCardPaidSettlementAmount.Name = "CreditCardPaidSettlementAmount";
             this.CreditCardPaidSettlementAmount.ReadOnly = true;
@@ -9622,9 +9632,9 @@
             // 
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToAddRows = false;
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle32;
             this.gvUndoCheckPaymentMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvUndoCheckPaymentMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedUndoCheckMemberReimbursement,
@@ -9643,8 +9653,8 @@
             // 
             // SelectedUndoCheckMemberReimbursement
             // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle33;
             this.SelectedUndoCheckMemberReimbursement.HeaderText = "Selected";
             this.SelectedUndoCheckMemberReimbursement.Name = "SelectedUndoCheckMemberReimbursement";
             this.SelectedUndoCheckMemberReimbursement.ReadOnly = true;
@@ -9652,8 +9662,8 @@
             // 
             // AmountUndoCheckPaymentMemberReimbursement
             // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle34;
             this.AmountUndoCheckPaymentMemberReimbursement.HeaderText = "Amount";
             this.AmountUndoCheckPaymentMemberReimbursement.Name = "AmountUndoCheckPaymentMemberReimbursement";
             this.AmountUndoCheckPaymentMemberReimbursement.ReadOnly = true;
@@ -9737,8 +9747,8 @@
             // 
             // AmountUndoCheckProviderPayment
             // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle35;
             this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
             this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
             this.AmountUndoCheckProviderPayment.ReadOnly = true;
@@ -10827,15 +10837,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle36;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle37;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -10863,8 +10873,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle38;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -12534,17 +12544,17 @@
         private System.Windows.Forms.ComboBox comboBeneficiary;
         private System.Windows.Forms.Label label144;
         private System.Windows.Forms.DataGridView gvCreditCardReconcilation;
+        private System.Windows.Forms.Button btnReloadCreditCardRecon;
+        private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.DateTimePicker dtpEndingServiceDate;
         private System.Windows.Forms.DataGridViewButtonColumn ReconcileCreditCardPayment;
-        private System.Windows.Forms.DataGridViewButtonColumn CreditCardPaidSettlementNo;
-        private System.Windows.Forms.DataGridViewButtonColumn CreditCardPaidSettlementType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidSettlementNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidSettlementType;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidSettlementAmount;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidIndividualId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidCreditCardNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidNotes;
-        private System.Windows.Forms.Button btnReloadCreditCardRecon;
-        private System.Windows.Forms.Label label145;
-        private System.Windows.Forms.DateTimePicker dtpEndingServiceDate;
     }
 }
 
