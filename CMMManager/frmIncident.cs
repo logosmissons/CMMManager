@@ -653,9 +653,10 @@ namespace CMMManager
 
             if (strIncidentNo != String.Empty)
             {
-                frmIncidentCreationPage frmIncd = new frmIncidentCreationPage();
 
+                frmIncidentCreationPage frmIncd = new frmIncidentCreationPage();
                 frmIncd.strIllnessId = IllnessSelected.IllnessId;
+                frmIncd.strIllnessNo = IllnessSelected.IllnessNo;
                 frmIncd.strIncidentId = IncidentSelected.IncidentId;
                 frmIncd.strIncidentNo = IncidentSelected.IncidentNo;
                 frmIncd.strCaseId = CaseId;

@@ -480,13 +480,17 @@ namespace CMMManager
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 strIllnessNo = txtIllnessNo.Text.Trim();
+                //String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
+                //                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
                 String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
-                                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+                                 "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
                 SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
                 cmdQueryForICD10Code.CommandType = CommandType.Text;
                 //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessNo.Trim());
-                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
+                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessNo", strIllnessNo);
                 cmdQueryForICD10Code.Parameters.AddWithValue("@IndividualId", strIndividualId.Trim());
 
                 if (connRNDB.State == ConnectionState.Open)
