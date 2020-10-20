@@ -974,6 +974,7 @@ namespace CMMManager
         public String PendingReason;
         public String IneligibleReason;
         public DateTime? ServiceDate;
+        public DateTime? ServiceEndDate;
         public String MedicalProviderId;
         public String MedicalProviderName;
         public Double? BillAmount;
@@ -995,6 +996,7 @@ namespace CMMManager
             PendingReason = null;
             IneligibleReason = null;
             ServiceDate = null;
+            ServiceEndDate = null;
             MedicalProviderId = null;
             MedicalProviderName = null;
             BillAmount = null;
