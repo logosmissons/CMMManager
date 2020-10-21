@@ -488,6 +488,7 @@ namespace CMMManager
             {
                 //int IllnessId = nIllnessNo.Value;
 
+                Int32? LimitedSharingId = null;
 
                 if (bOpenFromIllnessView) comboCaseNoIllness.Enabled = true;
                 else comboCaseNoIllness.Enabled = false;
@@ -549,15 +550,25 @@ namespace CMMManager
                         dtpDateOfDiagnosis.Format = DateTimePickerFormat.Custom;
                         dtpDateOfDiagnosis.CustomFormat = " ";
                     }
-                    if (!rdrIllness.IsDBNull(7)) comboLimitedSharing.SelectedIndex = rdrIllness.GetInt16(7);
+                    
+                    if (!rdrIllness.IsDBNull(7))
+                    {
+                        //comboLimitedSharing.SelectedIndex = rdrIllness.GetInt16(7);
+                        LimitedSharingId = (Int32)rdrIllness.GetInt16(7);
+                        //comboLimitedSharing.SelectedIndex = LimitedSharingId;
+                    }
                     if (!rdrIllness.IsDBNull(8)) txtIllnessNote.Text = rdrIllness.GetString(8) + Environment.NewLine;
                     if (!rdrIllness.IsDBNull(9)) txtIllnessNote.Text += rdrIllness.GetString(9);
                     if (!rdrIllness.IsDBNull(10)) txtConclusion.Text = rdrIllness.GetString(10);
                     if (!rdrIllness.IsDBNull(11)) comboIllnessProgram.SelectedIndex = rdrIllness.GetByte(11);
                     else comboIllnessProgram.SelectedIndex = -1;
+                                        
                 }
                 rdrIllness.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                if (LimitedSharingId != null) comboLimitedSharing.SelectedIndex = LimitedSharingId.Value;
+
 
                 String strSqlQueryForIncidentInfoForIllness = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
                                                            "[dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[OccurrenceDate], " +
