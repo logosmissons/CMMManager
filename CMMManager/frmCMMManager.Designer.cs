@@ -380,11 +380,6 @@
             this.chkCommunicationAll = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.gvFamilyInformation = new System.Windows.Forms.DataGridView();
-            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label36 = new System.Windows.Forms.Label();
             this.gvProcessingCaseNo = new System.Windows.Forms.DataGridView();
             this.CaseSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -1167,6 +1162,14 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.label146 = new System.Windows.Forms.Label();
+            this.txtHouseholdEmail = new System.Windows.Forms.TextBox();
+            this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoHouseholdEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3302,6 +3305,8 @@
             // 
             // tbpgIndividual
             // 
+            this.tbpgIndividual.Controls.Add(this.txtHouseholdEmail);
+            this.tbpgIndividual.Controls.Add(this.label146);
             this.tbpgIndividual.Controls.Add(this.comboBeneficiary);
             this.tbpgIndividual.Controls.Add(this.comboVoidCheck);
             this.tbpgIndividual.Controls.Add(this.comboCommunicationConsent);
@@ -4217,44 +4222,14 @@
             this.FamilyInfoIndividualName,
             this.FamilyInfoHouseholdRole,
             this.FamilyInfoGender,
-            this.FamilyInfoBirthdate});
+            this.FamilyInfoBirthdate,
+            this.FamilyInfoHouseholdEmail});
             this.gvFamilyInformation.Location = new System.Drawing.Point(760, 301);
             this.gvFamilyInformation.Name = "gvFamilyInformation";
             this.gvFamilyInformation.ReadOnly = true;
             this.gvFamilyInformation.Size = new System.Drawing.Size(1049, 94);
             this.gvFamilyInformation.TabIndex = 197;
             this.gvFamilyInformation.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvFamilyInformation_CellDoubleClick);
-            // 
-            // FamilyInfoIndividualId
-            // 
-            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
-            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
-            this.FamilyInfoIndividualId.ReadOnly = true;
-            // 
-            // FamilyInfoIndividualName
-            // 
-            this.FamilyInfoIndividualName.HeaderText = "Name";
-            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
-            this.FamilyInfoIndividualName.ReadOnly = true;
-            // 
-            // FamilyInfoHouseholdRole
-            // 
-            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
-            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
-            this.FamilyInfoHouseholdRole.ReadOnly = true;
-            this.FamilyInfoHouseholdRole.Width = 120;
-            // 
-            // FamilyInfoGender
-            // 
-            this.FamilyInfoGender.HeaderText = "Gender";
-            this.FamilyInfoGender.Name = "FamilyInfoGender";
-            this.FamilyInfoGender.ReadOnly = true;
-            // 
-            // FamilyInfoBirthdate
-            // 
-            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
-            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
-            this.FamilyInfoBirthdate.ReadOnly = true;
             // 
             // label36
             // 
@@ -4714,7 +4689,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(400, 345);
+            this.label23.Location = new System.Drawing.Point(392, 345);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(125, 16);
             this.label23.TabIndex = 158;
@@ -4759,7 +4734,7 @@
             // 
             this.txtEmail.Location = new System.Drawing.Point(145, 310);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(245, 20);
+            this.txtEmail.Size = new System.Drawing.Size(214, 20);
             this.txtEmail.TabIndex = 18;
             // 
             // label18
@@ -11263,6 +11238,61 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "Search function improved - 10-21-2020";
             // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label146.Location = new System.Drawing.Point(392, 310);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(118, 16);
+            this.label146.TabIndex = 261;
+            this.label146.Text = "Household E-Mail:";
+            // 
+            // txtHouseholdEmail
+            // 
+            this.txtHouseholdEmail.Location = new System.Drawing.Point(515, 310);
+            this.txtHouseholdEmail.Name = "txtHouseholdEmail";
+            this.txtHouseholdEmail.Size = new System.Drawing.Size(214, 20);
+            this.txtHouseholdEmail.TabIndex = 262;
+            // 
+            // FamilyInfoIndividualId
+            // 
+            this.FamilyInfoIndividualId.HeaderText = "Individual Id";
+            this.FamilyInfoIndividualId.Name = "FamilyInfoIndividualId";
+            this.FamilyInfoIndividualId.ReadOnly = true;
+            // 
+            // FamilyInfoIndividualName
+            // 
+            this.FamilyInfoIndividualName.HeaderText = "Name";
+            this.FamilyInfoIndividualName.Name = "FamilyInfoIndividualName";
+            this.FamilyInfoIndividualName.ReadOnly = true;
+            // 
+            // FamilyInfoHouseholdRole
+            // 
+            this.FamilyInfoHouseholdRole.HeaderText = "Household Role";
+            this.FamilyInfoHouseholdRole.Name = "FamilyInfoHouseholdRole";
+            this.FamilyInfoHouseholdRole.ReadOnly = true;
+            this.FamilyInfoHouseholdRole.Width = 120;
+            // 
+            // FamilyInfoGender
+            // 
+            this.FamilyInfoGender.HeaderText = "Gender";
+            this.FamilyInfoGender.Name = "FamilyInfoGender";
+            this.FamilyInfoGender.ReadOnly = true;
+            // 
+            // FamilyInfoBirthdate
+            // 
+            this.FamilyInfoBirthdate.HeaderText = "Birthdate";
+            this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
+            this.FamilyInfoBirthdate.ReadOnly = true;
+            // 
+            // FamilyInfoHouseholdEmail
+            // 
+            this.FamilyInfoHouseholdEmail.HeaderText = "Household Email";
+            this.FamilyInfoHouseholdEmail.Name = "FamilyInfoHouseholdEmail";
+            this.FamilyInfoHouseholdEmail.ReadOnly = true;
+            this.FamilyInfoHouseholdEmail.Width = 300;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -12187,11 +12217,6 @@
         private System.Windows.Forms.Button btnUploadBeneficiary;
         private System.Windows.Forms.CheckBox chkBeneficiary;
         private System.Windows.Forms.CheckBox chkTask;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoGender;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
         private System.Windows.Forms.Button btnAddNewMedProvider;
         private System.Windows.Forms.Label label132;
         private System.Windows.Forms.DataGridView gvLogCommunicationNPStaff;
@@ -12564,6 +12589,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreatedBy;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedBy;
+        private System.Windows.Forms.TextBox txtHouseholdEmail;
+        private System.Windows.Forms.Label label146;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoIndividualName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdEmail;
     }
 }
 

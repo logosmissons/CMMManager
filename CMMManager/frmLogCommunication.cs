@@ -17,6 +17,7 @@ namespace CMMManager
     {
         public String IndividualId;
         private int nLoggedInUserId;
+        //private int nLoggedInUserRole;
         private String CommunicationNo;
         private String CaseNo;
         private String IllnessNo;
@@ -583,7 +584,7 @@ namespace CMMManager
             }
             else if (OpenMode == CommunicationOpenMode.Update)
             {
-                comboCaseNo.Items.Add("None");
+                //comboCaseNo.Items.Add("None");
                 String strSqlQueryForCasesForIndividual = "select [dbo].[tbl_case].[Case_Name] from [dbo].[tbl_case] where [dbo].[tbl_case].[individual_id] = @IndividualId " +
                           "order by [dbo].[tbl_case].[Case_Name] desc";
 
@@ -798,6 +799,79 @@ namespace CMMManager
                 }
                 rdrAttachments.Close();
                 if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                String strSqlQueryForCommunicationLogCreateDate = "select [dbo].[tbl_Communication].[CreateDate] from [dbo].[tbl_Communication] " +
+                                                                  "where [dbo].[tbl_Communication].[CommunicationNo] = @CommunicationNo";
+
+                SqlCommand cmdQueryForCommCreateDate = new SqlCommand(strSqlQueryForCommunicationLogCreateDate, connRN);
+                cmdQueryForCommCreateDate.CommandType = CommandType.Text;
+
+                cmdQueryForCommCreateDate.Parameters.AddWithValue("@CommunicationNo", CommunicationNo);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                Object objCommunicationLogCreateDate = cmdQueryForCommCreateDate.ExecuteScalar();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                DateTime? CommunicationLogCreateDate = null;
+                if (objCommunicationLogCreateDate != null)
+                {
+                    DateTime resultCommLogCreateDate;
+                    if (DateTime.TryParse(objCommunicationLogCreateDate.ToString(), out resultCommLogCreateDate)) CommunicationLogCreateDate = resultCommLogCreateDate;
+                }
+
+                String strSqlQueryForLoggedInUserRole = "select [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @LoggedInUserId";
+
+                SqlCommand cmdQueryForLoggedInUserRole = new SqlCommand(strSqlQueryForLoggedInUserRole, connRN);
+                cmdQueryForLoggedInUserRole.CommandType = CommandType.Text;
+
+                cmdQueryForLoggedInUserRole.Parameters.AddWithValue("@LoggedInUserId", nLoggedInUserId);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                Object objLoggedInUserRole = cmdQueryForLoggedInUserRole.ExecuteScalar();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                //Int16? nLoggedInUserRoleId = null;
+                UserRole? LoggedInUserRoleId = null;
+                if (objLoggedInUserRole != null)
+                {
+                    Int16 resultLoggedInUserRole;
+                    if (Int16.TryParse(objLoggedInUserRole.ToString(), out resultLoggedInUserRole)) LoggedInUserRoleId = (UserRole)resultLoggedInUserRole;
+                }
+
+                if (CommunicationLogCreateDate != null)
+                {
+                    if (LoggedInUserRoleId == UserRole.RNStaff ||
+                        LoggedInUserRoleId == UserRole.NPStaff ||
+                        LoggedInUserRoleId == UserRole.MSStaff ||
+                        LoggedInUserRoleId == UserRole.FDStaff)
+                    {
+                        if (CommunicationLogCreateDate.Value.AddDays(1) > DateTime.Now)
+                            MakeCommunicationLogUpdatableBeforeOneDayPassed();
+                        else
+                            MakeCommunicationSolutionUpdatable();
+                    }
+
+                    if (LoggedInUserRoleId == UserRole.RNManager ||
+                        LoggedInUserRoleId == UserRole.NPManager ||
+                        LoggedInUserRoleId == UserRole.MSManager ||
+                        LoggedInUserRoleId == UserRole.FDManager ||
+                        LoggedInUserRoleId == UserRole.Administrator ||
+                        LoggedInUserRoleId == UserRole.SuperAdmin ||
+                        LoggedInUserRoleId == UserRole.Executive)
+                    {
+                        MakeCommunicationLogUpdatableBeforeOneDayPassed();
+                    }                    
+                }
             }
         }
 
@@ -814,6 +888,20 @@ namespace CMMManager
 
             btnSaveCommunication.Enabled = true;
             btnCommunicationCancel.Text = "Close";
+        }
+
+        public void MakeCommunicationLogUpdatableBeforeOneDayPassed()
+        {
+            comboCommunicationType.Enabled = true;
+            comboCaseNo.Enabled = true;
+            comboIllnessNo.Enabled = true;
+            comboIncidentNo.Enabled = true;
+            txtCommunicationSubject.Enabled = true;
+            txtCommunicationBody.Enabled = true;
+            txtCommunicationSolution.Enabled = true;
+            btnAddNewAttachment.Enabled = true;
+            btnDeleteAttachment.Enabled = true;
+            gvCommunicationAttachment.Enabled = true;
         }
 
         private void btnCommunicationCancel_Click(object sender, EventArgs e)
