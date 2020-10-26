@@ -20,6 +20,7 @@ namespace CMMManager
         public String strMiddleName;
         public String strSalutation;
         public String strEmail;
+        public String strHouseholdEmail;
         public DateTime? dtBirthDate;
         public Gender IndividualGender;
         public String strSSN;
@@ -56,6 +57,7 @@ namespace CMMManager
             strMiddleName = String.Empty;
             strSalutation = String.Empty;
             strEmail = String.Empty;
+            strHouseholdEmail = String.Empty;
             dtBirthDate = null;
             HouseholdPrimaryContact = String.Empty;
             strBillingStreetAddress = String.Empty;

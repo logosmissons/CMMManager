@@ -299,6 +299,8 @@
             this.label59 = new System.Windows.Forms.Label();
             this.gvIndividualSearched = new System.Windows.Forms.DataGridView();
             this.tbpgIndividual = new System.Windows.Forms.TabPage();
+            this.txtHouseholdEmail = new System.Windows.Forms.TextBox();
+            this.label146 = new System.Windows.Forms.Label();
             this.comboBeneficiary = new System.Windows.Forms.ComboBox();
             this.comboVoidCheck = new System.Windows.Forms.ComboBox();
             this.comboCommunicationConsent = new System.Windows.Forms.ComboBox();
@@ -1162,14 +1164,12 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.label146 = new System.Windows.Forms.Label();
-            this.txtHouseholdEmail = new System.Windows.Forms.TextBox();
             this.FamilyInfoIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FamilyInfoIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FamilyInfoHouseholdRole = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FamilyInfoGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FamilyInfoBirthdate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FamilyInfoHouseholdEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FamilyInfoEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -3444,6 +3444,23 @@
             this.tbpgIndividual.UseVisualStyleBackColor = true;
             this.tbpgIndividual.Click += new System.EventHandler(this.tbpgIndividual_Click);
             // 
+            // txtHouseholdEmail
+            // 
+            this.txtHouseholdEmail.Location = new System.Drawing.Point(515, 310);
+            this.txtHouseholdEmail.Name = "txtHouseholdEmail";
+            this.txtHouseholdEmail.Size = new System.Drawing.Size(214, 20);
+            this.txtHouseholdEmail.TabIndex = 262;
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label146.Location = new System.Drawing.Point(392, 310);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(118, 16);
+            this.label146.TabIndex = 261;
+            this.label146.Text = "Household E-Mail:";
+            // 
             // comboBeneficiary
             // 
             this.comboBeneficiary.FormattingEnabled = true;
@@ -4223,7 +4240,7 @@
             this.FamilyInfoHouseholdRole,
             this.FamilyInfoGender,
             this.FamilyInfoBirthdate,
-            this.FamilyInfoHouseholdEmail});
+            this.FamilyInfoEmail});
             this.gvFamilyInformation.Location = new System.Drawing.Point(760, 301);
             this.gvFamilyInformation.Name = "gvFamilyInformation";
             this.gvFamilyInformation.ReadOnly = true;
@@ -11238,23 +11255,6 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "Search function improved - 10-21-2020";
             // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label146.Location = new System.Drawing.Point(392, 310);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(118, 16);
-            this.label146.TabIndex = 261;
-            this.label146.Text = "Household E-Mail:";
-            // 
-            // txtHouseholdEmail
-            // 
-            this.txtHouseholdEmail.Location = new System.Drawing.Point(515, 310);
-            this.txtHouseholdEmail.Name = "txtHouseholdEmail";
-            this.txtHouseholdEmail.Size = new System.Drawing.Size(214, 20);
-            this.txtHouseholdEmail.TabIndex = 262;
-            // 
             // FamilyInfoIndividualId
             // 
             this.FamilyInfoIndividualId.HeaderText = "Individual Id";
@@ -11286,12 +11286,12 @@
             this.FamilyInfoBirthdate.Name = "FamilyInfoBirthdate";
             this.FamilyInfoBirthdate.ReadOnly = true;
             // 
-            // FamilyInfoHouseholdEmail
+            // FamilyInfoEmail
             // 
-            this.FamilyInfoHouseholdEmail.HeaderText = "Household Email";
-            this.FamilyInfoHouseholdEmail.Name = "FamilyInfoHouseholdEmail";
-            this.FamilyInfoHouseholdEmail.ReadOnly = true;
-            this.FamilyInfoHouseholdEmail.Width = 300;
+            this.FamilyInfoEmail.HeaderText = "Email";
+            this.FamilyInfoEmail.Name = "FamilyInfoEmail";
+            this.FamilyInfoEmail.ReadOnly = true;
+            this.FamilyInfoEmail.Width = 300;
             // 
             // frmCMMManager
             // 
@@ -12596,7 +12596,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdRole;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoGender;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoHouseholdEmail;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoEmail;
     }
 }
 
