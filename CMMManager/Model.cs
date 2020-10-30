@@ -218,6 +218,38 @@ namespace CMMManager
         }
     }
 
+    public class IncidentListInfo
+    {
+        public int? IncidentId;
+        public String IncidentNo;
+        public String IndividualId;
+        public String CaseNo;
+        public int? IllnessId;
+        public String IllnessNo;
+        public DateTime? CreateDate;
+        public String ProgramName;
+        public String IncidentNote;
+        public String ICD10Code;
+        public String DiseaseDescription;
+        public DateTime? OccurrenceDate;
+
+        public IncidentListInfo()
+        {
+            IncidentId = null;
+            IncidentNo = null;
+            IndividualId = null;
+            CaseNo = null;
+            IllnessId = null;
+            IllnessNo = null;
+            CreateDate = null;
+            ProgramName = null;
+            IncidentNote = null;
+            ICD10Code = null;
+            DiseaseDescription = null;
+            OccurrenceDate = null;
+        }
+    }
+
     public class IncidentAnniversaryInfo
     {
         public String IndividualId;

@@ -30,12 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.gvIncidents = new System.Windows.Forms.DataGridView();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Incident_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Program_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -47,6 +41,14 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Incident_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Illness_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentServiceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Program_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Note = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvIncidents)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +71,8 @@
             this.Selected,
             this.Incident_No,
             this.Illness_No,
+            this.Illness_Description,
+            this.IncidentServiceDate,
             this.CreateDate,
             this.Program_Id,
             this.Note});
@@ -78,40 +82,6 @@
             this.gvIncidents.Size = new System.Drawing.Size(770, 374);
             this.gvIncidents.TabIndex = 1;
             this.gvIncidents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidents_CellContentClick);
-            // 
-            // Selected
-            // 
-            this.Selected.HeaderText = "Selected";
-            this.Selected.Name = "Selected";
-            this.Selected.Width = 80;
-            // 
-            // Incident_No
-            // 
-            this.Incident_No.HeaderText = "Incident No";
-            this.Incident_No.Name = "Incident_No";
-            // 
-            // Illness_No
-            // 
-            this.Illness_No.HeaderText = "Illness No";
-            this.Illness_No.Name = "Illness_No";
-            this.Illness_No.Width = 80;
-            // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            this.CreateDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Program_Id
-            // 
-            this.Program_Id.HeaderText = "Program Name";
-            this.Program_Id.Name = "Program_Id";
-            // 
-            // Note
-            // 
-            this.Note.HeaderText = "Note";
-            this.Note.Name = "Note";
-            this.Note.Width = 200;
             // 
             // btnClose
             // 
@@ -202,6 +172,51 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.Width = 200;
             // 
+            // Selected
+            // 
+            this.Selected.HeaderText = "Selected";
+            this.Selected.Name = "Selected";
+            this.Selected.Width = 60;
+            // 
+            // Incident_No
+            // 
+            this.Incident_No.HeaderText = "Incident No";
+            this.Incident_No.Name = "Incident_No";
+            // 
+            // Illness_No
+            // 
+            this.Illness_No.HeaderText = "Illness No";
+            this.Illness_No.Name = "Illness_No";
+            this.Illness_No.Width = 80;
+            // 
+            // Illness_Description
+            // 
+            this.Illness_Description.HeaderText = "Description";
+            this.Illness_Description.Name = "Illness_Description";
+            this.Illness_Description.Width = 200;
+            // 
+            // IncidentServiceDate
+            // 
+            this.IncidentServiceDate.HeaderText = "Service Date";
+            this.IncidentServiceDate.Name = "IncidentServiceDate";
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            this.CreateDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Program_Id
+            // 
+            this.Program_Id.HeaderText = "Program Name";
+            this.Program_Id.Name = "Program_Id";
+            // 
+            // Note
+            // 
+            this.Note.HeaderText = "Note";
+            this.Note.Name = "Note";
+            this.Note.Width = 200;
+            // 
             // frmIncident
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -243,6 +258,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
         private System.Windows.Forms.DataGridViewTextBoxColumn Incident_No;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Illness_Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentServiceDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Program_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Note;

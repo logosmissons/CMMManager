@@ -30,6 +30,9 @@ namespace CMMManager
         public SqlConnection connRNDB;
         public String strRNDBConnString = String.Empty;
 
+        public SqlConnection connSalesforce;
+        public String strSalesforceConnString;
+
         public SelectedIllness IllnessSelected;
         public SelectedIncident IncidentSelected;
         //public Boolean bIncidentSelected = false;
@@ -55,6 +58,9 @@ namespace CMMManager
 
             SqlDependency.Start(strRNDBConnString);
 
+            strSalesforceConnString = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
+            connSalesforce = new SqlConnection(strSalesforceConnString);
+
             IncidentSelected = new SelectedIncident();
             IllnessSelected = new SelectedIllness();
 
@@ -70,11 +76,14 @@ namespace CMMManager
 
         private void frmIncident_Load(object sender, EventArgs e)
         {
+            List<IncidentListInfo> lstIncidentListInfo = new List<IncidentListInfo>();
+
             String strSqlQueryForIncident = "select [dbo].[tbl_incident].[incident_id], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[individual_id], " +
                                             "[dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_id], [dbo].[tbl_illness].[IllnessNo], " +
-                                            "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote] " +
-                                            "from ([dbo].[tbl_incident] " +
-                                            "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id]) " +
+                                            "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote], " +
+                                            "[dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_incident].[OccurrenceDate] " +
+                                            "from [dbo].[tbl_incident] " +
+                                            "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
                                             "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
                                             "where [dbo].[tbl_incident].[individual_id] = @IndividualId and " +
                                             "([dbo].[tbl_incident].[IsDeleted] = 0 or [dbo].[tbl_incident].[IsDeleted] IS NULL) " +
@@ -100,35 +109,122 @@ namespace CMMManager
 
             if (rdrIncidents.HasRows)
             {
-                gvIncidents.Rows.Clear();
-
                 while (rdrIncidents.Read())
                 {
-                    DataGridViewRow row = new DataGridViewRow();
-                    
-                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                    if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();                    
-                    if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    IncidentListInfo info = new IncidentListInfo();
+
+                    if (!rdrIncidents.IsDBNull(0)) info.IncidentId = rdrIncidents.GetInt32(0);
+                    else info.IncidentId = null;
+                    if (!rdrIncidents.IsDBNull(1)) info.IncidentNo = rdrIncidents.GetString(1);
+                    else info.IncidentNo = null;
+                    if (!rdrIncidents.IsDBNull(2)) info.IndividualId = rdrIncidents.GetString(2);
+                    else info.IndividualId = null;
+                    if (!rdrIncidents.IsDBNull(3)) info.CaseNo = rdrIncidents.GetString(3);
+                    else info.CaseNo = null;
                     if (!rdrIncidents.IsDBNull(4))
                     {
-                        IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
-                        IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                        info.IllnessId = rdrIncidents.GetInt32(4);
+                        IllnessSelected.IllnessId = info.IllnessId.ToString();
+                        IncidentSelected.IllnessId = info.IllnessId.ToString();
                     }
-                    if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    else info.IllnessId = null;
+                    if (!rdrIncidents.IsDBNull(5)) info.IllnessNo = rdrIncidents.GetString(5);
+                    else info.IllnessNo = null;
+                    if (!rdrIncidents.IsDBNull(6)) info.CreateDate = rdrIncidents.GetDateTime(6);
+                    else info.CreateDate = null;
+                    if (!rdrIncidents.IsDBNull(7)) info.ProgramName = rdrIncidents.GetString(7);
+                    else info.ProgramName = null;
+                    if (!rdrIncidents.IsDBNull(8)) info.IncidentNote = rdrIncidents.GetString(8);
+                    else info.IncidentNote = null;
+                    if (!rdrIncidents.IsDBNull(8)) info.ICD10Code = rdrIncidents.GetString(9);
+                    else info.ICD10Code = null;
+                    if (!rdrIncidents.IsDBNull(9)) info.OccurrenceDate = rdrIncidents.GetDateTime(10);
+                    else info.OccurrenceDate = null;
 
-                    gvIncidents.Rows.Add(row);
+                    lstIncidentListInfo.Add(info);
+
                 }
+                //gvIncidents.Rows.Clear();
+
+                //while (rdrIncidents.Read())
+                //{
+                //    DataGridViewRow row = new DataGridViewRow();
+
+                //    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                //    if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();
+                //    if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
+                //    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //    if (!rdrIncidents.IsDBNull(4))
+                //    {
+                //        IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                //        IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                //    }
+                //    if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
+                //    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //    if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
+                //    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //    if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
+                //    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //    if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
+                //    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                //    gvIncidents.Rows.Add(row);
+                //}
             }
             rdrIncidents.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+            foreach (IncidentListInfo info in lstIncidentListInfo)
+            {
+                String strSqlQueryForDiseaseNameForICD10Code = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseNameForICD10Code, connSalesforce);
+                cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", info.ICD10Code);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                Object objDiseaseDiscription = cmdQueryForDiseaseName.ExecuteScalar();
+                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                String strDiseaseDescription = objDiseaseDiscription?.ToString();
+
+                if (strDiseaseDescription != null)
+                {
+                    info.DiseaseDescription = strDiseaseDescription;
+                }
+            }
+
+            gvIncidents.Rows.Clear();
+
+            foreach (IncidentListInfo info in lstIncidentListInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                //if (info.IncidentId != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentId });
+                //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IncidentNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNo });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IllnessNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IllnessNo });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.DiseaseDescription != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.DiseaseDescription });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.OccurrenceDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.OccurrenceDate.Value.ToString("MM/dd/yyyy") });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.CreateDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreateDate.Value.ToString("MM/dd/yyyy") });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.ProgramName != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ProgramName });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IncidentNote != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNote });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                gvIncidents.Rows.Add(row);
+            }
 
             //if (IncidentSelected.IncidentId != String.Empty)
             if (IncidentSelected.IncidentNo != null)
@@ -173,15 +269,6 @@ namespace CMMManager
                     }
                 }
             }
-
-            //if (LoggedInUserRole == UserRole.FDStaff ||
-            //    LoggedInUserRole == UserRole.NPStaff ||
-            //    LoggedInUserRole == UserRole.RNStaff)
-            //{
-            //    btnDelete.Enabled = false;
-            //}
-            //else btnDelete.Enabled = true;
-
         }
 
         private void AddRowToIncidentsSafely(DataGridViewRow row)
@@ -231,9 +318,12 @@ namespace CMMManager
             //                                "[dbo].[tbl_incident].[IsDeleted] = 0 " +
             //                                "order by [dbo].[tbl_incident].[incident_id]";
 
+            List<IncidentListInfo> lstIncidentListInfo = new List<IncidentListInfo>();
+
             String strSqlQueryForIncident = "select [dbo].[tbl_incident].[incident_id], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[individual_id], " +
                                 "[dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_id], [dbo].[tbl_illness].[IllnessNo], " +
-                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote] " +
+                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote], " +
+                                "[dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_incident].[OccurrenceDate] " +
                                 "from ([dbo].[tbl_incident] " +
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id]) " +
                                 "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
@@ -263,39 +353,129 @@ namespace CMMManager
 
             SqlDataReader rdrIncidents = cmdQueryForIncident.ExecuteReader();
 
-            if (IsHandleCreated) ClearIncidentsSafely();
-            else gvIncidents.Rows.Clear();
+            //if (IsHandleCreated) ClearIncidentsSafely();
+            //else gvIncidents.Rows.Clear();
 
             if (rdrIncidents.HasRows)
             {
                 while (rdrIncidents.Read())
                 {
-                    DataGridViewRow row = new DataGridViewRow();
 
-                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                    if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();
-                    if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    IncidentListInfo info = new IncidentListInfo();
+
+                    if (!rdrIncidents.IsDBNull(0)) info.IncidentId = rdrIncidents.GetInt32(0);
+                    else info.IncidentId = null;
+                    if (!rdrIncidents.IsDBNull(1)) info.IncidentNo = rdrIncidents.GetString(1);
+                    else info.IncidentNo = null;
+                    if (!rdrIncidents.IsDBNull(2)) info.IndividualId = rdrIncidents.GetString(2);
+                    else info.IndividualId = null;
+                    if (!rdrIncidents.IsDBNull(3)) info.CaseNo = rdrIncidents.GetString(3);
+                    else info.CaseNo = null;
                     if (!rdrIncidents.IsDBNull(4))
                     {
-                        IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
-                        IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                        info.IllnessId = rdrIncidents.GetInt32(4);
+                        IllnessSelected.IllnessId = info.IllnessId.ToString();
+                        IncidentSelected.IllnessId = info.IllnessId.ToString();
                     }
-                    if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                    if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
-                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    else info.IllnessId = null;
+                    if (!rdrIncidents.IsDBNull(5)) info.IllnessNo = rdrIncidents.GetString(5);
+                    else info.IllnessNo = null;
+                    if (!rdrIncidents.IsDBNull(6)) info.CreateDate = rdrIncidents.GetDateTime(6);
+                    else info.CreateDate = null;
+                    if (!rdrIncidents.IsDBNull(7)) info.ProgramName = rdrIncidents.GetString(7);
+                    else info.ProgramName = null;
+                    if (!rdrIncidents.IsDBNull(8)) info.IncidentNote = rdrIncidents.GetString(8);
+                    else info.IncidentNote = null;
+                    if (!rdrIncidents.IsDBNull(8)) info.ICD10Code = rdrIncidents.GetString(9);
+                    else info.ICD10Code = null;
+                    if (!rdrIncidents.IsDBNull(9)) info.OccurrenceDate = rdrIncidents.GetDateTime(10);
+                    else info.OccurrenceDate = null;
 
-                    if (IsHandleCreated) AddRowToIncidentsSafely(row);
-                    else gvIncidents.Rows.Add(row);
+                    lstIncidentListInfo.Add(info);
+                    //DataGridViewRow row = new DataGridViewRow();
+
+                    //row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    //if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();
+                    //if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //if (!rdrIncidents.IsDBNull(4))
+                    //{
+                    //    IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                    //    IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                    //}
+                    //if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    //if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    //if (IsHandleCreated) AddRowToIncidentsSafely(row);
+                    //else gvIncidents.Rows.Add(row);
                 }
             }
             rdrIncidents.Close();
             if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///
+            foreach (IncidentListInfo info in lstIncidentListInfo)
+            {
+                String strSqlQueryForDiseaseNameForICD10Code = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseNameForICD10Code, connSalesforce);
+                cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", info.ICD10Code);
+
+                if (connSalesforce.State != ConnectionState.Closed)
+                {
+                    connSalesforce.Close();
+                    connSalesforce.Open();
+                }
+                else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                Object objDiseaseDiscription = cmdQueryForDiseaseName.ExecuteScalar();
+                if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                String strDiseaseDescription = objDiseaseDiscription?.ToString();
+
+                if (strDiseaseDescription != null)
+                {
+                    info.DiseaseDescription = strDiseaseDescription;
+                }
+            }
+
+            if (IsHandleCreated) ClearIncidentsSafely();
+            else gvIncidents.Rows.Clear();
+
+            foreach (IncidentListInfo info in lstIncidentListInfo)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                //if (info.IncidentId != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentId });
+                //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IncidentNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNo });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IllnessNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IllnessNo });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.DiseaseDescription != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.DiseaseDescription });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.OccurrenceDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.OccurrenceDate.Value.ToString("MM/dd/yyyy") });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.CreateDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreateDate.Value.ToString("MM/dd/yyyy") });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.ProgramName != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ProgramName });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                if (info.IncidentNote != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNote });
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                if (IsHandleCreated) AddRowToIncidentsSafely(row);
+                else gvIncidents.Rows.Add(row);
+
+            }
+
+
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -485,9 +665,12 @@ namespace CMMManager
 
             if (frmIncidentCreation.ShowDialog(this) == DialogResult.OK)
             {
+                List<IncidentListInfo> lstIncidentListInfo = new List<IncidentListInfo>();
+
                 String strSqlQueryForIncident = "select [dbo].[tbl_incident].[incident_id], [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_incident].[individual_id], " +
                                                 "[dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_id], [dbo].[tbl_illness].[IllnessNo], " +
-                                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote] " +
+                                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_program].[ProgramName], [dbo].[tbl_incident].[IncidentNote], " +
+                                                "[dbo].[tbl_incident].[IncidentNote], [dbo].[tbl_incident].[OccurrenceDate] " +
                                                 "from ([dbo].[tbl_incident] " +
                                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id]) " +
                                                 "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
@@ -522,31 +705,119 @@ namespace CMMManager
                 {
                     while (rdrIncidents.Read())
                     {
-                        DataGridViewRow row = new DataGridViewRow();
 
-                        row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
-                        if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();
-                        if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        IncidentListInfo info = new IncidentListInfo();
+
+                        if (!rdrIncidents.IsDBNull(0)) info.IncidentId = rdrIncidents.GetInt32(0);
+                        else info.IncidentId = null;
+                        if (!rdrIncidents.IsDBNull(1)) info.IncidentNo = rdrIncidents.GetString(1);
+                        else info.IncidentNo = null;
+                        if (!rdrIncidents.IsDBNull(2)) info.IndividualId = rdrIncidents.GetString(2);
+                        else info.IndividualId = null;
+                        if (!rdrIncidents.IsDBNull(3)) info.CaseNo = rdrIncidents.GetString(3);
+                        else info.CaseNo = null;
                         if (!rdrIncidents.IsDBNull(4))
                         {
-                            IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
-                            IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                            info.IllnessId = rdrIncidents.GetInt32(4);
+                            IllnessSelected.IllnessId = info.IllnessId.ToString();
+                            IncidentSelected.IllnessId = info.IllnessId.ToString();
                         }
-                        if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        else info.IllnessId = null;
+                        if (!rdrIncidents.IsDBNull(5)) info.IllnessNo = rdrIncidents.GetString(5);
+                        else info.IllnessNo = null;
+                        if (!rdrIncidents.IsDBNull(6)) info.CreateDate = rdrIncidents.GetDateTime(6);
+                        else info.CreateDate = null;
+                        if (!rdrIncidents.IsDBNull(7)) info.ProgramName = rdrIncidents.GetString(7);
+                        else info.ProgramName = null;
+                        if (!rdrIncidents.IsDBNull(8)) info.IncidentNote = rdrIncidents.GetString(8);
+                        else info.IncidentNote = null;
+                        if (!rdrIncidents.IsDBNull(8)) info.ICD10Code = rdrIncidents.GetString(9);
+                        else info.ICD10Code = null;
+                        if (!rdrIncidents.IsDBNull(9)) info.OccurrenceDate = rdrIncidents.GetDateTime(10);
+                        else info.OccurrenceDate = null;
 
-                        gvIncidents.Rows.Add(row);
+                        lstIncidentListInfo.Add(info);
+                        //DataGridViewRow row = new DataGridViewRow();
+
+                        //row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                        //if (!rdrIncidents.IsDBNull(0)) IncidentSelected.IncidentId = rdrIncidents.GetInt32(0).ToString();
+                        //if (!rdrIncidents.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(1) });
+                        //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        //if (!rdrIncidents.IsDBNull(4))
+                        //{
+                        //    IllnessSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                        //    IncidentSelected.IllnessId = rdrIncidents.GetInt32(4).ToString();
+                        //}
+                        //if (!rdrIncidents.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(5) });
+                        //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        //if (!rdrIncidents.IsDBNull(6)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetDateTime(6).ToString("MM/dd/yyyy") });
+                        //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        //if (!rdrIncidents.IsDBNull(7)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(7) });
+                        //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                        //if (!rdrIncidents.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidents.GetString(8) });
+                        //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                        //gvIncidents.Rows.Add(row);
                     }
                 }
                 rdrIncidents.Close();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                foreach (IncidentListInfo info in lstIncidentListInfo)
+                {
+                    String strSqlQueryForDiseaseNameForICD10Code = "select [dbo].[ICD10 Code].[Name] from [dbo].[ICD10 Code] where [dbo].[ICD10 Code].[ICD10_Code__c] = @ICD10Code";
+
+                    SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseNameForICD10Code, connSalesforce);
+                    cmdQueryForDiseaseName.CommandType = CommandType.Text;
+
+                    cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", info.ICD10Code);
+
+                    if (connSalesforce.State != ConnectionState.Closed)
+                    {
+                        connSalesforce.Close();
+                        connSalesforce.Open();
+                    }
+                    else if (connSalesforce.State == ConnectionState.Closed) connSalesforce.Open();
+                    Object objDiseaseDiscription = cmdQueryForDiseaseName.ExecuteScalar();
+                    if (connSalesforce.State != ConnectionState.Closed) connSalesforce.Close();
+
+                    String strDiseaseDescription = objDiseaseDiscription?.ToString();
+
+                    if (strDiseaseDescription != null)
+                    {
+                        info.DiseaseDescription = strDiseaseDescription;
+                    }
+                }
+
+                //if (IsHandleCreated) ClearIncidentsSafely();
+                gvIncidents.Rows.Clear();
+
+                foreach (IncidentListInfo info in lstIncidentListInfo)
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    //if (info.IncidentId != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentId });
+                    //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.IncidentNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNo });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.IllnessNo != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IllnessNo });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.DiseaseDescription != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.DiseaseDescription });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.OccurrenceDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.OccurrenceDate.Value.ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.CreateDate != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.CreateDate.Value.ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.ProgramName != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.ProgramName });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (info.IncidentNote != null) row.Cells.Add(new DataGridViewTextBoxCell { Value = info.IncidentNote });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                    //if (IsHandleCreated) AddRowToIncidentsSafely(row);
+                    gvIncidents.Rows.Add(row);
+
+                }
+
             }
         }
 
