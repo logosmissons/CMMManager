@@ -866,10 +866,10 @@ namespace CMMManager
 
                         //IncidentSelected.ProgramId = int.Parse(gvIncidents[4, i].Value.ToString());
 
-                        String strProgramName = gvIncidents[4, i].Value.ToString().Trim();
+                        String strProgramName = gvIncidents[6, i].Value.ToString().Trim();
                         //IncidentSelected.ProgramId = dicProgramId[strProgramName];
-                        IncidentSelected.ProgramId = dicProgramId[gvIncidents[4, i].Value.ToString().Trim()];
-                        IncidentSelected.Note = gvIncidents[5, i].Value.ToString();
+                        IncidentSelected.ProgramId = dicProgramId[gvIncidents[6, i].Value.ToString().Trim()];
+                        IncidentSelected.Note = gvIncidents[7, i].Value.ToString();
 
                         bIncidentSelected = true;
                         DialogResult = DialogResult.OK;
