@@ -136,9 +136,9 @@ namespace CMMManager
                     else info.ProgramName = null;
                     if (!rdrIncidents.IsDBNull(8)) info.IncidentNote = rdrIncidents.GetString(8);
                     else info.IncidentNote = null;
-                    if (!rdrIncidents.IsDBNull(8)) info.ICD10Code = rdrIncidents.GetString(9);
+                    if (!rdrIncidents.IsDBNull(9)) info.ICD10Code = rdrIncidents.GetString(9);
                     else info.ICD10Code = null;
-                    if (!rdrIncidents.IsDBNull(9)) info.OccurrenceDate = rdrIncidents.GetDateTime(10);
+                    if (!rdrIncidents.IsDBNull(10)) info.OccurrenceDate = rdrIncidents.GetDateTime(10);
                     else info.OccurrenceDate = null;
 
                     lstIncidentListInfo.Add(info);
