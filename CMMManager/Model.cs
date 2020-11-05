@@ -817,6 +817,9 @@ namespace CMMManager
         public String IndividualId;
         public String IndividualName;
         public String Type;
+        public DateTime? ServiceDate;
+        public String MedicalProviderId;
+        public String MedicalProviderName;
         public Double Amount;
         public String PaymentMethod;
         public String CheckNo;
@@ -834,6 +837,9 @@ namespace CMMManager
             IndividualId = null;
             IndividualName = null;
             Type = null;
+            ServiceDate = null;
+            MedicalProviderId = null;
+            MedicalProviderName = null;
             Amount = 0;
             PaymentMethod = null;
             CheckNo = null;
