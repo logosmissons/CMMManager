@@ -2690,6 +2690,8 @@ namespace CMMManager
         //public String INCD;
         public String PatientName;
         public String MED_BILL;
+        public String IncidentNo;
+        public IncidentProgram? Incident_Program;
         public DateTime? Bill_Date;
         public DateTime? EndService_Date;
         public String Medical_Provider;
@@ -2709,6 +2711,8 @@ namespace CMMManager
             //Issue_Date = String.Empty;
             PatientName = String.Empty;
             MED_BILL = String.Empty;
+            IncidentNo = null;
+            Incident_Program = null;
             Bill_Date = null;
             EndService_Date = null;
             Medical_Provider = String.Empty;
