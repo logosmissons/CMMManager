@@ -1691,6 +1691,7 @@ namespace CMMManager
 
         public IneligibleReasonInfo(int id, string ineligible_reason)
         {
+            SelectedId = null;
             Id = id;
             IneligibleReason = ineligible_reason;
         }
