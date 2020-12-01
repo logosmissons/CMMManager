@@ -37,7 +37,7 @@ namespace CMMManager
         private List<String> lstAttachments;
 
         // Shared folder for email attachments
-        private String strPathForEmailAttachments = @"\\cmm-2014u\Sharefolder\EmailAttachments\";
+        private String strPathForEmailAttachments = @"\\cmm-2019data\Sharefolder\EmailAttachments\";
 
         public frmCreateSendEmail()
         {
@@ -49,8 +49,8 @@ namespace CMMManager
         {
             InitializeComponent();
 
-            connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-            connStringSalesForce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
+            connStringRN = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+            connStringSalesForce = @"Data Source=cmm-2019data\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
 
             connRN = new SqlConnection(connStringRN);
             connSalesForce = new SqlConnection(connStringSalesForce);

@@ -20,7 +20,7 @@ namespace CMMManager
         public frmAddNewMedProvider()
         {
             InitializeComponent();
-            connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
+            connStringSalesforce = @"Data Source=cmm-2019data\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
             connSalesforce = new SqlConnection(connStringSalesforce);
 
             lstMedicalProviderTypes = new List<MedicalProviderTypeInfo>();

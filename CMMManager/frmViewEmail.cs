@@ -44,16 +44,16 @@ namespace CMMManager
         Department? LoggedInUserDepartmentId = null;
 
         // Shared folder for email attachments
-        private String strPathForEmailAttachments = @"\\cmm-2014u\Sharefolder\EmailAttachments\";
+        private String strPathForEmailAttachments = @"\\cmm-2019data\Sharefolder\EmailAttachments\";
 
         private EmailContentInfo EmailContent;
 
-        private String connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
-        //private String connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
+        private String connStringRN = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        //private String connStringRN = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
         private SqlConnection connRN;
 
-        private String connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
-        //private String connStringSalesforce = @"Data Source=CMM-2014U\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
+        private String connStringSalesforce = @"Data Source=cmm-2019data\CMM; Initial Catalog=SalesForce; Integrated Security=True; MultipleActiveResultSets=True";
+        //private String connStringSalesforce = @"Data Source=cmm-2019data\CMM; Initial Catalog=SalesForce; User ID=sa;Password=Yny00516; MultipleActiveResultSets=True";
         private SqlConnection connSalesforce;
 
         public frmViewEmail()

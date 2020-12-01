@@ -31,11 +31,11 @@ namespace CMMManager
         private int nLoggedInUserId;
 
         // Variables for RN database connection
-        private String connStringRN = @"Data Source=CMM-2014U\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
+        private String connStringRN = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
         private SqlConnection connRN;
 
         // Case Document Destination folder
-        private String strCaseDocDestinationPath = @"\\cmm-2014u\Sharefolder\FormsInCase\";
+        private String strCaseDocDestinationPath = @"\\cmm-2019data\Sharefolder\FormsInCase\";
 
         public frmUploadNewCaseDoc()
         {
