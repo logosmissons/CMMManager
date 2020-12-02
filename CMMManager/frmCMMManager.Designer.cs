@@ -11316,11 +11316,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1577, 23);
+            this.label143.Location = new System.Drawing.Point(1649, 28);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(290, 13);
+            this.label143.Size = new System.Drawing.Size(214, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Credit Card Payment Tab Columns Rearranged - 11-25-2020";
+            this.label143.Text = "New RN Database Server Used - 12/02/20";
             // 
             // frmCMMManager
             // 
