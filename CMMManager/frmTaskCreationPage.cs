@@ -631,8 +631,8 @@ namespace CMMManager
             txtTaskRelatedTo.Text = String.Empty;
             txtNameOnTask.Text = String.Empty;
             txtIndividualId.Text = String.Empty;
-            rtxtTaskComments.Text = String.Empty;
-            rtxtTaskSolution.Text = String.Empty;
+            txtTaskComments.Text = String.Empty;
+            txtTaskSolution.Text = String.Empty;
             txtTaskPhone.Text = String.Empty;
             txtTaskEmail.Text = String.Empty;
             chkReminder.Checked = false;
@@ -751,10 +751,10 @@ namespace CMMManager
                 else txtTaskRelatedTo.Text = String.Empty;
                 if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
                 else txtTaskSubject.Text = String.Empty;
-                if (!rdrTaskInfo.IsDBNull(8)) rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                else rtxtTaskComments.Text = String.Empty;
-                if (!rdrTaskInfo.IsDBNull(9)) rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                else rtxtTaskSolution.Text = String.Empty;
+                if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                else txtTaskComments.Text = String.Empty;
+                if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                else txtTaskSolution.Text = String.Empty;
                 if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -789,8 +789,8 @@ namespace CMMManager
                 txtNameOnTask.Text = IndividualName;
                 txtIndividualId.Text = WhoId;
 
-                rtxtTaskComments.Text = sbComment.ToString();
-                rtxtTaskSolution.Text = sbSolution.ToString();
+                txtTaskComments.Text = sbComment.ToString();
+                txtTaskSolution.Text = sbSolution.ToString();
 
                 String PhoneNo = String.Empty;
                 String Email = String.Empty;
@@ -904,10 +904,10 @@ namespace CMMManager
                     else txtNameOnTask.Text = String.Empty;
                     if (!rdrTaskToModify.IsDBNull(6)) txtIndividualId.Text = rdrTaskToModify.GetString(6);
                     else txtIndividualId.Text = String.Empty;
-                    if (!rdrTaskToModify.IsDBNull(7)) rtxtTaskComments.Text = rdrTaskToModify.GetString(7);
-                    else rtxtTaskComments.Text = String.Empty;
-                    if (!rdrTaskToModify.IsDBNull(8)) rtxtTaskSolution.Text = rdrTaskToModify.GetString(8);
-                    else rtxtTaskSolution.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(7)) txtTaskComments.Text = rdrTaskToModify.GetString(7);
+                    else txtTaskComments.Text = String.Empty;
+                    if (!rdrTaskToModify.IsDBNull(8)) txtTaskSolution.Text = rdrTaskToModify.GetString(8);
+                    else txtTaskSolution.Text = String.Empty;
                     if (!rdrTaskToModify.IsDBNull(9)) comboTaskStatus.SelectedIndex = rdrTaskToModify.GetByte(9);
                     else comboTaskStatus.SelectedIndex = -1;
                     if (!rdrTaskToModify.IsDBNull(10)) comboTaskPriority.SelectedIndex = rdrTaskToModify.GetByte(10);
@@ -935,7 +935,7 @@ namespace CMMManager
                     txtTaskRelatedTo.ReadOnly = true;
                     txtNameOnTask.ReadOnly = true;
                     txtIndividualId.ReadOnly = true;
-                    rtxtTaskComments.ReadOnly = true;
+                    txtTaskComments.ReadOnly = true;
                     chkReminder.Enabled = false;
                     dtpReminderDatePicker.Enabled = false;
                     comboReminderTimePicker.Enabled = false;
@@ -987,10 +987,10 @@ namespace CMMManager
                 //    else txtTaskRelatedTo.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
                 //    else txtTaskSubject.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(8)) rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(9)) rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 //    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 //    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -1056,10 +1056,10 @@ namespace CMMManager
                 //    else txtTaskRelatedTo.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
                 //    else txtTaskSubject.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(8)) rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(9)) rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 //    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 //    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -1125,10 +1125,10 @@ namespace CMMManager
                 //    else txtTaskRelatedTo.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
                 //    else txtTaskSubject.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(8)) rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(9)) rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 //    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 //    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -1195,10 +1195,10 @@ namespace CMMManager
                 //    else txtTaskRelatedTo.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(7)) txtTaskSubject.Text = rdrTaskInfo.GetString(7);
                 //    else txtTaskSubject.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(8)) rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrTaskInfo.IsDBNull(9)) rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(8)) txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 //    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 //    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -1254,8 +1254,8 @@ namespace CMMManager
                 //    else txtTaskNameAssignedTo.Text = String.Empty;
                 //    if (!rdrTaskToEdit.IsDBNull(2)) txtTaskSubject.Text = rdrTaskToEdit.GetString(2);
                 //    else txtTaskSubject.Text = String.Empty;
-                //    if (!rdrTaskToEdit.IsDBNull(3)) rtxtTaskComments.Text = rdrTaskToEdit.GetString(3);
-                //    else rtxtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskToEdit.IsDBNull(3)) txtTaskComments.Text = rdrTaskToEdit.GetString(3);
+                //    else txtTaskComments.Text = String.Empty;
                 //    if (!rdrTaskToEdit.IsDBNull(4))
                 //    {
                 //        dtpTaskDueDate.Checked = true;
@@ -1275,10 +1275,10 @@ namespace CMMManager
                 //    else txtNameOnTask.Text = String.Empty;
                 //    if (!rdrTaskToEdit.IsDBNull(8)) txtIndividualId.Text = rdrTaskToEdit.GetString(8);
                 //    else txtIndividualId.Text = String.Empty;
-                //    if (!rdrTaskToEdit.IsDBNull(9)) rtxtTaskComments.Text = rdrTaskToEdit.GetString(9);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrTaskToEdit.IsDBNull(10)) rtxtTaskSolution.Text = rdrTaskToEdit.GetString(10);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrTaskToEdit.IsDBNull(9)) txtTaskComments.Text = rdrTaskToEdit.GetString(9);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrTaskToEdit.IsDBNull(10)) txtTaskSolution.Text = rdrTaskToEdit.GetString(10);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskToEdit.IsDBNull(11)) comboTaskStatus.SelectedIndex = rdrTaskToEdit.GetByte(11);
                 //    if (!rdrTaskToEdit.IsDBNull(12)) comboTaskPriority.SelectedIndex = rdrTaskToEdit.GetByte(12);
                 //    if (!rdrTaskToEdit.IsDBNull(13))
@@ -1357,10 +1357,10 @@ namespace CMMManager
                 //    else txtTaskCreator.Text = String.Empty;
                 //    //if (!rdrQueryForTask.IsDBNull(10)) txtTaskNameAssignedTo.Text = rdrQueryForTask.GetString(10);
                 //    //else txtTaskNameAssignedTo.Text = String.Empty;
-                //    if (!rdrQueryForTask.IsDBNull(11)) rtxtTaskComments.Text = rdrQueryForTask.GetString(11);
-                //    else rtxtTaskComments.Text = String.Empty;
-                //    if (!rdrQueryForTask.IsDBNull(12)) rtxtTaskSolution.Text = rdrQueryForTask.GetString(12);
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    if (!rdrQueryForTask.IsDBNull(11)) txtTaskComments.Text = rdrQueryForTask.GetString(11);
+                //    else txtTaskComments.Text = String.Empty;
+                //    if (!rdrQueryForTask.IsDBNull(12)) txtTaskSolution.Text = rdrQueryForTask.GetString(12);
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrQueryForTask.IsDBNull(13)) comboTaskStatus.SelectedIndex = rdrQueryForTask.GetByte(13);
                 //    else comboTaskStatus.SelectedItem = String.Empty;
                 //    if (!rdrQueryForTask.IsDBNull(14)) comboTaskPriority.SelectedIndex = rdrQueryForTask.GetByte(14);
@@ -1500,27 +1500,27 @@ namespace CMMManager
                 //    if (!rdrTaskInfo.IsDBNull(8))
                 //    {
 
-                //        rtxtTaskComments.Text = rdrTaskInfo.GetString(8);
-                //        rtxtTaskComments.AppendText(Environment.NewLine);
-                //        rtxtTaskComments.AppendText("---------------------------------------------------------------------------------------");
-                //        rtxtTaskComments.Select(0, rtxtTaskComments.Text.Length);
-                //        rtxtTaskComments.SelectionProtected = true;
-                //        rtxtTaskComments.AppendText(Environment.NewLine);
-                //        this.ActiveControl = rtxtTaskComments;
+                //        txtTaskComments.Text = rdrTaskInfo.GetString(8);
+                //        txtTaskComments.AppendText(Environment.NewLine);
+                //        txtTaskComments.AppendText("---------------------------------------------------------------------------------------");
+                //        txtTaskComments.Select(0, txtTaskComments.Text.Length);
+                //        txtTaskComments.SelectionProtected = true;
+                //        txtTaskComments.AppendText(Environment.NewLine);
+                //        this.ActiveControl = txtTaskComments;
 
                 //    }
-                //    else rtxtTaskComments.Text = String.Empty;
+                //    else txtTaskComments.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(9))
                 //    {
                 //        if (rdrTaskInfo.GetString(9).Trim() != String.Empty)
                 //        {
-                //            rtxtTaskSolution.Text = rdrTaskInfo.GetString(9);
-                //            rtxtTaskSolution.Text += Environment.NewLine;
-                //            rtxtTaskSolution.Text += ("---------------------------------------------------------------------------------------");
-                //            rtxtTaskSolution.Text += Environment.NewLine;
+                //            txtTaskSolution.Text = rdrTaskInfo.GetString(9);
+                //            txtTaskSolution.Text += Environment.NewLine;
+                //            txtTaskSolution.Text += ("---------------------------------------------------------------------------------------");
+                //            txtTaskSolution.Text += Environment.NewLine;
                 //        }
                 //    }
-                //    else rtxtTaskSolution.Text = String.Empty;
+                //    else txtTaskSolution.Text = String.Empty;
                 //    if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
                 //    if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 //    if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
@@ -1547,8 +1547,8 @@ namespace CMMManager
                 ////txtReplyTo.Enabled = true;
                 ////txtReplyTo.ReadOnly = false;
 
-                ////this.ActiveControl = rtxtTaskComments;
-                ////rtxtTaskComments.Select(rtxtTaskComments.Text.Length, 0);
+                ////this.ActiveControl = txtTaskComments;
+                ////txtTaskComments.Select(txtTaskComments.Text.Length, 0);
 
 
             }
@@ -1807,8 +1807,8 @@ namespace CMMManager
                 String WhoId = txtIndividualId.Text.Trim();             // Related name
                 String WhoName = txtNameOnTask.Text.Trim();             // Individual Name
 
-                String Comment = rtxtTaskComments.Text.Trim();
-                String Solution = rtxtTaskSolution.Text.Trim();
+                String Comment = txtTaskComments.Text.Trim();
+                String Solution = txtTaskSolution.Text.Trim();
 
                 TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
                 TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
@@ -2119,8 +2119,8 @@ namespace CMMManager
                 //String WhoId = txtIndividualId.Text.Trim();             // Related name
                 //String WhoName = txtNameOnTask.Text.Trim();             // Individual Name
 
-                //String Comment = rtxtTaskComments.Text.Trim();
-                //String Solution = rtxtTaskSolution.Text.Trim();
+                //String Comment = txtTaskComments.Text.Trim();
+                //String Solution = txtTaskSolution.Text.Trim();
 
                 //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
                 //TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
@@ -2297,7 +2297,7 @@ namespace CMMManager
                 //    SqlCommand cmdUpdateTask = new SqlCommand(strSqlUpdateTask, connRN);
                 //    cmdUpdateTask.CommandType = CommandType.Text;
 
-                //    cmdUpdateTask.Parameters.AddWithValue("@Solution", rtxtTaskSolution.Text.Trim());
+                //    cmdUpdateTask.Parameters.AddWithValue("@Solution", txtTaskSolution.Text.Trim());
                 //    cmdUpdateTask.Parameters.AddWithValue("@Status", (TaskStatus)comboTaskStatus.SelectedIndex);
                 //    cmdUpdateTask.Parameters.AddWithValue("@Priority", (TaskPriority)comboTaskPriority.SelectedIndex);
                 //    cmdUpdateTask.Parameters.AddWithValue("@ActivityDate", DateTime.Now);
@@ -2361,8 +2361,8 @@ namespace CMMManager
                 //    RelatedToTable relatedToTable = (RelatedToTable)comboTaskRelatedTo.SelectedIndex;
                 //    String WhatId = txtTaskRelatedTo.Text.Trim();
                 //    String WhoId = txtIndividualId.Text.Trim();
-                //    String Comment = rtxtTaskComments.Text.Trim();
-                //    String Solution = rtxtTaskSolution.Text.Trim();
+                //    String Comment = txtTaskComments.Text.Trim();
+                //    String Solution = txtTaskSolution.Text.Trim();
 
                 //    TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
                 //    TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
@@ -2469,8 +2469,8 @@ namespace CMMManager
             String WhoId = txtIndividualId.Text.Trim();             // Related name
             String WhoName = txtNameOnTask.Text.Trim();             // Individual Name
 
-            String Comment = rtxtTaskComments.Text.Trim();
-            String Solution = rtxtTaskSolution.Text.Trim();
+            String Comment = txtTaskComments.Text.Trim();
+            String Solution = txtTaskSolution.Text.Trim();
 
             TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
             TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
@@ -2670,10 +2670,10 @@ namespace CMMManager
             String WhoName = txtNameOnTask.Text?.Trim();
             if (WhoName == null) return;
 
-            String Comment = rtxtTaskComments.Text?.Trim();
+            String Comment = txtTaskComments.Text?.Trim();
             if (Comment == null) return;
 
-            String Solution = rtxtTaskSolution.Text?.Trim();
+            String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
             TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
@@ -2919,10 +2919,10 @@ namespace CMMManager
             String WhoName = txtNameOnTask.Text?.Trim();
             if (WhoName == null) return;
 
-            String Comment = rtxtTaskComments.Text?.Trim();
+            String Comment = txtTaskComments.Text?.Trim();
             if (Comment == null) return;
 
-            String Solution = rtxtTaskSolution.Text?.Trim();
+            String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
             TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
@@ -3118,10 +3118,10 @@ namespace CMMManager
             String WhoName = txtNameOnTask.Text?.Trim();
             if (WhoName == null) return;
 
-            String Comment = rtxtTaskComments.Text?.Trim();
+            String Comment = txtTaskComments.Text?.Trim();
             if (Comment == null) return;
 
-            String Solution = rtxtTaskSolution.Text?.Trim();
+            String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
             TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
