@@ -765,7 +765,15 @@
             this.label66 = new System.Windows.Forms.Label();
             this.btnCreateTask = new System.Windows.Forms.Button();
             this.grpMedicalBillInformation = new System.Windows.Forms.GroupBox();
-            this.label145 = new System.Windows.Forms.Label();
+            this.txtBeneficiaryRelationship = new System.Windows.Forms.TextBox();
+            this.dtpDateOfDeath = new System.Windows.Forms.DateTimePicker();
+            this.lblBeneficiaryRelationship = new System.Windows.Forms.Label();
+            this.dtpInvoiceDate = new System.Windows.Forms.DateTimePicker();
+            this.txtBeneficiaryName = new System.Windows.Forms.TextBox();
+            this.lblDateOfDeath = new System.Windows.Forms.Label();
+            this.lblBeneficiaryName = new System.Windows.Forms.Label();
+            this.lblServiceStartDate = new System.Windows.Forms.Label();
+            this.lblInvoiceDate = new System.Windows.Forms.Label();
             this.dtpEndingServiceDate = new System.Windows.Forms.DateTimePicker();
             this.btnAddNewMedProvider = new System.Windows.Forms.Button();
             this.btnRefreshListMedicalProvider = new System.Windows.Forms.Button();
@@ -792,7 +800,7 @@
             this.label65 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.dtpBeginningServiceDate = new System.Windows.Forms.DateTimePicker();
-            this.label67 = new System.Windows.Forms.Label();
+            this.lblServiceEndDate = new System.Windows.Forms.Label();
             this.txtMedBillAmount = new System.Windows.Forms.TextBox();
             this.label64 = new System.Windows.Forms.Label();
             this.txtMedBillNo = new System.Windows.Forms.TextBox();
@@ -7679,7 +7687,15 @@
             // 
             // grpMedicalBillInformation
             // 
-            this.grpMedicalBillInformation.Controls.Add(this.label145);
+            this.grpMedicalBillInformation.Controls.Add(this.txtBeneficiaryRelationship);
+            this.grpMedicalBillInformation.Controls.Add(this.dtpDateOfDeath);
+            this.grpMedicalBillInformation.Controls.Add(this.lblBeneficiaryRelationship);
+            this.grpMedicalBillInformation.Controls.Add(this.dtpInvoiceDate);
+            this.grpMedicalBillInformation.Controls.Add(this.txtBeneficiaryName);
+            this.grpMedicalBillInformation.Controls.Add(this.lblDateOfDeath);
+            this.grpMedicalBillInformation.Controls.Add(this.lblBeneficiaryName);
+            this.grpMedicalBillInformation.Controls.Add(this.lblServiceStartDate);
+            this.grpMedicalBillInformation.Controls.Add(this.lblInvoiceDate);
             this.grpMedicalBillInformation.Controls.Add(this.dtpEndingServiceDate);
             this.grpMedicalBillInformation.Controls.Add(this.btnAddNewMedProvider);
             this.grpMedicalBillInformation.Controls.Add(this.btnRefreshListMedicalProvider);
@@ -7706,7 +7722,7 @@
             this.grpMedicalBillInformation.Controls.Add(this.label65);
             this.grpMedicalBillInformation.Controls.Add(this.label55);
             this.grpMedicalBillInformation.Controls.Add(this.dtpBeginningServiceDate);
-            this.grpMedicalBillInformation.Controls.Add(this.label67);
+            this.grpMedicalBillInformation.Controls.Add(this.lblServiceEndDate);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillAmount);
             this.grpMedicalBillInformation.Controls.Add(this.label64);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNo);
@@ -7729,15 +7745,90 @@
             this.grpMedicalBillInformation.TabStop = false;
             this.grpMedicalBillInformation.Text = "Medical Bill Information";
             // 
-            // label145
+            // txtBeneficiaryRelationship
             // 
-            this.label145.AutoSize = true;
-            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label145.Location = new System.Drawing.Point(262, 113);
-            this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(119, 16);
-            this.label145.TabIndex = 175;
-            this.label145.Text = "Service Start Date:";
+            this.txtBeneficiaryRelationship.Location = new System.Drawing.Point(137, 218);
+            this.txtBeneficiaryRelationship.Name = "txtBeneficiaryRelationship";
+            this.txtBeneficiaryRelationship.Size = new System.Drawing.Size(116, 20);
+            this.txtBeneficiaryRelationship.TabIndex = 179;
+            // 
+            // dtpDateOfDeath
+            // 
+            this.dtpDateOfDeath.Checked = false;
+            this.dtpDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDateOfDeath.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDateOfDeath.Location = new System.Drawing.Point(395, 137);
+            this.dtpDateOfDeath.Name = "dtpDateOfDeath";
+            this.dtpDateOfDeath.Size = new System.Drawing.Size(113, 20);
+            this.dtpDateOfDeath.TabIndex = 177;
+            // 
+            // lblBeneficiaryRelationship
+            // 
+            this.lblBeneficiaryRelationship.AutoSize = true;
+            this.lblBeneficiaryRelationship.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBeneficiaryRelationship.Location = new System.Drawing.Point(11, 218);
+            this.lblBeneficiaryRelationship.Name = "lblBeneficiaryRelationship";
+            this.lblBeneficiaryRelationship.Size = new System.Drawing.Size(86, 16);
+            this.lblBeneficiaryRelationship.TabIndex = 178;
+            this.lblBeneficiaryRelationship.Text = "Relationship:";
+            // 
+            // dtpInvoiceDate
+            // 
+            this.dtpInvoiceDate.Checked = false;
+            this.dtpInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpInvoiceDate.Location = new System.Drawing.Point(395, 137);
+            this.dtpInvoiceDate.Name = "dtpInvoiceDate";
+            this.dtpInvoiceDate.Size = new System.Drawing.Size(113, 20);
+            this.dtpInvoiceDate.TabIndex = 176;
+            this.dtpInvoiceDate.ValueChanged += new System.EventHandler(this.dtpInvoiceDate_ValueChanged);
+            // 
+            // txtBeneficiaryName
+            // 
+            this.txtBeneficiaryName.Location = new System.Drawing.Point(137, 190);
+            this.txtBeneficiaryName.Name = "txtBeneficiaryName";
+            this.txtBeneficiaryName.Size = new System.Drawing.Size(116, 20);
+            this.txtBeneficiaryName.TabIndex = 177;
+            // 
+            // lblDateOfDeath
+            // 
+            this.lblDateOfDeath.AutoSize = true;
+            this.lblDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDateOfDeath.Location = new System.Drawing.Point(262, 137);
+            this.lblDateOfDeath.Name = "lblDateOfDeath";
+            this.lblDateOfDeath.Size = new System.Drawing.Size(93, 16);
+            this.lblDateOfDeath.TabIndex = 177;
+            this.lblDateOfDeath.Text = "Date of Death:";
+            // 
+            // lblBeneficiaryName
+            // 
+            this.lblBeneficiaryName.AutoSize = true;
+            this.lblBeneficiaryName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBeneficiaryName.Location = new System.Drawing.Point(11, 192);
+            this.lblBeneficiaryName.Name = "lblBeneficiaryName";
+            this.lblBeneficiaryName.Size = new System.Drawing.Size(118, 16);
+            this.lblBeneficiaryName.TabIndex = 177;
+            this.lblBeneficiaryName.Text = "Beneficiary Name:";
+            // 
+            // lblServiceStartDate
+            // 
+            this.lblServiceStartDate.AutoSize = true;
+            this.lblServiceStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblServiceStartDate.Location = new System.Drawing.Point(262, 113);
+            this.lblServiceStartDate.Name = "lblServiceStartDate";
+            this.lblServiceStartDate.Size = new System.Drawing.Size(119, 16);
+            this.lblServiceStartDate.TabIndex = 175;
+            this.lblServiceStartDate.Text = "Service Start Date:";
+            // 
+            // lblInvoiceDate
+            // 
+            this.lblInvoiceDate.AutoSize = true;
+            this.lblInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInvoiceDate.Location = new System.Drawing.Point(262, 138);
+            this.lblInvoiceDate.Name = "lblInvoiceDate";
+            this.lblInvoiceDate.Size = new System.Drawing.Size(86, 16);
+            this.lblInvoiceDate.TabIndex = 176;
+            this.lblInvoiceDate.Text = "Invoice Date:";
             // 
             // dtpEndingServiceDate
             // 
@@ -7986,15 +8077,15 @@
             this.dtpBeginningServiceDate.TabIndex = 44;
             this.dtpBeginningServiceDate.ValueChanged += new System.EventHandler(this.dtpBillDate_ValueChanged);
             // 
-            // label67
+            // lblServiceEndDate
             // 
-            this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(262, 138);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(116, 16);
-            this.label67.TabIndex = 149;
-            this.label67.Text = "Service End Date:";
+            this.lblServiceEndDate.AutoSize = true;
+            this.lblServiceEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblServiceEndDate.Location = new System.Drawing.Point(262, 138);
+            this.lblServiceEndDate.Name = "lblServiceEndDate";
+            this.lblServiceEndDate.Size = new System.Drawing.Size(116, 16);
+            this.lblServiceEndDate.TabIndex = 149;
+            this.lblServiceEndDate.Text = "Service End Date:";
             // 
             // txtMedBillAmount
             // 
@@ -11881,7 +11972,7 @@
         private System.Windows.Forms.DateTimePicker dtpDueDate;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.DateTimePicker dtpBeginningServiceDate;
-        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Label lblServiceEndDate;
         private System.Windows.Forms.Button btnMedicalProviderInfo;
         private System.Windows.Forms.GroupBox grpEtc;
         private System.Windows.Forms.TextBox txtProviderContactPerson;
@@ -12553,7 +12644,7 @@
         private System.Windows.Forms.Label label144;
         private System.Windows.Forms.DataGridView gvCreditCardReconcilation;
         private System.Windows.Forms.Button btnReloadCreditCardRecon;
-        private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.Label lblServiceStartDate;
         private System.Windows.Forms.DateTimePicker dtpEndingServiceDate;
         private System.Windows.Forms.DataGridViewButtonColumn ReconcileCreditCardPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidSettlementNo;
@@ -12628,6 +12719,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaymentNote;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByInPaymentCreditCard;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByInPaymentCreditCard;
+        private System.Windows.Forms.DateTimePicker dtpInvoiceDate;
+        private System.Windows.Forms.Label lblInvoiceDate;
+        private System.Windows.Forms.TextBox txtBeneficiaryRelationship;
+        private System.Windows.Forms.DateTimePicker dtpDateOfDeath;
+        private System.Windows.Forms.Label lblBeneficiaryRelationship;
+        private System.Windows.Forms.TextBox txtBeneficiaryName;
+        private System.Windows.Forms.Label lblDateOfDeath;
+        private System.Windows.Forms.Label lblBeneficiaryName;
     }
 }
 
