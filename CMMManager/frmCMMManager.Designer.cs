@@ -7761,6 +7761,7 @@
             this.dtpDateOfDeath.Name = "dtpDateOfDeath";
             this.dtpDateOfDeath.Size = new System.Drawing.Size(113, 20);
             this.dtpDateOfDeath.TabIndex = 177;
+            this.dtpDateOfDeath.ValueChanged += new System.EventHandler(this.dtpDateOfDeath_ValueChanged);
             // 
             // lblBeneficiaryRelationship
             // 
@@ -7794,7 +7795,7 @@
             // 
             this.lblDateOfDeath.AutoSize = true;
             this.lblDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateOfDeath.Location = new System.Drawing.Point(262, 137);
+            this.lblDateOfDeath.Location = new System.Drawing.Point(262, 138);
             this.lblDateOfDeath.Name = "lblDateOfDeath";
             this.lblDateOfDeath.Size = new System.Drawing.Size(93, 16);
             this.lblDateOfDeath.TabIndex = 177;
