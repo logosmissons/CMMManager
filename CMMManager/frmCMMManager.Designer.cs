@@ -1184,6 +1184,9 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.gvFDStaffDashboardTaskView = new System.Windows.Forms.DataGridView();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label145 = new System.Windows.Forms.Label();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1207,6 +1210,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvLogCommunicationNPStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskNPStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).BeginInit();
+            this.tbpgDashboardFDManager.SuspendLayout();
             this.tbpgDashboardFDStaff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).BeginInit();
@@ -1302,6 +1306,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
             this.grpPaymentInformationBlueSheet.SuspendLayout();
             this.grpPaymentMethodBlueSheet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDStaffDashboardTaskView)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -3030,6 +3035,7 @@
             // 
             // tbpgDashboardFDManager
             // 
+            this.tbpgDashboardFDManager.Controls.Add(this.label145);
             this.tbpgDashboardFDManager.Location = new System.Drawing.Point(4, 22);
             this.tbpgDashboardFDManager.Name = "tbpgDashboardFDManager";
             this.tbpgDashboardFDManager.Size = new System.Drawing.Size(1832, 874);
@@ -3039,6 +3045,8 @@
             // 
             // tbpgDashboardFDStaff
             // 
+            this.tbpgDashboardFDStaff.Controls.Add(this.label67);
+            this.tbpgDashboardFDStaff.Controls.Add(this.gvFDStaffDashboardTaskView);
             this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffCCPayment);
             this.tbpgDashboardFDStaff.Controls.Add(this.label168);
             this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffACHPayment);
@@ -3079,17 +3087,17 @@
             this.gvDashboardFDStaffACHPayment.AllowUserToAddRows = false;
             this.gvDashboardFDStaffACHPayment.AllowUserToDeleteRows = false;
             this.gvDashboardFDStaffACHPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardFDStaffACHPayment.Location = new System.Drawing.Point(848, 114);
+            this.gvDashboardFDStaffACHPayment.Location = new System.Drawing.Point(46, 499);
             this.gvDashboardFDStaffACHPayment.Name = "gvDashboardFDStaffACHPayment";
             this.gvDashboardFDStaffACHPayment.ReadOnly = true;
-            this.gvDashboardFDStaffACHPayment.Size = new System.Drawing.Size(927, 336);
+            this.gvDashboardFDStaffACHPayment.Size = new System.Drawing.Size(750, 336);
             this.gvDashboardFDStaffACHPayment.TabIndex = 8;
             // 
             // label167
             // 
             this.label167.AutoSize = true;
             this.label167.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label167.Location = new System.Drawing.Point(844, 87);
+            this.label167.Location = new System.Drawing.Point(42, 472);
             this.label167.Name = "label167";
             this.label167.Size = new System.Drawing.Size(128, 24);
             this.label167.TabIndex = 7;
@@ -3103,7 +3111,7 @@
             this.gvDashboardFDStaffCheckPayment.Location = new System.Drawing.Point(46, 114);
             this.gvDashboardFDStaffCheckPayment.Name = "gvDashboardFDStaffCheckPayment";
             this.gvDashboardFDStaffCheckPayment.ReadOnly = true;
-            this.gvDashboardFDStaffCheckPayment.Size = new System.Drawing.Size(750, 728);
+            this.gvDashboardFDStaffCheckPayment.Size = new System.Drawing.Size(750, 336);
             this.gvDashboardFDStaffCheckPayment.TabIndex = 6;
             // 
             // label166
@@ -11423,6 +11431,37 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "Interdepartmental Communication Added -12-23-2020";
             // 
+            // gvFDStaffDashboardTaskView
+            // 
+            this.gvFDStaffDashboardTaskView.AllowUserToAddRows = false;
+            this.gvFDStaffDashboardTaskView.AllowUserToDeleteRows = false;
+            this.gvFDStaffDashboardTaskView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvFDStaffDashboardTaskView.Location = new System.Drawing.Point(848, 114);
+            this.gvFDStaffDashboardTaskView.Name = "gvFDStaffDashboardTaskView";
+            this.gvFDStaffDashboardTaskView.ReadOnly = true;
+            this.gvFDStaffDashboardTaskView.Size = new System.Drawing.Size(927, 336);
+            this.gvFDStaffDashboardTaskView.TabIndex = 11;
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label67.Location = new System.Drawing.Point(844, 87);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(106, 24);
+            this.label67.TabIndex = 12;
+            this.label67.Text = "Active Task";
+            // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label145.Location = new System.Drawing.Point(59, 46);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(284, 29);
+            this.label145.TabIndex = 5;
+            this.label145.Text = "Dashboard - FD Manager";
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11469,6 +11508,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvLogCommunicationNPStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskNPStaff)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).EndInit();
+            this.tbpgDashboardFDManager.ResumeLayout(false);
+            this.tbpgDashboardFDManager.PerformLayout();
             this.tbpgDashboardFDStaff.ResumeLayout(false);
             this.tbpgDashboardFDStaff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).EndInit();
@@ -11605,6 +11646,7 @@
             this.grpPaymentInformationBlueSheet.PerformLayout();
             this.grpPaymentMethodBlueSheet.ResumeLayout(false);
             this.grpPaymentMethodBlueSheet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDStaffDashboardTaskView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -12738,6 +12780,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoBirthdate;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoEmail;
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoMemberStatus;
+        private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.DataGridView gvFDStaffDashboardTaskView;
     }
 }
 
