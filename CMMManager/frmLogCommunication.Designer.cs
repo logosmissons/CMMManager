@@ -101,8 +101,8 @@
             this.comboCommunicationType.FormattingEnabled = true;
             this.comboCommunicationType.Location = new System.Drawing.Point(174, 137);
             this.comboCommunicationType.Name = "comboCommunicationType";
-            this.comboCommunicationType.Size = new System.Drawing.Size(140, 21);
-            this.comboCommunicationType.TabIndex = 2;
+            this.comboCommunicationType.Size = new System.Drawing.Size(180, 21);
+            this.comboCommunicationType.TabIndex = 10;
             // 
             // label3
             // 
@@ -159,7 +159,7 @@
             this.txtCommunicationNo.Location = new System.Drawing.Point(174, 106);
             this.txtCommunicationNo.Name = "txtCommunicationNo";
             this.txtCommunicationNo.ReadOnly = true;
-            this.txtCommunicationNo.Size = new System.Drawing.Size(140, 20);
+            this.txtCommunicationNo.Size = new System.Drawing.Size(142, 20);
             this.txtCommunicationNo.TabIndex = 8;
             // 
             // txtCommunicationSubject
@@ -204,7 +204,7 @@
             this.txtCommunicationIndividualId.Location = new System.Drawing.Point(174, 75);
             this.txtCommunicationIndividualId.Name = "txtCommunicationIndividualId";
             this.txtCommunicationIndividualId.ReadOnly = true;
-            this.txtCommunicationIndividualId.Size = new System.Drawing.Size(140, 20);
+            this.txtCommunicationIndividualId.Size = new System.Drawing.Size(142, 20);
             this.txtCommunicationIndividualId.TabIndex = 14;
             // 
             // comboCaseNo

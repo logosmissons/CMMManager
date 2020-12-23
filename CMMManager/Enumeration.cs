@@ -50,7 +50,9 @@ namespace CMMManager
     public enum TaskType { Send = 0, Reply, SendAgain};
 
     // enumeration for communication type
-    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent, LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet, NoSharingOnlyBlueSheet };
+    public enum CommunicationType { IncomingCall = 0, OutgoingCall, IncomingFax, OutgoingFax, EmailReceived = 6, EmailSent,
+        LetterReceived, LetterMailed, Other, WalkIn, Task, CheckBlueSheet, ACH_BlueSheet, CreditCardBlueSheet, NoSharingOnlyBlueSheet,
+        InterdepartmentalCommunication };
     // enumeration for Communication open mode
     public enum CommunicationOpenMode { AddNew = 0, ReadOnly, Update};
 

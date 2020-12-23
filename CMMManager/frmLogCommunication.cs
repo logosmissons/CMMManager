@@ -421,6 +421,7 @@ namespace CMMManager
                             int CommunicationType = rdrCommunicationInfo.GetByte(2);
                             if (CommunicationType < 4) comboCommunicationType.SelectedIndex = CommunicationType;
                             else if (CommunicationType < 12) comboCommunicationType.SelectedIndex = CommunicationType - 2;
+                            else if (CommunicationType >= 17) comboCommunicationType.SelectedIndex = CommunicationType - 6;
                         }
                         if (!rdrCommunicationInfo.IsDBNull(3))
                         {
@@ -673,6 +674,7 @@ namespace CMMManager
                             int CommunicationType = rdrCommunicationInfo.GetByte(2);
                             if (CommunicationType < 4) comboCommunicationType.SelectedIndex = CommunicationType;
                             else if (CommunicationType < 12) comboCommunicationType.SelectedIndex = CommunicationType - 2;
+                            else if (CommunicationType >= 17) comboCommunicationType.SelectedIndex = CommunicationType - 6;
                         }
                         if (!rdrCommunicationInfo.IsDBNull(3))
                         {
@@ -721,6 +723,7 @@ namespace CMMManager
                 rdrCommunicationInfo.Close();
                 if (connRN2.State != ConnectionState.Closed) connRN2.Close();
 
+                
                 //txtCommunicationIndividualId.Text = IndividualId;
                 //txtCommunicationIndividualId.ReadOnly = true;
                 //txtCommunicationNo.Text = CommunicationNo;
@@ -872,6 +875,8 @@ namespace CMMManager
                         MakeCommunicationLogUpdatableBeforeOneDayPassed();
                     }                    
                 }
+
+                //txtCommunicationBody.Focus();
             }
         }
 
@@ -983,6 +988,9 @@ namespace CMMManager
                     break;
                 case "Walk-in":
                     communicationType = CommunicationType.WalkIn;
+                    break;
+                case "Interdepartmental Communication":
+                    communicationType = CommunicationType.InterdepartmentalCommunication;
                     break;
             }
 
