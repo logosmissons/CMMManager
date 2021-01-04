@@ -28,48 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle53 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle54 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle55 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle56 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle57 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle58 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle61 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle62 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle70 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle71 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle75 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle79 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -272,12 +272,84 @@
             this.label170 = new System.Windows.Forms.Label();
             this.label169 = new System.Windows.Forms.Label();
             this.tbpgDashboardFDManager = new System.Windows.Forms.TabPage();
+            this.comboFDStaff = new System.Windows.Forms.ComboBox();
+            this.btnFDManagerReload = new System.Windows.Forms.Button();
+            this.dtpEndDateCommunicationLog = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartDateCommunicationLog = new System.Windows.Forms.DateTimePicker();
+            this.label188 = new System.Windows.Forms.Label();
+            this.label189 = new System.Windows.Forms.Label();
+            this.label184 = new System.Windows.Forms.Label();
+            this.gvFDManagerCommunicationLog = new System.Windows.Forms.DataGridView();
+            this.gvFDManagerAnnouncement = new System.Windows.Forms.DataGridView();
+            this.label187 = new System.Windows.Forms.Label();
+            this.gvCompleteTaskFDManager = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label149 = new System.Windows.Forms.Label();
+            this.gvActiveTaskFDManager = new System.Windows.Forms.DataGridView();
+            this.IndividualIdFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIDFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label148 = new System.Windows.Forms.Label();
+            this.label145 = new System.Windows.Forms.Label();
             this.tbpgDashboardFDStaff = new System.Windows.Forms.TabPage();
-            this.gvDashboardFDStaffCCPayment = new System.Windows.Forms.DataGridView();
+            this.btnFDStaffReload = new System.Windows.Forms.Button();
+            this.dtpFDStaffEndDateCommLog = new System.Windows.Forms.DateTimePicker();
             this.label168 = new System.Windows.Forms.Label();
-            this.gvDashboardFDStaffACHPayment = new System.Windows.Forms.DataGridView();
+            this.label186 = new System.Windows.Forms.Label();
+            this.dtpFDStaffStartDateCommLog = new System.Windows.Forms.DateTimePicker();
+            this.gvCompleteTaskFDStaff = new System.Windows.Forms.DataGridView();
+            this.IndividualIdCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label150 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.gvActiveTaskFDStaff = new System.Windows.Forms.DataGridView();
+            this.IndividualIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvDashboardFDStaffCommunicationLog = new System.Windows.Forms.DataGridView();
             this.label167 = new System.Windows.Forms.Label();
-            this.gvDashboardFDStaffCheckPayment = new System.Windows.Forms.DataGridView();
+            this.gvDashboardFDStaffAnnouncementFromManager = new System.Windows.Forms.DataGridView();
             this.label166 = new System.Windows.Forms.Label();
             this.label165 = new System.Windows.Forms.Label();
             this.tbpgSearchResult = new System.Windows.Forms.TabPage();
@@ -1184,9 +1256,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.gvFDStaffDashboardTaskView = new System.Windows.Forms.DataGridView();
-            this.label67 = new System.Windows.Forms.Label();
-            this.label145 = new System.Windows.Forms.Label();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1211,10 +1280,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskNPStaff)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).BeginInit();
             this.tbpgDashboardFDManager.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDManagerCommunicationLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDManagerAnnouncement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskFDManager)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskFDManager)).BeginInit();
             this.tbpgDashboardFDStaff.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskFDStaff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskFDStaff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCommunicationLog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffAnnouncementFromManager)).BeginInit();
             this.tbpgSearchResult.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementSearched)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvMedBillSearched)).BeginInit();
@@ -1306,7 +1380,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvPersonalResponsibility)).BeginInit();
             this.grpPaymentInformationBlueSheet.SuspendLayout();
             this.grpPaymentMethodBlueSheet.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFDStaffDashboardTaskView)).BeginInit();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -1443,8 +1516,8 @@
             // 
             // SettlementAmountForApproval
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle42;
             this.SettlementAmountForApproval.HeaderText = "Settlement Amount";
             this.SettlementAmountForApproval.Name = "SettlementAmountForApproval";
             this.SettlementAmountForApproval.ReadOnly = true;
@@ -1452,8 +1525,8 @@
             // 
             // IsWellBeingForApproval
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle43;
             this.IsWellBeingForApproval.HeaderText = "Is Well Being";
             this.IsWellBeingForApproval.Name = "IsWellBeingForApproval";
             this.IsWellBeingForApproval.ReadOnly = true;
@@ -3035,6 +3108,20 @@
             // 
             // tbpgDashboardFDManager
             // 
+            this.tbpgDashboardFDManager.Controls.Add(this.comboFDStaff);
+            this.tbpgDashboardFDManager.Controls.Add(this.btnFDManagerReload);
+            this.tbpgDashboardFDManager.Controls.Add(this.dtpEndDateCommunicationLog);
+            this.tbpgDashboardFDManager.Controls.Add(this.dtpStartDateCommunicationLog);
+            this.tbpgDashboardFDManager.Controls.Add(this.label188);
+            this.tbpgDashboardFDManager.Controls.Add(this.label189);
+            this.tbpgDashboardFDManager.Controls.Add(this.label184);
+            this.tbpgDashboardFDManager.Controls.Add(this.gvFDManagerCommunicationLog);
+            this.tbpgDashboardFDManager.Controls.Add(this.gvFDManagerAnnouncement);
+            this.tbpgDashboardFDManager.Controls.Add(this.label187);
+            this.tbpgDashboardFDManager.Controls.Add(this.gvCompleteTaskFDManager);
+            this.tbpgDashboardFDManager.Controls.Add(this.label149);
+            this.tbpgDashboardFDManager.Controls.Add(this.gvActiveTaskFDManager);
+            this.tbpgDashboardFDManager.Controls.Add(this.label148);
             this.tbpgDashboardFDManager.Controls.Add(this.label145);
             this.tbpgDashboardFDManager.Location = new System.Drawing.Point(4, 22);
             this.tbpgDashboardFDManager.Name = "tbpgDashboardFDManager";
@@ -3043,15 +3130,323 @@
             this.tbpgDashboardFDManager.Text = "Dashboard";
             this.tbpgDashboardFDManager.UseVisualStyleBackColor = true;
             // 
+            // comboFDStaff
+            // 
+            this.comboFDStaff.FormattingEnabled = true;
+            this.comboFDStaff.Location = new System.Drawing.Point(591, 407);
+            this.comboFDStaff.Name = "comboFDStaff";
+            this.comboFDStaff.Size = new System.Drawing.Size(121, 21);
+            this.comboFDStaff.TabIndex = 38;
+            // 
+            // btnFDManagerReload
+            // 
+            this.btnFDManagerReload.Location = new System.Drawing.Point(731, 406);
+            this.btnFDManagerReload.Name = "btnFDManagerReload";
+            this.btnFDManagerReload.Size = new System.Drawing.Size(71, 23);
+            this.btnFDManagerReload.TabIndex = 37;
+            this.btnFDManagerReload.Text = "Reload";
+            this.btnFDManagerReload.UseVisualStyleBackColor = true;
+            // 
+            // dtpEndDateCommunicationLog
+            // 
+            this.dtpEndDateCommunicationLog.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEndDateCommunicationLog.Location = new System.Drawing.Point(473, 407);
+            this.dtpEndDateCommunicationLog.Name = "dtpEndDateCommunicationLog";
+            this.dtpEndDateCommunicationLog.Size = new System.Drawing.Size(98, 20);
+            this.dtpEndDateCommunicationLog.TabIndex = 36;
+            // 
+            // dtpStartDateCommunicationLog
+            // 
+            this.dtpStartDateCommunicationLog.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpStartDateCommunicationLog.Location = new System.Drawing.Point(337, 407);
+            this.dtpStartDateCommunicationLog.Name = "dtpStartDateCommunicationLog";
+            this.dtpStartDateCommunicationLog.Size = new System.Drawing.Size(98, 20);
+            this.dtpStartDateCommunicationLog.TabIndex = 35;
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label188.Location = new System.Drawing.Point(444, 408);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(23, 15);
+            this.label188.TabIndex = 34;
+            this.label188.Text = "To";
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label189.Location = new System.Drawing.Point(291, 408);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(40, 15);
+            this.label189.TabIndex = 33;
+            this.label189.Text = "From";
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label184.Location = new System.Drawing.Point(60, 407);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(184, 24);
+            this.label184.TabIndex = 25;
+            this.label184.Text = "Communication Log:";
+            // 
+            // gvFDManagerCommunicationLog
+            // 
+            this.gvFDManagerCommunicationLog.AllowUserToAddRows = false;
+            this.gvFDManagerCommunicationLog.AllowUserToDeleteRows = false;
+            this.gvFDManagerCommunicationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvFDManagerCommunicationLog.Location = new System.Drawing.Point(64, 434);
+            this.gvFDManagerCommunicationLog.Name = "gvFDManagerCommunicationLog";
+            this.gvFDManagerCommunicationLog.ReadOnly = true;
+            this.gvFDManagerCommunicationLog.Size = new System.Drawing.Size(891, 397);
+            this.gvFDManagerCommunicationLog.TabIndex = 14;
+            // 
+            // gvFDManagerAnnouncement
+            // 
+            this.gvFDManagerAnnouncement.AllowUserToAddRows = false;
+            this.gvFDManagerAnnouncement.AllowUserToDeleteRows = false;
+            this.gvFDManagerAnnouncement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvFDManagerAnnouncement.Location = new System.Drawing.Point(64, 126);
+            this.gvFDManagerAnnouncement.Name = "gvFDManagerAnnouncement";
+            this.gvFDManagerAnnouncement.ReadOnly = true;
+            this.gvFDManagerAnnouncement.Size = new System.Drawing.Size(891, 250);
+            this.gvFDManagerAnnouncement.TabIndex = 13;
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label187.Location = new System.Drawing.Point(60, 98);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(141, 24);
+            this.label187.TabIndex = 10;
+            this.label187.Text = "Announcement";
+            // 
+            // gvCompleteTaskFDManager
+            // 
+            this.gvCompleteTaskFDManager.AllowUserToAddRows = false;
+            this.gvCompleteTaskFDManager.AllowUserToDeleteRows = false;
+            this.gvCompleteTaskFDManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCompleteTaskFDManager.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdCompleteTaskFDManager,
+            this.IndividualNameCompleteTaskFDManager,
+            this.SubjectCompleteTaskFDManager,
+            this.CreateDateCompleteTaskFDManager,
+            this.ActivityDateCompleteTaskFDManager,
+            this.CommentCompleteTaskFDManager,
+            this.SolutionCompleteTaskFDManager,
+            this.TaskIdCompleteTaskFDManager});
+            this.gvCompleteTaskFDManager.Location = new System.Drawing.Point(1001, 545);
+            this.gvCompleteTaskFDManager.Name = "gvCompleteTaskFDManager";
+            this.gvCompleteTaskFDManager.ReadOnly = true;
+            this.gvCompleteTaskFDManager.Size = new System.Drawing.Size(795, 286);
+            this.gvCompleteTaskFDManager.TabIndex = 9;
+            // 
+            // IndividualIdCompleteTaskFDManager
+            // 
+            this.IndividualIdCompleteTaskFDManager.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskFDManager.Name = "IndividualIdCompleteTaskFDManager";
+            this.IndividualIdCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // IndividualNameCompleteTaskFDManager
+            // 
+            this.IndividualNameCompleteTaskFDManager.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskFDManager.Name = "IndividualNameCompleteTaskFDManager";
+            this.IndividualNameCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskFDManager
+            // 
+            this.SubjectCompleteTaskFDManager.HeaderText = "Subject";
+            this.SubjectCompleteTaskFDManager.Name = "SubjectCompleteTaskFDManager";
+            this.SubjectCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskFDManager
+            // 
+            this.CreateDateCompleteTaskFDManager.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskFDManager.Name = "CreateDateCompleteTaskFDManager";
+            this.CreateDateCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskFDManager
+            // 
+            this.ActivityDateCompleteTaskFDManager.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskFDManager.Name = "ActivityDateCompleteTaskFDManager";
+            this.ActivityDateCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // CommentCompleteTaskFDManager
+            // 
+            this.CommentCompleteTaskFDManager.HeaderText = "Comment";
+            this.CommentCompleteTaskFDManager.Name = "CommentCompleteTaskFDManager";
+            this.CommentCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskFDManager
+            // 
+            this.SolutionCompleteTaskFDManager.HeaderText = "Solution";
+            this.SolutionCompleteTaskFDManager.Name = "SolutionCompleteTaskFDManager";
+            this.SolutionCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // TaskIdCompleteTaskFDManager
+            // 
+            this.TaskIdCompleteTaskFDManager.HeaderText = "Task Id";
+            this.TaskIdCompleteTaskFDManager.Name = "TaskIdCompleteTaskFDManager";
+            this.TaskIdCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label149.Location = new System.Drawing.Point(996, 517);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(156, 25);
+            this.label149.TabIndex = 8;
+            this.label149.Text = "Complete Task";
+            // 
+            // gvActiveTaskFDManager
+            // 
+            this.gvActiveTaskFDManager.AllowUserToAddRows = false;
+            this.gvActiveTaskFDManager.AllowUserToDeleteRows = false;
+            this.gvActiveTaskFDManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvActiveTaskFDManager.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdFDManager,
+            this.IndividualNameFDManager,
+            this.AssignedToFDManager,
+            this.CreatedByIDFDManager,
+            this.WhatIdFDManager,
+            this.SubjectFDManager,
+            this.DueDateFDManager,
+            this.CreateDateFDManager,
+            this.ActivityDateFDManager,
+            this.CommentFDManager,
+            this.SolutionFDManager,
+            this.StatusFDManager,
+            this.PriorityFDManager,
+            this.TaskIdFDManager});
+            this.gvActiveTaskFDManager.Location = new System.Drawing.Point(1001, 126);
+            this.gvActiveTaskFDManager.Name = "gvActiveTaskFDManager";
+            this.gvActiveTaskFDManager.ReadOnly = true;
+            this.gvActiveTaskFDManager.Size = new System.Drawing.Size(795, 361);
+            this.gvActiveTaskFDManager.TabIndex = 7;
+            // 
+            // IndividualIdFDManager
+            // 
+            this.IndividualIdFDManager.HeaderText = "Individual Id";
+            this.IndividualIdFDManager.Name = "IndividualIdFDManager";
+            this.IndividualIdFDManager.ReadOnly = true;
+            // 
+            // IndividualNameFDManager
+            // 
+            this.IndividualNameFDManager.HeaderText = "Individual Name";
+            this.IndividualNameFDManager.Name = "IndividualNameFDManager";
+            this.IndividualNameFDManager.ReadOnly = true;
+            // 
+            // AssignedToFDManager
+            // 
+            this.AssignedToFDManager.HeaderText = "Assigned To";
+            this.AssignedToFDManager.Name = "AssignedToFDManager";
+            this.AssignedToFDManager.ReadOnly = true;
+            // 
+            // CreatedByIDFDManager
+            // 
+            this.CreatedByIDFDManager.HeaderText = "Created By";
+            this.CreatedByIDFDManager.Name = "CreatedByIDFDManager";
+            this.CreatedByIDFDManager.ReadOnly = true;
+            // 
+            // WhatIdFDManager
+            // 
+            this.WhatIdFDManager.HeaderText = "What Id";
+            this.WhatIdFDManager.Name = "WhatIdFDManager";
+            this.WhatIdFDManager.ReadOnly = true;
+            // 
+            // SubjectFDManager
+            // 
+            this.SubjectFDManager.HeaderText = "Subject";
+            this.SubjectFDManager.Name = "SubjectFDManager";
+            this.SubjectFDManager.ReadOnly = true;
+            // 
+            // DueDateFDManager
+            // 
+            this.DueDateFDManager.HeaderText = "Due Date";
+            this.DueDateFDManager.Name = "DueDateFDManager";
+            this.DueDateFDManager.ReadOnly = true;
+            // 
+            // CreateDateFDManager
+            // 
+            this.CreateDateFDManager.HeaderText = "Create Date";
+            this.CreateDateFDManager.Name = "CreateDateFDManager";
+            this.CreateDateFDManager.ReadOnly = true;
+            // 
+            // ActivityDateFDManager
+            // 
+            this.ActivityDateFDManager.HeaderText = "Activity Date";
+            this.ActivityDateFDManager.Name = "ActivityDateFDManager";
+            this.ActivityDateFDManager.ReadOnly = true;
+            // 
+            // CommentFDManager
+            // 
+            this.CommentFDManager.HeaderText = "Comment";
+            this.CommentFDManager.Name = "CommentFDManager";
+            this.CommentFDManager.ReadOnly = true;
+            // 
+            // SolutionFDManager
+            // 
+            this.SolutionFDManager.HeaderText = "Solution";
+            this.SolutionFDManager.Name = "SolutionFDManager";
+            this.SolutionFDManager.ReadOnly = true;
+            // 
+            // StatusFDManager
+            // 
+            this.StatusFDManager.HeaderText = "Status";
+            this.StatusFDManager.Name = "StatusFDManager";
+            this.StatusFDManager.ReadOnly = true;
+            // 
+            // PriorityFDManager
+            // 
+            this.PriorityFDManager.HeaderText = "Priority";
+            this.PriorityFDManager.Name = "PriorityFDManager";
+            this.PriorityFDManager.ReadOnly = true;
+            // 
+            // TaskIdFDManager
+            // 
+            this.TaskIdFDManager.HeaderText = "Task Id";
+            this.TaskIdFDManager.Name = "TaskIdFDManager";
+            this.TaskIdFDManager.ReadOnly = true;
+            // 
+            // label148
+            // 
+            this.label148.AutoSize = true;
+            this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label148.Location = new System.Drawing.Point(996, 97);
+            this.label148.Name = "label148";
+            this.label148.Size = new System.Drawing.Size(124, 25);
+            this.label148.TabIndex = 6;
+            this.label148.Text = "Active Task";
+            // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label145.Location = new System.Drawing.Point(59, 46);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(284, 29);
+            this.label145.TabIndex = 5;
+            this.label145.Text = "Dashboard - FD Manager";
+            // 
             // tbpgDashboardFDStaff
             // 
-            this.tbpgDashboardFDStaff.Controls.Add(this.label67);
-            this.tbpgDashboardFDStaff.Controls.Add(this.gvFDStaffDashboardTaskView);
-            this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffCCPayment);
+            this.tbpgDashboardFDStaff.Controls.Add(this.btnFDStaffReload);
+            this.tbpgDashboardFDStaff.Controls.Add(this.dtpFDStaffEndDateCommLog);
             this.tbpgDashboardFDStaff.Controls.Add(this.label168);
-            this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffACHPayment);
+            this.tbpgDashboardFDStaff.Controls.Add(this.label186);
+            this.tbpgDashboardFDStaff.Controls.Add(this.dtpFDStaffStartDateCommLog);
+            this.tbpgDashboardFDStaff.Controls.Add(this.gvCompleteTaskFDStaff);
+            this.tbpgDashboardFDStaff.Controls.Add(this.label150);
+            this.tbpgDashboardFDStaff.Controls.Add(this.label67);
+            this.tbpgDashboardFDStaff.Controls.Add(this.gvActiveTaskFDStaff);
+            this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffCommunicationLog);
             this.tbpgDashboardFDStaff.Controls.Add(this.label167);
-            this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffCheckPayment);
+            this.tbpgDashboardFDStaff.Controls.Add(this.gvDashboardFDStaffAnnouncementFromManager);
             this.tbpgDashboardFDStaff.Controls.Add(this.label166);
             this.tbpgDashboardFDStaff.Controls.Add(this.label165);
             this.tbpgDashboardFDStaff.Location = new System.Drawing.Point(4, 22);
@@ -3061,58 +3456,322 @@
             this.tbpgDashboardFDStaff.Text = "Dashboard";
             this.tbpgDashboardFDStaff.UseVisualStyleBackColor = true;
             // 
-            // gvDashboardFDStaffCCPayment
+            // btnFDStaffReload
             // 
-            this.gvDashboardFDStaffCCPayment.AllowUserToAddRows = false;
-            this.gvDashboardFDStaffCCPayment.AllowUserToDeleteRows = false;
-            this.gvDashboardFDStaffCCPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardFDStaffCCPayment.Location = new System.Drawing.Point(848, 500);
-            this.gvDashboardFDStaffCCPayment.Name = "gvDashboardFDStaffCCPayment";
-            this.gvDashboardFDStaffCCPayment.ReadOnly = true;
-            this.gvDashboardFDStaffCCPayment.Size = new System.Drawing.Size(927, 342);
-            this.gvDashboardFDStaffCCPayment.TabIndex = 10;
+            this.btnFDStaffReload.Location = new System.Drawing.Point(527, 389);
+            this.btnFDStaffReload.Name = "btnFDStaffReload";
+            this.btnFDStaffReload.Size = new System.Drawing.Size(71, 23);
+            this.btnFDStaffReload.TabIndex = 25;
+            this.btnFDStaffReload.Text = "Reload";
+            this.btnFDStaffReload.UseVisualStyleBackColor = true;
+            // 
+            // dtpFDStaffEndDateCommLog
+            // 
+            this.dtpFDStaffEndDateCommLog.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFDStaffEndDateCommLog.Location = new System.Drawing.Point(423, 390);
+            this.dtpFDStaffEndDateCommLog.Name = "dtpFDStaffEndDateCommLog";
+            this.dtpFDStaffEndDateCommLog.Size = new System.Drawing.Size(98, 20);
+            this.dtpFDStaffEndDateCommLog.TabIndex = 24;
             // 
             // label168
             // 
             this.label168.AutoSize = true;
-            this.label168.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label168.Location = new System.Drawing.Point(844, 472);
+            this.label168.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label168.Location = new System.Drawing.Point(397, 390);
             this.label168.Name = "label168";
-            this.label168.Size = new System.Drawing.Size(182, 24);
-            this.label168.TabIndex = 9;
-            this.label168.Text = "Credit Card Payment";
+            this.label168.Size = new System.Drawing.Size(23, 15);
+            this.label168.TabIndex = 23;
+            this.label168.Text = "To";
             // 
-            // gvDashboardFDStaffACHPayment
+            // label186
             // 
-            this.gvDashboardFDStaffACHPayment.AllowUserToAddRows = false;
-            this.gvDashboardFDStaffACHPayment.AllowUserToDeleteRows = false;
-            this.gvDashboardFDStaffACHPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardFDStaffACHPayment.Location = new System.Drawing.Point(46, 499);
-            this.gvDashboardFDStaffACHPayment.Name = "gvDashboardFDStaffACHPayment";
-            this.gvDashboardFDStaffACHPayment.ReadOnly = true;
-            this.gvDashboardFDStaffACHPayment.Size = new System.Drawing.Size(750, 336);
-            this.gvDashboardFDStaffACHPayment.TabIndex = 8;
+            this.label186.AutoSize = true;
+            this.label186.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label186.Location = new System.Drawing.Point(250, 390);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(40, 15);
+            this.label186.TabIndex = 22;
+            this.label186.Text = "From";
+            // 
+            // dtpFDStaffStartDateCommLog
+            // 
+            this.dtpFDStaffStartDateCommLog.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFDStaffStartDateCommLog.Location = new System.Drawing.Point(293, 390);
+            this.dtpFDStaffStartDateCommLog.Name = "dtpFDStaffStartDateCommLog";
+            this.dtpFDStaffStartDateCommLog.Size = new System.Drawing.Size(98, 20);
+            this.dtpFDStaffStartDateCommLog.TabIndex = 21;
+            // 
+            // gvCompleteTaskFDStaff
+            // 
+            this.gvCompleteTaskFDStaff.AllowUserToAddRows = false;
+            this.gvCompleteTaskFDStaff.AllowUserToDeleteRows = false;
+            this.gvCompleteTaskFDStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvCompleteTaskFDStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdCompleteTaskFDStaff,
+            this.IndividualNameCompleteTaskFDStaff,
+            this.AssignedToCompleteTaskFDStaff,
+            this.CreatedByCompleteTaskFDStaff,
+            this.WhatIdCompleteTaskFDStaff,
+            this.SubjectCompleteTaskFDStaff,
+            this.DueDateCompleteTaskFDStaff,
+            this.CreateDateCompleteTaskFDStaff,
+            this.ActivityDateCompleteTaskFDStaff,
+            this.CommentCompleteTaskFDStaff,
+            this.SolutionCompleteTaskFDStaff,
+            this.StatusCompleteTaskFDStaff,
+            this.PriorityCompleteTaskFDStaff,
+            this.TaskIdCompleteTaskFDStaff});
+            this.gvCompleteTaskFDStaff.Location = new System.Drawing.Point(848, 546);
+            this.gvCompleteTaskFDStaff.Name = "gvCompleteTaskFDStaff";
+            this.gvCompleteTaskFDStaff.ReadOnly = true;
+            this.gvCompleteTaskFDStaff.Size = new System.Drawing.Size(927, 302);
+            this.gvCompleteTaskFDStaff.TabIndex = 14;
+            // 
+            // IndividualIdCompleteTaskFDStaff
+            // 
+            this.IndividualIdCompleteTaskFDStaff.HeaderText = "Individual Id";
+            this.IndividualIdCompleteTaskFDStaff.Name = "IndividualIdCompleteTaskFDStaff";
+            this.IndividualIdCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // IndividualNameCompleteTaskFDStaff
+            // 
+            this.IndividualNameCompleteTaskFDStaff.HeaderText = "Individual Name";
+            this.IndividualNameCompleteTaskFDStaff.Name = "IndividualNameCompleteTaskFDStaff";
+            this.IndividualNameCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // AssignedToCompleteTaskFDStaff
+            // 
+            this.AssignedToCompleteTaskFDStaff.HeaderText = "Assigned To";
+            this.AssignedToCompleteTaskFDStaff.Name = "AssignedToCompleteTaskFDStaff";
+            this.AssignedToCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // CreatedByCompleteTaskFDStaff
+            // 
+            this.CreatedByCompleteTaskFDStaff.HeaderText = "Created By";
+            this.CreatedByCompleteTaskFDStaff.Name = "CreatedByCompleteTaskFDStaff";
+            this.CreatedByCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // WhatIdCompleteTaskFDStaff
+            // 
+            this.WhatIdCompleteTaskFDStaff.HeaderText = "What Id";
+            this.WhatIdCompleteTaskFDStaff.Name = "WhatIdCompleteTaskFDStaff";
+            this.WhatIdCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // SubjectCompleteTaskFDStaff
+            // 
+            this.SubjectCompleteTaskFDStaff.HeaderText = "Subject";
+            this.SubjectCompleteTaskFDStaff.Name = "SubjectCompleteTaskFDStaff";
+            this.SubjectCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // DueDateCompleteTaskFDStaff
+            // 
+            this.DueDateCompleteTaskFDStaff.HeaderText = "Due Date";
+            this.DueDateCompleteTaskFDStaff.Name = "DueDateCompleteTaskFDStaff";
+            this.DueDateCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // CreateDateCompleteTaskFDStaff
+            // 
+            this.CreateDateCompleteTaskFDStaff.HeaderText = "Create Date";
+            this.CreateDateCompleteTaskFDStaff.Name = "CreateDateCompleteTaskFDStaff";
+            this.CreateDateCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // ActivityDateCompleteTaskFDStaff
+            // 
+            this.ActivityDateCompleteTaskFDStaff.HeaderText = "Activity Date";
+            this.ActivityDateCompleteTaskFDStaff.Name = "ActivityDateCompleteTaskFDStaff";
+            this.ActivityDateCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // CommentCompleteTaskFDStaff
+            // 
+            this.CommentCompleteTaskFDStaff.HeaderText = "Comment";
+            this.CommentCompleteTaskFDStaff.Name = "CommentCompleteTaskFDStaff";
+            this.CommentCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // SolutionCompleteTaskFDStaff
+            // 
+            this.SolutionCompleteTaskFDStaff.HeaderText = "Solution";
+            this.SolutionCompleteTaskFDStaff.Name = "SolutionCompleteTaskFDStaff";
+            this.SolutionCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // StatusCompleteTaskFDStaff
+            // 
+            this.StatusCompleteTaskFDStaff.HeaderText = "Status";
+            this.StatusCompleteTaskFDStaff.Name = "StatusCompleteTaskFDStaff";
+            this.StatusCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // PriorityCompleteTaskFDStaff
+            // 
+            this.PriorityCompleteTaskFDStaff.HeaderText = "Priority";
+            this.PriorityCompleteTaskFDStaff.Name = "PriorityCompleteTaskFDStaff";
+            this.PriorityCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // TaskIdCompleteTaskFDStaff
+            // 
+            this.TaskIdCompleteTaskFDStaff.HeaderText = "Task Id";
+            this.TaskIdCompleteTaskFDStaff.Name = "TaskIdCompleteTaskFDStaff";
+            this.TaskIdCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // label150
+            // 
+            this.label150.AutoSize = true;
+            this.label150.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label150.Location = new System.Drawing.Point(844, 519);
+            this.label150.Name = "label150";
+            this.label150.Size = new System.Drawing.Size(136, 24);
+            this.label150.TabIndex = 13;
+            this.label150.Text = "Complete Task";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label67.Location = new System.Drawing.Point(844, 87);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(106, 24);
+            this.label67.TabIndex = 12;
+            this.label67.Text = "Active Task";
+            // 
+            // gvActiveTaskFDStaff
+            // 
+            this.gvActiveTaskFDStaff.AllowUserToAddRows = false;
+            this.gvActiveTaskFDStaff.AllowUserToDeleteRows = false;
+            this.gvActiveTaskFDStaff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvActiveTaskFDStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IndividualIdActiveTaskFDStaff,
+            this.IndividualNameActiveTaskFDStaff,
+            this.AssignedToActiveTaskFDStaff,
+            this.CreatedByIdActiveTaskFDStaff,
+            this.WhatIdActiveTaskFDStaff,
+            this.SubjectActiveTaskFDStaff,
+            this.DueDateActiveTaskFDStaff,
+            this.CreateDateActiveTaskFDStaff,
+            this.ActivityDateActiveTaskFDStaff,
+            this.CommentActiveTaskFDStaff,
+            this.SolutionActiveTaskFDStaff,
+            this.StatusActiveTaskFDStaff,
+            this.PriorityActiveTaskFDStaff,
+            this.TaskIdActiveTaskFDStaff});
+            this.gvActiveTaskFDStaff.Location = new System.Drawing.Point(848, 114);
+            this.gvActiveTaskFDStaff.Name = "gvActiveTaskFDStaff";
+            this.gvActiveTaskFDStaff.ReadOnly = true;
+            this.gvActiveTaskFDStaff.Size = new System.Drawing.Size(927, 377);
+            this.gvActiveTaskFDStaff.TabIndex = 11;
+            // 
+            // IndividualIdActiveTaskFDStaff
+            // 
+            this.IndividualIdActiveTaskFDStaff.HeaderText = "Individual Id";
+            this.IndividualIdActiveTaskFDStaff.Name = "IndividualIdActiveTaskFDStaff";
+            this.IndividualIdActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // IndividualNameActiveTaskFDStaff
+            // 
+            this.IndividualNameActiveTaskFDStaff.HeaderText = "Individual Name";
+            this.IndividualNameActiveTaskFDStaff.Name = "IndividualNameActiveTaskFDStaff";
+            this.IndividualNameActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // AssignedToActiveTaskFDStaff
+            // 
+            this.AssignedToActiveTaskFDStaff.HeaderText = "Assigned To";
+            this.AssignedToActiveTaskFDStaff.Name = "AssignedToActiveTaskFDStaff";
+            this.AssignedToActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // CreatedByIdActiveTaskFDStaff
+            // 
+            this.CreatedByIdActiveTaskFDStaff.HeaderText = "Created By";
+            this.CreatedByIdActiveTaskFDStaff.Name = "CreatedByIdActiveTaskFDStaff";
+            this.CreatedByIdActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // WhatIdActiveTaskFDStaff
+            // 
+            this.WhatIdActiveTaskFDStaff.HeaderText = "What Id";
+            this.WhatIdActiveTaskFDStaff.Name = "WhatIdActiveTaskFDStaff";
+            this.WhatIdActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // SubjectActiveTaskFDStaff
+            // 
+            this.SubjectActiveTaskFDStaff.HeaderText = "Subject";
+            this.SubjectActiveTaskFDStaff.Name = "SubjectActiveTaskFDStaff";
+            this.SubjectActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // DueDateActiveTaskFDStaff
+            // 
+            this.DueDateActiveTaskFDStaff.HeaderText = "Due Date";
+            this.DueDateActiveTaskFDStaff.Name = "DueDateActiveTaskFDStaff";
+            this.DueDateActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // CreateDateActiveTaskFDStaff
+            // 
+            this.CreateDateActiveTaskFDStaff.HeaderText = "Create Date";
+            this.CreateDateActiveTaskFDStaff.Name = "CreateDateActiveTaskFDStaff";
+            this.CreateDateActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // ActivityDateActiveTaskFDStaff
+            // 
+            this.ActivityDateActiveTaskFDStaff.HeaderText = "Activity Date";
+            this.ActivityDateActiveTaskFDStaff.Name = "ActivityDateActiveTaskFDStaff";
+            this.ActivityDateActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // CommentActiveTaskFDStaff
+            // 
+            this.CommentActiveTaskFDStaff.HeaderText = "Comment";
+            this.CommentActiveTaskFDStaff.Name = "CommentActiveTaskFDStaff";
+            this.CommentActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // SolutionActiveTaskFDStaff
+            // 
+            this.SolutionActiveTaskFDStaff.HeaderText = "Solution";
+            this.SolutionActiveTaskFDStaff.Name = "SolutionActiveTaskFDStaff";
+            this.SolutionActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // StatusActiveTaskFDStaff
+            // 
+            this.StatusActiveTaskFDStaff.HeaderText = "Status";
+            this.StatusActiveTaskFDStaff.Name = "StatusActiveTaskFDStaff";
+            this.StatusActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // PriorityActiveTaskFDStaff
+            // 
+            this.PriorityActiveTaskFDStaff.HeaderText = "Priority";
+            this.PriorityActiveTaskFDStaff.Name = "PriorityActiveTaskFDStaff";
+            this.PriorityActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // TaskIdActiveTaskFDStaff
+            // 
+            this.TaskIdActiveTaskFDStaff.HeaderText = "Task Id";
+            this.TaskIdActiveTaskFDStaff.Name = "TaskIdActiveTaskFDStaff";
+            this.TaskIdActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // gvDashboardFDStaffCommunicationLog
+            // 
+            this.gvDashboardFDStaffCommunicationLog.AllowUserToAddRows = false;
+            this.gvDashboardFDStaffCommunicationLog.AllowUserToDeleteRows = false;
+            this.gvDashboardFDStaffCommunicationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDashboardFDStaffCommunicationLog.Location = new System.Drawing.Point(46, 417);
+            this.gvDashboardFDStaffCommunicationLog.Name = "gvDashboardFDStaffCommunicationLog";
+            this.gvDashboardFDStaffCommunicationLog.ReadOnly = true;
+            this.gvDashboardFDStaffCommunicationLog.Size = new System.Drawing.Size(750, 431);
+            this.gvDashboardFDStaffCommunicationLog.TabIndex = 8;
             // 
             // label167
             // 
             this.label167.AutoSize = true;
             this.label167.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label167.Location = new System.Drawing.Point(42, 472);
+            this.label167.Location = new System.Drawing.Point(42, 390);
             this.label167.Name = "label167";
-            this.label167.Size = new System.Drawing.Size(128, 24);
+            this.label167.Size = new System.Drawing.Size(179, 24);
             this.label167.TabIndex = 7;
-            this.label167.Text = "ACH Payment";
+            this.label167.Text = "Log Communication";
             // 
-            // gvDashboardFDStaffCheckPayment
+            // gvDashboardFDStaffAnnouncementFromManager
             // 
-            this.gvDashboardFDStaffCheckPayment.AllowUserToAddRows = false;
-            this.gvDashboardFDStaffCheckPayment.AllowUserToDeleteRows = false;
-            this.gvDashboardFDStaffCheckPayment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardFDStaffCheckPayment.Location = new System.Drawing.Point(46, 114);
-            this.gvDashboardFDStaffCheckPayment.Name = "gvDashboardFDStaffCheckPayment";
-            this.gvDashboardFDStaffCheckPayment.ReadOnly = true;
-            this.gvDashboardFDStaffCheckPayment.Size = new System.Drawing.Size(750, 336);
-            this.gvDashboardFDStaffCheckPayment.TabIndex = 6;
+            this.gvDashboardFDStaffAnnouncementFromManager.AllowUserToAddRows = false;
+            this.gvDashboardFDStaffAnnouncementFromManager.AllowUserToDeleteRows = false;
+            this.gvDashboardFDStaffAnnouncementFromManager.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvDashboardFDStaffAnnouncementFromManager.Location = new System.Drawing.Point(46, 114);
+            this.gvDashboardFDStaffAnnouncementFromManager.Name = "gvDashboardFDStaffAnnouncementFromManager";
+            this.gvDashboardFDStaffAnnouncementFromManager.ReadOnly = true;
+            this.gvDashboardFDStaffAnnouncementFromManager.Size = new System.Drawing.Size(750, 236);
+            this.gvDashboardFDStaffAnnouncementFromManager.TabIndex = 6;
             // 
             // label166
             // 
@@ -3120,9 +3779,9 @@
             this.label166.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label166.Location = new System.Drawing.Point(42, 87);
             this.label166.Name = "label166";
-            this.label166.Size = new System.Drawing.Size(142, 24);
+            this.label166.Size = new System.Drawing.Size(141, 24);
             this.label166.TabIndex = 5;
-            this.label166.Text = "Check Payment";
+            this.label166.Text = "Announcement";
             // 
             // label165
             // 
@@ -5616,8 +6275,8 @@
             // 
             // AmountCaseDocument
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountCaseDocument.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountCaseDocument.DefaultCellStyle = dataGridViewCellStyle44;
             this.AmountCaseDocument.HeaderText = "Amount";
             this.AmountCaseDocument.Name = "AmountCaseDocument";
             // 
@@ -5742,36 +6401,36 @@
             // 
             // MedBillAmount
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle45;
             this.MedBillAmount.HeaderText = "Amount";
             this.MedBillAmount.Name = "MedBillAmount";
             // 
             // MedBillInCaseApprovalNeededAmount
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle46;
             this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
             this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
             // 
             // MedBillInCaseWaitingPayBalance
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle47;
             this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
             this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
             // 
             // MedBillTotalSharedAmount
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle48;
             this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
             this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
             // 
             // MedBillBalance
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle49;
             this.MedBillBalance.HeaderText = "Balance";
             this.MedBillBalance.Name = "MedBillBalance";
             // 
@@ -6303,10 +6962,10 @@
             // 
             // Illness_LimitedSharing
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "C2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle50.Format = "C2";
+            dataGridViewCellStyle50.NullValue = null;
+            this.Illness_LimitedSharing.DefaultCellStyle = dataGridViewCellStyle50;
             this.Illness_LimitedSharing.HeaderText = "Limited Sharing";
             this.Illness_LimitedSharing.Name = "Illness_LimitedSharing";
             this.Illness_LimitedSharing.ReadOnly = true;
@@ -6314,8 +6973,8 @@
             // 
             // Illness_Eligibility
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Illness_Eligibility.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Illness_Eligibility.DefaultCellStyle = dataGridViewCellStyle51;
             this.Illness_Eligibility.HeaderText = "Eligibility";
             this.Illness_Eligibility.Name = "Illness_Eligibility";
             this.Illness_Eligibility.ReadOnly = true;
@@ -6323,10 +6982,10 @@
             // 
             // Illness_TotalSharedAmount
             // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "C2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle52.Format = "C2";
+            dataGridViewCellStyle52.NullValue = null;
+            this.Illness_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle52;
             this.Illness_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.Illness_TotalSharedAmount.Name = "Illness_TotalSharedAmount";
             this.Illness_TotalSharedAmount.ReadOnly = true;
@@ -6554,8 +7213,8 @@
             // 
             // Incident_TotalPRAmountApplied
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Incident_TotalPRAmountApplied.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Incident_TotalPRAmountApplied.DefaultCellStyle = dataGridViewCellStyle53;
             this.Incident_TotalPRAmountApplied.HeaderText = "Total PR Amount Applied";
             this.Incident_TotalPRAmountApplied.Name = "Incident_TotalPRAmountApplied";
             this.Incident_TotalPRAmountApplied.ReadOnly = true;
@@ -6563,8 +7222,8 @@
             // 
             // Incident_TotalSharedAmount
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.Incident_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.Incident_TotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle54;
             this.Incident_TotalSharedAmount.HeaderText = "Total Shared Amount";
             this.Incident_TotalSharedAmount.Name = "Incident_TotalSharedAmount";
             this.Incident_TotalSharedAmount.ReadOnly = true;
@@ -6789,24 +7448,24 @@
             // 
             // MedBillView_BillAmount
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillView_BillAmount.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillView_BillAmount.DefaultCellStyle = dataGridViewCellStyle55;
             this.MedBillView_BillAmount.HeaderText = "Bill Amount";
             this.MedBillView_BillAmount.Name = "MedBillView_BillAmount";
             this.MedBillView_BillAmount.ReadOnly = true;
             // 
             // MedBillView_PRAmount
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillView_PRAmount.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillView_PRAmount.DefaultCellStyle = dataGridViewCellStyle56;
             this.MedBillView_PRAmount.HeaderText = "PR Amount";
             this.MedBillView_PRAmount.Name = "MedBillView_PRAmount";
             this.MedBillView_PRAmount.ReadOnly = true;
             // 
             // MedBillView_SharedAmount
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillView_SharedAmount.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillView_SharedAmount.DefaultCellStyle = dataGridViewCellStyle57;
             this.MedBillView_SharedAmount.HeaderText = "Shared Amount";
             this.MedBillView_SharedAmount.Name = "MedBillView_SharedAmount";
             this.MedBillView_SharedAmount.ReadOnly = true;
@@ -7244,15 +7903,15 @@
             // 
             // SettlementAmount
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmount.DefaultCellStyle = dataGridViewCellStyle58;
             this.SettlementAmount.HeaderText = "Settlement Amount";
             this.SettlementAmount.Name = "SettlementAmount";
             // 
             // PersonalResponsibility
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.PersonalResponsibility.DefaultCellStyle = dataGridViewCellStyle59;
             this.PersonalResponsibility.HeaderText = "Personal Responsibility";
             this.PersonalResponsibility.Name = "PersonalResponsibility";
             // 
@@ -7307,8 +7966,8 @@
             // 
             // AllowedAmount
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AllowedAmount.DefaultCellStyle = dataGridViewCellStyle60;
             this.AllowedAmount.HeaderText = "Allowed Amount";
             this.AllowedAmount.Name = "AllowedAmount";
             // 
@@ -8558,8 +9217,8 @@
             // 
             this.gvPaymentCheckMemberReimbursement.AllowUserToAddRows = false;
             this.gvPaymentCheckMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle61.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCheckMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle61;
             this.gvPaymentCheckMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedPaymentCheck,
@@ -8662,8 +9321,8 @@
             // 
             // AmountPaymentCheck
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountPaymentCheck.DefaultCellStyle = dataGridViewCellStyle62;
             this.AmountPaymentCheck.HeaderText = "Amount";
             this.AmountPaymentCheck.Name = "AmountPaymentCheck";
             this.AmountPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8788,8 +9447,8 @@
             // 
             this.gvPaymentCheckProvider.AllowUserToAddRows = false;
             this.gvPaymentCheckProvider.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle63.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCheckProvider.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle63;
             this.gvPaymentCheckProvider.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCheckProvider.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedProviderPaymentCheck,
@@ -8825,8 +9484,8 @@
             // 
             // SelectedProviderPaymentCheck
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle64;
             this.SelectedProviderPaymentCheck.HeaderText = "Selected";
             this.SelectedProviderPaymentCheck.Name = "SelectedProviderPaymentCheck";
             this.SelectedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8834,8 +9493,8 @@
             // 
             // ExportedProviderPaymentCheck
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ExportedProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle65;
             this.ExportedProviderPaymentCheck.HeaderText = "Exported";
             this.ExportedProviderPaymentCheck.Name = "ExportedProviderPaymentCheck";
             this.ExportedProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -8885,8 +9544,8 @@
             // 
             // AmountProviderPaymentCheck
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountProviderPaymentCheck.DefaultCellStyle = dataGridViewCellStyle66;
             this.AmountProviderPaymentCheck.HeaderText = "Amount";
             this.AmountProviderPaymentCheck.Name = "AmountProviderPaymentCheck";
             this.AmountProviderPaymentCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -9042,8 +9701,8 @@
             // 
             this.gvPaymentACH.AllowUserToAddRows = false;
             this.gvPaymentACH.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.White;
-            this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle67.BackColor = System.Drawing.Color.White;
+            this.gvPaymentACH.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle67;
             this.gvPaymentACH.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentACH.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedACHPayment,
@@ -9220,8 +9879,8 @@
             // 
             this.gvPaymentCreditCard.AllowUserToAddRows = false;
             this.gvPaymentCreditCard.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
-            this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle68.BackColor = System.Drawing.Color.White;
+            this.gvPaymentCreditCard.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle68;
             this.gvPaymentCreditCard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentCreditCard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CreditCardPaymentConfirm,
@@ -9311,8 +9970,8 @@
             // 
             // BillAmountCreditCardPayment
             // 
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.BillAmountCreditCardPayment.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.BillAmountCreditCardPayment.DefaultCellStyle = dataGridViewCellStyle69;
             this.BillAmountCreditCardPayment.HeaderText = "Bill Amount";
             this.BillAmountCreditCardPayment.Name = "BillAmountCreditCardPayment";
             this.BillAmountCreditCardPayment.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -9326,8 +9985,8 @@
             // 
             // AmountInPaymentCreditCard
             // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountInPaymentCreditCard.DefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountInPaymentCreditCard.DefaultCellStyle = dataGridViewCellStyle70;
             this.AmountInPaymentCreditCard.HeaderText = "Amount";
             this.AmountInPaymentCreditCard.Name = "AmountInPaymentCreditCard";
             this.AmountInPaymentCreditCard.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
@@ -9359,8 +10018,8 @@
             // 
             // SexCreditCardPayment
             // 
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SexCreditCardPayment.DefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SexCreditCardPayment.DefaultCellStyle = dataGridViewCellStyle71;
             this.SexCreditCardPayment.HeaderText = "Sex";
             this.SexCreditCardPayment.Name = "SexCreditCardPayment";
             this.SexCreditCardPayment.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -9449,8 +10108,8 @@
             // 
             this.gvPaymentInactive.AllowUserToAddRows = false;
             this.gvPaymentInactive.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.White;
-            this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle72.BackColor = System.Drawing.Color.White;
+            this.gvPaymentInactive.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle72;
             this.gvPaymentInactive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPaymentInactive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdPaymentInactive,
@@ -9562,8 +10221,8 @@
             // 
             this.gvCheckReconcilation.AllowUserToAddRows = false;
             this.gvCheckReconcilation.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.White;
-            this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle73.BackColor = System.Drawing.Color.White;
+            this.gvCheckReconcilation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle73;
             this.gvCheckReconcilation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvCheckReconcilation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CheckCleared,
@@ -9604,8 +10263,8 @@
             // 
             // CheckPaidSettlementAmount
             // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CheckPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle74;
             this.CheckPaidSettlementAmount.HeaderText = "Amount";
             this.CheckPaidSettlementAmount.Name = "CheckPaidSettlementAmount";
             this.CheckPaidSettlementAmount.ReadOnly = true;
@@ -9727,8 +10386,8 @@
             // 
             // CreditCardPaidSettlementAmount
             // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.CreditCardPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.CreditCardPaidSettlementAmount.DefaultCellStyle = dataGridViewCellStyle75;
             this.CreditCardPaidSettlementAmount.HeaderText = "Settlement Amount";
             this.CreditCardPaidSettlementAmount.Name = "CreditCardPaidSettlementAmount";
             this.CreditCardPaidSettlementAmount.ReadOnly = true;
@@ -9808,9 +10467,9 @@
             // 
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToAddRows = false;
             this.gvUndoCheckPaymentMemberReimbursement.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle35.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle76.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle76.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.gvUndoCheckPaymentMemberReimbursement.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle76;
             this.gvUndoCheckPaymentMemberReimbursement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvUndoCheckPaymentMemberReimbursement.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectedUndoCheckMemberReimbursement,
@@ -9829,8 +10488,8 @@
             // 
             // SelectedUndoCheckMemberReimbursement
             // 
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.SelectedUndoCheckMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle77;
             this.SelectedUndoCheckMemberReimbursement.HeaderText = "Selected";
             this.SelectedUndoCheckMemberReimbursement.Name = "SelectedUndoCheckMemberReimbursement";
             this.SelectedUndoCheckMemberReimbursement.ReadOnly = true;
@@ -9838,8 +10497,8 @@
             // 
             // AmountUndoCheckPaymentMemberReimbursement
             // 
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckPaymentMemberReimbursement.DefaultCellStyle = dataGridViewCellStyle78;
             this.AmountUndoCheckPaymentMemberReimbursement.HeaderText = "Amount";
             this.AmountUndoCheckPaymentMemberReimbursement.Name = "AmountUndoCheckPaymentMemberReimbursement";
             this.AmountUndoCheckPaymentMemberReimbursement.ReadOnly = true;
@@ -9923,8 +10582,8 @@
             // 
             // AmountUndoCheckProviderPayment
             // 
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.AmountUndoCheckProviderPayment.DefaultCellStyle = dataGridViewCellStyle79;
             this.AmountUndoCheckProviderPayment.HeaderText = "Amount";
             this.AmountUndoCheckProviderPayment.Name = "AmountUndoCheckProviderPayment";
             this.AmountUndoCheckProviderPayment.ReadOnly = true;
@@ -11013,15 +11672,15 @@
             // 
             // dataGridViewTextBoxColumn25
             // 
-            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn25.DefaultCellStyle = dataGridViewCellStyle80;
             this.dataGridViewTextBoxColumn25.HeaderText = "Case No";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
             // 
             // dataGridViewTextBoxColumn26
             // 
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn26.DefaultCellStyle = dataGridViewCellStyle81;
             this.dataGridViewTextBoxColumn26.HeaderText = "ICD10 Code";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
             // 
@@ -11049,8 +11708,8 @@
             // 
             // dataGridViewTextBoxColumn29
             // 
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.dataGridViewTextBoxColumn29.DefaultCellStyle = dataGridViewCellStyle82;
             this.dataGridViewTextBoxColumn29.HeaderText = "Individual No";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
             // 
@@ -11431,37 +12090,6 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "Interdepartmental Communication Added -12-23-2020";
             // 
-            // gvFDStaffDashboardTaskView
-            // 
-            this.gvFDStaffDashboardTaskView.AllowUserToAddRows = false;
-            this.gvFDStaffDashboardTaskView.AllowUserToDeleteRows = false;
-            this.gvFDStaffDashboardTaskView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvFDStaffDashboardTaskView.Location = new System.Drawing.Point(848, 114);
-            this.gvFDStaffDashboardTaskView.Name = "gvFDStaffDashboardTaskView";
-            this.gvFDStaffDashboardTaskView.ReadOnly = true;
-            this.gvFDStaffDashboardTaskView.Size = new System.Drawing.Size(927, 336);
-            this.gvFDStaffDashboardTaskView.TabIndex = 11;
-            // 
-            // label67
-            // 
-            this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(844, 87);
-            this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(106, 24);
-            this.label67.TabIndex = 12;
-            this.label67.Text = "Active Task";
-            // 
-            // label145
-            // 
-            this.label145.AutoSize = true;
-            this.label145.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label145.Location = new System.Drawing.Point(59, 46);
-            this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(284, 29);
-            this.label145.TabIndex = 5;
-            this.label145.Text = "Dashboard - FD Manager";
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -11510,11 +12138,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardNPStaff)).EndInit();
             this.tbpgDashboardFDManager.ResumeLayout(false);
             this.tbpgDashboardFDManager.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDManagerCommunicationLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvFDManagerAnnouncement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskFDManager)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskFDManager)).EndInit();
             this.tbpgDashboardFDStaff.ResumeLayout(false);
             this.tbpgDashboardFDStaff.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCCPayment)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffACHPayment)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCheckPayment)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvCompleteTaskFDStaff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvActiveTaskFDStaff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffCommunicationLog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardFDStaffAnnouncementFromManager)).EndInit();
             this.tbpgSearchResult.ResumeLayout(false);
             this.tbpgSearchResult.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementSearched)).EndInit();
@@ -11646,7 +12279,6 @@
             this.grpPaymentInformationBlueSheet.PerformLayout();
             this.grpPaymentMethodBlueSheet.ResumeLayout(false);
             this.grpPaymentMethodBlueSheet.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvFDStaffDashboardTaskView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -11907,11 +12539,9 @@
         private System.Windows.Forms.Label label163;
         private System.Windows.Forms.DataGridView gvRNStaffActiveTask;
         private System.Windows.Forms.Label label162;
-        private System.Windows.Forms.DataGridView gvDashboardFDStaffCCPayment;
-        private System.Windows.Forms.Label label168;
-        private System.Windows.Forms.DataGridView gvDashboardFDStaffACHPayment;
+        private System.Windows.Forms.DataGridView gvDashboardFDStaffCommunicationLog;
         private System.Windows.Forms.Label label167;
-        private System.Windows.Forms.DataGridView gvDashboardFDStaffCheckPayment;
+        private System.Windows.Forms.DataGridView gvDashboardFDStaffAnnouncementFromManager;
         private System.Windows.Forms.Label label166;
         private System.Windows.Forms.Label label165;
         private System.Windows.Forms.DataGridView gvDashboardNPStaff;
@@ -12782,7 +13412,78 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FamilyInfoMemberStatus;
         private System.Windows.Forms.Label label145;
         private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.DataGridView gvFDStaffDashboardTaskView;
+        private System.Windows.Forms.DataGridView gvActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridView gvActiveTaskFDManager;
+        private System.Windows.Forms.Label label148;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdFDManager;
+        private System.Windows.Forms.DataGridView gvCompleteTaskFDManager;
+        private System.Windows.Forms.Label label149;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridView gvCompleteTaskFDStaff;
+        private System.Windows.Forms.Label label150;
+        private System.Windows.Forms.DataGridView gvFDManagerCommunicationLog;
+        private System.Windows.Forms.DataGridView gvFDManagerAnnouncement;
+        private System.Windows.Forms.Label label187;
+        private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.ComboBox comboFDStaff;
+        private System.Windows.Forms.Button btnFDManagerReload;
+        private System.Windows.Forms.DateTimePicker dtpEndDateCommunicationLog;
+        private System.Windows.Forms.DateTimePicker dtpStartDateCommunicationLog;
+        private System.Windows.Forms.Label label188;
+        private System.Windows.Forms.Label label189;
+        private System.Windows.Forms.Button btnFDStaffReload;
+        private System.Windows.Forms.DateTimePicker dtpFDStaffEndDateCommLog;
+        private System.Windows.Forms.Label label168;
+        private System.Windows.Forms.Label label186;
+        private System.Windows.Forms.DateTimePicker dtpFDStaffStartDateCommLog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDStaff;
     }
 }
 
