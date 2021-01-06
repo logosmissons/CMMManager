@@ -828,16 +828,6 @@
             this.btnAddNewSettlement = new System.Windows.Forms.Button();
             this.btnMedBillCreationPgUpperCancel = new System.Windows.Forms.Button();
             this.btnMedBillCreatePgUpperSave = new System.Windows.Forms.Button();
-            this.grpTasks = new System.Windows.Forms.GroupBox();
-            this.btnCommHelper = new System.Windows.Forms.Button();
-            this.gvMostRecentTasks = new System.Windows.Forms.DataGridView();
-            this.SubjectTaskInMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateTaskInMedBill = new CMMManager.CalendarColumn();
-            this.AssignedToTaskInMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusTaskInMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaskIdMedBill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label66 = new System.Windows.Forms.Label();
-            this.btnCreateTask = new System.Windows.Forms.Button();
             this.grpMedicalBillInformation = new System.Windows.Forms.GroupBox();
             this.txtBeneficiaryRelationship = new System.Windows.Forms.TextBox();
             this.dtpDateOfDeath = new System.Windows.Forms.DateTimePicker();
@@ -1326,8 +1316,6 @@
             this.grpMedicalProviderResponse.SuspendLayout();
             this.grpICD10Code.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUserModifiedDateHistory)).BeginInit();
-            this.grpTasks.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMostRecentTasks)).BeginInit();
             this.grpMedicalBillInformation.SuspendLayout();
             this.grpDocumentProcessing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocumentInMedBill)).BeginInit();
@@ -7522,7 +7510,6 @@
             this.tbpgMedicalBill.Controls.Add(this.btnAddNewSettlement);
             this.tbpgMedicalBill.Controls.Add(this.btnMedBillCreationPgUpperCancel);
             this.tbpgMedicalBill.Controls.Add(this.btnMedBillCreatePgUpperSave);
-            this.tbpgMedicalBill.Controls.Add(this.grpTasks);
             this.tbpgMedicalBill.Controls.Add(this.grpMedicalBillInformation);
             this.tbpgMedicalBill.Controls.Add(this.grpDocumentProcessing);
             this.tbpgMedicalBill.Controls.Add(this.grpPatientInfo);
@@ -8283,95 +8270,6 @@
             this.btnMedBillCreatePgUpperSave.Text = "Save";
             this.btnMedBillCreatePgUpperSave.UseVisualStyleBackColor = true;
             this.btnMedBillCreatePgUpperSave.Click += new System.EventHandler(this.btnMedBillCreatePgUpperSave_Click);
-            // 
-            // grpTasks
-            // 
-            this.grpTasks.Controls.Add(this.btnCommHelper);
-            this.grpTasks.Controls.Add(this.gvMostRecentTasks);
-            this.grpTasks.Controls.Add(this.label66);
-            this.grpTasks.Controls.Add(this.btnCreateTask);
-            this.grpTasks.Location = new System.Drawing.Point(1411, 69);
-            this.grpTasks.Name = "grpTasks";
-            this.grpTasks.Size = new System.Drawing.Size(390, 356);
-            this.grpTasks.TabIndex = 99;
-            this.grpTasks.TabStop = false;
-            this.grpTasks.Text = "Task";
-            // 
-            // btnCommHelper
-            // 
-            this.btnCommHelper.Location = new System.Drawing.Point(174, 23);
-            this.btnCommHelper.Name = "btnCommHelper";
-            this.btnCommHelper.Size = new System.Drawing.Size(108, 31);
-            this.btnCommHelper.TabIndex = 54;
-            this.btnCommHelper.Text = "Comm Helper";
-            this.btnCommHelper.UseVisualStyleBackColor = true;
-            this.btnCommHelper.Click += new System.EventHandler(this.btnCommHelper_Click);
-            // 
-            // gvMostRecentTasks
-            // 
-            this.gvMostRecentTasks.AllowUserToAddRows = false;
-            this.gvMostRecentTasks.AllowUserToDeleteRows = false;
-            this.gvMostRecentTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvMostRecentTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SubjectTaskInMedBill,
-            this.DueDateTaskInMedBill,
-            this.AssignedToTaskInMedBill,
-            this.StatusTaskInMedBill,
-            this.TaskIdMedBill});
-            this.gvMostRecentTasks.Location = new System.Drawing.Point(6, 83);
-            this.gvMostRecentTasks.Name = "gvMostRecentTasks";
-            this.gvMostRecentTasks.Size = new System.Drawing.Size(378, 256);
-            this.gvMostRecentTasks.TabIndex = 53;
-            this.gvMostRecentTasks.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMostRecentTasks_CellDoubleClick);
-            // 
-            // SubjectTaskInMedBill
-            // 
-            this.SubjectTaskInMedBill.HeaderText = "Subject";
-            this.SubjectTaskInMedBill.Name = "SubjectTaskInMedBill";
-            // 
-            // DueDateTaskInMedBill
-            // 
-            this.DueDateTaskInMedBill.HeaderText = "Due Date";
-            this.DueDateTaskInMedBill.Name = "DueDateTaskInMedBill";
-            this.DueDateTaskInMedBill.Width = 70;
-            // 
-            // AssignedToTaskInMedBill
-            // 
-            this.AssignedToTaskInMedBill.HeaderText = "Assigned To";
-            this.AssignedToTaskInMedBill.Name = "AssignedToTaskInMedBill";
-            this.AssignedToTaskInMedBill.Width = 90;
-            // 
-            // StatusTaskInMedBill
-            // 
-            this.StatusTaskInMedBill.HeaderText = "Status";
-            this.StatusTaskInMedBill.Name = "StatusTaskInMedBill";
-            this.StatusTaskInMedBill.Width = 80;
-            // 
-            // TaskIdMedBill
-            // 
-            this.TaskIdMedBill.HeaderText = "Task Id";
-            this.TaskIdMedBill.Name = "TaskIdMedBill";
-            this.TaskIdMedBill.Width = 80;
-            // 
-            // label66
-            // 
-            this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(12, 64);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(124, 16);
-            this.label66.TabIndex = 52;
-            this.label66.Text = "Most Recent Tasks";
-            // 
-            // btnCreateTask
-            // 
-            this.btnCreateTask.Location = new System.Drawing.Point(6, 23);
-            this.btnCreateTask.Name = "btnCreateTask";
-            this.btnCreateTask.Size = new System.Drawing.Size(144, 31);
-            this.btnCreateTask.TabIndex = 51;
-            this.btnCreateTask.Text = "Create Task";
-            this.btnCreateTask.UseVisualStyleBackColor = true;
-            this.btnCreateTask.Click += new System.EventHandler(this.btnCreateTask_Click);
             // 
             // grpMedicalBillInformation
             // 
@@ -12200,9 +12098,6 @@
             this.grpICD10Code.ResumeLayout(false);
             this.grpICD10Code.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvUserModifiedDateHistory)).EndInit();
-            this.grpTasks.ResumeLayout(false);
-            this.grpTasks.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvMostRecentTasks)).EndInit();
             this.grpMedicalBillInformation.ResumeLayout(false);
             this.grpMedicalBillInformation.PerformLayout();
             this.grpDocumentProcessing.ResumeLayout(false);
@@ -12435,10 +12330,6 @@
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Button btnMedBillCreationPgUpperCancel;
         private System.Windows.Forms.Button btnMedBillCreatePgUpperSave;
-        private System.Windows.Forms.GroupBox grpTasks;
-        private System.Windows.Forms.DataGridView gvMostRecentTasks;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Button btnCreateTask;
         private System.Windows.Forms.GroupBox grpMedicalBillInformation;
         private System.Windows.Forms.TextBox txtMedBillNo;
         private System.Windows.Forms.Label label76;
@@ -12736,11 +12627,6 @@
         private System.Windows.Forms.Label label180;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnWellBeingExport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectTaskInMedBill;
-        private CalendarColumn DueDateTaskInMedBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToTaskInMedBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusTaskInMedBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdMedBill;
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.Label label182;
         private System.Windows.Forms.Label label181;
@@ -12970,7 +12856,6 @@
         private System.Windows.Forms.Button btnSendEmail;
         private System.Windows.Forms.Button btnReloadCommunication;
         private System.Windows.Forms.Button btnLogCommunication;
-        private System.Windows.Forms.Button btnCommHelper;
         private System.Windows.Forms.Button btnIndividualCommHelper;
         private System.Windows.Forms.Button btnNewTaskIndividual;
         private System.Windows.Forms.Button btnDeleteCommunication;
