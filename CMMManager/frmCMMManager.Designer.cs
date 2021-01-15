@@ -834,14 +834,16 @@
             this.rbInpatient = new System.Windows.Forms.RadioButton();
             this.btnDeleteBeneficiaryInfo = new System.Windows.Forms.Button();
             this.btnAddNewBeneficiaryInfo = new System.Windows.Forms.Button();
-            this.gvBeneficiaryInfo = new System.Windows.Forms.DataGridView();
-            this.BeneficiaryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDeletePrescription = new System.Windows.Forms.Button();
+            this.gvBeneficiaryInfo = new System.Windows.Forms.DataGridView();
             this.btnAddNewPrescription = new System.Windows.Forms.Button();
             this.gvPrescriptionDetails = new System.Windows.Forms.DataGridView();
+            this.PrescriptionSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.PrescriptionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NumberOfMedication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrescriptionDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrescriptionNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrescriptionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblBeneficiaryInfo = new System.Windows.Forms.Label();
             this.lblPrescriptionDetails = new System.Windows.Forms.Label();
             this.dtpDateOfDeath = new System.Windows.Forms.DateTimePicker();
@@ -860,12 +862,11 @@
             this.lblIneligibleReason = new System.Windows.Forms.Label();
             this.lblPendingReason = new System.Windows.Forms.Label();
             this.lblPrescriptionNote = new System.Windows.Forms.Label();
-            //this.lblNumberOfMedication = new System.Windows.Forms.Label();
-            //this.txtNumberOfMedication = new System.Windows.Forms.TextBox();
             this.lblMedBillNote = new System.Windows.Forms.Label();
             this.comboMedBillType = new System.Windows.Forms.ComboBox();
             this.label173 = new System.Windows.Forms.Label();
             this.txtBalance = new System.Windows.Forms.TextBox();
+            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
             this.label71 = new System.Windows.Forms.Label();
             this.btnMedicalProviderInfo = new System.Windows.Forms.Button();
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
@@ -879,10 +880,7 @@
             this.label76 = new System.Windows.Forms.Label();
             this.txtMedicalProvider = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
-            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
-            this.txtPrescriptionDescription = new System.Windows.Forms.TextBox();
             this.txtMedBillNote = new System.Windows.Forms.TextBox();
-            this.lblPrescriptionDescription = new System.Windows.Forms.Label();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
             this.gvCaseDocumentInMedBill = new System.Windows.Forms.DataGridView();
             this.DocTypeCaseInMedBill = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -1250,6 +1248,10 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.BeneficiarySelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.BeneficiaryName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BeneficiaryNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -8271,8 +8273,8 @@
             this.grpMedicalBillInformation.Controls.Add(this.grpPatientType);
             this.grpMedicalBillInformation.Controls.Add(this.btnDeleteBeneficiaryInfo);
             this.grpMedicalBillInformation.Controls.Add(this.btnAddNewBeneficiaryInfo);
-            this.grpMedicalBillInformation.Controls.Add(this.gvBeneficiaryInfo);
             this.grpMedicalBillInformation.Controls.Add(this.btnDeletePrescription);
+            this.grpMedicalBillInformation.Controls.Add(this.gvBeneficiaryInfo);
             this.grpMedicalBillInformation.Controls.Add(this.btnAddNewPrescription);
             this.grpMedicalBillInformation.Controls.Add(this.gvPrescriptionDetails);
             this.grpMedicalBillInformation.Controls.Add(this.lblBeneficiaryInfo);
@@ -8293,12 +8295,11 @@
             this.grpMedicalBillInformation.Controls.Add(this.lblIneligibleReason);
             this.grpMedicalBillInformation.Controls.Add(this.lblPendingReason);
             this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionNote);
-            //this.grpMedicalBillInformation.Controls.Add(this.lblNumberOfMedication);
-            //this.grpMedicalBillInformation.Controls.Add(this.txtNumberOfMedication);
             this.grpMedicalBillInformation.Controls.Add(this.lblMedBillNote);
             this.grpMedicalBillInformation.Controls.Add(this.comboMedBillType);
             this.grpMedicalBillInformation.Controls.Add(this.label173);
             this.grpMedicalBillInformation.Controls.Add(this.txtBalance);
+            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
             this.grpMedicalBillInformation.Controls.Add(this.label71);
             this.grpMedicalBillInformation.Controls.Add(this.btnMedicalProviderInfo);
             this.grpMedicalBillInformation.Controls.Add(this.dtpDueDate);
@@ -8312,10 +8313,7 @@
             this.grpMedicalBillInformation.Controls.Add(this.label76);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedicalProvider);
             this.grpMedicalBillInformation.Controls.Add(this.label57);
-            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
-            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionDescription);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNote);
-            this.grpMedicalBillInformation.Controls.Add(this.lblPrescriptionDescription);
             this.grpMedicalBillInformation.Location = new System.Drawing.Point(932, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
             this.grpMedicalBillInformation.Size = new System.Drawing.Size(870, 356);
@@ -8328,9 +8326,9 @@
             this.grpPatientType.Controls.Add(this.rbOneDaySurgery);
             this.grpPatientType.Controls.Add(this.rbOutpatient);
             this.grpPatientType.Controls.Add(this.rbInpatient);
-            this.grpPatientType.Location = new System.Drawing.Point(301, 184);
+            this.grpPatientType.Location = new System.Drawing.Point(12, 194);
             this.grpPatientType.Name = "grpPatientType";
-            this.grpPatientType.Size = new System.Drawing.Size(272, 155);
+            this.grpPatientType.Size = new System.Drawing.Size(272, 151);
             this.grpPatientType.TabIndex = 191;
             this.grpPatientType.TabStop = false;
             this.grpPatientType.Text = "Patient Type";
@@ -8341,10 +8339,10 @@
             this.rbOneDaySurgery.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbOneDaySurgery.Location = new System.Drawing.Point(31, 109);
             this.rbOneDaySurgery.Name = "rbOneDaySurgery";
-            this.rbOneDaySurgery.Size = new System.Drawing.Size(129, 20);
+            this.rbOneDaySurgery.Size = new System.Drawing.Size(130, 20);
             this.rbOneDaySurgery.TabIndex = 185;
             this.rbOneDaySurgery.TabStop = true;
-            this.rbOneDaySurgery.Text = "One Day Surgery";
+            this.rbOneDaySurgery.Text = "One-Day Surgery";
             this.rbOneDaySurgery.UseVisualStyleBackColor = true;
             // 
             // rbOutpatient
@@ -8373,7 +8371,7 @@
             // 
             // btnDeleteBeneficiaryInfo
             // 
-            this.btnDeleteBeneficiaryInfo.Location = new System.Drawing.Point(476, 165);
+            this.btnDeleteBeneficiaryInfo.Location = new System.Drawing.Point(476, 191);
             this.btnDeleteBeneficiaryInfo.Name = "btnDeleteBeneficiaryInfo";
             this.btnDeleteBeneficiaryInfo.Size = new System.Drawing.Size(97, 23);
             this.btnDeleteBeneficiaryInfo.TabIndex = 190;
@@ -8382,12 +8380,23 @@
             // 
             // btnAddNewBeneficiaryInfo
             // 
-            this.btnAddNewBeneficiaryInfo.Location = new System.Drawing.Point(335, 165);
+            this.btnAddNewBeneficiaryInfo.Location = new System.Drawing.Point(335, 191);
             this.btnAddNewBeneficiaryInfo.Name = "btnAddNewBeneficiaryInfo";
             this.btnAddNewBeneficiaryInfo.Size = new System.Drawing.Size(97, 23);
             this.btnAddNewBeneficiaryInfo.TabIndex = 189;
             this.btnAddNewBeneficiaryInfo.Text = "Add New";
             this.btnAddNewBeneficiaryInfo.UseVisualStyleBackColor = true;
+            this.btnAddNewBeneficiaryInfo.Click += new System.EventHandler(this.btnAddNewBeneficiaryInfo_Click);
+            // 
+            // btnDeletePrescription
+            // 
+            this.btnDeletePrescription.Location = new System.Drawing.Point(438, 191);
+            this.btnDeletePrescription.Name = "btnDeletePrescription";
+            this.btnDeletePrescription.Size = new System.Drawing.Size(97, 23);
+            this.btnDeletePrescription.TabIndex = 188;
+            this.btnDeletePrescription.Text = "Delete";
+            this.btnDeletePrescription.UseVisualStyleBackColor = true;
+            this.btnDeletePrescription.Click += new System.EventHandler(this.btnDeletePrescription_Click);
             // 
             // gvBeneficiaryInfo
             // 
@@ -8395,46 +8404,25 @@
             this.gvBeneficiaryInfo.AllowUserToDeleteRows = false;
             this.gvBeneficiaryInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvBeneficiaryInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BeneficiarySelected,
             this.BeneficiaryName,
-            this.Relationship});
-            this.gvBeneficiaryInfo.Location = new System.Drawing.Point(301, 191);
+            this.Relationship,
+            this.BeneficiaryNo});
+            this.gvBeneficiaryInfo.Location = new System.Drawing.Point(302, 220);
             this.gvBeneficiaryInfo.Name = "gvBeneficiaryInfo";
-            this.gvBeneficiaryInfo.ReadOnly = true;
             this.gvBeneficiaryInfo.RowHeadersWidth = 30;
-            this.gvBeneficiaryInfo.Size = new System.Drawing.Size(272, 147);
+            this.gvBeneficiaryInfo.Size = new System.Drawing.Size(272, 125);
             this.gvBeneficiaryInfo.TabIndex = 186;
-            // 
-            // BeneficiaryName
-            // 
-            this.BeneficiaryName.HeaderText = "Beneficiary Name";
-            this.BeneficiaryName.Name = "BeneficiaryName";
-            this.BeneficiaryName.ReadOnly = true;
-            this.BeneficiaryName.Width = 120;
-            // 
-            // Relationship
-            // 
-            this.Relationship.HeaderText = "Relationship";
-            this.Relationship.Name = "Relationship";
-            this.Relationship.ReadOnly = true;
-            this.Relationship.Width = 120;
-            // 
-            // btnDeletePrescription
-            // 
-            this.btnDeletePrescription.Location = new System.Drawing.Point(438, 165);
-            this.btnDeletePrescription.Name = "btnDeletePrescription";
-            this.btnDeletePrescription.Size = new System.Drawing.Size(97, 23);
-            this.btnDeletePrescription.TabIndex = 188;
-            this.btnDeletePrescription.Text = "Delete";
-            this.btnDeletePrescription.UseVisualStyleBackColor = true;
             // 
             // btnAddNewPrescription
             // 
-            this.btnAddNewPrescription.Location = new System.Drawing.Point(301, 165);
+            this.btnAddNewPrescription.Location = new System.Drawing.Point(301, 191);
             this.btnAddNewPrescription.Name = "btnAddNewPrescription";
             this.btnAddNewPrescription.Size = new System.Drawing.Size(97, 23);
             this.btnAddNewPrescription.TabIndex = 187;
             this.btnAddNewPrescription.Text = "Add New";
             this.btnAddNewPrescription.UseVisualStyleBackColor = true;
+            this.btnAddNewPrescription.Click += new System.EventHandler(this.btnAddNewPrescription_Click);
             // 
             // gvPrescriptionDetails
             // 
@@ -8442,34 +8430,61 @@
             this.gvPrescriptionDetails.AllowUserToDeleteRows = false;
             this.gvPrescriptionDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvPrescriptionDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PrescriptionSelected,
             this.PrescriptionName,
-            this.NumberOfMedication});
-            this.gvPrescriptionDetails.Location = new System.Drawing.Point(302, 191);
+            this.NumberOfMedication,
+            this.PrescriptionDescription,
+            this.PrescriptionNo,
+            this.PrescriptionType});
+            this.gvPrescriptionDetails.Location = new System.Drawing.Point(302, 220);
             this.gvPrescriptionDetails.Name = "gvPrescriptionDetails";
-            this.gvPrescriptionDetails.ReadOnly = true;
             this.gvPrescriptionDetails.RowHeadersWidth = 30;
-            this.gvPrescriptionDetails.Size = new System.Drawing.Size(271, 147);
+            this.gvPrescriptionDetails.Size = new System.Drawing.Size(284, 125);
             this.gvPrescriptionDetails.TabIndex = 185;
+            // 
+            // PrescriptionSelected
+            // 
+            this.PrescriptionSelected.HeaderText = "";
+            this.PrescriptionSelected.Name = "PrescriptionSelected";
+            this.PrescriptionSelected.Width = 30;
             // 
             // PrescriptionName
             // 
             this.PrescriptionName.HeaderText = "Prescription Name";
             this.PrescriptionName.Name = "PrescriptionName";
-            this.PrescriptionName.ReadOnly = true;
             this.PrescriptionName.Width = 120;
             // 
             // NumberOfMedication
             // 
             this.NumberOfMedication.HeaderText = "# of Medication";
             this.NumberOfMedication.Name = "NumberOfMedication";
-            this.NumberOfMedication.ReadOnly = true;
-            this.NumberOfMedication.Width = 120;
+            this.NumberOfMedication.Width = 110;
+            // 
+            // PrescriptionDescription
+            // 
+            this.PrescriptionDescription.HeaderText = "Description";
+            this.PrescriptionDescription.Name = "PrescriptionDescription";
+            this.PrescriptionDescription.Width = 260;
+            // 
+            // PrescriptionNo
+            // 
+            this.PrescriptionNo.HeaderText = "No";
+            this.PrescriptionNo.Name = "PrescriptionNo";
+            this.PrescriptionNo.Visible = false;
+            this.PrescriptionNo.Width = 30;
+            // 
+            // PrescriptionType
+            // 
+            this.PrescriptionType.HeaderText = "Type";
+            this.PrescriptionType.Name = "PrescriptionType";
+            this.PrescriptionType.Visible = false;
+            this.PrescriptionType.Width = 50;
             // 
             // lblBeneficiaryInfo
             // 
             this.lblBeneficiaryInfo.AutoSize = true;
             this.lblBeneficiaryInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBeneficiaryInfo.Location = new System.Drawing.Point(298, 141);
+            this.lblBeneficiaryInfo.Location = new System.Drawing.Point(297, 164);
             this.lblBeneficiaryInfo.Name = "lblBeneficiaryInfo";
             this.lblBeneficiaryInfo.Size = new System.Drawing.Size(102, 16);
             this.lblBeneficiaryInfo.TabIndex = 184;
@@ -8479,7 +8494,7 @@
             // 
             this.lblPrescriptionDetails.AutoSize = true;
             this.lblPrescriptionDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionDetails.Location = new System.Drawing.Point(298, 141);
+            this.lblPrescriptionDetails.Location = new System.Drawing.Point(297, 164);
             this.lblPrescriptionDetails.Name = "lblPrescriptionDetails";
             this.lblPrescriptionDetails.Size = new System.Drawing.Size(127, 16);
             this.lblPrescriptionDetails.TabIndex = 183;
@@ -8490,7 +8505,7 @@
             this.dtpDateOfDeath.Checked = false;
             this.dtpDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDateOfDeath.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateOfDeath.Location = new System.Drawing.Point(727, 53);
+            this.dtpDateOfDeath.Location = new System.Drawing.Point(727, 51);
             this.dtpDateOfDeath.Name = "dtpDateOfDeath";
             this.dtpDateOfDeath.Size = new System.Drawing.Size(125, 20);
             this.dtpDateOfDeath.TabIndex = 177;
@@ -8501,7 +8516,7 @@
             this.dtpInvoiceDate.Checked = false;
             this.dtpInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpInvoiceDate.Location = new System.Drawing.Point(727, 53);
+            this.dtpInvoiceDate.Location = new System.Drawing.Point(727, 51);
             this.dtpInvoiceDate.Name = "dtpInvoiceDate";
             this.dtpInvoiceDate.Size = new System.Drawing.Size(125, 20);
             this.dtpInvoiceDate.TabIndex = 176;
@@ -8511,7 +8526,7 @@
             // 
             this.lblDateOfDeath.AutoSize = true;
             this.lblDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDateOfDeath.Location = new System.Drawing.Point(591, 55);
+            this.lblDateOfDeath.Location = new System.Drawing.Point(591, 52);
             this.lblDateOfDeath.Name = "lblDateOfDeath";
             this.lblDateOfDeath.Size = new System.Drawing.Size(93, 16);
             this.lblDateOfDeath.TabIndex = 177;
@@ -8521,7 +8536,7 @@
             // 
             this.lblServiceStartDate.AutoSize = true;
             this.lblServiceStartDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblServiceStartDate.Location = new System.Drawing.Point(589, 26);
+            this.lblServiceStartDate.Location = new System.Drawing.Point(591, 25);
             this.lblServiceStartDate.Name = "lblServiceStartDate";
             this.lblServiceStartDate.Size = new System.Drawing.Size(119, 16);
             this.lblServiceStartDate.TabIndex = 175;
@@ -8542,7 +8557,7 @@
             this.dtpEndingServiceDate.Checked = false;
             this.dtpEndingServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpEndingServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndingServiceDate.Location = new System.Drawing.Point(727, 53);
+            this.dtpEndingServiceDate.Location = new System.Drawing.Point(727, 51);
             this.dtpEndingServiceDate.Name = "dtpEndingServiceDate";
             this.dtpEndingServiceDate.Size = new System.Drawing.Size(125, 20);
             this.dtpEndingServiceDate.TabIndex = 174;
@@ -8574,7 +8589,7 @@
             this.cbMedBillClosed.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.cbMedBillClosed.Location = new System.Drawing.Point(137, 111);
+            this.cbMedBillClosed.Location = new System.Drawing.Point(137, 108);
             this.cbMedBillClosed.Name = "cbMedBillClosed";
             this.cbMedBillClosed.Size = new System.Drawing.Size(142, 21);
             this.cbMedBillClosed.TabIndex = 41;
@@ -8583,7 +8598,7 @@
             // 
             this.label61.AutoSize = true;
             this.label61.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label61.Location = new System.Drawing.Point(11, 112);
+            this.label61.Location = new System.Drawing.Point(11, 109);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(75, 16);
             this.label61.TabIndex = 171;
@@ -8592,7 +8607,7 @@
             // comboIneligibleReason
             // 
             this.comboIneligibleReason.FormattingEnabled = true;
-            this.comboIneligibleReason.Location = new System.Drawing.Point(12, 318);
+            this.comboIneligibleReason.Location = new System.Drawing.Point(12, 324);
             this.comboIneligibleReason.Name = "comboIneligibleReason";
             this.comboIneligibleReason.Size = new System.Drawing.Size(267, 21);
             this.comboIneligibleReason.TabIndex = 49;
@@ -8600,7 +8615,7 @@
             // comboPendingReason
             // 
             this.comboPendingReason.FormattingEnabled = true;
-            this.comboPendingReason.Location = new System.Drawing.Point(12, 263);
+            this.comboPendingReason.Location = new System.Drawing.Point(12, 269);
             this.comboPendingReason.Name = "comboPendingReason";
             this.comboPendingReason.Size = new System.Drawing.Size(267, 21);
             this.comboPendingReason.TabIndex = 48;
@@ -8608,7 +8623,7 @@
             // comboMedBillStatus
             // 
             this.comboMedBillStatus.FormattingEnabled = true;
-            this.comboMedBillStatus.Location = new System.Drawing.Point(137, 82);
+            this.comboMedBillStatus.Location = new System.Drawing.Point(137, 80);
             this.comboMedBillStatus.Name = "comboMedBillStatus";
             this.comboMedBillStatus.Size = new System.Drawing.Size(142, 21);
             this.comboMedBillStatus.TabIndex = 40;
@@ -8618,7 +8633,7 @@
             // 
             this.lblIneligibleReason.AutoSize = true;
             this.lblIneligibleReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIneligibleReason.Location = new System.Drawing.Point(11, 297);
+            this.lblIneligibleReason.Location = new System.Drawing.Point(11, 303);
             this.lblIneligibleReason.Name = "lblIneligibleReason";
             this.lblIneligibleReason.Size = new System.Drawing.Size(116, 16);
             this.lblIneligibleReason.TabIndex = 164;
@@ -8628,7 +8643,7 @@
             // 
             this.lblPendingReason.AutoSize = true;
             this.lblPendingReason.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPendingReason.Location = new System.Drawing.Point(11, 246);
+            this.lblPendingReason.Location = new System.Drawing.Point(11, 249);
             this.lblPendingReason.Name = "lblPendingReason";
             this.lblPendingReason.Size = new System.Drawing.Size(112, 16);
             this.lblPendingReason.TabIndex = 163;
@@ -8638,31 +8653,17 @@
             // 
             this.lblPrescriptionNote.AutoSize = true;
             this.lblPrescriptionNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionNote.Location = new System.Drawing.Point(589, 234);
+            this.lblPrescriptionNote.Location = new System.Drawing.Point(591, 108);
             this.lblPrescriptionNote.Name = "lblPrescriptionNote";
             this.lblPrescriptionNote.Size = new System.Drawing.Size(37, 16);
             this.lblPrescriptionNote.TabIndex = 168;
             this.lblPrescriptionNote.Text = "Note";
             // 
-            // lblNumberOfMedication
-            // 
-            //this.lblNumberOfMedication.Location = new System.Drawing.Point(0, 0);
-            //this.lblNumberOfMedication.Name = "lblNumberOfMedication";
-            //this.lblNumberOfMedication.Size = new System.Drawing.Size(100, 23);
-            //this.lblNumberOfMedication.TabIndex = 180;
-            // 
-            // txtNumberOfMedication
-            // 
-            //this.txtNumberOfMedication.Location = new System.Drawing.Point(0, 0);
-            //this.txtNumberOfMedication.Name = "txtNumberOfMedication";
-            //this.txtNumberOfMedication.Size = new System.Drawing.Size(100, 20);
-            //this.txtNumberOfMedication.TabIndex = 181;
-            // 
             // lblMedBillNote
             // 
             this.lblMedBillNote.AutoSize = true;
             this.lblMedBillNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMedBillNote.Location = new System.Drawing.Point(589, 133);
+            this.lblMedBillNote.Location = new System.Drawing.Point(591, 133);
             this.lblMedBillNote.Name = "lblMedBillNote";
             this.lblMedBillNote.Size = new System.Drawing.Size(88, 16);
             this.lblMedBillNote.TabIndex = 161;
@@ -8671,7 +8672,7 @@
             // comboMedBillType
             // 
             this.comboMedBillType.FormattingEnabled = true;
-            this.comboMedBillType.Location = new System.Drawing.Point(137, 53);
+            this.comboMedBillType.Location = new System.Drawing.Point(137, 52);
             this.comboMedBillType.Name = "comboMedBillType";
             this.comboMedBillType.Size = new System.Drawing.Size(142, 21);
             this.comboMedBillType.TabIndex = 39;
@@ -8681,7 +8682,7 @@
             // 
             this.label173.AutoSize = true;
             this.label173.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label173.Location = new System.Drawing.Point(11, 54);
+            this.label173.Location = new System.Drawing.Point(11, 53);
             this.label173.Name = "label173";
             this.label173.Size = new System.Drawing.Size(115, 16);
             this.label173.TabIndex = 155;
@@ -8689,17 +8690,26 @@
             // 
             // txtBalance
             // 
-            this.txtBalance.Location = new System.Drawing.Point(137, 169);
+            this.txtBalance.Location = new System.Drawing.Point(137, 164);
             this.txtBalance.Name = "txtBalance";
             this.txtBalance.ReadOnly = true;
             this.txtBalance.Size = new System.Drawing.Size(142, 20);
             this.txtBalance.TabIndex = 154;
             // 
+            // txtPrescriptionNote
+            // 
+            this.txtPrescriptionNote.Location = new System.Drawing.Point(592, 127);
+            this.txtPrescriptionNote.Multiline = true;
+            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
+            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPrescriptionNote.Size = new System.Drawing.Size(260, 87);
+            this.txtPrescriptionNote.TabIndex = 54;
+            // 
             // label71
             // 
             this.label71.AutoSize = true;
             this.label71.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label71.Location = new System.Drawing.Point(11, 170);
+            this.label71.Location = new System.Drawing.Point(11, 165);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(61, 16);
             this.label71.TabIndex = 153;
@@ -8719,7 +8729,7 @@
             // 
             this.dtpDueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDueDate.Location = new System.Drawing.Point(727, 82);
+            this.dtpDueDate.Location = new System.Drawing.Point(727, 78);
             this.dtpDueDate.Name = "dtpDueDate";
             this.dtpDueDate.Size = new System.Drawing.Size(125, 20);
             this.dtpDueDate.TabIndex = 45;
@@ -8729,7 +8739,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(589, 84);
+            this.label65.Location = new System.Drawing.Point(591, 79);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(102, 16);
             this.label65.TabIndex = 150;
@@ -8739,7 +8749,7 @@
             // 
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label55.Location = new System.Drawing.Point(11, 83);
+            this.label55.Location = new System.Drawing.Point(11, 81);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(69, 16);
             this.label55.TabIndex = 68;
@@ -8760,7 +8770,7 @@
             // 
             this.lblServiceEndDate.AutoSize = true;
             this.lblServiceEndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblServiceEndDate.Location = new System.Drawing.Point(589, 55);
+            this.lblServiceEndDate.Location = new System.Drawing.Point(591, 52);
             this.lblServiceEndDate.Name = "lblServiceEndDate";
             this.lblServiceEndDate.Size = new System.Drawing.Size(116, 16);
             this.lblServiceEndDate.TabIndex = 149;
@@ -8769,7 +8779,7 @@
             // txtMedBillAmount
             // 
             this.txtMedBillAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillAmount.Location = new System.Drawing.Point(137, 140);
+            this.txtMedBillAmount.Location = new System.Drawing.Point(137, 136);
             this.txtMedBillAmount.Name = "txtMedBillAmount";
             this.txtMedBillAmount.Size = new System.Drawing.Size(142, 20);
             this.txtMedBillAmount.TabIndex = 42;
@@ -8779,7 +8789,7 @@
             // 
             this.label64.AutoSize = true;
             this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(11, 141);
+            this.label64.Location = new System.Drawing.Point(11, 137);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(77, 16);
             this.label64.TabIndex = 66;
@@ -8820,42 +8830,14 @@
             this.label57.TabIndex = 39;
             this.label57.Text = "Medical Provider:";
             // 
-            // txtPrescriptionNote
-            // 
-            this.txtPrescriptionNote.Location = new System.Drawing.Point(592, 253);
-            this.txtPrescriptionNote.Multiline = true;
-            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
-            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionNote.Size = new System.Drawing.Size(260, 86);
-            this.txtPrescriptionNote.TabIndex = 54;
-            // 
-            // txtPrescriptionDescription
-            // 
-            this.txtPrescriptionDescription.Location = new System.Drawing.Point(592, 154);
-            this.txtPrescriptionDescription.Multiline = true;
-            this.txtPrescriptionDescription.Name = "txtPrescriptionDescription";
-            this.txtPrescriptionDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionDescription.Size = new System.Drawing.Size(260, 77);
-            this.txtPrescriptionDescription.TabIndex = 53;
-            // 
             // txtMedBillNote
             // 
-            this.txtMedBillNote.Location = new System.Drawing.Point(592, 154);
+            this.txtMedBillNote.Location = new System.Drawing.Point(592, 152);
             this.txtMedBillNote.Multiline = true;
             this.txtMedBillNote.Name = "txtMedBillNote";
             this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMedBillNote.Size = new System.Drawing.Size(260, 185);
+            this.txtMedBillNote.Size = new System.Drawing.Size(260, 193);
             this.txtMedBillNote.TabIndex = 50;
-            // 
-            // lblPrescriptionDescription
-            // 
-            this.lblPrescriptionDescription.AutoSize = true;
-            this.lblPrescriptionDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrescriptionDescription.Location = new System.Drawing.Point(589, 133);
-            this.lblPrescriptionDescription.Name = "lblPrescriptionDescription";
-            this.lblPrescriptionDescription.Size = new System.Drawing.Size(150, 16);
-            this.lblPrescriptionDescription.TabIndex = 165;
-            this.lblPrescriptionDescription.Text = "Prescription Description";
             // 
             // grpDocumentProcessing
             // 
@@ -12033,11 +12015,37 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1605, 24);
+            this.label143.Location = new System.Drawing.Point(1578, 23);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(258, 13);
+            this.label143.Size = new System.Drawing.Size(285, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Interdepartmental Communication Added -12-23-2020";
+            this.label143.Text = "New Medical Bill Types and New Field Added - 01-08-2021";
+            // 
+            // BeneficiarySelected
+            // 
+            this.BeneficiarySelected.HeaderText = "";
+            this.BeneficiarySelected.Name = "BeneficiarySelected";
+            this.BeneficiarySelected.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.BeneficiarySelected.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.BeneficiarySelected.Width = 30;
+            // 
+            // BeneficiaryName
+            // 
+            this.BeneficiaryName.HeaderText = "Beneficiary Name";
+            this.BeneficiaryName.Name = "BeneficiaryName";
+            this.BeneficiaryName.Width = 120;
+            // 
+            // Relationship
+            // 
+            this.Relationship.HeaderText = "Relationship";
+            this.Relationship.Name = "Relationship";
+            this.Relationship.Width = 120;
+            // 
+            // BeneficiaryNo
+            // 
+            this.BeneficiaryNo.HeaderText = "No";
+            this.BeneficiaryNo.Name = "BeneficiaryNo";
+            this.BeneficiaryNo.Visible = false;
             // 
             // frmCMMManager
             // 
@@ -12627,10 +12635,6 @@
         private System.Windows.Forms.TextBox txtMedBillNote;
         private System.Windows.Forms.TextBox txtPrescriptionNote;
         private System.Windows.Forms.Label lblPrescriptionNote;
-        //private System.Windows.Forms.Label lblNumberOfMedication;   // should be deleted
-        //private System.Windows.Forms.TextBox txtNumberOfMedication; // should be deleted
-        private System.Windows.Forms.TextBox txtPrescriptionDescription;
-        private System.Windows.Forms.Label lblPrescriptionDescription;
         private System.Windows.Forms.Label lblIneligibleReason;
         private System.Windows.Forms.Label lblPendingReason;
         private System.Windows.Forms.ComboBox comboMedBillStatus;
@@ -13424,10 +13428,16 @@
         private System.Windows.Forms.RadioButton rbOneDaySurgery;
         private System.Windows.Forms.RadioButton rbOutpatient;
         private System.Windows.Forms.RadioButton rbInpatient;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn PrescriptionSelected;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionName;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumberOfMedication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionType;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn BeneficiarySelected;
         private System.Windows.Forms.DataGridViewTextBoxColumn BeneficiaryName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BeneficiaryNo;
     }
 }
 

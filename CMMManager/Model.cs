@@ -472,6 +472,60 @@ namespace CMMManager
         }
     }
 
+    public class PrescriptionDetailsInfo
+    {
+        public String PrescriptionNo;
+        public String MedicalBillNo;
+        public EnumPrescriptionType? PrescriptionType;
+        public String PrescriptionName;
+        public String NumberOfMedication;
+        public String PrescriptionDescription;
+        public int? CreatedById;
+        public DateTime? CreateDate;
+        public int? LastModifiedById;
+        public DateTime? LastModifiedDate;
+
+        public PrescriptionDetailsInfo()
+        {
+            PrescriptionNo = null;
+            MedicalBillNo = null;
+            PrescriptionType = null;
+            PrescriptionName = null;
+            NumberOfMedication = null;
+            PrescriptionDescription = null;
+            CreatedById = null;
+            CreateDate = null;
+            LastModifiedById = null;
+            LastModifiedDate = null;
+        }
+    }
+
+    public class BeneficiaryInfo
+    {
+        public String BeneficiaryNo;
+        public String MedicalBillNo;
+        public BeneficiaryType? BeneficiaryType;
+        public String BeneficiaryName;
+        public String Relationship;
+        public int? CreatedById;
+        public DateTime? CreateDate;
+        public int? LastModifiedById;
+        public DateTime? LastModifiedDate;
+
+        public BeneficiaryInfo()
+        {
+            BeneficiaryNo = null;
+            MedicalBillNo = null;
+            BeneficiaryType = null;
+            BeneficiaryName = null;
+            Relationship = null;
+            CreatedById = null;
+            CreateDate = null;
+            LastModifiedById = null;
+            LastModifiedDate = null;
+        }
+    }
+
     public class IncidentInfoIncidentView
     {
         public String IncidentNo;
