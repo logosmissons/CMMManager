@@ -291,8 +291,10 @@ namespace CMMManager
         public String MedBillStatus;
         public Boolean bBillClosed;
         public DateTime? CreateDate;
+        public int? CreatedById;
         public String CreateStaffName;
         public DateTime? LastModifiDate;
+        public int? LastModifiedById;
         public String ModifiStaffName;
         public String CaseId;
         public int IllnessId;
@@ -362,8 +364,10 @@ namespace CMMManager
             MedBillStatus = String.Empty;
             bBillClosed = false;
             CreateDate = null;
+            CreatedById = null;
             CreateStaffName = String.Empty;
             LastModifiDate = null;
+            LastModifiedById = null;
             ModifiStaffName = String.Empty;
             CaseId = String.Empty;
             IllnessId = -1;
