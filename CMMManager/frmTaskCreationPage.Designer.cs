@@ -30,8 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTaskInfo = new System.Windows.Forms.GroupBox();
-            this.rtxtTaskSolution = new System.Windows.Forms.RichTextBox();
-            this.rtxtTaskComments = new System.Windows.Forms.RichTextBox();
             this.btnAssignedTo = new System.Windows.Forms.Button();
             this.txtTaskCreator = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -68,6 +66,8 @@
             this.btnReplyTask = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtTaskComments = new System.Windows.Forms.TextBox();
+            this.txtTaskSolution = new System.Windows.Forms.TextBox();
             this.grpTaskInfo.SuspendLayout();
             this.AdditionalInfo.SuspendLayout();
             this.SuspendLayout();
@@ -84,8 +84,8 @@
             // 
             // grpTaskInfo
             // 
-            this.grpTaskInfo.Controls.Add(this.rtxtTaskSolution);
-            this.grpTaskInfo.Controls.Add(this.rtxtTaskComments);
+            this.grpTaskInfo.Controls.Add(this.txtTaskSolution);
+            this.grpTaskInfo.Controls.Add(this.txtTaskComments);
             this.grpTaskInfo.Controls.Add(this.btnAssignedTo);
             this.grpTaskInfo.Controls.Add(this.txtTaskCreator);
             this.grpTaskInfo.Controls.Add(this.label16);
@@ -110,25 +110,6 @@
             this.grpTaskInfo.TabIndex = 1;
             this.grpTaskInfo.TabStop = false;
             this.grpTaskInfo.Text = "Task Information";
-            // 
-            // rtxtTaskSolution
-            // 
-            this.rtxtTaskSolution.Location = new System.Drawing.Point(627, 190);
-            this.rtxtTaskSolution.Name = "rtxtTaskSolution";
-            this.rtxtTaskSolution.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.rtxtTaskSolution.Size = new System.Drawing.Size(389, 161);
-            this.rtxtTaskSolution.TabIndex = 28;
-            this.rtxtTaskSolution.Text = "";
-            // 
-            // rtxtTaskComments
-            // 
-            this.rtxtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxtTaskComments.Location = new System.Drawing.Point(140, 191);
-            this.rtxtTaskComments.Name = "rtxtTaskComments";
-            this.rtxtTaskComments.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.rtxtTaskComments.Size = new System.Drawing.Size(388, 161);
-            this.rtxtTaskComments.TabIndex = 27;
-            this.rtxtTaskComments.Text = "";
             // 
             // btnAssignedTo
             // 
@@ -541,6 +522,26 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtTaskComments
+            // 
+            this.txtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskComments.Location = new System.Drawing.Point(140, 186);
+            this.txtTaskComments.Multiline = true;
+            this.txtTaskComments.Name = "txtTaskComments";
+            this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTaskComments.Size = new System.Drawing.Size(400, 167);
+            this.txtTaskComments.TabIndex = 25;
+            // 
+            // txtTaskSolution
+            // 
+            this.txtTaskSolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskSolution.Location = new System.Drawing.Point(627, 186);
+            this.txtTaskSolution.Multiline = true;
+            this.txtTaskSolution.Name = "txtTaskSolution";
+            this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTaskSolution.Size = new System.Drawing.Size(389, 167);
+            this.txtTaskSolution.TabIndex = 26;
+            // 
             // frmTaskCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,8 +609,8 @@
         private System.Windows.Forms.Button btnReplyTask;
         private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.Button btnAssignedTo;
-        private System.Windows.Forms.RichTextBox rtxtTaskComments;
-        private System.Windows.Forms.RichTextBox rtxtTaskSolution;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtTaskSolution;
+        private System.Windows.Forms.TextBox txtTaskComments;
     }
 }

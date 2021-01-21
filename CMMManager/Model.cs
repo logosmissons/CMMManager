@@ -330,6 +330,8 @@ namespace CMMManager
         public Decimal TotalSharedAmount;
         public DateTime? BillDate;
         public DateTime? ServiceEndDate;
+        public DateTime? InvoiceDate;
+        public DateTime? DeathDate;
         public DateTime? ReceivedDate;
         public String Guarantor;
         public String MedicalProviderId;
@@ -403,6 +405,8 @@ namespace CMMManager
             TotalSharedAmount = 0;
             BillDate = null;
             ServiceEndDate = null;
+            InvoiceDate = null;
+            DeathDate = null;
             ReceivedDate = null;
             Guarantor = String.Empty;
             MedicalProviderId = String.Empty;
