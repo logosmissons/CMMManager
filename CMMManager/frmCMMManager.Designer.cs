@@ -8533,7 +8533,7 @@
             this.dtpDateOfDeath.Checked = false;
             this.dtpDateOfDeath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpDateOfDeath.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpDateOfDeath.Location = new System.Drawing.Point(727, 51);
+            this.dtpDateOfDeath.Location = new System.Drawing.Point(727, 50);
             this.dtpDateOfDeath.Name = "dtpDateOfDeath";
             this.dtpDateOfDeath.Size = new System.Drawing.Size(125, 20);
             this.dtpDateOfDeath.TabIndex = 177;
@@ -8544,7 +8544,7 @@
             this.dtpInvoiceDate.Checked = false;
             this.dtpInvoiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpInvoiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpInvoiceDate.Location = new System.Drawing.Point(727, 51);
+            this.dtpInvoiceDate.Location = new System.Drawing.Point(727, 50);
             this.dtpInvoiceDate.Name = "dtpInvoiceDate";
             this.dtpInvoiceDate.Size = new System.Drawing.Size(125, 20);
             this.dtpInvoiceDate.TabIndex = 176;
@@ -8585,7 +8585,7 @@
             this.dtpEndingServiceDate.Checked = false;
             this.dtpEndingServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpEndingServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndingServiceDate.Location = new System.Drawing.Point(727, 51);
+            this.dtpEndingServiceDate.Location = new System.Drawing.Point(727, 50);
             this.dtpEndingServiceDate.Name = "dtpEndingServiceDate";
             this.dtpEndingServiceDate.Size = new System.Drawing.Size(125, 20);
             this.dtpEndingServiceDate.TabIndex = 174;
@@ -8788,7 +8788,7 @@
             this.dtpBeginningServiceDate.Checked = false;
             this.dtpBeginningServiceDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpBeginningServiceDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpBeginningServiceDate.Location = new System.Drawing.Point(727, 24);
+            this.dtpBeginningServiceDate.Location = new System.Drawing.Point(727, 23);
             this.dtpBeginningServiceDate.Name = "dtpBeginningServiceDate";
             this.dtpBeginningServiceDate.Size = new System.Drawing.Size(125, 20);
             this.dtpBeginningServiceDate.TabIndex = 44;
