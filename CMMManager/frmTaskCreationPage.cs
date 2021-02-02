@@ -1218,6 +1218,37 @@ namespace CMMManager
                 btnReplyTask.Enabled = true;
                 btnSave.Enabled = true;
             }
+            else if (taskMode == TaskMode.EditInFDManagerDashboard)
+            {
+                InitializeTaskForm();
+                FillTaskFormWithTaskInfo();
+
+                btnSaveTask.Enabled = false;
+                btnForward.Enabled = true;
+                btnReplyTask.Enabled = true;
+                btnSave.Enabled = true;
+
+            }
+            else if (taskMode == TaskMode.EditInFDStaffDashboard)
+            {
+                InitializeTaskForm();
+                FillTaskFormWithTaskInfo();
+
+                btnSaveTask.Enabled = false;
+                btnForward.Enabled = true;
+                btnReplyTask.Enabled = true;
+                btnSave.Enabled = true;
+            }
+            else if (taskMode == TaskMode.EditInFDStaffDashboard)
+            {
+                InitializeTaskForm();
+                FillTaskFormWithTaskInfo();
+
+                btnSaveTask.Enabled = false;
+                btnForward.Enabled = true;
+                btnReplyTask.Enabled = true;
+                btnSave.Enabled = true;
+            }
             else if (taskMode == TaskMode.EditInCase)
             {
                 InitializeTaskForm();

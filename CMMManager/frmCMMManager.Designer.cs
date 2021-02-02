@@ -280,6 +280,14 @@
             this.label189 = new System.Windows.Forms.Label();
             this.label184 = new System.Windows.Forms.Label();
             this.gvFDManagerCommunicationLog = new System.Windows.Forms.DataGridView();
+            this.CommunicationLogNoFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdLogCommunicationFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MemberNameCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BodyCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByCommunicationLogFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gvFDManagerAnnouncement = new System.Windows.Forms.DataGridView();
             this.label187 = new System.Windows.Forms.Label();
             this.gvCompleteTaskFDManager = new System.Windows.Forms.DataGridView();
@@ -3143,6 +3151,7 @@
             this.btnFDManagerReload.TabIndex = 37;
             this.btnFDManagerReload.Text = "Reload";
             this.btnFDManagerReload.UseVisualStyleBackColor = true;
+            this.btnFDManagerReload.Click += new System.EventHandler(this.btnFDManagerReload_Click);
             // 
             // dtpEndDateCommunicationLog
             // 
@@ -3195,11 +3204,68 @@
             this.gvFDManagerCommunicationLog.AllowUserToAddRows = false;
             this.gvFDManagerCommunicationLog.AllowUserToDeleteRows = false;
             this.gvFDManagerCommunicationLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvFDManagerCommunicationLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CommunicationLogNoFDManager,
+            this.IndividualIdLogCommunicationFDManager,
+            this.MemberNameCommunicationLogFDManager,
+            this.SubjectCommunicationLogFDManager,
+            this.BodyCommunicationLogFDManager,
+            this.SolutionCommunicationLogFDManager,
+            this.CreateDateCommunicationLogFDManager,
+            this.CreatedByCommunicationLogFDManager});
             this.gvFDManagerCommunicationLog.Location = new System.Drawing.Point(64, 434);
             this.gvFDManagerCommunicationLog.Name = "gvFDManagerCommunicationLog";
             this.gvFDManagerCommunicationLog.ReadOnly = true;
-            this.gvFDManagerCommunicationLog.Size = new System.Drawing.Size(891, 397);
+            this.gvFDManagerCommunicationLog.Size = new System.Drawing.Size(738, 397);
             this.gvFDManagerCommunicationLog.TabIndex = 14;
+            // 
+            // CommunicationLogNoFDManager
+            // 
+            this.CommunicationLogNoFDManager.HeaderText = "Communication No";
+            this.CommunicationLogNoFDManager.Name = "CommunicationLogNoFDManager";
+            this.CommunicationLogNoFDManager.ReadOnly = true;
+            // 
+            // IndividualIdLogCommunicationFDManager
+            // 
+            this.IndividualIdLogCommunicationFDManager.HeaderText = "Individual Id";
+            this.IndividualIdLogCommunicationFDManager.Name = "IndividualIdLogCommunicationFDManager";
+            this.IndividualIdLogCommunicationFDManager.ReadOnly = true;
+            // 
+            // MemberNameCommunicationLogFDManager
+            // 
+            this.MemberNameCommunicationLogFDManager.HeaderText = "Member Name";
+            this.MemberNameCommunicationLogFDManager.Name = "MemberNameCommunicationLogFDManager";
+            this.MemberNameCommunicationLogFDManager.ReadOnly = true;
+            // 
+            // SubjectCommunicationLogFDManager
+            // 
+            this.SubjectCommunicationLogFDManager.HeaderText = "Subject";
+            this.SubjectCommunicationLogFDManager.Name = "SubjectCommunicationLogFDManager";
+            this.SubjectCommunicationLogFDManager.ReadOnly = true;
+            // 
+            // BodyCommunicationLogFDManager
+            // 
+            this.BodyCommunicationLogFDManager.HeaderText = "Body";
+            this.BodyCommunicationLogFDManager.Name = "BodyCommunicationLogFDManager";
+            this.BodyCommunicationLogFDManager.ReadOnly = true;
+            // 
+            // SolutionCommunicationLogFDManager
+            // 
+            this.SolutionCommunicationLogFDManager.HeaderText = "Solution";
+            this.SolutionCommunicationLogFDManager.Name = "SolutionCommunicationLogFDManager";
+            this.SolutionCommunicationLogFDManager.ReadOnly = true;
+            // 
+            // CreateDateCommunicationLogFDManager
+            // 
+            this.CreateDateCommunicationLogFDManager.HeaderText = "Create Date";
+            this.CreateDateCommunicationLogFDManager.Name = "CreateDateCommunicationLogFDManager";
+            this.CreateDateCommunicationLogFDManager.ReadOnly = true;
+            // 
+            // CreatedByCommunicationLogFDManager
+            // 
+            this.CreatedByCommunicationLogFDManager.HeaderText = "Created By";
+            this.CreatedByCommunicationLogFDManager.Name = "CreatedByCommunicationLogFDManager";
+            this.CreatedByCommunicationLogFDManager.ReadOnly = true;
             // 
             // gvFDManagerAnnouncement
             // 
@@ -3209,7 +3275,7 @@
             this.gvFDManagerAnnouncement.Location = new System.Drawing.Point(64, 126);
             this.gvFDManagerAnnouncement.Name = "gvFDManagerAnnouncement";
             this.gvFDManagerAnnouncement.ReadOnly = true;
-            this.gvFDManagerAnnouncement.Size = new System.Drawing.Size(891, 250);
+            this.gvFDManagerAnnouncement.Size = new System.Drawing.Size(738, 250);
             this.gvFDManagerAnnouncement.TabIndex = 13;
             // 
             // label187
@@ -3236,11 +3302,12 @@
             this.CommentCompleteTaskFDManager,
             this.SolutionCompleteTaskFDManager,
             this.TaskIdCompleteTaskFDManager});
-            this.gvCompleteTaskFDManager.Location = new System.Drawing.Point(1001, 545);
+            this.gvCompleteTaskFDManager.Location = new System.Drawing.Point(863, 545);
             this.gvCompleteTaskFDManager.Name = "gvCompleteTaskFDManager";
             this.gvCompleteTaskFDManager.ReadOnly = true;
-            this.gvCompleteTaskFDManager.Size = new System.Drawing.Size(795, 286);
+            this.gvCompleteTaskFDManager.Size = new System.Drawing.Size(933, 286);
             this.gvCompleteTaskFDManager.TabIndex = 9;
+            this.gvCompleteTaskFDManager.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCompleteTaskFDManager_CellDoubleClick);
             // 
             // IndividualIdCompleteTaskFDManager
             // 
@@ -3294,7 +3361,7 @@
             // 
             this.label149.AutoSize = true;
             this.label149.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label149.Location = new System.Drawing.Point(996, 517);
+            this.label149.Location = new System.Drawing.Point(858, 517);
             this.label149.Name = "label149";
             this.label149.Size = new System.Drawing.Size(156, 25);
             this.label149.TabIndex = 8;
@@ -3320,11 +3387,12 @@
             this.StatusFDManager,
             this.PriorityFDManager,
             this.TaskIdFDManager});
-            this.gvActiveTaskFDManager.Location = new System.Drawing.Point(1001, 126);
+            this.gvActiveTaskFDManager.Location = new System.Drawing.Point(863, 126);
             this.gvActiveTaskFDManager.Name = "gvActiveTaskFDManager";
             this.gvActiveTaskFDManager.ReadOnly = true;
-            this.gvActiveTaskFDManager.Size = new System.Drawing.Size(795, 361);
+            this.gvActiveTaskFDManager.Size = new System.Drawing.Size(933, 361);
             this.gvActiveTaskFDManager.TabIndex = 7;
+            this.gvActiveTaskFDManager.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvActiveTaskFDManager_CellDoubleClick);
             // 
             // IndividualIdFDManager
             // 
@@ -3414,7 +3482,7 @@
             // 
             this.label148.AutoSize = true;
             this.label148.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label148.Location = new System.Drawing.Point(996, 97);
+            this.label148.Location = new System.Drawing.Point(858, 97);
             this.label148.Name = "label148";
             this.label148.Size = new System.Drawing.Size(124, 25);
             this.label148.TabIndex = 6;
@@ -3461,6 +3529,7 @@
             this.btnFDStaffReload.TabIndex = 25;
             this.btnFDStaffReload.Text = "Reload";
             this.btnFDStaffReload.UseVisualStyleBackColor = true;
+            this.btnFDStaffReload.Click += new System.EventHandler(this.btnFDStaffReload_Click);
             // 
             // dtpFDStaffEndDateCommLog
             // 
@@ -3523,6 +3592,7 @@
             this.gvCompleteTaskFDStaff.ReadOnly = true;
             this.gvCompleteTaskFDStaff.Size = new System.Drawing.Size(927, 302);
             this.gvCompleteTaskFDStaff.TabIndex = 14;
+            this.gvCompleteTaskFDStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCompleteTaskFDStaff_CellDoubleClick);
             // 
             // IndividualIdCompleteTaskFDStaff
             // 
@@ -3653,6 +3723,7 @@
             this.gvActiveTaskFDStaff.ReadOnly = true;
             this.gvActiveTaskFDStaff.Size = new System.Drawing.Size(927, 377);
             this.gvActiveTaskFDStaff.TabIndex = 11;
+            this.gvActiveTaskFDStaff.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvActiveTaskFDStaff_CellDoubleClick);
             // 
             // IndividualIdActiveTaskFDStaff
             // 
@@ -13440,6 +13511,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BeneficiaryName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
         private System.Windows.Forms.DataGridViewTextBoxColumn BeneficiaryNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationLogNoFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdLogCommunicationFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MemberNameCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BodyCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCommunicationLogFDManager;
     }
 }
 

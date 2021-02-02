@@ -41,7 +41,8 @@ namespace CMMManager
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };
     public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved };
     public enum TaskPriority { High, Normal, Low };
-    public enum TaskMode { AddNew, EditInRNManagerDashboard, EditInRNStaffDashboard, EditInNPManagerDashboard, EditInNPStaffDashboard, EditInMedBill, EditInCase, EditInIndividual, Reply }
+    public enum TaskMode { AddNew, EditInRNManagerDashboard, EditInRNStaffDashboard, EditInNPManagerDashboard, EditInNPStaffDashboard, EditInMedBill, EditInCase, EditInIndividual, Reply,
+                           EditInFDManagerDashboard, EditInFDStaffDashboard }
 
     public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive, SuperAdmin = 20 };
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
