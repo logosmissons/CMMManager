@@ -35,7 +35,8 @@ namespace CMMManager
             String strSqlQueryForStaffInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
                                              "[dbo].[tbl_user].[Department_Id], [dbo].[tbl_department].[DepartmentName], [dbo].[tbl_user].[User_Role_Id] " +
                                              "from [dbo].[tbl_user] " +
-                                             "inner join [dbo].[tbl_department] on [dbo].[tbl_user].[Department_Id] = [dbo].[tbl_department].[Department_Id]";
+                                             "inner join [dbo].[tbl_department] on [dbo].[tbl_user].[Department_Id] = [dbo].[tbl_department].[Department_Id] " +
+                                             "where ([dbo].[tbl_user].[IsDeleted] = 0 or [dbo].[tbl_user].[IsDeleted] IS NULL)";
 
             SqlCommand cmdQueryForStaffInfo = new SqlCommand(strSqlQueryForStaffInfo, connRNDB);
             cmdQueryForStaffInfo.CommandType = CommandType.Text;
