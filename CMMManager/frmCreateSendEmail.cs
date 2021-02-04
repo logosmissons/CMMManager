@@ -171,7 +171,7 @@ namespace CMMManager
                 String[] EmailBcc = txtEmailBcc.Text.Trim().Split(';');
                 for (int i = 0; i < EmailBcc.Length; i++)
                 {
-                    if (EmailBcc[i].Trim() != String.Empty) message.Bcc.Add(new MailboxAddress("CMM Staff", EmailBcc[i].Trim()));
+                    if (EmailBcc[i].Trim() != String.Empty) message.Bcc.Add(new MailboxAddress("CMM Staff", EmailBcc[i].Trim()));                   
                 }
 
                 BodyBuilder emailBuilderBody = new BodyBuilder();
