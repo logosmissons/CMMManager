@@ -1911,6 +1911,7 @@ namespace CMMManager
         public int nExportedBy;
         public int nSettlementType;
         public Boolean IsReviewed;
+        public Boolean IsWellBeing;
 
         public ACHPaymentInfo()
         {
@@ -1939,6 +1940,7 @@ namespace CMMManager
             nExportedBy = 0;
             nSettlementType = 0;
             IsReviewed = false;
+            IsWellBeing = false;
         }
     }
 

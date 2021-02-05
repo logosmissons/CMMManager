@@ -981,22 +981,6 @@
             this.btnConfirmACH = new System.Windows.Forms.Button();
             this.btnACHExport = new System.Windows.Forms.Button();
             this.gvPaymentACH = new System.Windows.Forms.DataGridView();
-            this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IsACHExportedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IndividualNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualIdPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedicalProviderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BankNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RoutingNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountHolderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsMemberReimbursementACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.VendorIdACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label108 = new System.Windows.Forms.Label();
             this.tbpgCreditCard = new System.Windows.Forms.TabPage();
             this.btnReloadCreditCardPayment = new System.Windows.Forms.Button();
@@ -1260,6 +1244,23 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsACHExportedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IndividualNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedicalProviderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BankNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoutingNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountHolderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WellBeingIncidentACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsMemberReimbursementACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.VendorIdACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -9749,6 +9750,7 @@
             this.CreatedByPaymentACH,
             this.LastModifiedByPaymentACH,
             this.MembershipStatusPaymentACH,
+            this.WellBeingIncidentACHPayment,
             this.IsMemberReimbursementACHPayment,
             this.VendorIdACHPayment});
             this.gvPaymentACH.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -9759,109 +9761,6 @@
             this.gvPaymentACH.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellContentClick);
             this.gvPaymentACH.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellDoubleClick);
             this.gvPaymentACH.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentACH_ColumnHeaderMouseDoubleClick);
-            // 
-            // SelectedACHPayment
-            // 
-            this.SelectedACHPayment.HeaderText = "Selected";
-            this.SelectedACHPayment.Name = "SelectedACHPayment";
-            this.SelectedACHPayment.Width = 80;
-            // 
-            // IsACHExportedACHPayment
-            // 
-            this.IsACHExportedACHPayment.HeaderText = "Exported";
-            this.IsACHExportedACHPayment.Name = "IsACHExportedACHPayment";
-            this.IsACHExportedACHPayment.ReadOnly = true;
-            this.IsACHExportedACHPayment.Width = 80;
-            // 
-            // IndividualNamePaymentACH
-            // 
-            this.IndividualNamePaymentACH.HeaderText = "Individual Name";
-            this.IndividualNamePaymentACH.Name = "IndividualNamePaymentACH";
-            this.IndividualNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.IndividualNamePaymentACH.Width = 120;
-            // 
-            // IndividualIdPaymentACH
-            // 
-            this.IndividualIdPaymentACH.HeaderText = "Individual Id";
-            this.IndividualIdPaymentACH.Name = "IndividualIdPaymentACH";
-            this.IndividualIdPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // SettlementNoPaymentACH
-            // 
-            this.SettlementNoPaymentACH.HeaderText = "Settlement No";
-            this.SettlementNoPaymentACH.Name = "SettlementNoPaymentACH";
-            this.SettlementNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SettlementNoPaymentACH.Width = 120;
-            // 
-            // AmountPaymentACH
-            // 
-            this.AmountPaymentACH.HeaderText = "Amount";
-            this.AmountPaymentACH.Name = "AmountPaymentACH";
-            this.AmountPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // MedicalProviderPaymentACH
-            // 
-            this.MedicalProviderPaymentACH.HeaderText = "Medical Provider";
-            this.MedicalProviderPaymentACH.Name = "MedicalProviderPaymentACH";
-            // 
-            // BankNamePaymentACH
-            // 
-            this.BankNamePaymentACH.HeaderText = "Bank Name";
-            this.BankNamePaymentACH.Name = "BankNamePaymentACH";
-            this.BankNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BankNamePaymentACH.Width = 120;
-            // 
-            // RoutingNoPaymentACH
-            // 
-            this.RoutingNoPaymentACH.HeaderText = "Routing No";
-            this.RoutingNoPaymentACH.Name = "RoutingNoPaymentACH";
-            this.RoutingNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.RoutingNoPaymentACH.Width = 120;
-            // 
-            // AccountNoPaymentACH
-            // 
-            this.AccountNoPaymentACH.HeaderText = "Account No";
-            this.AccountNoPaymentACH.Name = "AccountNoPaymentACH";
-            this.AccountNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.AccountNoPaymentACH.Width = 120;
-            // 
-            // AccountHolderPaymentACH
-            // 
-            this.AccountHolderPaymentACH.HeaderText = "Account Holder";
-            this.AccountHolderPaymentACH.Name = "AccountHolderPaymentACH";
-            this.AccountHolderPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.AccountHolderPaymentACH.Width = 120;
-            // 
-            // CreatedByPaymentACH
-            // 
-            this.CreatedByPaymentACH.HeaderText = "Created By";
-            this.CreatedByPaymentACH.Name = "CreatedByPaymentACH";
-            this.CreatedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // LastModifiedByPaymentACH
-            // 
-            this.LastModifiedByPaymentACH.HeaderText = "Last Modified By";
-            this.LastModifiedByPaymentACH.Name = "LastModifiedByPaymentACH";
-            this.LastModifiedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.LastModifiedByPaymentACH.Width = 120;
-            // 
-            // MembershipStatusPaymentACH
-            // 
-            this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
-            this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
-            this.MembershipStatusPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // IsMemberReimbursementACHPayment
-            // 
-            this.IsMemberReimbursementACHPayment.HeaderText = "Is Member Reimbursement";
-            this.IsMemberReimbursementACHPayment.Name = "IsMemberReimbursementACHPayment";
-            this.IsMemberReimbursementACHPayment.ReadOnly = true;
-            this.IsMemberReimbursementACHPayment.Width = 140;
-            // 
-            // VendorIdACHPayment
-            // 
-            this.VendorIdACHPayment.HeaderText = "Vendor Id";
-            this.VendorIdACHPayment.Name = "VendorIdACHPayment";
             // 
             // label108
             // 
@@ -12120,6 +12019,114 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "New Medical Bill Types and New Field Added - 01-25-2021";
             // 
+            // SelectedACHPayment
+            // 
+            this.SelectedACHPayment.HeaderText = "Selected";
+            this.SelectedACHPayment.Name = "SelectedACHPayment";
+            this.SelectedACHPayment.Width = 80;
+            // 
+            // IsACHExportedACHPayment
+            // 
+            this.IsACHExportedACHPayment.HeaderText = "Exported";
+            this.IsACHExportedACHPayment.Name = "IsACHExportedACHPayment";
+            this.IsACHExportedACHPayment.ReadOnly = true;
+            this.IsACHExportedACHPayment.Width = 80;
+            // 
+            // IndividualNamePaymentACH
+            // 
+            this.IndividualNamePaymentACH.HeaderText = "Individual Name";
+            this.IndividualNamePaymentACH.Name = "IndividualNamePaymentACH";
+            this.IndividualNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.IndividualNamePaymentACH.Width = 120;
+            // 
+            // IndividualIdPaymentACH
+            // 
+            this.IndividualIdPaymentACH.HeaderText = "Individual Id";
+            this.IndividualIdPaymentACH.Name = "IndividualIdPaymentACH";
+            this.IndividualIdPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // SettlementNoPaymentACH
+            // 
+            this.SettlementNoPaymentACH.HeaderText = "Settlement No";
+            this.SettlementNoPaymentACH.Name = "SettlementNoPaymentACH";
+            this.SettlementNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SettlementNoPaymentACH.Width = 120;
+            // 
+            // AmountPaymentACH
+            // 
+            this.AmountPaymentACH.HeaderText = "Amount";
+            this.AmountPaymentACH.Name = "AmountPaymentACH";
+            this.AmountPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MedicalProviderPaymentACH
+            // 
+            this.MedicalProviderPaymentACH.HeaderText = "Medical Provider";
+            this.MedicalProviderPaymentACH.Name = "MedicalProviderPaymentACH";
+            // 
+            // BankNamePaymentACH
+            // 
+            this.BankNamePaymentACH.HeaderText = "Bank Name";
+            this.BankNamePaymentACH.Name = "BankNamePaymentACH";
+            this.BankNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BankNamePaymentACH.Width = 120;
+            // 
+            // RoutingNoPaymentACH
+            // 
+            this.RoutingNoPaymentACH.HeaderText = "Routing No";
+            this.RoutingNoPaymentACH.Name = "RoutingNoPaymentACH";
+            this.RoutingNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.RoutingNoPaymentACH.Width = 120;
+            // 
+            // AccountNoPaymentACH
+            // 
+            this.AccountNoPaymentACH.HeaderText = "Account No";
+            this.AccountNoPaymentACH.Name = "AccountNoPaymentACH";
+            this.AccountNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AccountNoPaymentACH.Width = 120;
+            // 
+            // AccountHolderPaymentACH
+            // 
+            this.AccountHolderPaymentACH.HeaderText = "Account Holder";
+            this.AccountHolderPaymentACH.Name = "AccountHolderPaymentACH";
+            this.AccountHolderPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AccountHolderPaymentACH.Width = 120;
+            // 
+            // CreatedByPaymentACH
+            // 
+            this.CreatedByPaymentACH.HeaderText = "Created By";
+            this.CreatedByPaymentACH.Name = "CreatedByPaymentACH";
+            this.CreatedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // LastModifiedByPaymentACH
+            // 
+            this.LastModifiedByPaymentACH.HeaderText = "Last Modified By";
+            this.LastModifiedByPaymentACH.Name = "LastModifiedByPaymentACH";
+            this.LastModifiedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.LastModifiedByPaymentACH.Width = 120;
+            // 
+            // MembershipStatusPaymentACH
+            // 
+            this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
+            this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
+            this.MembershipStatusPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // WellBeingIncidentACHPayment
+            // 
+            this.WellBeingIncidentACHPayment.HeaderText = "Incident Type";
+            this.WellBeingIncidentACHPayment.Name = "WellBeingIncidentACHPayment";
+            // 
+            // IsMemberReimbursementACHPayment
+            // 
+            this.IsMemberReimbursementACHPayment.HeaderText = "Is Member Reimbursement";
+            this.IsMemberReimbursementACHPayment.Name = "IsMemberReimbursementACHPayment";
+            this.IsMemberReimbursementACHPayment.ReadOnly = true;
+            this.IsMemberReimbursementACHPayment.Width = 140;
+            // 
+            // VendorIdACHPayment
+            // 
+            this.VendorIdACHPayment.HeaderText = "Vendor Id";
+            this.VendorIdACHPayment.Name = "VendorIdACHPayment";
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -13235,22 +13242,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn ViewMedBillDocuments;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocNoMedicalDocument;
         private System.Windows.Forms.DataGridViewTextBoxColumn DocumentTypeMedBillDocument;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsACHExportedACHPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedicalProviderPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsMemberReimbursementACHPayment;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VendorIdACHPayment;
         private System.Windows.Forms.Label label143;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_CaseId;
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_IllnessNo;
@@ -13519,6 +13510,23 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCommunicationLogFDManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCommunicationLogFDManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCommunicationLogFDManager;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedACHPayment;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsACHExportedACHPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AmountPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedicalProviderPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BankNamePaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RoutingNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountHolderPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedByPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MembershipStatusPaymentACH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WellBeingIncidentACHPayment;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsMemberReimbursementACHPayment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn VendorIdACHPayment;
     }
 }
 
