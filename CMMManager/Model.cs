@@ -439,6 +439,7 @@ namespace CMMManager
         public String MedicalBillType;
         public String MedicalBillNo;
         public DateTime? DateOfService;
+        public DateTime? ServiceEndDate;
         public String MedicalProviderId;
         public String MedicalProviderName;
         public Double? MedicalBillAmount;
@@ -461,6 +462,7 @@ namespace CMMManager
             MedicalBillType = String.Empty;
             MedicalBillNo = String.Empty;
             DateOfService = null;
+            ServiceEndDate = null;
             MedicalProviderId = String.Empty;
             MedicalProviderName = String.Empty;
             MedicalBillAmount = null;
@@ -1077,6 +1079,7 @@ namespace CMMManager
         public DateTime? ServiceEndDate;
         public String MedicalProviderId;
         public String MedicalProviderName;
+        public String AccountNoAtProvider;
         public Double? BillAmount;
         public Double? PRAmount;
         public Double? TotalSharedAmount;
@@ -1099,6 +1102,7 @@ namespace CMMManager
             ServiceEndDate = null;
             MedicalProviderId = null;
             MedicalProviderName = null;
+            AccountNoAtProvider = null;
             BillAmount = null;
             PRAmount = null;
             TotalSharedAmount = null;

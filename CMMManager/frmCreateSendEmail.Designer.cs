@@ -48,6 +48,8 @@
             this.lbAttachments = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnEmailCC = new System.Windows.Forms.Button();
+            this.txtEmailCc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -119,7 +121,7 @@
             // 
             // btnEmailBcc
             // 
-            this.btnEmailBcc.Location = new System.Drawing.Point(25, 133);
+            this.btnEmailBcc.Location = new System.Drawing.Point(25, 170);
             this.btnEmailBcc.Name = "btnEmailBcc";
             this.btnEmailBcc.Size = new System.Drawing.Size(83, 30);
             this.btnEmailBcc.TabIndex = 9;
@@ -147,7 +149,7 @@
             // txtEmailBcc
             // 
             this.txtEmailBcc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailBcc.Location = new System.Drawing.Point(114, 137);
+            this.txtEmailBcc.Location = new System.Drawing.Point(114, 174);
             this.txtEmailBcc.Name = "txtEmailBcc";
             this.txtEmailBcc.ReadOnly = true;
             this.txtEmailBcc.Size = new System.Drawing.Size(618, 22);
@@ -157,7 +159,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(27, 181);
+            this.label4.Location = new System.Drawing.Point(27, 214);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 16);
             this.label4.TabIndex = 14;
@@ -166,7 +168,7 @@
             // txtEmailSubject
             // 
             this.txtEmailSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailSubject.Location = new System.Drawing.Point(114, 178);
+            this.txtEmailSubject.Location = new System.Drawing.Point(114, 211);
             this.txtEmailSubject.Name = "txtEmailSubject";
             this.txtEmailSubject.Size = new System.Drawing.Size(618, 22);
             this.txtEmailSubject.TabIndex = 15;
@@ -184,11 +186,11 @@
             // txtEmailBody
             // 
             this.txtEmailBody.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmailBody.Location = new System.Drawing.Point(24, 217);
+            this.txtEmailBody.Location = new System.Drawing.Point(24, 251);
             this.txtEmailBody.Multiline = true;
             this.txtEmailBody.Name = "txtEmailBody";
             this.txtEmailBody.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEmailBody.Size = new System.Drawing.Size(708, 255);
+            this.txtEmailBody.Size = new System.Drawing.Size(708, 221);
             this.txtEmailBody.TabIndex = 18;
             // 
             // btnCancel
@@ -242,11 +244,31 @@
             this.label6.TabIndex = 24;
             this.label6.Text = "From:";
             // 
+            // btnEmailCC
+            // 
+            this.btnEmailCC.Location = new System.Drawing.Point(25, 133);
+            this.btnEmailCC.Name = "btnEmailCC";
+            this.btnEmailCC.Size = new System.Drawing.Size(83, 30);
+            this.btnEmailCC.TabIndex = 25;
+            this.btnEmailCC.Text = "Cc...";
+            this.btnEmailCC.UseVisualStyleBackColor = true;
+            // 
+            // txtEmailCc
+            // 
+            this.txtEmailCc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmailCc.Location = new System.Drawing.Point(114, 137);
+            this.txtEmailCc.Name = "txtEmailCc";
+            this.txtEmailCc.ReadOnly = true;
+            this.txtEmailCc.Size = new System.Drawing.Size(618, 22);
+            this.txtEmailCc.TabIndex = 26;
+            // 
             // frmCreateSendEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 654);
+            this.Controls.Add(this.txtEmailCc);
+            this.Controls.Add(this.btnEmailCC);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lbAttachments);
@@ -296,5 +318,7 @@
         private System.Windows.Forms.ListBox lbAttachments;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnEmailCC;
+        private System.Windows.Forms.TextBox txtEmailCc;
     }
 }

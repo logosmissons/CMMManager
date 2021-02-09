@@ -580,6 +580,7 @@
             this.label126 = new System.Windows.Forms.Label();
             this.pdfBlueSheetViewer = new AxAcroPDFLib.AxAcroPDF();
             this.tbpgCaseView = new System.Windows.Forms.TabPage();
+            this.btnReloadCaseView = new System.Windows.Forms.Button();
             this.btnCloseCaseView = new System.Windows.Forms.Button();
             this.txtCaseHistoryIndividualName = new System.Windows.Forms.TextBox();
             this.label176 = new System.Windows.Forms.Label();
@@ -628,6 +629,7 @@
             this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillTypeInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillInCaseDateOfService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillInCaseMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillInCaseApprovalNeededAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -681,6 +683,7 @@
             this.label46 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.tbpgIllnessView = new System.Windows.Forms.TabPage();
+            this.btnReloadIllnessView = new System.Windows.Forms.Button();
             this.btnAddNewIllness = new System.Windows.Forms.Button();
             this.txtIllnessViewIndId = new System.Windows.Forms.TextBox();
             this.txtIllnessViewMEMB = new System.Windows.Forms.TextBox();
@@ -703,6 +706,7 @@
             this.Illness_ModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label89 = new System.Windows.Forms.Label();
             this.tbpgIncidentView = new System.Windows.Forms.TabPage();
+            this.btnReloadIncidentView = new System.Windows.Forms.Button();
             this.label140 = new System.Windows.Forms.Label();
             this.comboIllness = new System.Windows.Forms.ComboBox();
             this.btnAddNewIncident = new System.Windows.Forms.Button();
@@ -748,6 +752,7 @@
             this.MedBillView_ServiceDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_ServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_MedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNoAtProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_BillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_PRAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_SharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -981,6 +986,23 @@
             this.btnConfirmACH = new System.Windows.Forms.Button();
             this.btnACHExport = new System.Windows.Forms.Button();
             this.gvPaymentACH = new System.Windows.Forms.DataGridView();
+            this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IsACHExportedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IndividualNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AmountPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedicalProviderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BankNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoutingNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AccountHolderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WellBeingIncidentACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsMemberReimbursementACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.VendorIdACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label108 = new System.Windows.Forms.Label();
             this.tbpgCreditCard = new System.Windows.Forms.TabPage();
             this.btnReloadCreditCardPayment = new System.Windows.Forms.Button();
@@ -1244,23 +1266,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.SelectedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IsACHExportedACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.IndividualNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualIdPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AmountPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedicalProviderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BankNamePaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RoutingNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountNoPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AccountHolderPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedByPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MembershipStatusPaymentACH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WellBeingIncidentACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsMemberReimbursementACHPayment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.VendorIdACHPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -6005,6 +6010,7 @@
             // 
             // tbpgCaseView
             // 
+            this.tbpgCaseView.Controls.Add(this.btnReloadCaseView);
             this.tbpgCaseView.Controls.Add(this.btnCloseCaseView);
             this.tbpgCaseView.Controls.Add(this.txtCaseHistoryIndividualName);
             this.tbpgCaseView.Controls.Add(this.label176);
@@ -6022,10 +6028,20 @@
             this.tbpgCaseView.Text = "Case View";
             this.tbpgCaseView.UseVisualStyleBackColor = true;
             // 
+            // btnReloadCaseView
+            // 
+            this.btnReloadCaseView.Location = new System.Drawing.Point(764, 74);
+            this.btnReloadCaseView.Name = "btnReloadCaseView";
+            this.btnReloadCaseView.Size = new System.Drawing.Size(124, 29);
+            this.btnReloadCaseView.TabIndex = 15;
+            this.btnReloadCaseView.Text = "Reload";
+            this.btnReloadCaseView.UseVisualStyleBackColor = true;
+            this.btnReloadCaseView.Click += new System.EventHandler(this.btnReloadCaseView_Click);
+            // 
             // btnCloseCaseView
             // 
             this.btnCloseCaseView.Enabled = false;
-            this.btnCloseCaseView.Location = new System.Drawing.Point(906, 74);
+            this.btnCloseCaseView.Location = new System.Drawing.Point(1052, 74);
             this.btnCloseCaseView.Name = "btnCloseCaseView";
             this.btnCloseCaseView.Size = new System.Drawing.Size(124, 29);
             this.btnCloseCaseView.TabIndex = 14;
@@ -6074,7 +6090,7 @@
             // 
             // btnDeleteCase
             // 
-            this.btnDeleteCase.Location = new System.Drawing.Point(764, 74);
+            this.btnDeleteCase.Location = new System.Drawing.Point(908, 74);
             this.btnDeleteCase.Name = "btnDeleteCase";
             this.btnDeleteCase.Size = new System.Drawing.Size(124, 29);
             this.btnDeleteCase.TabIndex = 9;
@@ -6085,7 +6101,7 @@
             // btnEditCase
             // 
             this.btnEditCase.Enabled = false;
-            this.btnEditCase.Location = new System.Drawing.Point(1051, 74);
+            this.btnEditCase.Location = new System.Drawing.Point(1196, 74);
             this.btnEditCase.Name = "btnEditCase";
             this.btnEditCase.Size = new System.Drawing.Size(124, 29);
             this.btnEditCase.TabIndex = 7;
@@ -6396,12 +6412,14 @@
             // 
             // btnReloadMedBillsInCaseForm
             // 
+            this.btnReloadMedBillsInCaseForm.Enabled = false;
             this.btnReloadMedBillsInCaseForm.Location = new System.Drawing.Point(285, 560);
             this.btnReloadMedBillsInCaseForm.Name = "btnReloadMedBillsInCaseForm";
             this.btnReloadMedBillsInCaseForm.Size = new System.Drawing.Size(110, 31);
             this.btnReloadMedBillsInCaseForm.TabIndex = 151;
             this.btnReloadMedBillsInCaseForm.Text = "Reload";
             this.btnReloadMedBillsInCaseForm.UseVisualStyleBackColor = true;
+            this.btnReloadMedBillsInCaseForm.Visible = false;
             this.btnReloadMedBillsInCaseForm.Click += new System.EventHandler(this.btnReloadMedBillsInCaseForm_Click);
             // 
             // gvCasePageMedBills
@@ -6415,6 +6433,7 @@
             this.MedBillNo,
             this.MedBillTypeInCase,
             this.MedBillInCaseDateOfService,
+            this.MedBillInCaseServiceEndDate,
             this.MedBillInCaseMedicalProvider,
             this.MedBillAmount,
             this.MedBillInCaseApprovalNeededAmount,
@@ -6458,9 +6477,14 @@
             // 
             // MedBillInCaseDateOfService
             // 
-            this.MedBillInCaseDateOfService.HeaderText = "Date Of Service";
+            this.MedBillInCaseDateOfService.HeaderText = "Service Start Date";
             this.MedBillInCaseDateOfService.Name = "MedBillInCaseDateOfService";
             this.MedBillInCaseDateOfService.Width = 80;
+            // 
+            // MedBillInCaseServiceEndDate
+            // 
+            this.MedBillInCaseServiceEndDate.HeaderText = "Service End Date";
+            this.MedBillInCaseServiceEndDate.Name = "MedBillInCaseServiceEndDate";
             // 
             // MedBillInCaseMedicalProvider
             // 
@@ -6891,6 +6915,7 @@
             // 
             // tbpgIllnessView
             // 
+            this.tbpgIllnessView.Controls.Add(this.btnReloadIllnessView);
             this.tbpgIllnessView.Controls.Add(this.btnAddNewIllness);
             this.tbpgIllnessView.Controls.Add(this.txtIllnessViewIndId);
             this.tbpgIllnessView.Controls.Add(this.txtIllnessViewMEMB);
@@ -6905,12 +6930,22 @@
             this.tbpgIllnessView.Text = "Illness View";
             this.tbpgIllnessView.UseVisualStyleBackColor = true;
             // 
+            // btnReloadIllnessView
+            // 
+            this.btnReloadIllnessView.Location = new System.Drawing.Point(724, 97);
+            this.btnReloadIllnessView.Name = "btnReloadIllnessView";
+            this.btnReloadIllnessView.Size = new System.Drawing.Size(129, 31);
+            this.btnReloadIllnessView.TabIndex = 126;
+            this.btnReloadIllnessView.Text = "Reload";
+            this.btnReloadIllnessView.UseVisualStyleBackColor = true;
+            this.btnReloadIllnessView.Click += new System.EventHandler(this.btnReloadIllnessView_Click);
+            // 
             // btnAddNewIllness
             // 
             this.btnAddNewIllness.Enabled = false;
-            this.btnAddNewIllness.Location = new System.Drawing.Point(564, 89);
+            this.btnAddNewIllness.Location = new System.Drawing.Point(564, 97);
             this.btnAddNewIllness.Name = "btnAddNewIllness";
-            this.btnAddNewIllness.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewIllness.Size = new System.Drawing.Size(129, 31);
             this.btnAddNewIllness.TabIndex = 125;
             this.btnAddNewIllness.Text = "New Illness";
             this.btnAddNewIllness.UseVisualStyleBackColor = true;
@@ -7099,6 +7134,7 @@
             // 
             // tbpgIncidentView
             // 
+            this.tbpgIncidentView.Controls.Add(this.btnReloadIncidentView);
             this.tbpgIncidentView.Controls.Add(this.label140);
             this.tbpgIncidentView.Controls.Add(this.comboIllness);
             this.tbpgIncidentView.Controls.Add(this.btnAddNewIncident);
@@ -7114,6 +7150,16 @@
             this.tbpgIncidentView.TabIndex = 16;
             this.tbpgIncidentView.Text = "Incident View";
             this.tbpgIncidentView.UseVisualStyleBackColor = true;
+            // 
+            // btnReloadIncidentView
+            // 
+            this.btnReloadIncidentView.Location = new System.Drawing.Point(895, 94);
+            this.btnReloadIncidentView.Name = "btnReloadIncidentView";
+            this.btnReloadIncidentView.Size = new System.Drawing.Size(129, 31);
+            this.btnReloadIncidentView.TabIndex = 132;
+            this.btnReloadIncidentView.Text = "Reload";
+            this.btnReloadIncidentView.UseVisualStyleBackColor = true;
+            this.btnReloadIncidentView.Click += new System.EventHandler(this.btnReloadIncidentView_Click);
             // 
             // label140
             // 
@@ -7136,9 +7182,9 @@
             // btnAddNewIncident
             // 
             this.btnAddNewIncident.Enabled = false;
-            this.btnAddNewIncident.Location = new System.Drawing.Point(725, 90);
+            this.btnAddNewIncident.Location = new System.Drawing.Point(727, 94);
             this.btnAddNewIncident.Name = "btnAddNewIncident";
-            this.btnAddNewIncident.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewIncident.Size = new System.Drawing.Size(129, 31);
             this.btnAddNewIncident.TabIndex = 129;
             this.btnAddNewIncident.Text = "New Incident";
             this.btnAddNewIncident.UseVisualStyleBackColor = true;
@@ -7443,6 +7489,7 @@
             this.MedBillView_ServiceDate,
             this.MedBillView_ServiceEndDate,
             this.MedBillView_MedicalProvider,
+            this.AccountNoAtProvider,
             this.MedBillView_BillAmount,
             this.MedBillView_PRAmount,
             this.MedBillView_SharedAmount,
@@ -7514,6 +7561,12 @@
             this.MedBillView_MedicalProvider.Name = "MedBillView_MedicalProvider";
             this.MedBillView_MedicalProvider.ReadOnly = true;
             this.MedBillView_MedicalProvider.Width = 200;
+            // 
+            // AccountNoAtProvider
+            // 
+            this.AccountNoAtProvider.HeaderText = "Account # at Provider";
+            this.AccountNoAtProvider.Name = "AccountNoAtProvider";
+            this.AccountNoAtProvider.ReadOnly = true;
             // 
             // MedBillView_BillAmount
             // 
@@ -9761,6 +9814,114 @@
             this.gvPaymentACH.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellContentClick);
             this.gvPaymentACH.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPaymentACH_CellDoubleClick);
             this.gvPaymentACH.ColumnHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPaymentACH_ColumnHeaderMouseDoubleClick);
+            // 
+            // SelectedACHPayment
+            // 
+            this.SelectedACHPayment.HeaderText = "Selected";
+            this.SelectedACHPayment.Name = "SelectedACHPayment";
+            this.SelectedACHPayment.Width = 80;
+            // 
+            // IsACHExportedACHPayment
+            // 
+            this.IsACHExportedACHPayment.HeaderText = "Exported";
+            this.IsACHExportedACHPayment.Name = "IsACHExportedACHPayment";
+            this.IsACHExportedACHPayment.ReadOnly = true;
+            this.IsACHExportedACHPayment.Width = 80;
+            // 
+            // IndividualNamePaymentACH
+            // 
+            this.IndividualNamePaymentACH.HeaderText = "Individual Name";
+            this.IndividualNamePaymentACH.Name = "IndividualNamePaymentACH";
+            this.IndividualNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.IndividualNamePaymentACH.Width = 120;
+            // 
+            // IndividualIdPaymentACH
+            // 
+            this.IndividualIdPaymentACH.HeaderText = "Individual Id";
+            this.IndividualIdPaymentACH.Name = "IndividualIdPaymentACH";
+            this.IndividualIdPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // SettlementNoPaymentACH
+            // 
+            this.SettlementNoPaymentACH.HeaderText = "Settlement No";
+            this.SettlementNoPaymentACH.Name = "SettlementNoPaymentACH";
+            this.SettlementNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SettlementNoPaymentACH.Width = 120;
+            // 
+            // AmountPaymentACH
+            // 
+            this.AmountPaymentACH.HeaderText = "Amount";
+            this.AmountPaymentACH.Name = "AmountPaymentACH";
+            this.AmountPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // MedicalProviderPaymentACH
+            // 
+            this.MedicalProviderPaymentACH.HeaderText = "Medical Provider";
+            this.MedicalProviderPaymentACH.Name = "MedicalProviderPaymentACH";
+            // 
+            // BankNamePaymentACH
+            // 
+            this.BankNamePaymentACH.HeaderText = "Bank Name";
+            this.BankNamePaymentACH.Name = "BankNamePaymentACH";
+            this.BankNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BankNamePaymentACH.Width = 120;
+            // 
+            // RoutingNoPaymentACH
+            // 
+            this.RoutingNoPaymentACH.HeaderText = "Routing No";
+            this.RoutingNoPaymentACH.Name = "RoutingNoPaymentACH";
+            this.RoutingNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.RoutingNoPaymentACH.Width = 120;
+            // 
+            // AccountNoPaymentACH
+            // 
+            this.AccountNoPaymentACH.HeaderText = "Account No";
+            this.AccountNoPaymentACH.Name = "AccountNoPaymentACH";
+            this.AccountNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AccountNoPaymentACH.Width = 120;
+            // 
+            // AccountHolderPaymentACH
+            // 
+            this.AccountHolderPaymentACH.HeaderText = "Account Holder";
+            this.AccountHolderPaymentACH.Name = "AccountHolderPaymentACH";
+            this.AccountHolderPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.AccountHolderPaymentACH.Width = 120;
+            // 
+            // CreatedByPaymentACH
+            // 
+            this.CreatedByPaymentACH.HeaderText = "Created By";
+            this.CreatedByPaymentACH.Name = "CreatedByPaymentACH";
+            this.CreatedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // LastModifiedByPaymentACH
+            // 
+            this.LastModifiedByPaymentACH.HeaderText = "Last Modified By";
+            this.LastModifiedByPaymentACH.Name = "LastModifiedByPaymentACH";
+            this.LastModifiedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.LastModifiedByPaymentACH.Width = 120;
+            // 
+            // MembershipStatusPaymentACH
+            // 
+            this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
+            this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
+            this.MembershipStatusPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // WellBeingIncidentACHPayment
+            // 
+            this.WellBeingIncidentACHPayment.HeaderText = "Incident Type";
+            this.WellBeingIncidentACHPayment.Name = "WellBeingIncidentACHPayment";
+            // 
+            // IsMemberReimbursementACHPayment
+            // 
+            this.IsMemberReimbursementACHPayment.HeaderText = "Is Member Reimbursement";
+            this.IsMemberReimbursementACHPayment.Name = "IsMemberReimbursementACHPayment";
+            this.IsMemberReimbursementACHPayment.ReadOnly = true;
+            this.IsMemberReimbursementACHPayment.Width = 140;
+            // 
+            // VendorIdACHPayment
+            // 
+            this.VendorIdACHPayment.HeaderText = "Vendor Id";
+            this.VendorIdACHPayment.Name = "VendorIdACHPayment";
             // 
             // label108
             // 
@@ -12019,114 +12180,6 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "New Medical Bill Types and New Field Added - 01-25-2021";
             // 
-            // SelectedACHPayment
-            // 
-            this.SelectedACHPayment.HeaderText = "Selected";
-            this.SelectedACHPayment.Name = "SelectedACHPayment";
-            this.SelectedACHPayment.Width = 80;
-            // 
-            // IsACHExportedACHPayment
-            // 
-            this.IsACHExportedACHPayment.HeaderText = "Exported";
-            this.IsACHExportedACHPayment.Name = "IsACHExportedACHPayment";
-            this.IsACHExportedACHPayment.ReadOnly = true;
-            this.IsACHExportedACHPayment.Width = 80;
-            // 
-            // IndividualNamePaymentACH
-            // 
-            this.IndividualNamePaymentACH.HeaderText = "Individual Name";
-            this.IndividualNamePaymentACH.Name = "IndividualNamePaymentACH";
-            this.IndividualNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.IndividualNamePaymentACH.Width = 120;
-            // 
-            // IndividualIdPaymentACH
-            // 
-            this.IndividualIdPaymentACH.HeaderText = "Individual Id";
-            this.IndividualIdPaymentACH.Name = "IndividualIdPaymentACH";
-            this.IndividualIdPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // SettlementNoPaymentACH
-            // 
-            this.SettlementNoPaymentACH.HeaderText = "Settlement No";
-            this.SettlementNoPaymentACH.Name = "SettlementNoPaymentACH";
-            this.SettlementNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SettlementNoPaymentACH.Width = 120;
-            // 
-            // AmountPaymentACH
-            // 
-            this.AmountPaymentACH.HeaderText = "Amount";
-            this.AmountPaymentACH.Name = "AmountPaymentACH";
-            this.AmountPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // MedicalProviderPaymentACH
-            // 
-            this.MedicalProviderPaymentACH.HeaderText = "Medical Provider";
-            this.MedicalProviderPaymentACH.Name = "MedicalProviderPaymentACH";
-            // 
-            // BankNamePaymentACH
-            // 
-            this.BankNamePaymentACH.HeaderText = "Bank Name";
-            this.BankNamePaymentACH.Name = "BankNamePaymentACH";
-            this.BankNamePaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BankNamePaymentACH.Width = 120;
-            // 
-            // RoutingNoPaymentACH
-            // 
-            this.RoutingNoPaymentACH.HeaderText = "Routing No";
-            this.RoutingNoPaymentACH.Name = "RoutingNoPaymentACH";
-            this.RoutingNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.RoutingNoPaymentACH.Width = 120;
-            // 
-            // AccountNoPaymentACH
-            // 
-            this.AccountNoPaymentACH.HeaderText = "Account No";
-            this.AccountNoPaymentACH.Name = "AccountNoPaymentACH";
-            this.AccountNoPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.AccountNoPaymentACH.Width = 120;
-            // 
-            // AccountHolderPaymentACH
-            // 
-            this.AccountHolderPaymentACH.HeaderText = "Account Holder";
-            this.AccountHolderPaymentACH.Name = "AccountHolderPaymentACH";
-            this.AccountHolderPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.AccountHolderPaymentACH.Width = 120;
-            // 
-            // CreatedByPaymentACH
-            // 
-            this.CreatedByPaymentACH.HeaderText = "Created By";
-            this.CreatedByPaymentACH.Name = "CreatedByPaymentACH";
-            this.CreatedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // LastModifiedByPaymentACH
-            // 
-            this.LastModifiedByPaymentACH.HeaderText = "Last Modified By";
-            this.LastModifiedByPaymentACH.Name = "LastModifiedByPaymentACH";
-            this.LastModifiedByPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.LastModifiedByPaymentACH.Width = 120;
-            // 
-            // MembershipStatusPaymentACH
-            // 
-            this.MembershipStatusPaymentACH.HeaderText = "Membership Status";
-            this.MembershipStatusPaymentACH.Name = "MembershipStatusPaymentACH";
-            this.MembershipStatusPaymentACH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // WellBeingIncidentACHPayment
-            // 
-            this.WellBeingIncidentACHPayment.HeaderText = "Incident Type";
-            this.WellBeingIncidentACHPayment.Name = "WellBeingIncidentACHPayment";
-            // 
-            // IsMemberReimbursementACHPayment
-            // 
-            this.IsMemberReimbursementACHPayment.HeaderText = "Is Member Reimbursement";
-            this.IsMemberReimbursementACHPayment.Name = "IsMemberReimbursementACHPayment";
-            this.IsMemberReimbursementACHPayment.ReadOnly = true;
-            this.IsMemberReimbursementACHPayment.Width = 140;
-            // 
-            // VendorIdACHPayment
-            // 
-            this.VendorIdACHPayment.HeaderText = "Vendor Id";
-            this.VendorIdACHPayment.Name = "VendorIdACHPayment";
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -13208,24 +13261,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCaseTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn ReminderDateTimeTaskInCase;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCaseTask;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseDateOfService;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseMedicalProvider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseApprovalNeededAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseWaitingPayBalance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCasePendingReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseIneligibleReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNote;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
         private System.Windows.Forms.Button btnAddNewIllness;
         private System.Windows.Forms.Button btnAddNewIncident;
         private System.Windows.Forms.Button btnAddNewMedBill;
@@ -13336,22 +13371,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidCreditCardNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreditCardPaidNotes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_IncidentNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ICD10Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_MedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_PendingIneligibleReason;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ServiceDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ServiceEndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_MedicalProvider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_PRAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_SharedAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreateDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreatedBy;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedBy;
         private System.Windows.Forms.TextBox txtHouseholdEmail;
         private System.Windows.Forms.Label label146;
         private System.Windows.Forms.DataGridViewTextBoxColumn SettlementNameSearchResult;
@@ -13527,6 +13546,45 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn WellBeingIncidentACHPayment;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsMemberReimbursementACHPayment;
         private System.Windows.Forms.DataGridViewTextBoxColumn VendorIdACHPayment;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn MedBillSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTypeInCase;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseDateOfService;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseServiceEndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseMedicalProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseApprovalNeededAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseWaitingPayBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillTotalSharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCasePendingReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillInCaseIneligibleReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillIncidentNote;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreatedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_IncidentNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ICD10Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_MedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_PendingIneligibleReason;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ServiceDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ServiceEndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_MedicalProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AccountNoAtProvider;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_BillAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_PRAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_SharedAmount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreateDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreatedBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedBy;
+        private System.Windows.Forms.Button btnReloadCaseView;
+        private System.Windows.Forms.Button btnReloadIllnessView;
+        private System.Windows.Forms.Button btnReloadIncidentView;
     }
 }
 
