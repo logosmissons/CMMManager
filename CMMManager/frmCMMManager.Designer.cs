@@ -734,8 +734,14 @@
             this.Incident_ModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Incident_ReviewRequest = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tbpgMedBillView = new System.Windows.Forms.TabPage();
+            this.btnResetMedBillViewCaseNo = new System.Windows.Forms.Button();
+            this.btnReloadMedicalBillView = new System.Windows.Forms.Button();
+            this.comboIllnessNoMedBillView = new System.Windows.Forms.ComboBox();
+            this.comboCaseNoMedBillView = new System.Windows.Forms.ComboBox();
+            this.label190 = new System.Windows.Forms.Label();
+            this.label66 = new System.Windows.Forms.Label();
             this.label141 = new System.Windows.Forms.Label();
-            this.comboIncident = new System.Windows.Forms.ComboBox();
+            this.comboIncidentNoMedBillView = new System.Windows.Forms.ComboBox();
             this.btnAddNewMedBill = new System.Windows.Forms.Button();
             this.txtMedBillViewIndId = new System.Windows.Forms.TextBox();
             this.txtMedBillViewMEMB = new System.Windows.Forms.TextBox();
@@ -743,6 +749,8 @@
             this.label180 = new System.Windows.Forms.Label();
             this.label179 = new System.Windows.Forms.Label();
             this.gvMedBillList = new System.Windows.Forms.DataGridView();
+            this.MedBillView_CaseNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillView_IllnessNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_IncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_ICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MedBillView_MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -7381,8 +7389,14 @@
             // 
             // tbpgMedBillView
             // 
+            this.tbpgMedBillView.Controls.Add(this.btnResetMedBillViewCaseNo);
+            this.tbpgMedBillView.Controls.Add(this.btnReloadMedicalBillView);
+            this.tbpgMedBillView.Controls.Add(this.comboIllnessNoMedBillView);
+            this.tbpgMedBillView.Controls.Add(this.comboCaseNoMedBillView);
+            this.tbpgMedBillView.Controls.Add(this.label190);
+            this.tbpgMedBillView.Controls.Add(this.label66);
             this.tbpgMedBillView.Controls.Add(this.label141);
-            this.tbpgMedBillView.Controls.Add(this.comboIncident);
+            this.tbpgMedBillView.Controls.Add(this.comboIncidentNoMedBillView);
             this.tbpgMedBillView.Controls.Add(this.btnAddNewMedBill);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewIndId);
             this.tbpgMedBillView.Controls.Add(this.txtMedBillViewMEMB);
@@ -7398,29 +7412,88 @@
             this.tbpgMedBillView.UseVisualStyleBackColor = true;
             this.tbpgMedBillView.Click += new System.EventHandler(this.tbpgMedBillView_Click);
             // 
+            // btnResetMedBillViewCaseNo
+            // 
+            this.btnResetMedBillViewCaseNo.Location = new System.Drawing.Point(464, 93);
+            this.btnResetMedBillViewCaseNo.Name = "btnResetMedBillViewCaseNo";
+            this.btnResetMedBillViewCaseNo.Size = new System.Drawing.Size(129, 31);
+            this.btnResetMedBillViewCaseNo.TabIndex = 141;
+            this.btnResetMedBillViewCaseNo.Text = "Reset";
+            this.btnResetMedBillViewCaseNo.UseVisualStyleBackColor = true;
+            this.btnResetMedBillViewCaseNo.Click += new System.EventHandler(this.btnResetMedBillViewCaseNo_Click);
+            // 
+            // btnReloadMedicalBillView
+            // 
+            this.btnReloadMedicalBillView.Location = new System.Drawing.Point(1417, 94);
+            this.btnReloadMedicalBillView.Name = "btnReloadMedicalBillView";
+            this.btnReloadMedicalBillView.Size = new System.Drawing.Size(129, 31);
+            this.btnReloadMedicalBillView.TabIndex = 140;
+            this.btnReloadMedicalBillView.Text = "Reload";
+            this.btnReloadMedicalBillView.UseVisualStyleBackColor = true;
+            this.btnReloadMedicalBillView.Click += new System.EventHandler(this.btnReloadMedicalBillView_Click);
+            // 
+            // comboIllnessNoMedBillView
+            // 
+            this.comboIllnessNoMedBillView.FormattingEnabled = true;
+            this.comboIllnessNoMedBillView.Location = new System.Drawing.Point(898, 99);
+            this.comboIllnessNoMedBillView.Name = "comboIllnessNoMedBillView";
+            this.comboIllnessNoMedBillView.Size = new System.Drawing.Size(130, 21);
+            this.comboIllnessNoMedBillView.TabIndex = 139;
+            this.comboIllnessNoMedBillView.SelectedIndexChanged += new System.EventHandler(this.comboIllnessNoMedBillView_SelectedIndexChanged);
+            // 
+            // comboCaseNoMedBillView
+            // 
+            this.comboCaseNoMedBillView.FormattingEnabled = true;
+            this.comboCaseNoMedBillView.Location = new System.Drawing.Point(679, 99);
+            this.comboCaseNoMedBillView.Name = "comboCaseNoMedBillView";
+            this.comboCaseNoMedBillView.Size = new System.Drawing.Size(130, 21);
+            this.comboCaseNoMedBillView.TabIndex = 138;
+            this.comboCaseNoMedBillView.SelectedIndexChanged += new System.EventHandler(this.comboCaseNoMedBillView_SelectedIndexChanged);
+            // 
+            // label190
+            // 
+            this.label190.AutoSize = true;
+            this.label190.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label190.Location = new System.Drawing.Point(821, 101);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(70, 16);
+            this.label190.TabIndex = 137;
+            this.label190.Text = "Illness No:";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label66.Location = new System.Drawing.Point(612, 101);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(64, 16);
+            this.label66.TabIndex = 136;
+            this.label66.Text = "Case No:";
+            // 
             // label141
             // 
             this.label141.AutoSize = true;
             this.label141.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label141.Location = new System.Drawing.Point(455, 100);
+            this.label141.Location = new System.Drawing.Point(1036, 101);
             this.label141.Name = "label141";
             this.label141.Size = new System.Drawing.Size(78, 16);
             this.label141.TabIndex = 135;
             this.label141.Text = "Incident No:";
             // 
-            // comboIncident
+            // comboIncidentNoMedBillView
             // 
-            this.comboIncident.FormattingEnabled = true;
-            this.comboIncident.Location = new System.Drawing.Point(545, 97);
-            this.comboIncident.Name = "comboIncident";
-            this.comboIncident.Size = new System.Drawing.Size(138, 21);
-            this.comboIncident.TabIndex = 134;
+            this.comboIncidentNoMedBillView.FormattingEnabled = true;
+            this.comboIncidentNoMedBillView.Location = new System.Drawing.Point(1117, 99);
+            this.comboIncidentNoMedBillView.Name = "comboIncidentNoMedBillView";
+            this.comboIncidentNoMedBillView.Size = new System.Drawing.Size(130, 21);
+            this.comboIncidentNoMedBillView.TabIndex = 134;
+            this.comboIncidentNoMedBillView.SelectedIndexChanged += new System.EventHandler(this.comboIncidentNoMedBillView_SelectedIndexChanged);
             // 
             // btnAddNewMedBill
             // 
-            this.btnAddNewMedBill.Location = new System.Drawing.Point(718, 89);
+            this.btnAddNewMedBill.Location = new System.Drawing.Point(1273, 94);
             this.btnAddNewMedBill.Name = "btnAddNewMedBill";
-            this.btnAddNewMedBill.Size = new System.Drawing.Size(129, 39);
+            this.btnAddNewMedBill.Size = new System.Drawing.Size(129, 31);
             this.btnAddNewMedBill.TabIndex = 133;
             this.btnAddNewMedBill.Text = "New Medical Bill";
             this.btnAddNewMedBill.UseVisualStyleBackColor = true;
@@ -7429,7 +7502,7 @@
             // txtMedBillViewIndId
             // 
             this.txtMedBillViewIndId.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillViewIndId.Location = new System.Drawing.Point(320, 97);
+            this.txtMedBillViewIndId.Location = new System.Drawing.Point(320, 98);
             this.txtMedBillViewIndId.Name = "txtMedBillViewIndId";
             this.txtMedBillViewIndId.ReadOnly = true;
             this.txtMedBillViewIndId.Size = new System.Drawing.Size(109, 22);
@@ -7438,7 +7511,7 @@
             // txtMedBillViewMEMB
             // 
             this.txtMedBillViewMEMB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedBillViewMEMB.Location = new System.Drawing.Point(101, 97);
+            this.txtMedBillViewMEMB.Location = new System.Drawing.Point(101, 98);
             this.txtMedBillViewMEMB.Name = "txtMedBillViewMEMB";
             this.txtMedBillViewMEMB.ReadOnly = true;
             this.txtMedBillViewMEMB.Size = new System.Drawing.Size(109, 22);
@@ -7448,7 +7521,7 @@
             // 
             this.label178.AutoSize = true;
             this.label178.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label178.Location = new System.Drawing.Point(235, 100);
+            this.label178.Location = new System.Drawing.Point(235, 101);
             this.label178.Name = "label178";
             this.label178.Size = new System.Drawing.Size(84, 16);
             this.label178.TabIndex = 130;
@@ -7458,7 +7531,7 @@
             // 
             this.label180.AutoSize = true;
             this.label180.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label180.Location = new System.Drawing.Point(40, 100);
+            this.label180.Location = new System.Drawing.Point(40, 101);
             this.label180.Name = "label180";
             this.label180.Size = new System.Drawing.Size(55, 16);
             this.label180.TabIndex = 129;
@@ -7480,6 +7553,8 @@
             this.gvMedBillList.AllowUserToDeleteRows = false;
             this.gvMedBillList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gvMedBillList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MedBillView_CaseNo,
+            this.MedBillView_IllnessNo,
             this.MedBillView_IncidentNo,
             this.MedBillView_ICD10Description,
             this.MedBillView_MedBillNo,
@@ -7503,6 +7578,18 @@
             this.gvMedBillList.Size = new System.Drawing.Size(1748, 699);
             this.gvMedBillList.TabIndex = 0;
             this.gvMedBillList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedBillList_CellDoubleClick);
+            // 
+            // MedBillView_CaseNo
+            // 
+            this.MedBillView_CaseNo.HeaderText = "Case No";
+            this.MedBillView_CaseNo.Name = "MedBillView_CaseNo";
+            this.MedBillView_CaseNo.ReadOnly = true;
+            // 
+            // MedBillView_IllnessNo
+            // 
+            this.MedBillView_IllnessNo.HeaderText = "Illness No";
+            this.MedBillView_IllnessNo.Name = "MedBillView_IllnessNo";
+            this.MedBillView_IllnessNo.ReadOnly = true;
             // 
             // MedBillView_IncidentNo
             // 
@@ -13265,7 +13352,7 @@
         private System.Windows.Forms.Button btnAddNewIncident;
         private System.Windows.Forms.Button btnAddNewMedBill;
         private System.Windows.Forms.ComboBox comboIllness;
-        private System.Windows.Forms.ComboBox comboIncident;
+        private System.Windows.Forms.ComboBox comboIncidentNoMedBillView;
         private System.Windows.Forms.Label label140;
         private System.Windows.Forms.Label label141;
         private System.Windows.Forms.Label label142;
@@ -13565,6 +13652,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.Button btnReloadCaseView;
+        private System.Windows.Forms.Button btnReloadIllnessView;
+        private System.Windows.Forms.Button btnReloadIncidentView;
+        private System.Windows.Forms.ComboBox comboIllnessNoMedBillView;
+        private System.Windows.Forms.ComboBox comboCaseNoMedBillView;
+        private System.Windows.Forms.Label label190;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.Button btnReloadMedicalBillView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CaseNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_IllnessNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_IncidentNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_ICD10Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_MedBillNo;
@@ -13582,9 +13679,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CreatedBy;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_LastModifiedBy;
-        private System.Windows.Forms.Button btnReloadCaseView;
-        private System.Windows.Forms.Button btnReloadIllnessView;
-        private System.Windows.Forms.Button btnReloadIncidentView;
+        private System.Windows.Forms.Button btnResetMedBillViewCaseNo;
     }
 }
 

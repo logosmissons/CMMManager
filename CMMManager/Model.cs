@@ -1067,6 +1067,8 @@ namespace CMMManager
 
     public class MedBillViewInfo
     {
+        public String CaseNo;
+        public String IllnessNo;
         public String IncidentNo;
         public String ICD10Code;
         public String ICD10Description;
@@ -1090,6 +1092,8 @@ namespace CMMManager
 
         public MedBillViewInfo()
         {
+            CaseNo = null;
+            IllnessNo = null;
             IncidentNo = null;
             ICD10Code = null;
             ICD10Description = null;
