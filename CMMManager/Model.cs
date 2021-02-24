@@ -2575,7 +2575,17 @@ namespace CMMManager
         }
     }
         
+    public class SortedFieldMedBillInCase
+    {
+        public String Field;
+        public MedBillSortedInCaseTab Sorted;
 
+        public SortedFieldMedBillInCase()
+        {
+            Field = null;
+            Sorted = MedBillSortedInCaseTab.NotSorted;
+        }
+    }
 
     public class SortedFieldBlueSheet
     {
