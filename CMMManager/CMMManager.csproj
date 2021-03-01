@@ -146,6 +146,12 @@
     <Compile Include="frmAddEmailBcc.Designer.cs">
       <DependentUpon>frmAddEmailBcc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmAddEmailCc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddEmailCc.Designer.cs">
+      <DependentUpon>frmAddEmailCc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAddNewMedProvider.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,6 +403,9 @@
     </Compile>
     <EmbeddedResource Include="frmAddEmailBcc.resx">
       <DependentUpon>frmAddEmailBcc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddEmailCc.resx">
+      <DependentUpon>frmAddEmailCc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAddNewMedProvider.resx">
       <DependentUpon>frmAddNewMedProvider.cs</DependentUpon>

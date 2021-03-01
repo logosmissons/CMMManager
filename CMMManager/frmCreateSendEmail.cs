@@ -174,6 +174,12 @@ namespace CMMManager
                     if (EmailBcc[i].Trim() != String.Empty) message.Bcc.Add(new MailboxAddress("CMM Staff", EmailBcc[i].Trim()));                   
                 }
 
+                String[] EmailCc = txtEmailCc.Text.Trim().Split(';');
+                for (int i = 0; i < EmailCc.Length; i++)
+                {
+                    if (EmailCc[i].Trim() != String.Empty) message.Cc.Add(new MailboxAddress(EmailCc[i].Trim()));
+                }
+
                 BodyBuilder emailBuilderBody = new BodyBuilder();
                 emailBuilderBody.TextBody = txtEmailBody.Text;
 
@@ -544,6 +550,16 @@ namespace CMMManager
         public void DisableSendButton()
         {
             btnSendEmail.Enabled = false;
+        }
+
+        private void btnEmailCC_Click(object sender, EventArgs e)
+        {
+            frmAddEmailCc frmEmailCc = new frmAddEmailCc(IndividualId);
+
+            if (frmEmailCc.ShowDialog() == DialogResult.OK)
+            {
+                txtEmailCc.Text = frmEmailCc.EmailCc;
+            }
         }
     }
 }

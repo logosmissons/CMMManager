@@ -252,6 +252,7 @@
             this.btnEmailCC.TabIndex = 25;
             this.btnEmailCC.Text = "Cc...";
             this.btnEmailCC.UseVisualStyleBackColor = true;
+            this.btnEmailCC.Click += new System.EventHandler(this.btnEmailCC_Click);
             // 
             // txtEmailCc
             // 
