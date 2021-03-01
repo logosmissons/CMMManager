@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,6 +47,8 @@ namespace CMMManager
 
         public DateTime MembershipStartDate;
 
+        private String IllnessAttachmentDestinationPath = String.Empty;
+
         List<IllnessProgramInfo> lstIllnessProgramInfo;
 
         List<ICD10CodeInfo> lstICD10CodeInfo;
@@ -88,6 +92,8 @@ namespace CMMManager
         {
             InitializeComponent();
             SetSqlSetting();
+
+            IllnessAttachmentDestinationPath = @"\\cmm-2019data\Sharefolder\IllnessAttachments\";
 
             lstICD10CodeInfo = new List<ICD10CodeInfo>();
             lstIllnessProgramInfo = new List<IllnessProgramInfo>();
@@ -570,53 +576,53 @@ namespace CMMManager
                 if (LimitedSharingId != null) comboLimitedSharing.SelectedIndex = LimitedSharingId.Value;
 
 
-                String strSqlQueryForIncidentInfoForIllness = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
-                                                           "[dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[OccurrenceDate], " +
-                                                           "[dbo].[tbl_incident].[TotalSharedAmount], [dbo].[tbl_incident].[IncidentNote] " +
-                                                           "from [dbo].[tbl_incident] " +
-                                                           "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
-                                                           "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
-                                                           "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+                //String strSqlQueryForIncidentInfoForIllness = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
+                //                                           "[dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[OccurrenceDate], " +
+                //                                           "[dbo].[tbl_incident].[TotalSharedAmount], [dbo].[tbl_incident].[IncidentNote] " +
+                //                                           "from [dbo].[tbl_incident] " +
+                //                                           "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
+                //                                           "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
+                //                                           "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
 
-                SqlCommand cmdQueryForIncidentInfoForIllness = new SqlCommand(strSqlQueryForIncidentInfoForIllness, connRNDB);
-                cmdQueryForIncidentInfoForIllness.CommandType = CommandType.Text;
+                //SqlCommand cmdQueryForIncidentInfoForIllness = new SqlCommand(strSqlQueryForIncidentInfoForIllness, connRNDB);
+                //cmdQueryForIncidentInfoForIllness.CommandType = CommandType.Text;
 
-                cmdQueryForIncidentInfoForIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                //cmdQueryForIncidentInfoForIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
-                if (connRNDB.State != ConnectionState.Closed)
-                {
-                    connRNDB.Close();
-                    connRNDB.Open();
-                }
-                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                SqlDataReader rdrIncidentInfo = cmdQueryForIncidentInfoForIllness.ExecuteReader();
-                if (rdrIncidentInfo.HasRows)
-                {
-                    while (rdrIncidentInfo.Read())
-                    {
-                        DataGridViewRow row = new DataGridViewRow();
-                        if (!rdrIncidentInfo.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(0) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidentInfo.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(1).Trim() });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidentInfo.IsDBNull(2))
-                        {
-                            if (rdrIncidentInfo.GetBoolean(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = "Well Being" });
-                            else row.Cells.Add(new DataGridViewTextBoxCell { Value = "Incident" });
-                        }
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidentInfo.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDateTime(3).ToString("MM/dd/yyyy") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidentInfo.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDecimal(4).ToString("C") });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                        if (!rdrIncidentInfo.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(5) });
-                        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //if (connRNDB.State != ConnectionState.Closed)
+                //{
+                //    connRNDB.Close();
+                //    connRNDB.Open();
+                //}
+                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                //SqlDataReader rdrIncidentInfo = cmdQueryForIncidentInfoForIllness.ExecuteReader();
+                //if (rdrIncidentInfo.HasRows)
+                //{
+                //    while (rdrIncidentInfo.Read())
+                //    {
+                //        DataGridViewRow row = new DataGridViewRow();
+                //        if (!rdrIncidentInfo.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(0) });
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //        if (!rdrIncidentInfo.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(1).Trim() });
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //        if (!rdrIncidentInfo.IsDBNull(2))
+                //        {
+                //            if (rdrIncidentInfo.GetBoolean(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = "Well Being" });
+                //            else row.Cells.Add(new DataGridViewTextBoxCell { Value = "Incident" });
+                //        }
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //        if (!rdrIncidentInfo.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDateTime(3).ToString("MM/dd/yyyy") });
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //        if (!rdrIncidentInfo.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDecimal(4).ToString("C") });
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                //        if (!rdrIncidentInfo.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(5) });
+                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
-                        gvRelatedIncidentInfo.Rows.Add(row);
-                    }
-                }
-                rdrIncidentInfo.Close();
-                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                //        gvRelatedIncidentInfo.Rows.Add(row);
+                //    }
+                //}
+                //rdrIncidentInfo.Close();
+                //if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
 
             }
 
@@ -664,6 +670,58 @@ namespace CMMManager
                         break;
                 }
             }
+
+            String strSqlQueryForIllnessAttachments = "select [dbo].[tbl_IllnessAttachments].[AttachmentNo], [dbo].[tbl_IllnessAttachments].[AttachmentDestinationPathName], " +
+                                                      "[dbo].[tbl_CreateStaff].[Staff_Name], [dbo].[tbl_IllnessAttachments].[CreateDate] " +
+                                                      "from [dbo].[tbl_IllnessAttachments] " +
+                                                      "inner join [dbo].[tbl_CreateStaff] on [dbo].[tbl_IllnessAttachments].[CreatedBy] = [dbo].[tbl_CreateStaff].[CreateStaff_Id] " +
+                                                      "where [dbo].[tbl_IllnessAttachments].[IllnessNo] = @IllnessNo and " +
+                                                      "([dbo].[tbl_IllnessAttachments].[IsDeleted] = 0 or [dbo].[tbl_IllnessAttachments].[IsDeleted] IS NULL) " +
+                                                      "order by [dbo].[tbl_IllnessAttachments].[Id]";
+
+            SqlCommand cmdQueryForIllnessAttachments = new SqlCommand(strSqlQueryForIllnessAttachments, connRNDB);
+            cmdQueryForIllnessAttachments.CommandType = CommandType.Text;
+
+            cmdQueryForIllnessAttachments.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+
+            if (connRNDB.State != ConnectionState.Closed)
+            {
+                connRNDB.Close();
+                connRNDB.Open();
+            }
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            SqlDataReader rdrIllnessAttachments = cmdQueryForIllnessAttachments.ExecuteReader();
+            if (rdrIllnessAttachments.HasRows)
+            {
+                while (rdrIllnessAttachments.Read())
+                {
+                    DataGridViewRow row = new DataGridViewRow();
+
+                    row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+                    row.Cells[0].ReadOnly = false;
+                    if (!rdrIllnessAttachments.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetString(0) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    row.Cells[1].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                    row.Cells[2].ReadOnly = true;
+                    if (!rdrIllnessAttachments.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetString(1) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    row.Cells[3].ReadOnly = true;
+                    row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+                    if (!rdrIllnessAttachments.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetString(2) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    row.Cells[5].ReadOnly = true;                    
+                    if (!rdrIllnessAttachments.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetDateTime(3).ToString("MM/dd/yyyy HH:mm:ss") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    row.Cells[6].ReadOnly = true;
+
+                    gvIllnessAttachment.Rows.Add(row);
+                }
+            }
+            rdrIllnessAttachments.Close();
+            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+            
 
 
             //String strSqlQueryForIllness = "select [dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].["
@@ -931,6 +989,79 @@ namespace CMMManager
 
                 if (nRowInserted == 1)
                 {
+                    if (gvIllnessAttachment.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < gvIllnessAttachment.Rows.Count; i++)
+                        {
+                            String AttachmentNo = gvIllnessAttachment["IllnessAttachmentNo", i].Value?.ToString();
+
+                            if (AttachmentNo != null && AttachmentNo != String.Empty)
+                            {
+                                String strSqlQueryForAttachmentNo = "select [dbo].[tbl_IllnessAttachments].[AttachmentNo] from [dbo].[tbl_IllnessAttachments] " +
+                                                                    "where [dbo].[tbl_IllnessAttachments].[IllnessNo] = @IllnessNo and " +
+                                                                    "[dbo].[tbl_IllnessAttachments].[AttachmentNo] = @AttachmentNo";
+
+                                SqlCommand cmdQueryForAttachmentNo = new SqlCommand(strSqlQueryForAttachmentNo, connRNDB);
+                                cmdQueryForAttachmentNo.CommandType = CommandType.Text;
+
+                                cmdQueryForAttachmentNo.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                                cmdQueryForAttachmentNo.Parameters.AddWithValue("@AttachmentNo", AttachmentNo);
+
+                                if (connRNDB.State != ConnectionState.Closed)
+                                {
+                                    connRNDB.Close();
+                                    connRNDB.Open();
+                                }
+                                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                                Object objAttachmentNo = cmdQueryForAttachmentNo.ExecuteScalar();
+                                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();  
+                                
+                                if (objAttachmentNo == null)
+                                {
+                                    String strAttachmentFileName = gvIllnessAttachment["IllnessAttachmentFileName", i].Value?.ToString();
+
+                                    if (strAttachmentFileName == null || strAttachmentFileName == String.Empty)
+                                    {
+                                        MessageBox.Show("The destination file name is empty.", "Error");
+                                        return;
+                                    }
+
+                                    String strSqlInsertNewIllnessAttachment = "insert into [dbo].[tbl_IllnessAttachments] " +
+                                                                              "([dbo].[tbl_IllnessAttachments].[IllnessNo], [dbo].[tbl_IllnessAttachments].[AttachmentNo], " +
+                                                                              "[dbo].[tbl_IllnessAttachments].[AttachmentDestinationPathName], " +
+                                                                              "[dbo].[tbl_IllnessAttachments].[CreatedBy], [dbo].[tbl_IllnessAttachments].[CreateDate]) " +
+                                                                              "values (@IllnessNo, @AttachmentNo, @AttachmentDestinationPathName," +
+                                                                              "@CreatedBy, @CreateDate)";
+
+                                    SqlCommand cmdInsertNewIllnessAttachment = new SqlCommand(strSqlInsertNewIllnessAttachment, connRNDB);
+                                    cmdInsertNewIllnessAttachment.CommandType = CommandType.Text;
+
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@AttachmentNo", AttachmentNo);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@AttachmentDestinationPathName", strAttachmentFileName);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                                    if (connRNDB.State != ConnectionState.Closed)
+                                    {
+                                        connRNDB.Close();
+                                        connRNDB.Open();
+                                    }
+                                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                                    int nIllnessAttachmentInserted = cmdInsertNewIllnessAttachment.ExecuteNonQuery();
+                                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                                    if (nIllnessAttachmentInserted == 0)
+                                    {
+                                        MessageBox.Show("The attachment has not been attached to the Illness.", "Error");
+                                        return;
+                                    }                                                                                                           
+                                }
+                            }
+                        }
+                    }
+
+
                     MessageBox.Show("New Illness has been created.", "Information");
                     DialogResult = DialogResult.OK;
                     return;
@@ -1003,6 +1134,78 @@ namespace CMMManager
 
                 if (nUpdated == 1)
                 {
+                    if (gvIllnessAttachment.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < gvIllnessAttachment.Rows.Count; i++)
+                        {
+                            String AttachmentNo = gvIllnessAttachment["IllnessAttachmentNo", i].Value?.ToString();
+
+                            if (AttachmentNo != null && AttachmentNo != String.Empty)
+                            {
+                                String strSqlQueryForAttachmentNo = "select [dbo].[tbl_IllnessAttachments].[AttachmentNo] from [dbo].[tbl_IllnessAttachments] " +
+                                                                    "where [dbo].[tbl_IllnessAttachments].[IllnessNo] = @IllnessNo and " +
+                                                                    "[dbo].[tbl_IllnessAttachments].[AttachmentNo] = @AttachmentNo";
+
+                                SqlCommand cmdQueryForAttachmentNo = new SqlCommand(strSqlQueryForAttachmentNo, connRNDB);
+                                cmdQueryForAttachmentNo.CommandType = CommandType.Text;
+
+                                cmdQueryForAttachmentNo.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                                cmdQueryForAttachmentNo.Parameters.AddWithValue("@AttachmentNo", AttachmentNo);
+
+                                if (connRNDB.State != ConnectionState.Closed)
+                                {
+                                    connRNDB.Close();
+                                    connRNDB.Open();
+                                }
+                                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                                Object objAttachmentNo = cmdQueryForAttachmentNo.ExecuteScalar();
+                                if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                                if (objAttachmentNo == null)
+                                {
+                                    String strAttachmentFileName = gvIllnessAttachment["IllnessAttachmentFileName", i].Value?.ToString();
+
+                                    if (strAttachmentFileName == null || strAttachmentFileName == String.Empty)
+                                    {
+                                        MessageBox.Show("The destination file name is empty.", "Error");
+                                        return;
+                                    }
+
+                                    String strSqlInsertNewIllnessAttachment = "insert into [dbo].[tbl_IllnessAttachments] " +
+                                                                              "([dbo].[tbl_IllnessAttachments].[IllnessNo], [dbo].[tbl_IllnessAttachments].[AttachmentNo], " +
+                                                                              "[dbo].[tbl_IllnessAttachments].[AttachmentDestinationPathName], " +
+                                                                              "[dbo].[tbl_IllnessAttachments].[CreatedBy], [dbo].[tbl_IllnessAttachments].[CreateDate]) " +
+                                                                              "values (@IllnessNo, @AttachmentNo, @AttachmentDestinationPathName," +
+                                                                              "@CreatedBy, @CreateDate)";
+
+                                    SqlCommand cmdInsertNewIllnessAttachment = new SqlCommand(strSqlInsertNewIllnessAttachment, connRNDB);
+                                    cmdInsertNewIllnessAttachment.CommandType = CommandType.Text;
+
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@AttachmentNo", AttachmentNo);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@AttachmentDestinationPathName", strAttachmentFileName);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@CreatedBy", nLoggedInUserId);
+                                    cmdInsertNewIllnessAttachment.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                                    if (connRNDB.State != ConnectionState.Closed)
+                                    {
+                                        connRNDB.Close();
+                                        connRNDB.Open();
+                                    }
+                                    else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                                    int nIllnessAttachmentInserted = cmdInsertNewIllnessAttachment.ExecuteNonQuery();
+                                    if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                                    if (nIllnessAttachmentInserted == 0)
+                                    {
+                                        MessageBox.Show("The attachment has not been attached to the Illness.", "Error");
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     MessageBox.Show("The Illness has been updated.", "Information");
                     DialogResult = DialogResult.OK;
                     return;
@@ -1416,6 +1619,276 @@ namespace CMMManager
             {
                 dtpDateOfDiagnosis.Format = DateTimePickerFormat.Custom;
                 dtpDateOfDiagnosis.CustomFormat = " ";
+            }
+        }
+
+        private void btnAddAttachment_Click(object sender, EventArgs e)
+        {
+            String strNewIllnessAttachmentNo = null;
+
+            if (connRNDB.State != ConnectionState.Closed)
+            {
+                connRNDB.Close();
+                connRNDB.Open();
+            }
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+
+            SqlCommand cmdIllnessAttachmentNo = connRNDB.CreateCommand();
+            SqlTransaction transIllnessAttachmentNo = connRNDB.BeginTransaction(IsolationLevel.Serializable);
+
+            cmdIllnessAttachmentNo.Connection = connRNDB;
+            cmdIllnessAttachmentNo.Transaction = transIllnessAttachmentNo;
+
+            try
+            {
+                String strSqlQueryForLastIllnessAttachmentNo = "select [dbo].[tbl_LastID].[IllnessAttachmentNo] from [dbo].[tbl_LastID] where [dbo].[tbl_LastID].[Id] = 1";
+
+                cmdIllnessAttachmentNo.CommandText = strSqlQueryForLastIllnessAttachmentNo;
+                cmdIllnessAttachmentNo.CommandType = CommandType.Text;
+
+                Object objLastIllnessAttachmentNo = cmdIllnessAttachmentNo.ExecuteScalar();
+
+                int? nNewIllnessAttachmentNo = null;
+                String strLastIllnessAttachmentNo = objLastIllnessAttachmentNo?.ToString();
+
+                if (strLastIllnessAttachmentNo == null || strLastIllnessAttachmentNo == String.Empty)
+                {
+                    strNewIllnessAttachmentNo = "IllAtt-1";
+                }
+                else
+                {
+                    nNewIllnessAttachmentNo = Int32.Parse(strLastIllnessAttachmentNo.Substring(7));
+                    nNewIllnessAttachmentNo++;
+                    strNewIllnessAttachmentNo = "IllAtt-" + nNewIllnessAttachmentNo.Value.ToString();
+                }
+
+                String strSqlUpdateLastIllnessAttachmentNo = "update [dbo].[tbl_LastID] set [dbo].[tbl_LastID].[IllnessAttachmentNo] = @NewAttachmentNo " +
+                                                             "where [dbo].[tbl_LastID].[Id] = 1";
+
+                cmdIllnessAttachmentNo.CommandText = strSqlUpdateLastIllnessAttachmentNo;
+                cmdIllnessAttachmentNo.CommandType = CommandType.Text;
+
+                cmdIllnessAttachmentNo.Parameters.AddWithValue("@NewAttachmentNo", strNewIllnessAttachmentNo);
+
+                int nIllnessAttachmentNoUpdated = cmdIllnessAttachmentNo.ExecuteNonQuery();
+                transIllnessAttachmentNo.Commit();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    transIllnessAttachmentNo.Rollback();
+                    MessageBox.Show(ex.Message, "Error");
+                    return;
+                }
+                catch (SqlException se)
+                {
+                    MessageBox.Show(se.Message, "Sql Error");
+                    return;
+                }
+            }
+            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+            String strSqlQueryForLoggedInUserName = "select [dbo].[tbl_user].[User_Name] from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Id] = @LoggedInUserId";
+
+            SqlCommand cmdQueryForLoggedInUserName = new SqlCommand(strSqlQueryForLoggedInUserName, connRNDB);
+            cmdQueryForLoggedInUserName.CommandType = CommandType.Text;
+
+            cmdQueryForLoggedInUserName.Parameters.AddWithValue("@LoggedInUserId", nLoggedInUserId);
+
+            if (connRNDB.State != ConnectionState.Closed)
+            {
+                connRNDB.Close();
+                connRNDB.Open();
+            }
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            Object objLoggedInUserName = cmdQueryForLoggedInUserName.ExecuteScalar();
+            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+            DataGridViewRow row = new DataGridViewRow();
+
+            row.Cells.Add(new DataGridViewCheckBoxCell { Value = false });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = strNewIllnessAttachmentNo });
+            row.Cells[1].ReadOnly = true;
+            row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+            row.Cells[3].ReadOnly = true;
+            row.Cells.Add(new DataGridViewButtonCell { Value = "View" });
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = objLoggedInUserName?.ToString() });
+            row.Cells[5].ReadOnly = true;
+            row.Cells.Add(new DataGridViewTextBoxCell { Value = DateTime.Today.ToString("MM/dd/yyyy") });
+            row.Cells[6].ReadOnly = true;
+
+            gvIllnessAttachment.Rows.Add(row);           
+        
+        }
+
+        private void gvIllnessAttachment_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            String IllnessAttachmentNo = String.Empty;
+
+            if (gvIllnessAttachment["IllnessAttachmentNo", e.RowIndex].Value?.ToString() != String.Empty)
+            {
+                IllnessAttachmentNo = gvIllnessAttachment["IllnessAttachmentNo", e.RowIndex].Value?.ToString();
+            }
+
+            String strSqlQueryForIllnessAttachmentNo = "select [dbo].[tbl_IllnessAttachments].[AttachmentNo] from [dbo].[tbl_IllnessAttachments] " +
+                                                       "where [dbo].[tbl_IllnessAttachments].[AttachmentNo] = @AttachmentNo";
+
+            SqlCommand cmdQueryForIllnessAttachmentNo = new SqlCommand(strSqlQueryForIllnessAttachmentNo, connRNDB);
+            cmdQueryForIllnessAttachmentNo.CommandType = CommandType.Text;
+
+            cmdQueryForIllnessAttachmentNo.Parameters.AddWithValue("@AttachmentNo", IllnessAttachmentNo);
+
+            if (connRNDB.State != ConnectionState.Closed)
+            {
+                connRNDB.Close();
+                connRNDB.Open();
+            }
+            else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+            Object objIllessAttachmentNo = cmdQueryForIllnessAttachmentNo.ExecuteScalar();
+            if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+            String AttachmentNo = String.Empty;
+
+            if (objIllessAttachmentNo != null) AttachmentNo = objIllessAttachmentNo.ToString();
+
+            if (AttachmentNo != String.Empty && e.ColumnIndex == 2)
+            {
+                MessageBox.Show("The attachment is read only.", "Alert");
+                return;
+            }
+
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 2)
+                {
+                    OpenFileDialog dlgUpload = new OpenFileDialog();
+
+                    if (dlgUpload.ShowDialog() == DialogResult.OK)
+                    {
+                        String strIndividualId = txtIndividualNo.Text.Trim();
+                        String strIllnessNo = txtIllnessNo.Text.Trim();
+
+                        String strAttachmentFileName = strIndividualId + "_" +
+                                                       strIllnessNo + "_" +
+                                                       DateTime.Now.ToString("MM-dd-yyyy-HH-mm-ss") + "_" +
+                                                       Path.GetFileName(dlgUpload.FileName);
+
+                        String IllnessAttachmentDestinationFileName = IllnessAttachmentDestinationPath + strAttachmentFileName;
+
+                        try
+                        {
+                            File.Copy(dlgUpload.FileName, IllnessAttachmentDestinationFileName, false);
+                            gvIllnessAttachment["IllnessAttachmentFileName", e.RowIndex].Value = strAttachmentFileName;
+                            gvIllnessAttachment["IllnessAttachmentFileName", e.RowIndex].ReadOnly = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error");
+                            return;
+                        }                      
+                    }
+                }
+                if (e.ColumnIndex == 4)
+                {
+                    String IllnessAttachmentFileName = String.Empty;
+                    IllnessAttachmentFileName = gvIllnessAttachment["IllnessAttachmentFileName", e.RowIndex].Value?.ToString();
+
+                    if (IllnessAttachmentFileName != String.Empty)
+                    {
+                        ProcessStartInfo info = new ProcessStartInfo();
+                        info.FileName = IllnessAttachmentDestinationPath + IllnessAttachmentFileName;
+
+                        Process.Start(info);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The destination path is empty.", "Error");
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void btnDeleteAttachment_Click(object sender, EventArgs e)
+        {
+            Boolean bAttachmentSelected = false;
+            for (int i = 0; i < gvIllnessAttachment.Rows.Count; i++)
+            {
+                String strAttachmentSelected = gvIllnessAttachment["SelectedIllnessAttachment", i].Value?.ToString();
+
+                if (strAttachmentSelected != null)
+                {
+                    Boolean bResultAttachmentSelected = false;
+
+                    if (Boolean.TryParse(strAttachmentSelected, out bResultAttachmentSelected)) bAttachmentSelected = bResultAttachmentSelected;                   
+                }
+            }
+
+            if (!bAttachmentSelected)
+            {
+                MessageBox.Show("No attachment is selected.", "Alert");
+                return;
+            }
+
+            Boolean bAttachmentDeleted = true;
+
+            for (int i = 0; i < gvIllnessAttachment.Rows.Count; i++)
+            {
+                Boolean bSelected = false;
+
+                String strSelected = gvIllnessAttachment["SelectedIllnessAttachment", i].Value?.ToString();
+
+                if (strSelected != null)
+                {
+                    Boolean bResult = false;
+                    if (Boolean.TryParse(strSelected, out bResult)) bSelected = bResult;
+
+                    if (bSelected)
+                    {
+                        String strSelectedAttachmentNo = gvIllnessAttachment["IllnessAttachmentNo", i].Value?.ToString();
+
+                        String strSqlDeleteIllnessAttachment = "update [dbo].[tbl_IllnessAttachments] set [dbo].[tbl_IllnessAttachments].[IsDeleted] = 1 " +
+                                                               "where [dbo].[tbl_IllnessAttachments].[IllnessNo] = @IllnessNo and " +
+                                                               "[dbo].[tbl_IllnessAttachments].[AttachmentNo] = @AttachmentNo";
+
+                        SqlCommand cmdDeleteIllnessAttachment = new SqlCommand(strSqlDeleteIllnessAttachment, connRNDB);
+                        cmdDeleteIllnessAttachment.CommandType = CommandType.Text;
+
+                        cmdDeleteIllnessAttachment.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                        cmdDeleteIllnessAttachment.Parameters.AddWithValue("@AttachmentNo", strSelectedAttachmentNo);
+
+                        if (connRNDB.State != ConnectionState.Closed)
+                        {
+                            connRNDB.Close();
+                            connRNDB.Open();
+                        }
+                        else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                        int nAttachmentNoDeleted = cmdDeleteIllnessAttachment.ExecuteNonQuery();
+                        if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+
+                        if (nAttachmentNoDeleted == 1)
+                        {
+                            gvIllnessAttachment.Rows.RemoveAt(i);
+                            i--;
+                        }
+                        else if (nAttachmentNoDeleted != 1) bAttachmentDeleted = false;
+                    }
+                }
+            }
+
+            if (bAttachmentDeleted)
+            {
+                MessageBox.Show("The attachment is deleted.", "Info");
+                return;                   
+            }
+            else
+            {
+                MessageBox.Show("At least one of attachment was not deleted.", "Error");
+                return;
             }
         }
     }

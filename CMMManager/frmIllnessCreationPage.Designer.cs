@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.grpIllnessNote = new System.Windows.Forms.GroupBox();
             this.txtConclusion = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -57,20 +56,23 @@
             this.rbIneligible = new System.Windows.Forms.RadioButton();
             this.label13 = new System.Windows.Forms.Label();
             this.txtYearlyLimitBalance = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.gvRelatedIncidentInfo = new System.Windows.Forms.DataGridView();
-            this.IncidentNoRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentProgramRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OccurrenceDateRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalSharedAmountRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoteRelatedIncidents = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label14 = new System.Windows.Forms.Label();
             this.comboIllnessProgram = new System.Windows.Forms.ComboBox();
             this.comboCaseNoIllness = new System.Windows.Forms.ComboBox();
+            this.grpAttachment = new System.Windows.Forms.GroupBox();
+            this.btnDeleteAttachment = new System.Windows.Forms.Button();
+            this.btnAddAttachment = new System.Windows.Forms.Button();
+            this.gvIllnessAttachment = new System.Windows.Forms.DataGridView();
+            this.SelectedIllnessAttachment = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.IllnessAttachmentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UploadIllnessAttachment = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.IllnessAttachmentFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessAttachmentView = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.CreatedByIllnessAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateIllnessAttachment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpIllnessNote.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRelatedIncidentInfo)).BeginInit();
+            this.grpAttachment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessAttachment)).BeginInit();
             this.SuspendLayout();
             // 
             // grpIllnessNote
@@ -352,79 +354,6 @@
             this.txtYearlyLimitBalance.Size = new System.Drawing.Size(137, 22);
             this.txtYearlyLimitBalance.TabIndex = 42;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.gvRelatedIncidentInfo);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(32, 543);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(761, 157);
-            this.groupBox1.TabIndex = 45;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Related Incidents";
-            // 
-            // gvRelatedIncidentInfo
-            // 
-            this.gvRelatedIncidentInfo.AllowUserToAddRows = false;
-            this.gvRelatedIncidentInfo.AllowUserToDeleteRows = false;
-            this.gvRelatedIncidentInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRelatedIncidentInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IncidentNoRelatedIncidents,
-            this.IncidentProgramRelatedIncidents,
-            this.TypeRelatedIncidents,
-            this.OccurrenceDateRelatedIncidents,
-            this.TotalSharedAmountRelatedIncidents,
-            this.IncidentNoteRelatedIncidents});
-            this.gvRelatedIncidentInfo.Location = new System.Drawing.Point(24, 27);
-            this.gvRelatedIncidentInfo.Name = "gvRelatedIncidentInfo";
-            this.gvRelatedIncidentInfo.ReadOnly = true;
-            this.gvRelatedIncidentInfo.Size = new System.Drawing.Size(718, 110);
-            this.gvRelatedIncidentInfo.TabIndex = 0;
-            // 
-            // IncidentNoRelatedIncidents
-            // 
-            this.IncidentNoRelatedIncidents.HeaderText = "Incident No";
-            this.IncidentNoRelatedIncidents.Name = "IncidentNoRelatedIncidents";
-            this.IncidentNoRelatedIncidents.ReadOnly = true;
-            this.IncidentNoRelatedIncidents.Width = 120;
-            // 
-            // IncidentProgramRelatedIncidents
-            // 
-            this.IncidentProgramRelatedIncidents.HeaderText = "Program";
-            this.IncidentProgramRelatedIncidents.Name = "IncidentProgramRelatedIncidents";
-            this.IncidentProgramRelatedIncidents.ReadOnly = true;
-            this.IncidentProgramRelatedIncidents.Width = 80;
-            // 
-            // TypeRelatedIncidents
-            // 
-            this.TypeRelatedIncidents.HeaderText = "Type";
-            this.TypeRelatedIncidents.Name = "TypeRelatedIncidents";
-            this.TypeRelatedIncidents.ReadOnly = true;
-            this.TypeRelatedIncidents.Width = 80;
-            // 
-            // OccurrenceDateRelatedIncidents
-            // 
-            this.OccurrenceDateRelatedIncidents.HeaderText = "Occurrence Date";
-            this.OccurrenceDateRelatedIncidents.Name = "OccurrenceDateRelatedIncidents";
-            this.OccurrenceDateRelatedIncidents.ReadOnly = true;
-            this.OccurrenceDateRelatedIncidents.Width = 140;
-            // 
-            // TotalSharedAmountRelatedIncidents
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.TotalSharedAmountRelatedIncidents.DefaultCellStyle = dataGridViewCellStyle1;
-            this.TotalSharedAmountRelatedIncidents.HeaderText = "Total Shared Amount";
-            this.TotalSharedAmountRelatedIncidents.Name = "TotalSharedAmountRelatedIncidents";
-            this.TotalSharedAmountRelatedIncidents.ReadOnly = true;
-            this.TotalSharedAmountRelatedIncidents.Width = 160;
-            // 
-            // IncidentNoteRelatedIncidents
-            // 
-            this.IncidentNoteRelatedIncidents.HeaderText = "Note";
-            this.IncidentNoteRelatedIncidents.Name = "IncidentNoteRelatedIncidents";
-            this.IncidentNoteRelatedIncidents.ReadOnly = true;
-            this.IncidentNoteRelatedIncidents.Width = 180;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -451,16 +380,106 @@
             this.comboCaseNoIllness.Size = new System.Drawing.Size(137, 21);
             this.comboCaseNoIllness.TabIndex = 48;
             // 
+            // grpAttachment
+            // 
+            this.grpAttachment.Controls.Add(this.btnDeleteAttachment);
+            this.grpAttachment.Controls.Add(this.btnAddAttachment);
+            this.grpAttachment.Controls.Add(this.gvIllnessAttachment);
+            this.grpAttachment.Location = new System.Drawing.Point(32, 531);
+            this.grpAttachment.Name = "grpAttachment";
+            this.grpAttachment.Size = new System.Drawing.Size(761, 166);
+            this.grpAttachment.TabIndex = 49;
+            this.grpAttachment.TabStop = false;
+            this.grpAttachment.Text = "Attachments";
+            // 
+            // btnDeleteAttachment
+            // 
+            this.btnDeleteAttachment.Location = new System.Drawing.Point(161, 20);
+            this.btnDeleteAttachment.Name = "btnDeleteAttachment";
+            this.btnDeleteAttachment.Size = new System.Drawing.Size(112, 23);
+            this.btnDeleteAttachment.TabIndex = 2;
+            this.btnDeleteAttachment.Text = "Delete";
+            this.btnDeleteAttachment.UseVisualStyleBackColor = true;
+            this.btnDeleteAttachment.Click += new System.EventHandler(this.btnDeleteAttachment_Click);
+            // 
+            // btnAddAttachment
+            // 
+            this.btnAddAttachment.Location = new System.Drawing.Point(24, 20);
+            this.btnAddAttachment.Name = "btnAddAttachment";
+            this.btnAddAttachment.Size = new System.Drawing.Size(112, 23);
+            this.btnAddAttachment.TabIndex = 1;
+            this.btnAddAttachment.Text = "Add";
+            this.btnAddAttachment.UseVisualStyleBackColor = true;
+            this.btnAddAttachment.Click += new System.EventHandler(this.btnAddAttachment_Click);
+            // 
+            // gvIllnessAttachment
+            // 
+            this.gvIllnessAttachment.AllowUserToAddRows = false;
+            this.gvIllnessAttachment.AllowUserToDeleteRows = false;
+            this.gvIllnessAttachment.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvIllnessAttachment.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SelectedIllnessAttachment,
+            this.IllnessAttachmentNo,
+            this.UploadIllnessAttachment,
+            this.IllnessAttachmentFileName,
+            this.IllnessAttachmentView,
+            this.CreatedByIllnessAttachment,
+            this.CreateDateIllnessAttachment});
+            this.gvIllnessAttachment.Location = new System.Drawing.Point(24, 51);
+            this.gvIllnessAttachment.Name = "gvIllnessAttachment";
+            this.gvIllnessAttachment.Size = new System.Drawing.Size(718, 99);
+            this.gvIllnessAttachment.TabIndex = 0;
+            this.gvIllnessAttachment.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllnessAttachment_CellClick);
+            // 
+            // SelectedIllnessAttachment
+            // 
+            this.SelectedIllnessAttachment.HeaderText = "";
+            this.SelectedIllnessAttachment.Name = "SelectedIllnessAttachment";
+            this.SelectedIllnessAttachment.Width = 40;
+            // 
+            // IllnessAttachmentNo
+            // 
+            this.IllnessAttachmentNo.HeaderText = "Att No";
+            this.IllnessAttachmentNo.Name = "IllnessAttachmentNo";
+            // 
+            // UploadIllnessAttachment
+            // 
+            this.UploadIllnessAttachment.HeaderText = "Upload";
+            this.UploadIllnessAttachment.Name = "UploadIllnessAttachment";
+            this.UploadIllnessAttachment.Width = 80;
+            // 
+            // IllnessAttachmentFileName
+            // 
+            this.IllnessAttachmentFileName.HeaderText = "Path Name";
+            this.IllnessAttachmentFileName.Name = "IllnessAttachmentFileName";
+            this.IllnessAttachmentFileName.Width = 160;
+            // 
+            // IllnessAttachmentView
+            // 
+            this.IllnessAttachmentView.HeaderText = "View";
+            this.IllnessAttachmentView.Name = "IllnessAttachmentView";
+            this.IllnessAttachmentView.Width = 80;
+            // 
+            // CreatedByIllnessAttachment
+            // 
+            this.CreatedByIllnessAttachment.HeaderText = "Created By";
+            this.CreatedByIllnessAttachment.Name = "CreatedByIllnessAttachment";
+            // 
+            // CreateDateIllnessAttachment
+            // 
+            this.CreateDateIllnessAttachment.HeaderText = "Create Date";
+            this.CreateDateIllnessAttachment.Name = "CreateDateIllnessAttachment";
+            // 
             // frmIllnessCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(817, 765);
             this.ControlBox = false;
+            this.Controls.Add(this.grpAttachment);
             this.Controls.Add(this.comboCaseNoIllness);
             this.Controls.Add(this.comboIllnessProgram);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtYearlyLimitBalance);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.rbIneligible);
@@ -491,8 +510,8 @@
             this.Load += new System.EventHandler(this.frmIllnessCreationPage_Load);
             this.grpIllnessNote.ResumeLayout(false);
             this.grpIllnessNote.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gvRelatedIncidentInfo)).EndInit();
+            this.grpAttachment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gvIllnessAttachment)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -530,16 +549,19 @@
         private System.Windows.Forms.RadioButton rbIneligible;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtYearlyLimitBalance;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboIllnessProgram;
-        private System.Windows.Forms.DataGridView gvRelatedIncidentInfo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoRelatedIncidents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentProgramRelatedIncidents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRelatedIncidents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn OccurrenceDateRelatedIncidents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalSharedAmountRelatedIncidents;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoteRelatedIncidents;
         private System.Windows.Forms.ComboBox comboCaseNoIllness;
+        private System.Windows.Forms.GroupBox grpAttachment;
+        private System.Windows.Forms.Button btnDeleteAttachment;
+        private System.Windows.Forms.Button btnAddAttachment;
+        private System.Windows.Forms.DataGridView gvIllnessAttachment;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedIllnessAttachment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessAttachmentNo;
+        private System.Windows.Forms.DataGridViewButtonColumn UploadIllnessAttachment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessAttachmentFileName;
+        private System.Windows.Forms.DataGridViewButtonColumn IllnessAttachmentView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIllnessAttachment;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateIllnessAttachment;
     }
 }
