@@ -12280,11 +12280,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1578, 33);
+            this.label143.Location = new System.Drawing.Point(1634, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(285, 13);
+            this.label143.Size = new System.Drawing.Size(229, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "New Medical Bill Types and New Field Added - 01-25-2021";
+            this.label143.Text = "Email Cc and MedBillsInCase Sort - 03-02-2021";
             // 
             // frmCMMManager
             // 
