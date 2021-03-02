@@ -4246,6 +4246,7 @@
             this.comboBeneficiary.Name = "comboBeneficiary";
             this.comboBeneficiary.Size = new System.Drawing.Size(146, 21);
             this.comboBeneficiary.TabIndex = 260;
+            this.comboBeneficiary.SelectedIndexChanged += new System.EventHandler(this.comboBeneficiary_SelectedIndexChanged);
             // 
             // comboVoidCheck
             // 
