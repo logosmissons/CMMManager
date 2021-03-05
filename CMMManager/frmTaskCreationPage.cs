@@ -2023,7 +2023,7 @@ namespace CMMManager
                             switch (staffInfo.departmentInfo.DepartmentId)
                             {
                                 case Department.MemberService:
-                                    if (!bTaskSentToMSManager && staffInfo.UserRoleId != UserRole.MSManager)
+                                    if (!bTaskSentToMSManagerOfMSSender && staffInfo.UserRoleId != UserRole.MSManager)
                                     {
                                         nDepartmentManagerId = 18;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -2031,7 +2031,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.NeedsProcessing:
-                                    if (!bTaskSentToNPManager && staffInfo.UserRoleId != UserRole.NPManager)
+                                    if (!bTaskSentToNPManagerOfNPSender && staffInfo.UserRoleId != UserRole.NPManager)
                                     {
                                         nDepartmentManagerId = 9;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -2039,7 +2039,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.Finance:
-                                    if (!bTaskSentToFDManager && staffInfo.UserRoleId != UserRole.FDManager)
+                                    if (!bTaskSentToFDManagerOfFDSender && staffInfo.UserRoleId != UserRole.FDManager)
                                     {
                                         nDepartmentManagerId = 3;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
@@ -2047,7 +2047,7 @@ namespace CMMManager
                                     }
                                     break;
                                 case Department.ReviewAndNegotiation:
-                                    if (!bTaskSentToRNManager && staffInfo.UserRoleId != UserRole.RNManager)
+                                    if (!bTaskSentToRNManagerOfRNSender && staffInfo.UserRoleId != UserRole.RNManager)
                                     {
                                         nDepartmentManagerId = 13;
                                         AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
