@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTaskInfo = new System.Windows.Forms.GroupBox();
+            this.txtTaskSolution = new System.Windows.Forms.TextBox();
+            this.txtTaskComments = new System.Windows.Forms.TextBox();
             this.btnAssignedTo = new System.Windows.Forms.Button();
             this.txtTaskCreator = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -66,8 +68,6 @@
             this.btnReplyTask = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtTaskComments = new System.Windows.Forms.TextBox();
-            this.txtTaskSolution = new System.Windows.Forms.TextBox();
             this.grpTaskInfo.SuspendLayout();
             this.AdditionalInfo.SuspendLayout();
             this.SuspendLayout();
@@ -110,6 +110,26 @@
             this.grpTaskInfo.TabIndex = 1;
             this.grpTaskInfo.TabStop = false;
             this.grpTaskInfo.Text = "Task Information";
+            // 
+            // txtTaskSolution
+            // 
+            this.txtTaskSolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskSolution.Location = new System.Drawing.Point(627, 186);
+            this.txtTaskSolution.Multiline = true;
+            this.txtTaskSolution.Name = "txtTaskSolution";
+            this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTaskSolution.Size = new System.Drawing.Size(389, 167);
+            this.txtTaskSolution.TabIndex = 26;
+            // 
+            // txtTaskComments
+            // 
+            this.txtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskComments.Location = new System.Drawing.Point(140, 186);
+            this.txtTaskComments.Multiline = true;
+            this.txtTaskComments.Name = "txtTaskComments";
+            this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtTaskComments.Size = new System.Drawing.Size(400, 167);
+            this.txtTaskComments.TabIndex = 25;
             // 
             // btnAssignedTo
             // 
@@ -156,6 +176,7 @@
             this.txtIndividualId.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIndividualId.Location = new System.Drawing.Point(882, 96);
             this.txtIndividualId.Name = "txtIndividualId";
+            this.txtIndividualId.ReadOnly = true;
             this.txtIndividualId.Size = new System.Drawing.Size(134, 20);
             this.txtIndividualId.TabIndex = 20;
             // 
@@ -189,6 +210,7 @@
             // 
             // comboTaskRelatedTo
             // 
+            this.comboTaskRelatedTo.Enabled = false;
             this.comboTaskRelatedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboTaskRelatedTo.FormattingEnabled = true;
             this.comboTaskRelatedTo.Location = new System.Drawing.Point(627, 66);
@@ -240,6 +262,7 @@
             this.txtTaskRelatedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTaskRelatedTo.Location = new System.Drawing.Point(825, 66);
             this.txtTaskRelatedTo.Name = "txtTaskRelatedTo";
+            this.txtTaskRelatedTo.ReadOnly = true;
             this.txtTaskRelatedTo.Size = new System.Drawing.Size(191, 20);
             this.txtTaskRelatedTo.TabIndex = 10;
             // 
@@ -258,6 +281,7 @@
             this.txtNameOnTask.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNameOnTask.Location = new System.Drawing.Point(627, 96);
             this.txtNameOnTask.Name = "txtNameOnTask";
+            this.txtNameOnTask.ReadOnly = true;
             this.txtNameOnTask.Size = new System.Drawing.Size(140, 20);
             this.txtNameOnTask.TabIndex = 9;
             // 
@@ -521,26 +545,6 @@
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // txtTaskComments
-            // 
-            this.txtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskComments.Location = new System.Drawing.Point(140, 186);
-            this.txtTaskComments.Multiline = true;
-            this.txtTaskComments.Name = "txtTaskComments";
-            this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskComments.Size = new System.Drawing.Size(400, 167);
-            this.txtTaskComments.TabIndex = 25;
-            // 
-            // txtTaskSolution
-            // 
-            this.txtTaskSolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskSolution.Location = new System.Drawing.Point(627, 186);
-            this.txtTaskSolution.Multiline = true;
-            this.txtTaskSolution.Name = "txtTaskSolution";
-            this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskSolution.Size = new System.Drawing.Size(389, 167);
-            this.txtTaskSolution.TabIndex = 26;
             // 
             // frmTaskCreationPage
             // 

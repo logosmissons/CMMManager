@@ -1338,6 +1338,40 @@ namespace CMMManager
                 InitializeTaskForm();
                 FillTaskFormWithTaskInfo();
 
+                // nTaskId
+
+                String strSqlQueryForTaskAssignedToId = "select [dbo].[tbl_task].[AssignedTo] from [dbo].[tbl_task] where [dbo].[tbl_task].[id] = @TaskId";
+
+                SqlCommand cmdQueryForTaskAssignedToId = new SqlCommand(strSqlQueryForTaskAssignedToId, connRN);
+                cmdQueryForTaskAssignedToId.CommandType = CommandType.Text;
+
+                cmdQueryForTaskAssignedToId.Parameters.AddWithValue("@TaskId", nTaskId.Value);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                Object objTaskAssignedToId = cmdQueryForTaskAssignedToId.ExecuteScalar();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                String TaskAssignedToId = objTaskAssignedToId?.ToString();
+
+                if (TaskAssignedToId == null) return;
+
+                int? nTaskAssignedToId = null;
+                int resultTaskAssignedTo;
+
+                if (Int32.TryParse(TaskAssignedToId, out resultTaskAssignedTo)) nTaskAssignedToId = resultTaskAssignedTo;
+
+                if (nTaskAssignedToId.Value != LoggedInUserInfo.UserId)
+                {
+                    //MakeTaskFormReadonly();
+                }
+                
+
+
                 //String strSqlQueryForTask = "select [dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], [dbo].[tbl_task].[whatid], " +
                 //            "assigned_to.[User_Name], " +
                 //            "[dbo].[tbl_task].[Subject], [dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], " +
@@ -1404,15 +1438,15 @@ namespace CMMManager
                 //    else chkReminder.Checked = false;
                 //    if (!rdrQueryForTask.IsDBNull(19)) dtpReminderDatePicker.Text = rdrQueryForTask.GetDateTime(19).ToString("MM/dd/yyyy");
                 //    else dtpReminderDatePicker.Text = String.Empty;
-                    
+
                 //}
                 //rdrQueryForTask.Close();
                 //if (connRN.State != ConnectionState.Closed) connRN.Close();
 
-                btnSaveTask.Enabled = false;
-                btnReplyTask.Enabled = true;
-                btnForward.Enabled = true;
-                btnSave.Enabled = true;
+                //btnSaveTask.Enabled = false;
+                //btnReplyTask.Enabled = true;
+                //btnForward.Enabled = true;
+                //btnSave.Enabled = true;
             }
             else if (taskMode == TaskMode.Reply)
             {
@@ -1808,7 +1842,7 @@ namespace CMMManager
                     SqlCommand cmdQueryForAssignedToInfo = new SqlCommand(strSqlQueryForAssignedToInfo, connRN);
                     cmdQueryForAssignedToInfo.CommandType = CommandType.Text;
 
-                    cmdQueryForAssignedToInfo.Parameters.AddWithValue("@UserName", name);
+                    cmdQueryForAssignedToInfo.Parameters.AddWithValue("@UserName", name.Trim());
 
                     if (connRN.State != ConnectionState.Closed)
                     {
@@ -2836,7 +2870,8 @@ namespace CMMManager
                 Department? ReplyingDepartment = null;
                 Int32? nReplyReceiverStaffDepartmentManagerId = null;
 
-                switch (taskReplySenderInfo.departmentInfo.DepartmentId)
+                //switch (taskReplySenderInfo.departmentInfo.DepartmentId)
+                switch (taskReplyReceiverInfo.departmentInfo.DepartmentId)
                 {
                     case Department.MemberService:
                         if (!bTaskReplyReceiverMSManagerReceived && 
@@ -2882,7 +2917,8 @@ namespace CMMManager
 
                 Int32? nReplySenderStaffDepartmentManagerId = null;
 
-                switch (taskReplyReceiverInfo.departmentInfo.DepartmentId)
+                //switch (taskReplyReceiverInfo.departmentInfo.DepartmentId)
+                switch (taskReplySenderInfo.departmentInfo.DepartmentId)
                 {
                     case Department.MemberService:
                         if (!bTaskReplySenderMSManagerReceived &&
@@ -2914,7 +2950,7 @@ namespace CMMManager
                         {
                             nReplySenderStaffDepartmentManagerId = 13;
                             AssignTaskToManager(nReplySenderStaffDepartmentManagerId.Value, taskReplySenderInfo, nTaskId.Value);
-                            bTaskReplyReceiverRNManagerReceived = true;
+                            bTaskReplySenderRNManagerReceived = true;
                         }
                         break;
                     case Department.Finance:
@@ -2925,7 +2961,7 @@ namespace CMMManager
                         {
                             nReplySenderStaffDepartmentManagerId = 16;
                             AssignTaskToManager(nReplySenderStaffDepartmentManagerId.Value, taskReplySenderInfo, nTaskId.Value);
-                            bTaskReplyReceiverFDManagerReceived = true;
+                            bTaskReplySenderFDManagerReceived = true;
                         }
                         break;
                 }
@@ -3221,6 +3257,184 @@ namespace CMMManager
 
             if (nTaskForwarded == 1)
             {
+                String taskCreatorName = txtTaskCreator.Text.Trim();
+
+                List<String> lstStaffTaskForwarded = txtTaskNameAssignedTo.Text.Split(';').ToList();
+                lstStaffTaskForwarded.RemoveAt(lstStaffTaskForwarded.Count - 1);
+
+                String taskAssignedToName = lstStaffTaskForwarded[0];
+
+                //List<String> lstNamesAssignedTo = NameAssignedTo.Split(';').ToList();
+                //lstNamesAssignedTo.RemoveAt(lstNamesAssignedTo.Count - 1);      // remove last empty element
+
+                if (taskCreatorName == null || taskCreatorName == String.Empty) return;
+                if (taskAssignedToName == null || taskAssignedToName == String.Empty) return;
+
+                //UserInfo taskForwarderInfo = new UserInfo();
+
+                //String strSqlQueryForTaskForwarderInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                //                                         "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                //                                         "from [dbo].[tbl_user where [dbo].[tbl_user].[User_Name] = @TaskForwarderName";
+
+                //SqlCommand cmdQueryForTaskForwarderInfo = new SqlCommand(strSqlQueryForTaskForwarderInfo, connRN);
+                //cmdQueryForTaskForwarderInfo.CommandType = CommandType.Text;
+
+                //cmdQueryForTaskForwarderInfo.Parameters.AddWithValue("@TaskForwarderName", LoggedInUserInfo.UserName);
+
+                //if (connRN.State != ConnectionState.Closed)
+                //{
+                //    connRN.Close();
+                //    connRN.Open();
+                //}
+                //else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                //SqlDataReader rdrTaskForwarderInfo = cmdQueryForTaskForwarderInfo.ExecuteReader();
+                //if (rdrTaskForwarderInfo.HasRows)
+                //{
+                //    rdrTaskForwarderInfo.Read();
+                //    if (!rdrTaskForwarderInfo.IsDBNull(0)) taskForwarderInfo.UserId = rdrTaskForwarderInfo.GetInt16(0);
+                //    if (!rdrTaskForwarderInfo.IsDBNull(1)) taskForwarderInfo.UserName = rdrTaskForwarderInfo.GetString(1);
+                //    if (!rdrTaskForwarderInfo.IsDBNull(2)) taskForwarderInfo.UserEmail = rdrTaskForwarderInfo.GetString(2);
+                //    if (!rdrTaskForwarderInfo.IsDBNull(3)) taskForwarderInfo.UserRoleId = (UserRole)rdrTaskForwarderInfo.GetInt16(3);
+                //    if (!rdrTaskForwarderInfo.IsDBNull(4)) taskForwarderInfo.departmentInfo.DepartmentId = (Department)rdrTaskForwarderInfo.GetInt16(4);
+                //}
+                //rdrTaskForwarderInfo.Close();
+                //if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+                Boolean bTaskForwardedSenderMSManagerReceived = false;
+                Boolean bTaskForwardedSenderNPManagerReceived = false;
+                Boolean bTaskForwardedSenderRNManagerReceived = false;
+                Boolean bTaskForwardedSenderFDManagerReceived = false;
+
+                Boolean bTaskForwardedReceiverMSManagerReceived = false;
+                Boolean bTaskForwardedReceiverNPManagerReceived = false;
+                Boolean bTaskForwardedReceiverRNManagerReceived = false;
+                Boolean bTaskForwardedReceiverFDManagerReceived = false;
+
+                UserInfo taskForwardReceiverInfo = new UserInfo();
+
+                String strSqlQueryForTaskForwardReceiverInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                                                               "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                                               "from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @TaskForwardReceiverName";
+
+                SqlCommand cmdQueryForTaskForwardReceiverInfo = new SqlCommand(strSqlQueryForTaskForwardReceiverInfo, connRN);
+                cmdQueryForTaskForwardReceiverInfo.CommandType = CommandType.Text;
+
+                cmdQueryForTaskForwardReceiverInfo.Parameters.AddWithValue("@TaskForwardReceiverName", taskAssignedToName);
+
+                if (connRN.State != ConnectionState.Closed)
+                {
+                    connRN.Close();
+                    connRN.Open();
+                }
+                else if (connRN.State == ConnectionState.Closed) connRN.Open();
+                SqlDataReader rdrTaskForwardReceiverInfo = cmdQueryForTaskForwardReceiverInfo.ExecuteReader();
+                if (rdrTaskForwardReceiverInfo.HasRows)
+                {
+                    rdrTaskForwardReceiverInfo.Read();
+                    if (!rdrTaskForwardReceiverInfo.IsDBNull(0)) taskForwardReceiverInfo.UserId = rdrTaskForwardReceiverInfo.GetInt16(0);
+                    if (!rdrTaskForwardReceiverInfo.IsDBNull(1)) taskForwardReceiverInfo.UserName = rdrTaskForwardReceiverInfo.GetString(1);
+                    if (!rdrTaskForwardReceiverInfo.IsDBNull(2)) taskForwardReceiverInfo.UserEmail = rdrTaskForwardReceiverInfo.GetString(2);
+                    if (!rdrTaskForwardReceiverInfo.IsDBNull(3)) taskForwardReceiverInfo.UserRoleId = (UserRole)rdrTaskForwardReceiverInfo.GetInt16(3);
+                    if (!rdrTaskForwardReceiverInfo.IsDBNull(4)) taskForwardReceiverInfo.departmentInfo.DepartmentId = (Department)rdrTaskForwardReceiverInfo.GetInt16(4);
+                }
+                rdrTaskForwardReceiverInfo.Close();
+                if (connRN.State != ConnectionState.Closed) connRN.Close();                      
+
+
+                Int32? nForwardingStaffDepartmentManagerId = null;
+                switch (LoggedInUserInfo.departmentInfo.DepartmentId)
+                {
+                    case Department.MemberService:
+                        if (!bTaskForwardedSenderMSManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.MSManager && 
+                            (UserRole)nReceivingStaffDepartmentId.Value != UserRole.MSManager)
+                        {
+                            nForwardingStaffDepartmentManagerId = 18;
+                            AssignTaskToManager(nForwardingStaffDepartmentManagerId.Value, LoggedInUserInfo, nTaskId.Value);
+                            bTaskForwardedSenderMSManagerReceived = true;
+                        }
+                        break;
+                    case Department.NeedsProcessing:
+                        if (!bTaskForwardedSenderNPManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.NPManager && 
+                            (UserRole)nReceivingStaffDepartmentId.Value != UserRole.NPManager)
+                        {
+                            nForwardingStaffDepartmentManagerId = 9;
+                            AssignTaskToManager(nForwardingStaffDepartmentManagerId.Value, LoggedInUserInfo, nTaskId.Value);
+                            bTaskForwardedSenderNPManagerReceived = true;
+                        }
+                        break;
+                    case Department.ReviewAndNegotiation:
+                        if (!bTaskForwardedSenderRNManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.RNManager && 
+                            (UserRole)nReceivingStaffDepartmentId.Value != UserRole.RNManager)
+                        {
+                            nForwardingStaffDepartmentManagerId = 13;
+                            AssignTaskToManager(nForwardingStaffDepartmentManagerId.Value, LoggedInUserInfo, nTaskId.Value);
+                            bTaskForwardedSenderRNManagerReceived = true;
+                        }
+                        break;
+                    case Department.Finance:
+                        if (!bTaskForwardedSenderFDManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.FDManager && 
+                            (UserRole)nReceivingStaffDepartmentId.Value != UserRole.FDManager)
+                        {
+                            nForwardingStaffDepartmentManagerId = 16;
+                            AssignTaskToManager(nForwardingStaffDepartmentManagerId.Value, LoggedInUserInfo, nTaskId.Value);
+                            bTaskForwardedSenderFDManagerReceived = true;
+                        }
+                        break;
+                }
+
+                Int32? nForwardedTaskReceiverDepartmentManagerId = null;
+                
+                switch (taskForwardReceiverInfo.departmentInfo.DepartmentId)
+                {
+                    case Department.MemberService:
+                        if (!bTaskForwardedReceiverMSManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.MSManager &&
+                            taskForwardReceiverInfo.UserRoleId != UserRole.MSManager &&
+                            LoggedInUserInfo.departmentInfo.DepartmentId != taskForwardReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nForwardedTaskReceiverDepartmentManagerId = 18;
+                            AssignTaskToManager(nForwardedTaskReceiverDepartmentManagerId.Value, taskForwardReceiverInfo, nTaskId.Value);
+                            bTaskForwardedReceiverMSManagerReceived = true;
+                        }
+                        break;
+                    case Department.NeedsProcessing:
+                        if (!bTaskForwardedReceiverNPManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.NPManager &&
+                            taskForwardReceiverInfo.UserRoleId != UserRole.NPManager &&
+                            LoggedInUserInfo.departmentInfo.DepartmentId != taskForwardReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nForwardedTaskReceiverDepartmentManagerId = 9;
+                            AssignTaskToManager(nForwardedTaskReceiverDepartmentManagerId.Value, taskForwardReceiverInfo, nTaskId.Value);
+                            bTaskForwardedReceiverNPManagerReceived = true;
+                        }
+                        break;
+                    case Department.ReviewAndNegotiation:
+                        if (!bTaskForwardedReceiverRNManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.RNManager &&
+                            taskForwardReceiverInfo.UserRoleId != UserRole.RNManager &&
+                            LoggedInUserInfo.departmentInfo.DepartmentId != taskForwardReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nForwardedTaskReceiverDepartmentManagerId = 13;
+                            AssignTaskToManager(nForwardedTaskReceiverDepartmentManagerId.Value, taskForwardReceiverInfo, nTaskId.Value);
+                            bTaskForwardedReceiverRNManagerReceived = true;
+                        }
+                        break;
+                    case Department.Finance:
+                        if (!bTaskForwardedReceiverFDManagerReceived &&
+                            LoggedInUserInfo.UserRoleId != UserRole.FDManager &&
+                            taskForwardReceiverInfo.UserRoleId != UserRole.FDManager &&
+                            LoggedInUserInfo.departmentInfo.DepartmentId != taskForwardReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nForwardedTaskReceiverDepartmentManagerId = 16;
+                            AssignTaskToManager(nForwardedTaskReceiverDepartmentManagerId.Value, taskForwardReceiverInfo, nTaskId.Value);
+                            bTaskForwardedReceiverFDManagerReceived = true;
+                        }
+                        break;
+                }
                 MessageBox.Show("The task has been forwarded successfully.", "info");
             }
             else
@@ -3260,6 +3474,74 @@ namespace CMMManager
                 MessageBox.Show("You cannot change the Assigned Staff in saving the task.", "Alert");
                 return;
             }
+
+            String creator_name = txtTaskCreator.Text.Trim();
+            String assigned_to_name = txtTaskNameAssignedTo.Text.Trim();
+
+            if (creator_name == null || creator_name == String.Empty) return;
+            if (assigned_to_name == null || assigned_to_name == String.Empty) return;
+
+            UserInfo taskCreatorInfo = new UserInfo();
+
+            String strSqlQueryForTaskCreatorInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                                                   "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                                   "from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @TaskCreatorName";
+
+            SqlCommand cmdQueryForTaskCreatorInfo = new SqlCommand(strSqlQueryForTaskCreatorInfo, connRN);
+            cmdQueryForTaskCreatorInfo.CommandType = CommandType.Text;
+
+            cmdQueryForTaskCreatorInfo.Parameters.AddWithValue("@TaskCreatorName", creator_name);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrTaskCreatorInfo = cmdQueryForTaskCreatorInfo.ExecuteReader();
+            if (rdrTaskCreatorInfo.HasRows)
+            {
+                rdrTaskCreatorInfo.Read();
+                if (!rdrTaskCreatorInfo.IsDBNull(0)) taskCreatorInfo.UserId = rdrTaskCreatorInfo.GetInt16(0);
+                if (!rdrTaskCreatorInfo.IsDBNull(1)) taskCreatorInfo.UserName = rdrTaskCreatorInfo.GetString(1);
+                if (!rdrTaskCreatorInfo.IsDBNull(2)) taskCreatorInfo.UserEmail = rdrTaskCreatorInfo.GetString(2);
+                if (!rdrTaskCreatorInfo.IsDBNull(3)) taskCreatorInfo.UserRoleId = (UserRole)rdrTaskCreatorInfo.GetInt16(3);
+                if (!rdrTaskCreatorInfo.IsDBNull(4)) taskCreatorInfo.departmentInfo.DepartmentId = (Department)rdrTaskCreatorInfo.GetInt16(4);
+            }
+            rdrTaskCreatorInfo.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            UserInfo taskReceiverInfo = new UserInfo();
+
+            String strSqlQueryForTaskReceiverInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[User_Name], [dbo].[tbl_user].[User_Email], " +
+                                                    "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Department_Id] " +
+                                                    "from [dbo].[tbl_user] where [dbo].[tbl_user].[User_Name] = @TaskReceiverName";
+
+            SqlCommand cmdQueryForTaskReceiverInfo = new SqlCommand(strSqlQueryForTaskReceiverInfo, connRN);
+            cmdQueryForTaskReceiverInfo.CommandType = CommandType.Text;
+
+            cmdQueryForTaskReceiverInfo.Parameters.AddWithValue("@TaskReceiverName", assigned_to_name);
+
+            if (connRN.State != ConnectionState.Closed)
+            {
+                connRN.Close();
+                connRN.Open();
+            }
+            else if (connRN.State == ConnectionState.Closed) connRN.Open();
+            SqlDataReader rdrTaskReceiverInfo = cmdQueryForTaskReceiverInfo.ExecuteReader();
+            if (rdrTaskReceiverInfo.HasRows)
+            {
+                rdrTaskReceiverInfo.Read();
+                if (!rdrTaskReceiverInfo.IsDBNull(0)) taskReceiverInfo.UserId = rdrTaskReceiverInfo.GetInt16(0);
+                if (!rdrTaskReceiverInfo.IsDBNull(1)) taskReceiverInfo.UserName = rdrTaskReceiverInfo.GetString(1);
+                if (!rdrTaskReceiverInfo.IsDBNull(2)) taskReceiverInfo.UserEmail = rdrTaskReceiverInfo.GetString(2);
+                if (!rdrTaskReceiverInfo.IsDBNull(3)) taskReceiverInfo.UserRoleId = (UserRole)rdrTaskReceiverInfo.GetInt16(3);
+                if (!rdrTaskReceiverInfo.IsDBNull(4)) taskReceiverInfo.departmentInfo.DepartmentId = (Department)rdrTaskReceiverInfo.GetInt16(4);
+            }
+            rdrTaskReceiverInfo.Close();
+            if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            
 
             int? nRelatedToTableNameIndex = null;
             if (comboTaskRelatedTo.SelectedIndex != -1) nRelatedToTableNameIndex = comboTaskRelatedTo.SelectedIndex;
@@ -3319,6 +3601,16 @@ namespace CMMManager
             DateTime? DueDate = dtpTaskDueDate.Value;
             if (DueDate == null) return;
 
+            Boolean bTaskModifiedReceiverMSManagerReceived = false;
+            Boolean bTaskModifiedReceiverNPManagerReceived = false;
+            Boolean bTaskModifiedReceiverRNManagerReceived = false;
+            Boolean bTaskModifiedReceiverFDManagerReceived = false;
+
+            Boolean bTaskModifiedSenderMSManagerReceived = false;
+            Boolean bTaskModifiedSenderNPManagerReceived = false;
+            Boolean bTaskModifiedSenderRNManagerReceived = false;
+            Boolean bTaskModifiedSenderFDManagerReceived = false;
+
             String strSqlUpdateTask = "update [dbo].[tbl_task] " +
                            "set [dbo].[tbl_task].[whoid] = @WhoId, " +
                            "[dbo].[tbl_task].[IndividualName] = @WhoName, " +
@@ -3374,6 +3666,105 @@ namespace CMMManager
            
             if (nTaskUpdated == 1)
             {
+                Int32? nTaskModifiedReceiverDepartmentManagerId = null;
+
+                switch (taskReceiverInfo.departmentInfo.DepartmentId)
+                {
+                    case Department.MemberService:
+                        if (!bTaskModifiedReceiverMSManagerReceived && 
+                            taskReceiverInfo.UserRoleId != UserRole.MSManager &&
+                            taskCreatorInfo.UserRoleId != UserRole.MSManager)
+                        {
+                            nTaskModifiedReceiverDepartmentManagerId = 18;
+                            AssignTaskToManager(nTaskModifiedReceiverDepartmentManagerId.Value, taskReceiverInfo, nTaskId.Value);
+                            bTaskModifiedReceiverMSManagerReceived = true;
+                        }
+                        break;
+
+                    case Department.NeedsProcessing:
+                        if (!bTaskModifiedReceiverNPManagerReceived &&
+                            taskReceiverInfo.UserRoleId != UserRole.NPManager &&
+                            taskCreatorInfo.UserRoleId != UserRole.NPManager)
+                        {
+                            nTaskModifiedReceiverDepartmentManagerId = 9;
+                            AssignTaskToManager(nTaskModifiedReceiverDepartmentManagerId.Value, taskReceiverInfo, nTaskId.Value);
+                            bTaskModifiedReceiverNPManagerReceived = true;
+                        }
+                        break;
+
+                    case Department.ReviewAndNegotiation:
+                        if (!bTaskModifiedReceiverRNManagerReceived &&
+                            taskReceiverInfo.UserRoleId != UserRole.RNManager &&
+                            taskCreatorInfo.UserRoleId != UserRole.RNManager)
+                        {
+                            nTaskModifiedReceiverDepartmentManagerId = 13;
+                            AssignTaskToManager(nTaskModifiedReceiverDepartmentManagerId.Value, taskReceiverInfo, nTaskId.Value);
+                            bTaskModifiedReceiverRNManagerReceived = true;
+                        }
+                        break;
+
+                    case Department.Finance:
+                        if (!bTaskModifiedReceiverFDManagerReceived &&
+                            taskReceiverInfo.UserRoleId != UserRole.FDManager &&
+                            taskCreatorInfo.UserRoleId != UserRole.FDManager)
+                        {
+                            nTaskModifiedReceiverDepartmentManagerId = 16;
+                            AssignTaskToManager(nTaskModifiedReceiverDepartmentManagerId.Value, taskReceiverInfo, nTaskId.Value);
+                            bTaskModifiedReceiverFDManagerReceived = true;
+                        }
+                        break;
+                }
+
+                Int32? nTaskModifiedCreatorDepartmentManagerId = null;
+
+                switch (taskCreatorInfo.departmentInfo.DepartmentId)
+                {
+                    case Department.MemberService:
+                        if (!bTaskModifiedSenderMSManagerReceived &&
+                            taskCreatorInfo.UserRoleId != UserRole.MSManager &&
+                            taskReceiverInfo.UserRoleId != UserRole.MSManager &&
+                            taskCreatorInfo.departmentInfo.DepartmentId != taskReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nTaskModifiedCreatorDepartmentManagerId = 18;
+                            AssignTaskToManager(nTaskModifiedCreatorDepartmentManagerId.Value, taskCreatorInfo, nTaskId.Value);
+                            bTaskModifiedSenderMSManagerReceived = true;
+                        }
+                        break;
+                    case Department.NeedsProcessing:
+                        if (!bTaskModifiedSenderNPManagerReceived &&
+                            taskCreatorInfo.UserRoleId != UserRole.NPManager &&
+                            taskReceiverInfo.UserRoleId != UserRole.MSManager &&
+                            taskCreatorInfo.departmentInfo.DepartmentId != taskReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nTaskModifiedCreatorDepartmentManagerId = 9;
+                            AssignTaskToManager(nTaskModifiedCreatorDepartmentManagerId.Value, taskCreatorInfo, nTaskId.Value);
+                            bTaskModifiedSenderNPManagerReceived = true;
+                        }
+                        break;
+                    case Department.ReviewAndNegotiation:
+                        if (!bTaskModifiedSenderRNManagerReceived &&
+                            taskCreatorInfo.UserRoleId != UserRole.RNManager &&
+                            taskReceiverInfo.UserRoleId != UserRole.RNManager &&
+                            taskCreatorInfo.departmentInfo.DepartmentId != taskReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nTaskModifiedCreatorDepartmentManagerId = 13;
+                            AssignTaskToManager(nTaskModifiedCreatorDepartmentManagerId.Value, taskCreatorInfo, nTaskId.Value);
+                            bTaskModifiedSenderRNManagerReceived = true;
+                        }
+                        break;
+                    case Department.Finance:
+                        if (!bTaskModifiedSenderFDManagerReceived &&
+                            taskCreatorInfo.UserRoleId != UserRole.FDManager &&
+                            taskReceiverInfo.UserRoleId != UserRole.FDManager &&
+                            taskCreatorInfo.departmentInfo.DepartmentId != taskReceiverInfo.departmentInfo.DepartmentId)
+                        {
+                            nTaskModifiedCreatorDepartmentManagerId = 16;
+                            AssignTaskToManager(nTaskModifiedCreatorDepartmentManagerId.Value, taskCreatorInfo, nTaskId.Value);
+                            bTaskModifiedSenderFDManagerReceived = true;
+                        }
+                        break;
+                }                
+
                 MessageBox.Show("The task has been saved.", "Info");
                 Close();
                 return;
@@ -3384,6 +3775,38 @@ namespace CMMManager
                 Close();
                 return;
             }
+
+        }
+
+        private void MakeTaskFormReadonly()
+        {
+            grpTaskInfo.Enabled = false;
+            AdditionalInfo.Enabled = false;
+
+            btnSaveTask.Enabled = false;
+
+            comboTaskRelatedTo.Enabled = false;
+            dtpTaskDueDate.Enabled = false;
+            txtTaskSubject.ReadOnly = true;
+            txtTaskRelatedTo.ReadOnly = true;
+            txtNameOnTask.ReadOnly = true;
+            txtTaskNameAssignedTo.ReadOnly = true;
+            txtTaskEmail.ReadOnly = true;
+            txtTaskPhone.ReadOnly = true;
+            comboTaskPriority.Enabled = false;
+            comboTaskStatus.Enabled = false;
+            comboReminderTimePicker.Enabled = false;
+            dtpReminderDatePicker.Enabled = false;
+            chkReminder.Enabled = false;
+            txtIndividualId.ReadOnly = true;
+            txtTaskCreator.ReadOnly = true;
+            btnReplyTask.Enabled = false;
+            btnForward.Enabled = false;
+            btnAssignedTo.Enabled = false;
+            btnSave.Enabled = false;
+            txtTaskSolution.ReadOnly = true;
+            txtTaskComments.ReadOnly = true;
+
 
         }
     }

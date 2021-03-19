@@ -98,6 +98,7 @@
             this.gvRNManagerCompleteTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeRNManagerCompleteTask = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubjectCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDateCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActivityDateCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -108,6 +109,7 @@
             this.gvRNManagerActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIDRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -138,6 +140,7 @@
             this.gvRNStaffCompleteTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubjectCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDateCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActivityDateCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -149,6 +152,7 @@
             this.gvRNStaffActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -188,6 +192,7 @@
             this.gvNPManagerCompleteTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdCompleteTaskNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -203,6 +208,7 @@
             this.gvNPManagerActiveTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -226,6 +232,7 @@
             this.gvCompleteTaskNPStaff = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIdCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdCompleteTaskNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -256,6 +263,7 @@
             this.gvActiveTaskNPStaff = new System.Windows.Forms.DataGridView();
             this.IndividualIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdNPStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -293,6 +301,7 @@
             this.gvCompleteTaskFDManager = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SubjectCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDateCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActivityDateCompleteTaskFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -303,6 +312,7 @@
             this.gvActiveTaskFDManager = new System.Windows.Forms.DataGridView();
             this.IndividualIdFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIDFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdFDManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -326,6 +336,7 @@
             this.gvCompleteTaskFDStaff = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdCompleteTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -343,6 +354,7 @@
             this.gvActiveTaskFDStaff = new System.Windows.Forms.DataGridView();
             this.IndividualIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TypeActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdActiveTaskFDStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -447,18 +459,6 @@
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.gvRecentCommunication = new System.Windows.Forms.DataGridView();
-            this.SelectedCommunication = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chkCommunicationEtc = new System.Windows.Forms.CheckBox();
             this.chkCommunicationFax = new System.Windows.Forms.CheckBox();
             this.chkCommunicationLetter = new System.Windows.Forms.CheckBox();
@@ -1274,6 +1274,19 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.SelectedCommunication = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CaseNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncidentNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationNoRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommunicationTypeRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskStatusRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BodyRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Solution = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateStaffRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToRecentCommunication = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1658,6 +1671,7 @@
             this.gvRNManagerCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskRNMgr,
             this.IndividualNameCompleteTaskRNMgr,
+            this.TypeRNManagerCompleteTask,
             this.SubjectCompleteTaskRNMgr,
             this.CreateDateCompleteTaskRNMgr,
             this.ActivityDateCompleteTaskRNMgr,
@@ -1682,6 +1696,13 @@
             this.IndividualNameCompleteTaskRNMgr.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskRNMgr.Name = "IndividualNameCompleteTaskRNMgr";
             this.IndividualNameCompleteTaskRNMgr.ReadOnly = true;
+            // 
+            // TypeRNManagerCompleteTask
+            // 
+            this.TypeRNManagerCompleteTask.HeaderText = "Type";
+            this.TypeRNManagerCompleteTask.Name = "TypeRNManagerCompleteTask";
+            this.TypeRNManagerCompleteTask.ReadOnly = true;
+            this.TypeRNManagerCompleteTask.Width = 80;
             // 
             // SubjectCompleteTaskRNMgr
             // 
@@ -1737,6 +1758,7 @@
             this.gvRNManagerActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdRNManager,
             this.IndividualNameRNManager,
+            this.TypeRNManager,
             this.AssignedToRNManager,
             this.CreatedByIDRNManager,
             this.WhatIdRNManager,
@@ -1767,6 +1789,13 @@
             this.IndividualNameRNManager.HeaderText = "Individual Name";
             this.IndividualNameRNManager.Name = "IndividualNameRNManager";
             this.IndividualNameRNManager.ReadOnly = true;
+            // 
+            // TypeRNManager
+            // 
+            this.TypeRNManager.HeaderText = "Type";
+            this.TypeRNManager.Name = "TypeRNManager";
+            this.TypeRNManager.ReadOnly = true;
+            this.TypeRNManager.Width = 80;
             // 
             // AssignedToRNManager
             // 
@@ -1987,10 +2016,10 @@
             this.gvDashboardRNStaffPending.AllowUserToAddRows = false;
             this.gvDashboardRNStaffPending.AllowUserToDeleteRows = false;
             this.gvDashboardRNStaffPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardRNStaffPending.Location = new System.Drawing.Point(1269, 491);
+            this.gvDashboardRNStaffPending.Location = new System.Drawing.Point(1354, 491);
             this.gvDashboardRNStaffPending.Name = "gvDashboardRNStaffPending";
             this.gvDashboardRNStaffPending.ReadOnly = true;
-            this.gvDashboardRNStaffPending.Size = new System.Drawing.Size(521, 330);
+            this.gvDashboardRNStaffPending.Size = new System.Drawing.Size(436, 330);
             this.gvDashboardRNStaffPending.TabIndex = 13;
             // 
             // gvRNStaffCompleteTask
@@ -2001,6 +2030,7 @@
             this.gvRNStaffCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskRNStaff,
             this.IndividualNameCompleteTaskRNStaff,
+            this.TypeCompleteTaskRNStaff,
             this.SubjectCompleteTaskRNStaff,
             this.CreateDateCompleteTaskRNStaff,
             this.ActivityDateCompleteTaskRNStaff,
@@ -2010,7 +2040,7 @@
             this.gvRNStaffCompleteTask.Location = new System.Drawing.Point(699, 490);
             this.gvRNStaffCompleteTask.Name = "gvRNStaffCompleteTask";
             this.gvRNStaffCompleteTask.ReadOnly = true;
-            this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(521, 330);
+            this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(629, 330);
             this.gvRNStaffCompleteTask.TabIndex = 12;
             this.gvRNStaffCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffCompleteTask_CellDoubleClick);
             // 
@@ -2025,6 +2055,13 @@
             this.IndividualNameCompleteTaskRNStaff.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskRNStaff.Name = "IndividualNameCompleteTaskRNStaff";
             this.IndividualNameCompleteTaskRNStaff.ReadOnly = true;
+            // 
+            // TypeCompleteTaskRNStaff
+            // 
+            this.TypeCompleteTaskRNStaff.HeaderText = "Type";
+            this.TypeCompleteTaskRNStaff.Name = "TypeCompleteTaskRNStaff";
+            this.TypeCompleteTaskRNStaff.ReadOnly = true;
+            this.TypeCompleteTaskRNStaff.Width = 80;
             // 
             // SubjectCompleteTaskRNStaff
             // 
@@ -2066,7 +2103,7 @@
             // 
             this.label164.AutoSize = true;
             this.label164.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label164.Location = new System.Drawing.Point(1265, 463);
+            this.label164.Location = new System.Drawing.Point(1350, 464);
             this.label164.Name = "label164";
             this.label164.Size = new System.Drawing.Size(191, 24);
             this.label164.TabIndex = 11;
@@ -2090,6 +2127,7 @@
             this.gvRNStaffActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdRNStaff,
             this.IndividualNameRNStaff,
+            this.TypeRNStaff,
             this.AssignedToRNStaff,
             this.CreatedByIdRNStaff,
             this.WhatIdRNStaff,
@@ -2120,6 +2158,13 @@
             this.IndividualNameRNStaff.HeaderText = "Individual Name";
             this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
             this.IndividualNameRNStaff.ReadOnly = true;
+            // 
+            // TypeRNStaff
+            // 
+            this.TypeRNStaff.HeaderText = "Type";
+            this.TypeRNStaff.Name = "TypeRNStaff";
+            this.TypeRNStaff.ReadOnly = true;
+            this.TypeRNStaff.Width = 80;
             // 
             // AssignedToRNStaff
             // 
@@ -2434,6 +2479,7 @@
             this.gvNPManagerCompleteTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskNPManager,
             this.IndividualNameCompleteTaskNPManager,
+            this.TypeCompleteTaskNPManager,
             this.AssignedToCompleteTaskNPManager,
             this.CreatedByCompleteTaskNPManager,
             this.WhatIdCompleteTaskNPManager,
@@ -2464,6 +2510,13 @@
             this.IndividualNameCompleteTaskNPManager.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskNPManager.Name = "IndividualNameCompleteTaskNPManager";
             this.IndividualNameCompleteTaskNPManager.ReadOnly = true;
+            // 
+            // TypeCompleteTaskNPManager
+            // 
+            this.TypeCompleteTaskNPManager.HeaderText = "Type";
+            this.TypeCompleteTaskNPManager.Name = "TypeCompleteTaskNPManager";
+            this.TypeCompleteTaskNPManager.ReadOnly = true;
+            this.TypeCompleteTaskNPManager.Width = 80;
             // 
             // AssignedToCompleteTaskNPManager
             // 
@@ -2545,6 +2598,7 @@
             this.gvNPManagerActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdNPManager,
             this.IndividualNameNPManager,
+            this.TypeNPManager,
             this.AssignedToNPManager,
             this.CreatedByNPManager,
             this.WhatIdNPManager,
@@ -2575,6 +2629,13 @@
             this.IndividualNameNPManager.HeaderText = "Individual Name";
             this.IndividualNameNPManager.Name = "IndividualNameNPManager";
             this.IndividualNameNPManager.ReadOnly = true;
+            // 
+            // TypeNPManager
+            // 
+            this.TypeNPManager.HeaderText = "Type";
+            this.TypeNPManager.Name = "TypeNPManager";
+            this.TypeNPManager.ReadOnly = true;
+            this.TypeNPManager.Width = 80;
             // 
             // AssignedToNPManager
             // 
@@ -2745,6 +2806,7 @@
             this.gvCompleteTaskNPStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskNPStaff,
             this.IndividualNameCompleteTaskNPStaff,
+            this.TypeCompleteTaskNPStaff,
             this.AssignedToCompleteTaskNPStaff,
             this.CreatedByIdCompleteTaskNPStaff,
             this.WhatIdCompleteTaskNPStaff,
@@ -2775,6 +2837,13 @@
             this.IndividualNameCompleteTaskNPStaff.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskNPStaff.Name = "IndividualNameCompleteTaskNPStaff";
             this.IndividualNameCompleteTaskNPStaff.ReadOnly = true;
+            // 
+            // TypeCompleteTaskNPStaff
+            // 
+            this.TypeCompleteTaskNPStaff.HeaderText = "Type";
+            this.TypeCompleteTaskNPStaff.Name = "TypeCompleteTaskNPStaff";
+            this.TypeCompleteTaskNPStaff.ReadOnly = true;
+            this.TypeCompleteTaskNPStaff.Width = 80;
             // 
             // AssignedToCompleteTaskNPStaff
             // 
@@ -2989,6 +3058,7 @@
             this.gvActiveTaskNPStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdNPStaff,
             this.IndividualNameNPStaff,
+            this.TypeNPStaff,
             this.AssignedToNPStaff,
             this.CreatedByIdNPStaff,
             this.WhatIdNPStaff,
@@ -3019,6 +3089,13 @@
             this.IndividualNameNPStaff.HeaderText = "Individual Name";
             this.IndividualNameNPStaff.Name = "IndividualNameNPStaff";
             this.IndividualNameNPStaff.ReadOnly = true;
+            // 
+            // TypeNPStaff
+            // 
+            this.TypeNPStaff.HeaderText = "Type";
+            this.TypeNPStaff.Name = "TypeNPStaff";
+            this.TypeNPStaff.ReadOnly = true;
+            this.TypeNPStaff.Width = 80;
             // 
             // AssignedToNPStaff
             // 
@@ -3310,6 +3387,7 @@
             this.gvCompleteTaskFDManager.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskFDManager,
             this.IndividualNameCompleteTaskFDManager,
+            this.TypeCompleteTaskFDManager,
             this.SubjectCompleteTaskFDManager,
             this.CreateDateCompleteTaskFDManager,
             this.ActivityDateCompleteTaskFDManager,
@@ -3334,6 +3412,13 @@
             this.IndividualNameCompleteTaskFDManager.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskFDManager.Name = "IndividualNameCompleteTaskFDManager";
             this.IndividualNameCompleteTaskFDManager.ReadOnly = true;
+            // 
+            // TypeCompleteTaskFDManager
+            // 
+            this.TypeCompleteTaskFDManager.HeaderText = "Type";
+            this.TypeCompleteTaskFDManager.Name = "TypeCompleteTaskFDManager";
+            this.TypeCompleteTaskFDManager.ReadOnly = true;
+            this.TypeCompleteTaskFDManager.Width = 80;
             // 
             // SubjectCompleteTaskFDManager
             // 
@@ -3389,6 +3474,7 @@
             this.gvActiveTaskFDManager.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdFDManager,
             this.IndividualNameFDManager,
+            this.TypeFDManager,
             this.AssignedToFDManager,
             this.CreatedByIDFDManager,
             this.WhatIdFDManager,
@@ -3419,6 +3505,13 @@
             this.IndividualNameFDManager.HeaderText = "Individual Name";
             this.IndividualNameFDManager.Name = "IndividualNameFDManager";
             this.IndividualNameFDManager.ReadOnly = true;
+            // 
+            // TypeFDManager
+            // 
+            this.TypeFDManager.HeaderText = "Type";
+            this.TypeFDManager.Name = "TypeFDManager";
+            this.TypeFDManager.ReadOnly = true;
+            this.TypeFDManager.Width = 80;
             // 
             // AssignedToFDManager
             // 
@@ -3589,6 +3682,7 @@
             this.gvCompleteTaskFDStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdCompleteTaskFDStaff,
             this.IndividualNameCompleteTaskFDStaff,
+            this.TypeCompleteTaskFDStaff,
             this.AssignedToCompleteTaskFDStaff,
             this.CreatedByCompleteTaskFDStaff,
             this.WhatIdCompleteTaskFDStaff,
@@ -3619,6 +3713,13 @@
             this.IndividualNameCompleteTaskFDStaff.HeaderText = "Individual Name";
             this.IndividualNameCompleteTaskFDStaff.Name = "IndividualNameCompleteTaskFDStaff";
             this.IndividualNameCompleteTaskFDStaff.ReadOnly = true;
+            // 
+            // TypeCompleteTaskFDStaff
+            // 
+            this.TypeCompleteTaskFDStaff.HeaderText = "Type";
+            this.TypeCompleteTaskFDStaff.Name = "TypeCompleteTaskFDStaff";
+            this.TypeCompleteTaskFDStaff.ReadOnly = true;
+            this.TypeCompleteTaskFDStaff.Width = 80;
             // 
             // AssignedToCompleteTaskFDStaff
             // 
@@ -3720,6 +3821,7 @@
             this.gvActiveTaskFDStaff.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdActiveTaskFDStaff,
             this.IndividualNameActiveTaskFDStaff,
+            this.TypeActiveTaskFDStaff,
             this.AssignedToActiveTaskFDStaff,
             this.CreatedByIdActiveTaskFDStaff,
             this.WhatIdActiveTaskFDStaff,
@@ -3750,6 +3852,13 @@
             this.IndividualNameActiveTaskFDStaff.HeaderText = "Individual Name";
             this.IndividualNameActiveTaskFDStaff.Name = "IndividualNameActiveTaskFDStaff";
             this.IndividualNameActiveTaskFDStaff.ReadOnly = true;
+            // 
+            // TypeActiveTaskFDStaff
+            // 
+            this.TypeActiveTaskFDStaff.HeaderText = "Type";
+            this.TypeActiveTaskFDStaff.Name = "TypeActiveTaskFDStaff";
+            this.TypeActiveTaskFDStaff.ReadOnly = true;
+            this.TypeActiveTaskFDStaff.Width = 80;
             // 
             // AssignedToActiveTaskFDStaff
             // 
@@ -4833,6 +4942,7 @@
             this.IncidentNoRecentCommunication,
             this.CommunicationNoRecentCommunication,
             this.CommunicationTypeRecentCommunication,
+            this.TaskStatusRecentCommunication,
             this.SubjectRecentCommunication,
             this.BodyRecentCommunication,
             this.Solution,
@@ -4846,85 +4956,6 @@
             this.gvRecentCommunication.TabIndex = 206;
             this.gvRecentCommunication.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellContentClick);
             this.gvRecentCommunication.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRecentCommunication_CellDoubleClick);
-            // 
-            // SelectedCommunication
-            // 
-            this.SelectedCommunication.HeaderText = "Selected";
-            this.SelectedCommunication.Name = "SelectedCommunication";
-            this.SelectedCommunication.ReadOnly = true;
-            this.SelectedCommunication.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SelectedCommunication.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.SelectedCommunication.Width = 60;
-            // 
-            // CaseNoRecentCommunication
-            // 
-            this.CaseNoRecentCommunication.HeaderText = "Case No";
-            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
-            this.CaseNoRecentCommunication.ReadOnly = true;
-            // 
-            // IllnessNoRecentCommunication
-            // 
-            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
-            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
-            this.IllnessNoRecentCommunication.ReadOnly = true;
-            // 
-            // IncidentNoRecentCommunication
-            // 
-            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
-            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
-            this.IncidentNoRecentCommunication.ReadOnly = true;
-            // 
-            // CommunicationNoRecentCommunication
-            // 
-            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
-            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
-            this.CommunicationNoRecentCommunication.ReadOnly = true;
-            this.CommunicationNoRecentCommunication.Width = 80;
-            // 
-            // CommunicationTypeRecentCommunication
-            // 
-            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
-            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
-            this.CommunicationTypeRecentCommunication.ReadOnly = true;
-            this.CommunicationTypeRecentCommunication.Width = 140;
-            // 
-            // SubjectRecentCommunication
-            // 
-            this.SubjectRecentCommunication.HeaderText = "Subject";
-            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
-            this.SubjectRecentCommunication.ReadOnly = true;
-            this.SubjectRecentCommunication.Width = 120;
-            // 
-            // BodyRecentCommunication
-            // 
-            this.BodyRecentCommunication.HeaderText = "Body";
-            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
-            this.BodyRecentCommunication.ReadOnly = true;
-            this.BodyRecentCommunication.Width = 160;
-            // 
-            // Solution
-            // 
-            this.Solution.HeaderText = "Solution";
-            this.Solution.Name = "Solution";
-            this.Solution.ReadOnly = true;
-            // 
-            // CreateDateRecentCommunication
-            // 
-            this.CreateDateRecentCommunication.HeaderText = "Create Date";
-            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
-            this.CreateDateRecentCommunication.ReadOnly = true;
-            // 
-            // CreateStaffRecentCommunication
-            // 
-            this.CreateStaffRecentCommunication.HeaderText = "Created By";
-            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
-            this.CreateStaffRecentCommunication.ReadOnly = true;
-            // 
-            // AssignedToRecentCommunication
-            // 
-            this.AssignedToRecentCommunication.HeaderText = "Assigned To";
-            this.AssignedToRecentCommunication.Name = "AssignedToRecentCommunication";
-            this.AssignedToRecentCommunication.ReadOnly = true;
             // 
             // chkCommunicationEtc
             // 
@@ -12281,11 +12312,96 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1634, 33);
+            this.label143.Location = new System.Drawing.Point(1722, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(229, 13);
+            this.label143.Size = new System.Drawing.Size(141, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Email Cc and MedBillsInCase Sort - 03-02-2021";
+            this.label143.Text = "Task Improved - 03-16-2021";
+            // 
+            // SelectedCommunication
+            // 
+            this.SelectedCommunication.HeaderText = "Selected";
+            this.SelectedCommunication.Name = "SelectedCommunication";
+            this.SelectedCommunication.ReadOnly = true;
+            this.SelectedCommunication.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SelectedCommunication.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.SelectedCommunication.Width = 60;
+            // 
+            // CaseNoRecentCommunication
+            // 
+            this.CaseNoRecentCommunication.HeaderText = "Case No";
+            this.CaseNoRecentCommunication.Name = "CaseNoRecentCommunication";
+            this.CaseNoRecentCommunication.ReadOnly = true;
+            // 
+            // IllnessNoRecentCommunication
+            // 
+            this.IllnessNoRecentCommunication.HeaderText = "Illness No";
+            this.IllnessNoRecentCommunication.Name = "IllnessNoRecentCommunication";
+            this.IllnessNoRecentCommunication.ReadOnly = true;
+            // 
+            // IncidentNoRecentCommunication
+            // 
+            this.IncidentNoRecentCommunication.HeaderText = "Incident No";
+            this.IncidentNoRecentCommunication.Name = "IncidentNoRecentCommunication";
+            this.IncidentNoRecentCommunication.ReadOnly = true;
+            // 
+            // CommunicationNoRecentCommunication
+            // 
+            this.CommunicationNoRecentCommunication.HeaderText = "Comm No";
+            this.CommunicationNoRecentCommunication.Name = "CommunicationNoRecentCommunication";
+            this.CommunicationNoRecentCommunication.ReadOnly = true;
+            this.CommunicationNoRecentCommunication.Width = 80;
+            // 
+            // CommunicationTypeRecentCommunication
+            // 
+            this.CommunicationTypeRecentCommunication.HeaderText = "Communication Type";
+            this.CommunicationTypeRecentCommunication.Name = "CommunicationTypeRecentCommunication";
+            this.CommunicationTypeRecentCommunication.ReadOnly = true;
+            this.CommunicationTypeRecentCommunication.Width = 140;
+            // 
+            // TaskStatusRecentCommunication
+            // 
+            this.TaskStatusRecentCommunication.HeaderText = "Task Status";
+            this.TaskStatusRecentCommunication.Name = "TaskStatusRecentCommunication";
+            this.TaskStatusRecentCommunication.ReadOnly = true;
+            // 
+            // SubjectRecentCommunication
+            // 
+            this.SubjectRecentCommunication.HeaderText = "Subject";
+            this.SubjectRecentCommunication.Name = "SubjectRecentCommunication";
+            this.SubjectRecentCommunication.ReadOnly = true;
+            this.SubjectRecentCommunication.Width = 120;
+            // 
+            // BodyRecentCommunication
+            // 
+            this.BodyRecentCommunication.HeaderText = "Body";
+            this.BodyRecentCommunication.Name = "BodyRecentCommunication";
+            this.BodyRecentCommunication.ReadOnly = true;
+            this.BodyRecentCommunication.Width = 160;
+            // 
+            // Solution
+            // 
+            this.Solution.HeaderText = "Solution";
+            this.Solution.Name = "Solution";
+            this.Solution.ReadOnly = true;
+            // 
+            // CreateDateRecentCommunication
+            // 
+            this.CreateDateRecentCommunication.HeaderText = "Create Date";
+            this.CreateDateRecentCommunication.Name = "CreateDateRecentCommunication";
+            this.CreateDateRecentCommunication.ReadOnly = true;
+            // 
+            // CreateStaffRecentCommunication
+            // 
+            this.CreateStaffRecentCommunication.HeaderText = "Created By";
+            this.CreateStaffRecentCommunication.Name = "CreateStaffRecentCommunication";
+            this.CreateStaffRecentCommunication.ReadOnly = true;
+            // 
+            // AssignedToRecentCommunication
+            // 
+            this.AssignedToRecentCommunication.HeaderText = "Assigned To";
+            this.AssignedToRecentCommunication.Name = "AssignedToRecentCommunication";
+            this.AssignedToRecentCommunication.ReadOnly = true;
             // 
             // frmCMMManager
             // 
@@ -13208,108 +13324,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn Unknown_Doc_Receive_Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateForIndividual;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffForIndividual;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskNPManager;
         private System.Windows.Forms.Label label135;
         private System.Windows.Forms.DataGridView gvCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNMgr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
         private System.Windows.Forms.DataGridView gvNPManagerCommunicationLog;
         private System.Windows.Forms.Button btnNPManagerCommReload;
         private System.Windows.Forms.DateTimePicker dtpLogCommunicationToDate;
@@ -13416,18 +13432,6 @@
         private CalendarColumn Incident_ModifiDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Incident_ModifiStaff;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Incident_ReviewRequest;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNoRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationNoRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationTypeRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BodyRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Solution;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffRecentCommunication;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRecentCommunication;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCaseDocument;
         private System.Windows.Forms.DataGridViewComboBoxColumn DocumentTypeCaseDocument;
         private System.Windows.Forms.DataGridViewButtonColumn BtnUploadCaseDocument;
@@ -13537,30 +13541,8 @@
         private System.Windows.Forms.DataGridView gvActiveTaskFDStaff;
         private System.Windows.Forms.DataGridView gvActiveTaskFDManager;
         private System.Windows.Forms.Label label148;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdFDManager;
         private System.Windows.Forms.DataGridView gvCompleteTaskFDManager;
         private System.Windows.Forms.Label label149;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDManager;
         private System.Windows.Forms.DataGridView gvCompleteTaskFDStaff;
         private System.Windows.Forms.Label label150;
         private System.Windows.Forms.DataGridView gvFDManagerCommunicationLog;
@@ -13578,34 +13560,6 @@
         private System.Windows.Forms.Label label168;
         private System.Windows.Forms.Label label186;
         private System.Windows.Forms.DateTimePicker dtpFDStaffStartDateCommLog;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdActiveTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskFDStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDStaff;
         private System.Windows.Forms.Label lblBeneficiaryInfo;
         private System.Windows.Forms.Label lblPrescriptionDetails;
         private System.Windows.Forms.DataGridView gvBeneficiaryInfo;
@@ -13700,6 +13654,181 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNManagerCompleteTask;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNMgr;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskNPStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdActiveTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdCompleteTaskFDStaff;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CaseNoRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNoRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IncidentNoRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationNoRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommunicationTypeRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskStatusRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BodyRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Solution;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateStaffRecentCommunication;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRecentCommunication;
     }
 }
 
