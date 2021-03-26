@@ -2201,6 +2201,129 @@ namespace CMMManager
         }
     }
 
+    public class TaskUserInfo
+    {
+        public int? UserId;
+        public String UserName;
+        public String UserEmail;
+        public TaskUserRole? TaskUserRoleId;
+        public DepartmentInfo departmentInfo;
+
+        public TaskUserInfo()
+        {
+            UserId = null;
+            UserName = String.Empty;
+            UserEmail = String.Empty;
+            TaskUserRoleId = null;
+            departmentInfo = new DepartmentInfo();
+        }
+
+        public TaskUserInfo(int user_id, String user_name, String user_email, TaskUserRole task_user_role_id, Department department_id)
+        {
+            UserId = user_id;
+            UserName = user_name;
+            UserEmail = user_email;
+            TaskUserRoleId = task_user_role_id;
+            departmentInfo = new DepartmentInfo(department_id, String.Empty);
+        }
+    }
+
+    public class FDManagerTaskIDs
+    {
+        public TaskUserRole FDManagerTaskRoleId;
+        public int? FDManagerTaskUserId;
+
+        public FDManagerTaskIDs()
+        {
+            FDManagerTaskRoleId = TaskUserRole.FDManager;
+            FDManagerTaskUserId = null;
+        }
+    }
+
+    public class RNManagerTaskIDs
+    {
+        public TaskUserRole RNManagerTaskRoleId;
+        public int? RNManagerTaskUserId;
+
+        public RNManagerTaskIDs()
+        {
+            RNManagerTaskRoleId = TaskUserRole.RNManager;
+            RNManagerTaskUserId = null;
+        }
+    }
+
+    public class NPManagerTaskIDs
+    {
+        public TaskUserRole NPManagerTaskRoleId;
+        public int? NPManagerTaskUserId;
+
+        public NPManagerTaskIDs()
+        {
+            NPManagerTaskRoleId = TaskUserRole.NPManager;
+            NPManagerTaskUserId = null;
+        }
+    }
+
+    public class MSManagerTaskIDs
+    {
+        public TaskUserRole MSManagerTaskRoleId;
+        public int? MSManagerTaskUserId;
+
+        public MSManagerTaskIDs()
+        {
+            MSManagerTaskRoleId = TaskUserRole.MSManager;
+            MSManagerTaskUserId = null;
+        }
+    }
+    
+
+    public class DepartmentManagerIDs
+    {
+        
+        public TaskUserRole? FDManagerRoleId;
+        public TaskUserRole? RNManagerRoleId;
+        public TaskUserRole? NPManagerRoleId;
+        public TaskUserRole? MSManagerRoleId;
+
+        public int? FDManagerUserId;
+        public int? RNManagerUserId;
+        public int? NPManagerUserId;
+        public int? MSManagerUserId;
+
+        public DepartmentManagerIDs()
+        {
+            FDManagerRoleId = null;
+            RNManagerRoleId = null;
+            NPManagerRoleId = null;
+            MSManagerRoleId = null;
+
+            FDManagerUserId = null;
+            RNManagerUserId = null;
+            NPManagerUserId = null;
+            MSManagerUserId = null;
+        }
+
+        public DepartmentManagerIDs(TaskUserRole fd_manager_role_id, 
+                                    TaskUserRole rn_manager_role_id, 
+                                    TaskUserRole np_manager_role_id, 
+                                    TaskUserRole ms_manager_role_id,
+                                    int fd_manager_user_id,
+                                    int rn_manager_user_id,
+                                    int np_manager_user_id,
+                                    int ms_manager_user_id)
+        {
+            FDManagerRoleId = fd_manager_role_id;
+            RNManagerRoleId = rn_manager_role_id;
+            NPManagerRoleId = np_manager_role_id;
+            MSManagerRoleId = ms_manager_role_id;
+
+            FDManagerUserId = fd_manager_user_id;
+            RNManagerUserId = rn_manager_user_id;
+            NPManagerUserId = np_manager_user_id;
+            MSManagerUserId = ms_manager_user_id;
+        }
+    }
+
     public class DepartmentInfo
     {
         public Department DepartmentId;
