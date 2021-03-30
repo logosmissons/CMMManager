@@ -441,10 +441,6 @@
             // comboTaskPriority
             // 
             this.comboTaskPriority.FormattingEnabled = true;
-            this.comboTaskPriority.Items.AddRange(new object[] {
-            "High",
-            "Normal",
-            "Low"});
             this.comboTaskPriority.Location = new System.Drawing.Point(114, 62);
             this.comboTaskPriority.Name = "comboTaskPriority";
             this.comboTaskPriority.Size = new System.Drawing.Size(137, 21);
@@ -453,13 +449,6 @@
             // comboTaskStatus
             // 
             this.comboTaskStatus.FormattingEnabled = true;
-            this.comboTaskStatus.Items.AddRange(new object[] {
-            "Not Started",
-            "In Progress",
-            "Completed",
-            "Waiting on someone else",
-            "Deferred",
-            "Solved"});
             this.comboTaskStatus.Location = new System.Drawing.Point(114, 31);
             this.comboTaskStatus.Name = "comboTaskStatus";
             this.comboTaskStatus.Size = new System.Drawing.Size(137, 21);
