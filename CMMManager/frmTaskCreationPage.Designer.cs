@@ -49,7 +49,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtNameOnTask = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.AdditionalInfo = new System.Windows.Forms.GroupBox();
+            this.grpAdditionalInfo = new System.Windows.Forms.GroupBox();
             this.comboReminderTimePicker = new System.Windows.Forms.ComboBox();
             this.dtpReminderDatePicker = new System.Windows.Forms.DateTimePicker();
             this.chkReminder = new System.Windows.Forms.CheckBox();
@@ -69,7 +69,7 @@
             this.btnForward = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpTaskInfo.SuspendLayout();
-            this.AdditionalInfo.SuspendLayout();
+            this.grpAdditionalInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -295,26 +295,26 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Related To:";
             // 
-            // AdditionalInfo
+            // grpAdditionalInfo
             // 
-            this.AdditionalInfo.Controls.Add(this.comboReminderTimePicker);
-            this.AdditionalInfo.Controls.Add(this.dtpReminderDatePicker);
-            this.AdditionalInfo.Controls.Add(this.chkReminder);
-            this.AdditionalInfo.Controls.Add(this.label2);
-            this.AdditionalInfo.Controls.Add(this.txtTaskEmail);
-            this.AdditionalInfo.Controls.Add(this.txtTaskPhone);
-            this.AdditionalInfo.Controls.Add(this.label14);
-            this.AdditionalInfo.Controls.Add(this.label13);
-            this.AdditionalInfo.Controls.Add(this.comboTaskPriority);
-            this.AdditionalInfo.Controls.Add(this.comboTaskStatus);
-            this.AdditionalInfo.Controls.Add(this.label12);
-            this.AdditionalInfo.Controls.Add(this.label11);
-            this.AdditionalInfo.Location = new System.Drawing.Point(12, 457);
-            this.AdditionalInfo.Name = "AdditionalInfo";
-            this.AdditionalInfo.Size = new System.Drawing.Size(1032, 102);
-            this.AdditionalInfo.TabIndex = 2;
-            this.AdditionalInfo.TabStop = false;
-            this.AdditionalInfo.Text = "Additional Information";
+            this.grpAdditionalInfo.Controls.Add(this.comboReminderTimePicker);
+            this.grpAdditionalInfo.Controls.Add(this.dtpReminderDatePicker);
+            this.grpAdditionalInfo.Controls.Add(this.chkReminder);
+            this.grpAdditionalInfo.Controls.Add(this.label2);
+            this.grpAdditionalInfo.Controls.Add(this.txtTaskEmail);
+            this.grpAdditionalInfo.Controls.Add(this.txtTaskPhone);
+            this.grpAdditionalInfo.Controls.Add(this.label14);
+            this.grpAdditionalInfo.Controls.Add(this.label13);
+            this.grpAdditionalInfo.Controls.Add(this.comboTaskPriority);
+            this.grpAdditionalInfo.Controls.Add(this.comboTaskStatus);
+            this.grpAdditionalInfo.Controls.Add(this.label12);
+            this.grpAdditionalInfo.Controls.Add(this.label11);
+            this.grpAdditionalInfo.Location = new System.Drawing.Point(12, 457);
+            this.grpAdditionalInfo.Name = "grpAdditionalInfo";
+            this.grpAdditionalInfo.Size = new System.Drawing.Size(1032, 102);
+            this.grpAdditionalInfo.TabIndex = 2;
+            this.grpAdditionalInfo.TabStop = false;
+            this.grpAdditionalInfo.Text = "Additional Information";
             // 
             // comboReminderTimePicker
             // 
@@ -558,7 +558,7 @@
             this.Controls.Add(this.btnReplyTask);
             this.Controls.Add(this.btnCancelTask);
             this.Controls.Add(this.btnSaveTask);
-            this.Controls.Add(this.AdditionalInfo);
+            this.Controls.Add(this.grpAdditionalInfo);
             this.Controls.Add(this.grpTaskInfo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label5);
@@ -567,8 +567,8 @@
             this.Load += new System.EventHandler(this.frmTaskCreationPage_Load);
             this.grpTaskInfo.ResumeLayout(false);
             this.grpTaskInfo.PerformLayout();
-            this.AdditionalInfo.ResumeLayout(false);
-            this.AdditionalInfo.PerformLayout();
+            this.grpAdditionalInfo.ResumeLayout(false);
+            this.grpAdditionalInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -578,7 +578,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox grpTaskInfo;
-        private System.Windows.Forms.GroupBox AdditionalInfo;
+        private System.Windows.Forms.GroupBox grpAdditionalInfo;
         private System.Windows.Forms.Button btnSaveTask;
         private System.Windows.Forms.Button btnCancelTask;
         private System.Windows.Forms.Label label7;

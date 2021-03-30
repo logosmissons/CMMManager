@@ -104,7 +104,7 @@ namespace CMMManager
 
     }
 
-    public frmTaskCreationPage(int task_id,
+        public frmTaskCreationPage(int task_id,
                                    TaskMode mode)
         {
             InitializeComponent();
@@ -1618,6 +1618,15 @@ namespace CMMManager
                 ////txtTaskComments.Select(txtTaskComments.Text.Length, 0);
 
 
+            }
+
+            if (taskMode != TaskMode.AddNew)
+            {
+                String[] TaskAssigneeNames = txtTaskNameAssignedTo.Text.Split(';');
+
+                String TaskAssigneeName = TaskAssigneeNames[0];
+
+                if (TaskAssigneeName != LoggedInUserInfo.UserName) MakeTaskFormReadonly();                
             }
         }
 
@@ -4357,8 +4366,8 @@ namespace CMMManager
 
         private void MakeTaskFormReadonly()
         {
-            grpTaskInfo.Enabled = false;
-            AdditionalInfo.Enabled = false;
+            //grpTaskInfo.Enabled = false;
+            //grpAdditionalInfo.Enabled = false;
 
             btnSaveTask.Enabled = false;
 
@@ -4383,8 +4392,6 @@ namespace CMMManager
             btnSave.Enabled = false;
             txtTaskSolution.ReadOnly = true;
             txtTaskComments.ReadOnly = true;
-
-
         }
     }
 }
