@@ -128,7 +128,7 @@
             this.txtTaskComments.Multiline = true;
             this.txtTaskComments.Name = "txtTaskComments";
             this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskComments.Size = new System.Drawing.Size(400, 167);
+            this.txtTaskComments.Size = new System.Drawing.Size(388, 167);
             this.txtTaskComments.TabIndex = 25;
             // 
             // btnAssignedTo
@@ -404,7 +404,7 @@
             // 
             // txtTaskEmail
             // 
-            this.txtTaskEmail.Location = new System.Drawing.Point(410, 63);
+            this.txtTaskEmail.Location = new System.Drawing.Point(398, 63);
             this.txtTaskEmail.Name = "txtTaskEmail";
             this.txtTaskEmail.ReadOnly = true;
             this.txtTaskEmail.Size = new System.Drawing.Size(130, 20);
@@ -412,7 +412,7 @@
             // 
             // txtTaskPhone
             // 
-            this.txtTaskPhone.Location = new System.Drawing.Point(410, 31);
+            this.txtTaskPhone.Location = new System.Drawing.Point(398, 31);
             this.txtTaskPhone.Name = "txtTaskPhone";
             this.txtTaskPhone.ReadOnly = true;
             this.txtTaskPhone.Size = new System.Drawing.Size(130, 20);
