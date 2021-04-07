@@ -31,6 +31,8 @@ namespace CMMManager
 
         private List<UserInfo> lstUserInfo;
 
+        private List<TaskStatusInfo> lstTaskStatusInfo;
+
         private int? nOriginalTask_Id;
         private int nTaskReplySender_Id;
         private int nTaskReplyAssigned_to_Id;
@@ -663,7 +665,13 @@ namespace CMMManager
             if (connRN.State != ConnectionState.Closed) connRN.Close();
 
             comboTaskStatus.Items.Clear();
-            String strSqlQueryForTaskStatus = "select [dbo].[tbl_task_status_code].[TaskStatusValue] from [dbo].[tbl_task_status_code]";
+
+            lstTaskStatusInfo = new List<TaskStatusInfo>();
+            List<TaskStatusInfo> lstTaskStatusInfoUnsorted = new List<TaskStatusInfo>();
+
+            String strSqlQueryForTaskStatus = "select [dbo].[tbl_task_status_code].[TaskStatusCode], [dbo].[tbl_task_status_code].[TaskStatusValue] " +
+                                              "from [dbo].[tbl_task_status_code] " +
+                                              "where ([dbo].[tbl_task_status_code].[IsDeleted] = 0 or [dbo].[tbl_task_status_code].[IsDeleted] IS NULL)";
 
             SqlCommand cmdQueryForTaskStatus = new SqlCommand(strSqlQueryForTaskStatus, connRN);
             cmdQueryForTaskStatus.CommandType = CommandType.Text;
@@ -679,11 +687,48 @@ namespace CMMManager
             {
                 while (rdrTaskStatus.Read())
                 {
-                    if (!rdrTaskStatus.IsDBNull(0)) comboTaskStatus.Items.Add(rdrTaskStatus.GetString(0));
+                    //if (!rdrTaskStatus.IsDBNull(0)) comboTaskStatus.Items.Add(rdrTaskStatus.GetString(0));
+                    TaskStatusInfo info = new TaskStatusInfo();
+                    if (!rdrTaskStatus.IsDBNull(0)) info.nTaskStatusCode = rdrTaskStatus.GetInt16(0);
+                    else info.nTaskStatusCode = null;
+                    if (!rdrTaskStatus.IsDBNull(1))
+                    {
+                        switch (rdrTaskStatus.GetString(1))
+                        {
+                            case "Not Started":
+                                info.TaskStatusValue = TaskStatus.NotStarted;
+                                break;
+                            case "In Progress":
+                                info.TaskStatusValue = TaskStatus.InProgress;
+                                break;
+                            case "Completed":
+                                info.TaskStatusValue = TaskStatus.Completed;
+                                break;
+                            case "Checked":
+                                info.TaskStatusValue = TaskStatus.Checked;
+                                break;
+                        }
+                    }
+                    else info.TaskStatusValue = null;
+
+                    lstTaskStatusInfoUnsorted.Add(info);
+                    //lstTaskStatusInfo.Add(info);
                 }
             }
             rdrTaskStatus.Close();
             if (connRN.State != ConnectionState.Closed) connRN.Close();
+
+            lstTaskStatusInfo = lstTaskStatusInfoUnsorted.OrderBy(info => info.nTaskStatusCode).ToList();
+
+            for (int i = 0; i < lstTaskStatusInfo.Count; i++)
+            {
+                lstTaskStatusInfo[i].nTaskStatusSelectedIndex = i;
+            }
+
+            foreach (TaskStatusInfo info in lstTaskStatusInfo)
+            {
+                comboTaskStatus.Items.Add(info.TaskStatusValue.ToString());
+            }
 
             comboTaskPriority.Items.Clear();
             String strSqlQueryForTaskPriority = "select [dbo].[tbl_task_priority_code].[TaskPriorityValue] from [dbo].[tbl_task_priority_code]";
@@ -712,6 +757,8 @@ namespace CMMManager
 
         private void FillTaskFormWithTaskInfo()
         {
+
+
             String strSqlQueryForTaskInfo = "select [dbo].[tbl_task_created_by].[User_Name], [dbo].[tbl_task_assigned_to].[User_Name], " +
                                             "[dbo].[tbl_task].[whoid], [dbo].[tbl_task].[IndividualName], " +
                                             "[dbo].[tbl_task].[DueDate], [dbo].[tbl_task].[RelatedToTableId], [dbo].[tbl_task].[whatid], " +
@@ -757,7 +804,21 @@ namespace CMMManager
                 else txtTaskComments.Text = String.Empty;
                 if (!rdrTaskInfo.IsDBNull(9)) txtTaskSolution.Text = rdrTaskInfo.GetString(9);
                 else txtTaskSolution.Text = String.Empty;
-                if (!rdrTaskInfo.IsDBNull(10)) comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
+                if (!rdrTaskInfo.IsDBNull(10))
+                {
+                    //comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
+                    for (int i = 0; i < lstTaskStatusInfo.Count; i++)
+                    {
+                        if (rdrTaskInfo.GetByte(10) < 3)
+                        {
+                            comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10);
+                        }
+                        else
+                        {
+                            comboTaskStatus.SelectedIndex = rdrTaskInfo.GetByte(10) - 3;
+                        }
+                    }
+                }
                 if (!rdrTaskInfo.IsDBNull(11)) comboTaskPriority.SelectedIndex = rdrTaskInfo.GetByte(11);
                 if (!rdrTaskInfo.IsDBNull(12)) txtTaskPhone.Text = rdrTaskInfo.GetString(12);
                 else txtTaskPhone.Text = String.Empty;
@@ -1886,7 +1947,12 @@ namespace CMMManager
                 String Comment = txtTaskComments.Text.Trim();
                 String Solution = txtTaskSolution.Text.Trim();
 
-                TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+                //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+                TaskStatus ts;
+
+                if (comboTaskStatus.SelectedIndex < 3) ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+                else ts = (TaskStatus)(comboTaskStatus.SelectedIndex + 3);
+
                 TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
 
                 String PhoneNo = txtTaskPhone.Text.Trim();
@@ -2736,7 +2802,13 @@ namespace CMMManager
             String Comment = txtTaskComments.Text.Trim();
             String Solution = txtTaskSolution.Text.Trim();
 
-            TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+
+            TaskStatus ts;
+
+            if (comboTaskStatus.SelectedIndex < 3) ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            else ts = (TaskStatus)(comboTaskStatus.SelectedIndex + 3);
+
             TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
 
             String PhoneNo = txtTaskPhone.Text.Trim();
@@ -2941,7 +3013,12 @@ namespace CMMManager
             String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
-            TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            TaskStatus ts;
+
+            if (comboTaskStatus.SelectedIndex < 3) ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            else ts = (TaskStatus)(comboTaskStatus.SelectedIndex + 3);
+
             TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
 
             String PhoneNo = txtTaskPhone.Text.Trim();
@@ -3316,7 +3393,8 @@ namespace CMMManager
                             taskReplyReceiverInfo.UserRoleId != UserRole.RNManager &&
                             LoggedInUserInfo.departmentInfo.DepartmentId != taskReplyReceiverInfo.departmentInfo.DepartmentId)||
                             (!bTaskReplySenderRNManagerReceived &&
-                            TaskReplySenderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
+                            TaskReplySenderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
+                            LoggedInUserInfo.departmentInfo.DepartmentId != TaskReplyReceiverInfo.departmentInfo.DepartmentId))
                         {
                             //nReplySenderStaffDepartmentManagerId = 13;
                             //AssignTaskToManager(nReplySenderStaffDepartmentManagerId.Value, taskReplySenderInfo, nTaskId.Value);
@@ -3490,7 +3568,13 @@ namespace CMMManager
             String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
-            TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+
+            TaskStatus ts;
+
+            if (comboTaskStatus.SelectedIndex < 3) ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            else ts = (TaskStatus)(comboTaskStatus.SelectedIndex + 3);
+
             TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
 
             String PhoneNo = txtTaskPhone.Text.Trim();
@@ -3943,7 +4027,7 @@ namespace CMMManager
                         if ((!bTaskForwardedSenderRNManagerReceived &&
                             LoggedInUserInfo.UserRoleId != UserRole.RNManager && 
                             (UserRole)nReceivingStaffDepartmentId.Value != UserRole.RNManager) ||
-                            (bTaskForwardedSenderRNManagerReceived &&
+                            (!bTaskForwardedSenderRNManagerReceived &&
                             TaskForwarderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
                         {
                             //nForwardingStaffDepartmentManagerId = 13;
@@ -4147,7 +4231,13 @@ namespace CMMManager
             String Solution = txtTaskSolution.Text?.Trim();
             if (Solution == null) return;
 
-            TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            //TaskStatus ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+
+            TaskStatus ts;
+
+            if (comboTaskStatus.SelectedIndex < 3) ts = (TaskStatus)comboTaskStatus.SelectedIndex;
+            else ts = (TaskStatus)(comboTaskStatus.SelectedIndex + 3);
+
             TaskPriority tp = (TaskPriority)comboTaskPriority.SelectedIndex;
 
             String PhoneNo = txtTaskPhone.Text.Trim();

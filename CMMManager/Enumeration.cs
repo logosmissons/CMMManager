@@ -41,7 +41,7 @@ namespace CMMManager
     public enum IncidentProgram { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };
 
     public enum RelatedToTable { Membership, Case, Illness, Incident, MedicalBill, Settlement };
-    public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved };
+    public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved, Checked };
     public enum TaskPriority { High, Normal, Low };
     public enum TaskMode { AddNew, EditInRNManagerDashboard, EditInRNStaffDashboard, EditInNPManagerDashboard, EditInNPStaffDashboard, EditInMedBill, EditInCase, EditInIndividual, Reply,
                            EditInFDManagerDashboard, EditInFDStaffDashboard }

@@ -804,6 +804,20 @@ namespace CMMManager
         }
     }
 
+    public class TaskStatusInfo
+    {
+        public int? nTaskStatusSelectedIndex;
+        public int? nTaskStatusCode;
+        public TaskStatus? TaskStatusValue;
+
+        public TaskStatusInfo()
+        {
+            nTaskStatusSelectedIndex = null;
+            nTaskStatusCode = null;
+            TaskStatusValue = null;
+        }
+    }
+
     public class IllnessInfo
     {
         public int? IllnessId;
