@@ -2281,7 +2281,8 @@ namespace CMMManager
                                         LoggedInUserInfo.UserRoleId != UserRole.RNManager && 
                                         staffInfo.UserRoleId != UserRole.RNManager)||
                                         (!bTaskSentToRNManagerOfRNSender && 
-                                        TaskSenderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
+                                        TaskSenderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
+                                        staffInfo.UserRoleId != UserRole.RNManager))
                                     {
                                         AssignTaskToManager(RNManagerTaskId.RNManagerTaskUserId.Value, LoggedInUserInfo, TaskIdInserted.Value);     // assign a task RN Manager
                                         bTaskSentToRNManagerOfRNSender = true;
@@ -3331,9 +3332,10 @@ namespace CMMManager
                     case Department.ReviewAndNegotiation:
                         if ((!bTaskReplyReceiverRNManagerReceived &&
                             taskReplySenderInfo.UserRoleId != UserRole.RNManager &&
-                            taskReplyReceiverInfo.UserRoleId != UserRole.RNManager)||
+                            taskReplyReceiverInfo.UserRoleId != UserRole.RNManager) ||
                             (!bTaskReplyReceiverRNManagerReceived &&
-                             TaskReplyReceiverInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
+                             TaskReplyReceiverInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
+                             TaskReplySenderInfo.TaskUserRoleId != TaskUserRole.RNManager))
                         {
                             //nReplyReceiverStaffDepartmentManagerId = 13;
                             //AssignTaskToManager(nReplyReceiverStaffDepartmentManagerId.Value, taskReplyReceiverInfo, nTaskId.Value);
@@ -4028,7 +4030,8 @@ namespace CMMManager
                             LoggedInUserInfo.UserRoleId != UserRole.RNManager && 
                             (UserRole)nReceivingStaffDepartmentId.Value != UserRole.RNManager) ||
                             (!bTaskForwardedSenderRNManagerReceived &&
-                            TaskForwarderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
+                            TaskForwarderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
+                            taskForwardReceiverInfo.UserRoleId != UserRole.RNManager))
                         {
                             //nForwardingStaffDepartmentManagerId = 13;
                             //AssignTaskToManager(nForwardingStaffDepartmentManagerId.Value, LoggedInUserInfo, nTaskId.Value);
