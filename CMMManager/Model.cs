@@ -2199,6 +2199,7 @@ namespace CMMManager
         public String UserName;
         public String UserEmail;
         public UserRole UserRoleId;
+        public TaskUserRole? TaskUserRoleId;
         public DepartmentInfo departmentInfo;
 
         public UserInfo()
@@ -2206,6 +2207,7 @@ namespace CMMManager
             UserId = null;
             UserName = String.Empty;
             UserEmail = String.Empty;
+            TaskUserRoleId = null;
             departmentInfo = new DepartmentInfo();
         }
 
@@ -2217,6 +2219,17 @@ namespace CMMManager
             UserRoleId = user_role_id;
             departmentInfo = new DepartmentInfo(department_id, String.Empty);
         }
+
+        public UserInfo(int user_id, String user_name, String user_email, UserRole user_role_id, TaskUserRole task_user_role_id, Department department_id)
+        {
+            UserId = user_id;
+            UserName = user_name;
+            UserEmail = user_email;
+            UserRoleId = user_role_id;
+            TaskUserRoleId = task_user_role_id;
+            departmentInfo = new DepartmentInfo(department_id, String.Empty);
+        }
+
     }
 
     public class TaskUserInfo

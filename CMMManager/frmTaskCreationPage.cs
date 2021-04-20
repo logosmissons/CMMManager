@@ -1908,7 +1908,8 @@ namespace CMMManager
 
                 foreach (String name in lstNamesAssignedTo)
                 {
-                    String strSqlQueryForAssignedToInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[Department_Id], [dbo].[tbl_user].[User_Role_Id] from [dbo].[tbl_user] " +
+                    String strSqlQueryForAssignedToInfo = "select [dbo].[tbl_user].[User_Id], [dbo].[tbl_user].[Department_Id], " +
+                                                          "[dbo].[tbl_user].[User_Role_Id], [dbo].[tbl_user].[Task_Role_Id] from [dbo].[tbl_user] " +
                                                           "where [dbo].[tbl_user].[User_Name] = @UserName";
 
                     SqlCommand cmdQueryForAssignedToInfo = new SqlCommand(strSqlQueryForAssignedToInfo, connRN);
@@ -1930,7 +1931,8 @@ namespace CMMManager
                         UserInfo staffInfo = new UserInfo();
                         if (!rdrAssignedTo.IsDBNull(0)) staffInfo.UserId = rdrAssignedTo.GetInt16(0);
                         if (!rdrAssignedTo.IsDBNull(1)) staffInfo.departmentInfo.DepartmentId = (Department)rdrAssignedTo.GetInt16(1);
-                        if (!rdrAssignedTo.IsDBNull(2)) staffInfo.UserRoleId = (UserRole)rdrAssignedTo.GetInt16(2);                        
+                        if (!rdrAssignedTo.IsDBNull(2)) staffInfo.UserRoleId = (UserRole)rdrAssignedTo.GetInt16(2);
+                        if (!rdrAssignedTo.IsDBNull(3)) staffInfo.TaskUserRoleId = (TaskUserRole)rdrAssignedTo.GetInt16(3);
                         lstStaffAssignedTo.Add(staffInfo);
                     }
                     if (connRN.State == ConnectionState.Open) connRN.Close();
@@ -2282,7 +2284,10 @@ namespace CMMManager
                                         staffInfo.UserRoleId != UserRole.RNManager)||
                                         (!bTaskSentToRNManagerOfRNSender && 
                                         TaskSenderInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
-                                        staffInfo.UserRoleId != UserRole.RNManager))
+                                        staffInfo.UserRoleId != UserRole.RNManager)||
+                                        (!bTaskSentToRNManagerOfRNSender &&
+                                        TaskSenderInfo.TaskUserRoleId == TaskUserRole.RNStaff &&
+                                        staffInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager))
                                     {
                                         AssignTaskToManager(RNManagerTaskId.RNManagerTaskUserId.Value, LoggedInUserInfo, TaskIdInserted.Value);     // assign a task RN Manager
                                         bTaskSentToRNManagerOfRNSender = true;
@@ -2346,6 +2351,9 @@ namespace CMMManager
                                         LoggedInUserInfo.departmentInfo.DepartmentId != staffInfo.departmentInfo.DepartmentId)||
                                         (!bTaskSentToRNManager && 
                                         TaskReceiverInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
+                                        LoggedInUserInfo.departmentInfo.DepartmentId != staffInfo.departmentInfo.DepartmentId)||
+                                        (!bTaskSentToRNManager &&
+                                        staffInfo.TaskUserRoleId == TaskUserRole.RNAssistantManager &&
                                         LoggedInUserInfo.departmentInfo.DepartmentId != staffInfo.departmentInfo.DepartmentId))
                                     {
                                         //AssignTaskToManager(nDepartmentManagerId.Value, staffInfo, TaskIdInserted.Value);
