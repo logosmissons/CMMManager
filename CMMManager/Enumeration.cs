@@ -27,7 +27,7 @@ namespace CMMManager
     //}
 
     //public enum MedicalBillType { MedicalBill = 1, Prescription = 2, PhysicalTherapy = 3, MedicalRecord = 4, LifePlan = 5, TestRequestByCMM = 6 };
-    public enum MedicalBillType { MedicalBill = 1, Prescription = 2, NewBorn = 3, MedicalRecord = 4, LifePlan = 5, TestRequestByCMM = 6 };
+    public enum MedicalBillType { MedicalBill = 1, Prescription = 2, NewBorn = 3, MedicalRecord = 4, LifePlan = 5, TestRequestByCMM = 6, PhysicalTherapy = 7 };
     public enum EnumPrescriptionType { MedicalBill = 0, Prescription = 1 };
     public enum BeneficiaryType { MedicalBill = 0, Beneficiary = 1 };
     public enum MedicalBillStatus { Pending = 0, CMMPendingPayment = 1, Closed = 2, Ineligible = 3, PartiallyIneligible = 4 };
