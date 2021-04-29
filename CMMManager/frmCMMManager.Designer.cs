@@ -12961,11 +12961,11 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1722, 33);
+            this.label143.Location = new System.Drawing.Point(1597, 29);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(141, 13);
+            this.label143.Size = new System.Drawing.Size(266, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "Task Improved - 04-15-2021";
+            this.label143.Text = "Settlement Waiting For Approval Disabled - 04-29-2021";
             // 
             // frmCMMManager
             // 
