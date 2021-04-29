@@ -937,23 +937,35 @@ namespace CMMManager
 
     public class SettlementInfoForApproval
     {
-        public String MedBillNo;
+        public Boolean IsWellBeing;
+        public Boolean IsApproved;
         public String IndividualId;
         public String IndividualName;
+        public String IncidentNo;
+        public String MedBillNo;
         public String SettlementNo;
-        public String SettlementType;
+        public SettlementType? SettlementType;
+        public PaymentMethodExport? PaymentMethod;
         public Decimal SettlementAmount;
-        public Boolean IsWellBeing;
+        public DateTime? LastModifiedDate;
+        public Double Balance;
+        
 
         public SettlementInfoForApproval()
         {
-            MedBillNo = String.Empty;
+            IsWellBeing = false;
+            IsApproved = false;
             IndividualId = String.Empty;
             IndividualName = String.Empty;
+            IncidentNo = String.Empty;
+            MedBillNo = String.Empty;
             SettlementNo = String.Empty;
-            SettlementType = String.Empty;
+            SettlementType = null;
+            PaymentMethod = null;
             SettlementAmount = 0;
-            IsWellBeing = false;
+            LastModifiedDate = null;
+            Balance = 0;
+            
         }
     }
 
