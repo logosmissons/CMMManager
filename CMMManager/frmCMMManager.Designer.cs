@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -68,9 +71,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -79,6 +79,18 @@
             this.btnRNManagerCompleteTaskReload = new System.Windows.Forms.Button();
             this.btnRNManagerActiveTaskReload = new System.Windows.Forms.Button();
             this.gvSettlementsForApproval = new System.Windows.Forms.DataGridView();
+            this.IsWellBeingForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsApprovedForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IncdNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementTypeForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CMMPaymentMethodForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SettlementAmountForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LastModifiedDateForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BalanceForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label122 = new System.Windows.Forms.Label();
             this.gvRNManagerMedBillPending = new System.Windows.Forms.DataGridView();
             this.RNManagerMedBillPendingBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -1328,18 +1340,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.IsWellBeingForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsApprovedForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualIdForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IncdNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementNoForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementTypeForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CMMPaymentMethodForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SettlementAmountForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LastModifiedDateForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BalanceForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
@@ -1597,6 +1597,89 @@
             this.gvSettlementsForApproval.Size = new System.Drawing.Size(806, 248);
             this.gvSettlementsForApproval.TabIndex = 12;
             this.gvSettlementsForApproval.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsForApproval_CellDoubleClick);
+            // 
+            // IsWellBeingForApproval
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle1;
+            this.IsWellBeingForApproval.HeaderText = "Is Well Being";
+            this.IsWellBeingForApproval.Name = "IsWellBeingForApproval";
+            this.IsWellBeingForApproval.ReadOnly = true;
+            // 
+            // IsApprovedForApproval
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.IsApprovedForApproval.DefaultCellStyle = dataGridViewCellStyle2;
+            this.IsApprovedForApproval.HeaderText = "Approved";
+            this.IsApprovedForApproval.Name = "IsApprovedForApproval";
+            this.IsApprovedForApproval.ReadOnly = true;
+            this.IsApprovedForApproval.Width = 80;
+            // 
+            // IndividualIdForApproval
+            // 
+            this.IndividualIdForApproval.HeaderText = "IndividualId";
+            this.IndividualIdForApproval.Name = "IndividualIdForApproval";
+            this.IndividualIdForApproval.ReadOnly = true;
+            // 
+            // IndividualNameForApproval
+            // 
+            this.IndividualNameForApproval.HeaderText = "Individual Name";
+            this.IndividualNameForApproval.Name = "IndividualNameForApproval";
+            this.IndividualNameForApproval.ReadOnly = true;
+            this.IndividualNameForApproval.Width = 160;
+            // 
+            // IncdNoForApproval
+            // 
+            this.IncdNoForApproval.HeaderText = "Incident No";
+            this.IncdNoForApproval.Name = "IncdNoForApproval";
+            this.IncdNoForApproval.ReadOnly = true;
+            // 
+            // MedBillNoForApproval
+            // 
+            this.MedBillNoForApproval.HeaderText = "MedBill No";
+            this.MedBillNoForApproval.Name = "MedBillNoForApproval";
+            this.MedBillNoForApproval.ReadOnly = true;
+            // 
+            // SettlementNoForApproval
+            // 
+            this.SettlementNoForApproval.HeaderText = "Settlement No";
+            this.SettlementNoForApproval.Name = "SettlementNoForApproval";
+            this.SettlementNoForApproval.ReadOnly = true;
+            // 
+            // SettlementTypeForApproval
+            // 
+            this.SettlementTypeForApproval.HeaderText = "Settlement Type";
+            this.SettlementTypeForApproval.Name = "SettlementTypeForApproval";
+            this.SettlementTypeForApproval.ReadOnly = true;
+            this.SettlementTypeForApproval.Width = 160;
+            // 
+            // CMMPaymentMethodForApproval
+            // 
+            this.CMMPaymentMethodForApproval.HeaderText = "CMM Payment Method";
+            this.CMMPaymentMethodForApproval.Name = "CMMPaymentMethodForApproval";
+            this.CMMPaymentMethodForApproval.ReadOnly = true;
+            this.CMMPaymentMethodForApproval.Width = 120;
+            // 
+            // SettlementAmountForApproval
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle3;
+            this.SettlementAmountForApproval.HeaderText = "Settlement Amount";
+            this.SettlementAmountForApproval.Name = "SettlementAmountForApproval";
+            this.SettlementAmountForApproval.ReadOnly = true;
+            this.SettlementAmountForApproval.Width = 120;
+            // 
+            // LastModifiedDateForApproval
+            // 
+            this.LastModifiedDateForApproval.HeaderText = "Last Modified Date";
+            this.LastModifiedDateForApproval.Name = "LastModifiedDateForApproval";
+            this.LastModifiedDateForApproval.ReadOnly = true;
+            // 
+            // BalanceForApproval
+            // 
+            this.BalanceForApproval.HeaderText = "Balance";
+            this.BalanceForApproval.Name = "BalanceForApproval";
+            this.BalanceForApproval.ReadOnly = true;
             // 
             // label122
             // 
@@ -12883,89 +12966,6 @@
             this.label143.Size = new System.Drawing.Size(141, 13);
             this.label143.TabIndex = 6;
             this.label143.Text = "Task Improved - 04-15-2021";
-            // 
-            // IsWellBeingForApproval
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IsWellBeingForApproval.DefaultCellStyle = dataGridViewCellStyle1;
-            this.IsWellBeingForApproval.HeaderText = "Is Well Being";
-            this.IsWellBeingForApproval.Name = "IsWellBeingForApproval";
-            this.IsWellBeingForApproval.ReadOnly = true;
-            // 
-            // IsApprovedForApproval
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.IsApprovedForApproval.DefaultCellStyle = dataGridViewCellStyle2;
-            this.IsApprovedForApproval.HeaderText = "Approved";
-            this.IsApprovedForApproval.Name = "IsApprovedForApproval";
-            this.IsApprovedForApproval.ReadOnly = true;
-            this.IsApprovedForApproval.Width = 80;
-            // 
-            // IndividualIdForApproval
-            // 
-            this.IndividualIdForApproval.HeaderText = "IndividualId";
-            this.IndividualIdForApproval.Name = "IndividualIdForApproval";
-            this.IndividualIdForApproval.ReadOnly = true;
-            // 
-            // IndividualNameForApproval
-            // 
-            this.IndividualNameForApproval.HeaderText = "Individual Name";
-            this.IndividualNameForApproval.Name = "IndividualNameForApproval";
-            this.IndividualNameForApproval.ReadOnly = true;
-            this.IndividualNameForApproval.Width = 160;
-            // 
-            // IncdNoForApproval
-            // 
-            this.IncdNoForApproval.HeaderText = "Incident No";
-            this.IncdNoForApproval.Name = "IncdNoForApproval";
-            this.IncdNoForApproval.ReadOnly = true;
-            // 
-            // MedBillNoForApproval
-            // 
-            this.MedBillNoForApproval.HeaderText = "MedBill No";
-            this.MedBillNoForApproval.Name = "MedBillNoForApproval";
-            this.MedBillNoForApproval.ReadOnly = true;
-            // 
-            // SettlementNoForApproval
-            // 
-            this.SettlementNoForApproval.HeaderText = "Settlement No";
-            this.SettlementNoForApproval.Name = "SettlementNoForApproval";
-            this.SettlementNoForApproval.ReadOnly = true;
-            // 
-            // SettlementTypeForApproval
-            // 
-            this.SettlementTypeForApproval.HeaderText = "Settlement Type";
-            this.SettlementTypeForApproval.Name = "SettlementTypeForApproval";
-            this.SettlementTypeForApproval.ReadOnly = true;
-            this.SettlementTypeForApproval.Width = 160;
-            // 
-            // CMMPaymentMethodForApproval
-            // 
-            this.CMMPaymentMethodForApproval.HeaderText = "CMM Payment Method";
-            this.CMMPaymentMethodForApproval.Name = "CMMPaymentMethodForApproval";
-            this.CMMPaymentMethodForApproval.ReadOnly = true;
-            this.CMMPaymentMethodForApproval.Width = 120;
-            // 
-            // SettlementAmountForApproval
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.SettlementAmountForApproval.DefaultCellStyle = dataGridViewCellStyle3;
-            this.SettlementAmountForApproval.HeaderText = "Settlement Amount";
-            this.SettlementAmountForApproval.Name = "SettlementAmountForApproval";
-            this.SettlementAmountForApproval.ReadOnly = true;
-            this.SettlementAmountForApproval.Width = 120;
-            // 
-            // LastModifiedDateForApproval
-            // 
-            this.LastModifiedDateForApproval.HeaderText = "Last Modified Date";
-            this.LastModifiedDateForApproval.Name = "LastModifiedDateForApproval";
-            this.LastModifiedDateForApproval.ReadOnly = true;
-            // 
-            // BalanceForApproval
-            // 
-            this.BalanceForApproval.HeaderText = "Balance";
-            this.BalanceForApproval.Name = "BalanceForApproval";
-            this.BalanceForApproval.ReadOnly = true;
             // 
             // frmCMMManager
             // 
