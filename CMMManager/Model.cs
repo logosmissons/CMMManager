@@ -281,6 +281,23 @@ namespace CMMManager
         }
     }
 
+    public class RNStaffInfo
+    {
+        public int? StaffId;
+        public String StaffName;
+
+        public RNStaffInfo()
+        {
+            StaffId = null;
+            StaffName = null;
+        }
+
+        public RNStaffInfo(int staff_id, String staff_name)
+        {
+            StaffId = staff_id;
+            StaffName = staff_name;
+        }
+    }
 
     public class MedicalBillInfoForList
     {
@@ -2427,6 +2444,8 @@ namespace CMMManager
         public Boolean bAddOn;
         public String Note;
         public Double Amount;
+        public int? AssignedToStaffId;
+        public DateTime? AssignedDate;
         public int? CreateStaffId;
         public DateTime? CreateDate;
 
@@ -2440,6 +2459,8 @@ namespace CMMManager
             bAddOn = false;
             Note = String.Empty;
             Amount = 0;
+            AssignedToStaffId = null;
+            AssignedDate = null;
             CreateStaffId = null;
             CreateDate = null;
         }
@@ -2484,6 +2505,33 @@ namespace CMMManager
             bAddOn = add_on;
             Note = note;
             Amount = amount;
+            CreateStaffId = create_staff_id;
+            CreateDate = create_date;
+        }
+
+        public CaseDocInfo(String case_doc_no,
+           String case_name,
+           int doc_type_id,
+           DateTime received_date,
+           String destination_file_path,
+           Boolean add_on,
+           String note,
+           Double amount,
+           int assigned_to_staff_id,
+           DateTime assigned_date,
+           int create_staff_id,
+           DateTime create_date)
+        {
+            CaseDocNo = case_doc_no;
+            CaseName = case_name;
+            DocumentTypeId = doc_type_id;
+            ReceivedDate = received_date;
+            DestinationFilePath = destination_file_path;
+            bAddOn = add_on;
+            Note = note;
+            Amount = amount;
+            AssignedToStaffId = assigned_to_staff_id;
+            AssignedDate = assigned_date;
             CreateStaffId = create_staff_id;
             CreateDate = create_date;
         }
