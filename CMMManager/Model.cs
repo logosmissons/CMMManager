@@ -1119,6 +1119,7 @@ namespace CMMManager
         public String IncidentNo;
         public String ICD10Code;
         public String ICD10Description;
+        public String IncidentNotes;
         public String MedicalBillNo;
         public MedicalBillType? MedBillType;
         public MedicalBillStatus? MedBillStatus;
@@ -1144,6 +1145,7 @@ namespace CMMManager
             IncidentNo = null;
             ICD10Code = null;
             ICD10Description = null;
+            IncidentNotes = null;
             MedicalBillNo = null;
             MedBillType = null;
             MedBillStatus = null;
