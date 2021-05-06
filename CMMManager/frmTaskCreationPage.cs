@@ -1067,7 +1067,7 @@ namespace CMMManager
                 //}
                 //rdrTaskInfo.Close();
                 //if (connRN.State != ConnectionState.Closed) connRN.Close();
-
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnReplyTask.Enabled = true;
                 btnForward.Enabled = true;
@@ -1136,7 +1136,7 @@ namespace CMMManager
                 //}
                 //rdrTaskInfo.Close();
                 //if (connRN.State != ConnectionState.Closed) connRN.Close();
-
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnReplyTask.Enabled = true;
                 btnForward.Enabled = true;
@@ -1205,7 +1205,7 @@ namespace CMMManager
                 //}
                 //rdrTaskInfo.Close();
                 //if (connRN.State != ConnectionState.Closed) connRN.Close();
-
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnReplyTask.Enabled = true;
                 btnForward.Enabled = true;
@@ -1275,7 +1275,7 @@ namespace CMMManager
                 //}
                 //rdrTaskInfo.Close();
                 //if (connRN.State != ConnectionState.Closed) connRN.Close();
-
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnForward.Enabled = true;
                 btnReplyTask.Enabled = true;
@@ -1286,6 +1286,7 @@ namespace CMMManager
                 InitializeTaskForm();
                 FillTaskFormWithTaskInfo();
 
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnForward.Enabled = true;
                 btnReplyTask.Enabled = true;
@@ -1297,6 +1298,7 @@ namespace CMMManager
                 InitializeTaskForm();
                 FillTaskFormWithTaskInfo();
 
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnForward.Enabled = true;
                 btnReplyTask.Enabled = true;
@@ -1307,6 +1309,7 @@ namespace CMMManager
                 InitializeTaskForm();
                 FillTaskFormWithTaskInfo();
 
+                txtTaskComments.ReadOnly = true;
                 btnSaveTask.Enabled = false;
                 btnForward.Enabled = true;
                 btnReplyTask.Enabled = true;
