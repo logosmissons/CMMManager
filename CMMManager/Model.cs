@@ -139,6 +139,35 @@ namespace CMMManager
         }
     }
 
+    public class IndividualBlueSheetInfo
+    {
+        public String IndividualId;
+        //public CommunicationType? BlueSheetType;
+        public EnumBlueSheetType? BlueSheetType;
+        public String CheckNo;
+        public String ACH_No;
+        public String CreditCardNo;
+        public String IncidentNo;
+        public DateTime? IssueDate;
+        public DateTime? IncidentOccurrenceDate;
+        public DateTime? CreateDate;
+        public int? CreatedById;
+
+        public IndividualBlueSheetInfo()
+        {
+            IndividualId = null;
+            BlueSheetType = null;
+            CheckNo = null;
+            ACH_No = null;
+            CreditCardNo = null;
+            IncidentNo = null;
+            IssueDate = null;
+            IncidentOccurrenceDate = null;
+            CreateDate = null;
+            CreatedById = null;
+        }
+    }
+
     public class IllnessProgramHistory
     {
         public String IndividualId;
