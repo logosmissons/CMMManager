@@ -1891,6 +1891,16 @@ namespace CMMManager
                 return;
             }
         }
+
+        public void MakeIllnessCreatePageReadOnly()
+        {
+            btnAddAttachment.Enabled = false;
+            btnDeleteAttachment.Enabled = false;
+
+            //gvIllnessAttachment.Columns[2].ReadOnly = true;
+
+            btnSaveIllness.Enabled = false;
+        }
     }
 
     public class ICD10CodeInfo

@@ -7964,6 +7964,7 @@
             this.gvMedBillList.ReadOnly = true;
             this.gvMedBillList.Size = new System.Drawing.Size(1748, 699);
             this.gvMedBillList.TabIndex = 0;
+            this.gvMedBillList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedBillList_CellClick);
             this.gvMedBillList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvMedBillList_CellDoubleClick);
             // 
             // MedBillView_CaseNo
