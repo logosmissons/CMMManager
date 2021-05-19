@@ -6786,14 +6786,12 @@
             // 
             // btnReloadMedBillsInCaseForm
             // 
-            this.btnReloadMedBillsInCaseForm.Enabled = false;
             this.btnReloadMedBillsInCaseForm.Location = new System.Drawing.Point(285, 560);
             this.btnReloadMedBillsInCaseForm.Name = "btnReloadMedBillsInCaseForm";
             this.btnReloadMedBillsInCaseForm.Size = new System.Drawing.Size(110, 31);
             this.btnReloadMedBillsInCaseForm.TabIndex = 151;
             this.btnReloadMedBillsInCaseForm.Text = "Reload";
             this.btnReloadMedBillsInCaseForm.UseVisualStyleBackColor = true;
-            this.btnReloadMedBillsInCaseForm.Visible = false;
             this.btnReloadMedBillsInCaseForm.Click += new System.EventHandler(this.btnReloadMedBillsInCaseForm_Click);
             // 
             // gvCasePageMedBills
