@@ -49,6 +49,33 @@ namespace CMMManager
         }
     }
 
+    public class IncidentProgramPeriod
+    {
+        public String IndividualId;
+        public DateTime? ProgramStartDate;
+        public DateTime? ProgramEndDate;
+        public IncidentProgram? IncidentProgram;
+
+        public IncidentProgramPeriod()
+        {
+            IndividualId = null;
+            ProgramStartDate = null;
+            ProgramEndDate = null;
+            IncidentProgram = null;
+        }
+
+        public IncidentProgramPeriod(String individual_id, 
+                                     DateTime start_date, 
+                                     DateTime end_date, 
+                                     IncidentProgram incident_program)
+        {
+            IndividualId = individual_id;
+            ProgramStartDate = start_date;
+            ProgramEndDate = end_date;
+            IncidentProgram = incident_program;
+        }
+    }
+
     public class IndividualProgramInfo
     {
         public String IndividualId;
@@ -995,6 +1022,7 @@ namespace CMMManager
         public Decimal SettlementAmount;
         public DateTime? LastModifiedDate;
         public Double Balance;
+        public String LastModifiedByStaffName;
         
 
         public SettlementInfoForApproval()
@@ -1011,6 +1039,7 @@ namespace CMMManager
             SettlementAmount = 0;
             LastModifiedDate = null;
             Balance = 0;
+            LastModifiedByStaffName = null;
             
         }
     }
