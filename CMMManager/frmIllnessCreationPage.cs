@@ -1350,12 +1350,25 @@ namespace CMMManager
                 return;
             }
 
-            int NumberOfYears = DateTime.Today.Year - dtIndividualStartDate.Value.Year;
-            if (dtIndividualStartDate.Value.AddYears(NumberOfYears) > DateTime.Today) NumberOfYears--;
+            //int NumberOfYears = DateTime.Today.Year - dtIndividualStartDate.Value.Year;
+            //if (dtIndividualStartDate.Value.AddYears(NumberOfYears) > DateTime.Today) NumberOfYears--;
 
+            TimeSpan tsNumberOfYears = DateTime.Today - dtIndividualStartDate.Value;
+
+            int NumberOfYears = 0;
+
+            if (tsNumberOfYears.Days >= 0 && tsNumberOfYears.Days < 365) NumberOfYears = 1;
+            else if (tsNumberOfYears.Days < 365 * 2) NumberOfYears = 2;
+            else if (tsNumberOfYears.Days < 365 * 3) NumberOfYears = 3;
+            else if (tsNumberOfYears.Days < 365 * 4) NumberOfYears = 4;
+            else if (tsNumberOfYears.Days >= 365 * 4) NumberOfYears = 5;
+            
             int LimitedSharingYear = NumberOfYears;
             if (LimitedSharingYear > 4) LimitedSharingYear = 4;
 
+            //txtLimitedSharingYearlyLimit
+            //if (LimitedSharingYear > 0)
+            //{
             ComboBox combo = (ComboBox)sender;
             switch (combo.SelectedIndex)
             {
@@ -1363,7 +1376,13 @@ namespace CMMManager
                     txtLimitedSharingYearlyLimit.Text = dicLimitedSharing1[LimitedSharingYear].ToString("C");
                     break;
                 case 2:
-                    txtLimitedSharingYearlyLimit.Text = dicLimitedSharing2[LimitedSharingYear].ToString("C");
+                    if (LimitedSharingYear >= 2) txtLimitedSharingYearlyLimit.Text = dicLimitedSharing2[LimitedSharingYear].ToString("C");
+                    else
+                    {
+                        Decimal LimitedSharing2 = 0;
+                        txtLimitedSharingYearlyLimit.Text = LimitedSharing2.ToString("C");
+                        txtYearlyLimitBalance.Text = String.Empty;
+                    }
                     break;
                 default:
                     Decimal Zero = 0;
@@ -1371,6 +1390,7 @@ namespace CMMManager
                     txtYearlyLimitBalance.Text = String.Empty;
                     break;
             }
+            //}
 
             Double LimitedSharingYearlyLimit = 0;
 
