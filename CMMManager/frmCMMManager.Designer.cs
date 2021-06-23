@@ -93,17 +93,6 @@
             this.BalanceForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastModifiedByForApproval = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label122 = new System.Windows.Forms.Label();
-            this.gvRNManagerMedBillPending = new System.Windows.Forms.DataGridView();
-            this.RNManagerMedBillPendingBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingIndividualId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingIndividualName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingCreatedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingLastModifiedBy = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerMedBillPendingIPendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label185 = new System.Windows.Forms.Label();
-            this.label158 = new System.Windows.Forms.Label();
             this.gvRNManagerCompleteTask = new System.Windows.Forms.DataGridView();
             this.IndividualIdCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameCompleteTaskRNMgr = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -132,18 +121,6 @@
             this.PriorityRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TaskIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label156 = new System.Windows.Forms.Label();
-            this.gvRNManagerIncompleteCase = new System.Windows.Forms.DataGridView();
-            this.RNManagerIncompleteCase_CaseName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerIncompleteCaseContactID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerIncompleteCaseCreateStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerIncompleteCaseModifiStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNManagerIncompleteCaseNPFForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.RNManagerIncompleteCaseIBForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.RNManagerIncompleteCasePOPForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.RNManagerIncompleteCaseMedRec = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.RNManagerIncompleteCaseUnknowForm = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.RNManagerIncompleteCaseAddBill = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.label155 = new System.Windows.Forms.Label();
             this.tbpgDashboardRNStaff = new System.Windows.Forms.TabPage();
             this.btnRNStaffCompleteTaskReload = new System.Windows.Forms.Button();
             this.btnRNStaffActiveTaskReload = new System.Windows.Forms.Button();
@@ -177,10 +154,6 @@
             this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label162 = new System.Windows.Forms.Label();
-            this.gvDashboardRNStaffCaseQueue = new System.Windows.Forms.DataGridView();
-            this.gvDashboardRNAnnouncement = new System.Windows.Forms.DataGridView();
-            this.label161 = new System.Windows.Forms.Label();
-            this.label160 = new System.Windows.Forms.Label();
             this.label159 = new System.Windows.Forms.Label();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
             this.btnNPManagerCompleteTaskReload = new System.Windows.Forms.Button();
@@ -1346,16 +1319,12 @@
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerIncompleteCase)).BeginInit();
             this.tbpgDashboardRNStaff.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffPending)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffCompleteTask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffActiveTask)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).BeginInit();
             this.tbpgDashboardNPManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCompleteTask)).BeginInit();
@@ -1478,14 +1447,14 @@
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Location = new System.Drawing.Point(27, 24);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(100, 22);
+            this.txtSearch.Size = new System.Drawing.Size(194, 22);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(157, 23);
+            this.btnSearch.Location = new System.Drawing.Point(250, 23);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(119, 23);
             this.btnSearch.TabIndex = 1;
@@ -1496,7 +1465,7 @@
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(595, 23);
+            this.btnClose.Location = new System.Drawing.Point(688, 23);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(119, 23);
             this.btnClose.TabIndex = 2;
@@ -1541,15 +1510,10 @@
             this.tbpgDashboardRNManager.Controls.Add(this.btnRNManagerActiveTaskReload);
             this.tbpgDashboardRNManager.Controls.Add(this.gvSettlementsForApproval);
             this.tbpgDashboardRNManager.Controls.Add(this.label122);
-            this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerMedBillPending);
-            this.tbpgDashboardRNManager.Controls.Add(this.label185);
-            this.tbpgDashboardRNManager.Controls.Add(this.label158);
             this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerCompleteTask);
             this.tbpgDashboardRNManager.Controls.Add(this.label157);
             this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerActiveTask);
             this.tbpgDashboardRNManager.Controls.Add(this.label156);
-            this.tbpgDashboardRNManager.Controls.Add(this.gvRNManagerIncompleteCase);
-            this.tbpgDashboardRNManager.Controls.Add(this.label155);
             this.tbpgDashboardRNManager.Location = new System.Drawing.Point(4, 22);
             this.tbpgDashboardRNManager.Name = "tbpgDashboardRNManager";
             this.tbpgDashboardRNManager.Size = new System.Drawing.Size(1832, 874);
@@ -1559,7 +1523,7 @@
             // 
             // btnReloadSettlementForApproval
             // 
-            this.btnReloadSettlementForApproval.Location = new System.Drawing.Point(725, 95);
+            this.btnReloadSettlementForApproval.Location = new System.Drawing.Point(392, 26);
             this.btnReloadSettlementForApproval.Name = "btnReloadSettlementForApproval";
             this.btnReloadSettlementForApproval.Size = new System.Drawing.Size(128, 31);
             this.btnReloadSettlementForApproval.TabIndex = 15;
@@ -1569,7 +1533,7 @@
             // 
             // btnRNManagerCompleteTaskReload
             // 
-            this.btnRNManagerCompleteTaskReload.Location = new System.Drawing.Point(1659, 487);
+            this.btnRNManagerCompleteTaskReload.Location = new System.Drawing.Point(1659, 533);
             this.btnRNManagerCompleteTaskReload.Name = "btnRNManagerCompleteTaskReload";
             this.btnRNManagerCompleteTaskReload.Size = new System.Drawing.Size(128, 31);
             this.btnRNManagerCompleteTaskReload.TabIndex = 14;
@@ -1579,7 +1543,7 @@
             // 
             // btnRNManagerActiveTaskReload
             // 
-            this.btnRNManagerActiveTaskReload.Location = new System.Drawing.Point(1657, 95);
+            this.btnRNManagerActiveTaskReload.Location = new System.Drawing.Point(819, 533);
             this.btnRNManagerActiveTaskReload.Name = "btnRNManagerActiveTaskReload";
             this.btnRNManagerActiveTaskReload.Size = new System.Drawing.Size(128, 31);
             this.btnRNManagerActiveTaskReload.TabIndex = 13;
@@ -1606,10 +1570,10 @@
             this.LastModifiedDateForApproval,
             this.BalanceForApproval,
             this.LastModifiedByForApproval});
-            this.gvSettlementsForApproval.Location = new System.Drawing.Point(47, 130);
+            this.gvSettlementsForApproval.Location = new System.Drawing.Point(47, 63);
             this.gvSettlementsForApproval.Name = "gvSettlementsForApproval";
             this.gvSettlementsForApproval.ReadOnly = true;
-            this.gvSettlementsForApproval.Size = new System.Drawing.Size(806, 248);
+            this.gvSettlementsForApproval.Size = new System.Drawing.Size(1740, 447);
             this.gvSettlementsForApproval.TabIndex = 12;
             this.gvSettlementsForApproval.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSettlementsForApproval_CellDoubleClick);
             // 
@@ -1654,6 +1618,7 @@
             this.MedBillNoForApproval.HeaderText = "MedBill No";
             this.MedBillNoForApproval.Name = "MedBillNoForApproval";
             this.MedBillNoForApproval.ReadOnly = true;
+            this.MedBillNoForApproval.Width = 160;
             // 
             // SettlementNoForApproval
             // 
@@ -1706,101 +1671,11 @@
             // 
             this.label122.AutoSize = true;
             this.label122.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label122.Location = new System.Drawing.Point(42, 101);
+            this.label122.Location = new System.Drawing.Point(44, 32);
             this.label122.Name = "label122";
             this.label122.Size = new System.Drawing.Size(321, 25);
             this.label122.TabIndex = 11;
             this.label122.Text = "Settlement Waiting For Approval";
-            // 
-            // gvRNManagerMedBillPending
-            // 
-            this.gvRNManagerMedBillPending.AllowUserToAddRows = false;
-            this.gvRNManagerMedBillPending.AllowUserToDeleteRows = false;
-            this.gvRNManagerMedBillPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRNManagerMedBillPending.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RNManagerMedBillPendingBillNo,
-            this.RNManagerMedBillPendingIndividualId,
-            this.RNManagerMedBillPendingIndividualName,
-            this.RNManagerMedBillPendingCreatedBy,
-            this.RNManagerMedBillPendingLastModifiedBy,
-            this.RNManagerMedBillPendingBillAmount,
-            this.RNManagerMedBillPendingMedicalProvider,
-            this.RNManagerMedBillPendingIPendingReason});
-            this.gvRNManagerMedBillPending.Location = new System.Drawing.Point(47, 643);
-            this.gvRNManagerMedBillPending.Name = "gvRNManagerMedBillPending";
-            this.gvRNManagerMedBillPending.ReadOnly = true;
-            this.gvRNManagerMedBillPending.Size = new System.Drawing.Size(806, 197);
-            this.gvRNManagerMedBillPending.TabIndex = 10;
-            // 
-            // RNManagerMedBillPendingBillNo
-            // 
-            this.RNManagerMedBillPendingBillNo.HeaderText = "MedBill No";
-            this.RNManagerMedBillPendingBillNo.Name = "RNManagerMedBillPendingBillNo";
-            this.RNManagerMedBillPendingBillNo.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingIndividualId
-            // 
-            this.RNManagerMedBillPendingIndividualId.HeaderText = "Individual Id";
-            this.RNManagerMedBillPendingIndividualId.Name = "RNManagerMedBillPendingIndividualId";
-            this.RNManagerMedBillPendingIndividualId.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingIndividualName
-            // 
-            this.RNManagerMedBillPendingIndividualName.HeaderText = "Individual Name";
-            this.RNManagerMedBillPendingIndividualName.Name = "RNManagerMedBillPendingIndividualName";
-            this.RNManagerMedBillPendingIndividualName.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingCreatedBy
-            // 
-            this.RNManagerMedBillPendingCreatedBy.HeaderText = "Created By";
-            this.RNManagerMedBillPendingCreatedBy.Name = "RNManagerMedBillPendingCreatedBy";
-            this.RNManagerMedBillPendingCreatedBy.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingLastModifiedBy
-            // 
-            this.RNManagerMedBillPendingLastModifiedBy.HeaderText = "Modified By";
-            this.RNManagerMedBillPendingLastModifiedBy.Name = "RNManagerMedBillPendingLastModifiedBy";
-            this.RNManagerMedBillPendingLastModifiedBy.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingBillAmount
-            // 
-            this.RNManagerMedBillPendingBillAmount.HeaderText = "Amount";
-            this.RNManagerMedBillPendingBillAmount.Name = "RNManagerMedBillPendingBillAmount";
-            this.RNManagerMedBillPendingBillAmount.ReadOnly = true;
-            // 
-            // RNManagerMedBillPendingMedicalProvider
-            // 
-            this.RNManagerMedBillPendingMedicalProvider.HeaderText = "Medical Provider";
-            this.RNManagerMedBillPendingMedicalProvider.Name = "RNManagerMedBillPendingMedicalProvider";
-            this.RNManagerMedBillPendingMedicalProvider.ReadOnly = true;
-            this.RNManagerMedBillPendingMedicalProvider.Width = 160;
-            // 
-            // RNManagerMedBillPendingIPendingReason
-            // 
-            this.RNManagerMedBillPendingIPendingReason.HeaderText = "Pending Reason";
-            this.RNManagerMedBillPendingIPendingReason.Name = "RNManagerMedBillPendingIPendingReason";
-            this.RNManagerMedBillPendingIPendingReason.ReadOnly = true;
-            this.RNManagerMedBillPendingIPendingReason.Width = 180;
-            // 
-            // label185
-            // 
-            this.label185.AutoSize = true;
-            this.label185.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label185.Location = new System.Drawing.Point(42, 615);
-            this.label185.Name = "label185";
-            this.label185.Size = new System.Drawing.Size(207, 25);
-            this.label185.TabIndex = 9;
-            this.label185.Text = "Medical Bill Pending";
-            // 
-            // label158
-            // 
-            this.label158.AutoSize = true;
-            this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label158.Location = new System.Drawing.Point(42, 381);
-            this.label158.Name = "label158";
-            this.label158.Size = new System.Drawing.Size(172, 25);
-            this.label158.TabIndex = 8;
-            this.label158.Text = "Incomplete Case";
             // 
             // gvRNManagerCompleteTask
             // 
@@ -1817,10 +1692,10 @@
             this.CommentCompleteTaskRNMgr,
             this.SolutionCompleteTaskRNMgr,
             this.TaskIdCompleteTaskRNManager});
-            this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(885, 521);
+            this.gvRNManagerCompleteTask.Location = new System.Drawing.Point(978, 567);
             this.gvRNManagerCompleteTask.Name = "gvRNManagerCompleteTask";
             this.gvRNManagerCompleteTask.ReadOnly = true;
-            this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(902, 319);
+            this.gvRNManagerCompleteTask.Size = new System.Drawing.Size(809, 273);
             this.gvRNManagerCompleteTask.TabIndex = 7;
             this.gvRNManagerCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNManagerCompleteTask_CellDoubleClick);
             // 
@@ -1883,7 +1758,7 @@
             // 
             this.label157.AutoSize = true;
             this.label157.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label157.Location = new System.Drawing.Point(880, 493);
+            this.label157.Location = new System.Drawing.Point(973, 539);
             this.label157.Name = "label157";
             this.label157.Size = new System.Drawing.Size(168, 25);
             this.label157.TabIndex = 6;
@@ -1910,10 +1785,10 @@
             this.StatusRNManager,
             this.PriorityRNManager,
             this.TaskIdRNManager});
-            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(885, 129);
+            this.gvRNManagerActiveTask.Location = new System.Drawing.Point(47, 567);
             this.gvRNManagerActiveTask.Name = "gvRNManagerActiveTask";
             this.gvRNManagerActiveTask.ReadOnly = true;
-            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(900, 341);
+            this.gvRNManagerActiveTask.Size = new System.Drawing.Size(900, 273);
             this.gvRNManagerActiveTask.TabIndex = 5;
             this.gvRNManagerActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNManagerActiveTask_CellDoubleClick);
             // 
@@ -2012,123 +1887,11 @@
             // 
             this.label156.AutoSize = true;
             this.label156.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label156.Location = new System.Drawing.Point(880, 101);
+            this.label156.Location = new System.Drawing.Point(42, 539);
             this.label156.Name = "label156";
             this.label156.Size = new System.Drawing.Size(124, 25);
             this.label156.TabIndex = 4;
             this.label156.Text = "Active Task";
-            // 
-            // gvRNManagerIncompleteCase
-            // 
-            this.gvRNManagerIncompleteCase.AllowUserToAddRows = false;
-            this.gvRNManagerIncompleteCase.AllowUserToDeleteRows = false;
-            this.gvRNManagerIncompleteCase.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvRNManagerIncompleteCase.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.RNManagerIncompleteCase_CaseName,
-            this.RNManagerIncompleteCaseContactID,
-            this.RNManagerIncompleteCaseCreateStaff,
-            this.RNManagerIncompleteCaseModifiStaff,
-            this.RNManagerIncompleteCaseNPFForm,
-            this.RNManagerIncompleteCaseIBForm,
-            this.RNManagerIncompleteCasePOPForm,
-            this.RNManagerIncompleteCaseMedRec,
-            this.RNManagerIncompleteCaseUnknowForm,
-            this.RNManagerIncompleteCaseAddBill});
-            this.gvRNManagerIncompleteCase.Location = new System.Drawing.Point(47, 409);
-            this.gvRNManagerIncompleteCase.Name = "gvRNManagerIncompleteCase";
-            this.gvRNManagerIncompleteCase.ReadOnly = true;
-            this.gvRNManagerIncompleteCase.Size = new System.Drawing.Size(806, 203);
-            this.gvRNManagerIncompleteCase.TabIndex = 3;
-            // 
-            // RNManagerIncompleteCase_CaseName
-            // 
-            this.RNManagerIncompleteCase_CaseName.HeaderText = "Case Name";
-            this.RNManagerIncompleteCase_CaseName.Name = "RNManagerIncompleteCase_CaseName";
-            this.RNManagerIncompleteCase_CaseName.ReadOnly = true;
-            this.RNManagerIncompleteCase_CaseName.Width = 90;
-            // 
-            // RNManagerIncompleteCaseContactID
-            // 
-            this.RNManagerIncompleteCaseContactID.HeaderText = "Individual Id";
-            this.RNManagerIncompleteCaseContactID.Name = "RNManagerIncompleteCaseContactID";
-            this.RNManagerIncompleteCaseContactID.ReadOnly = true;
-            this.RNManagerIncompleteCaseContactID.Width = 90;
-            // 
-            // RNManagerIncompleteCaseCreateStaff
-            // 
-            this.RNManagerIncompleteCaseCreateStaff.HeaderText = "Created By";
-            this.RNManagerIncompleteCaseCreateStaff.Name = "RNManagerIncompleteCaseCreateStaff";
-            this.RNManagerIncompleteCaseCreateStaff.ReadOnly = true;
-            this.RNManagerIncompleteCaseCreateStaff.Width = 90;
-            // 
-            // RNManagerIncompleteCaseModifiStaff
-            // 
-            this.RNManagerIncompleteCaseModifiStaff.HeaderText = "Modified By";
-            this.RNManagerIncompleteCaseModifiStaff.Name = "RNManagerIncompleteCaseModifiStaff";
-            this.RNManagerIncompleteCaseModifiStaff.ReadOnly = true;
-            this.RNManagerIncompleteCaseModifiStaff.Width = 90;
-            // 
-            // RNManagerIncompleteCaseNPFForm
-            // 
-            this.RNManagerIncompleteCaseNPFForm.HeaderText = "NPF";
-            this.RNManagerIncompleteCaseNPFForm.Name = "RNManagerIncompleteCaseNPFForm";
-            this.RNManagerIncompleteCaseNPFForm.ReadOnly = true;
-            this.RNManagerIncompleteCaseNPFForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCaseNPFForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RNManagerIncompleteCaseNPFForm.Width = 60;
-            // 
-            // RNManagerIncompleteCaseIBForm
-            // 
-            this.RNManagerIncompleteCaseIBForm.HeaderText = "IB";
-            this.RNManagerIncompleteCaseIBForm.Name = "RNManagerIncompleteCaseIBForm";
-            this.RNManagerIncompleteCaseIBForm.ReadOnly = true;
-            this.RNManagerIncompleteCaseIBForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCaseIBForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RNManagerIncompleteCaseIBForm.Width = 60;
-            // 
-            // RNManagerIncompleteCasePOPForm
-            // 
-            this.RNManagerIncompleteCasePOPForm.HeaderText = "POP";
-            this.RNManagerIncompleteCasePOPForm.Name = "RNManagerIncompleteCasePOPForm";
-            this.RNManagerIncompleteCasePOPForm.ReadOnly = true;
-            this.RNManagerIncompleteCasePOPForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCasePOPForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RNManagerIncompleteCasePOPForm.Width = 60;
-            // 
-            // RNManagerIncompleteCaseMedRec
-            // 
-            this.RNManagerIncompleteCaseMedRec.HeaderText = "Medical Record";
-            this.RNManagerIncompleteCaseMedRec.Name = "RNManagerIncompleteCaseMedRec";
-            this.RNManagerIncompleteCaseMedRec.ReadOnly = true;
-            this.RNManagerIncompleteCaseMedRec.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCaseMedRec.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // RNManagerIncompleteCaseUnknowForm
-            // 
-            this.RNManagerIncompleteCaseUnknowForm.HeaderText = "Unknown Form";
-            this.RNManagerIncompleteCaseUnknowForm.Name = "RNManagerIncompleteCaseUnknowForm";
-            this.RNManagerIncompleteCaseUnknowForm.ReadOnly = true;
-            this.RNManagerIncompleteCaseUnknowForm.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCaseUnknowForm.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // RNManagerIncompleteCaseAddBill
-            // 
-            this.RNManagerIncompleteCaseAddBill.HeaderText = "Add Bill";
-            this.RNManagerIncompleteCaseAddBill.Name = "RNManagerIncompleteCaseAddBill";
-            this.RNManagerIncompleteCaseAddBill.ReadOnly = true;
-            this.RNManagerIncompleteCaseAddBill.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.RNManagerIncompleteCaseAddBill.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.RNManagerIncompleteCaseAddBill.Width = 80;
-            // 
-            // label155
-            // 
-            this.label155.AutoSize = true;
-            this.label155.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label155.Location = new System.Drawing.Point(42, 43);
-            this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(287, 29);
-            this.label155.TabIndex = 2;
-            this.label155.Text = "Dashboard - RN Manager";
             // 
             // tbpgDashboardRNStaff
             // 
@@ -2140,10 +1903,6 @@
             this.tbpgDashboardRNStaff.Controls.Add(this.label163);
             this.tbpgDashboardRNStaff.Controls.Add(this.gvRNStaffActiveTask);
             this.tbpgDashboardRNStaff.Controls.Add(this.label162);
-            this.tbpgDashboardRNStaff.Controls.Add(this.gvDashboardRNStaffCaseQueue);
-            this.tbpgDashboardRNStaff.Controls.Add(this.gvDashboardRNAnnouncement);
-            this.tbpgDashboardRNStaff.Controls.Add(this.label161);
-            this.tbpgDashboardRNStaff.Controls.Add(this.label160);
             this.tbpgDashboardRNStaff.Controls.Add(this.label159);
             this.tbpgDashboardRNStaff.Location = new System.Drawing.Point(4, 22);
             this.tbpgDashboardRNStaff.Name = "tbpgDashboardRNStaff";
@@ -2411,48 +2170,6 @@
             this.label162.Size = new System.Drawing.Size(106, 24);
             this.label162.TabIndex = 8;
             this.label162.Text = "Active Task";
-            // 
-            // gvDashboardRNStaffCaseQueue
-            // 
-            this.gvDashboardRNStaffCaseQueue.AllowUserToAddRows = false;
-            this.gvDashboardRNStaffCaseQueue.AllowUserToDeleteRows = false;
-            this.gvDashboardRNStaffCaseQueue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardRNStaffCaseQueue.Location = new System.Drawing.Point(38, 490);
-            this.gvDashboardRNStaffCaseQueue.Name = "gvDashboardRNStaffCaseQueue";
-            this.gvDashboardRNStaffCaseQueue.ReadOnly = true;
-            this.gvDashboardRNStaffCaseQueue.Size = new System.Drawing.Size(611, 331);
-            this.gvDashboardRNStaffCaseQueue.TabIndex = 7;
-            // 
-            // gvDashboardRNAnnouncement
-            // 
-            this.gvDashboardRNAnnouncement.AllowUserToAddRows = false;
-            this.gvDashboardRNAnnouncement.AllowUserToDeleteRows = false;
-            this.gvDashboardRNAnnouncement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvDashboardRNAnnouncement.Location = new System.Drawing.Point(38, 104);
-            this.gvDashboardRNAnnouncement.Name = "gvDashboardRNAnnouncement";
-            this.gvDashboardRNAnnouncement.ReadOnly = true;
-            this.gvDashboardRNAnnouncement.Size = new System.Drawing.Size(611, 331);
-            this.gvDashboardRNAnnouncement.TabIndex = 6;
-            // 
-            // label161
-            // 
-            this.label161.AutoSize = true;
-            this.label161.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label161.Location = new System.Drawing.Point(38, 463);
-            this.label161.Name = "label161";
-            this.label161.Size = new System.Drawing.Size(298, 24);
-            this.label161.TabIndex = 5;
-            this.label161.Text = "Case Queue from Manager to Staff";
-            // 
-            // label160
-            // 
-            this.label160.AutoSize = true;
-            this.label160.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label160.Location = new System.Drawing.Point(38, 76);
-            this.label160.Name = "label160";
-            this.label160.Size = new System.Drawing.Size(322, 24);
-            this.label160.TabIndex = 4;
-            this.label160.Text = "Announcement from Manager to Staff";
             // 
             // label159
             // 
@@ -12976,7 +12693,7 @@
             // 
             // btnExport
             // 
-            this.btnExport.Location = new System.Drawing.Point(303, 23);
+            this.btnExport.Location = new System.Drawing.Point(396, 23);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(119, 23);
             this.btnExport.TabIndex = 4;
@@ -12986,7 +12703,7 @@
             // 
             // btnWellBeingExport
             // 
-            this.btnWellBeingExport.Location = new System.Drawing.Point(449, 23);
+            this.btnWellBeingExport.Location = new System.Drawing.Point(542, 23);
             this.btnWellBeingExport.Name = "btnWellBeingExport";
             this.btnWellBeingExport.Size = new System.Drawing.Size(119, 23);
             this.btnWellBeingExport.TabIndex = 5;
@@ -13026,17 +12743,13 @@
             this.tbpgDashboardRNManager.ResumeLayout(false);
             this.tbpgDashboardRNManager.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvSettlementsForApproval)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerMedBillPending)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerActiveTask)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvRNManagerIncompleteCase)).EndInit();
             this.tbpgDashboardRNStaff.ResumeLayout(false);
             this.tbpgDashboardRNStaff.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffPending)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffCompleteTask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvRNStaffActiveTask)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNStaffCaseQueue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gvDashboardRNAnnouncement)).EndInit();
             this.tbpgDashboardNPManager.ResumeLayout(false);
             this.tbpgDashboardNPManager.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNPManagerCommunicationLog)).EndInit();
@@ -13434,16 +13147,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DueDateFinishedTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToFinishedTask;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastModifiedDateTimeFinishedTask;
-        private System.Windows.Forms.DataGridView gvRNManagerIncompleteCase;
-        private System.Windows.Forms.Label label155;
         private System.Windows.Forms.DataGridView gvRNManagerCompleteTask;
         private System.Windows.Forms.Label label157;
         private System.Windows.Forms.DataGridView gvRNManagerActiveTask;
         private System.Windows.Forms.Label label156;
-        private System.Windows.Forms.DataGridView gvDashboardRNStaffCaseQueue;
-        private System.Windows.Forms.DataGridView gvDashboardRNAnnouncement;
-        private System.Windows.Forms.Label label161;
-        private System.Windows.Forms.Label label160;
         private System.Windows.Forms.Label label159;
         private System.Windows.Forms.DataGridView gvDashboardRNStaffPending;
         private System.Windows.Forms.DataGridView gvRNStaffCompleteTask;
@@ -13646,19 +13353,6 @@
         private System.Windows.Forms.DataGridView gvAnnouncementNPManager;
         private System.Windows.Forms.DataGridView gvActiveTaskNPStaff;
         private System.Windows.Forms.Label label171;
-        private System.Windows.Forms.DataGridView gvRNManagerMedBillPending;
-        private System.Windows.Forms.Label label185;
-        private System.Windows.Forms.Label label158;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerIncompleteCase_CaseName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerIncompleteCaseContactID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerIncompleteCaseCreateStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerIncompleteCaseModifiStaff;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCaseNPFForm;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCaseIBForm;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCasePOPForm;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCaseMedRec;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCaseUnknowForm;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn RNManagerIncompleteCaseAddBill;
         private System.Windows.Forms.TabPage tbpgCreditCard;
         private System.Windows.Forms.Label label94;
         private System.Windows.Forms.DataGridView gvPaymentCreditCard;
@@ -13742,14 +13436,6 @@
         private System.Windows.Forms.GroupBox grpMedBillDocuments;
         private System.Windows.Forms.DataGridView gvSettlementsForApproval;
         private System.Windows.Forms.Label label122;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingIndividualId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingIndividualName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingCreatedBy;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingLastModifiedBy;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingBillAmount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingMedicalProvider;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNManagerMedBillPendingIPendingReason;
         private System.Windows.Forms.DataGridViewTextBoxColumn SelectedProviderPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExportedProviderPaymentCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameProviderPaymentCheck;
