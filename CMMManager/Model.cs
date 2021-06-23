@@ -407,6 +407,7 @@ namespace CMMManager
         public DateTime? DeathDate;
         public String DeathCauseICD10Code1;
         public String DeathCauseICD10Code2;
+        public String NumberOfPhysicalTherapy;
         public DateTime? ReceivedDate;
         public String Guarantor;
         public String MedicalProviderId;
@@ -484,6 +485,7 @@ namespace CMMManager
             DeathDate = null;
             DeathCauseICD10Code1 = null;
             DeathCauseICD10Code2 = null;
+            NumberOfPhysicalTherapy = null;
             ReceivedDate = null;
             Guarantor = String.Empty;
             MedicalProviderId = String.Empty;
