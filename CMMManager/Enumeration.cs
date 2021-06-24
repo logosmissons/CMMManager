@@ -46,7 +46,8 @@ namespace CMMManager
     public enum TaskMode { AddNew, EditInRNManagerDashboard, EditInRNStaffDashboard, EditInNPManagerDashboard, EditInNPStaffDashboard, EditInMedBill, EditInCase, EditInIndividual, Reply,
                            EditInFDManagerDashboard, EditInFDStaffDashboard }
 
-    public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive, SuperAdmin = 20 };
+    public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive,
+                                FDAssistantManager, RNAssistantManager, NPAssistantManager, MSAssistantManager, SuperAdmin = 20 };
     public enum TaskUserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive,
                                FDAssistantManager, RNAssistantManager, NPAssistantManager, MSAssistantManager, SuperAdmin = 20 }
                                 
