@@ -8861,7 +8861,6 @@
             this.grpMedicalBillInformation.Controls.Add(this.comboMedBillType);
             this.grpMedicalBillInformation.Controls.Add(this.label173);
             this.grpMedicalBillInformation.Controls.Add(this.txtBalance);
-            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
             this.grpMedicalBillInformation.Controls.Add(this.label71);
             this.grpMedicalBillInformation.Controls.Add(this.btnMedicalProviderInfo);
             this.grpMedicalBillInformation.Controls.Add(this.dtpDueDate);
@@ -8876,6 +8875,7 @@
             this.grpMedicalBillInformation.Controls.Add(this.txtMedicalProvider);
             this.grpMedicalBillInformation.Controls.Add(this.label57);
             this.grpMedicalBillInformation.Controls.Add(this.txtMedBillNote);
+            this.grpMedicalBillInformation.Controls.Add(this.txtPrescriptionNote);
             this.grpMedicalBillInformation.Location = new System.Drawing.Point(932, 69);
             this.grpMedicalBillInformation.Name = "grpMedicalBillInformation";
             this.grpMedicalBillInformation.Size = new System.Drawing.Size(870, 356);
