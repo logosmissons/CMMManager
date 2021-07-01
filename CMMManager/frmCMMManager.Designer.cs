@@ -928,7 +928,6 @@
             this.comboMedBillType = new System.Windows.Forms.ComboBox();
             this.label173 = new System.Windows.Forms.Label();
             this.txtBalance = new System.Windows.Forms.TextBox();
-            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
             this.label71 = new System.Windows.Forms.Label();
             this.btnMedicalProviderInfo = new System.Windows.Forms.Button();
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
@@ -943,6 +942,7 @@
             this.txtMedicalProvider = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.txtMedBillNote = new System.Windows.Forms.TextBox();
+            this.txtPrescriptionNote = new System.Windows.Forms.TextBox();
             this.grpDocumentProcessing = new System.Windows.Forms.GroupBox();
             this.gvCaseDocumentInMedBill = new System.Windows.Forms.DataGridView();
             this.DocTypeCaseInMedBill = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -1948,7 +1948,7 @@
             // 
             this.label159.AutoSize = true;
             this.label159.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label159.Location = new System.Drawing.Point(1477, 528);
+            this.label159.Location = new System.Drawing.Point(1497, 41);
             this.label159.Name = "label159";
             this.label159.Size = new System.Drawing.Size(22, 13);
             this.label159.TabIndex = 22;
@@ -1958,7 +1958,7 @@
             // 
             this.label158.AutoSize = true;
             this.label158.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label158.Location = new System.Drawing.Point(1311, 528);
+            this.label158.Location = new System.Drawing.Point(1331, 41);
             this.label158.Name = "label158";
             this.label158.Size = new System.Drawing.Size(34, 13);
             this.label158.TabIndex = 21;
@@ -1967,7 +1967,7 @@
             // dtpRNStaffCompleteTaskTo
             // 
             this.dtpRNStaffCompleteTaskTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpRNStaffCompleteTaskTo.Location = new System.Drawing.Point(1505, 523);
+            this.dtpRNStaffCompleteTaskTo.Location = new System.Drawing.Point(1525, 36);
             this.dtpRNStaffCompleteTaskTo.Name = "dtpRNStaffCompleteTaskTo";
             this.dtpRNStaffCompleteTaskTo.Size = new System.Drawing.Size(115, 20);
             this.dtpRNStaffCompleteTaskTo.TabIndex = 20;
@@ -1975,7 +1975,7 @@
             // dtpRNStaffCompleteTaskFrom
             // 
             this.dtpRNStaffCompleteTaskFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpRNStaffCompleteTaskFrom.Location = new System.Drawing.Point(1351, 523);
+            this.dtpRNStaffCompleteTaskFrom.Location = new System.Drawing.Point(1371, 36);
             this.dtpRNStaffCompleteTaskFrom.Name = "dtpRNStaffCompleteTaskFrom";
             this.dtpRNStaffCompleteTaskFrom.Size = new System.Drawing.Size(107, 20);
             this.dtpRNStaffCompleteTaskFrom.TabIndex = 19;
@@ -1995,10 +1995,10 @@
             this.BillAmountPendingMedBillRNStaff,
             this.CreatedDatePendingMedBillRNStaff,
             this.PendingReasonPendingMedBillRNStaff});
-            this.gvPendingMedBillRNStaff.Location = new System.Drawing.Point(49, 62);
+            this.gvPendingMedBillRNStaff.Location = new System.Drawing.Point(38, 529);
             this.gvPendingMedBillRNStaff.Name = "gvPendingMedBillRNStaff";
             this.gvPendingMedBillRNStaff.ReadOnly = true;
-            this.gvPendingMedBillRNStaff.Size = new System.Drawing.Size(1750, 423);
+            this.gvPendingMedBillRNStaff.Size = new System.Drawing.Size(1761, 310);
             this.gvPendingMedBillRNStaff.TabIndex = 18;
             // 
             // IndividualIdPendingMedBillRNStaff
@@ -2067,7 +2067,7 @@
             // 
             // btnReloadPendingMedBillRNStaff
             // 
-            this.btnReloadPendingMedBillRNStaff.Location = new System.Drawing.Point(305, 28);
+            this.btnReloadPendingMedBillRNStaff.Location = new System.Drawing.Point(287, 495);
             this.btnReloadPendingMedBillRNStaff.Name = "btnReloadPendingMedBillRNStaff";
             this.btnReloadPendingMedBillRNStaff.Size = new System.Drawing.Size(128, 31);
             this.btnReloadPendingMedBillRNStaff.TabIndex = 17;
@@ -2079,7 +2079,7 @@
             // 
             this.label155.AutoSize = true;
             this.label155.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label155.Location = new System.Drawing.Point(44, 34);
+            this.label155.Location = new System.Drawing.Point(33, 501);
             this.label155.Name = "label155";
             this.label155.Size = new System.Drawing.Size(218, 25);
             this.label155.TabIndex = 16;
@@ -2087,7 +2087,7 @@
             // 
             // btnRNStaffCompleteTaskReload
             // 
-            this.btnRNStaffCompleteTaskReload.Location = new System.Drawing.Point(1671, 514);
+            this.btnRNStaffCompleteTaskReload.Location = new System.Drawing.Point(1671, 27);
             this.btnRNStaffCompleteTaskReload.Name = "btnRNStaffCompleteTaskReload";
             this.btnRNStaffCompleteTaskReload.Size = new System.Drawing.Size(128, 31);
             this.btnRNStaffCompleteTaskReload.TabIndex = 15;
@@ -2097,7 +2097,7 @@
             // 
             // btnRNStaffActiveTaskReload
             // 
-            this.btnRNStaffActiveTaskReload.Location = new System.Drawing.Point(794, 514);
+            this.btnRNStaffActiveTaskReload.Location = new System.Drawing.Point(783, 27);
             this.btnRNStaffActiveTaskReload.Name = "btnRNStaffActiveTaskReload";
             this.btnRNStaffActiveTaskReload.Size = new System.Drawing.Size(128, 31);
             this.btnRNStaffActiveTaskReload.TabIndex = 14;
@@ -2120,10 +2120,10 @@
             this.CommentCompleteTaskRNStaff,
             this.SolutionCompleteTaskRNStaff,
             this.TaskIdCompleteTaskRNStaff});
-            this.gvRNStaffCompleteTask.Location = new System.Drawing.Point(962, 548);
+            this.gvRNStaffCompleteTask.Location = new System.Drawing.Point(947, 61);
             this.gvRNStaffCompleteTask.Name = "gvRNStaffCompleteTask";
             this.gvRNStaffCompleteTask.ReadOnly = true;
-            this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(837, 301);
+            this.gvRNStaffCompleteTask.Size = new System.Drawing.Size(852, 406);
             this.gvRNStaffCompleteTask.TabIndex = 12;
             this.gvRNStaffCompleteTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffCompleteTask_CellDoubleClick);
             // 
@@ -2188,7 +2188,7 @@
             // 
             this.label163.AutoSize = true;
             this.label163.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label163.Location = new System.Drawing.Point(958, 521);
+            this.label163.Location = new System.Drawing.Point(943, 34);
             this.label163.Name = "label163";
             this.label163.Size = new System.Drawing.Size(147, 24);
             this.label163.TabIndex = 10;
@@ -2215,10 +2215,10 @@
             this.StatusRNStaff,
             this.PriorityRNStaff,
             this.ActiveTaskIdRNStaff});
-            this.gvRNStaffActiveTask.Location = new System.Drawing.Point(49, 548);
+            this.gvRNStaffActiveTask.Location = new System.Drawing.Point(38, 61);
             this.gvRNStaffActiveTask.Name = "gvRNStaffActiveTask";
             this.gvRNStaffActiveTask.ReadOnly = true;
-            this.gvRNStaffActiveTask.Size = new System.Drawing.Size(873, 302);
+            this.gvRNStaffActiveTask.Size = new System.Drawing.Size(873, 406);
             this.gvRNStaffActiveTask.TabIndex = 9;
             this.gvRNStaffActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffActiveTask_CellDoubleClick);
             // 
@@ -2320,7 +2320,7 @@
             // 
             this.label162.AutoSize = true;
             this.label162.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label162.Location = new System.Drawing.Point(45, 521);
+            this.label162.Location = new System.Drawing.Point(34, 34);
             this.label162.Name = "label162";
             this.label162.Size = new System.Drawing.Size(106, 24);
             this.label162.TabIndex = 8;
@@ -9352,15 +9352,6 @@
             this.txtBalance.Size = new System.Drawing.Size(142, 20);
             this.txtBalance.TabIndex = 154;
             // 
-            // txtPrescriptionNote
-            // 
-            this.txtPrescriptionNote.Location = new System.Drawing.Point(592, 127);
-            this.txtPrescriptionNote.Multiline = true;
-            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
-            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPrescriptionNote.Size = new System.Drawing.Size(260, 87);
-            this.txtPrescriptionNote.TabIndex = 54;
-            // 
             // label71
             // 
             this.label71.AutoSize = true;
@@ -9494,6 +9485,15 @@
             this.txtMedBillNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMedBillNote.Size = new System.Drawing.Size(260, 193);
             this.txtMedBillNote.TabIndex = 50;
+            // 
+            // txtPrescriptionNote
+            // 
+            this.txtPrescriptionNote.Location = new System.Drawing.Point(592, 127);
+            this.txtPrescriptionNote.Multiline = true;
+            this.txtPrescriptionNote.Name = "txtPrescriptionNote";
+            this.txtPrescriptionNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPrescriptionNote.Size = new System.Drawing.Size(260, 87);
+            this.txtPrescriptionNote.TabIndex = 54;
             // 
             // grpDocumentProcessing
             // 

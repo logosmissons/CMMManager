@@ -2863,6 +2863,18 @@ namespace CMMManager
         }
     }
 
+    public class SortedFieldMedBillInMedBillView
+    {
+        public String Field;
+        public MedBillSortedInMedBillViewTab Sorted;
+
+        public SortedFieldMedBillInMedBillView()
+        {
+            Field = null;
+            Sorted = MedBillSortedInMedBillViewTab.NotSorted;
+        }
+    }
+
     public class SortedFieldBlueSheet
     {
 
