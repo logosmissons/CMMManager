@@ -35,6 +35,8 @@ namespace CMMManager
 
     public enum MedBillSortedInCaseTab { NotSorted, SortedAsc, SortedDesc };
     public enum MedBillSortedInMedBillViewTab { NotSorted, SortedAsc, SortedDesc };
+    public enum PrescriptionSorted { NotSorted, SortedAsc, SortedDesc };
+    public enum PhysicalTherapySorted { NotSorted, SortedAsc, SortedDesc };
 
     // enumeration for program change history
     public enum IndividualPlan { Bronze = 0, Silver, Gold, GoldPlus, GoldMedi_I, GoldMedi_II };

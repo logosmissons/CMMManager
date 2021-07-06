@@ -2888,6 +2888,42 @@ namespace CMMManager
         }
     }
 
+    public class SortedFieldPrescription
+    {
+        public String Field = String.Empty;
+        public PrescriptionSorted Sorted = PrescriptionSorted.NotSorted;
+
+        public SortedFieldPrescription()
+        {
+            Field = String.Empty;
+            Sorted = PrescriptionSorted.NotSorted;                
+        }
+    }
+
+    public class SortedFieldPhysicalTherapy
+    {
+        public String Field = String.Empty;
+        public PhysicalTherapySorted Sorted = PhysicalTherapySorted.NotSorted;
+
+        public SortedFieldPhysicalTherapy()
+        {
+            Field = String.Empty;
+            Sorted = PhysicalTherapySorted.NotSorted;
+        }
+    }
+
+    public class SortedField
+    {
+        public String Field = String.Empty;
+        public EnumSorted Sorted = EnumSorted.NotSorted;
+
+        public SortedField()
+        {
+            Field = String.Empty;
+            Sorted = EnumSorted.NotSorted;
+        }
+    }
+
     public class MedicalExpenseBlueSheet
     {
         public double? BillAmount;

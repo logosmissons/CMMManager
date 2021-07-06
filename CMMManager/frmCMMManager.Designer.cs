@@ -983,14 +983,6 @@
             this.PrescriptionInfoDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnReloadPrescriptionNPhysicalTherapy = new System.Windows.Forms.Button();
             this.gvPhysicalTherapyInfo = new System.Windows.Forms.DataGridView();
-            this.PhysicalTherapyInfoILL_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoINCD_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoMedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoServiceStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoPhysicalTherapyNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboIllnessList = new System.Windows.Forms.ComboBox();
             this.label195 = new System.Windows.Forms.Label();
             this.label194 = new System.Windows.Forms.Label();
@@ -1346,6 +1338,14 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
+            this.PhysicalTherapyInfoILL_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoINCD_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoMedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoServiceStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoPhysicalTherapyNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPendingMedBillRNManager)).BeginInit();
@@ -9764,7 +9764,6 @@
             // 
             // tbPrescriptionPhysicalTherapy
             // 
-            this.tbPrescriptionPhysicalTherapy.Controls.Add(this.gvPrescriptionInfo);
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.btnReloadPrescriptionNPhysicalTherapy);
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.gvPhysicalTherapyInfo);
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.comboIllnessList);
@@ -9776,6 +9775,7 @@
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.label192);
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.label193);
             this.tbPrescriptionPhysicalTherapy.Controls.Add(this.label191);
+            this.tbPrescriptionPhysicalTherapy.Controls.Add(this.gvPrescriptionInfo);
             this.tbPrescriptionPhysicalTherapy.Location = new System.Drawing.Point(4, 22);
             this.tbPrescriptionPhysicalTherapy.Name = "tbPrescriptionPhysicalTherapy";
             this.tbPrescriptionPhysicalTherapy.Size = new System.Drawing.Size(1832, 874);
@@ -9804,6 +9804,7 @@
             this.gvPrescriptionInfo.ReadOnly = true;
             this.gvPrescriptionInfo.Size = new System.Drawing.Size(1744, 713);
             this.gvPrescriptionInfo.TabIndex = 141;
+            this.gvPrescriptionInfo.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPrescriptionInfo_ColumnHeaderMouseClick);
             // 
             // PrescriptionInfoILLNo
             // 
@@ -9844,6 +9845,7 @@
             this.PrescriptionInfoServiceStartDate.HeaderText = "Service Start Date";
             this.PrescriptionInfoServiceStartDate.Name = "PrescriptionInfoServiceStartDate";
             this.PrescriptionInfoServiceStartDate.ReadOnly = true;
+            this.PrescriptionInfoServiceStartDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.PrescriptionInfoServiceStartDate.Width = 160;
             // 
             // PrescriptionInfoServiceEndDate
@@ -9851,6 +9853,7 @@
             this.PrescriptionInfoServiceEndDate.HeaderText = "Service End Date";
             this.PrescriptionInfoServiceEndDate.Name = "PrescriptionInfoServiceEndDate";
             this.PrescriptionInfoServiceEndDate.ReadOnly = true;
+            this.PrescriptionInfoServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             this.PrescriptionInfoServiceEndDate.Width = 160;
             // 
             // PrescriptionInfoPrescriptionName
@@ -9904,62 +9907,6 @@
             this.gvPhysicalTherapyInfo.Size = new System.Drawing.Size(1661, 713);
             this.gvPhysicalTherapyInfo.TabIndex = 142;
             this.gvPhysicalTherapyInfo.Visible = false;
-            // 
-            // PhysicalTherapyInfoILL_No
-            // 
-            this.PhysicalTherapyInfoILL_No.HeaderText = "Illness No";
-            this.PhysicalTherapyInfoILL_No.Name = "PhysicalTherapyInfoILL_No";
-            this.PhysicalTherapyInfoILL_No.ReadOnly = true;
-            this.PhysicalTherapyInfoILL_No.Width = 140;
-            // 
-            // PhysicalTherapyInfoICD10Description
-            // 
-            this.PhysicalTherapyInfoICD10Description.HeaderText = "ICD 10 Description";
-            this.PhysicalTherapyInfoICD10Description.Name = "PhysicalTherapyInfoICD10Description";
-            this.PhysicalTherapyInfoICD10Description.ReadOnly = true;
-            this.PhysicalTherapyInfoICD10Description.Width = 300;
-            // 
-            // PhysicalTherapyInfoINCD_No
-            // 
-            this.PhysicalTherapyInfoINCD_No.HeaderText = "Incident No";
-            this.PhysicalTherapyInfoINCD_No.Name = "PhysicalTherapyInfoINCD_No";
-            this.PhysicalTherapyInfoINCD_No.ReadOnly = true;
-            this.PhysicalTherapyInfoINCD_No.Width = 140;
-            // 
-            // PhysicalTherapyInfoMedBillNo
-            // 
-            this.PhysicalTherapyInfoMedBillNo.HeaderText = "Medical Bill No";
-            this.PhysicalTherapyInfoMedBillNo.Name = "PhysicalTherapyInfoMedBillNo";
-            this.PhysicalTherapyInfoMedBillNo.ReadOnly = true;
-            this.PhysicalTherapyInfoMedBillNo.Width = 180;
-            // 
-            // PhysicalTherapyInfoProviderName
-            // 
-            this.PhysicalTherapyInfoProviderName.HeaderText = "Provider Name";
-            this.PhysicalTherapyInfoProviderName.Name = "PhysicalTherapyInfoProviderName";
-            this.PhysicalTherapyInfoProviderName.ReadOnly = true;
-            this.PhysicalTherapyInfoProviderName.Width = 260;
-            // 
-            // PhysicalTherapyInfoServiceStartDate
-            // 
-            this.PhysicalTherapyInfoServiceStartDate.HeaderText = "Service Start Date";
-            this.PhysicalTherapyInfoServiceStartDate.Name = "PhysicalTherapyInfoServiceStartDate";
-            this.PhysicalTherapyInfoServiceStartDate.ReadOnly = true;
-            this.PhysicalTherapyInfoServiceStartDate.Width = 160;
-            // 
-            // PhysicalTherapyInfoServiceEndDate
-            // 
-            this.PhysicalTherapyInfoServiceEndDate.HeaderText = "Service End Date";
-            this.PhysicalTherapyInfoServiceEndDate.Name = "PhysicalTherapyInfoServiceEndDate";
-            this.PhysicalTherapyInfoServiceEndDate.ReadOnly = true;
-            this.PhysicalTherapyInfoServiceEndDate.Width = 160;
-            // 
-            // PhysicalTherapyInfoPhysicalTherapyNo
-            // 
-            this.PhysicalTherapyInfoPhysicalTherapyNo.HeaderText = "# of Physical Therapy";
-            this.PhysicalTherapyInfoPhysicalTherapyNo.Name = "PhysicalTherapyInfoPhysicalTherapyNo";
-            this.PhysicalTherapyInfoPhysicalTherapyNo.ReadOnly = true;
-            this.PhysicalTherapyInfoPhysicalTherapyNo.Width = 160;
             // 
             // comboIllnessList
             // 
@@ -13024,6 +12971,64 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "RN New Dashboard - 06-24-2021";
             // 
+            // PhysicalTherapyInfoILL_No
+            // 
+            this.PhysicalTherapyInfoILL_No.HeaderText = "Illness No";
+            this.PhysicalTherapyInfoILL_No.Name = "PhysicalTherapyInfoILL_No";
+            this.PhysicalTherapyInfoILL_No.ReadOnly = true;
+            this.PhysicalTherapyInfoILL_No.Width = 140;
+            // 
+            // PhysicalTherapyInfoICD10Description
+            // 
+            this.PhysicalTherapyInfoICD10Description.HeaderText = "ICD 10 Description";
+            this.PhysicalTherapyInfoICD10Description.Name = "PhysicalTherapyInfoICD10Description";
+            this.PhysicalTherapyInfoICD10Description.ReadOnly = true;
+            this.PhysicalTherapyInfoICD10Description.Width = 300;
+            // 
+            // PhysicalTherapyInfoINCD_No
+            // 
+            this.PhysicalTherapyInfoINCD_No.HeaderText = "Incident No";
+            this.PhysicalTherapyInfoINCD_No.Name = "PhysicalTherapyInfoINCD_No";
+            this.PhysicalTherapyInfoINCD_No.ReadOnly = true;
+            this.PhysicalTherapyInfoINCD_No.Width = 140;
+            // 
+            // PhysicalTherapyInfoMedBillNo
+            // 
+            this.PhysicalTherapyInfoMedBillNo.HeaderText = "Medical Bill No";
+            this.PhysicalTherapyInfoMedBillNo.Name = "PhysicalTherapyInfoMedBillNo";
+            this.PhysicalTherapyInfoMedBillNo.ReadOnly = true;
+            this.PhysicalTherapyInfoMedBillNo.Width = 180;
+            // 
+            // PhysicalTherapyInfoProviderName
+            // 
+            this.PhysicalTherapyInfoProviderName.HeaderText = "Provider Name";
+            this.PhysicalTherapyInfoProviderName.Name = "PhysicalTherapyInfoProviderName";
+            this.PhysicalTherapyInfoProviderName.ReadOnly = true;
+            this.PhysicalTherapyInfoProviderName.Width = 260;
+            // 
+            // PhysicalTherapyInfoServiceStartDate
+            // 
+            this.PhysicalTherapyInfoServiceStartDate.HeaderText = "Service Start Date";
+            this.PhysicalTherapyInfoServiceStartDate.Name = "PhysicalTherapyInfoServiceStartDate";
+            this.PhysicalTherapyInfoServiceStartDate.ReadOnly = true;
+            this.PhysicalTherapyInfoServiceStartDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.PhysicalTherapyInfoServiceStartDate.Width = 160;
+            // 
+            // PhysicalTherapyInfoServiceEndDate
+            // 
+            this.PhysicalTherapyInfoServiceEndDate.HeaderText = "Service End Date";
+            this.PhysicalTherapyInfoServiceEndDate.Name = "PhysicalTherapyInfoServiceEndDate";
+            this.PhysicalTherapyInfoServiceEndDate.ReadOnly = true;
+            this.PhysicalTherapyInfoServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.PhysicalTherapyInfoServiceEndDate.Width = 160;
+            // 
+            // PhysicalTherapyInfoPhysicalTherapyNo
+            // 
+            this.PhysicalTherapyInfoPhysicalTherapyNo.HeaderText = "# of Physical Therapy";
+            this.PhysicalTherapyInfoPhysicalTherapyNo.Name = "PhysicalTherapyInfoPhysicalTherapyNo";
+            this.PhysicalTherapyInfoPhysicalTherapyNo.ReadOnly = true;
+            this.PhysicalTherapyInfoPhysicalTherapyNo.Width = 160;
+            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -14455,24 +14460,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BillAmountPendingMedBillRNManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDatePendingMedBillRNManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn PendingReasonPendingMedBillRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoILLNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoICD10Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoINCD_No;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoMedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoProviderName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoServiceStartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoServiceEndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoPrescriptionName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoMedicationNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoILL_No;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoICD10Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoINCD_No;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoMedBillNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoProviderName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoServiceStartDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoServiceEndDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoPhysicalTherapyNo;
         private System.Windows.Forms.Button btnReloadPrescriptionNPhysicalTherapy;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_CaseNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillView_IllnessNo;
@@ -14507,6 +14494,24 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn BillAmountPendingMedBillRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreatedDatePendingMedBillRNStaff;
         private System.Windows.Forms.DataGridViewTextBoxColumn PendingReasonPendingMedBillRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoILLNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoICD10Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoINCD_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoMedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoProviderName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoServiceStartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoServiceEndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoPrescriptionName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoMedicationNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrescriptionInfoDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoILL_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoICD10Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoINCD_No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoMedBillNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoProviderName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoServiceStartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoServiceEndDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PhysicalTherapyInfoPhysicalTherapyNo;
     }
 }
 
