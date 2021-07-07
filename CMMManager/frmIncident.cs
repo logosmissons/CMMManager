@@ -33,6 +33,8 @@ namespace CMMManager
         public SqlConnection connSalesforce;
         public String strSalesforceConnString;
 
+        private SortedField SortedFieldIncident;
+
         public SelectedIllness IllnessSelected;
         public SelectedIncident IncidentSelected;
         //public Boolean bIncidentSelected = false;
@@ -51,6 +53,8 @@ namespace CMMManager
         public frmIncident()
         {
             InitializeComponent();
+
+            SortedFieldIncident = new SortedField();
 
             strRNDBConnString = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             //strRNDBConnString = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;User ID=sa;Password=Yny00516; Max Pool Size=200; MultipleActiveResultSets=True";
@@ -87,7 +91,8 @@ namespace CMMManager
                                             "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
                                             "where [dbo].[tbl_incident].[individual_id] = @IndividualId and " +
                                             "([dbo].[tbl_incident].[IsDeleted] = 0 or [dbo].[tbl_incident].[IsDeleted] IS NULL) " +
-                                            "order by [dbo].[tbl_incident].[incident_id]";
+                                            "order by [dbo].[tbl_incident].[CreateDate]";
+                                            //"order by [dbo].[tbl_incident].[incident_id]";
 
             SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
             cmdQueryForIncident.CommandType = CommandType.Text;
@@ -331,7 +336,8 @@ namespace CMMManager
                                 //"[dbo].[tbl_incident].[Case_id] = @CaseId and " +
                                 //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                                 "([dbo].[tbl_incident].[IsDeleted] = 0 or [dbo].[tbl_incident].[IsDeleted] IS NULL) " +
-                                "order by [dbo].[tbl_incident].[incident_id]";
+                                "order by [dbo].[tbl_incident].[CreateDate]";
+                                //"order by [dbo].[tbl_incident].[incident_id]";
 
             SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
             cmdQueryForIncident.CommandType = CommandType.Text;
@@ -1029,14 +1035,151 @@ namespace CMMManager
         {
             DataGridView gv = sender as DataGridView;
 
-            int nClicked = e.RowIndex;
-
-            if ((Boolean)gv[0, e.RowIndex].Value == true) gv[0, e.RowIndex].Value = false;
-            else if ((Boolean)gv[0, e.RowIndex].Value == false) gv[0, e.RowIndex].Value = true;
-
-            for (int i = 0; i < gv.RowCount; i++)
+            if (e.RowIndex >= 0)
             {
-                if (i != e.RowIndex) gv[0, i].Value = false;
+                int nClicked = e.RowIndex;
+
+                if ((Boolean)gv[0, e.RowIndex].Value == true) gv[0, e.RowIndex].Value = false;
+                else if ((Boolean)gv[0, e.RowIndex].Value == false) gv[0, e.RowIndex].Value = true;
+
+                for (int i = 0; i < gv.RowCount; i++)
+                {
+                    if (i != e.RowIndex) gv[0, i].Value = false;
+                }
+            }
+        }
+
+        private void SortIncidentInForm(SortedField sf)
+        {
+            DataTable dtIncidentInfo = new DataTable();
+
+            dtIncidentInfo.Columns.Add("Selected", typeof(Boolean));
+            dtIncidentInfo.Columns.Add("Incident No", typeof(String));
+            dtIncidentInfo.Columns.Add("Illness No", typeof(String));
+            dtIncidentInfo.Columns.Add("Illness Description", typeof(String));
+            dtIncidentInfo.Columns.Add("Incident Service Date", typeof(DateTime));
+            dtIncidentInfo.Columns.Add("Create Date", typeof(DateTime));
+            dtIncidentInfo.Columns.Add("Program Name", typeof(String));
+            dtIncidentInfo.Columns.Add("Note", typeof(String));
+
+            for (int i = 0; i < gvIncidents.Rows.Count; i++)
+            {
+                DataRow drIncidentInfo = dtIncidentInfo.NewRow();
+
+                if (gvIncidents["Selected", i].Value != null)
+                {
+                    Boolean IsSelected;
+                    if (Boolean.TryParse(gvIncidents["Selected", i].Value.ToString(), out IsSelected))
+                        drIncidentInfo["Selected"] = IsSelected;
+                    else drIncidentInfo["Selected"] = DBNull.Value;
+                }
+                else drIncidentInfo["Selected"] = DBNull.Value;
+
+                drIncidentInfo["Incident No"] = gvIncidents["Incident_No", i].Value?.ToString();
+                drIncidentInfo["Illness No"] = gvIncidents["Illness_No", i].Value?.ToString();
+                drIncidentInfo["Illness Description"] = gvIncidents["Illness_Description", i].Value?.ToString();
+
+                if (gvIncidents["IncidentServiceDate", i].Value != null)
+                {
+                    DateTime ServiceDate;
+                    if (DateTime.TryParse(gvIncidents["IncidentServiceDate", i].Value.ToString(), out ServiceDate))
+                        drIncidentInfo["Incident Service Date"] = ServiceDate;
+                    else drIncidentInfo["Incident Service Date"] = DBNull.Value;
+                }
+                else drIncidentInfo["Incident Service Date"] = DBNull.Value;
+
+                if (gvIncidents["CreateDate", i].Value != null)
+                {
+                    DateTime CreateDate;
+                    if (DateTime.TryParse(gvIncidents["CreateDate", i].Value.ToString(), out CreateDate))
+                        drIncidentInfo["Create Date"] = CreateDate;
+                    else drIncidentInfo["Create Date"] = DBNull.Value;
+                }
+                else drIncidentInfo["Create Date"] = DBNull.Value;
+
+                //drIncidentInfo["Incident Service Date"] = gvIncidents["IncidentServiceDate", i].Value?.ToString();
+                //drIncidentInfo["Create Date"] = gvIncidents["CreateDate", i].Value?.ToString();
+                drIncidentInfo["Program Name"] = gvIncidents["Program_Id", i].Value?.ToString();
+                drIncidentInfo["Note"] = gvIncidents["Note", i].Value?.ToString();
+
+                dtIncidentInfo.Rows.Add(drIncidentInfo);
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtIncidentInfo.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtIncidentInfo.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtIncidentInfo.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtIncidentInfoSorted = dtIncidentInfo.Clone();
+            dtIncidentInfoSorted = dtIncidentInfo.DefaultView.ToTable();
+
+            gvIncidents.Rows.Clear();
+
+            for (int i = 0; i < dtIncidentInfoSorted.Rows.Count; i++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = dtIncidentInfoSorted.Rows[i][0] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIncidentInfoSorted.Rows[i][1] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIncidentInfoSorted.Rows[i][2] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIncidentInfoSorted.Rows[i][3] });
+
+                if (dtIncidentInfoSorted.Rows[i][4] != null)
+                {
+                    DateTime ServiceDate;
+                    if (DateTime.TryParse(dtIncidentInfoSorted.Rows[i][4].ToString(), out ServiceDate))
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = ServiceDate.ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                }
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                if (dtIncidentInfoSorted.Rows[i][5] != null)
+                {
+                    DateTime CreateDate;
+                    if (DateTime.TryParse(dtIncidentInfoSorted.Rows[i][5].ToString(), out CreateDate))
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CreateDate.ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                }
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIncidentInfoSorted.Rows[i][6] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIncidentInfoSorted.Rows[i][7] });
+
+                gvIncidents.Rows.Add(row);
+            }
+        }
+
+        private void gvIncidents_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 4:
+                    if (SortedFieldIncident.Field != "Incident Service Date")
+                    {
+                        SortedFieldIncident.Field = "Incident Service Date";
+                        SortedFieldIncident.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIncidentInForm(SortedFieldIncident);
+                    break;
+                case 5:
+                    if (SortedFieldIncident.Field != "Create Date")
+                    {
+                        SortedFieldIncident.Field = "Create Date";
+                        SortedFieldIncident.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIncidentInForm(SortedFieldIncident);
+                    break;
             }
         }
     }

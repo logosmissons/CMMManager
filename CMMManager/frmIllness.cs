@@ -37,6 +37,8 @@ namespace CMMManager
 
         public DateTime MembershipStartDate;
 
+        private SortedField SortedFieldIllness;
+
         private String strICD10Code;
 
         private delegate void AddRowToIllness(DataGridViewRow row);
@@ -52,6 +54,9 @@ namespace CMMManager
         public frmIllness()
         {
             InitializeComponent();
+
+            SortedFieldIllness = new SortedField();
+
             strRNDBConnString = @"Data Source=cmm-2019data\CMM; Initial Catalog=RN_DB;Integrated Security=True; Max Pool Size=200; MultipleActiveResultSets=True";
             connRNDB = new SqlConnection(strRNDBConnString);
 
@@ -67,16 +72,15 @@ namespace CMMManager
         }
 
         private void frmIllness_Load(object sender, EventArgs e)
-        {
-
-       
+        {    
 
             strSqlGetIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[Introduction], " +
                                         "[dbo].[tbl_illness].[CreateDate], " +
                                         "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
                                         "from [dbo].[tbl_illness] " +
                                         "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
-                                        "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
+                                        "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL) " +
+                                        "order by [dbo].[tbl_illness].[CreateDate]";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlGetIllnessForCaseId, connRNDB);
 
@@ -227,7 +231,8 @@ namespace CMMManager
                             "from [dbo].[tbl_illness] " +
                             "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
                             //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
-                            "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL)";
+                            "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL) " +
+                            "order by [dbo].[tbl_illness].[CraeteDate]";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryFprIllnessForCaseId, connRNDB);
             cmdQueryForIllness.CommandType = CommandType.Text;
@@ -360,14 +365,17 @@ namespace CMMManager
         {
             DataGridView gv = sender as DataGridView;
 
-            int nClicked = e.RowIndex;
-
-            if ((Boolean)gv[0, e.RowIndex].Value == true) gv[0, e.RowIndex].Value = false;
-            else if ((Boolean)gv[0, e.RowIndex].Value == false) gv[0, e.RowIndex].Value = true;
-
-            for (int i = 0; i < gv.RowCount; i++)
+            if (e.RowIndex >= 0)
             {
-                if (i != e.RowIndex) gv[0, i].Value = false;
+                int nClicked = e.RowIndex;
+
+                if ((Boolean)gv[0, e.RowIndex].Value == true) gv[0, e.RowIndex].Value = false;
+                else if ((Boolean)gv[0, e.RowIndex].Value == false) gv[0, e.RowIndex].Value = true;
+
+                for (int i = 0; i < gv.RowCount; i++)
+                {
+                    if (i != e.RowIndex) gv[0, i].Value = false;
+                }
             }
         }
 
@@ -699,6 +707,106 @@ namespace CMMManager
             //DialogResult = DialogResult.Cancel;
             SelectedOption = IllnessOption.Cancel;
             Close();
+        }
+
+        private void SortIllnessInForm(SortedField sf)
+        {
+            DataTable dtIllnessInfo = new DataTable();
+
+            dtIllnessInfo.Columns.Add("Selected", typeof(Boolean));
+            dtIllnessInfo.Columns.Add("Illness No", typeof(String));
+            dtIllnessInfo.Columns.Add("Individual Id", typeof(String));
+            dtIllnessInfo.Columns.Add("ICD10 Code", typeof(String));
+            dtIllnessInfo.Columns.Add("Illness Note", typeof(String));
+            dtIllnessInfo.Columns.Add("Create Date", typeof(DateTime));
+
+            for (int i = 0; i < gvIllness.Rows.Count; i++)
+            {
+                DataRow drIllnessInfo = dtIllnessInfo.NewRow();
+
+                if (gvIllness["Selected", i].Value != null)
+                {
+                    Boolean IsSelected;
+                    if (Boolean.TryParse(gvIllness["Selected", i].Value.ToString(), out IsSelected))
+                        drIllnessInfo["Selected"] = IsSelected;
+                    else drIllnessInfo["Selected"] = DBNull.Value;
+                }
+                else drIllnessInfo["Selected"] = DBNull.Value;
+
+                drIllnessInfo["Illness No"] = gvIllness["Illness_No", i].Value?.ToString();
+                drIllnessInfo["Individual Id"] = gvIllness["Individual_Id",i].Value?.ToString();
+                drIllnessInfo["ICD10 Code"] = gvIllness["ICD10_Code", i].Value?.ToString();
+                drIllnessInfo["Illness Note"] = gvIllness["IllnessNote", i].Value?.ToString();
+                //drIllnessInfo["Create Date"] = gvIllness["CreateDate", i].Value?.ToString();
+
+                if (gvIllness["CreateDate", i].Value != null)
+                {
+                    DateTime CreateDate;
+                    if (DateTime.TryParse(gvIllness["CreateDate", i].Value.ToString(), out CreateDate))
+                        drIllnessInfo["Create Date"] = CreateDate;
+                    else drIllnessInfo["Create Date"] = DBNull.Value;
+                }
+                else drIllnessInfo["Create Date"] = DBNull.Value;
+
+                dtIllnessInfo.Rows.Add(drIllnessInfo);
+            }
+
+            switch (sf.Sorted)
+            {
+                case EnumSorted.NotSorted:
+                    dtIllnessInfo.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedDesc:
+                    dtIllnessInfo.DefaultView.Sort = sf.Field + " ASC";
+                    sf.Sorted = EnumSorted.SortedAsc;
+                    break;
+                case EnumSorted.SortedAsc:
+                    dtIllnessInfo.DefaultView.Sort = sf.Field + " DESC";
+                    sf.Sorted = EnumSorted.SortedDesc;
+                    break;
+            }
+
+            DataTable dtIllnessInfoSorted = dtIllnessInfo.Clone();
+            dtIllnessInfoSorted = dtIllnessInfo.DefaultView.ToTable();
+
+            gvIllness.Rows.Clear();
+
+            for (int i = 0; i < dtIllnessInfoSorted.Rows.Count; i++)
+            {
+                DataGridViewRow row = new DataGridViewRow();
+
+                row.Cells.Add(new DataGridViewCheckBoxCell { Value = dtIllnessInfoSorted.Rows[i][0] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIllnessInfoSorted.Rows[i][1] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIllnessInfoSorted.Rows[i][2] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIllnessInfoSorted.Rows[i][3] });
+                row.Cells.Add(new DataGridViewTextBoxCell { Value = dtIllnessInfoSorted.Rows[i][4] });
+                if (dtIllnessInfoSorted.Rows[i][5] != null)
+                {
+                    DateTime CreateDate;
+                    if (DateTime.TryParse(dtIllnessInfoSorted.Rows[i][5].ToString(), out CreateDate))
+                        row.Cells.Add(new DataGridViewTextBoxCell { Value = CreateDate.ToString("MM/dd/yyyy") });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                }
+                else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+
+                gvIllness.Rows.Add(row);                        
+            }
+        }
+        
+        private void gvIllness_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 5:
+                    if (SortedFieldIllness.Field != "Create Date")
+                    {
+                        SortedFieldIllness.Field = "Create Date";
+                        SortedFieldIllness.Sorted = EnumSorted.NotSorted;
+                    }
+                    SortIllnessInForm(SortedFieldIllness);
+                    break;
+            }
         }
     }
 

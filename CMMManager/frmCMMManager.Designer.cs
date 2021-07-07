@@ -970,6 +970,25 @@
             this.label53 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
             this.tbPrescriptionPhysicalTherapy = new System.Windows.Forms.TabPage();
+            this.btnReloadPrescriptionNPhysicalTherapy = new System.Windows.Forms.Button();
+            this.gvPhysicalTherapyInfo = new System.Windows.Forms.DataGridView();
+            this.PhysicalTherapyInfoILL_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoINCD_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoMedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoServiceStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PhysicalTherapyInfoPhysicalTherapyNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboIllnessList = new System.Windows.Forms.ComboBox();
+            this.label195 = new System.Windows.Forms.Label();
+            this.label194 = new System.Windows.Forms.Label();
+            this.comboCategory = new System.Windows.Forms.ComboBox();
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy = new System.Windows.Forms.TextBox();
+            this.txtMEMBInPrescriptionNPhysicalTheray = new System.Windows.Forms.TextBox();
+            this.label192 = new System.Windows.Forms.Label();
+            this.label193 = new System.Windows.Forms.Label();
+            this.label191 = new System.Windows.Forms.Label();
             this.gvPrescriptionInfo = new System.Windows.Forms.DataGridView();
             this.PrescriptionInfoILLNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrescriptionInfoICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -981,17 +1000,6 @@
             this.PrescriptionInfoPrescriptionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrescriptionInfoMedicationNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrescriptionInfoDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnReloadPrescriptionNPhysicalTherapy = new System.Windows.Forms.Button();
-            this.gvPhysicalTherapyInfo = new System.Windows.Forms.DataGridView();
-            this.comboIllnessList = new System.Windows.Forms.ComboBox();
-            this.label195 = new System.Windows.Forms.Label();
-            this.label194 = new System.Windows.Forms.Label();
-            this.comboCategory = new System.Windows.Forms.ComboBox();
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy = new System.Windows.Forms.TextBox();
-            this.txtMEMBInPrescriptionNPhysicalTheray = new System.Windows.Forms.TextBox();
-            this.label192 = new System.Windows.Forms.Label();
-            this.label193 = new System.Windows.Forms.Label();
-            this.label191 = new System.Windows.Forms.Label();
             this.tbpgPayment = new System.Windows.Forms.TabPage();
             this.tabPaymentMethod = new System.Windows.Forms.TabControl();
             this.tbpgCheckForMemberReimbursement = new System.Windows.Forms.TabPage();
@@ -1338,14 +1346,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.PhysicalTherapyInfoILL_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoINCD_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoMedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoProviderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoServiceStartDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PhysicalTherapyInfoPhysicalTherapyNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPendingMedBillRNManager)).BeginInit();
@@ -1420,8 +1420,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvCaseDocumentInMedBill)).BeginInit();
             this.grpPatientInfo.SuspendLayout();
             this.tbPrescriptionPhysicalTherapy.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvPrescriptionInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPhysicalTherapyInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPrescriptionInfo)).BeginInit();
             this.tbpgPayment.SuspendLayout();
             this.tabPaymentMethod.SuspendLayout();
             this.tbpgCheckForMemberReimbursement.SuspendLayout();
@@ -9783,6 +9783,186 @@
             this.tbPrescriptionPhysicalTherapy.Text = "Prescription & Physical Therapy";
             this.tbPrescriptionPhysicalTherapy.UseVisualStyleBackColor = true;
             // 
+            // btnReloadPrescriptionNPhysicalTherapy
+            // 
+            this.btnReloadPrescriptionNPhysicalTherapy.Location = new System.Drawing.Point(951, 71);
+            this.btnReloadPrescriptionNPhysicalTherapy.Name = "btnReloadPrescriptionNPhysicalTherapy";
+            this.btnReloadPrescriptionNPhysicalTherapy.Size = new System.Drawing.Size(129, 31);
+            this.btnReloadPrescriptionNPhysicalTherapy.TabIndex = 143;
+            this.btnReloadPrescriptionNPhysicalTherapy.Text = "Reload";
+            this.btnReloadPrescriptionNPhysicalTherapy.UseVisualStyleBackColor = true;
+            this.btnReloadPrescriptionNPhysicalTherapy.Click += new System.EventHandler(this.btnReloadPrescriptionNPhysicalTherapy_Click);
+            // 
+            // gvPhysicalTherapyInfo
+            // 
+            this.gvPhysicalTherapyInfo.AllowUserToAddRows = false;
+            this.gvPhysicalTherapyInfo.AllowUserToDeleteRows = false;
+            this.gvPhysicalTherapyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvPhysicalTherapyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PhysicalTherapyInfoILL_No,
+            this.PhysicalTherapyInfoICD10Description,
+            this.PhysicalTherapyInfoINCD_No,
+            this.PhysicalTherapyInfoMedBillNo,
+            this.PhysicalTherapyInfoProviderName,
+            this.PhysicalTherapyInfoServiceStartDate,
+            this.PhysicalTherapyInfoServiceEndDate,
+            this.PhysicalTherapyInfoPhysicalTherapyNo});
+            this.gvPhysicalTherapyInfo.Location = new System.Drawing.Point(45, 121);
+            this.gvPhysicalTherapyInfo.Name = "gvPhysicalTherapyInfo";
+            this.gvPhysicalTherapyInfo.ReadOnly = true;
+            this.gvPhysicalTherapyInfo.Size = new System.Drawing.Size(1661, 713);
+            this.gvPhysicalTherapyInfo.TabIndex = 142;
+            this.gvPhysicalTherapyInfo.Visible = false;
+            this.gvPhysicalTherapyInfo.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvPhysicalTherapyInfo_ColumnHeaderMouseClick);
+            // 
+            // PhysicalTherapyInfoILL_No
+            // 
+            this.PhysicalTherapyInfoILL_No.HeaderText = "Illness No";
+            this.PhysicalTherapyInfoILL_No.Name = "PhysicalTherapyInfoILL_No";
+            this.PhysicalTherapyInfoILL_No.ReadOnly = true;
+            this.PhysicalTherapyInfoILL_No.Width = 140;
+            // 
+            // PhysicalTherapyInfoICD10Description
+            // 
+            this.PhysicalTherapyInfoICD10Description.HeaderText = "ICD 10 Description";
+            this.PhysicalTherapyInfoICD10Description.Name = "PhysicalTherapyInfoICD10Description";
+            this.PhysicalTherapyInfoICD10Description.ReadOnly = true;
+            this.PhysicalTherapyInfoICD10Description.Width = 300;
+            // 
+            // PhysicalTherapyInfoINCD_No
+            // 
+            this.PhysicalTherapyInfoINCD_No.HeaderText = "Incident No";
+            this.PhysicalTherapyInfoINCD_No.Name = "PhysicalTherapyInfoINCD_No";
+            this.PhysicalTherapyInfoINCD_No.ReadOnly = true;
+            this.PhysicalTherapyInfoINCD_No.Width = 140;
+            // 
+            // PhysicalTherapyInfoMedBillNo
+            // 
+            this.PhysicalTherapyInfoMedBillNo.HeaderText = "Medical Bill No";
+            this.PhysicalTherapyInfoMedBillNo.Name = "PhysicalTherapyInfoMedBillNo";
+            this.PhysicalTherapyInfoMedBillNo.ReadOnly = true;
+            this.PhysicalTherapyInfoMedBillNo.Width = 180;
+            // 
+            // PhysicalTherapyInfoProviderName
+            // 
+            this.PhysicalTherapyInfoProviderName.HeaderText = "Provider Name";
+            this.PhysicalTherapyInfoProviderName.Name = "PhysicalTherapyInfoProviderName";
+            this.PhysicalTherapyInfoProviderName.ReadOnly = true;
+            this.PhysicalTherapyInfoProviderName.Width = 260;
+            // 
+            // PhysicalTherapyInfoServiceStartDate
+            // 
+            this.PhysicalTherapyInfoServiceStartDate.HeaderText = "Service Start Date";
+            this.PhysicalTherapyInfoServiceStartDate.Name = "PhysicalTherapyInfoServiceStartDate";
+            this.PhysicalTherapyInfoServiceStartDate.ReadOnly = true;
+            this.PhysicalTherapyInfoServiceStartDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.PhysicalTherapyInfoServiceStartDate.Width = 160;
+            // 
+            // PhysicalTherapyInfoServiceEndDate
+            // 
+            this.PhysicalTherapyInfoServiceEndDate.HeaderText = "Service End Date";
+            this.PhysicalTherapyInfoServiceEndDate.Name = "PhysicalTherapyInfoServiceEndDate";
+            this.PhysicalTherapyInfoServiceEndDate.ReadOnly = true;
+            this.PhysicalTherapyInfoServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.PhysicalTherapyInfoServiceEndDate.Width = 160;
+            // 
+            // PhysicalTherapyInfoPhysicalTherapyNo
+            // 
+            this.PhysicalTherapyInfoPhysicalTherapyNo.HeaderText = "# of Physical Therapy";
+            this.PhysicalTherapyInfoPhysicalTherapyNo.Name = "PhysicalTherapyInfoPhysicalTherapyNo";
+            this.PhysicalTherapyInfoPhysicalTherapyNo.ReadOnly = true;
+            this.PhysicalTherapyInfoPhysicalTherapyNo.Width = 160;
+            // 
+            // comboIllnessList
+            // 
+            this.comboIllnessList.Enabled = false;
+            this.comboIllnessList.FormattingEnabled = true;
+            this.comboIllnessList.Location = new System.Drawing.Point(776, 77);
+            this.comboIllnessList.Name = "comboIllnessList";
+            this.comboIllnessList.Size = new System.Drawing.Size(138, 21);
+            this.comboIllnessList.TabIndex = 140;
+            this.comboIllnessList.SelectedIndexChanged += new System.EventHandler(this.comboIllnessList_SelectedIndexChanged);
+            // 
+            // label195
+            // 
+            this.label195.AutoSize = true;
+            this.label195.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label195.Location = new System.Drawing.Point(701, 79);
+            this.label195.Name = "label195";
+            this.label195.Size = new System.Drawing.Size(70, 16);
+            this.label195.TabIndex = 139;
+            this.label195.Text = "Illness No:";
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label194.Location = new System.Drawing.Point(472, 79);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(66, 16);
+            this.label194.TabIndex = 138;
+            this.label194.Text = "Category:";
+            // 
+            // comboCategory
+            // 
+            this.comboCategory.Enabled = false;
+            this.comboCategory.FormattingEnabled = true;
+            this.comboCategory.Location = new System.Drawing.Point(542, 77);
+            this.comboCategory.Name = "comboCategory";
+            this.comboCategory.Size = new System.Drawing.Size(139, 21);
+            this.comboCategory.TabIndex = 137;
+            this.comboCategory.SelectedIndexChanged += new System.EventHandler(this.comboCategory_SelectedIndexChanged);
+            // 
+            // txtIndividualIDInPrescriptionNPhysicalTherapy
+            // 
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Enabled = false;
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Location = new System.Drawing.Point(334, 76);
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Name = "txtIndividualIDInPrescriptionNPhysicalTherapy";
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.ReadOnly = true;
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Size = new System.Drawing.Size(109, 22);
+            this.txtIndividualIDInPrescriptionNPhysicalTherapy.TabIndex = 136;
+            // 
+            // txtMEMBInPrescriptionNPhysicalTheray
+            // 
+            this.txtMEMBInPrescriptionNPhysicalTheray.Enabled = false;
+            this.txtMEMBInPrescriptionNPhysicalTheray.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMEMBInPrescriptionNPhysicalTheray.Location = new System.Drawing.Point(103, 76);
+            this.txtMEMBInPrescriptionNPhysicalTheray.Name = "txtMEMBInPrescriptionNPhysicalTheray";
+            this.txtMEMBInPrescriptionNPhysicalTheray.ReadOnly = true;
+            this.txtMEMBInPrescriptionNPhysicalTheray.Size = new System.Drawing.Size(109, 22);
+            this.txtMEMBInPrescriptionNPhysicalTheray.TabIndex = 135;
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label192.Location = new System.Drawing.Point(249, 79);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(84, 16);
+            this.label192.TabIndex = 134;
+            this.label192.Text = "Individual ID:";
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label193.Location = new System.Drawing.Point(42, 79);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(55, 16);
+            this.label193.TabIndex = 133;
+            this.label193.Text = "MEMB -";
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label191.Location = new System.Drawing.Point(37, 29);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(354, 29);
+            this.label191.TabIndex = 48;
+            this.label191.Text = "Prescription && Physical Therapy";
+            // 
             // gvPrescriptionInfo
             // 
             this.gvPrescriptionInfo.AllowUserToAddRows = false;
@@ -9876,127 +10056,6 @@
             this.PrescriptionInfoDescription.Name = "PrescriptionInfoDescription";
             this.PrescriptionInfoDescription.ReadOnly = true;
             this.PrescriptionInfoDescription.Width = 380;
-            // 
-            // btnReloadPrescriptionNPhysicalTherapy
-            // 
-            this.btnReloadPrescriptionNPhysicalTherapy.Location = new System.Drawing.Point(951, 71);
-            this.btnReloadPrescriptionNPhysicalTherapy.Name = "btnReloadPrescriptionNPhysicalTherapy";
-            this.btnReloadPrescriptionNPhysicalTherapy.Size = new System.Drawing.Size(129, 31);
-            this.btnReloadPrescriptionNPhysicalTherapy.TabIndex = 143;
-            this.btnReloadPrescriptionNPhysicalTherapy.Text = "Reload";
-            this.btnReloadPrescriptionNPhysicalTherapy.UseVisualStyleBackColor = true;
-            this.btnReloadPrescriptionNPhysicalTherapy.Click += new System.EventHandler(this.btnReloadPrescriptionNPhysicalTherapy_Click);
-            // 
-            // gvPhysicalTherapyInfo
-            // 
-            this.gvPhysicalTherapyInfo.AllowUserToAddRows = false;
-            this.gvPhysicalTherapyInfo.AllowUserToDeleteRows = false;
-            this.gvPhysicalTherapyInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gvPhysicalTherapyInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PhysicalTherapyInfoILL_No,
-            this.PhysicalTherapyInfoICD10Description,
-            this.PhysicalTherapyInfoINCD_No,
-            this.PhysicalTherapyInfoMedBillNo,
-            this.PhysicalTherapyInfoProviderName,
-            this.PhysicalTherapyInfoServiceStartDate,
-            this.PhysicalTherapyInfoServiceEndDate,
-            this.PhysicalTherapyInfoPhysicalTherapyNo});
-            this.gvPhysicalTherapyInfo.Location = new System.Drawing.Point(45, 121);
-            this.gvPhysicalTherapyInfo.Name = "gvPhysicalTherapyInfo";
-            this.gvPhysicalTherapyInfo.ReadOnly = true;
-            this.gvPhysicalTherapyInfo.Size = new System.Drawing.Size(1661, 713);
-            this.gvPhysicalTherapyInfo.TabIndex = 142;
-            this.gvPhysicalTherapyInfo.Visible = false;
-            // 
-            // comboIllnessList
-            // 
-            this.comboIllnessList.Enabled = false;
-            this.comboIllnessList.FormattingEnabled = true;
-            this.comboIllnessList.Location = new System.Drawing.Point(776, 77);
-            this.comboIllnessList.Name = "comboIllnessList";
-            this.comboIllnessList.Size = new System.Drawing.Size(138, 21);
-            this.comboIllnessList.TabIndex = 140;
-            this.comboIllnessList.SelectedIndexChanged += new System.EventHandler(this.comboIllnessList_SelectedIndexChanged);
-            // 
-            // label195
-            // 
-            this.label195.AutoSize = true;
-            this.label195.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label195.Location = new System.Drawing.Point(701, 79);
-            this.label195.Name = "label195";
-            this.label195.Size = new System.Drawing.Size(70, 16);
-            this.label195.TabIndex = 139;
-            this.label195.Text = "Illness No:";
-            // 
-            // label194
-            // 
-            this.label194.AutoSize = true;
-            this.label194.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label194.Location = new System.Drawing.Point(472, 79);
-            this.label194.Name = "label194";
-            this.label194.Size = new System.Drawing.Size(66, 16);
-            this.label194.TabIndex = 138;
-            this.label194.Text = "Category:";
-            // 
-            // comboCategory
-            // 
-            this.comboCategory.Enabled = false;
-            this.comboCategory.FormattingEnabled = true;
-            this.comboCategory.Location = new System.Drawing.Point(542, 77);
-            this.comboCategory.Name = "comboCategory";
-            this.comboCategory.Size = new System.Drawing.Size(139, 21);
-            this.comboCategory.TabIndex = 137;
-            this.comboCategory.SelectedIndexChanged += new System.EventHandler(this.comboCategory_SelectedIndexChanged);
-            // 
-            // txtIndividualIDInPrescriptionNPhysicalTherapy
-            // 
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Enabled = false;
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Location = new System.Drawing.Point(334, 76);
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Name = "txtIndividualIDInPrescriptionNPhysicalTherapy";
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.ReadOnly = true;
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.Size = new System.Drawing.Size(109, 22);
-            this.txtIndividualIDInPrescriptionNPhysicalTherapy.TabIndex = 136;
-            // 
-            // txtMEMBInPrescriptionNPhysicalTheray
-            // 
-            this.txtMEMBInPrescriptionNPhysicalTheray.Enabled = false;
-            this.txtMEMBInPrescriptionNPhysicalTheray.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMEMBInPrescriptionNPhysicalTheray.Location = new System.Drawing.Point(103, 76);
-            this.txtMEMBInPrescriptionNPhysicalTheray.Name = "txtMEMBInPrescriptionNPhysicalTheray";
-            this.txtMEMBInPrescriptionNPhysicalTheray.ReadOnly = true;
-            this.txtMEMBInPrescriptionNPhysicalTheray.Size = new System.Drawing.Size(109, 22);
-            this.txtMEMBInPrescriptionNPhysicalTheray.TabIndex = 135;
-            // 
-            // label192
-            // 
-            this.label192.AutoSize = true;
-            this.label192.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label192.Location = new System.Drawing.Point(249, 79);
-            this.label192.Name = "label192";
-            this.label192.Size = new System.Drawing.Size(84, 16);
-            this.label192.TabIndex = 134;
-            this.label192.Text = "Individual ID:";
-            // 
-            // label193
-            // 
-            this.label193.AutoSize = true;
-            this.label193.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label193.Location = new System.Drawing.Point(42, 79);
-            this.label193.Name = "label193";
-            this.label193.Size = new System.Drawing.Size(55, 16);
-            this.label193.TabIndex = 133;
-            this.label193.Text = "MEMB -";
-            // 
-            // label191
-            // 
-            this.label191.AutoSize = true;
-            this.label191.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label191.Location = new System.Drawing.Point(37, 29);
-            this.label191.Name = "label191";
-            this.label191.Size = new System.Drawing.Size(354, 29);
-            this.label191.TabIndex = 48;
-            this.label191.Text = "Prescription && Physical Therapy";
             // 
             // tbpgPayment
             // 
@@ -12971,64 +13030,6 @@
             this.label143.TabIndex = 6;
             this.label143.Text = "RN New Dashboard - 06-24-2021";
             // 
-            // PhysicalTherapyInfoILL_No
-            // 
-            this.PhysicalTherapyInfoILL_No.HeaderText = "Illness No";
-            this.PhysicalTherapyInfoILL_No.Name = "PhysicalTherapyInfoILL_No";
-            this.PhysicalTherapyInfoILL_No.ReadOnly = true;
-            this.PhysicalTherapyInfoILL_No.Width = 140;
-            // 
-            // PhysicalTherapyInfoICD10Description
-            // 
-            this.PhysicalTherapyInfoICD10Description.HeaderText = "ICD 10 Description";
-            this.PhysicalTherapyInfoICD10Description.Name = "PhysicalTherapyInfoICD10Description";
-            this.PhysicalTherapyInfoICD10Description.ReadOnly = true;
-            this.PhysicalTherapyInfoICD10Description.Width = 300;
-            // 
-            // PhysicalTherapyInfoINCD_No
-            // 
-            this.PhysicalTherapyInfoINCD_No.HeaderText = "Incident No";
-            this.PhysicalTherapyInfoINCD_No.Name = "PhysicalTherapyInfoINCD_No";
-            this.PhysicalTherapyInfoINCD_No.ReadOnly = true;
-            this.PhysicalTherapyInfoINCD_No.Width = 140;
-            // 
-            // PhysicalTherapyInfoMedBillNo
-            // 
-            this.PhysicalTherapyInfoMedBillNo.HeaderText = "Medical Bill No";
-            this.PhysicalTherapyInfoMedBillNo.Name = "PhysicalTherapyInfoMedBillNo";
-            this.PhysicalTherapyInfoMedBillNo.ReadOnly = true;
-            this.PhysicalTherapyInfoMedBillNo.Width = 180;
-            // 
-            // PhysicalTherapyInfoProviderName
-            // 
-            this.PhysicalTherapyInfoProviderName.HeaderText = "Provider Name";
-            this.PhysicalTherapyInfoProviderName.Name = "PhysicalTherapyInfoProviderName";
-            this.PhysicalTherapyInfoProviderName.ReadOnly = true;
-            this.PhysicalTherapyInfoProviderName.Width = 260;
-            // 
-            // PhysicalTherapyInfoServiceStartDate
-            // 
-            this.PhysicalTherapyInfoServiceStartDate.HeaderText = "Service Start Date";
-            this.PhysicalTherapyInfoServiceStartDate.Name = "PhysicalTherapyInfoServiceStartDate";
-            this.PhysicalTherapyInfoServiceStartDate.ReadOnly = true;
-            this.PhysicalTherapyInfoServiceStartDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.PhysicalTherapyInfoServiceStartDate.Width = 160;
-            // 
-            // PhysicalTherapyInfoServiceEndDate
-            // 
-            this.PhysicalTherapyInfoServiceEndDate.HeaderText = "Service End Date";
-            this.PhysicalTherapyInfoServiceEndDate.Name = "PhysicalTherapyInfoServiceEndDate";
-            this.PhysicalTherapyInfoServiceEndDate.ReadOnly = true;
-            this.PhysicalTherapyInfoServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.PhysicalTherapyInfoServiceEndDate.Width = 160;
-            // 
-            // PhysicalTherapyInfoPhysicalTherapyNo
-            // 
-            this.PhysicalTherapyInfoPhysicalTherapyNo.HeaderText = "# of Physical Therapy";
-            this.PhysicalTherapyInfoPhysicalTherapyNo.Name = "PhysicalTherapyInfoPhysicalTherapyNo";
-            this.PhysicalTherapyInfoPhysicalTherapyNo.ReadOnly = true;
-            this.PhysicalTherapyInfoPhysicalTherapyNo.Width = 160;
-            // 
             // frmCMMManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -13147,8 +13148,8 @@
             this.grpPatientInfo.PerformLayout();
             this.tbPrescriptionPhysicalTherapy.ResumeLayout(false);
             this.tbPrescriptionPhysicalTherapy.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gvPrescriptionInfo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvPhysicalTherapyInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvPrescriptionInfo)).EndInit();
             this.tbpgPayment.ResumeLayout(false);
             this.tbpgPayment.PerformLayout();
             this.tabPaymentMethod.ResumeLayout(false);

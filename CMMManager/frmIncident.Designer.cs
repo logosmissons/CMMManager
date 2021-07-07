@@ -82,6 +82,7 @@
             this.gvIncidents.Size = new System.Drawing.Size(770, 374);
             this.gvIncidents.TabIndex = 1;
             this.gvIncidents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIncidents_CellContentClick);
+            this.gvIncidents.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvIncidents_ColumnHeaderMouseClick);
             // 
             // btnClose
             // 
@@ -199,12 +200,14 @@
             // 
             this.IncidentServiceDate.HeaderText = "Service Date";
             this.IncidentServiceDate.Name = "IncidentServiceDate";
+            this.IncidentServiceDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // CreateDate
             // 
             this.CreateDate.HeaderText = "Create Date";
             this.CreateDate.Name = "CreateDate";
             this.CreateDate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CreateDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Program_Id
             // 

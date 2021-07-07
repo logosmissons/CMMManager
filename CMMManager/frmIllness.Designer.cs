@@ -30,12 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.gvIllness = new System.Windows.Forms.DataGridView();
-            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Individual_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ICD10_Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IllnessNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnAddNew = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -47,6 +41,12 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Individual_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ICD10_Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvIllness)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,45 +79,7 @@
             this.gvIllness.Size = new System.Drawing.Size(749, 382);
             this.gvIllness.TabIndex = 1;
             this.gvIllness.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllness_CellContentClick);
-            // 
-            // Selected
-            // 
-            this.Selected.HeaderText = "Select";
-            this.Selected.Name = "Selected";
-            this.Selected.ReadOnly = true;
-            this.Selected.Width = 60;
-            // 
-            // Illness_No
-            // 
-            this.Illness_No.HeaderText = "Illness No";
-            this.Illness_No.Name = "Illness_No";
-            this.Illness_No.ReadOnly = true;
-            this.Illness_No.Width = 80;
-            // 
-            // Individual_Id
-            // 
-            this.Individual_Id.HeaderText = "Individual Id";
-            this.Individual_Id.Name = "Individual_Id";
-            this.Individual_Id.ReadOnly = true;
-            // 
-            // ICD10_Code
-            // 
-            this.ICD10_Code.HeaderText = "ICD 10 Code";
-            this.ICD10_Code.Name = "ICD10_Code";
-            this.ICD10_Code.ReadOnly = true;
-            // 
-            // IllnessNote
-            // 
-            this.IllnessNote.HeaderText = "Illness Note";
-            this.IllnessNote.Name = "IllnessNote";
-            this.IllnessNote.ReadOnly = true;
-            this.IllnessNote.Width = 260;
-            // 
-            // CreateDate
-            // 
-            this.CreateDate.HeaderText = "Create Date";
-            this.CreateDate.Name = "CreateDate";
-            this.CreateDate.ReadOnly = true;
+            this.gvIllness.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvIllness_ColumnHeaderMouseClick);
             // 
             // btnAddNew
             // 
@@ -210,6 +172,46 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // Selected
+            // 
+            this.Selected.HeaderText = "Select";
+            this.Selected.Name = "Selected";
+            this.Selected.ReadOnly = true;
+            this.Selected.Width = 60;
+            // 
+            // Illness_No
+            // 
+            this.Illness_No.HeaderText = "Illness No";
+            this.Illness_No.Name = "Illness_No";
+            this.Illness_No.ReadOnly = true;
+            this.Illness_No.Width = 80;
+            // 
+            // Individual_Id
+            // 
+            this.Individual_Id.HeaderText = "Individual Id";
+            this.Individual_Id.Name = "Individual_Id";
+            this.Individual_Id.ReadOnly = true;
+            // 
+            // ICD10_Code
+            // 
+            this.ICD10_Code.HeaderText = "ICD 10 Code";
+            this.ICD10_Code.Name = "ICD10_Code";
+            this.ICD10_Code.ReadOnly = true;
+            // 
+            // IllnessNote
+            // 
+            this.IllnessNote.HeaderText = "Illness Note";
+            this.IllnessNote.Name = "IllnessNote";
+            this.IllnessNote.ReadOnly = true;
+            this.IllnessNote.Width = 260;
+            // 
+            // CreateDate
+            // 
+            this.CreateDate.HeaderText = "Create Date";
+            this.CreateDate.Name = "CreateDate";
+            this.CreateDate.ReadOnly = true;
+            this.CreateDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // frmIllness
             // 
