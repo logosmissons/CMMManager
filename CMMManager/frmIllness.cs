@@ -232,7 +232,7 @@ namespace CMMManager
                             "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
                             //"[dbo].[tbl_illness].[IllnessNo] = @IllnessNo and " +
                             "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL) " +
-                            "order by [dbo].[tbl_illness].[CraeteDate]";
+                            "order by [dbo].[tbl_illness].[CreateDate]";
 
             SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryFprIllnessForCaseId, connRNDB);
             cmdQueryForIllness.CommandType = CommandType.Text;
