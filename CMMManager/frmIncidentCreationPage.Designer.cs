@@ -78,6 +78,7 @@
             this.txtIncidentNote.Location = new System.Drawing.Point(40, 331);
             this.txtIncidentNote.Multiline = true;
             this.txtIncidentNote.Name = "txtIncidentNote";
+            this.txtIncidentNote.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtIncidentNote.Size = new System.Drawing.Size(484, 211);
             this.txtIncidentNote.TabIndex = 27;
             // 
@@ -119,7 +120,6 @@
             this.label2.Size = new System.Drawing.Size(83, 16);
             this.label2.TabIndex = 20;
             this.label2.Text = "ICD10 Code:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label5
             // 
@@ -159,7 +159,6 @@
             this.label6.Size = new System.Drawing.Size(64, 16);
             this.label6.TabIndex = 34;
             this.label6.Text = "Case No:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -198,7 +197,6 @@
             this.label8.Size = new System.Drawing.Size(63, 16);
             this.label8.TabIndex = 42;
             this.label8.Text = "Program:";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // comboProgram
             // 
@@ -237,7 +235,6 @@
             this.label9.Size = new System.Drawing.Size(78, 16);
             this.label9.TabIndex = 46;
             this.label9.Text = "Incident No:";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // txtIncidentNo
             // 
@@ -269,7 +266,6 @@
             this.label10.Size = new System.Drawing.Size(112, 16);
             this.label10.TabIndex = 49;
             this.label10.Text = "Occurrence Date:";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // dtpIncdOccurrenceDate
             // 

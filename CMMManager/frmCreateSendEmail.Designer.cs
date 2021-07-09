@@ -259,7 +259,6 @@
             this.txtEmailCc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmailCc.Location = new System.Drawing.Point(114, 137);
             this.txtEmailCc.Name = "txtEmailCc";
-            this.txtEmailCc.ReadOnly = true;
             this.txtEmailCc.Size = new System.Drawing.Size(618, 22);
             this.txtEmailCc.TabIndex = 26;
             // 

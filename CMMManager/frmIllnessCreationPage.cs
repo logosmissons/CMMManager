@@ -15,7 +15,7 @@ using System.Data.SqlClient;
 namespace CMMManager
 {
 
-    public enum IllnessMode { AddNew, Edit };
+    public enum IllnessMode { AddNew, Edit, ReadOnly };
 
     public partial class frmIllnessCreationPage : Form
     {
@@ -574,56 +574,91 @@ namespace CMMManager
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 if (LimitedSharingId != null) comboLimitedSharing.SelectedIndex = LimitedSharingId.Value;
+            }
+            else if (mode == IllnessMode.ReadOnly)
+            {
+                Int32? LimitedSharingId = null;
 
+                if (bOpenFromIllnessView) comboCaseNoIllness.Enabled = true;
+                else comboCaseNoIllness.Enabled = false;
 
-                //String strSqlQueryForIncidentInfoForIllness = "select [dbo].[tbl_incident].[IncidentNo], [dbo].[tbl_program].[ProgramName], " +
-                //                                           "[dbo].[tbl_incident].[IsWellBeing], [dbo].[tbl_incident].[OccurrenceDate], " +
-                //                                           "[dbo].[tbl_incident].[TotalSharedAmount], [dbo].[tbl_incident].[IncidentNote] " +
-                //                                           "from [dbo].[tbl_incident] " +
-                //                                           "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_id] = [dbo].[tbl_illness].[Illness_Id] " +
-                //                                           "inner join [dbo].[tbl_program] on [dbo].[tbl_incident].[Program_id] = [dbo].[tbl_program].[Program_Id] " +
-                //                                           "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+                String strSqlQueryForIllness = "select [dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[CreateDate], [dbo].[tbl_illness].[ModifiDate], " +
+                                               "[dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[Case_Id], [dbo].[tbl_illness].[Date_of_Diagnosis], " +
+                                               "[dbo].[tbl_illness].[LimitedSharingId], " +
+                                               "[dbo].[tbl_illness].[Introduction], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion], " +
+                                               "[dbo].[tbl_illness].[Program_Id] " +
+                                               "from [dbo].[tbl_illness] " +
+                                               "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo";
+                //"where [dbo].[tbl_illness].[Illness_Id] = @IllnessId";
 
-                //SqlCommand cmdQueryForIncidentInfoForIllness = new SqlCommand(strSqlQueryForIncidentInfoForIllness, connRNDB);
-                //cmdQueryForIncidentInfoForIllness.CommandType = CommandType.Text;
+                SqlCommand cmdQueryForIllness = new SqlCommand(strSqlQueryForIllness, connRNDB);
+                cmdQueryForIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
 
-                //cmdQueryForIncidentInfoForIllness.Parameters.AddWithValue("@IllnessNo", IllnessNo);
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                SqlDataReader rdrIllness = cmdQueryForIllness.ExecuteReader();
+                if (rdrIllness.HasRows)
+                {
+                    rdrIllness.Read();
+                    nIllnessId = rdrIllness.GetInt32(0);
+                    if (!rdrIllness.IsDBNull(1))
+                    {
+                        //txtICD10Code.Text = rdrIllness.GetString(1);
+                        String strICD10Code = rdrIllness.GetString(1);
+                        txtICD10Code.Text = strICD10Code;
+                        SetIllnessEligibility(strICD10Code);
+                    }
+                    if (!rdrIllness.IsDBNull(2))
+                    {
+                        dtpCreateDate.Value = rdrIllness.GetDateTime(2);
+                        dtpCreateDate.Enabled = false;
+                    }
+                    if (!rdrIllness.IsDBNull(4)) txtIndividualNo.Text = rdrIllness.GetString(4);
+                    //if (!rdrIllness.IsDBNull(5)) txtCaseNo.Text = rdrIllness.GetString(5);
+                    if (!rdrIllness.IsDBNull(5))
+                    {
+                        //comboCaseNoIllness.SelectedItem = rdrIllness.GetString(5);
+                        for (int i = 0; i < comboCaseNoIllness.Items.Count; i++)
+                        {
+                            if (comboCaseNoIllness.Items[i].ToString().Contains(rdrIllness.GetString(5))) comboCaseNoIllness.SelectedIndex = i;
+                        }
+                        comboCaseNoIllness.Enabled = false;
+                    }
 
-                //if (connRNDB.State != ConnectionState.Closed)
-                //{
-                //    connRNDB.Close();
-                //    connRNDB.Open();
-                //}
-                //else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                //SqlDataReader rdrIncidentInfo = cmdQueryForIncidentInfoForIllness.ExecuteReader();
-                //if (rdrIncidentInfo.HasRows)
-                //{
-                //    while (rdrIncidentInfo.Read())
-                //    {
-                //        DataGridViewRow row = new DataGridViewRow();
-                //        if (!rdrIncidentInfo.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(0) });
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                //        if (!rdrIncidentInfo.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(1).Trim() });
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                //        if (!rdrIncidentInfo.IsDBNull(2))
-                //        {
-                //            if (rdrIncidentInfo.GetBoolean(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = "Well Being" });
-                //            else row.Cells.Add(new DataGridViewTextBoxCell { Value = "Incident" });
-                //        }
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                //        if (!rdrIncidentInfo.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDateTime(3).ToString("MM/dd/yyyy") });
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                //        if (!rdrIncidentInfo.IsDBNull(4)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetDecimal(4).ToString("C") });
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
-                //        if (!rdrIncidentInfo.IsDBNull(5)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIncidentInfo.GetString(5) });
-                //        else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
+                    if (!rdrIllness.IsDBNull(6))
+                    {
+                        dtpDateOfDiagnosis.Value = rdrIllness.GetDateTime(6);
+                        dtpDateOfDiagnosis.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dtpDateOfDiagnosis.Format = DateTimePickerFormat.Custom;
+                        dtpDateOfDiagnosis.CustomFormat = " ";
+                    }
 
-                //        gvRelatedIncidentInfo.Rows.Add(row);
-                //    }
-                //}
-                //rdrIncidentInfo.Close();
-                //if (connRNDB.State != ConnectionState.Closed) connRNDB.Close();
+                    if (!rdrIllness.IsDBNull(7))
+                    {
+                        //comboLimitedSharing.SelectedIndex = rdrIllness.GetInt16(7);
+                        LimitedSharingId = (Int32)rdrIllness.GetInt16(7);
+                        //comboLimitedSharing.SelectedIndex = LimitedSharingId;
+                    }
+                    if (!rdrIllness.IsDBNull(8)) txtIllnessNote.Text = rdrIllness.GetString(8) + Environment.NewLine;
+                    if (!rdrIllness.IsDBNull(9)) txtIllnessNote.Text += rdrIllness.GetString(9);
+                    if (!rdrIllness.IsDBNull(10)) txtConclusion.Text = rdrIllness.GetString(10);
+                    if (!rdrIllness.IsDBNull(11)) comboIllnessProgram.SelectedIndex = rdrIllness.GetByte(11);
+                    else comboIllnessProgram.SelectedIndex = -1;
 
+                }
+                rdrIllness.Close();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                if (LimitedSharingId != null) comboLimitedSharing.SelectedIndex = LimitedSharingId.Value;
+
+                MakeIllnessInfoReadOnly();
             }
 
             if (comboIllnessProgram.SelectedIndex == -1)
@@ -702,7 +737,7 @@ namespace CMMManager
                     if (!rdrIllnessAttachments.IsDBNull(0)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetString(0) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     row.Cells[1].ReadOnly = true;
-                    row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });
+                    row.Cells.Add(new DataGridViewButtonCell { Value = "Upload" });                    
                     row.Cells[2].ReadOnly = true;
                     if (!rdrIllnessAttachments.IsDBNull(1)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessAttachments.GetString(1) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
@@ -1918,6 +1953,25 @@ namespace CMMManager
             btnDeleteAttachment.Enabled = false;
 
             //gvIllnessAttachment.Columns[2].ReadOnly = true;
+
+            btnSaveIllness.Enabled = false;
+        }
+
+        public void MakeIllnessInfoReadOnly()
+        {
+            txtICD10Code.ReadOnly = true;
+            txtDiseaseName.ReadOnly = true;
+            rbEligible.Enabled = false;
+            rbIneligible.Enabled = false;
+            dtpDateOfDiagnosis.Enabled = false;
+            dtpCreateDate.Enabled = false;
+            comboIllnessProgram.Enabled = false;
+            comboLimitedSharing.Enabled = false;
+            txtIllnessNote.ReadOnly = true;
+            txtConclusion.ReadOnly = true;
+            btnAddAttachment.Enabled = false;
+            btnDeleteAttachment.Enabled = false;
+            //gvIllnessAttachment.ReadOnly = true;
 
             btnSaveIllness.Enabled = false;
         }

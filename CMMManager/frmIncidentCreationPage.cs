@@ -16,7 +16,7 @@ namespace CMMManager
     public partial class frmIncidentCreationPage : Form
     {
 
-        public enum IncidentMode { AddNew, Edit };
+        public enum IncidentMode { AddNew, Edit, ReadOnly };
 
         private String connStringSalesforce;
         private SqlConnection connSalesforce;
@@ -409,12 +409,6 @@ namespace CMMManager
 
                 for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
 
-                // Populate main form
-                //String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_incident].[Illness_Id], [dbo].[tbl_incident].[Program_id], " +
-                //                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote] " +
-                //                                "from [dbo].[tbl_incident] " +
-                //                                "where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
-
                 String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], " +
                                 "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IsWellBeing], " +
                                 "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote], " +
@@ -423,28 +417,14 @@ namespace CMMManager
                                 "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
                                 "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
 
-                //"where [dbo].[tbl_incident].[Incident_id] = @IncidentId and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
-
                 SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
                 cmdQueryForIncident.CommandType = CommandType.Text;
 
                 int result = 0;
                 int nIncident = 0;
-                //int nIndividualId = 0;
-                //if (int.TryParse(strIncidentId, NumberStyles.Number, new CultureInfo("en-US"), out result))
-                //{
-                //    nIncident = result;
-                //    cmdQueryForIncident.Parameters.AddWithValue("@IncidentId", nIncident);
-                //}
-                //txtIncidentId.Text = nIncident.ToString();
+
                 cmdQueryForIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
                 cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
-
-                //if (int.TryParse(strIndividualId, NumberStyles.Number, new CultureInfo("en-US"), out result))
-                //{
-                //    nIndividualId = result;
-                //    cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", nIndividualId);
-                //}
 
                 if (connRNDB.State == ConnectionState.Open)
                 {
@@ -462,7 +442,6 @@ namespace CMMManager
                     if (!rdrIncident.IsDBNull(3)) comboProgram.SelectedIndex = rdrIncident.GetInt16(3);
                     if (!rdrIncident.IsDBNull(4))
                     {
-                        //chkWellBeing.CheckedChanged += new System.EventHandler(this.chkWellBeing_CheckedChanged);
                         chkWellBeing.CheckedChanged -= chkWellBeing_CheckedChanged;
                         chkWellBeing.Checked = rdrIncident.GetBoolean(4);
                         chkWellBeing.CheckedChanged += chkWellBeing_CheckedChanged;
@@ -480,16 +459,12 @@ namespace CMMManager
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
                 strIllnessNo = txtIllnessNo.Text.Trim();
-                //String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
-                //                                 "where [dbo].[tbl_illness].[Illness_Id] = @IllnessId and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
                 String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
                                  "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
 
                 SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
                 cmdQueryForICD10Code.CommandType = CommandType.Text;
-                //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", strIllnessNo.Trim());
-                //cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessId", Int32.Parse(strIllnessId));
                 cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessNo", strIllnessNo);
                 cmdQueryForICD10Code.Parameters.AddWithValue("@IndividualId", strIndividualId.Trim());
 
@@ -499,7 +474,6 @@ namespace CMMManager
                     connRNDB.Open();
                 }
                 else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                //String strICD10Code = cmdQueryForICD10Code.ExecuteScalar().ToString();
                 Object objICD10Code = cmdQueryForICD10Code.ExecuteScalar();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
@@ -530,7 +504,6 @@ namespace CMMManager
                     connRNDB.Open();
                 }
                 else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
-                //String strDiseaseName = cmdQueryForDiseaseName.ExecuteScalar().ToString();
                 Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
                 if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
 
@@ -539,17 +512,148 @@ namespace CMMManager
                 {
                     strDiseaseName = objDiseaseName.ToString();
                 }
-                //else
-                //{
-                //    MessageBox.Show("No Disease name", "Error", MessageBoxButtons.OK);
-                //    return;
-                //}
 
                 if (strDiseaseName != String.Empty) txtICD10Name.Text = strDiseaseName.Trim();
 
                 dtpCreateDate.Enabled = false;
                 dtpModifiedDate.Enabled = false;
 
+            }
+            else if (mode == IncidentMode.ReadOnly)
+            {
+                String strSqlQueryForPrograms = "select [dbo].[tbl_program].[Program_Id], [dbo].[tbl_program].[ProgramName] from [dbo].[tbl_program]";
+                SqlCommand cmdQueryForPrograms = new SqlCommand(strSqlQueryForPrograms, connRNDB);
+                cmdQueryForPrograms.CommandType = CommandType.Text;
+
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                SqlDataReader rdrPrograms = cmdQueryForPrograms.ExecuteReader();
+                if (rdrPrograms.HasRows)
+                {
+                    while (rdrPrograms.Read())
+                    {
+                        if (!rdrPrograms.IsDBNull(0) && !rdrPrograms.IsDBNull(1)) dicProgram.Add(rdrPrograms.GetInt16(0), rdrPrograms.GetString(1));
+                    }
+                }
+                rdrPrograms.Close();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                for (int i = 0; i < dicProgram.Count; i++) comboProgram.Items.Add(dicProgram[i]);
+
+                String strSqlQueryForIncident = "select [dbo].[tbl_incident].[Case_id], [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_incident].[IncidentNo], " +
+                                "[dbo].[tbl_incident].[Program_id], [dbo].[tbl_incident].[IsWellBeing], " +
+                                "[dbo].[tbl_incident].[CreateDate], [dbo].[tbl_incident].[ModifiDate], [dbo].[tbl_incident].[IncidentNote], " +
+                                "[dbo].[tbl_incident].[OccurrenceDate] " +
+                                "from [dbo].[tbl_incident] " +
+                                "inner join [dbo].[tbl_illness] on [dbo].[tbl_incident].[Illness_Id] = [dbo].[tbl_illness].[Illness_Id] " +
+                                "where [dbo].[tbl_incident].[IncidentNo] = @IncidentNo and [dbo].[tbl_incident].[Individual_id] = @IndividualId";
+
+                SqlCommand cmdQueryForIncident = new SqlCommand(strSqlQueryForIncident, connRNDB);
+                cmdQueryForIncident.CommandType = CommandType.Text;
+
+                int result = 0;
+                int nIncident = 0;
+
+                cmdQueryForIncident.Parameters.AddWithValue("@IncidentNo", strIncidentNo);
+                cmdQueryForIncident.Parameters.AddWithValue("@IndividualId", strIndividualId);
+
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                SqlDataReader rdrIncident = cmdQueryForIncident.ExecuteReader();
+                if (rdrIncident.HasRows)
+                {
+                    rdrIncident.Read();
+                    if (!rdrIncident.IsDBNull(0)) txtCaseNo.Text = rdrIncident.GetString(0);
+                    if (!rdrIncident.IsDBNull(1)) txtIllnessNo.Text = rdrIncident.GetString(1);
+                    if (!rdrIncident.IsDBNull(2)) txtIncidentNo.Text = rdrIncident.GetString(2);
+                    if (!rdrIncident.IsDBNull(3)) comboProgram.SelectedIndex = rdrIncident.GetInt16(3);
+                    if (!rdrIncident.IsDBNull(4))
+                    {
+                        chkWellBeing.CheckedChanged -= chkWellBeing_CheckedChanged;
+                        chkWellBeing.Checked = rdrIncident.GetBoolean(4);
+                        chkWellBeing.CheckedChanged += chkWellBeing_CheckedChanged;
+                    }
+                    if (!rdrIncident.IsDBNull(5)) dtpCreateDate.Text = rdrIncident.GetDateTime(5).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(6)) dtpModifiedDate.Text = rdrIncident.GetDateTime(6).ToString("MM/dd/yyyy");
+                    if (!rdrIncident.IsDBNull(7)) txtIncidentNote.Text = rdrIncident.GetString(7);
+                    if (!rdrIncident.IsDBNull(8))
+                    {
+                        dtpIncdOccurrenceDate.Checked = true;
+                        dtpIncdOccurrenceDate.Text = rdrIncident.GetDateTime(8).ToString("MM/dd/yyyy");
+                    }
+                }
+                rdrIncident.Close();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                strIllnessNo = txtIllnessNo.Text.Trim();
+
+                String strSqlQueryForICD10Code = "select [dbo].[tbl_illness].[ICD_10_Id] from [dbo].[tbl_illness] " +
+                                 "where [dbo].[tbl_illness].[IllnessNo] = @IllnessNo and [dbo].[tbl_illness].[Individual_Id] = @IndividualId";
+
+                SqlCommand cmdQueryForICD10Code = new SqlCommand(strSqlQueryForICD10Code, connRNDB);
+                cmdQueryForICD10Code.CommandType = CommandType.Text;
+                cmdQueryForICD10Code.Parameters.AddWithValue("@IllnessNo", strIllnessNo);
+                cmdQueryForICD10Code.Parameters.AddWithValue("@IndividualId", strIndividualId.Trim());
+
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                Object objICD10Code = cmdQueryForICD10Code.ExecuteScalar();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                String strICD10Code = String.Empty;
+
+                if (objICD10Code != null)
+                {
+                    strICD10Code = objICD10Code.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("No ICD 10 Code for given Illness", "Error", MessageBoxButtons.OK);
+                    return;
+                }
+
+                if (strICD10Code != String.Empty) txtICD10Code.Text = strICD10Code;
+
+                String strSqlQueryForDiseaseName = "select [dbo].[tbl_ICD10].[Name] from [dbo].[tbl_ICD10] where [dbo].[tbl_ICD10].[ICD10_CODE__C] = @ICD10Code";
+
+                SqlCommand cmdQueryForDiseaseName = new SqlCommand(strSqlQueryForDiseaseName, connRNDB);
+
+                cmdQueryForDiseaseName.CommandType = CommandType.Text;
+                cmdQueryForDiseaseName.Parameters.AddWithValue("@ICD10Code", strICD10Code);
+
+                if (connRNDB.State == ConnectionState.Open)
+                {
+                    connRNDB.Close();
+                    connRNDB.Open();
+                }
+                else if (connRNDB.State == ConnectionState.Closed) connRNDB.Open();
+                Object objDiseaseName = cmdQueryForDiseaseName.ExecuteScalar();
+                if (connRNDB.State == ConnectionState.Open) connRNDB.Close();
+
+                String strDiseaseName = String.Empty;
+                if (objDiseaseName != null)
+                {
+                    strDiseaseName = objDiseaseName.ToString();
+                }
+
+                if (strDiseaseName != String.Empty) txtICD10Name.Text = strDiseaseName.Trim();
+
+                dtpCreateDate.Enabled = false;
+                dtpModifiedDate.Enabled = false;
+
+                MakeIncidentFormReadOnly();
             }
 
 
@@ -1060,29 +1164,16 @@ namespace CMMManager
             }
         }
 
-        private void label9_Click(object sender, EventArgs e)
+        private void MakeIncidentFormReadOnly()
         {
+            comboProgram.Enabled = false;
+            chkWellBeing.Enabled = false;
+            dtpIncdOccurrenceDate.Enabled = false;
+            dtpCreateDate.Enabled = false;
+            dtpModifiedDate.Enabled = false;
+            txtIncidentNote.ReadOnly = true;
 
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
+            btnSaveIncident.Enabled = false;
         }
     }
 }

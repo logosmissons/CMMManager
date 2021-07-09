@@ -8556,6 +8556,7 @@
             this.txtMedBill_Incident.ReadOnly = true;
             this.txtMedBill_Incident.Size = new System.Drawing.Size(120, 20);
             this.txtMedBill_Incident.TabIndex = 41;
+            this.txtMedBill_Incident.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtMedBill_Incident_MouseClick);
             // 
             // txtMedBill_Illness
             // 
@@ -8564,6 +8565,7 @@
             this.txtMedBill_Illness.ReadOnly = true;
             this.txtMedBill_Illness.Size = new System.Drawing.Size(120, 20);
             this.txtMedBill_Illness.TabIndex = 40;
+            this.txtMedBill_Illness.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtMedBill_Illness_MouseClick);
             // 
             // btnMedBill_Incident
             // 
@@ -12961,7 +12963,7 @@
             this.DocumentTypeCaseDocument.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.DocumentTypeCaseDocument.HeaderText = "Document Type";
             this.DocumentTypeCaseDocument.Name = "DocumentTypeCaseDocument";
-            this.DocumentTypeCaseDocument.Width = 140;
+            this.DocumentTypeCaseDocument.Width = 160;
             // 
             // BtnUploadCaseDocument
             // 

@@ -609,14 +609,30 @@ namespace CMMManager
 
             if (strIllnessNo != String.Empty)
             {
-                frmIllnessCreationPage frm = new frmIllnessCreationPage();
-                frm.mode = IllnessMode.Edit;
-                frm.nLoggedInUserId = nLoggedInUserId;
-                frm.strIndividualNo = gvIllness["Individual_Id", nRowSelected].Value.ToString();
-                frm.IllnessNo = strIllnessNo;
-                //frm.nIllnessNo = nIllnessNoSelected;
+                if (LoggedInUserRole == UserRole.RNManager ||
+                    LoggedInUserRole == UserRole.RNAssistantManager ||
+                    nLoggedInUserId == 43)
+                {
+                    frmIllnessCreationPage frm = new frmIllnessCreationPage();
+                    frm.mode = IllnessMode.Edit;
+                    frm.nLoggedInUserId = nLoggedInUserId;
+                    frm.strIndividualNo = gvIllness["Individual_Id", nRowSelected].Value.ToString();
+                    frm.IllnessNo = strIllnessNo;
+                    //frm.nIllnessNo = nIllnessNoSelected;
 
-                frm.ShowDialog();
+                    frm.ShowDialog();
+                }
+                else
+                {
+                    frmIllnessCreationPage frm = new frmIllnessCreationPage();
+                    frm.mode = IllnessMode.ReadOnly;
+                    frm.nLoggedInUserId = nLoggedInUserId;
+                    frm.strIndividualNo = gvIllness["Individual_Id", nRowSelected].Value.ToString();
+                    frm.IllnessNo = strIllnessNo;
+                    //frm.nIllnessNo = nIllnessNoSelected;
+
+                    frm.ShowDialog();
+                }
             }
         }
 

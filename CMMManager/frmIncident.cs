@@ -942,7 +942,6 @@ namespace CMMManager
                 frmIncd.mode = frmIncidentCreationPage.IncidentMode.Edit;
 
                 frmIncd.ShowDialog();
-
             }
         }
 
