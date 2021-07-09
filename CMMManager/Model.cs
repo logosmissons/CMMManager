@@ -530,6 +530,7 @@ namespace CMMManager
         public String PendingReason;
         public String IneligibleReason;
         public String IncidentNo;
+        public String ICD10Description;
         public String IncidentNote;
         public DateTime? CreateDate;
         public String CreatedByStaffName;
@@ -553,6 +554,7 @@ namespace CMMManager
             PendingReason = String.Empty;
             IneligibleReason = String.Empty;
             IncidentNo = String.Empty;
+            ICD10Description = String.Empty;
             IncidentNote = String.Empty;
             CreateDate = null;
             CreatedByStaffName = String.Empty;

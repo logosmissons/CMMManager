@@ -45,6 +45,7 @@
             this.Illness_No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Individual_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ICD10_Code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IllnessICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IllnessNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.gvIllness)).BeginInit();
@@ -70,20 +71,21 @@
             this.Illness_No,
             this.Individual_Id,
             this.ICD10_Code,
+            this.IllnessICD10Description,
             this.IllnessNote,
             this.CreateDate});
             this.gvIllness.Location = new System.Drawing.Point(27, 77);
             this.gvIllness.MultiSelect = false;
             this.gvIllness.Name = "gvIllness";
             this.gvIllness.ReadOnly = true;
-            this.gvIllness.Size = new System.Drawing.Size(749, 382);
+            this.gvIllness.Size = new System.Drawing.Size(902, 382);
             this.gvIllness.TabIndex = 1;
             this.gvIllness.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvIllness_CellContentClick);
             this.gvIllness.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvIllness_ColumnHeaderMouseClick);
             // 
             // btnAddNew
             // 
-            this.btnAddNew.Location = new System.Drawing.Point(219, 483);
+            this.btnAddNew.Location = new System.Drawing.Point(372, 478);
             this.btnAddNew.Name = "btnAddNew";
             this.btnAddNew.Size = new System.Drawing.Size(93, 31);
             this.btnAddNew.TabIndex = 2;
@@ -93,7 +95,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(451, 483);
+            this.btnDelete.Location = new System.Drawing.Point(604, 478);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(93, 31);
             this.btnDelete.TabIndex = 4;
@@ -103,7 +105,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(335, 483);
+            this.btnEdit.Location = new System.Drawing.Point(488, 478);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(93, 31);
             this.btnEdit.TabIndex = 5;
@@ -113,7 +115,7 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(103, 483);
+            this.btnSelect.Location = new System.Drawing.Point(256, 478);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(93, 31);
             this.btnSelect.TabIndex = 6;
@@ -123,7 +125,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(567, 483);
+            this.btnClose.Location = new System.Drawing.Point(720, 478);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(93, 31);
             this.btnClose.TabIndex = 7;
@@ -165,7 +167,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(683, 483);
+            this.btnCancel.Location = new System.Drawing.Point(836, 478);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(93, 31);
             this.btnCancel.TabIndex = 8;
@@ -199,12 +201,19 @@
             this.ICD10_Code.Name = "ICD10_Code";
             this.ICD10_Code.ReadOnly = true;
             // 
+            // IllnessICD10Description
+            // 
+            this.IllnessICD10Description.HeaderText = "ICD 10 Description";
+            this.IllnessICD10Description.Name = "IllnessICD10Description";
+            this.IllnessICD10Description.ReadOnly = true;
+            this.IllnessICD10Description.Width = 180;
+            // 
             // IllnessNote
             // 
             this.IllnessNote.HeaderText = "Illness Note";
             this.IllnessNote.Name = "IllnessNote";
             this.IllnessNote.ReadOnly = true;
-            this.IllnessNote.Width = 260;
+            this.IllnessNote.Width = 240;
             // 
             // CreateDate
             // 
@@ -217,7 +226,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(803, 535);
+            this.ClientSize = new System.Drawing.Size(951, 535);
             this.ControlBox = false;
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnClose);
@@ -255,6 +264,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Illness_No;
         private System.Windows.Forms.DataGridViewTextBoxColumn Individual_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn ICD10_Code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IllnessICD10Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn IllnessNote;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreateDate;
     }

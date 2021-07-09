@@ -76,8 +76,10 @@ namespace CMMManager
 
             strSqlGetIllnessForCaseId = "select [dbo].[tbl_illness].[IllnessNo], [dbo].[tbl_illness].[Individual_Id], [dbo].[tbl_illness].[ICD_10_Id], [dbo].[tbl_illness].[Introduction], " +
                                         "[dbo].[tbl_illness].[CreateDate], " +
-                                        "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion] " +
+                                        "[dbo].[tbl_illness].[Illness_Id], [dbo].[tbl_illness].[Body], [dbo].[tbl_illness].[Conclusion], " +
+                                        "[dbo].[tbl_ICD10].[Name] " +
                                         "from [dbo].[tbl_illness] " +
+                                        "inner join [dbo].[tbl_ICD10] on [dbo].[tbl_illness].[ICD_10_Id] = [dbo].[tbl_ICD10].[ICD10_Code__c] " +
                                         "where [dbo].[tbl_illness].[Individual_Id] = @IndividualId and " +
                                         "([dbo].[tbl_illness].[IsDeleted] = 0 or [dbo].[tbl_illness].[IsDeleted] IS NULL) " +
                                         "order by [dbo].[tbl_illness].[CreateDate]";
@@ -126,6 +128,8 @@ namespace CMMManager
                     if (!rdrIllnessForCaseId.IsDBNull(2)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(2) });
                     else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
 
+                    if (!rdrIllnessForCaseId.IsDBNull(8)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(8) });
+                    else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     //if (!rdrIllnessForCaseId.IsDBNull(3)) row.Cells.Add(new DataGridViewTextBoxCell { Value = rdrIllnessForCaseId.GetString(3) });
                     //else row.Cells.Add(new DataGridViewTextBoxCell { Value = String.Empty });
                     String IllnessNote = String.Empty;
