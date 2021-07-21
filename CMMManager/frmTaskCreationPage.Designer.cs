@@ -30,6 +30,8 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.grpTaskInfo = new System.Windows.Forms.GroupBox();
+            this.txtTaskCc = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtTaskSolution = new System.Windows.Forms.TextBox();
             this.txtTaskComments = new System.Windows.Forms.TextBox();
             this.btnAssignedTo = new System.Windows.Forms.Button();
@@ -68,6 +70,8 @@
             this.btnReplyTask = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtTaskSentFrom = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.grpTaskInfo.SuspendLayout();
             this.grpAdditionalInfo.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +88,10 @@
             // 
             // grpTaskInfo
             // 
+            this.grpTaskInfo.Controls.Add(this.label17);
+            this.grpTaskInfo.Controls.Add(this.txtTaskSentFrom);
+            this.grpTaskInfo.Controls.Add(this.txtTaskCc);
+            this.grpTaskInfo.Controls.Add(this.label3);
             this.grpTaskInfo.Controls.Add(this.txtTaskSolution);
             this.grpTaskInfo.Controls.Add(this.txtTaskComments);
             this.grpTaskInfo.Controls.Add(this.btnAssignedTo);
@@ -106,35 +114,54 @@
             this.grpTaskInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpTaskInfo.Location = new System.Drawing.Point(12, 70);
             this.grpTaskInfo.Name = "grpTaskInfo";
-            this.grpTaskInfo.Size = new System.Drawing.Size(1032, 370);
+            this.grpTaskInfo.Size = new System.Drawing.Size(1032, 436);
             this.grpTaskInfo.TabIndex = 1;
             this.grpTaskInfo.TabStop = false;
             this.grpTaskInfo.Text = "Task Information";
             // 
+            // txtTaskCc
+            // 
+            this.txtTaskCc.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskCc.Location = new System.Drawing.Point(140, 126);
+            this.txtTaskCc.Name = "txtTaskCc";
+            this.txtTaskCc.ReadOnly = true;
+            this.txtTaskCc.Size = new System.Drawing.Size(388, 20);
+            this.txtTaskCc.TabIndex = 28;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(16, 129);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 15);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Cc:";
+            // 
             // txtTaskSolution
             // 
             this.txtTaskSolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskSolution.Location = new System.Drawing.Point(627, 186);
+            this.txtTaskSolution.Location = new System.Drawing.Point(627, 219);
             this.txtTaskSolution.Multiline = true;
             this.txtTaskSolution.Name = "txtTaskSolution";
             this.txtTaskSolution.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskSolution.Size = new System.Drawing.Size(389, 167);
+            this.txtTaskSolution.Size = new System.Drawing.Size(389, 199);
             this.txtTaskSolution.TabIndex = 26;
             // 
             // txtTaskComments
             // 
             this.txtTaskComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskComments.Location = new System.Drawing.Point(140, 186);
+            this.txtTaskComments.Location = new System.Drawing.Point(140, 218);
             this.txtTaskComments.Multiline = true;
             this.txtTaskComments.Name = "txtTaskComments";
             this.txtTaskComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtTaskComments.Size = new System.Drawing.Size(388, 167);
+            this.txtTaskComments.Size = new System.Drawing.Size(388, 200);
             this.txtTaskComments.TabIndex = 25;
             // 
             // btnAssignedTo
             // 
             this.btnAssignedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAssignedTo.Location = new System.Drawing.Point(14, 61);
+            this.btnAssignedTo.Location = new System.Drawing.Point(14, 92);
             this.btnAssignedTo.Name = "btnAssignedTo";
             this.btnAssignedTo.Size = new System.Drawing.Size(94, 27);
             this.btnAssignedTo.TabIndex = 24;
@@ -203,7 +230,7 @@
             // txtTaskSubject
             // 
             this.txtTaskSubject.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskSubject.Location = new System.Drawing.Point(140, 96);
+            this.txtTaskSubject.Location = new System.Drawing.Point(140, 156);
             this.txtTaskSubject.Name = "txtTaskSubject";
             this.txtTaskSubject.Size = new System.Drawing.Size(388, 20);
             this.txtTaskSubject.TabIndex = 12;
@@ -221,7 +248,7 @@
             // txtTaskNameAssignedTo
             // 
             this.txtTaskNameAssignedTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaskNameAssignedTo.Location = new System.Drawing.Point(140, 66);
+            this.txtTaskNameAssignedTo.Location = new System.Drawing.Point(140, 96);
             this.txtTaskNameAssignedTo.Name = "txtTaskNameAssignedTo";
             this.txtTaskNameAssignedTo.ReadOnly = true;
             this.txtTaskNameAssignedTo.Size = new System.Drawing.Size(388, 20);
@@ -231,7 +258,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(548, 192);
+            this.label10.Location = new System.Drawing.Point(548, 220);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 15);
             this.label10.TabIndex = 7;
@@ -241,7 +268,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(16, 191);
+            this.label9.Location = new System.Drawing.Point(17, 219);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(70, 15);
             this.label9.TabIndex = 6;
@@ -251,7 +278,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(16, 96);
+            this.label7.Location = new System.Drawing.Point(16, 159);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 15);
             this.label7.TabIndex = 4;
@@ -309,7 +336,7 @@
             this.grpAdditionalInfo.Controls.Add(this.comboTaskStatus);
             this.grpAdditionalInfo.Controls.Add(this.label12);
             this.grpAdditionalInfo.Controls.Add(this.label11);
-            this.grpAdditionalInfo.Location = new System.Drawing.Point(12, 457);
+            this.grpAdditionalInfo.Location = new System.Drawing.Point(12, 534);
             this.grpAdditionalInfo.Name = "grpAdditionalInfo";
             this.grpAdditionalInfo.Size = new System.Drawing.Size(1032, 102);
             this.grpAdditionalInfo.TabIndex = 2;
@@ -476,7 +503,7 @@
             // 
             // btnSaveTask
             // 
-            this.btnSaveTask.Location = new System.Drawing.Point(660, 577);
+            this.btnSaveTask.Location = new System.Drawing.Point(660, 663);
             this.btnSaveTask.Name = "btnSaveTask";
             this.btnSaveTask.Size = new System.Drawing.Size(112, 29);
             this.btnSaveTask.TabIndex = 7;
@@ -486,7 +513,7 @@
             // 
             // btnCancelTask
             // 
-            this.btnCancelTask.Location = new System.Drawing.Point(932, 577);
+            this.btnCancelTask.Location = new System.Drawing.Point(932, 663);
             this.btnCancelTask.Name = "btnCancelTask";
             this.btnCancelTask.Size = new System.Drawing.Size(112, 29);
             this.btnCancelTask.TabIndex = 8;
@@ -506,7 +533,7 @@
             // 
             // btnReplyTask
             // 
-            this.btnReplyTask.Location = new System.Drawing.Point(388, 577);
+            this.btnReplyTask.Location = new System.Drawing.Point(388, 663);
             this.btnReplyTask.Name = "btnReplyTask";
             this.btnReplyTask.Size = new System.Drawing.Size(112, 29);
             this.btnReplyTask.TabIndex = 9;
@@ -517,7 +544,7 @@
             // btnForward
             // 
             this.btnForward.Enabled = false;
-            this.btnForward.Location = new System.Drawing.Point(524, 577);
+            this.btnForward.Location = new System.Drawing.Point(524, 663);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(112, 29);
             this.btnForward.TabIndex = 10;
@@ -527,7 +554,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(796, 577);
+            this.btnSave.Location = new System.Drawing.Point(796, 663);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(112, 29);
             this.btnSave.TabIndex = 11;
@@ -535,12 +562,31 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtTaskSentFrom
+            // 
+            this.txtTaskSentFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaskSentFrom.Location = new System.Drawing.Point(140, 66);
+            this.txtTaskSentFrom.Name = "txtTaskSentFrom";
+            this.txtTaskSentFrom.ReadOnly = true;
+            this.txtTaskSentFrom.Size = new System.Drawing.Size(163, 20);
+            this.txtTaskSentFrom.TabIndex = 29;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(17, 67);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(50, 15);
+            this.label17.TabIndex = 30;
+            this.label17.Text = "Sender:";
+            // 
             // frmTaskCreationPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1057, 623);
+            this.ClientSize = new System.Drawing.Size(1057, 704);
             this.ControlBox = false;
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnForward);
@@ -605,5 +651,9 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtTaskSolution;
         private System.Windows.Forms.TextBox txtTaskComments;
+        private System.Windows.Forms.TextBox txtTaskCc;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox txtTaskSentFrom;
     }
 }

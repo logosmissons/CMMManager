@@ -34,6 +34,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCMMManager));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -67,11 +72,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
@@ -110,6 +110,7 @@
             this.IndividualIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SentByRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByIDRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdRNManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -158,21 +159,6 @@
             this.TaskIdCompleteTaskRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label163 = new System.Windows.Forms.Label();
             this.gvRNStaffActiveTask = new System.Windows.Forms.DataGridView();
-            this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TypeRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SubjectRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DueDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CreateDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActivityDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CommentRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label162 = new System.Windows.Forms.Label();
             this.tbpgDashboardNPManager = new System.Windows.Forms.TabPage();
             this.label160 = new System.Windows.Forms.Label();
@@ -218,6 +204,7 @@
             this.IndividualIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IndividualNameNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SentByNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AssignedToNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreatedByNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WhatIdNPManager = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -657,6 +644,26 @@
             this.btnAddNewCaseDoc = new System.Windows.Forms.Button();
             this.btnReloadMedBillsInCaseForm = new System.Windows.Forms.Button();
             this.gvCasePageMedBills = new System.Windows.Forms.DataGridView();
+            this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.MedBillIncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillTypeInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseDateOfService = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseApprovalNeededAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseWaitingPayBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillTotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCasePendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillInCaseIneligibleReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillIncidentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillCreatedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillCreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MedBillModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbCaseStatus = new System.Windows.Forms.ComboBox();
             this.btnDeleteMedBill = new System.Windows.Forms.Button();
             this.btnEditMedBill = new System.Windows.Forms.Button();
@@ -1327,26 +1334,22 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnWellBeingExport = new System.Windows.Forms.Button();
             this.label143 = new System.Windows.Forms.Label();
-            this.MedBillSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.MedBillIncidentNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillICD10Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillTypeInCase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseDateOfService = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseServiceEndDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseMedicalProvider = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseApprovalNeededAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseWaitingPayBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillTotalSharedAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCasePendingReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillInCaseIneligibleReason = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillIncidentNote = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillCreatedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillCreateDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillModifiedById = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MedBillModifiedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IndividualNameRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaskTypeRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SentFromRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AssignedToRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreatedByIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WhatIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SubjectRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DueDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CreateDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActivityDateRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CommentRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SolutionRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PriorityRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActiveTaskIdRNStaff = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tbCMMManager.SuspendLayout();
             this.tbpgDashboardRNManager.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvPendingMedBillRNManager)).BeginInit();
@@ -1807,6 +1810,7 @@
             this.IndividualIdRNManager,
             this.IndividualNameRNManager,
             this.TypeRNManager,
+            this.SentByRNManager,
             this.AssignedToRNManager,
             this.CreatedByIDRNManager,
             this.WhatIdRNManager,
@@ -1844,6 +1848,12 @@
             this.TypeRNManager.Name = "TypeRNManager";
             this.TypeRNManager.ReadOnly = true;
             this.TypeRNManager.Width = 80;
+            // 
+            // SentByRNManager
+            // 
+            this.SentByRNManager.HeaderText = "Sent By";
+            this.SentByRNManager.Name = "SentByRNManager";
+            this.SentByRNManager.ReadOnly = true;
             // 
             // AssignedToRNManager
             // 
@@ -2247,7 +2257,8 @@
             this.gvRNStaffActiveTask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IndividualIdRNStaff,
             this.IndividualNameRNStaff,
-            this.TypeRNStaff,
+            this.TaskTypeRNStaff,
+            this.SentFromRNStaff,
             this.AssignedToRNStaff,
             this.CreatedByIdRNStaff,
             this.WhatIdRNStaff,
@@ -2266,100 +2277,6 @@
             this.gvRNStaffActiveTask.Size = new System.Drawing.Size(873, 406);
             this.gvRNStaffActiveTask.TabIndex = 9;
             this.gvRNStaffActiveTask.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvRNStaffActiveTask_CellDoubleClick);
-            // 
-            // IndividualIdRNStaff
-            // 
-            this.IndividualIdRNStaff.HeaderText = "Individual Id";
-            this.IndividualIdRNStaff.Name = "IndividualIdRNStaff";
-            this.IndividualIdRNStaff.ReadOnly = true;
-            // 
-            // IndividualNameRNStaff
-            // 
-            this.IndividualNameRNStaff.HeaderText = "Individual Name";
-            this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
-            this.IndividualNameRNStaff.ReadOnly = true;
-            // 
-            // TypeRNStaff
-            // 
-            this.TypeRNStaff.HeaderText = "Type";
-            this.TypeRNStaff.Name = "TypeRNStaff";
-            this.TypeRNStaff.ReadOnly = true;
-            this.TypeRNStaff.Width = 80;
-            // 
-            // AssignedToRNStaff
-            // 
-            this.AssignedToRNStaff.HeaderText = "Assigned To";
-            this.AssignedToRNStaff.Name = "AssignedToRNStaff";
-            this.AssignedToRNStaff.ReadOnly = true;
-            // 
-            // CreatedByIdRNStaff
-            // 
-            this.CreatedByIdRNStaff.HeaderText = "Created By";
-            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
-            this.CreatedByIdRNStaff.ReadOnly = true;
-            // 
-            // WhatIdRNStaff
-            // 
-            this.WhatIdRNStaff.HeaderText = "What Id";
-            this.WhatIdRNStaff.Name = "WhatIdRNStaff";
-            this.WhatIdRNStaff.ReadOnly = true;
-            // 
-            // SubjectRNStaff
-            // 
-            this.SubjectRNStaff.HeaderText = "Subject";
-            this.SubjectRNStaff.Name = "SubjectRNStaff";
-            this.SubjectRNStaff.ReadOnly = true;
-            // 
-            // DueDateRNStaff
-            // 
-            this.DueDateRNStaff.HeaderText = "Due Date";
-            this.DueDateRNStaff.Name = "DueDateRNStaff";
-            this.DueDateRNStaff.ReadOnly = true;
-            // 
-            // CreateDateRNStaff
-            // 
-            this.CreateDateRNStaff.HeaderText = "Create Date";
-            this.CreateDateRNStaff.Name = "CreateDateRNStaff";
-            this.CreateDateRNStaff.ReadOnly = true;
-            this.CreateDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // ActivityDateRNStaff
-            // 
-            this.ActivityDateRNStaff.HeaderText = "Activity Date";
-            this.ActivityDateRNStaff.Name = "ActivityDateRNStaff";
-            this.ActivityDateRNStaff.ReadOnly = true;
-            this.ActivityDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // CommentRNStaff
-            // 
-            this.CommentRNStaff.HeaderText = "Comment";
-            this.CommentRNStaff.Name = "CommentRNStaff";
-            this.CommentRNStaff.ReadOnly = true;
-            // 
-            // SolutionRNStaff
-            // 
-            this.SolutionRNStaff.HeaderText = "Solution";
-            this.SolutionRNStaff.Name = "SolutionRNStaff";
-            this.SolutionRNStaff.ReadOnly = true;
-            // 
-            // StatusRNStaff
-            // 
-            this.StatusRNStaff.HeaderText = "Status";
-            this.StatusRNStaff.Name = "StatusRNStaff";
-            this.StatusRNStaff.ReadOnly = true;
-            // 
-            // PriorityRNStaff
-            // 
-            this.PriorityRNStaff.HeaderText = "Priority";
-            this.PriorityRNStaff.Name = "PriorityRNStaff";
-            this.PriorityRNStaff.ReadOnly = true;
-            this.PriorityRNStaff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // ActiveTaskIdRNStaff
-            // 
-            this.ActiveTaskIdRNStaff.HeaderText = "Task Id";
-            this.ActiveTaskIdRNStaff.Name = "ActiveTaskIdRNStaff";
-            this.ActiveTaskIdRNStaff.ReadOnly = true;
             // 
             // label162
             // 
@@ -2729,6 +2646,7 @@
             this.IndividualIdNPManager,
             this.IndividualNameNPManager,
             this.TypeNPManager,
+            this.SentByNPManager,
             this.AssignedToNPManager,
             this.CreatedByNPManager,
             this.WhatIdNPManager,
@@ -2766,6 +2684,12 @@
             this.TypeNPManager.Name = "TypeNPManager";
             this.TypeNPManager.ReadOnly = true;
             this.TypeNPManager.Width = 80;
+            // 
+            // SentByNPManager
+            // 
+            this.SentByNPManager.HeaderText = "Sent By";
+            this.SentByNPManager.Name = "SentByNPManager";
+            this.SentByNPManager.ReadOnly = true;
             // 
             // AssignedToNPManager
             // 
@@ -6822,6 +6746,145 @@
             this.gvCasePageMedBills.TabIndex = 111;
             this.gvCasePageMedBills.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvCasePageMedBills_CellDoubleClick);
             this.gvCasePageMedBills.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gvCasePageMedBills_ColumnHeaderMouseClick);
+            // 
+            // MedBillSelected
+            // 
+            this.MedBillSelected.HeaderText = "Select";
+            this.MedBillSelected.Name = "MedBillSelected";
+            this.MedBillSelected.Width = 50;
+            // 
+            // MedBillIncidentNo
+            // 
+            this.MedBillIncidentNo.HeaderText = "Incident No";
+            this.MedBillIncidentNo.Name = "MedBillIncidentNo";
+            this.MedBillIncidentNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillICD10Description
+            // 
+            this.MedBillICD10Description.HeaderText = "ICD 10 Description";
+            this.MedBillICD10Description.Name = "MedBillICD10Description";
+            this.MedBillICD10Description.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillICD10Description.Width = 160;
+            // 
+            // MedBillNo
+            // 
+            this.MedBillNo.HeaderText = "Med Bill No";
+            this.MedBillNo.Name = "MedBillNo";
+            this.MedBillNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillNo.Width = 120;
+            // 
+            // MedBillTypeInCase
+            // 
+            this.MedBillTypeInCase.HeaderText = "Type";
+            this.MedBillTypeInCase.Name = "MedBillTypeInCase";
+            this.MedBillTypeInCase.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillInCaseDateOfService
+            // 
+            this.MedBillInCaseDateOfService.HeaderText = "Service Start Date";
+            this.MedBillInCaseDateOfService.Name = "MedBillInCaseDateOfService";
+            this.MedBillInCaseDateOfService.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillInCaseDateOfService.Width = 80;
+            // 
+            // MedBillInCaseServiceEndDate
+            // 
+            this.MedBillInCaseServiceEndDate.HeaderText = "Service End Date";
+            this.MedBillInCaseServiceEndDate.Name = "MedBillInCaseServiceEndDate";
+            this.MedBillInCaseServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillInCaseMedicalProvider
+            // 
+            this.MedBillInCaseMedicalProvider.HeaderText = "Medical Provider";
+            this.MedBillInCaseMedicalProvider.Name = "MedBillInCaseMedicalProvider";
+            this.MedBillInCaseMedicalProvider.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillInCaseMedicalProvider.Width = 200;
+            // 
+            // MedBillAmount
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle6;
+            this.MedBillAmount.HeaderText = "Amount";
+            this.MedBillAmount.Name = "MedBillAmount";
+            this.MedBillAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillInCaseApprovalNeededAmount
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle7;
+            this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
+            this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
+            this.MedBillInCaseApprovalNeededAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillInCaseWaitingPayBalance
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle8;
+            this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
+            this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
+            this.MedBillInCaseWaitingPayBalance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillTotalSharedAmount
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle9;
+            this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
+            this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
+            this.MedBillTotalSharedAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillBalance
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle10;
+            this.MedBillBalance.HeaderText = "Balance";
+            this.MedBillBalance.Name = "MedBillBalance";
+            this.MedBillBalance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillInCasePendingReason
+            // 
+            this.MedBillInCasePendingReason.HeaderText = "Pending Reason";
+            this.MedBillInCasePendingReason.Name = "MedBillInCasePendingReason";
+            this.MedBillInCasePendingReason.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillInCasePendingReason.Width = 200;
+            // 
+            // MedBillInCaseIneligibleReason
+            // 
+            this.MedBillInCaseIneligibleReason.HeaderText = "Ineligible Reason";
+            this.MedBillInCaseIneligibleReason.Name = "MedBillInCaseIneligibleReason";
+            this.MedBillInCaseIneligibleReason.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillInCaseIneligibleReason.Width = 200;
+            // 
+            // MedBillIncidentNote
+            // 
+            this.MedBillIncidentNote.HeaderText = "Incident Note";
+            this.MedBillIncidentNote.Name = "MedBillIncidentNote";
+            this.MedBillIncidentNote.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillIncidentNote.Width = 240;
+            // 
+            // MedBillCreatedById
+            // 
+            this.MedBillCreatedById.HeaderText = "Created By";
+            this.MedBillCreatedById.Name = "MedBillCreatedById";
+            this.MedBillCreatedById.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillCreateDate
+            // 
+            this.MedBillCreateDate.HeaderText = "Created Date";
+            this.MedBillCreateDate.Name = "MedBillCreateDate";
+            this.MedBillCreateDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillCreateDate.Width = 140;
+            // 
+            // MedBillModifiedById
+            // 
+            this.MedBillModifiedById.HeaderText = "Modified By";
+            this.MedBillModifiedById.Name = "MedBillModifiedById";
+            this.MedBillModifiedById.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // MedBillModifiedDate
+            // 
+            this.MedBillModifiedDate.HeaderText = "Modified Date";
+            this.MedBillModifiedDate.Name = "MedBillModifiedDate";
+            this.MedBillModifiedDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.MedBillModifiedDate.Width = 140;
             // 
             // cbCaseStatus
             // 
@@ -12896,149 +12959,110 @@
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(1697, 33);
+            this.label143.Location = new System.Drawing.Point(1687, 33);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(166, 13);
+            this.label143.Size = new System.Drawing.Size(176, 13);
             this.label143.TabIndex = 6;
-            this.label143.Text = "RN New Dashboard - 06-24-2021";
+            this.label143.Text = "RN Task New Version - 07-15-2021";
             // 
-            // MedBillSelected
+            // IndividualIdRNStaff
             // 
-            this.MedBillSelected.HeaderText = "Select";
-            this.MedBillSelected.Name = "MedBillSelected";
-            this.MedBillSelected.Width = 50;
+            this.IndividualIdRNStaff.HeaderText = "Individual Id";
+            this.IndividualIdRNStaff.Name = "IndividualIdRNStaff";
+            this.IndividualIdRNStaff.ReadOnly = true;
             // 
-            // MedBillIncidentNo
+            // IndividualNameRNStaff
             // 
-            this.MedBillIncidentNo.HeaderText = "Incident No";
-            this.MedBillIncidentNo.Name = "MedBillIncidentNo";
-            this.MedBillIncidentNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.IndividualNameRNStaff.HeaderText = "Individual Name";
+            this.IndividualNameRNStaff.Name = "IndividualNameRNStaff";
+            this.IndividualNameRNStaff.ReadOnly = true;
             // 
-            // MedBillICD10Description
+            // TaskTypeRNStaff
             // 
-            this.MedBillICD10Description.HeaderText = "ICD 10 Description";
-            this.MedBillICD10Description.Name = "MedBillICD10Description";
-            this.MedBillICD10Description.Width = 160;
+            this.TaskTypeRNStaff.HeaderText = "Type";
+            this.TaskTypeRNStaff.Name = "TaskTypeRNStaff";
+            this.TaskTypeRNStaff.ReadOnly = true;
             // 
-            // MedBillNo
+            // SentFromRNStaff
             // 
-            this.MedBillNo.HeaderText = "Med Bill No";
-            this.MedBillNo.Name = "MedBillNo";
-            this.MedBillNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillNo.Width = 120;
+            this.SentFromRNStaff.HeaderText = "Sent By";
+            this.SentFromRNStaff.Name = "SentFromRNStaff";
+            this.SentFromRNStaff.ReadOnly = true;
             // 
-            // MedBillTypeInCase
+            // AssignedToRNStaff
             // 
-            this.MedBillTypeInCase.HeaderText = "Type";
-            this.MedBillTypeInCase.Name = "MedBillTypeInCase";
-            this.MedBillTypeInCase.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.AssignedToRNStaff.HeaderText = "Assigned To";
+            this.AssignedToRNStaff.Name = "AssignedToRNStaff";
+            this.AssignedToRNStaff.ReadOnly = true;
             // 
-            // MedBillInCaseDateOfService
+            // CreatedByIdRNStaff
             // 
-            this.MedBillInCaseDateOfService.HeaderText = "Service Start Date";
-            this.MedBillInCaseDateOfService.Name = "MedBillInCaseDateOfService";
-            this.MedBillInCaseDateOfService.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillInCaseDateOfService.Width = 80;
+            this.CreatedByIdRNStaff.HeaderText = "Created By";
+            this.CreatedByIdRNStaff.Name = "CreatedByIdRNStaff";
+            this.CreatedByIdRNStaff.ReadOnly = true;
             // 
-            // MedBillInCaseServiceEndDate
+            // WhatIdRNStaff
             // 
-            this.MedBillInCaseServiceEndDate.HeaderText = "Service End Date";
-            this.MedBillInCaseServiceEndDate.Name = "MedBillInCaseServiceEndDate";
-            this.MedBillInCaseServiceEndDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.WhatIdRNStaff.HeaderText = "What Id";
+            this.WhatIdRNStaff.Name = "WhatIdRNStaff";
+            this.WhatIdRNStaff.ReadOnly = true;
             // 
-            // MedBillInCaseMedicalProvider
+            // SubjectRNStaff
             // 
-            this.MedBillInCaseMedicalProvider.HeaderText = "Medical Provider";
-            this.MedBillInCaseMedicalProvider.Name = "MedBillInCaseMedicalProvider";
-            this.MedBillInCaseMedicalProvider.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillInCaseMedicalProvider.Width = 200;
+            this.SubjectRNStaff.HeaderText = "Subject";
+            this.SubjectRNStaff.Name = "SubjectRNStaff";
+            this.SubjectRNStaff.ReadOnly = true;
             // 
-            // MedBillAmount
+            // DueDateRNStaff
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillAmount.DefaultCellStyle = dataGridViewCellStyle6;
-            this.MedBillAmount.HeaderText = "Amount";
-            this.MedBillAmount.Name = "MedBillAmount";
-            this.MedBillAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.DueDateRNStaff.HeaderText = "Due Date";
+            this.DueDateRNStaff.Name = "DueDateRNStaff";
+            this.DueDateRNStaff.ReadOnly = true;
             // 
-            // MedBillInCaseApprovalNeededAmount
+            // CreateDateRNStaff
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseApprovalNeededAmount.DefaultCellStyle = dataGridViewCellStyle7;
-            this.MedBillInCaseApprovalNeededAmount.HeaderText = "Approval Needed";
-            this.MedBillInCaseApprovalNeededAmount.Name = "MedBillInCaseApprovalNeededAmount";
-            this.MedBillInCaseApprovalNeededAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.CreateDateRNStaff.HeaderText = "Create Date";
+            this.CreateDateRNStaff.Name = "CreateDateRNStaff";
+            this.CreateDateRNStaff.ReadOnly = true;
+            this.CreateDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // MedBillInCaseWaitingPayBalance
+            // ActivityDateRNStaff
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillInCaseWaitingPayBalance.DefaultCellStyle = dataGridViewCellStyle8;
-            this.MedBillInCaseWaitingPayBalance.HeaderText = "Waiting Pay Balance";
-            this.MedBillInCaseWaitingPayBalance.Name = "MedBillInCaseWaitingPayBalance";
-            this.MedBillInCaseWaitingPayBalance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.ActivityDateRNStaff.HeaderText = "Activity Date";
+            this.ActivityDateRNStaff.Name = "ActivityDateRNStaff";
+            this.ActivityDateRNStaff.ReadOnly = true;
+            this.ActivityDateRNStaff.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // MedBillTotalSharedAmount
+            // CommentRNStaff
             // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillTotalSharedAmount.DefaultCellStyle = dataGridViewCellStyle9;
-            this.MedBillTotalSharedAmount.HeaderText = "Total Shared Amount";
-            this.MedBillTotalSharedAmount.Name = "MedBillTotalSharedAmount";
-            this.MedBillTotalSharedAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.CommentRNStaff.HeaderText = "Comment";
+            this.CommentRNStaff.Name = "CommentRNStaff";
+            this.CommentRNStaff.ReadOnly = true;
             // 
-            // MedBillBalance
+            // SolutionRNStaff
             // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.MedBillBalance.DefaultCellStyle = dataGridViewCellStyle10;
-            this.MedBillBalance.HeaderText = "Balance";
-            this.MedBillBalance.Name = "MedBillBalance";
-            this.MedBillBalance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.SolutionRNStaff.HeaderText = "Solution";
+            this.SolutionRNStaff.Name = "SolutionRNStaff";
+            this.SolutionRNStaff.ReadOnly = true;
             // 
-            // MedBillInCasePendingReason
+            // StatusRNStaff
             // 
-            this.MedBillInCasePendingReason.HeaderText = "Pending Reason";
-            this.MedBillInCasePendingReason.Name = "MedBillInCasePendingReason";
-            this.MedBillInCasePendingReason.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillInCasePendingReason.Width = 200;
+            this.StatusRNStaff.HeaderText = "Status";
+            this.StatusRNStaff.Name = "StatusRNStaff";
+            this.StatusRNStaff.ReadOnly = true;
             // 
-            // MedBillInCaseIneligibleReason
+            // PriorityRNStaff
             // 
-            this.MedBillInCaseIneligibleReason.HeaderText = "Ineligible Reason";
-            this.MedBillInCaseIneligibleReason.Name = "MedBillInCaseIneligibleReason";
-            this.MedBillInCaseIneligibleReason.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillInCaseIneligibleReason.Width = 200;
+            this.PriorityRNStaff.HeaderText = "Priority";
+            this.PriorityRNStaff.Name = "PriorityRNStaff";
+            this.PriorityRNStaff.ReadOnly = true;
+            this.PriorityRNStaff.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
-            // MedBillIncidentNote
+            // ActiveTaskIdRNStaff
             // 
-            this.MedBillIncidentNote.HeaderText = "Incident Note";
-            this.MedBillIncidentNote.Name = "MedBillIncidentNote";
-            this.MedBillIncidentNote.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillIncidentNote.Width = 240;
-            // 
-            // MedBillCreatedById
-            // 
-            this.MedBillCreatedById.HeaderText = "Created By";
-            this.MedBillCreatedById.Name = "MedBillCreatedById";
-            this.MedBillCreatedById.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // MedBillCreateDate
-            // 
-            this.MedBillCreateDate.HeaderText = "Created Date";
-            this.MedBillCreateDate.Name = "MedBillCreateDate";
-            this.MedBillCreateDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillCreateDate.Width = 140;
-            // 
-            // MedBillModifiedById
-            // 
-            this.MedBillModifiedById.HeaderText = "Modified By";
-            this.MedBillModifiedById.Name = "MedBillModifiedById";
-            this.MedBillModifiedById.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            // 
-            // MedBillModifiedDate
-            // 
-            this.MedBillModifiedDate.HeaderText = "Modified Date";
-            this.MedBillModifiedDate.Name = "MedBillModifiedDate";
-            this.MedBillModifiedDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.MedBillModifiedDate.Width = 140;
+            this.ActiveTaskIdRNStaff.HeaderText = "Task Id";
+            this.ActiveTaskIdRNStaff.Name = "ActiveTaskIdRNStaff";
+            this.ActiveTaskIdRNStaff.ReadOnly = true;
             // 
             // frmCMMManager
             // 
@@ -14201,51 +14225,6 @@
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Button btnReloadMedicalBillView;
         private System.Windows.Forms.Button btnResetMedBillViewCaseNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdRNManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TypeNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdCompleteTaskNPManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameCompleteTaskNPManager;
         private System.Windows.Forms.DataGridViewTextBoxColumn TypeCompleteTaskNPManager;
@@ -14524,6 +14503,54 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillCreateDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedById;
         private System.Windows.Forms.DataGridViewTextBoxColumn MedBillModifiedDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SentByRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIDRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdRNManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TypeNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SentByNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskIdNPManager;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IndividualNameRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TaskTypeRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SentFromRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AssignedToRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreatedByIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhatIdRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubjectRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DueDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CreateDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActivityDateRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SolutionRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PriorityRNStaff;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ActiveTaskIdRNStaff;
     }
 }
 

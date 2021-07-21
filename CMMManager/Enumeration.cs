@@ -47,13 +47,14 @@ namespace CMMManager
     public enum TaskStatus { NotStarted, InProgress, Completed, WaitingOnSomeoneElse, Deferred, Solved, Checked };
     public enum TaskPriority { High, Normal, Low };
     public enum TaskMode { AddNew, EditInRNManagerDashboard, EditInRNStaffDashboard, EditInNPManagerDashboard, EditInNPStaffDashboard, EditInMedBill, EditInCase, EditInIndividual, Reply,
-                           EditInFDManagerDashboard, EditInFDStaffDashboard }
+                           EditInFDManagerDashboard, EditInFDStaffDashboard };
 
     public enum UserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive,
                                 FDAssistantManager, RNAssistantManager, NPAssistantManager, MSAssistantManager, SuperAdmin = 20 };
     public enum TaskUserRole { Administrator = 0, FDManager, RNManager, NPManager, FDStaff, RNStaff, NPStaff, MSManager, MSStaff, Executive,
-                               FDAssistantManager, RNAssistantManager, NPAssistantManager, MSAssistantManager, SuperAdmin = 20 }
+                               FDAssistantManager, RNAssistantManager, NPAssistantManager, MSAssistantManager, SuperAdmin = 20 };
                                 
+    public enum DepartmentManager { RNManager, NPMananger, FDManager, MSManager };
 
     public enum Department { MemberService = 0, NeedsProcessing, ReviewAndNegotiation, Finance, IT, Executive };
 
