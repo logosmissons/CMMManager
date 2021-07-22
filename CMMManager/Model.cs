@@ -3329,6 +3329,7 @@ namespace CMMManager
         public DateTime? IncidentOccurrenceDate;
         public String ICD10CodeDescription;
         public Decimal PersonalResponsibilityTotal;
+        public IncidentProgram? IncdProgram;
 
         public PersonalResponsibilityTotalInfoBlueSheet()
         {
@@ -3336,21 +3337,31 @@ namespace CMMManager
             IncidentOccurrenceDate = null;
             ICD10CodeDescription = String.Empty;
             PersonalResponsibilityTotal = 0;
+            IncdProgram = null;
         }
 
-        public PersonalResponsibilityTotalInfoBlueSheet(String incident_no, DateTime incident_occurrence_date, Decimal personal_responsibility_total)
+        public PersonalResponsibilityTotalInfoBlueSheet(String incident_no, 
+                                                        DateTime incident_occurrence_date, 
+                                                        Decimal personal_responsibility_total, 
+                                                        IncidentProgram incd_program)
         {
             IncidentNo = incident_no;
             IncidentOccurrenceDate = incident_occurrence_date;
             PersonalResponsibilityTotal = personal_responsibility_total;
+            IncdProgram = incd_program;
         }
 
-        public PersonalResponsibilityTotalInfoBlueSheet(String incident_no, DateTime incident_occurrence_date, String icd10_description, Decimal personal_responsibility_total)
+        public PersonalResponsibilityTotalInfoBlueSheet(String incident_no, 
+                                                        DateTime incident_occurrence_date, 
+                                                        String icd10_description, 
+                                                        Decimal personal_responsibility_total,
+                                                        IncidentProgram incd_program)
         {
             IncidentNo = incident_no;
             IncidentOccurrenceDate = incident_occurrence_date;
             ICD10CodeDescription = icd10_description;
             PersonalResponsibilityTotal = personal_responsibility_total;
+            IncdProgram = incd_program;
         }
     }
 
